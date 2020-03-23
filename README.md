@@ -12,6 +12,7 @@ This is the repository of Group 4 for the course CMPE352. For details, visit our
 |[Emre Girgin](https://github.com/bounswe/bounswe2020group4/wiki/Emre-Girgin)|[Salih Kasım Benli](https://github.com/bounswe/bounswe2020group4/wiki/Salih-Kas%C4%B1m-Benli)|[Berke Özdemir](https://github.com/bounswe/bounswe2020group4/wiki/Berke-%C3%96zdemir)|[Katariina Korolainen](https://github.com/bounswe/bounswe2020group4/wiki/Katariina-Korolainen)|
 | <img src="https://avatars.githubusercontent.com/berkayalkan" alt="alt text" width="150"> | <img src="https://avatars.githubusercontent.com/cagric0" alt="alt text" width="150"> |
 |[Berkay Alkan](https://github.com/bounswe/bounswe2020group4/wiki/Berkay-Alkan)|[Çağrı Çiftçi](https://github.com/bounswe/bounswe2020group4/wiki/%C3%87a%C4%9Fr%C4%B1-%C3%87ift%C3%A7i)|
+[Muhammed Olcayto Turker](https://github.com/bounswe/bounswe2020group4/wiki/M.Olcayto-T%C3%BCrker)|
 
 
 *Muhammed Olcayto Türker
