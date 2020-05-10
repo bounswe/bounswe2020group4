@@ -1,5 +1,7 @@
-const nearbyVendors = require('./controllers/nearbyVendors');
+const nearbyVendors = require('./controllers/nearestVendor');
 
-module.exports.initialize = function(app) {
-    app.get("/vendors/nearby", nearbyVendors.getNearbyVendors);
+// Initialize the routes.
+module.exports.initialize = function (app) {
+    // Redirect the GET /vendor/nearest request to the getNearestVendor function.
+    app.get("/vendor/nearest", nearbyVendors.getNearestVendor);
 }

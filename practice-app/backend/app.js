@@ -1,12 +1,16 @@
+// Require the necessary libraries and classes.
 const express = require('express'),
   app = express(),
   bodyParser = require('body-parser'),
   db = require('./db'),
-  routes = require('./routes'),
-  port = 8756;
+  Constants = require('./constants'),
+  routes = require('./routes');
 
-app.listen(port);
+app.listen(Constants.PORT); // Listen requests from the port.
 app.use(bodyParser.json());
-routes.initialize(app);
+db.initialize(); // Initialize the database.
+routes.initialize(app); // Start to listen the endpoints.
 
-console.log('Practice-app server started on: ' + port);
+module.exports.App = app;
+
+console.log('Practice-app server started on: ' + Constants.PORT);
