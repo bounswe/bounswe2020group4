@@ -1,5 +1,5 @@
-const Geopoint = require('geopoint');
-const Vendor = require('../models/vendor').Vendor;
+const Geopoint = require('geopoint'); // Library to find distance between to geo-locations
+const Vendor = require('../models/vendor').Vendor; // To use the vendor db model.
 const Response = require('../utils/response');
 const Request = require('../utils/request');
 const Constants = require('../constants');
@@ -24,7 +24,7 @@ const Constants = require('../constants');
  *    }
  *}
  */
-module.exports.getNearestVendor = async function (request, response) {
+module.exports.getNearestVendor = function (request, response) {
     try {
         Request.send({ // Send request to the google api.
             url: 'https://www.googleapis.com/geolocation/v1/geolocate?key=' + Constants.GOOGLE_API_KEY,
