@@ -5,9 +5,10 @@
   "main": "app.js",
   "dependencies": {
     "express": "4.17.1",
-    "mongoose": "5.9.13",
+    "geopoint": "1.0.1",
     "json-parser": "3.1.2",
-    "geopoint": "1.0.1"
+    "mongoose": "5.9.13",
+    "request": "^2.88.2"
   },
   "devDependencies": {
     "mocha": "7.1.2",
