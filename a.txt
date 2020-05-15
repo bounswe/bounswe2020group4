@@ -1,0 +1,82 @@
+To run the backend to test your endpoint, you must download following tools,
+they won't be necessary if we configure the docker.
+nodejs: https://nodejs.org/en/
+mongodb (database): https://docs.mongodb.com/manual/installation/#mongodb-community-edition-installation-tutorials
+- After installing nodejs, inside the backend folder run
+    npm install
+command.
+----------------------------------------------------------------
+postman (to test the api): https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en
+- Clone our repository and create a branch for your endpoint.
+- Add the .env file to the backend folder.
+- Acquire your api key and add it to .env file.
+- Inside controllers class add a js file to implement your endpoint.
+- Go to routes js, require your js file and add your endpoint. Probably you'll implement a get endpoint 
+because front-end will send us requests to 'get' information.
+ex: app.get('/choose/name/of/your/endpoint', yourJSFile.yourFunction);
+- Open your js file, you can use the code below as a schema.
+const Response = require('../utils/response');
+const Request = require('../utils/request');
+/**
+ * Explanation
+ * Response: {
+ *    status: {
+ *        success: true,
+ *        code: 200
+ *    }, data: {
+ *    }
+ *}
+ */
+module.exports.yourFunction = async function (request, response) {
+    try {
+        Request.send({ // Send request to the google api.
+            url: 'https://www.googleapis.com/geolocation/v1/geolocate?key=' + process.env.YOUR_API_KEY,
+            method: 'POST',
+            body: {}
+        }, async function (err, res, body) {
+            if (err || body.error) { // If there is an error respond with the error.
+                return Response.handleError(response, err || body.error);
+            }
+            console.log("Your response's body: ", body);
+            var myResponseParam = body.a;
+            // Set the response body.
+            const responseBody = {
+                myParamName: myResponseParam
+            }
+            // Respond to the front-end.
+            Response.send(response, responseBody);
+        });
+    } catch (error) {
+        Response.handleError(response, error);
+    }
+};
+"Request" parameter is what our front-end will send us. If you need any parameter from the front-end,
+you can get it by calling: request.query.yourParameter. (Probably you won't need any.)
+With response parameter, we'll respond to the front-end later.
+- Find your api url, method and body by researching. https://prnt.sc/seumml
+Then call Request.send with this parameters. After you get a response, the 'if (err || body.error) {' line will be executed. 
+If response is successful, you'll get a response body in body parameter. You can use the information in it.
+In my case, my response body was including a location parameter, so i've used it.
+- If you need to use database, for example: nearest hospitals, you have to create a hospital class
+in models, very similar to the vendor class. Then you can get the objects from the database,
+like I get the vendors from the database. Also if you need to add dummy objects to the database,
+you can modify the db class as I did.
+- You'll create a new response body for our front-end, by using the response body
+you get from the api you chose. In my case, I've get all the vendor objects from the db, 
+found the nearest to the location in my response.
+- After that, you'll respond to our front-end by calling Response.send function, by giving
+a second parameter as you wish. I've sent a vendor object and a distance value.
+- You can run the app with 
+    node app
+command in the backend folder. Or you can run it on Webstorm etc.
+- Practice-app server started on: 9876
+(node:28377) DeprecationWarning: current URL string parser is deprecated, and will be removed in a future version. To use the new parser, pass option { useNewUrlParser: true } to MongoClient.connect.
+(node:28377) DeprecationWarning: current Server Discovery and Monitoring engine is deprecated, and will be removed in a future version. To use the new Server Discover and Monitoring engine, pass option { useUnifiedTopology: true } to the MongoClient constructor.
+this must be the output after you run the program.
+- After that you can send request to the backend with postman, response body you send must 
+appear below.
+https://ibb.co/dc3s67t (replace the vendor/nearest with your endpoint)
+- Then you can add a unit test to tests class very similar to the nearestVendor.spec.js. To
+run all tests, you can run
+    npm test
+command.

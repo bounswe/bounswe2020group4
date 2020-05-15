@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Vendor = require('./models/vendor').Vendor;
-const Constants = require('./constants');
 
 /**
  * Insert dummy documents to the database if it's empty.
@@ -48,7 +47,7 @@ var insertDummyDocuments = async function () {
  * Initialize the mongo connection.
  */
 module.exports.initialize = async function () {
-    await mongoose.connect(Constants.MONGO_URL);
+    await mongoose.connect(process.env.MONGO_URL);
 
     await insertDummyDocuments();
 }
