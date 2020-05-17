@@ -1,6 +1,5 @@
 const Response = require('../utils/response');
 const Request = require('../utils/request');
-const Constants = require('../constants');
 
 /**
  * Get the lastest update on the numbers of Coronovirüs cases in Turkey, 
@@ -37,8 +36,16 @@ module.exports.getCovid19tr = function (request, response) {
             
             //console.log("Your response's body: ", body);
 
-            var dataTR = (body.Countries)[171]
+            TRindex = 0;
+            for(i = 0; i<body.Countries.length; i++){
+                if(body.Countries[i].CountryCode == "TR"){
+                    TRindex = i;
+                }
+            }
 
+            var dataTR = (body.Countries)[TRindex]
+
+            console.log("Your response's body: ", dataTR);
 
             // Set the response body.
             const responseBody = dataTR.CountryCode == "TR" ? {
