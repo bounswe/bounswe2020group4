@@ -11,10 +11,10 @@ const Request = require('request'); // "Request" library
  *    },
  *    data: {
  *       playlist: {
- *           randomPlaylist.id: ,
- *           name: randomPlaylist.name
- *           description: randomPlaylist.description,
- *           owner: randomPlaylist.owner.display_name,
+ *           randomPlaylist.id: 2KkboYqP5llsT9gU7wcbco,
+ *           name: coronavirus
+ *           description: "",
+ *           owner: Liliana Mendoza,
  *       }
  *    }
  * }
