@@ -2,7 +2,7 @@ const Response = require('../utils/response');
 const Request = require('../utils/request');
 
 /**
- * Get the lastest update on the numbers of Coronovirüs cases in Turkey, 
+ * Get the lastest update on the numbers of Coronovirus cases in Turkey, 
  * using 'covid19api.com'
  * 
  * Response: {
@@ -36,29 +36,41 @@ module.exports.getCovid19tr = function (request, response) {
             
             //console.log("Your response's body: ", body);
 
-            TRindex = 0;
-            for(i = 0; i<body.Countries.length; i++){
-                if(body.Countries[i].CountryCode == "TR"){
-                    TRindex = i;
+            try{               
+                TRindex = 0;
+                for(i = 0; i<body.Countries.length; i++){
+                    if(body.Countries[i].CountryCode == "TR"){
+                        TRindex = i;
+                    }
                 }
+
+                var dataTR = (body.Countries)[TRindex]
+
+                // Set the response body.
+                const responseBody = dataTR.CountryCode == "TR" ? {
+                    NewConfirmed : dataTR.NewConfirmed,
+                    TotalConfirmed : dataTR.TotalConfirmed,
+                    NewDeaths : dataTR.NewDeaths,
+                    TotalDeaths : dataTR.TotalDeaths,
+                    NewRecovered : dataTR.NewRecovered,
+                    TotalRecovered : dataTR.TotalRecovered,
+                    ActiveCases : dataTR.TotalConfirmed - (dataTR.TotalRecovered + dataTR.TotalDeaths),
+                    lastUpdate : dataTR.Date.substring(0,10)
+                } : {};
+
+                // Respond to the front-end.
+                Response.send(response, responseBody);
+
+            }
+            catch{
+                // Set the response body.
+                const responseBody = {Message : body + "Please, try again."};
+
+                // Respond to the front-end.
+                Response.send(response, responseBody);
+            
             }
 
-            var dataTR = (body.Countries)[TRindex]
-
-            // Set the response body.
-            const responseBody = dataTR.CountryCode == "TR" ? {
-                NewConfirmed : dataTR.NewConfirmed,
-                TotalConfirmed : dataTR.TotalConfirmed,
-                NewDeaths : dataTR.NewDeaths,
-                TotalDeaths : dataTR.TotalDeaths,
-                NewRecovered : dataTR.NewRecovered,
-                TotalRecovered : dataTR.TotalRecovered,
-                ActiveCases : dataTR.TotalConfirmed - (dataTR.TotalRecovered + dataTR.TotalDeaths),
-                lastUpdate : dataTR.Date.substring(0,10)
-            } : {};
-
-            // Respond to the front-end.
-            Response.send(response, responseBody);
         });
     } catch (error) {
         Response.handleError(response, error);
