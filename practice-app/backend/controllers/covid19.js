@@ -36,7 +36,7 @@ module.exports.getCovid19tr = function (request, response) {
             
             //console.log("Your response's body: ", body);
 
-            try{               
+            try{ // Try if the maximum request limit is not reached.      
                 TRindex = 0;
                 for(i = 0; i<body.Countries.length; i++){
                     if(body.Countries[i].CountryCode == "TR"){
@@ -62,7 +62,7 @@ module.exports.getCovid19tr = function (request, response) {
                 Response.send(response, responseBody);
 
             }
-            catch{
+            catch{ // If the maximum number of request reached, return message. 
                 // Set the response body.
                 const responseBody = {Message : body + "Please, try again."};
 
