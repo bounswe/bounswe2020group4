@@ -1,18 +1,32 @@
 const Response = require('../utils/response');
 const Request = require('request'); // "Request" library
-const Constants = require('../constants');
 
+/**
+ * Get the playlists containing the string "coronavirus" from spotify web api and
+ * randomly choose one. Then, respond with the playlist.
+ * Response: {
+ *    status: {
+ *        success: true,
+ *        code: 200
+ *    },
+ *    data: {
+ *       playlist: {
+ *           randomPlaylist.id: ,
+ *           name: randomPlaylist.name
+ *           description: randomPlaylist.description,
+ *           owner: randomPlaylist.owner.display_name,
+ *       }
+ *    }
+ * }
+*/
 module.exports.getRandomCoronaPlaylist = async function (request, response) {
     try {
-        // get spotify client credentials for authorization
-        var client_id = Constants.SPOTIFY_CLIENT_ID; // Your client id
-        var client_secret = Constants.SPOTIFY_CLIENT_SECRET; // Your secret
 
         // configure api authorization options
         var authOptions = {
             url: 'https://accounts.spotify.com/api/token',
             headers: {
-                'Authorization': 'Basic ' + (new Buffer.from(client_id + ':' + client_secret).toString('base64'))
+                'Authorization': 'Basic ' + (new Buffer.from(process.env.SPOTIFY_CLIENT_ID + ':' + process.env.SPOTIFY_CLIENT_SECRET).toString('base64'))
             },
             form: {
                 grant_type: 'client_credentials'
@@ -35,7 +49,7 @@ module.exports.getRandomCoronaPlaylist = async function (request, response) {
                 Request.get(options, function(api_error, api_res, body) {
                     if (!api_error && !body.error) {
                         // get 20 playlists and choose one of them randomly
-                        const playlists = body.playlists.items;// TODO: change this so that playlist will be taken from db.
+                        const playlists = body.playlists.items;
                         const randomPlaylist = playlists[Math.floor(Math.random() * playlists.length)];
                         // set the response body, playlist_id is used to embed the playlist to the website
                         // using the format below:

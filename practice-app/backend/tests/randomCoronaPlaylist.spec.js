@@ -1,7 +1,6 @@
 const chai = require('chai'),
     mocha = require('mocha'),
     app = require('../app').App,
-    Constants = require('../constants'),
     request = require('supertest'),
     describe = mocha.describe,
     it = mocha.it;
@@ -22,8 +21,8 @@ describe('# Random Corona Playlist', function () {
     });
 
     it("should respond with wrong auth error", async function () {
-        Constants.SPOTIFY_CLIENT_ID = "wrong-spotify-id";
-        Constants.SPOTIFY_CLIENT_SECRET = "wrong-spotify-secret";
+        process.env.SPOTIFY_CLIENT_ID = "wrong-spotify-id";
+        process.env.SPOTIFY_CLIENT_SECRET = "wrong-spotify-secret";
 
         const response = await request(app).get("/random-playlist");
 
@@ -31,6 +30,5 @@ describe('# Random Corona Playlist', function () {
         chai.expect(response.body.status.success).to.equal(false);
         chai.expect(response.body.status.code).to.equal(404);
         chai.expect(response.body.data).to.equal(undefined);
-        // chai.expect(response.body.error).to.be.an('string'); // TODO: figure out why the error is undefined
     });
 });
