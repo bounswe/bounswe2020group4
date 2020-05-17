@@ -1,7 +1,6 @@
 const chai = require('chai'),
     mocha = require('mocha'),
     app = require('../app').App,
-    Constants = require('../constants'),
     request = require('supertest'),
     describe = mocha.describe,
     it = mocha.it;
@@ -24,7 +23,7 @@ describe('# Nearest Vendor', function () {
     });
 
     it("should respond with googleapi token error", async function () {
-        Constants.GOOGLE_API_KEY = "wrong-api-key";
+        process.env.GOOGLE_API_KEY = "wrong-api-key";
 
         const response = await request(app)
             .get("/vendor/nearest");
