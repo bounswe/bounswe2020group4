@@ -45,8 +45,6 @@ module.exports.getCovid19tr = function (request, response) {
 
             var dataTR = (body.Countries)[TRindex]
 
-            console.log("Your response's body: ", dataTR);
-
             // Set the response body.
             const responseBody = dataTR.CountryCode == "TR" ? {
                 NewConfirmed : dataTR.NewConfirmed,
