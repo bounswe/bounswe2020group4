@@ -24,7 +24,7 @@ module.exports.getQuote = async function (request, response) {
             if (err || body.error) { // If there is an error respond with the error.
                 return Response.handleError(response, err || body.error);
             }
-            console.log("Response body: ", body);
+            //console.log("Response body: ", body);
 
             body = body.substring(2, body.length - 1)
             bodyJson = JSON.parse(body)
