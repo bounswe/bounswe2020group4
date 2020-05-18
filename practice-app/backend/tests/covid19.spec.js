@@ -1,7 +1,6 @@
 const chai = require('chai'),
     mocha = require('mocha'),
     app = require('../app').App,
-    Constants = require('../constants'),
     request = require('supertest'),
     describe = mocha.describe,
     it = mocha.it;

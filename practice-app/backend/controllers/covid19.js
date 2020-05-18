@@ -62,7 +62,7 @@ module.exports.getCovid19tr = function (request, response) {
                 Response.send(response, responseBody);
 
             }
-            catch{ // If the maximum number of request reached, return message. 
+            catch(error){ // If the maximum number of request reached, return message. 
                 // Set the response body.
                 const responseBody = {Message : body + "Please, try again."};
 
