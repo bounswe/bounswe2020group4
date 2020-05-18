@@ -1,6 +1,5 @@
 const Response = require('../utils/response');
 const Request = require('../utils/request');
-const Constants = require('../constants');
 
 /**
  * Get a random quote from the quote API.
