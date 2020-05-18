@@ -24,9 +24,11 @@ module.exports.getQuote = async function (request, response) {
             if (err || body.error) { // If there is an error respond with the error.
                 return Response.handleError(response, err || body.error);
             }
-            //console.log("Response body: ", body);
 
+            //Getting rid of the parantheses
             body = body.substring(2, body.length - 1)
+            //Getting rid of the escape characters which cause parsing error
+            body = body.replace("\\", "")
             bodyJson = JSON.parse(body)
 
             // Set the response body.
