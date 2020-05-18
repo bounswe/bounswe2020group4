@@ -1,12 +1,14 @@
 const Response = require('../utils/response');
 const Request = require('../utils/request');
 /**
- * Explanation
+ * Latest TRY/USD rate using https://www.exchangerate-api.com/
  * Response: {
  *    status: {
  *        success: true,
  *        code: 200
  *    }, data: {
+ 
+            TRY: 2,4345 
  *    }
  *}
  */
