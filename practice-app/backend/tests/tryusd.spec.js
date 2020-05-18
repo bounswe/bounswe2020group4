@@ -19,7 +19,7 @@ describe('# Try to Usd', function () {
     });
 
     it("should respond with exchangerateapi token error", async function () {
-    process.env.TRYUSD_API_KEY = "wrong-api-key";
+    process.env.TRY_USD_API_KEY = "wrong-api-key";
 
     const response = await request(app)
         .get("/tryusd");
