@@ -25,5 +25,5 @@ module.exports.initialize = function (app) {
     // Redirect the GET /apod request to the getPictureOfToday function.
     app.get("/apod", apod.getPictureOfToday);
     // Redirect the GET /apod request to the nearestHospital function.
-    app.get("/nearesthospital", nearestHospital.nearestHospital);
+    app.get("/nearesthospitals", nearestHospital.nearestHospitals);
 }
