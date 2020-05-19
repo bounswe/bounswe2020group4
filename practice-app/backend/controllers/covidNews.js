@@ -30,7 +30,7 @@ module.exports.getNews = async function (request, response) {
 
     try {
         Request.send({
-            url: 'https://newsapi.org/v2/top-headlines?q=COVID&from=' + current_date + '&sortBy=publishedAt&apiKey=' + process.env.COVID_NEWS_API_KEY + '&pageSize=10&page=1&country=tr',
+            url: 'https://newsapi.org/v2/top-headlines?q=koronavirüs&from=' + current_date + '&sortBy=publishedAt&apiKey=' + process.env.COVID_NEWS_API_KEY + '&pageSize=10&page=1&country=tr',
             method: 'GET',
             body: {}
         }, async function (err, res, body) {
