@@ -2,6 +2,8 @@ const nearbyVendors = require('./controllers/nearestVendor');
 const covid19TR = require('./controllers/covid19');
 const weatherDays = require('./controllers/weatherNextDays');
 const randomPlaylists = require('./controllers/randomCoronaPlaylist');
+const quoteOfTheDay = require('./controllers/quoteOfTheDay');
+
 
 // Initialize the routes.
 module.exports.initialize = function (app) {
@@ -12,4 +14,6 @@ module.exports.initialize = function (app) {
     app.get("/weather/daily", weatherDays.weatherNextDays);
     // Redirect the GET /randomPlaylist to the randomCoronaPlaylist function.
     app.get("/random-playlist", randomPlaylists.getRandomCoronaPlaylist);
+    // Redirect GET /quote request to getQuote function
+    app.get("/quote", quoteOfTheDay.getQuote);
 }
