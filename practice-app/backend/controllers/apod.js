@@ -9,8 +9,7 @@ const Request = require('../utils/request');
  *        code: 200
  *    }, data: {
  *        apodURL: "https://apod.nasa.gov/apod/image/1707/M63-HST-Subaru-S1024.jpg",
- *        apodTitle: "Messier 63: The Sunflower Galaxy",
- *        apodCopyright: "Hubble Legacy Archive"
+ *        apodTitle: "Messier 63: The Sunflower Galaxy"
  *    }
  *}
  */
@@ -26,18 +25,14 @@ const Request = require('../utils/request');
                  return Response.handleError(response, err || body.error);
              }
 
-             //console.log("Your response's body: ", body);
-
-             const gotURL = body.url; // get image url from the response
-             const gotTitle = body.title;
-             const gotCopyright = body.copyright;
+             console.log("Your response's body: ", body);
 
              // Set the response body.
-             const responseBody = apod ? {
-                apodURL: gotURL,
-                apodTitle: gotTitle,
-                apodCopyright: gotCopyright
-             } : {};
+             const responseBody = {
+                apodURL: body.url,
+                apodTitle: body.title,
+             }
+             console.log("responseBody:", responseBody);
 
              // Respond to the front-end.
              Response.send(response, responseBody);

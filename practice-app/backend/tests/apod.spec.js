@@ -1,5 +1,4 @@
 const chai = require('chai'),
-    //chai.use(require('chai-url'));
     mocha = require('mocha'),
     app = require('../app').App,
     request = require('supertest'),
@@ -14,9 +13,8 @@ describe('# Astronomy picture of today', function () {
         chai.expect(response.body.status.success).to.equal(true);
         chai.expect(response.body.status.code).to.equal(200);
         chai.expect(response.body.data).to.be.an('object');
-        //chai.expect(response.body.data.apodURL).to.have.protocol('https');
+        //chai.expect(response.body.data.apodURL).to.be.a('???');
         chai.expect(response.body.data.apodTitle).to.be.a('string');
-        chai.expect(response.body.data.apodCopyright).to.be.a('string');
     });
 
     it("should respond with nasa api token error", async function () {
