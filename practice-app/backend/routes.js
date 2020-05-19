@@ -4,6 +4,7 @@ const weatherDays = require('./controllers/weatherNextDays');
 const randomPlaylists = require('./controllers/randomCoronaPlaylist');
 const quoteOfTheDay = require('./controllers/quoteOfTheDay');
 
+const covidNews = require('./controllers/covidNews');
 
 // Initialize the routes.
 module.exports.initialize = function (app) {
@@ -16,4 +17,7 @@ module.exports.initialize = function (app) {
     app.get("/random-playlist", randomPlaylists.getRandomCoronaPlaylist);
     // Redirect GET /quote request to getQuote function
     app.get("/quote", quoteOfTheDay.getQuote);
+    // Redirect the GET /covid/news request to the getNews function.
+    app.get("/covid/news", covidNews.getNews);
 }
+
