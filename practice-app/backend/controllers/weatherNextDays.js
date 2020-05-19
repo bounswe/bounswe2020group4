@@ -46,13 +46,13 @@ const Request = require('../utils/request');
  *    }
  *}
  */
-module.exports.weatherNextDays = function (request, response){
+module.exports.weatherNextDays = function (request, response) {
     try {
         Request.send({ // Sends request to openweather api
             url: 'https://api.openweathermap.org/data/2.5/onecall?lat=41.008240&lon=28.978359&units=metric&exclude=current,minutely,hourly&appid=' + process.env.OPENWEATHER_API_KEY,
             method: 'GET',
             body: {}
-        }, async function (err, res, body){
+        }, async function (err, res, body) {
             if (err || body.error) { // If there is an error respond with the error.
                 return Response.handleError(response, err || body.error);
             }

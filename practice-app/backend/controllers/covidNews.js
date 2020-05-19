@@ -39,16 +39,16 @@ module.exports.getNews = async function (request, response) {
             }
 
             let articles = []
-                
+
             body.articles.forEach(function (article) {
                 articles.push({
-                    title: article.title, 
-                    description: article.description, 
+                    title: article.title,
+                    description: article.description,
                     url: article.url
                 })
-            });	
-            
-	        // Set the response body.
+            });
+
+            // Set the response body.
             const responseBody = {
                 articles: articles
             }
@@ -60,4 +60,3 @@ module.exports.getNews = async function (request, response) {
         Response.handleError(response, error);
     }
 };
-

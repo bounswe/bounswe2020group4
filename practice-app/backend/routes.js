@@ -3,9 +3,7 @@ const covid19TR = require('./controllers/covid19');
 const weatherDays = require('./controllers/weatherNextDays');
 const randomPlaylists = require('./controllers/randomCoronaPlaylist');
 const quoteOfTheDay = require('./controllers/quoteOfTheDay');
-
 const covidNews = require('./controllers/covidNews');
-
 const tryToUsd = require('./controllers/tryusd');
 // Initialize the routes.
 module.exports.initialize = function (app) {

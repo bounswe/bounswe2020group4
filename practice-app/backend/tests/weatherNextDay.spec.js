@@ -5,8 +5,8 @@ const chai = require('chai'),
     describe = mocha.describe,
     it = mocha.it;
 
-describe('# Weather for Next Days', function(){
-    it("should return the first and the last days' data", async function() {
+describe('# Weather for Next Days', function () {
+    it("should return the first and the last days' data", async function () {
         const response = await request(app)
             .get("/weather/daily");
 

@@ -19,16 +19,16 @@ describe('# Try to Usd', function () {
     });
 
     it("should respond with exchangerateapi token error", async function () {
-    process.env.TRY_USD_API_KEY = "wrong-api-key";
+        process.env.TRY_USD_API_KEY = "wrong-api-key";
 
-    const response = await request(app)
-        .get("/tryusd");
+        const response = await request(app)
+            .get("/tryusd");
 
-    chai.expect(response.body.status).to.be.an('object');
-    chai.expect(response.body.status.success).to.equal(false);
-    chai.expect(response.body.status.code).to.equal(404);
-    chai.expect(response.body.data).to.equal(undefined);
-    chai.expect(response.body.error).to.equal(undefined);
-});
+        chai.expect(response.body.status).to.be.an('object');
+        chai.expect(response.body.status.success).to.equal(false);
+        chai.expect(response.body.status.code).to.equal(404);
+        chai.expect(response.body.data).to.equal(undefined);
+        chai.expect(response.body.error).to.equal(undefined);
+    });
 
 });

@@ -33,13 +33,13 @@ module.exports.getCovid19tr = function (request, response) {
             if (err || body.error) { // If there is an error respond with the error.
                 return Response.handleError(response, err || body.error);
             }
-            
+
             //console.log("Your response's body: ", body);
 
-            try{ // Try if the maximum request limit is not reached.      
+            try { // Try if the maximum request limit is not reached.      
                 TRindex = 0;
-                for(i = 0; i<body.Countries.length; i++){
-                    if(body.Countries[i].CountryCode == "TR"){
+                for (i = 0; i < body.Countries.length; i++) {
+                    if (body.Countries[i].CountryCode == "TR") {
                         TRindex = i;
                     }
                 }
@@ -48,27 +48,28 @@ module.exports.getCovid19tr = function (request, response) {
 
                 // Set the response body.
                 const responseBody = dataTR.CountryCode == "TR" ? {
-                    NewConfirmed : dataTR.NewConfirmed,
-                    TotalConfirmed : dataTR.TotalConfirmed,
-                    NewDeaths : dataTR.NewDeaths,
-                    TotalDeaths : dataTR.TotalDeaths,
-                    NewRecovered : dataTR.NewRecovered,
-                    TotalRecovered : dataTR.TotalRecovered,
-                    ActiveCases : dataTR.TotalConfirmed - (dataTR.TotalRecovered + dataTR.TotalDeaths),
-                    lastUpdate : dataTR.Date.substring(0,10)
+                    NewConfirmed: dataTR.NewConfirmed,
+                    TotalConfirmed: dataTR.TotalConfirmed,
+                    NewDeaths: dataTR.NewDeaths,
+                    TotalDeaths: dataTR.TotalDeaths,
+                    NewRecovered: dataTR.NewRecovered,
+                    TotalRecovered: dataTR.TotalRecovered,
+                    ActiveCases: dataTR.TotalConfirmed - (dataTR.TotalRecovered + dataTR.TotalDeaths),
+                    lastUpdate: dataTR.Date.substring(0, 10)
                 } : {};
 
                 // Respond to the front-end.
                 Response.send(response, responseBody);
 
-            }
-            catch(error){ // If the maximum number of request reached, return message. 
+            } catch (error) { // If the maximum number of request reached, return message. 
                 // Set the response body.
-                const responseBody = {Message : body + "Please, try again."};
+                const responseBody = {
+                    Message: body + "Please, try again."
+                };
 
                 // Respond to the front-end.
                 Response.send(response, responseBody);
-            
+
             }
 
         });

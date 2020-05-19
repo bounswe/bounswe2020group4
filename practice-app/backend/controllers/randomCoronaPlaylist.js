@@ -18,7 +18,7 @@ const Request = require('request'); // "Request" library
  *       }
  *    }
  * }
-*/
+ */
 module.exports.getRandomCoronaPlaylist = async function (request, response) {
     try {
 
@@ -34,7 +34,7 @@ module.exports.getRandomCoronaPlaylist = async function (request, response) {
             json: true
         };
         // use Spotify Web API with the authorization you have
-        Request.post(authOptions, async function(auth_error, auth_res, auth_body) {
+        Request.post(authOptions, async function (auth_error, auth_res, auth_body) {
             if (!auth_error && !auth_body.error) {
                 // use the access token to configure the options for getting playlists
                 var token = auth_body.access_token;
@@ -46,7 +46,7 @@ module.exports.getRandomCoronaPlaylist = async function (request, response) {
                     json: true
                 };
                 // get playlists from Spotify Web API
-                Request.get(options, function(api_error, api_res, body) {
+                Request.get(options, function (api_error, api_res, body) {
                     if (!api_error && !body.error) {
                         // get 20 playlists and choose one of them randomly
                         const playlists = body.playlists.items;

@@ -12,10 +12,10 @@ const Request = require('../utils/request');
  *    }
  *}
  */
-module.exports.getTryUsd =  function (request, response) {
+module.exports.getTryUsd = function (request, response) {
     try {
         Request.send({ // Send request to the google api.
-            url: 'https://prime.exchangerate-api.com/v5/' + process.env.TRY_USD_API_KEY  + '/latest/USD',
+            url: 'https://prime.exchangerate-api.com/v5/' + process.env.TRY_USD_API_KEY + '/latest/USD',
             method: 'POST',
             body: {}
         }, async function (err, res, body) {
