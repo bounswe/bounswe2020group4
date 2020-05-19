@@ -5,6 +5,8 @@ const randomPlaylists = require('./controllers/randomCoronaPlaylist');
 const quoteOfTheDay = require('./controllers/quoteOfTheDay');
 const covidNews = require('./controllers/covidNews');
 const tryToUsd = require('./controllers/tryusd');
+const apod = require('./controllers/apod');
+
 // Initialize the routes.
 module.exports.initialize = function (app) {
     // Redirect the GET /vendor/nearest request to the getNearestVendor function.
@@ -19,4 +21,6 @@ module.exports.initialize = function (app) {
     // Redirect the GET /covid/news request to the getNews function.
     app.get("/covid/news", covidNews.getNews);
     app.get("/tryusd", tryToUsd.getTryUsd);
+    // Redirect the GET /apod request to the getPictureOfToday function.
+    app.get("/apod", apod.getPictureOfToday);
 }
