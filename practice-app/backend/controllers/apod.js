@@ -25,14 +25,11 @@ const Request = require('../utils/request');
                  return Response.handleError(response, err || body.error);
              }
 
-             console.log("Your response's body: ", body);
-
              // Set the response body.
              const responseBody = {
                 apodURL: body.url,
                 apodTitle: body.title,
              }
-             console.log("responseBody:", responseBody);
 
              // Respond to the front-end.
              Response.send(response, responseBody);
