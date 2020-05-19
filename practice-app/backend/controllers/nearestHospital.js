@@ -4,6 +4,8 @@ const NearBySearch = require("googleplaces");
 /**
  * Get the list of nearest hospitals to a location. Accepts latitude and longitude and optionally radius in meters.
  *
+ * WARNING: due to google api restrictions, only 1000 request per 24 hour can be made.
+ * 
  * Example Request:
  * Bogazici Uni: {"lat": 41.0862, "long": 29.0444, "radius": 1000 }
  * Besiktas: {"lat": 41.0422, "long": 29.0067 }
