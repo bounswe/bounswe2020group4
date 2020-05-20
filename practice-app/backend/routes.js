@@ -7,6 +7,8 @@ const covidNews = require('./controllers/covidNews');
 const tryToUsd = require('./controllers/tryusd');
 const apod = require('./controllers/apod');
 const nearestHospital = require("./controllers/nearestHospital")
+const suggestBook = require('./controllers/suggestBook')
+const weatherImportantCities = require('./controllers/weatherImportantCities');
 
 // Initialize the routes.
 module.exports.initialize = function (app) {
@@ -26,4 +28,7 @@ module.exports.initialize = function (app) {
     app.get("/apod", apod.getPictureOfToday);
     // Redirect the GET /apod request to the nearestHospital function.
     app.get("/nearesthospitals", nearestHospital.nearestHospitals);
+    app.post("/suggestBook", suggestBook.suggestBook);
+    // Redirect the GET /weather/importantCities request to the getCurrentWeathers function.
+    app.get("/weather-important-cities", weatherImportantCities.getCurrentWeathers);
 }
