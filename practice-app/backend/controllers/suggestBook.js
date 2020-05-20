@@ -25,7 +25,6 @@ module.exports.suggestBook = function (request, response){
             parseString(res.body, function (err, parseRes) {
                 if(err){
                     return Response.handleError(response, err );
-
                 }
                 nq = (parseRes.GoodreadsResponse.search[0].results[0].work[0].best_book[0].id[0]._);
 
@@ -39,14 +38,21 @@ module.exports.suggestBook = function (request, response){
                     'Authorization': 'Basic ' + (new Buffer.from(process.env.GOODREADS_API_SECRET).toString('base64'))
                 },
             }, async function (err, res, body2) {
-                if (err || body.error) {
-                    return Response.handleError(response, err || body.error);
+                if (err || res.body.error) {
+                    return Response.handleError(response, err || res.body.error);
+                } else {
+                    //parse xml to get the list of similar books from the query result
+                    parseString(res.body, function (err, parseRes) {
+                        if(parseRes === undefined){
+                            return Response.handleError(response, err);
+                        } else {
+                            const bookList = (parseRes.GoodreadsResponse.book[0].similar_books[0]);
+                            Response.send(response, bookList);
+                        }
+
+                    });
                 }
-                //parse xml to get the list of similar books from the query result
-                parseString(res.body, function (err, parseRes) {
-                    const bookList = (parseRes.GoodreadsResponse.book[0].similar_books[0]);
-                    Response.send(response, bookList);
-                });
+
 
             })
 
