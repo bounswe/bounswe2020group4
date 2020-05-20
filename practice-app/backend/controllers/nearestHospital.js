@@ -17,8 +17,9 @@ const NearBySearch = require("googleplaces");
  *        success: true,
  *        code: 200
  *    }, data: {
- *        count: 9,
- *        names: ["Bahçeşehir University Health Center",
+ *        count: 3,
+ *        names: [
+ *          "Bahçeşehir University Health Center",
  *          "T. C. The Ministry of Health Sinanpaşa Family Health Center",
  *          "İstanbul Medical Group"
  *        ]
