@@ -4,7 +4,6 @@ const chai = require('chai'),
     request = require('supertest'),
     describe = mocha.describe,
     it = mocha.it;
-const querystring = require('querystring');
 
 describe('# Suggest Book', function () {
     it("should return a list of similar books object", async function () {
