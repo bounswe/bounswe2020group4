@@ -6,6 +6,8 @@ const chai = require('chai'),
     it = mocha.it;
 
 describe('# Suggest Book', function () {
+    this.timeout(0);
+
     it("should return a list of similar books object", async function () {
         const response = await request(app)
             .post("/suggestBook")
