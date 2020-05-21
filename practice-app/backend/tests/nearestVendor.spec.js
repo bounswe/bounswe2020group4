@@ -6,8 +6,6 @@ const chai = require('chai'),
     it = mocha.it;
 
 describe('# Nearest Vendor', function () {
-    this.timeout(0);
-
     it("should return a vendor object", async function () {
         const response = await request(app)
             .get("/vendor/nearest");
@@ -36,4 +34,5 @@ describe('# Nearest Vendor', function () {
         chai.expect(response.body.data).to.equal(undefined);
         chai.expect(response.body.error).to.be.an('string');
     });
+
 });

@@ -19,9 +19,9 @@ describe('# Suggest Book', function () {
         chai.expect(response.body.data).to.be.an('object');
         chai.expect(response.body.data.book).to.be.an('array');
         response.body.data.book.forEach(function (book) {
-            chai.expect(book.title).to.be.a('string');
-            chai.expect(book.image_url).to.be.a('string');
-            chai.expect(article.authors).to.be.a('object');
+            chai.expect(book.title).to.be.a('array');
+            chai.expect(book.image_url).to.be.a('array');
+            chai.expect(book.authors).to.be.a('array');
         });
     });
 
