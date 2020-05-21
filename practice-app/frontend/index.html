@@ -78,7 +78,7 @@
         </div>
         <div class="col-sm-2">
             <div class="container border">
-                <h2>7 DAYS WEATHER FORECAST for ISTANBUL</h2>
+                <h2>7 Days Weather Forecast for Istanbul</h2>
                 <table class="table table-dark">
                     <tbody>
                         <tr>
@@ -89,42 +89,42 @@
                             <td id="day1_min"></td>
                         </tr>
                         <tr>
-                            <td>Tomorrow</td>
+                            <td id="day2"></td>
                             <td id="day2_desc"></td>
                             <td><img id="day2_icon" src="" class="mx-auto d-block" width="40" height="40"></td>
                             <td id="day2_max"></td>
                             <td id="day2_min"></td>
                         </tr>
                         <tr>
-                            <td>Day 3</td>
+                            <td id="day3"></td>
                             <td id="day3_desc"></td>
                             <td><img id="day3_icon" src="" class="mx-auto d-block" width="40" height="40"></td>
                             <td id="day3_max"></td>
                             <td id="day3_min"></td>
                         </tr>
                         <tr>
-                            <td>Day 4</td>
+                            <td id="day4"></td>
                             <td id="day4_desc"></td>
                             <td><img id="day4_icon" src="" class="mx-auto d-block" width="40" height="40"></td>
                             <td id="day4_max"></td>
                             <td id="day4_min"></td>
                         </tr>
                         <tr>
-                            <td>Day 5</td>
+                            <td id="day5"></td>
                             <td id="day5_desc"></td>
                             <td><img id="day5_icon" src="" class="mx-auto d-block" width="40" height="40"></td>
                             <td id="day5_max"></td>
                             <td id="day5_min"></td>
                         </tr>
                         <tr>
-                            <td>Day 6</td>
+                            <td id="day6"></td>
                             <td id="day6_desc"></td>
                             <td><img id="day6_icon" src="" class="mx-auto d-block" width="40" height="40"></td>
                             <td id="day6_max"></td>
                             <td id="day6_min"></td>
                         </tr>
                         <tr>
-                            <td>Day 7</td>
+                            <td id="day7"></td>
                             <td id="day7_desc"></td>
                             <td><img id="day7_icon" src="" class="mx-auto d-block" width="40" height="40"></td>
                             <td id="day7_max"></td>
@@ -219,7 +219,21 @@
                 document.getElementById("day7_min").innerHTML = response.data.day7.minTemp;
                 document.getElementById("day7_max").innerHTML = response.data.day7.maxTemp;
             }
-        )
+        );
+    });
+</script>
+<script>
+    $(document).ready(function(){
+        var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        var d = new Date();
+        var today = d.toString().slice(0,3);
+        var index = days.indexOf(today);
+        document.getElementById("day2").innerHTML = days[(index+1)%7];
+        document.getElementById("day3").innerHTML = days[(index+2)%7];
+        document.getElementById("day4").innerHTML = days[(index+3)%7];
+        document.getElementById("day5").innerHTML = days[(index+4)%7];
+        document.getElementById("day6").innerHTML = days[(index+5)%7];
+        document.getElementById("day7").innerHTML = days[(index+6)%7];
     });
 </script>
 
