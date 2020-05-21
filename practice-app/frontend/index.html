@@ -78,7 +78,53 @@
         </div>
         <div class="col-sm-2">
             <div class="container border">
-                <h2>7 DAYS WEATHER FORECAST</h2>
+                <h2>7 DAYS WEATHER FORECAST for ISTANBUL</h2>
+                <table class="table table-dark">
+                    <tbody>
+                        <tr>
+                            <td>Today</td>
+                            <td id="day1_desc"></td>
+                            <td id="day1_max"></td>
+                            <td id="day1_min"></td>
+                        </tr>
+                        <tr>
+                            <td>Tomorrow</td>
+                            <td id="day2_desc"></td>
+                            <td id="day2_max"></td>
+                            <td id="day2_min"></td>
+                        </tr>
+                        <tr>
+                            <td>Day 3</td>
+                            <td id="day3_desc"></td>
+                            <td id="day3_max"></td>
+                            <td id="day3_min"></td>
+                        </tr>
+                        <tr>
+                            <td>Day 4</td>
+                            <td id="day4_desc"></td>
+                            <td id="day4_max"></td>
+                            <td id="day4_min"></td>
+                        </tr>
+                        <tr>
+                            <td>Day 5</td>
+                            <td id="day5_desc"></td>
+                            <td id="day5_max"></td>
+                            <td id="day5_min"></td>
+                        </tr>
+                        <tr>
+                            <td>Day 6</td>
+                            <td id="day6_desc"></td>
+                            <td id="day6_max"></td>
+                            <td id="day6_min"></td>
+                        </tr>
+                        <tr>
+                            <td>Day 7</td>
+                            <td id="day7_desc"></td>
+                            <td id="day7_max"></td>
+                            <td id="day7_min"></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             <div class="container border">
                 <h2>WEATHER IN 3 BIG CITIES</h2>
@@ -130,5 +176,38 @@
             });
     });
 </script>
+
+<script>
+    $(document).ready(function(){
+        $.get("/weather/daily",
+            {
+            },
+            function (response, data) {
+                document.getElementById("day1_desc").innerHTML = response.data.day1.desc;
+                document.getElementById("day1_min").innerHTML = response.data.day1.minTemp;
+                document.getElementById("day1_max").innerHTML = response.data.day1.maxTemp;
+                document.getElementById("day2_desc").innerHTML = response.data.day2.desc;
+                document.getElementById("day2_min").innerHTML = response.data.day2.minTemp;
+                document.getElementById("day2_max").innerHTML = response.data.day2.maxTemp;
+                document.getElementById("day3_desc").innerHTML = response.data.day3.desc;
+                document.getElementById("day3_min").innerHTML = response.data.day3.minTemp;
+                document.getElementById("day3_max").innerHTML = response.data.day3.maxTemp;
+                document.getElementById("day4_desc").innerHTML = response.data.day4.desc;
+                document.getElementById("day4_min").innerHTML = response.data.day4.minTemp;
+                document.getElementById("day4_max").innerHTML = response.data.day4.maxTemp;
+                document.getElementById("day5_desc").innerHTML = response.data.day5.desc;
+                document.getElementById("day5_min").innerHTML = response.data.day5.minTemp;
+                document.getElementById("day5_max").innerHTML = response.data.day5.maxTemp;
+                document.getElementById("day6_desc").innerHTML = response.data.day6.desc;
+                document.getElementById("day6_min").innerHTML = response.data.day6.minTemp;
+                document.getElementById("day6_max").innerHTML = response.data.day6.maxTemp;
+                document.getElementById("day7_desc").innerHTML = response.data.day7.desc;
+                document.getElementById("day7_min").innerHTML = response.data.day7.minTemp;
+                document.getElementById("day7_max").innerHTML = response.data.day7.maxTemp;
+            }
+        )
+    });
+</script>
+
 </body>
 </html>
