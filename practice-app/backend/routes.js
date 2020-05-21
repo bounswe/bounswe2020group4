@@ -10,8 +10,14 @@ const nearestHospital = require("./controllers/nearestHospital")
 const suggestBook = require('./controllers/suggestBook')
 const weatherImportantCities = require('./controllers/weatherImportantCities');
 
+const path = require('path');
+
 // Initialize the routes.
 module.exports.initialize = function (app) {
+    // Redirect the initial webpage to our
+    app.get('/',function(req,res) {
+        res.sendFile(path.join(__dirname, '../frontend', 'index.html'));
+    });
     // Redirect the GET /vendor/nearest request to the getNearestVendor function.
     app.get("/vendor/nearest", nearbyVendors.getNearestVendor);
     app.get("/covid19", covid19TR.getCovid19tr);
