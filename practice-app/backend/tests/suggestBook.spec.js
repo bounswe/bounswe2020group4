@@ -5,30 +5,32 @@ const chai = require('chai'),
     describe = mocha.describe,
     it = mocha.it;
 
-describe('# Nearest Vendor', function () {
+describe('# Suggest Book', function () {
     this.timeout(0);
 
-    it("should return a vendor object", async function () {
+    it("should return a list of similar books object", async function () {
         const response = await request(app)
-            .get("/vendor/nearest");
+            .post("/suggestBook")
+            .query({q : 'bible'});
 
         chai.expect(response.body.status).to.be.an('object');
         chai.expect(response.body.status.success).to.equal(true);
         chai.expect(response.body.status.code).to.equal(200);
         chai.expect(response.body.data).to.be.an('object');
-        chai.expect(response.body.data.vendor).to.be.an('object');
-        chai.expect(response.body.data.vendor.location).to.be.an('object');
-        chai.expect(response.body.data.vendor.name).to.be.a('string');
-        chai.expect(response.body.data.vendor.location.longitude).to.be.a('number');
-        chai.expect(response.body.data.vendor.location.latitude).to.be.a('number');
-        chai.expect(response.body.data.distance).to.be.a('number');
+        chai.expect(response.body.data.book).to.be.an('array');
+        response.body.data.book.forEach(function (book) {
+            chai.expect(book.title).to.be.a('string');
+            chai.expect(book.image_url).to.be.a('string');
+            chai.expect(article.authors).to.be.a('object');
+        });
     });
 
-    it("should respond with googleapi token error", async function () {
-        process.env.GOOGLE_API_KEY = "wrong-api-key";
+    it("should respond with goodreads token error", async function () {
+        process.env.GOODREADS_API_KEY = "wrong-api-key";
 
         const response = await request(app)
-            .get("/vendor/nearest");
+            .post("/suggestBook")
+            .query({q : 'catch22'});
 
         chai.expect(response.body.status).to.be.an('object');
         chai.expect(response.body.status.success).to.equal(false);
@@ -36,4 +38,5 @@ describe('# Nearest Vendor', function () {
         chai.expect(response.body.data).to.equal(undefined);
         chai.expect(response.body.error).to.be.an('string');
     });
+
 });

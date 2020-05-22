@@ -4,13 +4,17 @@
   "description": "Practice-App-Backend",
   "main": "app.js",
   "dependencies": {
-    "express": "4.17.1",
-    "mongoose": "5.9.13",
-    "json-parser": "3.1.2",
     "body-parser": "1.19.0",
-    "request": "2.88.2",
+    "dotenv": "8.2.0",
+    "express": "4.17.1",
+    "fast-xml-parser": "^3.17.0",
     "geopoint": "1.0.1",
-    "dotenv": "8.2.0"
+    "mongoose": "5.9.13",
+    "googleplaces": "0.6.1",
+    "json-parser": "3.1.2",
+    "request": "2.88.2",
+    "xml-parser": "^1.2.1",
+    "xml2js": "^0.4.23"
   },
   "devDependencies": {
     "mocha": "7.1.2",
@@ -18,7 +22,7 @@
     "supertest": "4.0.2"
   },
   "scripts": {
-    "test": "mocha ./tests/*"
+    "test": "mocha ./tests/* --timeout 50000"
   },
   "author": "CMPE 352 Spring 2020 - Group 4",
   "license": "ISC"
