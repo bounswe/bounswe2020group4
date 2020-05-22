@@ -2,9 +2,9 @@ const Response = require('../utils/response');
 const Request = require('../utils/request');
 
 /**
- * Get the lastest update on the numbers of Coronovirus cases in Turkey, 
+ * Get the lastest update on the numbers of Coronovirus cases in Turkey,
  * using 'covid19api.com'
- * 
+ *
  * Response: {
     "status": {
         "success": true,
@@ -34,9 +34,7 @@ module.exports.getCovid19tr = function (request, response) {
                 return Response.handleError(response, err || body.error);
             }
 
-            console.log("Your response's body: ", body);
-
-            try { // Try if the maximum request limit is not reached.      
+            try { // Try if the maximum request limit is not reached.
                 TRindex = 0;
                 for (i = 0; i < body.Countries.length; i++) {
                     if (body.Countries[i].CountryCode === "TR") {
@@ -61,7 +59,7 @@ module.exports.getCovid19tr = function (request, response) {
                 // Respond to the front-end.
                 Response.send(response, responseBody);
 
-            } catch (error) { // If the maximum number of request reached, return message. 
+            } catch (error) { // If the maximum number of request reached, return message.
                 // Set the response body.
                 const responseBody = {
                     Message: body + "Please, try again."
