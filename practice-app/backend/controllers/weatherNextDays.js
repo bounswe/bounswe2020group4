@@ -11,37 +11,44 @@ const Request = require('../utils/request');
  *        day1: {
  *            minTemp: 18,
  *            maxTemp: 26,
- *            desc: 'broken clouds'
+ *            desc: 'broken clouds',
+ *            icon: '04d'
  *        },
  *        day2: {
  *            minTemp: 17,
  *            maxTemp: 27,
- *            desc: 'broken clouds'
+ *            desc: 'broken clouds',
+ *            icon: '04d'
  *        },
  *        day3: {
  *            minTemp: 19,
  *            maxTemp: 26,
- *            desc: 'overcast clouds'
+ *            desc: 'overcast clouds',
+ *            icon: '03d'
  *        },
  *        day4: {
  *            minTemp: 16,
  *            maxTemp: 20,
- *            desc: 'light rain'
+ *            desc: 'light rain',
+ *            icon: '09d'
  *        },
  *        day5: {
  *            minTemp: 15,
  *            maxTemp: 19,
- *            desc: 'broken clouds'
+ *            desc: 'broken clouds',
+ *            icon: '04d'
  *        },
  *        day6: {
  *            minTemp: 14,
  *            maxTemp: 18,
- *            desc: 'broken clouds'
+ *            desc: 'broken clouds',
+ *            icon: '04d'
  *        },
  *        day7: {
  *            minTemp: 13,
  *            maxTemp: 18,
- *            desc: 'clear sky'
+ *            desc: 'clear sky',
+ *            icon: '01d'
  *        },
  *    }
  *}
@@ -64,36 +71,43 @@ module.exports.weatherNextDays = function (request, response) {
                     minTemp: Math.round(dailyInfo[0].temp.min),
                     maxTemp: Math.round(dailyInfo[0].temp.max),
                     desc: dailyInfo[0].weather[0].description,
+                    icon: dailyInfo[0].weather[0].icon,
                 },
                 day2: {
                     minTemp: Math.round(dailyInfo[1].temp.min),
                     maxTemp: Math.round(dailyInfo[1].temp.max),
                     desc: dailyInfo[1].weather[0].description,
+                    icon: dailyInfo[1].weather[0].icon,
                 },
                 day3: {
                     minTemp: Math.round(dailyInfo[2].temp.min),
                     maxTemp: Math.round(dailyInfo[2].temp.max),
                     desc: dailyInfo[2].weather[0].description,
+                    icon: dailyInfo[2].weather[0].icon,
                 },
                 day4: {
                     minTemp: Math.round(dailyInfo[3].temp.min),
                     maxTemp: Math.round(dailyInfo[3].temp.max),
                     desc: dailyInfo[3].weather[0].description,
+                    icon: dailyInfo[3].weather[0].icon,
                 },
                 day5: {
                     minTemp: Math.round(dailyInfo[4].temp.min),
                     maxTemp: Math.round(dailyInfo[4].temp.max),
                     desc: dailyInfo[4].weather[0].description,
+                    icon: dailyInfo[4].weather[0].icon,
                 },
                 day6: {
                     minTemp: Math.round(dailyInfo[5].temp.min),
                     maxTemp: Math.round(dailyInfo[5].temp.max),
                     desc: dailyInfo[5].weather[0].description,
+                    icon: dailyInfo[5].weather[0].icon,
                 },
                 day7: {
                     minTemp: Math.round(dailyInfo[6].temp.min),
                     maxTemp: Math.round(dailyInfo[6].temp.max),
                     desc: dailyInfo[6].weather[0].description,
+                    icon: dailyInfo[6].weather[0].icon,
                 }
             };
             // Send the respond to the front-end

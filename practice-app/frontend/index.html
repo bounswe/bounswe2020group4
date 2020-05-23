@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>COVID-19</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheet.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="/main.js"></script>
+</head>
+<body>
+<div class="jumbotron text-center">
+    <h2>Things You Might Need During COVID=19</h2>
+    <p>Maybe you are sick of everything being scattered around. We tried to gather most of the things you need in one place. Hope you enjoy!</p>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-3 col-lg-auto col-md-auto col-sm-auto bg-light">
+            <div class="container border">
+                <h2>COVID-19 Data in Turkey</h2>
+                <div class="table-responsive-sm">
+                    <table class="table table-striped table-dark">
+                        <thead class="thead">
+                        <tr>
+                            <th>Data Name</th>
+                            <th>Value</th>
+                        </tr>
+                        <tr>
+                            <td>New Confirmed</td>
+                            <td id="newConfirmed"></td>
+                        </tr>
+                        <tr>
+                            <td>Total Confirmed</td>
+                            <td id="totalConfirmed"></td>
+                        </tr>
+                        <tr>
+                            <td>New Deaths</td>
+                            <td id="newDeaths"></td>
+                        </tr>
+                        <tr>
+                            <td>Total Deaths</td>
+                            <td id="totalDeaths"></td>
+                        </tr>
+                        <tr>
+                            <td>New Recovered</td>
+                            <td id="newRecovered"></td>
+                        </tr>
+                        <tr>
+                            <td>Total Recovered</td>
+                            <td id="totalRecovered"></td>
+                        </tr>
+                        <tr>
+                            <td>Active Cases</td>
+                            <td id="activeCases"></td>
+                        </tr>
+                        <tr>
+                            <td>Last Update</td>
+                            <td id="lastUpdate"></td>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-xl-6 col-lg-auto col-md-auto col-sm-auto bg-light">
+            <div class="container border">
+                <h2>NEWS</h2>
+                <div class="container border">
+                    <h5 id="news_title1"></h5>
+                    <p id="news_desc1">ds</p>
+                    <a id="news_link1" class="btn btn-primary" href="" role="button">Devamı</a>
+                </div>
+                <div class="container border">
+                    <h5 id="news_title2"></h5>
+                    <p id="news_desc2"></p>
+                    <a id="news_link2" class="btn btn-primary" href="" role="button">Devamı</a>
+                </div>
+                <div class="container border">
+                    <h5 id="news_title3"></h5>
+                    <p id="news_desc3"></p>
+                    <a id="news_link3" class="btn btn-primary" href="" role="button">Devamı</a>
+                </div>
+                <div class="container border">
+                    <h5 id="news_title4"></h5>
+                    <p id="news_desc4"></p>
+                    <a id="news_link4" class="btn btn-primary" href="" role="button">Devamı</a>
+                </div>
+            </div>
+
+            <div class="container border">
+                <h2>TRY-USD</h2>
+            </div>
+
+        </div>
+        <div class="col-xl-3 col-lg-auto col-md-auto col-sm-auto bg-light">
+            <div class="container-auto border">
+                <h2>7 Days Weather Forecast for Istanbul</h2>
+                <table class="table table-dark">
+                    <tbody>
+                        <tr>
+                            <th>Day</th>
+                            <th>Weather</th>
+                            <th></th>
+                            <th>Max</th>
+                            <th>Min</th>
+                        </tr>
+                        <tr>
+                            <td>Today</td>
+                            <td id="day1_desc"></td>
+                            <td><img id="day1_icon" alt="missing" src="" class="mx-auto d-block" width="40" height="40"></td>
+                            <td id="day1_max"></td>
+                            <td id="day1_min"></td>
+                        </tr>
+                        <tr>
+                            <td id="day2"></td>
+                            <td id="day2_desc"></td>
+                            <td><img id="day2_icon" alt="missing" src="" class="mx-auto d-block" width="40" height="40"></td>
+                            <td id="day2_max"></td>
+                            <td id="day2_min"></td>
+                        </tr>
+                        <tr>
+                            <td id="day3"></td>
+                            <td id="day3_desc"></td>
+                            <td><img id="day3_icon" alt="missing" src="" class="mx-auto d-block" width="40" height="40"></td>
+                            <td id="day3_max"></td>
+                            <td id="day3_min"></td>
+                        </tr>
+                        <tr>
+                            <td id="day4"></td>
+                            <td id="day4_desc"></td>
+                            <td><img id="day4_icon" alt="missing" src="" class="mx-auto d-block" width="40" height="40"></td>
+                            <td id="day4_max"></td>
+                            <td id="day4_min"></td>
+                        </tr>
+                        <tr>
+                            <td id="day5"></td>
+                            <td id="day5_desc"></td>
+                            <td><img id="day5_icon" alt="missing" src="" class="mx-auto d-block" width="40" height="40"></td>
+                            <td id="day5_max"></td>
+                            <td id="day5_min"></td>
+                        </tr>
+                        <tr>
+                            <td id="day6"></td>
+                            <td id="day6_desc"></td>
+                            <td><img id="day6_icon" alt="missing" src="" class="mx-auto d-block" width="40" height="40"></td>
+                            <td id="day6_max"></td>
+                            <td id="day6_min"></td>
+                        </tr>
+                        <tr>
+                            <td id="day7"></td>
+                            <td id="day7_desc"></td>
+                            <td><img id="day7_icon" alt="missing" src="" class="mx-auto d-block" width="40" height="40"></td>
+                            <td id="day7_max"></td>
+                            <td id="day7_min"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="container border">
+                <h2>WEATHER IN 3 BIG CITIES</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-auto">
+            <div class="container p-5 border">
+                <h2>NEAREST VENDORS</h2>
+            </div>
+        </div>
+        <div class="col-sm-auto">
+            <div class="container p-5 border">
+                <h2>NEAREST HOSPITALS</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-auto">
+            <div class="container p-4 border">
+                <div class="text-center">
+
+                    <div class="row">
+                        <div class="col"></div>
+                        <div class="col-8">
+                            <p class="lead">    Below is the astronomy picture of the day to remind you of the universe's beauty, as well as an inspirational quote to kickstart your day!</p>
+                        </div>
+                        <div class="col"></div>
+                    </div>
+
+                    <figure class="figure">
+                        <img src="" class="figure-img img-fluid rounded" alt="Astronomy image" id="apod">
+                        <figcaption class="figure-caption" id="apodTitle"></figcaption>
+                    </figure>
+
+                    <div class="row">
+                        <div class="col"></div>
+                        <div class="col-8">
+                            <blockquote class="blockquote text-center">
+                                <p class="mb-0" id="quote"></p>
+                                <footer class="blockquote-footer" id="author"></footer>
+                            </blockquote>                        </div>
+                        <div class="col"></div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row"></div>
+</div>
+  
+<script>
+    $(document).ready(function(){
+        var final_data = undefined;
+        $.get("/covid19",
+            {
+            },
+            function (response, data) {
+                // response has the attribute 'data', which is the object API returns.
+                // For other attributes, see backend/utils/response.js
+                final_data = response.data;
+                if(final_data.NewConfirmed !== undefined) {
+                    document.getElementById("newConfirmed").innerHTML = response.data.NewConfirmed;
+                    document.getElementById("totalConfirmed").innerHTML = response.data.TotalConfirmed;
+                    document.getElementById("newDeaths").innerHTML = response.data.NewDeaths;
+                    document.getElementById("totalDeaths").innerHTML = response.data.TotalDeaths;
+                    document.getElementById("newRecovered").innerHTML = response.data.NewRecovered;
+                    document.getElementById("totalRecovered").innerHTML = response.data.TotalRecovered;
+                    document.getElementById("activeCases").innerHTML = response.data.ActiveCases;
+                    document.getElementById("lastUpdate").innerHTML = response.data.lastUpdate;
+                }
+            });
+    });
+</script>
+
+<script>
+    $(document).ready(function(){
+        var final_data = undefined;
+        $.get("/apod",
+            {
+            },
+            function (response, data) {
+                final_data = response.data;
+                if(final_data !== undefined){
+                    document.getElementById("apod").setAttribute("src", response.data.apodURL);
+                    document.getElementById("apodTitle").innerText = response.data.apodTitle;
+                }
+            })
+    })
+</script>
+
+<script>
+    $(document).ready(function(){
+        var final_data = undefined;
+        $.get("/quote",
+            {
+            },
+            function (response, data) {
+                final_data = response.data;
+                if(final_data !== undefined){
+                    document.getElementById("quote").innerText = response.data.quote;
+                    document.getElementById("author").innerText = response.data.author;
+                }
+            })
+    })
+</script>
+
+<script>
+    $(document).ready(function(){
+        var final_data = undefined;
+        $.get("/weather/daily",
+            {
+            },
+            function (response, data) {
+                document.getElementById("day1_desc").innerHTML = response.data.day1.desc;
+                document.getElementById("day1_icon").setAttribute("src", "http://openweathermap.org/img/wn/"+response.data.day1.icon+"@2x.png");
+                document.getElementById("day1_min").innerHTML = response.data.day1.minTemp;
+                document.getElementById("day1_max").innerHTML = response.data.day1.maxTemp;
+                document.getElementById("day2_desc").innerHTML = response.data.day2.desc;
+                document.getElementById("day2_icon").setAttribute("src", "http://openweathermap.org/img/wn/"+response.data.day2.icon+"@2x.png");
+                document.getElementById("day2_min").innerHTML = response.data.day2.minTemp;
+                document.getElementById("day2_max").innerHTML = response.data.day2.maxTemp;
+                document.getElementById("day3_desc").innerHTML = response.data.day3.desc;
+                document.getElementById("day3_icon").setAttribute("src", "http://openweathermap.org/img/wn/"+response.data.day3.icon+"@2x.png");
+                document.getElementById("day3_min").innerHTML = response.data.day3.minTemp;
+                document.getElementById("day3_max").innerHTML = response.data.day3.maxTemp;
+                document.getElementById("day4_desc").innerHTML = response.data.day4.desc;
+                document.getElementById("day4_icon").setAttribute("src", "http://openweathermap.org/img/wn/"+response.data.day4.icon+"@2x.png");
+                document.getElementById("day4_min").innerHTML = response.data.day4.minTemp;
+                document.getElementById("day4_max").innerHTML = response.data.day4.maxTemp;
+                document.getElementById("day5_desc").innerHTML = response.data.day5.desc;
+                document.getElementById("day5_icon").setAttribute("src", "http://openweathermap.org/img/wn/"+response.data.day5.icon+"@2x.png");
+                document.getElementById("day5_min").innerHTML = response.data.day5.minTemp;
+                document.getElementById("day5_max").innerHTML = response.data.day5.maxTemp;
+                document.getElementById("day6_desc").innerHTML = response.data.day6.desc;
+                document.getElementById("day6_icon").setAttribute("src", "http://openweathermap.org/img/wn/"+response.data.day6.icon+"@2x.png");
+                document.getElementById("day6_min").innerHTML = response.data.day6.minTemp;
+                document.getElementById("day6_max").innerHTML = response.data.day6.maxTemp;
+                document.getElementById("day7_desc").innerHTML = response.data.day7.desc;
+                document.getElementById("day7_icon").setAttribute("src", "http://openweathermap.org/img/wn/"+response.data.day7.icon+"@2x.png");
+                document.getElementById("day7_min").innerHTML = response.data.day7.minTemp;
+                document.getElementById("day7_max").innerHTML = response.data.day7.maxTemp;
+            }
+        );
+    });
+</script>
+  
+<script>
+    $(document).ready(function(){
+        var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        var d = new Date();
+        var today = d.toString().slice(0,3);
+        var index = days.indexOf(today);
+        document.getElementById("day2").innerHTML = days[(index+1)%7];
+        document.getElementById("day3").innerHTML = days[(index+2)%7];
+        document.getElementById("day4").innerHTML = days[(index+3)%7];
+        document.getElementById("day5").innerHTML = days[(index+4)%7];
+        document.getElementById("day6").innerHTML = days[(index+5)%7];
+        document.getElementById("day7").innerHTML = days[(index+6)%7];
+    });
+</script>
+
+<script>
+    $(document).ready(function(){
+        $.get("/covid/news",
+            {
+            },
+            function (response, data) {
+                document.getElementById("news_title1").innerHTML = response.data.articles[0].title;
+                document.getElementById("news_desc1").innerHTML = response.data.articles[0].description;
+                document.getElementById("news_link1").setAttribute("href", response.data.articles[0].url);
+                document.getElementById("news_title2").innerHTML = response.data.articles[1].title;
+                document.getElementById("news_desc2").innerHTML = response.data.articles[1].description;
+                document.getElementById("news_link2").setAttribute("href", response.data.articles[1].url);
+                document.getElementById("news_title3").innerHTML = response.data.articles[2].title;
+                document.getElementById("news_desc3").innerHTML = response.data.articles[2].description;
+                document.getElementById("news_link3").setAttribute("href", response.data.articles[2].url);
+                document.getElementById("news_title4").innerHTML = response.data.articles[3].title;
+                document.getElementById("news_desc4").innerHTML = response.data.articles[3].description;
+                document.getElementById("news_link4").setAttribute("href", response.data.articles[3].url);
+            }
+        );
+    });
+</script>
+
+</body>
+</html>

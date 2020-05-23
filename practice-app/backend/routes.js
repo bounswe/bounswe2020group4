@@ -10,8 +10,20 @@ const nearestHospital = require("./controllers/nearestHospital")
 const suggestBook = require('./controllers/suggestBook')
 const weatherImportantCities = require('./controllers/weatherImportantCities');
 
+const path = require('path');
+
 // Initialize the routes.
 module.exports.initialize = function (app) {
+    // Send the frontend files to the server
+    app.get('/',function(req,res) {
+        res.sendFile(path.join(__dirname, '../frontend', 'index.html'));
+    });
+    app.get('/main.js',function(req,res) {
+        res.sendFile(path.join(__dirname, '../frontend/js', 'main.js'));
+    });
+    app.get('/stylesheet.css',function(req,res) {
+        res.sendFile(path.join(__dirname, '../frontend/css', 'stylesheet.css'));
+    });
     // Redirect the GET /vendor/nearest request to the getNearestVendor function.
     app.get("/vendor/nearest", nearbyVendors.getNearestVendor);
     app.get("/covid19", covid19TR.getCovid19tr);
