@@ -6,6 +6,8 @@ const chai = require('chai'),
     it = mocha.it;
 
 describe('# Nearest Vendor', function () {
+    this.timeout(0);
+
     it("should return a vendor object", async function () {
         const response = await request(app)
             .get("/vendor/nearest");

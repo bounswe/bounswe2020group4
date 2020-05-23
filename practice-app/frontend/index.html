@@ -180,12 +180,39 @@
     <div class="row">
         <div class="col-sm-auto">
             <div class="container p-4 border">
-                <h2>ASTRONOMY PICTURE AND QUOTE</h2>
+                <div class="text-center">
+
+                    <div class="row">
+                        <div class="col"></div>
+                        <div class="col-8">
+                            <p class="lead">    Below is the astronomy picture of the day to remind you of the universe's beauty, as well as an inspirational quote to kickstart your day!</p>
+                        </div>
+                        <div class="col"></div>
+                    </div>
+
+                    <figure class="figure">
+                        <img src="" class="figure-img img-fluid rounded" alt="Astronomy image" id="apod">
+                        <figcaption class="figure-caption" id="apodTitle"></figcaption>
+                    </figure>
+
+                    <div class="row">
+                        <div class="col"></div>
+                        <div class="col-8">
+                            <blockquote class="blockquote text-center">
+                                <p class="mb-0" id="quote"></p>
+                                <footer class="blockquote-footer" id="author"></footer>
+                            </blockquote>                        </div>
+                        <div class="col"></div>
+                    </div>
+
+
+                </div>
             </div>
         </div>
     </div>
     <div class="row"></div>
 </div>
+  
 <script>
     $(document).ready(function(){
         var final_data = undefined;
@@ -212,6 +239,39 @@
 
 <script>
     $(document).ready(function(){
+        var final_data = undefined;
+        $.get("/apod",
+            {
+            },
+            function (response, data) {
+                final_data = response.data;
+                if(final_data !== undefined){
+                    document.getElementById("apod").setAttribute("src", response.data.apodURL);
+                    document.getElementById("apodTitle").innerText = response.data.apodTitle;
+                }
+            })
+    })
+</script>
+
+<script>
+    $(document).ready(function(){
+        var final_data = undefined;
+        $.get("/quote",
+            {
+            },
+            function (response, data) {
+                final_data = response.data;
+                if(final_data !== undefined){
+                    document.getElementById("quote").innerText = response.data.quote;
+                    document.getElementById("author").innerText = response.data.author;
+                }
+            })
+    })
+</script>
+
+<script>
+    $(document).ready(function(){
+        var final_data = undefined;
         $.get("/weather/daily",
             {
             },
@@ -248,6 +308,7 @@
         );
     });
 </script>
+  
 <script>
     $(document).ready(function(){
         var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
