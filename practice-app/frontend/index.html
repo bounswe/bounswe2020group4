@@ -18,7 +18,7 @@
 </div>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-auto">
+        <div class="col-xl-3 col-lg-auto col-md-auto col-sm-auto bg-light">
             <div class="container border">
                 <h2>COVID-19 Data in Turkey</h2>
                 <div class="table-responsive-sm">
@@ -66,9 +66,29 @@
             </div>
 
         </div>
-        <div class="col-sm-auto">
+        <div class="col-xl-6 col-lg-auto col-md-auto col-sm-auto bg-light">
             <div class="container border">
                 <h2>NEWS</h2>
+                <div class="container border">
+                    <h5 id="news_title1"></h5>
+                    <p id="news_desc1">ds</p>
+                    <a id="news_link1" class="btn btn-primary" href="" role="button">Devamı</a>
+                </div>
+                <div class="container border">
+                    <h5 id="news_title2"></h5>
+                    <p id="news_desc2"></p>
+                    <a id="news_link2" class="btn btn-primary" href="" role="button">Devamı</a>
+                </div>
+                <div class="container border">
+                    <h5 id="news_title3"></h5>
+                    <p id="news_desc3"></p>
+                    <a id="news_link3" class="btn btn-primary" href="" role="button">Devamı</a>
+                </div>
+                <div class="container border">
+                    <h5 id="news_title4"></h5>
+                    <p id="news_desc4"></p>
+                    <a id="news_link4" class="btn btn-primary" href="" role="button">Devamı</a>
+                </div>
             </div>
 
             <div class="container border">
@@ -76,7 +96,7 @@
             </div>
 
         </div>
-        <div class="col-sm-auto">
+        <div class="col-xl-3 col-lg-auto col-md-auto col-sm-auto bg-light">
             <div class="container-auto border">
                 <h2>7 Days Weather Forecast for Istanbul</h2>
                 <table class="table table-dark">
@@ -85,8 +105,8 @@
                             <th>Day</th>
                             <th>Weather</th>
                             <th></th>
-                            <th>Maximum Temp.</th>
-                            <th>Minimum Temp.</th>
+                            <th>Max</th>
+                            <th>Min</th>
                         </tr>
                         <tr>
                             <td>Today</td>
@@ -240,6 +260,29 @@
         document.getElementById("day5").innerHTML = days[(index+4)%7];
         document.getElementById("day6").innerHTML = days[(index+5)%7];
         document.getElementById("day7").innerHTML = days[(index+6)%7];
+    });
+</script>
+
+<script>
+    $(document).ready(function(){
+        $.get("/covid/news",
+            {
+            },
+            function (response, data) {
+                document.getElementById("news_title1").innerHTML = response.data.articles[0].title;
+                document.getElementById("news_desc1").innerHTML = response.data.articles[0].description;
+                document.getElementById("news_link1").setAttribute("href", response.data.articles[0].url);
+                document.getElementById("news_title2").innerHTML = response.data.articles[1].title;
+                document.getElementById("news_desc2").innerHTML = response.data.articles[1].description;
+                document.getElementById("news_link2").setAttribute("href", response.data.articles[1].url);
+                document.getElementById("news_title3").innerHTML = response.data.articles[2].title;
+                document.getElementById("news_desc3").innerHTML = response.data.articles[2].description;
+                document.getElementById("news_link3").setAttribute("href", response.data.articles[2].url);
+                document.getElementById("news_title4").innerHTML = response.data.articles[3].title;
+                document.getElementById("news_desc4").innerHTML = response.data.articles[3].description;
+                document.getElementById("news_link4").setAttribute("href", response.data.articles[3].url);
+            }
+        );
     });
 </script>
 
