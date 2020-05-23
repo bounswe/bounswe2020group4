@@ -204,7 +204,7 @@
                     <tbody>
                         <tr>
                             <th>Cover</th>
-                            <th>Rating</th>
+                            <th>Avg. Rating</th>
                             <th>Title</th>
                             <th>Author</th>
                             <th></th>
@@ -382,7 +382,6 @@
             function (response, data) {
                 for(i = 0; i < 5; i++) {
                     book = response.data.book[i];
-                    console.log(book);
                     var authors = Array.from(book.authors[0].author, author => author.name[0]);
                     var author = authors.join();
                     var title = book.title[0];
@@ -392,7 +391,7 @@
                     document.getElementById('cover' + (i+1)).setAttribute('src', small_image_url);
                     document.getElementById('title' + (i+1)).innerHTML = title;
                     document.getElementById('title' + (i+1)).setAttribute('href', link);
-                    document.getElementById('rating' + (i+1)).innerHTML = rating; // TODO(bugfix): rating is bugged, only shows the first value
+                    document.getElementById('rating' + (i+1)).innerHTML = rating;
                     document.getElementById('author' + (i+1)).innerHTML = author;
                 }
             });
@@ -421,7 +420,7 @@
                             document.getElementById('cover' + (i+1)).setAttribute('src', small_image_url);
                             document.getElementById('title' + (i+1)).innerHTML = title;
                             document.getElementById('title' + (i+1)).setAttribute('href', link);
-                            document.getElementById('rating' + (i+1)).innerHTML = rating; // TODO(bugfix): rating is bugged, only shows the first value
+                            document.getElementById('rating' + (i+1)).innerHTML = rating;
                             document.getElementById('author' + (i+1)).innerHTML = author;
                         }
                     });
