@@ -19,7 +19,7 @@ $(document).ready(function() {
                 },
             });
         } else {
-            alert("PLEASE FILL LEN AND LAT!!!");
+            alert("PLEASE FILL LONG AND LAT!!!");
         }
         event.preventDefault();
     })
