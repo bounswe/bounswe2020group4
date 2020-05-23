@@ -35,7 +35,6 @@ module.exports.nearestHospitals = async function (request, response) {
       radius: isNaN(request.query.radius) ? 1000 : request.query.radius,
       keyword: "health, medical center"
     };
-    console.log(parameters)
     nearBySearch.placeSearch(parameters, function (error, _response) {
       if (error) throw error;
       const responseBody = {
