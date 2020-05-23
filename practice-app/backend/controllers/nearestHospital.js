@@ -30,6 +30,7 @@ const NearBySearch = require("googleplaces");
 module.exports.nearestHospitals = async function (request, response) {
   try {
     const nearBySearch = new NearBySearch(process.env.GOOGLE_PLACES_API_KEY, "json");
+    console.log(request.body);
     const parameters = {
       location: [request.body.lat, request.body.long],
       radius: request.body.radius || 1000,
