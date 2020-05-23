@@ -65,7 +65,7 @@ module.exports.getCurrentWeathers = function (request, response) {
             body.list.forEach(function (weather) {
                 currentWeathers.push({
                     cityName: weather.name,
-                    currentTemp: weather.main.temp,
+                    currentTemp: Math.round(weather.main.temp),
                     description: weather.weather[0].description,
                     /*n
                     To get weather icon url 
