@@ -178,6 +178,93 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-sm-4">
+            <div class="container p-7">
+                <h2 class="text-center">CORONA PLAYLIST</h2>
+                <h4 id="playlist-name"></h4>
+                <blockquote class="blockquote" id="playlist-description">
+                </blockquote>
+                <p id="playlist-owner"></p>
+                <iframe id="spotify"  width="0" height="0"></iframe>
+                <button type="button" class="btn btn-primary" id="playlist-button">Click me to get a random playlist!</button>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="container p-7">
+                <h2 class="text-center">BOOKS TO READ DURING CORONAVIRUS</h2>
+                <form id="book-form">
+                    <div class="form-group">
+                        <label for="book-name">Search for Books</label>
+                        <input type="text" class="form-control" id="book-name">
+                    </div>
+                </form>
+                <button type="button" class="btn btn-primary" id="book-button">Search</button>
+                <table class="table table-striped table-dark">
+                    <thead class="thead"></thead>
+                    <tbody>
+                        <tr>
+                            <th>Cover</th>
+                            <th>Rating</th>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td><img id="cover1" alt="missing" src="" class="mx-auto d-block" width="55" height="75"></td>
+                            <td id="rating1"></td>
+                            <td>
+                                <a href="" id="title1">
+
+                                </a>
+                            </td>
+                            <td id="author1"></td>
+                        </tr>
+                        <tr>
+                            <td><img id="cover2" alt="missing" src="" class="mx-auto d-block" width="55" height="75"></td>
+                            <td id="rating2"></td>
+                            <td>
+                                <a href="" id="title2">
+
+                                </a>
+                            </td>
+                            <td id="author2"></td>
+                        </tr>
+                        <tr>
+                            <td><img id="cover3" alt="missing" src="" class="mx-auto d-block" width="55" height="75"></td>
+                            <td id="rating3"></td>
+                            <td>
+                                <a href="" id="title3">
+
+                                </a>
+                            </td>
+                            <td id="author3"></td>
+                        </tr>
+                        <tr>
+                            <td><img id="cover4" alt="missing" src="" class="mx-auto d-block" width="55" height="75"></td>
+                            <td id="rating4"></td>
+                            <td>
+                                <a href="" id="title4">
+
+                                </a>
+                            </td>
+                            <td id="author4"></td>
+                        </tr>
+                        <tr>
+                            <td><img id="cover5" alt="missing" src="" class="mx-auto d-block" width="55" height="75"></td>
+                            <td id="rating5"></td>
+                            <td>
+                                <a href="" id="title5">
+
+                                </a>
+                            </td>
+                            <td id="author5"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-sm-auto">
             <div class="container p-4 border">
                 <div class="text-center">
@@ -234,6 +321,116 @@
                     document.getElementById("lastUpdate").innerHTML = response.data.lastUpdate;
                 }
             });
+    });
+</script>
+
+<script>
+    $(document).ready(function(){
+        // Return random playlist
+        $.get("/random-playlist",
+            {
+            },
+            function (response, data) {
+                // response has the attribute 'data', which is the object API returns.
+                // For other attributes, see backend/utils/response.js
+                document.getElementById("playlist-name").innerHTML = response.data.name;
+                document.getElementById("playlist-description").innerHTML = response.data.description ? response.data.description : "A Coronavirus Related Playlist";
+                document.getElementById("playlist-owner").innerHTML = response.data.owner;
+                document.getElementById("spotify").setAttribute("src", "https://open.spotify.com/embed/playlist/" + response.data.playlist_id);
+                document.getElementById("spotify").setAttribute("width", "300");
+                document.getElementById("spotify").setAttribute("height", "380");
+                document.getElementById("spotify").setAttribute("frameborder", "0");
+                document.getElementById("spotify").setAttribute("allowtransparency", "true");
+                document.getElementById("spotify").setAttribute("allow", "encrypted-media");
+                document.getElementById("spotify").setAttribute("name", response.data.name);
+            });
+    });
+</script>
+<script>
+    // default: call the function when the document is loaded
+    $(document).ready(function(){
+        // it listens for click on the button with given id
+        $('#playlist-button').click(function() {
+            // GET Request from API and fill the elements' HTML content with data taken from response
+            $.get("/random-playlist",
+                {
+                },
+                function (response, data) {
+                    // response has the attribute 'data', which is the object API returns.
+                    // For other attributes, see backend/utils/response.js
+                    document.getElementById("playlist-name").innerHTML = response.data.name;
+                    document.getElementById("playlist-description").innerHTML = response.data.description ? response.data.description : "A Coronavirus Related Playlist";
+                    document.getElementById("playlist-owner").innerHTML = response.data.owner;
+                    document.getElementById("spotify").setAttribute("src", "https://open.spotify.com/embed/playlist/" + response.data.playlist_id);
+                    document.getElementById("spotify").setAttribute("width", "300");
+                    document.getElementById("spotify").setAttribute("height", "380");
+                    document.getElementById("spotify").setAttribute("frameborder", "0");
+                    document.getElementById("spotify").setAttribute("allowtransparency", "true");
+                    document.getElementById("spotify").setAttribute("allow", "encrypted-media");
+                    document.getElementById("spotify").setAttribute("name", response.data.name);
+                });
+        });
+    });
+</script>
+<script>
+    // Default Booklist after the first load
+    $(document).ready(function () {
+        var q = 'coronavirus';
+        $.post("/suggestBook?q=" + q,
+            {
+            },
+            function (response, data) {
+                for(i = 0; i < 5; i++) {
+                    book = response.data.book[i];
+                    console.log(book);
+                    var authors = Array.from(book.authors[0].author, author => author.name[0]);
+                    var author = authors.join();
+                    var title = book.title[0];
+                    var rating = book.average_rating[0];
+                    var link = book.link[0];
+                    var small_image_url = book.image_url[0];
+                    document.getElementById('cover' + (i+1)).setAttribute('src', small_image_url);
+                    document.getElementById('title' + (i+1)).innerHTML = title;
+                    document.getElementById('title' + (i+1)).setAttribute('href', link);
+                    document.getElementById('rating' + (i+1)).innerHTML = rating; // TODO(bugfix): rating is bugged, only shows the first value
+                    document.getElementById('author' + (i+1)).innerHTML = author;
+                }
+            });
+    })
+</script>
+
+<script>
+    // Default search for a book
+    $(document).ready(function() {
+        $('#book-form').submit(function (event) {
+            var q = document.getElementById("book-name").value;
+            if(q.length === 0) {
+                alert("PLEASE ENTER SOMETHING TO SEARCH!!!");
+            } else {
+                $.post("/suggestBook?q=" + q,
+                    {
+                    },
+                    function (response, data) {
+                        for(i = 0; i < 5; i++) {
+                            book = response.data.book[i];
+                            var author = book.authors[0].author[0].name[0];
+                            var title = book.title[0];
+                            var rating = book.average_rating[0];
+                            var link = book.link[0];
+                            var small_image_url = book.image_url[0];
+                            document.getElementById('cover' + (i+1)).setAttribute('src', small_image_url);
+                            document.getElementById('title' + (i+1)).innerHTML = title;
+                            document.getElementById('title' + (i+1)).setAttribute('href', link);
+                            document.getElementById('rating' + (i+1)).innerHTML = rating; // TODO(bugfix): rating is bugged, only shows the first value
+                            document.getElementById('author' + (i+1)).innerHTML = author;
+                        }
+                    });
+            }
+            event.preventDefault();
+        });
+        $('#book-button').click(function () {
+            $('#book-form').submit();
+        })
     });
 </script>
 
