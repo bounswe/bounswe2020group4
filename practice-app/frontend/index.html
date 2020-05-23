@@ -10,6 +10,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="/main.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 </head>
 <body>
 <div class="jumbotron text-center">
@@ -169,12 +171,36 @@
     <div class="row">
         <div class="col-sm-6">
             <div class="container p-5 border">
-                <h2>NEAREST VENDORS</h2>
+
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Nearest vendor</h5>
+                        <h6 class="card-subtitle mb-2 text-muted" id="vendorName"></h6>
+                        <p class="card-text">We found the nearest vendor to your location so you don't have to! Click the link below to see the location of your vendor:</p>
+                        <a href="" class="card-link" id="vendorLink">Google Maps</a>
+                    </div>
+                </div>
+
             </div>
         </div>
         <div class="col-sm-6">
             <div class="container p-5 border">
                 <h2>NEAREST HOSPITALS</h2>
+                <form id="hospitalForm">
+                    <div class="form-group">
+                        <label for="lat">Latitude</label>
+                        <input type="number" step="any" class="form-control" id="lat">
+                    </div>
+                    <div class="form-group">
+                        <label for="long">Longitude</label>
+                        <input type="number" step="any" class="form-control" id="long">
+                    </div>
+                    <div class="form-group">
+                        <label for="radius">Radius</label>
+                        <input type="number" step="any" class="form-control" id="radius">
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="hospitalSubmit">Submit</button>
+                </form>
             </div>
         </div>
     </div>
@@ -214,6 +240,27 @@
     <div class="row"></div>
 </div>
 
+<script>
+    $(document).ready(function(){
+        var final_data = undefined;
+        $.get("/vendor/nearest",
+            {
+            },
+            function (response, data) {
+                final_data = response.data;
+                if(final_data !== undefined) {
+                    var vendor = response.data.vendor.name;
+                    var distance = response.data.distance;
+                    var distance_final = distance.toFixed(3);
+                    var latitude = response.data.vendor.location.latitude;
+                    var longitude = response.data.vendor.location.longitude;
+                    document.getElementById("vendorName").innerText = vendor + " is " + distance_final + " km away from you.";
+                    document.getElementById("vendorLink").setAttribute("href", "http://maps.google.com?q="+latitude+","+longitude);
+                }
+            })
+    })
+</script>
+  
 <script>
     $(document).ready(function(){
         var final_data = undefined;
