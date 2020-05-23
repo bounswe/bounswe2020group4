@@ -91,8 +91,9 @@
                 </div>
             </div>
 
-            <div class="container border">
-                <h2>TRY-USD</h2>
+            <div class="container border bg-secondary text-white">
+                <h3>USD/TRY</h3>
+                <h2 id="usdtry"></h2>
             </div>
 
         </div>
@@ -166,19 +167,19 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-auto">
+        <div class="col-sm-6">
             <div class="container p-5 border">
                 <h2>NEAREST VENDORS</h2>
             </div>
         </div>
-        <div class="col-sm-auto">
+        <div class="col-sm-6">
             <div class="container p-5 border">
                 <h2>NEAREST HOSPITALS</h2>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-auto">
+        <div class="col-sm-12">
             <div class="container p-4 border">
                 <div class="text-center">
 
@@ -212,7 +213,7 @@
     </div>
     <div class="row"></div>
 </div>
-  
+
 <script>
     $(document).ready(function(){
         var final_data = undefined;
@@ -308,7 +309,7 @@
         );
     });
 </script>
-  
+
 <script>
     $(document).ready(function(){
         var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -342,6 +343,18 @@
                 document.getElementById("news_title4").innerHTML = response.data.articles[3].title;
                 document.getElementById("news_desc4").innerHTML = response.data.articles[3].description;
                 document.getElementById("news_link4").setAttribute("href", response.data.articles[3].url);
+            }
+        );
+    });
+</script>
+
+<script>
+    $(document).ready(function(){
+        $.get("/tryusd",
+            {
+            },
+            function(response, data){
+                document.getElementById("usdtry").innerHTML = response.data.TRY;
             }
         );
     });
