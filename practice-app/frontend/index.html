@@ -70,31 +70,32 @@
         </div>
         <div class="col-xl-6 col-lg-auto col-md-auto col-sm-auto bg-light">
             <div class="container border">
-                <h2>NEWS</h2>
-                <div class="container border">
+                <h2 id="news_header">NEWS</h2>
+                <div id="news_cont1" class="container border">
                     <h5 id="news_title1"></h5>
                     <p id="news_desc1">ds</p>
                     <a id="news_link1" class="btn btn-primary" href="" role="button">Devamı</a>
                 </div>
-                <div class="container border">
+                <div id="news_cont2" class="container border">
                     <h5 id="news_title2"></h5>
                     <p id="news_desc2"></p>
                     <a id="news_link2" class="btn btn-primary" href="" role="button">Devamı</a>
                 </div>
-                <div class="container border">
+                <div id="news_cont3" class="container border">
                     <h5 id="news_title3"></h5>
                     <p id="news_desc3"></p>
                     <a id="news_link3" class="btn btn-primary" href="" role="button">Devamı</a>
                 </div>
-                <div class="container border">
+                <div id="news_cont4" class="container border">
                     <h5 id="news_title4"></h5>
                     <p id="news_desc4"></p>
                     <a id="news_link4" class="btn btn-primary" href="" role="button">Devamı</a>
                 </div>
             </div>
 
-            <div class="container border">
-                <h2>TRY-USD</h2>
+            <div class="container border bg-secondary text-white">
+                <h3>USD/TRY</h3>
+                <h2 id="usdtry"></h2>
             </div>
 
         </div>
@@ -168,7 +169,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-auto">
+        <div class="col-sm-6">
             <div class="container p-5 border">
 
                 <div class="card" style="width: 18rem;">
@@ -182,7 +183,7 @@
 
             </div>
         </div>
-        <div class="col-sm-auto">
+        <div class="col-sm-6">
             <div class="container p-5 border">
                 <h2>NEAREST HOSPITALS</h2>
                 <form id="hospitalForm">
@@ -204,7 +205,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-auto">
+        <div class="col-sm-12">
             <div class="container p-4 border">
                 <div class="text-center">
 
@@ -241,39 +242,25 @@
 
 <script>
     $(document).ready(function(){
-            $(document).on('submit', '#hospitalForm', function(event) {
-                event.preventDefault();
-                let form  = document.getElementById('hospitalForm')
-                var lat = form.elements['lat'].value;
-                var long = form.elements['long'].value;
-                var radius = form.elements['radius'].value;
-                axios.get("/nearesthospitals", {lat: 2, long:long, radius:radius} ).then(r  => console.log(r.data.data)).catch(e => console.log(e))
-            });
-    })
-</script>
-
-
-<script>
-    $(document).ready(function(){
         var final_data = undefined;
         $.get("/vendor/nearest",
             {
             },
             function (response, data) {
                 final_data = response.data;
-                if(final_data.NewConfirmed !== undefined) {
+                if(final_data !== undefined) {
                     var vendor = response.data.vendor.name;
                     var distance = response.data.distance;
+                    var distance_final = distance.toFixed(3);
                     var latitude = response.data.vendor.location.latitude;
                     var longitude = response.data.vendor.location.longitude;
-                    document.getElementById("vendorName").innerText = vendor, "is", distance, "m away from you.";
+                    document.getElementById("vendorName").innerText = vendor + " is " + distance_final + " km away from you.";
                     document.getElementById("vendorLink").setAttribute("href", "http://maps.google.com?q="+latitude+","+longitude);
                 }
             })
     })
-
 </script>
-
+  
 <script>
     $(document).ready(function(){
         var final_data = undefined;
@@ -369,7 +356,7 @@
         );
     });
 </script>
-  
+
 <script>
     $(document).ready(function(){
         var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -391,18 +378,70 @@
             {
             },
             function (response, data) {
-                document.getElementById("news_title1").innerHTML = response.data.articles[0].title;
-                document.getElementById("news_desc1").innerHTML = response.data.articles[0].description;
-                document.getElementById("news_link1").setAttribute("href", response.data.articles[0].url);
-                document.getElementById("news_title2").innerHTML = response.data.articles[1].title;
-                document.getElementById("news_desc2").innerHTML = response.data.articles[1].description;
-                document.getElementById("news_link2").setAttribute("href", response.data.articles[1].url);
-                document.getElementById("news_title3").innerHTML = response.data.articles[2].title;
-                document.getElementById("news_desc3").innerHTML = response.data.articles[2].description;
-                document.getElementById("news_link3").setAttribute("href", response.data.articles[2].url);
-                document.getElementById("news_title4").innerHTML = response.data.articles[3].title;
-                document.getElementById("news_desc4").innerHTML = response.data.articles[3].description;
-                document.getElementById("news_link4").setAttribute("href", response.data.articles[3].url);
+                var news = response.data.articles;
+                var x1 = document.getElementById("news_cont1");
+                var x2 = document.getElementById("news_cont2");
+                var x3 = document.getElementById("news_cont3");
+                var x4 = document.getElementById("news_cont4");
+                if (news.length===0) {
+                    document.getElementById("news_header").innerHTML = "You are up to date!"
+                    x1.style.display = "none";
+                    x2.style.display = "none";
+                    x3.style.display = "none";
+                    x4.style.display = "none";
+                } else if (news.length===1) {
+                    document.getElementById("news_title1").innerHTML = response.data.articles[0].title;
+                    document.getElementById("news_desc1").innerHTML = response.data.articles[0].description;
+                    document.getElementById("news_link1").setAttribute("href", response.data.articles[0].url);
+                    x2.style.display = "none";
+                    x3.style.display = "none";
+                    x4.style.display = "none";
+                } else if (news.length===2) {
+                    document.getElementById("news_title1").innerHTML = response.data.articles[0].title;
+                    document.getElementById("news_desc1").innerHTML = response.data.articles[0].description;
+                    document.getElementById("news_link1").setAttribute("href", response.data.articles[0].url);
+                    document.getElementById("news_title2").innerHTML = response.data.articles[1].title;
+                    document.getElementById("news_desc2").innerHTML = response.data.articles[1].description;
+                    document.getElementById("news_link2").setAttribute("href", response.data.articles[1].url);
+                    x3.style.display = "none";
+                    x4.style.display = "none";
+                } else if (news.length===3) {
+                    document.getElementById("news_title1").innerHTML = response.data.articles[0].title;
+                    document.getElementById("news_desc1").innerHTML = response.data.articles[0].description;
+                    document.getElementById("news_link1").setAttribute("href", response.data.articles[0].url);
+                    document.getElementById("news_title2").innerHTML = response.data.articles[1].title;
+                    document.getElementById("news_desc2").innerHTML = response.data.articles[1].description;
+                    document.getElementById("news_link2").setAttribute("href", response.data.articles[1].url);
+                    document.getElementById("news_title3").innerHTML = response.data.articles[2].title;
+                    document.getElementById("news_desc3").innerHTML = response.data.articles[2].description;
+                    document.getElementById("news_link3").setAttribute("href", response.data.articles[2].url);
+                    x4.style.display = "none";
+                } else {
+                    document.getElementById("news_title1").innerHTML = response.data.articles[0].title;
+                    document.getElementById("news_desc1").innerHTML = response.data.articles[0].description;
+                    document.getElementById("news_link1").setAttribute("href", response.data.articles[0].url);
+                    document.getElementById("news_title2").innerHTML = response.data.articles[1].title;
+                    document.getElementById("news_desc2").innerHTML = response.data.articles[1].description;
+                    document.getElementById("news_link2").setAttribute("href", response.data.articles[1].url);
+                    document.getElementById("news_title3").innerHTML = response.data.articles[2].title;
+                    document.getElementById("news_desc3").innerHTML = response.data.articles[2].description;
+                    document.getElementById("news_link3").setAttribute("href", response.data.articles[2].url);
+                    document.getElementById("news_title4").innerHTML = response.data.articles[3].title;
+                    document.getElementById("news_desc4").innerHTML = response.data.articles[3].description;
+                    document.getElementById("news_link4").setAttribute("href", response.data.articles[3].url);
+                }
+            }
+        );
+    });
+</script>
+
+<script>
+    $(document).ready(function(){
+        $.get("/tryusd",
+            {
+            },
+            function(response, data){
+                document.getElementById("usdtry").innerHTML = response.data.TRY;
             }
         );
     });
