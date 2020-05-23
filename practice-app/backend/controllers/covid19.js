@@ -34,12 +34,12 @@ module.exports.getCovid19tr = function (request, response) {
                 return Response.handleError(response, err || body.error);
             }
 
-            //console.log("Your response's body: ", body);
+            console.log("Your response's body: ", body);
 
             try { // Try if the maximum request limit is not reached.      
                 TRindex = 0;
                 for (i = 0; i < body.Countries.length; i++) {
-                    if (body.Countries[i].CountryCode == "TR") {
+                    if (body.Countries[i].CountryCode === "TR") {
                         TRindex = i;
                     }
                 }
@@ -47,7 +47,7 @@ module.exports.getCovid19tr = function (request, response) {
                 var dataTR = (body.Countries)[TRindex]
 
                 // Set the response body.
-                const responseBody = dataTR.CountryCode == "TR" ? {
+                const responseBody = dataTR.CountryCode === "TR" ? {
                     NewConfirmed: dataTR.NewConfirmed,
                     TotalConfirmed: dataTR.TotalConfirmed,
                     NewDeaths: dataTR.NewDeaths,
