@@ -17,8 +17,6 @@ $(document).ready(function(){
         })
 })
 
-
-
 $(document).ready(function(){
     var final_data = undefined;
     $.get("/covid19",
@@ -41,8 +39,6 @@ $(document).ready(function(){
         });
 });
 
-
-
 $(document).ready(function(){
     // Return random playlist
     $.get("/random-playlist",
@@ -63,9 +59,7 @@ $(document).ready(function(){
             document.getElementById("spotify").setAttribute("name", response.data.name);
         });
 });
-
-
-// default: call the function when the document is loaded
+// Default: call the function when the document is loaded
 $(document).ready(function(){
     // it listens for click on the button with given id
     $('#playlist-button').click(function() {
@@ -89,8 +83,6 @@ $(document).ready(function(){
             });
     });
 });
-
-
 // Default Booklist after the first load
 $(document).ready(function () {
     var q = 'coronavirus';
@@ -114,9 +106,6 @@ $(document).ready(function () {
             }
         });
 })
-
-
-
 // Default search for a book
 $(document).ready(function() {
     $('#book-form').submit(function (event) {
@@ -150,8 +139,6 @@ $(document).ready(function() {
     })
 });
 
-
-
 $(document).ready(function(){
     var final_data = undefined;
     $.get("/apod",
@@ -166,8 +153,6 @@ $(document).ready(function(){
         })
 })
 
-
-
 $(document).ready(function(){
     var final_data = undefined;
     $.get("/quote",
@@ -181,8 +166,6 @@ $(document).ready(function(){
             }
         })
 })
-
-
 
 $(document).ready(function(){
     var final_data = undefined;
@@ -222,8 +205,6 @@ $(document).ready(function(){
     );
 });
 
-
-
 $(document).ready(function(){
     var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     var d = new Date();
@@ -236,8 +217,6 @@ $(document).ready(function(){
     document.getElementById("day6").innerHTML = days[(index+5)%7];
     document.getElementById("day7").innerHTML = days[(index+6)%7];
 });
-
-
 
 $(document).ready(function(){
     $.get("/covid/news",
@@ -300,8 +279,6 @@ $(document).ready(function(){
     );
 });
 
-
-
 $(document).ready(function(){
     $.get("/tryusd",
         {
@@ -311,8 +288,6 @@ $(document).ready(function(){
         }
     );
 });
-
-
 
 $(document).ready(function(){
     var final_data = undefined;
