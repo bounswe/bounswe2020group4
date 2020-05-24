@@ -21,6 +21,9 @@ module.exports.initialize = function (app) {
     app.get('/main.js',function(req,res) {
         res.sendFile(path.join(__dirname, '../frontend/js', 'main.js'));
     });
+    app.get('/scripts.js',function(req,res) {
+        res.sendFile(path.join(__dirname, '../frontend/js', 'scripts.js'));
+    });
     app.get('/stylesheet.css',function(req,res) {
         res.sendFile(path.join(__dirname, '../frontend/css', 'stylesheet.css'));
     });

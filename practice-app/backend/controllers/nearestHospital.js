@@ -31,8 +31,8 @@ module.exports.nearestHospitals = async function (request, response) {
   try {
     const nearBySearch = new NearBySearch(process.env.GOOGLE_PLACES_API_KEY, "json");
     const parameters = {
-      location: [request.body.lat, request.body.long],
-      radius: request.body.radius || 1000,
+      location: [request.query.lat, request.query.long],
+      radius: isNaN(request.query.radius) ? 1000 : request.query.radius,
       keyword: "health, medical center"
     };
     nearBySearch.placeSearch(parameters, function (error, _response) {

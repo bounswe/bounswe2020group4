@@ -10,10 +10,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="/main.js"></script>
+    <script src="/scripts.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
 <div class="jumbotron text-center">
-    <h2>Things You Might Need During COVID=19</h2>
+    <h2>Things You Might Need During COVID-19</h2>
     <p>Maybe you are sick of everything being scattered around. We tried to gather most of the things you need in one place. Hope you enjoy!</p>
 </div>
 <div class="container-fluid">
@@ -68,31 +70,32 @@
         </div>
         <div class="col-xl-6 col-lg-auto col-md-auto col-sm-auto bg-light">
             <div class="container border">
-                <h2>NEWS</h2>
-                <div class="container border">
+                <h2 id="news_header">NEWS</h2>
+                <div id="news_cont1" class="container border">
                     <h5 id="news_title1"></h5>
                     <p id="news_desc1">ds</p>
                     <a id="news_link1" class="btn btn-primary" href="" role="button">Devamı</a>
                 </div>
-                <div class="container border">
+                <div id="news_cont2" class="container border">
                     <h5 id="news_title2"></h5>
                     <p id="news_desc2"></p>
                     <a id="news_link2" class="btn btn-primary" href="" role="button">Devamı</a>
                 </div>
-                <div class="container border">
+                <div id="news_cont3" class="container border">
                     <h5 id="news_title3"></h5>
                     <p id="news_desc3"></p>
                     <a id="news_link3" class="btn btn-primary" href="" role="button">Devamı</a>
                 </div>
-                <div class="container border">
+                <div id="news_cont4" class="container border">
                     <h5 id="news_title4"></h5>
                     <p id="news_desc4"></p>
                     <a id="news_link4" class="btn btn-primary" href="" role="button">Devamı</a>
                 </div>
             </div>
 
-            <div class="container border">
-                <h2>TRY-USD</h2>
+            <div class="container border bg-secondary text-white">
+                <h3>USD/TRY</h3>
+                <h2 id="usdtry"></h2>
             </div>
 
         </div>
@@ -105,8 +108,8 @@
                             <th>Day</th>
                             <th>Weather</th>
                             <th></th>
-                            <th>Max</th>
-                            <th>Min</th>
+                            <th>Avg. Max(<span>&#8451;</span>)</th>
+                            <th>Avg. Min(<span>&#8451;</span>)</th>
                         </tr>
                         <tr>
                             <td>Today</td>
@@ -160,13 +163,41 @@
                     </tbody>
                 </table>
             </div>
-            <div class="container border">
-                <h2>WEATHER IN 3 BIG CITIES</h2>
+            <div class="container-auto border">
+                <h2>Weather In 3 Big Cities</h2>
+                <table class="table table-dark">
+                    <tbody>
+                        <tr>
+                            <th>City</th>
+                            <th>Weather</th>
+                            <th></th>
+                            <th>Temp(<span>&#8451;</span>)</th>
+                        </tr>
+                        <tr>
+                            <td id="name1"></td>
+                            <td id="desc1"></td>
+                            <td><img id="icon1" alt="missing" src="" class="mx-auto d-block" width="40" height="40"></td>
+                            <td id="temp1"></td>
+                        </tr>
+                        <tr>
+                            <td id="name2"></td>
+                            <td id="desc2"></td>
+                            <td><img id="icon2" alt="missing" src="" class="mx-auto d-block" width="40" height="40"></td>
+                            <td id="temp2"></td>
+                        </tr>
+                        <tr>
+                            <td id="name3"></td>
+                            <td id="desc3"></td>
+                            <td><img id="icon3" alt="missing" src="" class="mx-auto d-block" width="40" height="40"></td>
+                            <td id="temp3"></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-auto">
+        <div class="col-sm-3">
             <div class="container p-5 border">
 
                 <div class="card" style="width: 18rem;">
@@ -180,14 +211,129 @@
 
             </div>
         </div>
-        <div class="col-sm-auto">
+        <div class="col-sm-3">
+            <div class="container p-5 border">
+
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Nearest Hospitals</h5>
+                        <h6 class="card-subtitle mb-2 text-muted"> To find the list of nearest hospitals, please fill the form on the right. Use the submit button wisely. You have only one chance to get the list.</h6>
+                        <p class="card-text" id="hospitalList"></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-6">
             <div class="container p-5 border">
                 <h2>NEAREST HOSPITALS</h2>
+                <form id="hospitalForm">
+                    <div class="form-group">
+                        <label for="lat">Latitude</label>
+                        <input type="number" step="any" class="form-control" id="lat">
+                    </div>
+                    <div class="form-group">
+                        <label for="long">Longitude</label>
+                        <input type="number" step="any" class="form-control" id="long">
+                    </div>
+                    <div class="form-group">
+                        <label for="radius">Radius</label>
+                        <input type="number" step="any" class="form-control" id="radius">
+                    </div>
+                    <button type="button" class="btn btn-primary" id="hospitalSubmit">Submit</button>
+                </form>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-auto">
+        <div class="col-sm-4">
+            <div class="container p-7">
+                <h2 class="text-center">CORONA PLAYLIST</h2>
+                <h4 id="playlist-name"></h4>
+                <blockquote class="blockquote" id="playlist-description">
+                </blockquote>
+                <p id="playlist-owner"></p>
+                <iframe id="spotify"  width="0" height="0"></iframe>
+                <button type="button" class="btn btn-primary" id="playlist-button">Click me to get a random playlist!</button>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="container p-7">
+                <h2 class="text-center">BOOKS TO READ DURING CORONAVIRUS</h2>
+                <form id="book-form">
+                    <div class="form-group">
+                        <label for="book-name">Search for Books</label>
+                        <input type="text" class="form-control" id="book-name">
+                    </div>
+                </form>
+                <button type="button" class="btn btn-primary" id="book-button">Search</button>
+                <table class="table table-striped table-dark">
+                    <thead class="thead"></thead>
+                    <tbody>
+                        <tr>
+                            <th>Cover</th>
+                            <th>Avg. Rating</th>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td><img id="cover1" alt="missing" src="" class="mx-auto d-block" width="55" height="75"></td>
+                            <td id="rating1"></td>
+                            <td>
+                                <a href="" id="title1">
+
+                                </a>
+                            </td>
+                            <td id="author1"></td>
+                        </tr>
+                        <tr>
+                            <td><img id="cover2" alt="missing" src="" class="mx-auto d-block" width="55" height="75"></td>
+                            <td id="rating2"></td>
+                            <td>
+                                <a href="" id="title2">
+
+                                </a>
+                            </td>
+                            <td id="author2"></td>
+                        </tr>
+                        <tr>
+                            <td><img id="cover3" alt="missing" src="" class="mx-auto d-block" width="55" height="75"></td>
+                            <td id="rating3"></td>
+                            <td>
+                                <a href="" id="title3">
+
+                                </a>
+                            </td>
+                            <td id="author3"></td>
+                        </tr>
+                        <tr>
+                            <td><img id="cover4" alt="missing" src="" class="mx-auto d-block" width="55" height="75"></td>
+                            <td id="rating4"></td>
+                            <td>
+                                <a href="" id="title4">
+
+                                </a>
+                            </td>
+                            <td id="author4"></td>
+                        </tr>
+                        <tr>
+                            <td><img id="cover5" alt="missing" src="" class="mx-auto d-block" width="55" height="75"></td>
+                            <td id="rating5"></td>
+                            <td>
+                                <a href="" id="title5">
+
+                                </a>
+                            </td>
+                            <td id="author5"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
             <div class="container p-4 border">
                 <div class="text-center">
 
@@ -213,169 +359,11 @@
                             </blockquote>                        </div>
                         <div class="col"></div>
                     </div>
-
-
                 </div>
             </div>
         </div>
     </div>
     <div class="row"></div>
 </div>
-
-<script>
-    $(document).ready(function(){
-        var final_data = undefined;
-        $.get("/vendor/nearest",
-            {
-            },
-            function (response, data) {
-                final_data = response.data;
-                if(final_data.NewConfirmed !== undefined) {
-                    var vendor = response.data.vendor.name;
-                    var distance = response.data.distance;
-                    var latitude = response.data.vendor.location.latitude;
-                    var longitude = response.data.vendor.location.longitude;
-                    document.getElementById("vendorName").innerText = vendor, "is", distance, "m away from you.";
-                    document.getElementById("vendorLink").setAttribute("href", "http://maps.google.com?q="+latitude+","+longitude);
-                }
-            })
-    })
-
-</script>
-
-<script>
-    $(document).ready(function(){
-        var final_data = undefined;
-        $.get("/covid19",
-            {
-            },
-            function (response, data) {
-                // response has the attribute 'data', which is the object API returns.
-                // For other attributes, see backend/utils/response.js
-                final_data = response.data;
-                if(final_data.NewConfirmed !== undefined) {
-                    document.getElementById("newConfirmed").innerHTML = response.data.NewConfirmed;
-                    document.getElementById("totalConfirmed").innerHTML = response.data.TotalConfirmed;
-                    document.getElementById("newDeaths").innerHTML = response.data.NewDeaths;
-                    document.getElementById("totalDeaths").innerHTML = response.data.TotalDeaths;
-                    document.getElementById("newRecovered").innerHTML = response.data.NewRecovered;
-                    document.getElementById("totalRecovered").innerHTML = response.data.TotalRecovered;
-                    document.getElementById("activeCases").innerHTML = response.data.ActiveCases;
-                    document.getElementById("lastUpdate").innerHTML = response.data.lastUpdate;
-                }
-            });
-    });
-</script>
-
-<script>
-    $(document).ready(function(){
-        var final_data = undefined;
-        $.get("/apod",
-            {
-            },
-            function (response, data) {
-                final_data = response.data;
-                if(final_data !== undefined){
-                    document.getElementById("apod").setAttribute("src", response.data.apodURL);
-                    document.getElementById("apodTitle").innerText = response.data.apodTitle;
-                }
-            })
-    })
-</script>
-
-<script>
-    $(document).ready(function(){
-        var final_data = undefined;
-        $.get("/quote",
-            {
-            },
-            function (response, data) {
-                final_data = response.data;
-                if(final_data !== undefined){
-                    document.getElementById("quote").innerText = response.data.quote;
-                    document.getElementById("author").innerText = response.data.author;
-                }
-            })
-    })
-</script>
-
-<script>
-    $(document).ready(function(){
-        var final_data = undefined;
-        $.get("/weather/daily",
-            {
-            },
-            function (response, data) {
-                document.getElementById("day1_desc").innerHTML = response.data.day1.desc;
-                document.getElementById("day1_icon").setAttribute("src", "http://openweathermap.org/img/wn/"+response.data.day1.icon+"@2x.png");
-                document.getElementById("day1_min").innerHTML = response.data.day1.minTemp;
-                document.getElementById("day1_max").innerHTML = response.data.day1.maxTemp;
-                document.getElementById("day2_desc").innerHTML = response.data.day2.desc;
-                document.getElementById("day2_icon").setAttribute("src", "http://openweathermap.org/img/wn/"+response.data.day2.icon+"@2x.png");
-                document.getElementById("day2_min").innerHTML = response.data.day2.minTemp;
-                document.getElementById("day2_max").innerHTML = response.data.day2.maxTemp;
-                document.getElementById("day3_desc").innerHTML = response.data.day3.desc;
-                document.getElementById("day3_icon").setAttribute("src", "http://openweathermap.org/img/wn/"+response.data.day3.icon+"@2x.png");
-                document.getElementById("day3_min").innerHTML = response.data.day3.minTemp;
-                document.getElementById("day3_max").innerHTML = response.data.day3.maxTemp;
-                document.getElementById("day4_desc").innerHTML = response.data.day4.desc;
-                document.getElementById("day4_icon").setAttribute("src", "http://openweathermap.org/img/wn/"+response.data.day4.icon+"@2x.png");
-                document.getElementById("day4_min").innerHTML = response.data.day4.minTemp;
-                document.getElementById("day4_max").innerHTML = response.data.day4.maxTemp;
-                document.getElementById("day5_desc").innerHTML = response.data.day5.desc;
-                document.getElementById("day5_icon").setAttribute("src", "http://openweathermap.org/img/wn/"+response.data.day5.icon+"@2x.png");
-                document.getElementById("day5_min").innerHTML = response.data.day5.minTemp;
-                document.getElementById("day5_max").innerHTML = response.data.day5.maxTemp;
-                document.getElementById("day6_desc").innerHTML = response.data.day6.desc;
-                document.getElementById("day6_icon").setAttribute("src", "http://openweathermap.org/img/wn/"+response.data.day6.icon+"@2x.png");
-                document.getElementById("day6_min").innerHTML = response.data.day6.minTemp;
-                document.getElementById("day6_max").innerHTML = response.data.day6.maxTemp;
-                document.getElementById("day7_desc").innerHTML = response.data.day7.desc;
-                document.getElementById("day7_icon").setAttribute("src", "http://openweathermap.org/img/wn/"+response.data.day7.icon+"@2x.png");
-                document.getElementById("day7_min").innerHTML = response.data.day7.minTemp;
-                document.getElementById("day7_max").innerHTML = response.data.day7.maxTemp;
-            }
-        );
-    });
-</script>
-  
-<script>
-    $(document).ready(function(){
-        var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-        var d = new Date();
-        var today = d.toString().slice(0,3);
-        var index = days.indexOf(today);
-        document.getElementById("day2").innerHTML = days[(index+1)%7];
-        document.getElementById("day3").innerHTML = days[(index+2)%7];
-        document.getElementById("day4").innerHTML = days[(index+3)%7];
-        document.getElementById("day5").innerHTML = days[(index+4)%7];
-        document.getElementById("day6").innerHTML = days[(index+5)%7];
-        document.getElementById("day7").innerHTML = days[(index+6)%7];
-    });
-</script>
-
-<script>
-    $(document).ready(function(){
-        $.get("/covid/news",
-            {
-            },
-            function (response, data) {
-                document.getElementById("news_title1").innerHTML = response.data.articles[0].title;
-                document.getElementById("news_desc1").innerHTML = response.data.articles[0].description;
-                document.getElementById("news_link1").setAttribute("href", response.data.articles[0].url);
-                document.getElementById("news_title2").innerHTML = response.data.articles[1].title;
-                document.getElementById("news_desc2").innerHTML = response.data.articles[1].description;
-                document.getElementById("news_link2").setAttribute("href", response.data.articles[1].url);
-                document.getElementById("news_title3").innerHTML = response.data.articles[2].title;
-                document.getElementById("news_desc3").innerHTML = response.data.articles[2].description;
-                document.getElementById("news_link3").setAttribute("href", response.data.articles[2].url);
-                document.getElementById("news_title4").innerHTML = response.data.articles[3].title;
-                document.getElementById("news_desc4").innerHTML = response.data.articles[3].description;
-                document.getElementById("news_link4").setAttribute("href", response.data.articles[3].url);
-            }
-        );
-    });
-</script>
-
 </body>
 </html>
