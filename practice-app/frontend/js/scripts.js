@@ -9,8 +9,17 @@ $(document).ready(function () {
         url: "/nearesthospitals",
         data: { lat, long, radius },
         success: function (response, data) {
-          console.log(response.data.count);
-          console.log(response.data.names);
+          if(response.data.count === 0){
+            alert("You shall press submit button wisely!");
+          }else{
+            var i = 1;
+            var final_text = "";
+            response.data.names.forEach(function (hospitalName) {
+            final_text += "Hospital " + i + ": " + hospitalName + "\n";
+            i++;
+          });         
+            document.getElementById("hospitalList").innerText = final_text;
+          }
         }
       });
     } else {
@@ -22,32 +31,6 @@ $(document).ready(function () {
     $("#hospitalForm").submit();
   });
 });
-
-function sendJSON() {
-  // Creating a XHR object
-  let xhr = new XMLHttpRequest();
-  let url = "/nearesthospitals";
-
-  // open a connection
-  xhr.open("GET", url, true);
-
-  // Set the request header i.e. which type of content you are sending
-  xhr.setRequestHeader("Content-Type", "application/json");
-
-  // Create a state change callback
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-      // Print received data from server
-      console.log(this.responseText);
-    }
-  };
-
-  // Converting JSON data to string
-  var data = JSON.stringify({ lat: 41.0862, long: 29.0444, radius: 1000 });
-
-  // Sending data with the request
-  xhr.send(data);
-}
 
 $(document).ready(function () {
   var final_data = undefined;
