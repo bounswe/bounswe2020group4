@@ -1,4 +1,21 @@
 $(document).ready(function () {
+  $("#useMyLocation").click(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(success, () =>
+        alert(
+          "Sorry, your browser does not support geolocation services. (Safari is not supported due to Apple's restrictions)"
+        )
+      );
+    } else {
+      alert(
+        "Sorry, your browser does not support geolocation services. (Safari is not supported due to Apple's restrictions)"
+      );
+    }
+    function success(position) {
+      document.getElementById("long").value = position.coords.longitude;
+      document.getElementById("lat").value = position.coords.latitude;
+    }
+  });
   $("#hospitalForm").submit(function (event) {
     var lat = parseFloat(document.getElementById("lat").value, 10);
     var long = parseFloat(document.getElementById("long").value, 10);
@@ -9,15 +26,15 @@ $(document).ready(function () {
         url: "/nearesthospitals",
         data: { lat, long, radius },
         success: function (response, data) {
-          if(response.data.count === 0){
+          if (response.data.count === 0) {
             alert("You shall press submit button wisely!");
-          }else{
+          } else {
             var i = 1;
             var final_text = "";
             response.data.names.forEach(function (hospitalName) {
-            final_text += "Hospital " + i + ": " + hospitalName + "\n";
-            i++;
-          });         
+              final_text += "Hospital " + i + ": " + hospitalName + "\n";
+              i++;
+            });
             document.getElementById("hospitalList").innerText = final_text;
           }
         }
