@@ -2,8 +2,7 @@ version: '3'
 services:
   app:
     container_name: swe-2020-g4-practice
-    restart: always
-    build: .
+    image: egirgin/swe-2020-g4-practice
     ports:
       - "8080:9876"
     links:
