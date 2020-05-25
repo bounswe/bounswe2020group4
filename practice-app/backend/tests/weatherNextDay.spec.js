@@ -19,9 +19,11 @@ describe('# Weather for Next Days', function () {
         chai.expect(response.body.data.day1.minTemp).to.be.a('number');
         chai.expect(response.body.data.day1.maxTemp).to.be.a('number');
         chai.expect(response.body.data.day1.desc).to.be.a('string');
+        chai.expect(response.body.data.day1.icon).to.be.a('string');
         chai.expect(response.body.data.day7).to.be.an('object');
         chai.expect(response.body.data.day7.minTemp).to.be.a('number');
         chai.expect(response.body.data.day7.maxTemp).to.be.a('number');
         chai.expect(response.body.data.day7.desc).to.be.a('string');
+        chai.expect(response.body.data.day7.icon).to.be.a('string');
     });
 });
