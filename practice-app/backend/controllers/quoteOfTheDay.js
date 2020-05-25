@@ -28,7 +28,7 @@ module.exports.getQuote = async function (request, response) {
             //Getting rid of the parantheses
             body = body.substring(2, body.length - 1)
             //Getting rid of the escape characters which cause parsing error
-            body = body.replace("\\", "")
+            body = body.replace(/\\/g, "")
             bodyJson = JSON.parse(body)
 
             // Set the response body.

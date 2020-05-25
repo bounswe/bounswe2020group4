@@ -52,7 +52,7 @@ module.exports.getCurrentWeathers = function (request, response) {
         ******
         */
         Request.send({ // Sends request to openweather api.
-            url: 'http://api.openweathermap.org/data/2.5/group?id=745042,323784,311044&units=metric&lang=tr&appid=' + process.env.OPENWEATHER_API_KEY,
+            url: 'http://api.openweathermap.org/data/2.5/group?id=745042,323784,311044&units=metric&appid=' + process.env.OPENWEATHER_API_KEY,
             method: 'GET',
             body: {}
         }, async function (err, res, body) {
@@ -65,7 +65,7 @@ module.exports.getCurrentWeathers = function (request, response) {
             body.list.forEach(function (weather) {
                 currentWeathers.push({
                     cityName: weather.name,
-                    currentTemp: weather.main.temp,
+                    currentTemp: Math.round(weather.main.temp),
                     description: weather.weather[0].description,
                     /*n
                     To get weather icon url 
