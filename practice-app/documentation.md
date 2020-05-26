@@ -127,4 +127,183 @@ Gets the list of nearest hospitals to a location. Accepts latitude and longitude
                               ]
                           }
                       }
-                      }`
+                 }`
+
+### Current Covid19 numbers
+
+Gets the lastest update on the numbers of Coronovirus cases in Turkey.
+
+**Endpoint:** `/covid19` \
+**Method:** `GET` \
+**Authorization:** None \
+**Parameters:** None
+
+**Response:** `{
+                  status: {
+                      success: true,
+                      code: 200
+                  },
+                  error: false,
+                  data: {
+                      NewConfirmed: 1114,
+                      TotalConfirmed: 139771,
+                      NewDeaths: 55,
+                      TotalDeaths: 3841,
+                      NewRecovered: 3089,
+                      TotalRecovered: 95780,
+                      ActiveCases: 40150,
+                      lastUpdate: "2020-05-12"
+              }`
+              
+### Covid19 News
+
+Returns up to ten news articles about COVID-19.
+
+**Endpoint:** `/covid/news` \
+**Method:** `GET` \
+**Authorization:** API key from .env file \
+**Parameters:** None
+
+**Response:** `{
+                  status: {
+                      success: true,
+                      code: 200
+                  },
+                  data: {
+                      articles: [
+                          {
+                          title: 'Headline for the first article',
+                          description: 'A short description of this article',
+                          url: 'https://www.example.org'
+                          },
+                          {  
+                          title: 'Headline for the second article',
+                          description: 'A short description of this article',
+                          url: 'https://www.example2.org'
+                          }, ...
+                       ]
+                    }        
+              }`
+              
+### Weather in Istanbul
+
+Returns the weather of Istanbul for the next 8 days.
+
+**Endpoint:** `/weather/daily` \
+**Method:** `GET` \
+**Authorization:** API key from .env file \
+**Parameters:** None
+
+**Response:** `{
+                  status: {
+                      success: true,
+                      code: 200
+                  },
+                  data: {
+                      day1: {
+                          minTemp: 18,
+                          maxTemp: 26,
+                          desc: 'broken clouds',
+                          icon: '04d'
+                      },
+                      day2: {
+                          minTemp: 17,
+                          maxTemp: 27,
+                          desc: 'broken clouds',
+                          icon: '04d'
+                      },
+                      day3: {
+                          minTemp: 19,
+                          maxTemp: 26,
+                          desc: 'overcast clouds',
+                          icon: '03d'
+                      },
+                      day4: {
+                          minTemp: 16,
+                          maxTemp: 20,
+                          desc: 'light rain',
+                          icon: '09d'
+                      },
+                      day5: {
+                          minTemp: 15,
+                          maxTemp: 19,
+                          desc: 'broken clouds',
+                          icon: '04d'
+                      },
+                      day6: {
+                          minTemp: 14,
+                          maxTemp: 18,
+                          desc: 'broken clouds',
+                          icon: '04d'
+                      },
+                      day7: {
+                          minTemp: 13,
+                          maxTemp: 18,
+                          desc: 'clear sky',
+                          icon: '01d'
+                      }
+                  }
+             }`
+             
+### Weather in 3 Important Cities
+
+Returns the current weather of some important cities.
+
+**Endpoint:** `/weather-important-cities` \
+**Method:** `GET` \
+**Authorization:** API key from .env file \
+**Parameters:** None
+
+**Response:** `{
+                  status: {
+                      success: true,
+                      code: 200
+                  },
+                  data: {
+                      currentWeathers: [
+                          {
+                              cityName: 'name of the City1',
+                              currentTemp: 'current temperature for given city',
+                              description: 'A short description of current weather',
+                              iconUrl: 'https://www.example.org'
+                          },
+                          {  
+                              cityName: 'name of the City2',
+                              currentTemp: 'current temperature for given city',
+                              description: 'A short description of current weather',
+                              iconUrl: 'https://www.example2.org'
+                          }, ... // max num = 20
+                       ]
+                    }        
+              }`
+              
+### Book Suggestions
+
+Makes a search api call to the Goodreads API with a book name given by the user, gets the first book's ID in the search results and all relevant info on the book using the ID. Returns a list of similar books from the query result.
+
+**Endpoint:** `/suggestBook` \
+**Method:** `GET` \
+**Authorization:** API key from .env file \
+**Parameters:** None
+
+### Astronomy Picture of the Day
+
+Gets NASA's Astronomy Picture of the Day.
+
+**Endpoint:** `/apod` \
+**Method:** `GET` \
+**Authorization:** API key from .env file \
+**Parameters:** None
+
+**Response:** ` {
+                    status: {
+                        success: true,
+                        code: 200
+                    },
+                    data: {
+                			apodURL: ""https://apod.nasa.gov/apod/image/1707/M63-HST-Subaru-S1024.jpg",
+                			apodTitle: "Messier 63: The Sunflower Galaxy"
+                   }
+                }`
+
+
