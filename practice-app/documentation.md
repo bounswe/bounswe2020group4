@@ -1,5 +1,8 @@
 # Base URL: 
 
+## What is this app and why you should try it
+With the COVID-19 pandemic around, there might be all kinds of information you wish you had. Whether you need to find the current numbers or the nearest hospitals, get suggestions for books and playlists or need some words for inspiration, this app has it all for you in just one place.
+
 ## How to run the app
 
 Once you are inside the practice-app folder, run the following commands in your terminal.
