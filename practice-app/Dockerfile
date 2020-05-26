@@ -7,6 +7,7 @@ WORKDIR .
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 # where available (npm@5+)
 COPY backend/package*.json ./
+COPY package*.json ./
 
 RUN npm install
 # If you are building your code for production
@@ -16,4 +17,4 @@ RUN npm install
 COPY . .
 
 EXPOSE 9876
-CMD [ "node", "backend/app.js" ]
+CMD [ "npm", "start" ]
