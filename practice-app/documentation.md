@@ -180,7 +180,7 @@ Returns up to ten news articles about COVID-19.
                           title: 'Headline for the second article',
                           description: 'A short description of this article',
                           url: 'https://www.example2.org'
-                          }, ...
+                          }, ... //the number of articles varies, max num = 10
                        ]
                     }        
               }`
@@ -245,7 +245,7 @@ Returns the weather of Istanbul for the next 8 days.
                   }
              }`
              
-### Weather in 3 Important Cities
+### Weather in Important Cities
 
 Returns the current weather of some important cities.
 
@@ -279,7 +279,7 @@ Returns the current weather of some important cities.
               
 ### Book Suggestions
 
-Makes a search api call to the Goodreads API with a book name given by the user, gets the first book's ID in the search results and all relevant info on the book using the ID. Returns a list of similar books from the query result.
+Makes a search api call to the Goodreads API with a book name given by the user, gets the first book's ID in the search results and gathers all relevant info on the book by using the ID. Returns a list of similar books from the query result.
 
 **Endpoint:** `/suggestBook` \
 **Method:** `GET` \
