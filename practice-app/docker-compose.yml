@@ -1,0 +1,14 @@
+version: '3'
+services:
+  app:
+    container_name: swe-2020-g4-practice
+    image: egirgin/swe-2020-g4-practice
+    ports:
+      - "8080:9876"
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - "27018:27017"

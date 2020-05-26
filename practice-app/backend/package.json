@@ -22,6 +22,7 @@
     "supertest": "4.0.2"
   },
   "scripts": {
+    "start": "node app.js",
     "test": "mocha ./tests/* --timeout 50000"
   },
   "author": "CMPE 352 Spring 2020 - Group 4",
