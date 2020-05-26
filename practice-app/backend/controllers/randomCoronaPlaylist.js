@@ -57,7 +57,7 @@ module.exports.getRandomCoronaPlaylist = async function (request, response) {
                         const responseBody = {
                             playlist_id: randomPlaylist.id,
                             name: randomPlaylist.name,
-                            description: randomPlaylist.description, // TODO: investigate further the issue with special characters being represented with hexcode inside the string. 
+                            description: randomPlaylist.description, 
                             owner: randomPlaylist.owner.display_name,
                         }
                         // respond to the front-end
