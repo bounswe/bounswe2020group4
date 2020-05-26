@@ -2,14 +2,10 @@ $(document).ready(function () {
   $("#useMyLocation").click(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(success, () =>
-        alert(
-          "Sorry, your browser does not support geolocation services. (Safari is not supported due to Apple's restrictions)"
-        )
+        alert("Sorry, we can't use location services since we do not have a SSL certificate")
       );
     } else {
-      alert(
-        "Sorry, your browser does not support geolocation services. (Safari is not supported due to Apple's restrictions)"
-      );
+      alert("Sorry, we can't use location services since we do not have a SSL certificate");
     }
     function success(position) {
       document.getElementById("long").value = position.coords.longitude;
