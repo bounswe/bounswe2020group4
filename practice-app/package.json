@@ -1,5 +1,5 @@
 {
-  "name": "practice-app-backend",
+  "name": "practice-app",
   "scripts": {
     "start": "node ./backend/app.js",
     "test": "mocha ./backend/tests/* --timeout 50000"
