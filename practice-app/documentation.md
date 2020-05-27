@@ -1,15 +1,12 @@
-# Base URL: 
+# Base URL:  http://localhost:8080/
+# Base URL on Amazon server: http://bounswe2020group4.eu-west-1.elasticbeanstalk.com
 
 ## What is this app and why you should try it
 With the COVID-19 pandemic around, there might be all kinds of information you wish you had. Whether you need to find the current numbers or the nearest hospitals, get suggestions for books and playlists or need some words for inspiration, this app has it all for you in just one place.
 
 ## How to run the app
 
-Once you are inside the practice-app folder, run the following commands in your terminal.
-
-`cd backend` \
-`npm install` \
-`node app` 
+Once you are inside the practice-app folder, install docker and run `commands.sh`.
 
 Web app is available on the base URL, you will see a website that shows the responses from our 11 endpoints.
 
