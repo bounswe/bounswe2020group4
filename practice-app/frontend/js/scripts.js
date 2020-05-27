@@ -1,20 +1,18 @@
 $(document).ready(function () {
-  $("#useMyLocation").click(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(success, () =>
-        alert(
-          "Sorry, your browser does not support geolocation services. (Safari is not supported due to Apple's restrictions)"
-        )
-      );
-    } else {
-      alert(
-        "Sorry, your browser does not support geolocation services. (Safari is not supported due to Apple's restrictions)"
-      );
-    }
-    function success(position) {
-      document.getElementById("long").value = position.coords.longitude;
-      document.getElementById("lat").value = position.coords.latitude;
-    }
+  $("#useBounLocation").click(() => {
+    // if (navigator.geolocation) {
+    //   navigator.geolocation.getCurrentPosition(success, () =>
+    //     alert("Sorry, we can't use location services since we do not have a SSL certificate")
+    //   );
+    // } else {
+    //   alert("Sorry, we can't use location services since we do not have a SSL certificate");
+    // }
+    // function success(position) {
+    //   document.getElementById("long").value = position.coords.longitude;
+    //   document.getElementById("lat").value = position.coords.latitude;
+    // }
+    document.getElementById("long").value = 29.0444;
+    document.getElementById("lat").value = 41.0862;
   });
   $("#hospitalForm").submit(function (event) {
     var lat = parseFloat(document.getElementById("lat").value, 10);
