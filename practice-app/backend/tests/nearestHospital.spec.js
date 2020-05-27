@@ -17,7 +17,7 @@ describe("# Nearest Hospital Names", function () {
     chai.expect(response.body.data.count).to.be.an("number");
   });
   it("should return a list of nearest hospitals to Bogazici Uni", async function () {
-    const response = await request(app).get("/nearesthospitals").send({
+    const response = await request(app).get("/nearesthospitals").query({
       lat: 41.0862,
       long: 29.0444,
       radius: 2000
@@ -38,7 +38,7 @@ describe("# Nearest Hospital Names", function () {
     }
   });
   it("should return a list of nearest hospitals to Besiktas", async function () {
-    const response = await request(app).get("/nearesthospitals").send({
+    const response = await request(app).get("/nearesthospitals").query({
       lat: 41.0422,
       long: 29.0067,
       radius: 2000
