@@ -10,10 +10,11 @@ import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.base.fragment_ops.FragmentTransactionContainer
 import com.cmpe352group4.buyo.base.fragment_ops.INavigationManager
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
+import com.cmpe352group4.buyo.dependencyinjection.Injectable
 import java.util.*
 import kotlin.concurrent.schedule
 
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment : Injectable,Fragment() {
 
     protected var navigationManager: INavigationManager? = null
     // It will be added later if we need
