@@ -1,0 +1,149 @@
+
+/**
+ * Shared file between builds so that they can all use the same dependencies and
+ * maven repositories.
+ **/
+
+
+ext.deps = [:]
+def versions = [:]
+versions.android_gradle_plugin = '3.6.1'
+versions.appcompat = "1.1.0"
+versions.constraint_layout = "2.0.0-alpha2"
+versions.core_ktx = "1.0.0"
+versions.dagger = "2.20"
+versions.glide = "4.10.0"
+versions.junit = "4.12"
+versions.kotlin = "1.3.41"
+versions.lifecycle = "2.2.0-alpha03"
+versions.fragment_ktx = "2.2.0-alpha01"
+versions.okhttp_logging_interceptor = "3.10.0"
+versions.retrofit = "2.6.1"
+versions.rx_android = "2.1.1"
+versions.extensions = "2.1.0"
+versions.rxjava2 = "2.2.13"
+versions.support = "1.0.0"
+versions.material = "1.1.0-beta01"
+versions.timber = "4.7.1"
+versions.google_service = "4.3.3"
+versions.fireStore = "21.3.0"
+versions.analytics = "17.5.0"
+versions.remoteConfig = "19.1.1"
+versions.circle_image_view = "4.2.0"
+versions.sticky_headers = "0.7.11"
+versions.rx_binding = "2.0.0"
+versions.paging_version = "2.1.1"
+versions.legacy = "1.0.0"
+versions.crashlytics = "2.10.1"
+versions.socketIO = "1.0.0"
+versions.branch_io = "4.+"
+versions.app_index = "19.0.0"
+versions.services_ads = "16+"
+versions.messaging = "20.2.4"
+versions.tag_manager="17.0.0"
+ext.versions = versions
+
+
+def support = [:]
+support.annotations = "androidx.annotation:annotation:$versions.support"
+support.app_compat = "androidx.appcompat:appcompat:$versions.appcompat"
+support.recyclerview = "androidx.recyclerview:recyclerview:$versions.support"
+support.cardview = "androidx.cardview:cardview:$versions.support"
+support.design = "com.google.android.material:material:$versions.material"
+support.core_utils = "androidx.legacy:legacy-support-core-utils:$versions.support"
+support.core_ktx = "androidx.core:core-ktx:$versions.core_ktx"
+support.fragment_ktx = "androidx.navigation:navigation-fragment-ktx:$versions.fragment_ktx"
+support.legacy = "androidx.legacy:legacy-support-v4:$versions.legacy"
+deps.support = support
+
+def lifecycle = [:]
+lifecycle.runtime = "androidx.lifecycle:lifecycle-runtime:$versions.lifecycle"
+lifecycle.java8 = "androidx.lifecycle:lifecycle-common-java8:$versions.lifecycle"
+lifecycle.compiler = "androidx.lifecycle:lifecycle-compiler:$versions.lifecycle"
+lifecycle.viewmodel_ktx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
+lifecycle.livedata_ktx = "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycle"
+lifecycle.extensions = "androidx.lifecycle:lifecycle-extensions:$versions.extensions"
+deps.lifecycle = lifecycle
+
+def retrofit = [:]
+retrofit.runtime = "com.squareup.retrofit2:retrofit:$versions.retrofit"
+retrofit.gson = "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+deps.retrofit = retrofit
+deps.okhttp_logging_interceptor = "com.squareup.okhttp3:logging-interceptor:${versions.okhttp_logging_interceptor}"
+
+def dagger = [:]
+dagger.runtime = "com.google.dagger:dagger:$versions.dagger"
+dagger.android = "com.google.dagger:dagger-android:$versions.dagger"
+dagger.android_support = "com.google.dagger:dagger-android-support:$versions.dagger"
+dagger.compiler = "com.google.dagger:dagger-compiler:$versions.dagger"
+dagger.android_support_compiler = "com.google.dagger:dagger-android-processor:$versions.dagger"
+deps.dagger = dagger
+
+
+def kotlin = [:]
+kotlin.stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
+kotlin.test = "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlin"
+kotlin.plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+
+deps.kotlin = kotlin
+
+def paging_library = [:]
+paging_library.library = "androidx.paging:paging-runtime:$versions.paging_version"
+deps.paging_library = paging_library
+
+def glide = [:]
+glide.runtime = "com.github.bumptech.glide:glide:$versions.glide"
+glide.compiler = "com.github.bumptech.glide:compiler:$versions.glide"
+deps.glide = glide
+deps.constraint_layout = "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
+deps.timber = "com.jakewharton.timber:timber:$versions.timber"
+deps.junit = "junit:junit:$versions.junit"
+deps.rxjava2 = "io.reactivex.rxjava2:rxjava:$versions.rxjava2"
+deps.rx_android = "io.reactivex.rxjava2:rxandroid:$versions.rx_android"
+deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
+
+def fireBase = [:]
+fireBase.google_services = "com.google.gms:google-services:$versions.google_service"
+fireBase.analytics = "com.google.firebase:firebase-analytics:$versions.analytics"
+fireBase.core = "com.google.firebase:firebase-core:$versions.analytics"
+fireBase.fireStore = "com.google.firebase:firebase-firestore:$versions.fireStore"
+fireBase.crashlytics = "com.crashlytics.sdk.android:crashlytics:$versions.crashlytics"
+fireBase.fabric = 'io.fabric.tools:gradle:1.31.2'
+fireBase.remoteConfig = "com.google.firebase:firebase-config:$versions.remoteConfig"
+fireBase.app_index = "com.google.firebase:firebase-appindexing:$versions.app_index"
+fireBase.services_ads = "com.google.android.gms:play-services-ads:$versions.services_ads"
+fireBase.messaging = "com.google.firebase:firebase-messaging:$versions.messaging"
+fireBase.tag_manager ="com.google.android.gms:play-services-tagmanager:$versions.tag_manager"
+deps.fireBase = fireBase
+
+def other = [:]
+other.circle_image_view = "com.mikhaellopez:circularimageview:$versions.circle_image_view"
+other.sticky_headers = "org.zakariya.stickyheaders:stickyheaders:$versions.sticky_headers"
+other.socketIO = "io.socket:socket.io-client:$versions.socketIO"
+other.branch_io = "io.branch.sdk.android:library:$versions.branch_io"
+deps.other = other
+
+def rx = [:]
+rx.binding_kotlin = "com.jakewharton.rxbinding2:rxbinding-kotlin:$versions.rx_binding"
+deps.rx = rx
+
+ext.deps = deps
+
+def build_versions = [:]
+build_versions.min_sdk = 19
+build_versions.target_sdk = 29
+build_versions.build_tools = "30.0.0"
+ext.build_versions = build_versions
+
+
+def addRepos(RepositoryHandler handler) {
+    handler.google()
+    handler.jcenter()
+    handler.maven { url 'https://oss.sonatype.org/content/repositories/snapshots'
+        url 'https://maven.fabric.io/public'
+    }
+}
+ext.addRepos = this.&addRepos
+
+
+
