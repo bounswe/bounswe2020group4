@@ -67,11 +67,11 @@ class NavigationBarItem : LinearLayout,
     }
 
 
-    override fun setIcon(vararg icons: Drawable?) {
-        unselectedIcon = icons[0]
-        selectedIcon = icons[1]
-        icon.setImageDrawable(icons[0])
-    }
+//    override fun setIcon(vararg icons: Drawable?) {
+//        unselectedIcon = icons[0]
+//        selectedIcon = icons[1]
+//        icon.setImageDrawable(icons[0])
+//    }
 
     override fun setTitle(title: String) {
         this.title.text = title
@@ -86,7 +86,7 @@ class NavigationBarItem : LinearLayout,
     }
 
     private fun initFields() {
-        icon = findViewById(R.id.icon)
+        //icon = findViewById(R.id.icon)
         title = findViewById(R.id.title)
     }
 }

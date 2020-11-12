@@ -10,7 +10,7 @@ interface INavigationBarItem {
 
     fun setUnselected()
 
-    fun setIcon(vararg icons: Drawable?)
+   // fun setIcon(vararg icons: Drawable?)
 
     fun setTitle(title: String)
 

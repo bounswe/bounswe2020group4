@@ -5,8 +5,7 @@ import android.content.Context
 import dagger.Binds
 import dagger.Module
 
-// ViewModelModule::class it will be added to includes in @Module afte creating viewmodel and its module
-@Module(includes = [])
+@Module(includes = [ViewModelModule::class])
 abstract class AppModule {
 
     @Binds

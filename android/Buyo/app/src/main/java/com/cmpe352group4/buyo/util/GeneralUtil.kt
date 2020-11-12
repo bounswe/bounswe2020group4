@@ -5,6 +5,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import com.cmpe352group4.buyo.R
 
 class GeneralUtil {
     companion object{
@@ -40,6 +41,31 @@ class GeneralUtil {
             }
 
             return result
+        }
+
+        fun dialogWithOneOptions(
+            context: Context,
+            title: String,
+            content: String,
+            positiveText: String,
+            negativeText: String,
+            runnable: Runnable,
+            cancelable: Boolean = true
+        ) {
+            val dialog = AlertDialog.Builder(context)
+//            dialog.setTitle(title)
+            dialog.setCancelable(cancelable)
+            dialog.setMessage(content)
+            dialog.setPositiveButton(
+                positiveText
+            ) { p0, _ ->
+                runnable.run()
+                p0.dismiss()
+            }
+            dialog.setNegativeButton(negativeText) { p0, _ ->
+                p0.dismiss()
+            }
+            dialog.show()
         }
 
     }

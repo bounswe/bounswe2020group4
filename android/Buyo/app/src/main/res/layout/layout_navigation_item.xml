@@ -10,15 +10,18 @@
 <!--    android:background="@color/bg_navigation_icon_color"-->
 
 
-    <ImageView
-        android:id="@+id/icon"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        tools:ignore="ContentDescription" />
-<!--    tools:src="@drawable/ic_nav_item_category_selected"-->
+<!--    <ImageView-->
+<!--        android:id="@+id/icon"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="25dp"-->
+<!--        tools:ignore="ContentDescription"-->
+<!--        tools:src="@drawable/ic_nav_item_category_selected"-->
+<!--        />-->
 
     <TextView
         android:id="@+id/title"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:textAlignment="center"
         tools:text="@string/navigation_category"/>
 </merge>
