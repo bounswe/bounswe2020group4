@@ -3,6 +3,7 @@ package com.cmpe352group4.buyo.dependencyinjection
 import com.cmpe352group4.buyo.ui.EmptyFragment
 import com.cmpe352group4.buyo.ui.ExampleFragment
 import com.cmpe352group4.buyo.ui.navigationtabs.*
+import com.cmpe352group4.buyo.ui.productDetail.ProductDetailCommentsFragment
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContainerFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -37,6 +38,9 @@ abstract class FragmentsBuilderModule {
 
     @ContributesAndroidInjector
     abstract  fun contributeProductDetailContainerFragment(): ProductDetailContainerFragment
+
+    @ContributesAndroidInjector
+    abstract  fun contributeProductDetailCommentsFragment(): ProductDetailCommentsFragment
 
 
 }
