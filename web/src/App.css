@@ -3,6 +3,7 @@ body {
     --red-secondary: rgb(194, 27, 27);
     --beige: rgb(255, 236, 224);
     --white: white;
+    --surface: #FAFAFA;
 }
 
 body * {
@@ -14,11 +15,15 @@ body * {
     left: 0;
     top: 0;
     width: 100vw;
-    padding: 50px;
+    padding: 160px 50px 50px 50px;
 }
 
 .vertical-align-middle {
     position: relative;
     top: 50%;
     transform: translateY(-50%);
+}
+
+input:focus {
+    outline: none;
 }

@@ -4,6 +4,7 @@ import Icon from '../images/buyo-icon.png'
 import ProfileIcon from '../images/profile-icon.png'
 import CartIcon from '../images/cart-icon.png'
 import WishlistIcon from '../images/wishlist-icon.png'
+import SearchIcon from '../images/search-icon.png'
 
 //Styling
 import './Header.css'
@@ -16,6 +17,7 @@ const Header = () => {
             </div>
             <div className='searchbar-container'>
                 <input className='searchbar vertical-align-middle' type='text' placeholder='Search'/>
+                <img className='searchbar-icon vertical-align-middle' src={SearchIcon} alt='search'/>
             </div>
             <div className='header-right-container'>
                 <div className='header-right-icon-container'>
