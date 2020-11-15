@@ -1,0 +1,32 @@
+.header-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    width: 100%;
+    padding: 30px;
+    background-color: var(--beige);
+    justify-content: space-between;
+}
+
+.header-icon-container {
+    width: 200px;
+}
+
+.header-icon {
+    width: 100%;
+}
+
+
+.header-right-container {
+    display: flex;
+}
+
+.header-right-icon-container {
+    width: 20px;
+}
+
+.header-right-icon {
+    width: 100%;
+}

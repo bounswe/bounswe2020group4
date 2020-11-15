@@ -4,6 +4,9 @@ import history from './util/history';
 
 import Header from './components/Header';
 
+//Styling
+import './App.css'
+
 
 const App = () => {
     return (
