@@ -45,6 +45,6 @@
 }
 
 .searchbar-icon {
-    position: absolute;
+    position: absolute !important;
     right: 13px;
 }

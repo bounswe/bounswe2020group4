@@ -17,7 +17,7 @@ const Header = () => {
             </div>
             <div className='searchbar-container'>
                 <input className='searchbar vertical-align-middle' type='text' placeholder='Search'/>
-                <img className='searchbar-icon vertical-align-middle' src={SearchIcon} alt='search'/>
+                <img className='vertical-align-middle searchbar-icon' src={SearchIcon} alt='search'/>
             </div>
             <div className='header-right-container'>
                 <div className='header-right-icon-container'>
