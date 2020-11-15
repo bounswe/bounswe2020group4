@@ -4,7 +4,7 @@ import com.cmpe352group4.buyo.ui.EmptyFragment
 import com.cmpe352group4.buyo.ui.ExampleFragment
 import com.cmpe352group4.buyo.ui.navigationtabs.*
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailCommentsFragment
-import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContainerFragment
+import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -37,7 +37,7 @@ abstract class FragmentsBuilderModule {
     abstract fun contributeProfileTabContainer(): ProfileTabContainer
 
     @ContributesAndroidInjector
-    abstract  fun contributeProductDetailContainerFragment(): ProductDetailContainerFragment
+    abstract  fun contributeProductDetailContentFragment(): ProductDetailContentFragment
 
     @ContributesAndroidInjector
     abstract  fun contributeProductDetailCommentsFragment(): ProductDetailCommentsFragment
