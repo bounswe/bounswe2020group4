@@ -20,7 +20,7 @@ const ProductInfo = () => {
       <h3 className='product-brand'>Xiaomi</h3>
       <RatingStar rating={4.6} />
       <div className='product-price'>209.99&#8378;</div>
-      <div >
+      <div>
         <div className='shipping-container'>
           <img src={FreeShippingImage} alt='free shipping'/>
         </div>          
