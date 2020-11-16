@@ -1,11 +1,18 @@
+.product-details {
+  display: table;
+  width: 100%;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
 .product-left-column {
-  position: absolute;
-  left: 10%;
-  width: 35%;
+  position: relative;
+  float: left;
 }
 
 .product-right-column {
-  position: absolute;
-  right: 20%;
-  width: 35%;
+  position: relative;
+  float: left;
+  width: 40%;
+  margin-left: 5%;
 }

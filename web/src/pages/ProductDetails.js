@@ -8,7 +8,7 @@ import './ProductDetails.css'
 
 const ProductDetails = ({ img }) => {
   return(
-    <div>
+    <div className='product-details'>
       <div className='product-left-column'>
         <img src={img || DefaultProductImage} alt='product'/>
       </div>

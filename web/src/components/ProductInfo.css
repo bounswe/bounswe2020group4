@@ -1,5 +1,7 @@
 .product-info-container {
   background-color: #fffaef;
+  padding-left: 3%;
+  padding-right: 5%;
 }
 
 .product-brand {
@@ -7,7 +9,6 @@
   text-align: left;
   margin-top: 0;
 }
-
 
 .product-name {  
   margin-top: 1%;
@@ -17,6 +18,26 @@
 
 .wishlist-button-container {
   position: absolute;
-  top: 10%;
-  right: 0;
+  top: 5%;
+  right: 1%;
+}
+
+.product-price {
+  font-size: 24px;
+  color: #a90011;
+  margin-top: 5%;
+  position: relative;
+}
+
+.company-detail-container {
+  position: absolute;
+  bottom: 2%;
+  right: 2%;
+}
+
+.shipping-container {
+  position: relative;
+  margin-top: 5%;
+  left: 1%;
+  bottom: 0%;
 }
