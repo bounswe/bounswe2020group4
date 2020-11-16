@@ -5,10 +5,11 @@
 }
 
 .comments-container {
-  background-color: #fffaef;
+  background-color: var(--beige);
   width: 80%;
   padding-left: 1%;
   padding-right: 1%;
+  margin-top: 2%;
 }
 
 h2 {

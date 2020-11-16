@@ -14,7 +14,6 @@ const StyledRating = withStyles({
 })(Rating);
 
 const RatingStar = ({ rating }) => {
-  console.log(rating)
   return(
     <div className='rating-container'>
       <StyledRating className='rating-star'

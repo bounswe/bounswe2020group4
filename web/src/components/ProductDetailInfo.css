@@ -1,3 +1,4 @@
 .product-detail-container {
-  background-color: #fffaef;
+  background-color: var(--beige);
+  margin-top: 2%;
 }

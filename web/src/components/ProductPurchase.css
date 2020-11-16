@@ -1,5 +1,5 @@
 .product-purchase-container {
-  background-color: #fffaef;
+  background-color: var(--beige);
   width: 100%;
   display: flex;
   align-items: center;
@@ -23,7 +23,7 @@
   font-size: 24px;
   width: 50%;
   padding: 3% 0 3%;
-  background-color: #fbebd8;
+  background-color: var(--surface);
   border-radius: 10px;
 }
 
@@ -46,8 +46,9 @@ button {
   text-align: center;
   padding: 0px;
   font-size: 24px;
-  background-color: #fbebd8;
+  background-color: var(--surface);
   border: none;
   border-radius: 10px;
   color: #ec4a3b;
+  margin-bottom: 2%;
 }
