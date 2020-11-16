@@ -1,12 +1,14 @@
 import React from 'react'
 
+import DefaultProductImage from '../images/default-product-image.png'
+
 import './ProductDetails.css'
 
-const ProductDetails = () => {
+const ProductDetails = ({ img }) => {
   return(
     <div>
       <div className='product-left-column'>
-        Test
+        <img src={img || DefaultProductImage} alt='product'/>
       </div>
       <div className='product-right-column'>
         Test
