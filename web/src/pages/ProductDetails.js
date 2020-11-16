@@ -1,6 +1,6 @@
 import React from 'react'
 
-import DefaultProductImage from '../images/default-product-image.png'
+import DefaultProductImage from '../images/default-product-detail-image.png'
 import ProductInfo from '../components/ProductInfo'
 import ProductPurchase from '../components/ProductPurchase'
 import Comments from '../components/Comments'
