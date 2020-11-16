@@ -11,7 +11,7 @@ const App = () => {
             <Router history={history}>
                 <div>
                     <Header />
-                    <ProductDetails />
+                    <Route path="/product/:id" exact component={ProductDetails}/>
                 </div>
             </Router>
         </div>

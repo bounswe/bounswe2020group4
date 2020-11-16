@@ -20,3 +20,8 @@
   width: 40%;
   margin-left: 5%;
 }
+
+.product-left-column img {
+  width: 100%;
+  height: auto;
+}

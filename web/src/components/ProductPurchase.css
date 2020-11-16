@@ -1,19 +1,19 @@
 .product-purchase-container {
   background-color: #fffaef;
   width: 100%;
-  display: table;
+  display: flex;
+  align-items: center;
 }
 
 .product-amount-container {
   display: flex;
   align-items: center;
-  float:left;
   width: 50%;
+  margin-left: 2%;
 }
 
 .product-add-to-cart-container {
   text-align: center;
-  float: left;
   width: 50%;
 }
 

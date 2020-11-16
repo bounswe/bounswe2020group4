@@ -1,7 +1,8 @@
 .product-info-container {
   background-color: #fffaef;
-  padding-left: 3%;
+  padding-left: 1%;
   padding-right: 5%;
+  position: relative;
 }
 
 .product-brand {
@@ -40,5 +41,4 @@
   margin-top: 5%;
   left: 1%;
   bottom: 0%;
-  float:left;
 }

@@ -4,6 +4,7 @@ import DefaultProductImage from '../images/default-product-image.png'
 import ProductInfo from '../components/ProductInfo'
 import ProductPurchase from '../components/ProductPurchase'
 import Comments from '../components/Comments'
+import ProductDetailInfo from '../components/ProductDetailInfo'
 
 import './ProductDetails.css'
 
@@ -18,6 +19,7 @@ const ProductDetails = ({ img }) => {
         </div>
         <div className='product-right-column'>
           <ProductInfo />        
+          <ProductDetailInfo />
         </div>
       </div>
       <Comments />
