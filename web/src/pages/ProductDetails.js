@@ -1,8 +1,10 @@
 import React from 'react'
 
 import DefaultProductImage from '../images/default-product-image.png'
+import ProductInfo from '../components/ProductInfo'
 
 import './ProductDetails.css'
+
 
 const ProductDetails = ({ img }) => {
   return(
@@ -11,7 +13,7 @@ const ProductDetails = ({ img }) => {
         <img src={img || DefaultProductImage} alt='product'/>
       </div>
       <div className='product-right-column'>
-        Test
+        <ProductInfo />        
       </div>
     </div>
   )

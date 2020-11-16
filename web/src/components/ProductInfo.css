@@ -1,0 +1,22 @@
+.product-info-container {
+  background-color: #fffaef;
+}
+
+.product-brand {
+  font-size: 18px;
+  text-align: left;
+  margin-top: 0;
+}
+
+
+.product-name {  
+  margin-top: 1%;
+  margin-bottom: 0;
+  font-size: 24px;
+}
+
+.wishlist-button-container {
+  position: absolute;
+  top: 10%;
+  right: 0;
+}
