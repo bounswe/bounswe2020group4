@@ -14,6 +14,8 @@ import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.ui.EmptyFragment
 import kotlinx.android.synthetic.main.fragment_product_list.*
 import kotlinx.android.synthetic.main.item_product_list_recycler_view.*
+import java.time.*
+import java.util.*
 
 
 class ProductList : BaseFragment(){
@@ -38,12 +40,12 @@ class ProductList : BaseFragment(){
         var dummyComment = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tempus sem tortor, id efficitur nisi feugiat eget. In ac odio sed nisl dapibus consequat. Praesent eu nulla at ipsum elementum varius et suscipit metus."
 
         var productsList = mutableListOf(
-            Product(productImage = "drawable/ic_launcher_background.xml", productInfo = dummyComment, productName = "MyItemName6"),
-            Product(productImage = "drawable/ic_launcher_background.xml", productInfo = dummyComment, productName = "MyItemName5"),
-            Product(productImage = "drawable/ic_launcher_background.xml", productInfo = dummyComment, productName = "MyItemName4"),
-            Product(productImage = "drawable/ic_launcher_background.xml", productInfo = dummyComment, productName = "MyItemName3"),
-            Product(productImage = "drawable/ic_launcher_background.xml", productInfo = dummyComment, productName = "MyItemName2"),
-            Product(productImage = "drawable/ic_launcher_background.xml", productInfo = dummyComment, productName = "MyItemName1")
+            Product(productImage = "drawable/ic_launcher_background.xml", productInfo = dummyComment, productName = "MyItemName6", productID = 0, productNumComments = 0, productRate = 1.1, productPrice = 0.0, productReleaseDate = "01.01.2020"),
+            Product(productImage = "drawable/ic_launcher_background.xml", productInfo = dummyComment, productName = "MyItemName5", productID = 0, productNumComments = 0, productRate = 1.1, productPrice = 0.0, productReleaseDate = "01.01.2020" ),
+            Product(productImage = "drawable/ic_launcher_background.xml", productInfo = dummyComment, productName = "MyItemName4", productID = 0, productNumComments = 0, productRate = 1.1, productPrice = 0.0, productReleaseDate = "01.01.2020" ),
+            Product(productImage = "drawable/ic_launcher_background.xml", productInfo = dummyComment, productName = "MyItemName3", productID = 0, productNumComments = 0, productRate = 1.1, productPrice = 0.0, productReleaseDate = "01.01.2020" ),
+            Product(productImage = "drawable/ic_launcher_background.xml", productInfo = dummyComment, productName = "MyItemName2", productID = 0, productNumComments = 0, productRate = 1.1, productPrice = 0.0, productReleaseDate = "01.01.2020" ),
+            Product(productImage = "drawable/ic_launcher_background.xml", productInfo = dummyComment, productName = "MyItemName1", productID = 0, productNumComments = 0, productRate = 1.1, productPrice = 0.0, productReleaseDate = "01.01.2020")
         )
 
         val productListAdapter by lazy {
