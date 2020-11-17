@@ -1,4 +1,5 @@
 const Product = require("../models/product").Product;
+const Vendor = require("../models/vendor").Vendor;
 
 /**
  * Get the user location from googleapi and vendor objects from the db.
@@ -31,6 +32,7 @@ module.exports.getProductCategories = async () => {
       },
     ]);
     let categories = {};
+
     rawResult[0].distinctCategories.forEach((distinctCategory) => {
       let temp = categories;
       distinctCategory.forEach((category) => {
@@ -56,6 +58,24 @@ module.exports.getProducts = async (params) => {
     } else if (params.search) {
       products = await Product.find({ name: { $regex: params.search, $options: "i" } });
     }
+
+    products = await Promise.all(
+      products.map(async (product) => {
+        product = product.toJSON();
+
+        const vendor = await Vendor.findOne({ id: product.vendorId });
+
+        product.vendor = {
+          name: vendor.name,
+          rating: vendor.rating,
+        };
+
+        delete product._id;
+        delete product.vendorId;
+
+        return product;
+      })
+    );
 
     return products;
   } catch (error) {
