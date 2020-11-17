@@ -1,0 +1,44 @@
+.product-info-container {
+  background-color: var(--beige);
+  padding-left: 1%;
+  padding-right: 5%;
+  position: relative;
+}
+
+.product-brand {
+  font-size: 18px;
+  text-align: left;
+  margin-top: 0;
+}
+
+.product-name {  
+  margin-top: 1%;
+  margin-bottom: 0;
+  font-size: 24px;
+}
+
+.wishlist-button-container {
+  position: absolute;
+  top: 5%;
+  right: 1%;
+}
+
+.product-price {
+  font-size: 24px;
+  color: #a90011;
+  margin-top: 5%;
+  position: relative;
+}
+
+.company-detail-container {
+  position: absolute;
+  bottom: 2%;
+  right: 2%;
+}
+
+.shipping-container {
+  position: relative;
+  margin-top: 5%;
+  left: 1%;
+  bottom: 0%;
+}

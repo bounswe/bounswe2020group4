@@ -1,0 +1,27 @@
+.product-details {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.product-container {
+  display: table;
+  width: 100%;
+}
+
+.product-left-column {
+  position: relative;
+  float: left;
+  width: 35%;
+}
+
+.product-right-column {
+  position: relative;
+  float: left;
+  width: 40%;
+  margin-left: 5%;
+}
+
+.product-left-column img {
+  width: 100%;
+  height: auto;
+}

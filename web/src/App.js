@@ -6,6 +6,7 @@ import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 
 import Header from './components/Header';
+import ProductDetails from './pages/ProductDetails';
 import Homepage from './pages/Homepage'
 
 //Styling
@@ -21,6 +22,7 @@ const App = ({ showHeader }) => {
                     <Route path="/" exact component={Homepage}/>
                     <Route path="/signin" exact component={SignIn} />
                     <Route path="/signup" exact component={SignUp} />
+                    <Route path="/product/:id" exact component={ProductDetails}/>
                 </div>
             </Router>
         </div>
