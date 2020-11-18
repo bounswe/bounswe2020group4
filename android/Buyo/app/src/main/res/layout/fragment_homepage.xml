@@ -15,11 +15,11 @@
             android:id="@+id/searchBarSearchView"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:background="@color/buyo_antiqueWhite"
-            android:queryHint="@string/search_hint"
             android:iconifiedByDefault="false"
+            android:queryHint="@string/search_hint"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,13 +28,14 @@
             android:layout_width="0dp"
             android:layout_height="49dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:contentDescription="@string/logo"
+            android:src="@mipmap/logo"
             app:layout_constraintEnd_toStartOf="@+id/searchBarSearchView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@mipmap/logo" />
+            app:layout_constraintTop_toTopOf="parent" />
+
 
         <ImageView
             android:id="@+id/bannerImageView1"
@@ -45,10 +46,10 @@
             android:layout_marginEnd="16dp"
             android:adjustViewBounds="false"
             android:contentDescription="@string/banner"
+            android:src="@mipmap/banner_sample"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchBarSearchView"
-            android:src="@mipmap/banner_sample" />
+            app:layout_constraintTop_toBottomOf="@+id/searchBarSearchView" />
 
         <ImageView
             android:id="@+id/bannerImageView2"
@@ -81,9 +82,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recommendationsRecyclerView"
             android:layout_width="0dp"
-            android:layout_height="66dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -94,7 +95,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/discountRecyclerView"
             android:layout_width="0dp"
-            android:layout_height="66dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
@@ -102,6 +103,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recommendationsRecyclerView" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

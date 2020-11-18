@@ -4,10 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
-import kotlinx.android.synthetic.main.fragment_example.*
+import com.cmpe352group4.buyo.ui.homepage.Product
+import com.cmpe352group4.buyo.ui.homepage.ProductAdapter
+import kotlinx.android.synthetic.main.fragment_homepage.*
+import kotlinx.android.synthetic.main.square_product_item.*
 
 class HomepageFragment : BaseFragment() {
 
@@ -27,6 +31,118 @@ class HomepageFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-    }
+        // Recommendation RV
+        var recommendedProductList = mutableListOf(
+            Product(
+                productImage = "drawable/ic_launcher_background.xml",
+                productInfo = "Product Info", productName = "MyItemName6",
+                productID = 0, productNumComments = 0, productRate = 1.1,
+                productPrice = 0.0, productReleaseDate = "01.01.2020"
+            ),
 
+            Product(
+                productImage = "drawable/ic_launcher_background.xml",
+                productInfo = "Product Info", productName = "MyItemName5",
+                productID = 0, productNumComments = 0, productRate = 1.1,
+                productPrice = 0.0, productReleaseDate = "01.01.2020"
+            ),
+            Product(
+                productImage = "drawable/ic_launcher_background.xml",
+                productInfo = "Product Info", productName = "MyItemName4",
+                productID = 0, productNumComments = 0, productRate = 1.1,
+                productPrice = 0.0, productReleaseDate = "01.01.2020"
+            ),
+            Product(
+                productImage = "drawable/ic_launcher_background.xml",
+                productInfo = "Product Info", productName = "MyItemName3",
+                productID = 0, productNumComments = 0, productRate = 1.1,
+                productPrice = 0.0, productReleaseDate = "01.01.2020"
+            ),
+            Product(
+                productImage = "drawable/ic_launcher_background.xml",
+                productInfo = "Product Info", productName = "MyItemName2",
+                productID = 0, productNumComments = 0, productRate = 1.1,
+                productPrice = 0.0, productReleaseDate = "01.01.2020"
+            ),
+            Product(
+                productImage = "drawable/ic_launcher_background.xml",
+                productInfo = "Product Info", productName = "MyItemName1",
+                productID = 0, productNumComments = 0, productRate = 1.1,
+                productPrice = 0.0, productReleaseDate = "01.01.2020"
+            )
+        )
+
+        // TODO Pass to the product detail page
+        val recommendedProductListAdapter by lazy {
+            ProductAdapter(recommendedProductList) { _ ->
+                navigationManager?.onReplace(
+                    EmptyFragment.newInstance(),
+                    TransactionType.Replace, true
+                )
+            }
+        }
+
+        recommendationsRecyclerView.adapter = recommendedProductListAdapter
+        recommendationsRecyclerView.layoutManager = LinearLayoutManager(
+            this.context,
+            LinearLayoutManager.HORIZONTAL, false
+        )
+
+        // Discount RV
+        var discountProductList = mutableListOf(
+            Product(
+                productImage = "drawable/ic_launcher_background.xml",
+                productInfo = "Product Info", productName = "MyItemName1",
+                productID = 0, productNumComments = 0, productRate = 1.1,
+                productPrice = 10.0, productReleaseDate = "01.01.2020"
+            ),
+
+            Product(
+                productImage = "drawable/ic_launcher_background.xml",
+                productInfo = "Product Info", productName = "MyItemName2",
+                productID = 0, productNumComments = 0, productRate = 1.1,
+                productPrice = 20.0, productReleaseDate = "01.01.2020"
+            ),
+            Product(
+                productImage = "drawable/ic_launcher_background.xml",
+                productInfo = "Product Info", productName = "MyItemName3",
+                productID = 0, productNumComments = 0, productRate = 1.1,
+                productPrice = 999.99, productReleaseDate = "01.01.2020"
+            ),
+            Product(
+                productImage = "drawable/ic_launcher_background.xml",
+                productInfo = "Product Info", productName = "MyItemName4",
+                productID = 0, productNumComments = 0, productRate = 1.1,
+                productPrice = 123.2, productReleaseDate = "01.01.2020"
+            ),
+            Product(
+                productImage = "drawable/ic_launcher_background.xml",
+                productInfo = "Product Info", productName = "MyItemName5",
+                productID = 0, productNumComments = 0, productRate = 1.1,
+                productPrice = 0.50, productReleaseDate = "01.01.2020"
+            ),
+            Product(
+                productImage = "drawable/ic_launcher_background.xml",
+                productInfo = "Product Info", productName = "MyItemName6",
+                productID = 0, productNumComments = 0, productRate = 1.1,
+                productPrice = 0.99, productReleaseDate = "01.01.2020"
+            )
+        )
+
+        // TODO Pass to the product detail page
+        val discountProductListAdapter by lazy {
+            ProductAdapter(discountProductList) { _ ->
+                navigationManager?.onReplace(
+                    EmptyFragment.newInstance(),
+                    TransactionType.Replace, true
+                )
+            }
+        }
+
+        discountRecyclerView.adapter = discountProductListAdapter
+        discountRecyclerView.layoutManager = LinearLayoutManager(
+            this.context,
+            LinearLayoutManager.HORIZONTAL, false
+        )
+    }
 }
