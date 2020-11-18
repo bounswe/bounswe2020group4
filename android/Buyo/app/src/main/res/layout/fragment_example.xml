@@ -26,5 +26,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <Button
+            android:id="@+id/btnProductDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ProductDetail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnProductList"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
