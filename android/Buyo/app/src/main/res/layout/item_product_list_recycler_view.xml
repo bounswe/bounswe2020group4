@@ -7,7 +7,7 @@
     android:layout_margin="8dp">
 
     <ImageView
-        android:id="@+id/iv_productListRecyclerView"
+        android:id="@+id/iv_productListRecyclerView_Image"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_margin="8dp"
@@ -21,15 +21,45 @@
     <TextView
         android:id="@+id/tv_productListRecyclerView_Info"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:maxLines="3"
+        android:ellipsize="end"
+        android:maxLines="4"
         android:text="@string/dummyComment"
-        app:layout_constraintBottom_toTopOf="@+id/tv_productListRecyclerView_Name"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_productListRecyclerView_Image"
+        app:layout_constraintEnd_toEndOf="@+id/tb_productListRecyclerView_Fav"
+        app:layout_constraintEnd_toStartOf="@+id/tb_productListRecyclerView_Fav"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/iv_productListRecyclerView_Image"
+        app:layout_constraintTop_toTopOf="@+id/iv_productListRecyclerView_Image" />
+
+    <ToggleButton
+        android:id="@+id/tb_productListRecyclerView_Fav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:textAlignment="center"
+        android:textOn="Unlike"
+        android:textOff="Like"
+        android:background="@color/buyo_Cinnabar"
+        android:textColor="@color/buyo_white"
+        app:layout_constraintBottom_toTopOf="@+id/tv_productListRecyclerView_Rate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/iv_productListRecyclerView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/tv_productListRecyclerView_Info"
+        app:layout_constraintTop_toTopOf="@+id/tv_productListRecyclerView_Info" />
+
+    <TextView
+        android:id="@+id/tv_productListRecyclerView_Rate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5.0"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_productListRecyclerView_Info"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_productListRecyclerView_Info"
+        app:layout_constraintTop_toBottomOf="@+id/tb_productListRecyclerView_Fav" />
 
     <TextView
         android:id="@+id/tv_productListRecyclerView_Name"
@@ -37,13 +67,28 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:text="ItemName"
+        android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_productListRecyclerView_Price"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_productListRecyclerView" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_productListRecyclerView_Image" />
+
+    <TextView
+        android:id="@+id/tv_productListRecyclerView_Price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="Price"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_productListRecyclerView_Name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tv_productListRecyclerView_Name"
+        app:layout_constraintTop_toTopOf="@+id/tv_productListRecyclerView_Name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
