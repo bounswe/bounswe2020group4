@@ -2,10 +2,13 @@ package com.cmpe352group4.buyo.vo
 
 import java.io.Serializable
 
-data class Product (
-    val id:Int,
-    val photo:String,
-    val description:String,
-    val price:Int
-
+data class Product(
+    var productImage: String,
+    var productName: String,
+    var productInfo: String,
+    var productID: Int,
+    var productReleaseDate: String,
+    var productPrice: String,
+    var productNumComments: Int,
+    var productRate: Double
 ): Serializable

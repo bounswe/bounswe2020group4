@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cmpe352group4.buyo.R
 import kotlinx.android.synthetic.main.item_product_list_recycler_view.view.*
+import com.cmpe352group4.buyo.vo.Product
+
 
 class ProductListAdapter(
     var Products: MutableList<Product>,

@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
-import com.cmpe352group4.buyo.ui.homepage.Product
 import com.cmpe352group4.buyo.ui.homepage.ProductAdapter
+import com.cmpe352group4.buyo.vo.Product
 import kotlinx.android.synthetic.main.fragment_homepage.*
 import kotlinx.android.synthetic.main.square_product_item.*
 
@@ -37,38 +37,38 @@ class HomepageFragment : BaseFragment() {
                 productImage = "drawable/ic_launcher_background.xml",
                 productInfo = "Product Info", productName = "MyItemName6",
                 productID = 0, productNumComments = 0, productRate = 1.1,
-                productPrice = 0.0, productReleaseDate = "01.01.2020"
+                productPrice = "0.0", productReleaseDate = "01.01.2020"
             ),
 
             Product(
                 productImage = "drawable/ic_launcher_background.xml",
                 productInfo = "Product Info", productName = "MyItemName5",
                 productID = 0, productNumComments = 0, productRate = 1.1,
-                productPrice = 0.0, productReleaseDate = "01.01.2020"
+                productPrice = "0.0", productReleaseDate = "01.01.2020"
             ),
             Product(
                 productImage = "drawable/ic_launcher_background.xml",
                 productInfo = "Product Info", productName = "MyItemName4",
                 productID = 0, productNumComments = 0, productRate = 1.1,
-                productPrice = 0.0, productReleaseDate = "01.01.2020"
+                productPrice = "0.0", productReleaseDate = "01.01.2020"
             ),
             Product(
                 productImage = "drawable/ic_launcher_background.xml",
                 productInfo = "Product Info", productName = "MyItemName3",
                 productID = 0, productNumComments = 0, productRate = 1.1,
-                productPrice = 0.0, productReleaseDate = "01.01.2020"
+                productPrice = "0.0", productReleaseDate = "01.01.2020"
             ),
             Product(
                 productImage = "drawable/ic_launcher_background.xml",
                 productInfo = "Product Info", productName = "MyItemName2",
                 productID = 0, productNumComments = 0, productRate = 1.1,
-                productPrice = 0.0, productReleaseDate = "01.01.2020"
+                productPrice = "0.0", productReleaseDate = "01.01.2020"
             ),
             Product(
                 productImage = "drawable/ic_launcher_background.xml",
                 productInfo = "Product Info", productName = "MyItemName1",
                 productID = 0, productNumComments = 0, productRate = 1.1,
-                productPrice = 0.0, productReleaseDate = "01.01.2020"
+                productPrice = "0.0", productReleaseDate = "01.01.2020"
             )
         )
 
@@ -94,38 +94,38 @@ class HomepageFragment : BaseFragment() {
                 productImage = "drawable/ic_launcher_background.xml",
                 productInfo = "Product Info", productName = "MyItemName1",
                 productID = 0, productNumComments = 0, productRate = 1.1,
-                productPrice = 10.0, productReleaseDate = "01.01.2020"
+                productPrice = "10.0", productReleaseDate = "01.01.2020"
             ),
 
             Product(
                 productImage = "drawable/ic_launcher_background.xml",
                 productInfo = "Product Info", productName = "MyItemName2",
                 productID = 0, productNumComments = 0, productRate = 1.1,
-                productPrice = 20.0, productReleaseDate = "01.01.2020"
+                productPrice = "20.0", productReleaseDate = "01.01.2020"
             ),
             Product(
                 productImage = "drawable/ic_launcher_background.xml",
                 productInfo = "Product Info", productName = "MyItemName3",
                 productID = 0, productNumComments = 0, productRate = 1.1,
-                productPrice = 999.99, productReleaseDate = "01.01.2020"
+                productPrice = "999.99", productReleaseDate = "01.01.2020"
             ),
             Product(
                 productImage = "drawable/ic_launcher_background.xml",
                 productInfo = "Product Info", productName = "MyItemName4",
                 productID = 0, productNumComments = 0, productRate = 1.1,
-                productPrice = 123.2, productReleaseDate = "01.01.2020"
+                productPrice = "123.2", productReleaseDate = "01.01.2020"
             ),
             Product(
                 productImage = "drawable/ic_launcher_background.xml",
                 productInfo = "Product Info", productName = "MyItemName5",
                 productID = 0, productNumComments = 0, productRate = 1.1,
-                productPrice = 0.50, productReleaseDate = "01.01.2020"
+                productPrice = "0.50", productReleaseDate = "01.01.2020"
             ),
             Product(
                 productImage = "drawable/ic_launcher_background.xml",
                 productInfo = "Product Info", productName = "MyItemName6",
                 productID = 0, productNumComments = 0, productRate = 1.1,
-                productPrice = 0.99, productReleaseDate = "01.01.2020"
+                productPrice = "0.99", productReleaseDate = "01.01.2020"
             )
         )
 
