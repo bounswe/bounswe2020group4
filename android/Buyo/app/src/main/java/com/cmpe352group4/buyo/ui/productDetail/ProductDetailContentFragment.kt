@@ -36,10 +36,7 @@ class ProductDetailContentFragment : BaseFragment() {
             )
         }
         btnProductDetailBack.setOnClickListener {
-            navigationManager?.onReplace(
-                ProductDetailCommentsFragment.newInstance(),
-                TransactionType.Replace, true
-            )
+            //TODO
         }
     }
 }
