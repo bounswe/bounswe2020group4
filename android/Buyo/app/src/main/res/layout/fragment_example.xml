@@ -19,20 +19,28 @@
             android:text="Next Fragment"/>
 
         <Button
+            android:id="@+id/btnHomePage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Homepage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nextFragment" />
+        
+        <Button
             android:id="@+id/btnProductList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ProductList"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnHomePage" />
 
         <Button
             android:id="@+id/btnProductDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ProductDetail"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btnProductList"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnProductDetail"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

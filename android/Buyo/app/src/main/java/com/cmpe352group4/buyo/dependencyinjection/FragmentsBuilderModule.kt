@@ -2,6 +2,7 @@ package com.cmpe352group4.buyo.dependencyinjection
 
 import com.cmpe352group4.buyo.ui.EmptyFragment
 import com.cmpe352group4.buyo.ui.ExampleFragment
+import com.cmpe352group4.buyo.ui.HomepageFragment
 import com.cmpe352group4.buyo.ui.navigationtabs.*
 import com.cmpe352group4.buyo.ui.productList.ProductList
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailCommentsFragment
@@ -36,6 +37,9 @@ abstract class FragmentsBuilderModule {
 
     @ContributesAndroidInjector
     abstract fun contributeProfileTabContainer(): ProfileTabContainer
+
+    @ContributesAndroidInjector
+    abstract fun contributeHomepageFragment(): HomepageFragment
 
     @ContributesAndroidInjector
     abstract  fun contributeProductList(): ProductList
