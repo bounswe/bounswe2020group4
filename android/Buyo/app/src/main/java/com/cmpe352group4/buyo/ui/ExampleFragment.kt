@@ -34,10 +34,7 @@ class ExampleFragment : BaseFragment() {
             )
         }
         btnProductDetail.setOnClickListener {
-            navigationManager?.onReplace(
-                ProductDetailContentFragment.newInstance(),
-                TransactionType.Replace, true
-            )
+            // TODO
         }
     }
 

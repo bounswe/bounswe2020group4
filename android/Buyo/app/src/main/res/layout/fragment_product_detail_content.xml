@@ -1,12 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.productDetail.ProductDetailContentFragment">
 
+
+    <Button
+        android:id="@+id/btnProductDetailBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@color/buyo_darkCandyAppleRed"
+        android:text="Back"
+        android:textColor="@color/buyo_white"
+        app:layout_constraintBottom_toBottomOf="@+id/btnProductDetailComments"
+        app:layout_constraintEnd_toStartOf="@+id/btnProductDetailComments"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnProductDetailComments" />
+
+    <Button
+        android:id="@+id/btnProductDetailComments"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@color/buyo_darkCandyAppleRed"
+        android:text="Comments"
+        android:textColor="@color/buyo_white"
+        app:layout_constraintBottom_toTopOf="@+id/svProductDetailContent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnProductDetailBack"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:id="@+id/svProductDetailContent"
@@ -17,7 +44,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/btnProductDetailComments">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -31,7 +58,7 @@
                 android:src="@drawable/ic_launcher_background"
                 app:layout_constraintBottom_toTopOf="@+id/tvProductDetailName"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -70,6 +97,8 @@
                 android:layout_height="wrap_content"
                 android:background="@color/buyo_Cinnabar"
                 android:textColor="@color/buyo_antiqueWhite"
+                android:textOff="Like"
+                android:textOn="Unlike"
                 app:layout_constraintBottom_toBottomOf="@+id/rbProductDetailRating"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -91,8 +120,8 @@
                 android:id="@+id/tvProductDetailInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/tv_product_detail_content_info"
                 android:background="@color/buyo_antiqueWhite"
+                android:text="@string/tv_product_detail_content_info"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -108,7 +137,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:text="Price"
-        android:textSize="24sp"
+        android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/btnProductDetailCart"
         app:layout_constraintEnd_toStartOf="@+id/btnProductDetailCart"
@@ -120,29 +149,15 @@
         android:id="@+id/btnProductDetailCart"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Add to cart!"
         android:background="@color/buyo_fireEngineRed"
-        android:textColor="@color/buyo_white"
+        android:text="Add to cart!"
+        android:layout_margin="8dp"
+        android:textColor="@color/buyo_antiqueWhite"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnProductDetailComments"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tvProductDetailPrice"
         app:layout_constraintTop_toBottomOf="@+id/svProductDetailContent" />
-
-    <Button
-        android:id="@+id/btnProductDetailComments"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:text="Comments"
-        android:background="@color/buyo_fireEngineRed"
-        android:textColor="@color/buyo_white"
-        app:layout_constraintBottom_toBottomOf="@+id/btnProductDetailCart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnProductDetailCart"
-        app:layout_constraintTop_toTopOf="@+id/btnProductDetailCart" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
