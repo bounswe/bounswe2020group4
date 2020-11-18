@@ -41,14 +41,8 @@ class ExampleFragment : BaseFragment() {
                 TransactionType.Replace, true
             )
         }
-      
-        btnProductDetail.setOnClickListener {
-            navigationManager?.onReplace(
-                ProductDetailContentFragment.newInstance(),
-                TransactionType.Replace, true
-            )
-        }
-      
+
+
         btnHomePage.setOnClickListener {
             navigationManager?.onReplace(
                 HomepageFragment.newInstance(),
