@@ -48,7 +48,7 @@ class ProductListFragment : BaseFragment(){
             // TODO
         }
 
-        // SEARCH
+        // TODO SEARCH API CALL
 
         sv_productListSearchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(keyword: String?): Boolean {

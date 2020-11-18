@@ -97,7 +97,6 @@ class HomepageFragment : BaseFragment() {
             )
         )
 
-        // TODO Pass to the product detail page
         val recommendedProductListAdapter by lazy {
             ProductAdapter(recommendedProductList) { product ->
                 navigationManager?.onReplace(
@@ -154,7 +153,6 @@ class HomepageFragment : BaseFragment() {
             )
         )
 
-        // TODO Pass to the product detail page
         val discountProductListAdapter by lazy {
             ProductAdapter(discountProductList) { product ->
                 navigationManager?.onReplace(
