@@ -60,9 +60,25 @@
 
     <!-- Product Detail Comments Page-->
     <string name="dummyCustomerName">Mr. D**** C*******</string>
-    <string name="dummyComment">Lorem ipsum dolor sit amet,
-        consectetur adipiscing elit. Vivamus tempus sem tortor,
-        id efficitur nisi feugiat eget. In ac odio sed nisl dapibus consequat.
-        Praesent eu nulla at ipsum elementum varius et suscipit metus.</string>
+    <string name="dummyComment">Lorem ipsum dolor sit amet,consectetur adipiscing elit. Vivamus tempus sem tortor, id efficitur nisi feugiat eget. In ac odio sed nisl dapibus consequat.Praesent eu nulla at ipsum elementum varius et suscipit metus.</string>
+
+    
+    <!-- Product List Page -->
+    <string-array name="sp_productList_order">
+        <item>Best-Selling</item>
+        <item>Date (Latest)</item>
+        <item>Price (Highest)</item>
+        <item>Comments (Highest)</item>
+        <item>Rating</item>
+        <item>Name</item>
+    </string-array>
+
+    <string-array name="sp_productList_filter">
+        <item>Brand</item>
+        <item>Category</item>
+        <item>Vendor</item>
+        <item>Price Range</item>
+        <item>Category Specific</item>
+    </string-array>
 
 </resources>

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
+import com.cmpe352group4.buyo.ui.productList.ProductList
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
 import kotlinx.android.synthetic.main.fragment_example.*
 
@@ -33,8 +34,17 @@ class ExampleFragment : BaseFragment() {
                 TransactionType.Replace, true
             )
         }
+        btnProductList.setOnClickListener {
+            navigationManager?.onReplace(
+                ProductList.newInstance(),
+                TransactionType.Replace, true
+            )
+        }
         btnProductDetail.setOnClickListener {
-            // TODO
+            navigationManager?.onReplace(
+                ProductDetailContentFragment.newInstance(),
+                TransactionType.Replace, true
+            )
         }
     }
 
