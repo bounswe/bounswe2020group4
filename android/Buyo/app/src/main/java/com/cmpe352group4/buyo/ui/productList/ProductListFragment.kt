@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
-import com.cmpe352group4.buyo.ui.EmptyFragment
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
 import kotlinx.android.synthetic.main.fragment_product_list.*
 import com.cmpe352group4.buyo.vo.Product
@@ -20,7 +19,12 @@ import com.cmpe352group4.buyo.vo.Product
 class ProductListFragment : BaseFragment(){
 
     companion object {
-        fun newInstance() = ProductListFragment()
+        private const val KEYWORD = "search_keyword"
+        fun newInstance(keyword: String?) = ProductListFragment().apply {
+            arguments = Bundle().apply {
+                putString(KEYWORD, keyword)
+            }
+        }
     }
 
     override fun onCreateView(
@@ -35,20 +39,38 @@ class ProductListFragment : BaseFragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        tv_productListCategoryName.text = arguments?.getString(KEYWORD) ?: "NULL SEARCH"
+
+        // BACK BUTTON
+
         btnProductListBack.setOnClickListener {
             // TODO
         }
 
+        // SEARCH
+
         sv_productListSearchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
-            override fun onQueryTextSubmit(p0: String?): Boolean {
-                TODO("Not yet implemented")
+            override fun onQueryTextSubmit(keyword: String?): Boolean {
+                if (keyword == ""){
+                    return false
+                }
+                else {
+                    navigationManager?.onReplace(
+                        ProductListFragment.newInstance(keyword),
+                        TransactionType.Replace, true
+                    )
+                    return true
+                }
             }
 
             override fun onQueryTextChange(p0: String?): Boolean {
-                TODO("Not yet implemented")
+                return true
             }
         })
 
+
+        // TODO Backend request with keyword and fill the recycler view
 
         // RECYCLER VIEW
         var dummyComment = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tempus sem tortor, id efficitur nisi feugiat eget. In ac odio sed nisl dapibus consequat. Praesent eu nulla at ipsum elementum varius et suscipit metus."
