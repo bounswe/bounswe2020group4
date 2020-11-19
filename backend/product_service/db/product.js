@@ -100,7 +100,7 @@ const addMockProducts = async () => {
 
 module.exports.initialize = async function () {
   try {
-    await mongoose.connect(process.env.MONGO_URL);
+    await mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true });
 
     // await Product.deleteMany();
     // await addMockProducts();
