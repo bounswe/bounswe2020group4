@@ -1,22 +1,36 @@
 package com.cmpe352group4.buyo.ui.productList
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cmpe352group4.buyo.R
+import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
+import com.cmpe352group4.buyo.viewmodel.ProductViewModel
 import kotlinx.android.synthetic.main.fragment_product_list.*
 import com.cmpe352group4.buyo.vo.Product
+import javax.inject.Inject
 
 
 class ProductListFragment : BaseFragment(){
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val productListViewModel: ProductViewModel by viewModels {
+        viewModelFactory
+    }
 
     companion object {
         private const val KEYWORD = "search_keyword"
@@ -40,6 +54,30 @@ class ProductListFragment : BaseFragment(){
         super.onViewCreated(view, savedInstanceState)
 
 
+        val keyword = arguments?.getString(KEYWORD) ?: "NULL SEARCH"
+
+        // TODO SEARCH API CALL
+
+        productListViewModel.onFetchProductListbyKeyword(keyword)
+
+        // Request Backend and fill the xml.
+        // TODO
+
+        productListViewModel.productList.observe(viewLifecycleOwner, Observer {
+            if (it.status == Status.SUCCESS && it.data != null){
+                Log.v("Products of the keyword", it.data.products.toString())
+
+                //dispatchLoading()
+            } else if (it.status == Status.ERROR){
+                //dispatchLoading()
+            }else if (it.status == Status.LOADING){
+                //showLoading()
+            }
+
+        })
+
+
+
         tv_productListCategoryName.text = arguments?.getString(KEYWORD) ?: "NULL SEARCH"
 
         // BACK BUTTON
@@ -48,7 +86,6 @@ class ProductListFragment : BaseFragment(){
             // TODO
         }
 
-        // TODO SEARCH API CALL
 
         sv_productListSearchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(keyword: String?): Boolean {
