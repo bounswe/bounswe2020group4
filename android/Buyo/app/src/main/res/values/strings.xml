@@ -18,4 +18,11 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    
+    <string-array name="wishListNames">
+        <item>Sport</item>
+        <item>Winter</item>
+        <item>Summer</item>
+        <item>Accessories</item>
+    </string-array>
 </resources>

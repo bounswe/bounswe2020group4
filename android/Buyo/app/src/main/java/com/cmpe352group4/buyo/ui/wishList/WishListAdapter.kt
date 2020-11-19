@@ -1,0 +1,40 @@
+package com.cmpe352group4.buyo.ui.wishList
+
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.cmpe352group4.buyo.R
+import com.cmpe352group4.buyo.vo.Product
+import kotlinx.android.synthetic.main.item_wish_list_recycler_view.view.*
+
+class WishListAdapter (
+    var wishListProducts: MutableList<Product>
+) : RecyclerView.Adapter<WishListAdapter.WishListViewHolder>() {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WishListViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_wish_list_recycler_view, parent, false)
+        return WishListViewHolder(view)
+    }
+
+    override fun getItemCount(): Int {
+        return wishListProducts.size
+    }
+
+    override fun onBindViewHolder(holder: WishListViewHolder, position: Int) {
+        holder.bind(wishListProducts[position])
+    }
+
+    inner class WishListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        val view = itemView
+
+        fun bind(modal: Product) {
+
+            itemView.tvWishListRecyclerView_Name.text = modal.productName
+            itemView.tvWishListRecyclerView_Rate.text = modal.productRate.toString()
+            itemView.tvWishListRecyclerView_Price.text = modal.productPrice
+
+        }
+    }
+}
