@@ -7,9 +7,9 @@
 .comments-container {
   background-color: var(--beige);
   width: 80%;
-  padding-left: 1%;
-  padding-right: 1%;
+  padding: 15px;
   margin-top: 2%;
+  border-radius: 10px;
 }
 
 h2 {

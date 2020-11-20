@@ -16,7 +16,6 @@ const ProductPurchase = () => {
       </div>
     </div>
   )
-
 }
 
 export default ProductPurchase

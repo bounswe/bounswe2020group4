@@ -15,6 +15,7 @@ const StyledRating = withStyles({
 const WishlistButton = () => {
   return <StyledRating
     name="customized-color"
+    size="large"
     defaultValue={0}
     max={1}
     icon={<FavoriteIcon fontSize="inherit" />}
