@@ -4,14 +4,15 @@ import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './SignIn.css'
 import logo from '../logo-buyo.png'
+import { connect } from 'react-redux'
+import { hideHeader } from '../redux/actions';
+import { showHeader } from '../redux/actions';
 
 
+const SignUp = ({showHeader, hideHeader}) => {
 
-class SignUp extends React.Component {
-  onSubmit = formValues => {
-  };
-
-  render() {
+    hideHeader()
+  
     return (
             <div className="signInModal">
                 <div className="formContainer">
@@ -38,7 +39,13 @@ class SignUp extends React.Component {
             </div>
       
     );
-  }
+  
 }
 
-export default SignUp;
+
+const mapStateToProps = state => {
+    return { showHeader: state.header.showHeader,
+            hideHeader: state.header.hideHeader }
+}
+
+export default connect(mapStateToProps, {showHeader, hideHeader})(SignUp);
