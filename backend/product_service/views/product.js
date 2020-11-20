@@ -43,9 +43,8 @@ module.exports.getProductCategories = async () => {
             subcategories: [],
             path: distinctCategory.slice(0, index).join(","),
           });
-        } else {
-          console.log("asddsa");
         }
+
         temp = temp.find((subcategory) => subcategory.name === category).subcategories;
 
         index++;
