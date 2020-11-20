@@ -1,0 +1,34 @@
+.wishlist-container {
+  padding: 0;
+  margin-left: 0;
+}
+
+.list-title {
+  background-color: var(--beige);
+  margin:0;
+  color: #A90011;
+  font-size: 24px;
+}
+
+.list-container {
+  display: flex;
+  margin-top: 10px;
+}
+
+.list-links {
+  background-color: var(--beige);
+  margin-right: 30px;
+  width: 262px;
+  height: 543px;
+  text-align:center;
+}
+
+.list-links h3 {
+  font-size: 24px;
+  color: var(--red-secondary);
+}
+
+.product-card-container {
+  display: flex;
+  flex-wrap: wrap;
+}
