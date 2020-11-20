@@ -31,20 +31,29 @@ module.exports.getProductCategories = async () => {
         },
       },
     ]);
-    let categories = {};
+    let categories = [];
 
     rawResult[0].distinctCategories.forEach((distinctCategory) => {
       let temp = categories;
+      let index = 1;
       distinctCategory.forEach((category) => {
-        temp[category] = temp[category] || {
-          subcategories: {},
-        };
-        temp = temp[category].subcategories;
+        if (!temp.some((category) => category.name === category)) {
+          temp.push({
+            name: category,
+            subcategories: [],
+            path: distinctCategory.slice(0, index).join(","),
+          });
+        }
+        console.log(categories);
+        temp = temp[temp.length - 1].subcategories;
+
+        index++;
       });
     });
 
     return categories;
   } catch (error) {
+    console.log(error);
     return error;
   }
 };

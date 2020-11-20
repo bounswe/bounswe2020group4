@@ -103,7 +103,7 @@ module.exports.initialize = async function () {
     await mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true });
 
     // await Product.deleteMany();
-    // await addMockProducts();
+    //await addMockProducts();
   } catch (err) {
     console.log(err);
   }
