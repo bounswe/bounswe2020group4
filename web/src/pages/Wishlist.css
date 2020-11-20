@@ -8,6 +8,9 @@
   margin:0;
   color: #A90011;
   font-size: 24px;
+  border-radius: 20px;
+  padding: 10px;
+  font-weight: bold;
 }
 
 .list-container {
@@ -21,6 +24,8 @@
   width: 262px;
   height: 543px;
   text-align:center;
+  padding: 10px;
+  border-radius: 20px;
 }
 
 .list-links h3 {
