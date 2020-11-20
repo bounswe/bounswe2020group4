@@ -37,15 +37,16 @@ module.exports.getProductCategories = async () => {
       let temp = categories;
       let index = 1;
       distinctCategory.forEach((category) => {
-        if (!temp.some((category) => category.name === category)) {
+        if (!temp.some((subcategory) => subcategory.name === category)) {
           temp.push({
             name: category,
             subcategories: [],
             path: distinctCategory.slice(0, index).join(","),
           });
+        } else {
+          console.log("asddsa");
         }
-        console.log(categories);
-        temp = temp[temp.length - 1].subcategories;
+        temp = temp.find((subcategory) => subcategory.name === category).subcategories;
 
         index++;
       });
