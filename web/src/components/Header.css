@@ -1,11 +1,10 @@
-.header-container {
-    position: fixed;
+.header-top-container {
     top: 0;
     left: 0;
 
     display: flex;
     width: 100%;
-    padding: 30px;
+    padding: 2rem 3rem 2rem 3rem;
     background-color: var(--beige);
     justify-content: space-between;
 }
@@ -18,13 +17,12 @@
     width: 100%;
 }
 
-
 .header-right-container {
     display: flex;
 }
 
 .header-right-icon-container {
-    width: 20px;
+    width: 48px;
 }
 
 .header-right-icon {
@@ -34,6 +32,7 @@
 .searchbar-container {
     width: 458px;
     position: relative;
+    margin: 0 2rem 0 2rem;
 }
 
 .searchbar {
@@ -47,4 +46,11 @@
 .searchbar-icon {
     position: absolute !important;
     right: 13px;
+}
+
+.category {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 16px;
+    color: var(--red-main)
 }
