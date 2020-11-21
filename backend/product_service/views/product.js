@@ -98,7 +98,7 @@ module.exports.getProduct = async (params) => {
     let product;
 
     if (params.id) {
-      product = await Product.find({ id: params.id})
+      product = await Product.findOne({ id: params.id})
     } 
 
     if (product) {
