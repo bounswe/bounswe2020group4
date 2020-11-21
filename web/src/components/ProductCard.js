@@ -1,7 +1,7 @@
 import React from 'react'
 
-import PCWishlistIcon from '../images/pc-wishlist-icon.png'
-import PCCartIcon from '../images/pc-cart-icon.png'
+import PCWishlistIcon from '../images/wishlist-icon.png'
+import PCCartIcon from '../images/cart-icon.png'
 import DefaultProductImage from '../images/default-product-image.png'
 
 //Styling
