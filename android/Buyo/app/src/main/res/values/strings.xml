@@ -25,4 +25,78 @@
         <item>Summer</item>
         <item>Accessories</item>
     </string-array>
+
+    <string name="logo">BUYO Logo</string>
+    <string name="banner">Banner</string>
+    <string name="search_hint">Search product</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Product Detail Container Page-->
+    <string name="tv_product_detail_container_price">Price</string>
+    <string name="btn_product_detail_container_add_cart">Add to Cart</string>
+    <string name="btn_product_detail_container_comments">Comments</string>
+
+    <!-- Product Detail Content Page-->
+    <string name="iv_product_detail_content_image_desc">Image of the product</string>
+    <string name="tv_product_detail_content_product_name">Product Name</string>
+    <string name="tv_product_detail_content_vendor_name">Vendor Name</string>
+    <string name="tv_product_detail_content_info">Lorem ipsum dolor sit amet,
+        consectetur adipiscing elit. Vivamus tempus sem tortor,
+        id efficitur nisi feugiat eget. In ac odio sed nisl dapibus consequat.
+        Praesent eu nulla at ipsum elementum varius et suscipit metus. Nunc dignissim laoreet semper.
+        Phasellus tristique interdum elit eget luctus. Donec vel magna leo. Nullam semper eros tellus.
+        Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Lorem ipsum dolor sit amet,
+        consectetur adipiscing elit. Phasellus pharetra cursus nunc, ac eleifend metus. Cras elit purus,
+        tincidunt accumsan dapibus at, malesuada a libero. Ut eu justo imperdiet, auctor nisi a, suscipit orci. Lorem ipsum dolor sit amet,
+        consectetur adipiscing elit. Vivamus tempus sem tortor,
+        id efficitur nisi feugiat eget. In ac odio sed nisl dapibus consequat.
+        Praesent eu nulla at ipsum elementum varius et suscipit metus. Nunc dignissim laoreet semper.
+        Phasellus tristique interdum elit eget luctus. Donec vel magna leo. Nullam semper eros tellus.
+        Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Lorem ipsum dolor sit amet,
+        consectetur adipiscing elit. Phasellus pharetra cursus nunc, ac eleifend metus. Cras elit purus,
+        tincidunt accumsan dapibus at, malesuada a libero. Ut eu justo imperdiet, auctor nisi a, suscipit orci. Lorem ipsum dolor sit amet,
+        consectetur adipiscing elit. Vivamus tempus sem tortor,
+        id efficitur nisi feugiat eget. In ac odio sed nisl dapibus consequat.
+        Praesent eu nulla at ipsum elementum varius et suscipit metus. Nunc dignissim laoreet semper.
+        Phasellus tristique interdum elit eget luctus. Donec vel magna leo. Nullam semper eros tellus.
+        Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Lorem ipsum dolor sit amet,
+        consectetur adipiscing elit. Phasellus pharetra cursus nunc, ac eleifend metus. Cras elit purus,
+        tincidunt accumsan dapibus at, malesuada a libero. Ut eu justo imperdiet, auctor nisi a, suscipit orci. Lorem ipsum dolor sit amet,
+        consectetur adipiscing elit. Vivamus tempus sem tortor,
+        id efficitur nisi feugiat eget. In ac odio sed nisl dapibus consequat.
+        Praesent eu nulla at ipsum elementum varius et suscipit metus. Nunc dignissim laoreet semper.
+        Phasellus tristique interdum elit eget luctus. Donec vel magna leo. Nullam semper eros tellus.
+        Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Lorem ipsum dolor sit amet,
+        consectetur adipiscing elit. Phasellus pharetra cursus nunc, ac eleifend metus. Cras elit purus,
+        tincidunt accumsan dapibus at, malesuada a libero. Ut eu justo imperdiet, auctor nisi a, suscipit orci. </string>
+
+    <!-- Product Detail Comments Page-->
+    <string name="dummyCustomerName">Mr. D**** C*******</string>
+    <string name="dummyComment">Lorem ipsum dolor sit amet,consectetur adipiscing elit. Vivamus tempus sem tortor, id efficitur nisi feugiat eget. In ac odio sed nisl dapibus consequat.Praesent eu nulla at ipsum elementum varius et suscipit metus.</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="remember_me">Remember me</string>
+
+    <!-- Product List Page -->
+    <string-array name="sp_productList_order">
+        <item>Best-Selling</item>
+        <item>Date (Latest)</item>
+        <item>Price (Highest)</item>
+        <item>Comments (Highest)</item>
+        <item>Rating</item>
+        <item>Name</item>
+    </string-array>
+
+    <string-array name="sp_productList_filter">
+        <item>Brand</item>
+        <item>Category</item>
+        <item>Vendor</item>
+        <item>Price Range</item>
+        <item>Category Specific</item>
+    </string-array>
 </resources>

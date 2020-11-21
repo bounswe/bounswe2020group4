@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.productList.ProductListFragment">
+
+        <Button
+            android:id="@+id/btnProductListBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@color/buyo_darkCandyAppleRed"
+            android:text="Back"
+            android:textColor="@color/buyo_white"
+            app:layout_constraintBottom_toBottomOf="@+id/sv_productListSearchBar"
+            app:layout_constraintEnd_toStartOf="@+id/sv_productListSearchBar"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/sv_productListSearchBar" />
+
+        <SearchView
+            android:id="@+id/sv_productListSearchBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/buyo_antiqueWhite"
+            android:iconifiedByDefault="false"
+            android:queryHint="Search"
+            app:layout_constraintBottom_toTopOf="@+id/tv_productListCategoryName"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btnProductListBack"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_productListCategoryName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="Category / Product Name "
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/sp_ProductListSort"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sv_productListSearchBar" />
+
+        <TextView
+            android:id="@+id/tv_productListOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sort"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/sp_ProductListSort"
+            app:layout_constraintEnd_toStartOf="@+id/tv_productListFilter"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_productListCategoryName" />
+
+        <Spinner
+            android:id="@+id/sp_ProductListSort"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@color/buyo_antiqueWhite"
+            android:entries="@array/sp_productList_order"
+            app:layout_constraintBottom_toTopOf="@+id/rv_ProductList"
+            app:layout_constraintEnd_toStartOf="@+id/sp_ProductListFilter"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_productListCategoryName" />
+
+        <TextView
+            android:id="@+id/tv_productListFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Filter"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/sp_ProductListFilter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tv_productListOrder"
+            app:layout_constraintTop_toBottomOf="@+id/tv_productListCategoryName" />
+
+        <Spinner
+            android:id="@+id/sp_ProductListFilter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@color/buyo_antiqueWhite"
+            android:entries="@array/sp_productList_filter"
+            app:layout_constraintBottom_toBottomOf="@+id/sp_ProductListSort"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/sp_ProductListSort"
+            app:layout_constraintTop_toTopOf="@+id/sp_ProductListSort" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_ProductList"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sp_ProductListSort" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

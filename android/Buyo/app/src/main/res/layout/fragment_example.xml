@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.fragment.ExampleFragment">
@@ -17,6 +17,30 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:text="Next Fragment"/>
+
+        <Button
+            android:id="@+id/btnHomePage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Homepage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nextFragment" />
+        
+        <Button
+            android:id="@+id/btnProductList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ProductList"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnHomePage" />
+
+        <Button
+            android:id="@+id/btnProductDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ProductDetail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnProductDetail"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
