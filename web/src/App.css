@@ -1,21 +1,16 @@
 body {
-    --red-main: rgb(223, 75, 75);
-    --red-secondary: rgb(194, 27, 27);
-    --beige: rgb(255, 236, 224);
+    --red-main: #D11D27;
+    --red-secondary: #A90011;
+    --red-tertiary: #EC4A3B;
+    --beige: #FFFAEF;
     --white: white;
     --surface: #FAFAFA;
+
+    background-color: var(--white);
 }
 
 body * {
     box-sizing: border-box;
-}
-
-.page-container {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    padding: 160px 50px 50px 50px;
 }
 
 .vertical-align-middle {
