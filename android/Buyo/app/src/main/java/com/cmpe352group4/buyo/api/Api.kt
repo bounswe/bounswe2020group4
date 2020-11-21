@@ -5,6 +5,7 @@ import com.cmpe352group4.buyo.vo.BaseResponse
 import com.cmpe352group4.buyo.vo.Category
 import com.cmpe352group4.buyo.vo.CategoryList
 import com.cmpe352group4.buyo.vo.Product
+import com.cmpe352group4.buyo.vo.ProductList
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -26,8 +27,4 @@ interface Api {
 
     @GET("categories")
     fun fetchCategories(): LiveData<ApiResponse<BaseResponse<CategoryList>>>
-
-
-
-
 }
