@@ -2,6 +2,7 @@ package com.cmpe352group4.buyo.dependencyinjection
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.cmpe352group4.buyo.viewmodel.CategoryViewModel
 import com.cmpe352group4.buyo.viewmodel.ExampleViewModel
 import dagger.Binds
 import dagger.Module
@@ -16,6 +17,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(ExampleViewModel::class)
     abstract fun bindExampleViewModel(viewModel: ExampleViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CategoryViewModel::class)
+    abstract fun bindCategoryViewModel(viewModel: CategoryViewModel): ViewModel
 
 
     @Binds

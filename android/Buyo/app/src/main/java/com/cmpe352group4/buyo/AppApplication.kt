@@ -4,6 +4,8 @@ import android.app.Activity
 import android.app.Application
 import android.os.Build
 import com.cmpe352group4.buyo.dependencyinjection.AppInjector
+import com.cmpe352group4.buyo.util.DialogManager
+import com.cmpe352group4.buyo.util.IDialogManager
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import java.util.*
@@ -14,7 +16,7 @@ class AppApplication: Application(), HasActivityInjector {
     }
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
-    // var dialogManager: IDialogManager? = null
+    var dialogManager: IDialogManager? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -32,7 +34,7 @@ class AppApplication: Application(), HasActivityInjector {
             resources.updateConfiguration(configuration, resources.getDisplayMetrics())
         }
         AppInjector.init(this)
-        // dialogManager = DialogManager()
+        dialogManager = DialogManager()
 
 
     }
