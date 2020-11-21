@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState} from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -9,9 +9,24 @@ import { hideHeader } from '../redux/actions';
 import { showHeader } from '../redux/actions';
 
 
-const SignUp = ({showHeader, hideHeader}) => {
+const SignUp = ({hideHeader}) => {
 
     hideHeader()
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleEmailChange = function(e) {
+        setEmail(e.target.value)
+    }
+
+    const handlePasswordChange = function(e) {
+        setPassword(e.target.value)
+    }
+
+    const handleClick = function(e) {
+        e.preventDefault()
+    } 
   
     return (
             <div className="signInModal">
@@ -19,16 +34,32 @@ const SignUp = ({showHeader, hideHeader}) => {
                     <img class="logo" src={logo} alt="Buyo logo"/>
                     <Form>
                         <Form.Group controlId="formBasicEmail">
-                            <Form.Control className="formInputBox" type="email" placeholder="Email" />
+                            <Form.Control 
+                                className="formInputBox" 
+                                type="email" 
+                                placeholder="Email"
+                                value = {email}
+                                onChange={handleEmailChange} 
+                                />
                         </Form.Group>
 
                         <Form.Group controlId="formBasicPassword">
-                            <Form.Control className="formInputBox" type="password" placeholder="Password" />
+                            <Form.Control 
+                            className="formInputBox" 
+                            type="password" 
+                            placeholder="Password" 
+                            onChange={handlePasswordChange} 
+                            />
                         </Form.Group>
                         <Form.Group controlId="formBasicPassword">
                             <Form.Control className="formInputBox" type="password" placeholder="Password" />
                         </Form.Group>
-                        <Button className="submitButton" variant="primary" type="submit">
+                        <Button 
+                        className="submitButton" 
+                        variant="primary" 
+                        type="submit"
+                        onClick = {handleClick}
+                        >
                             SIGN UP
                         </Button>
                         <Button className="submitButtonTransparent" variant="primary" type="submit">
