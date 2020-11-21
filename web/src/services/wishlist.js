@@ -5,4 +5,9 @@ const addToWishlist = async (customerId, productId) => {
   return response
 }
 
-export default { addToWishlist }
+const getWishlist = async (customerId) => {
+  const response = await axios.get(`http://3.138.113.101:8080/wishlist?customerId=${customerId}`)
+  return response.data
+}
+
+export default { addToWishlist, getWishlist }

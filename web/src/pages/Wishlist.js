@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import ProductCard from '../components/ProductCard'
+
+import wishlistService from '../services/wishlist'
 
 import './Wishlist.css'
 
 const Wishlist = () => {
+  const [products, setProducts] = useState([])
+
+  //TODO read from redux state
+  const customerId = 12341
+
+  useEffect(() => {
+    wishlistService
+      .getWishlist(customerId)
+      .then(prods => setProducts(prods))
+  }, [])
+
   return(
     <div className='wishlist-container'>
       <div className='list-title' >List: Wishlist(All)</div>
@@ -13,9 +26,11 @@ const Wishlist = () => {
           <h3>Lists</h3>
         </div>
         <div className='product-cards'>
-          <div className='product-card-container'>
-            <ProductCard name='Product' price='$7.99'/>
-          </div>          
+          {products.map(p => 
+            <div className='product-card-container'>
+              <ProductCard key={p.id} name={p.name} price={p.price}/>
+            </div>          
+          )}
         </div>
       </div>
     </div>
