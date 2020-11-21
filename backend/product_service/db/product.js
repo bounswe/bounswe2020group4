@@ -81,27 +81,35 @@ module.exports.initializeMockDB = async () => {
             sizes: sizes.length
               ? sizes.slice(Math.floor(Math.random() * 2), Math.floor(Math.random() * sizes.length - 2) + 2)
               : undefined,
-            colors: colors.slice(Math.floor(Math.random() * 2), Math.floor(Math.random() * colors.length - 2) + 3),
+            colors: product.image_url.includes("watsons")
+              ? undefined
+              : colors.slice(Math.floor(Math.random() * 2), Math.floor(Math.random() * colors.length - 2) + 3),
             vendorId: vendors[Math.floor(Math.random() * 4)].id,
           };
 
           dbProduct.stockValue = {};
 
           (dbProduct.sizes || ["None"]).forEach(function (size) {
-            dbProduct.colors.forEach(function (color) {
+            (dbProduct.colors || []).forEach(function (color) {
               dbProduct.stockValue[size === "None" ? color : size + "-" + color] = Math.floor(Math.random() * 100);
             });
           });
+
+          if (!dbProduct.sizes && !dbProduct.colors) {
+            dbProduct.stockValue.self = Math.floor(Math.random() * 100);
+          }
+
           idCounter++;
           products.push(dbProduct);
         } catch (error) {
+          console.log(error);
           error;
         }
       });
     });
   await Counter.create({
     customerCounter: 0,
-    vendorCounter: 0,
+    vendorCounter: vendors[vendors.length - 1].id,
     productCounter: idCounter,
   });
   await Product.collection.insertMany(products);
