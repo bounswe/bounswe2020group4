@@ -8,6 +8,12 @@
         <item name="colorAccent">@color/buyo_Cinnabar</item>
     </style>
 
+    <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:colorAccent">@color/buyo_Cinnabar</item>
+        <item name="colorControlActivated">@color/buyo_Cinnabar</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

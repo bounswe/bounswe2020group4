@@ -42,7 +42,7 @@ class HomepageFragment : BaseFragment() {
                 }
                 else {
                     navigationManager?.onReplace(
-                        ProductListFragment.newInstance(keyword),
+                        ProductListFragment.newInstance(keyword = keyword),
                         TransactionType.Replace, true
                     )
                     return true

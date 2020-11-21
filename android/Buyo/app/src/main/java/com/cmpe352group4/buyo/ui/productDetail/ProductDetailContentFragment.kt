@@ -53,7 +53,7 @@ class ProductDetailContentFragment : BaseFragment() {
             )
         }
         btnProductDetailBack.setOnClickListener {
-            //TODO
+            activity?.onBackPressed()
         }
     }
 }

@@ -11,14 +11,14 @@ import com.cmpe352group4.buyo.base.fragment_ops.FragmentTransactionContainer
 import com.cmpe352group4.buyo.base.fragment_ops.INavigationManager
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.dependencyinjection.Injectable
+import com.cmpe352group4.buyo.util.IDialogManager
 import java.util.*
 import kotlin.concurrent.schedule
 
 abstract class BaseFragment : Injectable,Fragment() {
 
     protected var navigationManager: INavigationManager? = null
-    // It will be added later if we need
-    // private var dialog: IDialogManager? = null
+    private var dialog: IDialogManager? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -70,17 +70,17 @@ abstract class BaseFragment : Injectable,Fragment() {
             null
     }
 
-//    protected fun showLoading() {
-//        context?.run {
-//            dialog?.loading(this)
-//        }
-//    }
-//
-//    protected fun dispatchLoading() {
-//        Timer("SettingUp", false).schedule(750) {
-//            dialog?.dispatchLoading()
-//
-//        }
-//    }
+    protected fun showLoading() {
+        context?.run {
+            dialog?.loading(this)
+        }
+    }
+
+    protected fun dispatchLoading() {
+        Timer("SettingUp", false).schedule(750) {
+            dialog?.dispatchLoading()
+
+        }
+    }
 
 }
