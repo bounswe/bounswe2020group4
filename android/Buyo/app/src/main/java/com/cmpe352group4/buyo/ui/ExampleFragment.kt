@@ -13,6 +13,7 @@ import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.ui.productList.ProductListFragment
 import com.cmpe352group4.buyo.viewmodel.ExampleViewModel
+import com.cmpe352group4.buyo.ui.homepage.HomepageFragment
 import kotlinx.android.synthetic.main.fragment_example.*
 import javax.inject.Inject
 

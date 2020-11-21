@@ -1,4 +1,4 @@
-package com.cmpe352group4.buyo.ui
+package com.cmpe352group4.buyo.ui.homepage
 
 import android.os.Bundle
 import android.view.LayoutInflater

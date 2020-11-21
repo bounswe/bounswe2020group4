@@ -9,6 +9,7 @@ import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.base.fragment_ops.*
 import com.cmpe352group4.buyo.dependencyinjection.Injectable
 import com.cmpe352group4.buyo.ui.ExampleFragment
+import com.cmpe352group4.buyo.ui.wishList.WishListFragment
 import com.cmpe352group4.buyo.util.extensions.hideKeyboardFrom
 import javax.inject.Inject
 
@@ -21,7 +22,7 @@ class WishlistTabContainer : StackOwnerFragment(), INavigationManager, Injectabl
     @Inject
     lateinit var navManager: NavigationManager
     private val initialFragment by lazy {
-        ExampleFragment.newInstance()
+        WishListFragment.newInstance()
     }
 
     override fun onCreateView(

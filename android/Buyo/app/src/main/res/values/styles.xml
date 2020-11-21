@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/buyo_Cinnabar</item>
         <item name="colorPrimaryDark">@color/buyo_Cinnabar</item>
-        <item name="colorAccent">@color/buyo_antiqueWhite</item>
+        <item name="colorAccent">@color/buyo_Cinnabar</item>
     </style>
 
     <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
