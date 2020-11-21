@@ -5,6 +5,7 @@ import com.cmpe352group4.buyo.ui.ExampleFragment
 import com.cmpe352group4.buyo.ui.homepage.HomepageFragment
 import com.cmpe352group4.buyo.ui.login.LoginFragment
 import com.cmpe352group4.buyo.ui.navigationtabs.*
+import com.cmpe352group4.buyo.ui.wishList.WishListFragment
 import com.cmpe352group4.buyo.ui.productList.ProductListFragment
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailCommentsFragment
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
@@ -40,6 +41,9 @@ abstract class FragmentsBuilderModule {
     abstract fun contributeProfileTabContainer(): ProfileTabContainer
 
     @ContributesAndroidInjector
+    abstract fun contributeWishListFragment(): WishListFragment
+
+    @ContributesAndroidInjector  
     abstract fun contributeHomepageFragment(): HomepageFragment
 
     @ContributesAndroidInjector
@@ -53,6 +57,5 @@ abstract class FragmentsBuilderModule {
 
     @ContributesAndroidInjector
     abstract  fun contributeLoginFragment(): LoginFragment
-
 
 }
