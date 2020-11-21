@@ -31,6 +31,7 @@ const ProductDetails = ({ img }) => {
         </div>
         <div className='product-right-column'>
           <ProductInfo 
+            productId={product.id}
             name={product.name} 
             brand={product.brand} 
             price={product.price}
