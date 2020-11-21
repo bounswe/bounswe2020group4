@@ -19,6 +19,17 @@ module.exports.initialize = (app) => {
     });
   });
 
+  app.get("/product", async (request, response) => {
+    const product = await product.getProduct(request.query);
+    if (product) {
+      response.respond(200, "OK", {
+        product,
+      });
+    } else {
+      response.respond(404, "Product not found");
+    }
+  });
+  
   app.post("/like", async (request, response) => {
     const result = await wishlist.like(request.query);
 
