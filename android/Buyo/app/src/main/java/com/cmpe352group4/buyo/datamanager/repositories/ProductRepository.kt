@@ -8,8 +8,10 @@ import com.cmpe352group4.buyo.api.Resource
 import com.cmpe352group4.buyo.base.AppExecutors
 import com.cmpe352group4.buyo.base.ConnectionManager
 import com.cmpe352group4.buyo.util.livedata.InitialLiveData
+import com.cmpe352group4.buyo.vo.BaseResponse
 import com.cmpe352group4.buyo.vo.Product
-import com.cmpe352group4.buyo.vo.ProductList
+import com.cmpe352group4.buyo.vo.ProductResult
+//import com.cmpe352group4.buyo.vo.ProductList
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -20,22 +22,22 @@ class ProductRepository @Inject constructor(
     private val connectionManager: ConnectionManager
 ){
 
-    fun getProductbyId(productId:Int): LiveData<Resource<Product>> {
-        return object : NetworkServiceWrapper<Product,Product>(appExecutors,connectionManager){
-            override fun loadFromApi(data: Product): LiveData<Product> {
-                return InitialLiveData.create(data)
+    fun getProductById(productId:Int): LiveData<Resource<ProductResult>> {
+        return object : NetworkServiceWrapper<ProductResult,BaseResponse<ProductResult>>(appExecutors,connectionManager){
+            override fun loadFromApi(data: BaseResponse<ProductResult>): LiveData<ProductResult> {
+                return InitialLiveData.create(data.data)
             }
-            override fun createCall(): LiveData<ApiResponse<Product>> = api.fetchProductDetail(productId)
+            override fun createCall(): LiveData<ApiResponse<BaseResponse<ProductResult>>> = api.fetchProductById(productId)
         }.asLiveData()
     }
 
 
-    fun getProductListbyKeyword(keyword:String): LiveData<Resource<ProductList>> {
-        return object : NetworkServiceWrapper<ProductList,ProductList>(appExecutors,connectionManager){
-            override fun loadFromApi(data: ProductList): LiveData<ProductList> {
-                return InitialLiveData.create(data)
-            }
-            override fun createCall(): LiveData<ApiResponse<ProductList>> = api.fetchProductSearch(keyword)
-        }.asLiveData()
-    }
+    //fun getProductListbyKeyword(keyword:String): LiveData<Resource<ProductList>> {
+    //    return object : NetworkServiceWrapper<ProductList,ProductList>(appExecutors,connectionManager){
+    //        override fun loadFromApi(data: ProductList): LiveData<ProductList> {
+    //            return InitialLiveData.create(data)
+    //        }
+    //        override fun createCall(): LiveData<ApiResponse<ProductList>> = api.fetchProductSearch(keyword)
+    //    }.asLiveData()
+    //}
 }

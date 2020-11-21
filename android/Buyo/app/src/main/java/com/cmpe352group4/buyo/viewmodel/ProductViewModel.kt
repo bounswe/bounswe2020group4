@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel
 import com.cmpe352group4.buyo.api.Resource
 import com.cmpe352group4.buyo.datamanager.repositories.ProductRepository
 import com.cmpe352group4.buyo.util.livedata.AbsentLiveData
-import com.cmpe352group4.buyo.vo.Product
-import com.cmpe352group4.buyo.vo.ProductList
+//import com.cmpe352group4.buyo.vo.ProductList
+import com.cmpe352group4.buyo.vo.ProductResult
 import javax.inject.Inject
 
 class ProductViewModel @Inject constructor(
@@ -19,28 +19,24 @@ class ProductViewModel @Inject constructor(
 
     private val _productId =  MutableLiveData<Int>()
 
-    private val _searchKeyword = MutableLiveData<String>()
-
-
+    //private val _searchKeyword = MutableLiveData<String>()
 
     // Things we get as a response
-
-    val productDetail: LiveData<Resource<Product>> =
+    val productDetail: LiveData<Resource<ProductResult>> =
         Transformations.switchMap(_productId) { Id ->
             if (Id == null)
                 AbsentLiveData.create()
             else
-                repository.getProductbyId(Id)
+                repository.getProductById(Id)
         }
 
-
-    val productList: LiveData<Resource<ProductList>> =
-        Transformations.switchMap(_searchKeyword) { keyword ->
-            if (keyword == null)
-                AbsentLiveData.create()
-            else
-                repository.getProductListbyKeyword(keyword)
-        }
+    //val productList: LiveData<Resource<ProductList>> =
+    //    Transformations.switchMap(_searchKeyword) { keyword ->
+    //        if (keyword == null)
+    //            AbsentLiveData.create()
+    //        else
+    //            repository.getProductListbyKeyword(keyword)
+    //    }
 
 
     // Triggers to make a http request
@@ -49,8 +45,8 @@ class ProductViewModel @Inject constructor(
         _productId.value = productId
     }
 
-    fun onFetchProductListbyKeyword(keyword: String) {
-        _searchKeyword.value = keyword
-    }
+    //fun onFetchProductListbyKeyword(keyword: String) {
+    //    _searchKeyword.value = keyword
+    //}
 
 }

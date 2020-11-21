@@ -25,14 +25,14 @@ import javax.inject.Inject
 
 
 class ProductListFragment : BaseFragment(){
-
+    /*
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val productListViewModel: ProductViewModel by viewModels {
         viewModelFactory
     }
-
+    */
     companion object {
         private const val KEYWORD = "search_keyword"
         private const val CATEGORY_PATH = "category_path"
@@ -56,7 +56,7 @@ class ProductListFragment : BaseFragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        /*
         val keyword = arguments?.getString(KEYWORD) ?: "NULL SEARCH"
 
         // TODO SEARCH API CALL
@@ -78,6 +78,8 @@ class ProductListFragment : BaseFragment(){
             }
 
         })
+
+         */
 
 
 
