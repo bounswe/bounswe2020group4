@@ -52,7 +52,7 @@ class GeneralUtil {
             runnable: Runnable,
             cancelable: Boolean = true
         ) {
-            val dialog = AlertDialog.Builder(context)
+            val dialog = AlertDialog.Builder(context, R.style.AlertDialogCustom)
 //            dialog.setTitle(title)
             dialog.setCancelable(cancelable)
             dialog.setMessage(content)

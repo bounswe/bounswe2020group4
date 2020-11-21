@@ -40,14 +40,14 @@ class NavigationBarItem : LinearLayout,
         selectedIcon?.let {
             icon.setImageDrawable(it)
         }
- //       title.setTextColor()
+        title.setTextColor(ContextCompat.getColor(context, R.color.buyo_fireEngineRed))
     }
 
     override fun setUnselected() {
         unselectedIcon?.let {
             icon.setImageDrawable(it)
         }
- //       title.setTextColor()
+        title.setTextColor(ContextCompat.getColor(context, R.color.black))
     }
 
     override fun init(context: Context?, attrs: AttributeSet?) {

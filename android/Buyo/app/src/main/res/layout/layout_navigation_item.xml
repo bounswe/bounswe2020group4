@@ -23,5 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:textAlignment="center"
+        android:textSize="16sp"
+        android:textColor="@color/black"
         tools:text="@string/navigation_category"/>
 </merge>

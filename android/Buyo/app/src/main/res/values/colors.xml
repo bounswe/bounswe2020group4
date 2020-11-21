@@ -8,4 +8,7 @@
     <color name="buyo_antiqueWhite">#FBEBD8</color>
     <color name="buyo_white">#FFFFFF</color>
     <color name="buyo_Cinnabar">#E53C38</color>
+    <color name="black">#000000</color>
+    <color name="light_blue_gray">#d1d7db</color>
+
 </resources>
