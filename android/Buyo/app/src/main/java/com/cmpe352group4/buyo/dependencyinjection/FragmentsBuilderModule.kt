@@ -2,7 +2,8 @@ package com.cmpe352group4.buyo.dependencyinjection
 
 import com.cmpe352group4.buyo.ui.EmptyFragment
 import com.cmpe352group4.buyo.ui.ExampleFragment
-import com.cmpe352group4.buyo.ui.HomepageFragment
+import com.cmpe352group4.buyo.ui.homepage.HomepageFragment
+import com.cmpe352group4.buyo.ui.login.LoginFragment
 import com.cmpe352group4.buyo.ui.navigationtabs.*
 import com.cmpe352group4.buyo.ui.productList.ProductListFragment
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailCommentsFragment
@@ -49,5 +50,9 @@ abstract class FragmentsBuilderModule {
 
     @ContributesAndroidInjector
     abstract  fun contributeProductDetailCommentsFragment(): ProductDetailCommentsFragment
+
+    @ContributesAndroidInjector
+    abstract  fun contributeLoginFragment(): LoginFragment
+
 
 }
