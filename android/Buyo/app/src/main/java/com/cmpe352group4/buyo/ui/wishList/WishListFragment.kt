@@ -1,23 +1,41 @@
 package com.cmpe352group4.buyo.ui.wishList
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.vo.Product
 import kotlinx.android.synthetic.main.fragment_wish_list.*
-import kotlinx.android.synthetic.main.item_wish_list_recycler_view.*
 
 class WishListFragment: BaseFragment() {
 
     companion object {
         fun newInstance() = WishListFragment()
     }
+
+    private val wishListAdapter by lazy {
+        WishListAdapter(mutableListOf(),
+            { productID ->
+                //Delete functionality
+                Log.v("berkay", "delete")
+            },
+            { productID ->
+                /*navigationManager?.onReplace(
+                    ProductDetailContentFragment.newInstance(productID),
+                    TransactionType.Replace, true
+                )*/
+                Log.v("berkay", "detail")
+            })
+
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,13 +58,6 @@ class WishListFragment: BaseFragment() {
             TODO()
         }
 
-        btnDeleteWishlist.setOnClickListener{
-            TODO()
-        }
-
-        btnRemoveProductFromWishList.setOnClickListener{
-            TODO()
-        }
         // RECYCLER VIEW
         var dummyComment = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
 
@@ -88,29 +99,22 @@ class WishListFragment: BaseFragment() {
                 productReleaseDate = "01.01.2020" )
         )
 
-        /*
-        val wishListProductListAdapter by lazy {
-            WishListAdapter(productList) { product ->
-                navigationManager?.onReplace(
-                    ProductDetailContentFragment.newInstance(product.productID),
-                    TransactionType.Replace, true
-                )
-            }
-        }
 
-        rvWishListProducts.adapter = wishListProductListAdapter */
-        rvWishListProducts.layoutManager = LinearLayoutManager(this.context)
+        wishListAdapter.submitList(productList)
+        rvWishListProducts.adapter = wishListAdapter
+        rvWishListProducts.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
-        spWishList.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                adapterView: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                TODO("Not yet implemented")
-            }
-        }
+
+//        spWishList.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//            override fun onItemSelected(
+//                adapterView: AdapterView<*>?,
+//                view: View?,
+//                position: Int,
+//                id: Long
+//            ) {
+//                TODO("Not yet implemented")
+//            }
+//        }
     }
 
 

@@ -3,6 +3,7 @@ package com.cmpe352group4.buyo.dependencyinjection
 import com.cmpe352group4.buyo.ui.EmptyFragment
 import com.cmpe352group4.buyo.ui.ExampleFragment
 import com.cmpe352group4.buyo.ui.navigationtabs.*
+import com.cmpe352group4.buyo.ui.wishList.WishListFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -34,5 +35,6 @@ abstract class FragmentsBuilderModule {
     @ContributesAndroidInjector
     abstract fun contributeProfileTabContainer(): ProfileTabContainer
 
-
+    @ContributesAndroidInjector
+    abstract fun contributeWishListFragment(): WishListFragment
 }

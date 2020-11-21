@@ -9,7 +9,9 @@ import com.cmpe352group4.buyo.vo.Product
 import kotlinx.android.synthetic.main.item_wish_list_recycler_view.view.*
 
 class WishListAdapter (
-    var wishListProducts: MutableList<Product>
+    var wishListProducts: MutableList<Product>,
+    val deleteCallback: (Int) -> Unit,
+    val clickProductCallBack: (Int) -> Unit
 ) : RecyclerView.Adapter<WishListAdapter.WishListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WishListViewHolder {
@@ -25,6 +27,12 @@ class WishListAdapter (
         holder.bind(wishListProducts[position])
     }
 
+    fun submitList(list: MutableList<Product>) {
+        this.wishListProducts.clear()
+        this.wishListProducts.addAll(list)
+        notifyDataSetChanged()
+    }
+
     inner class WishListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val view = itemView
@@ -34,7 +42,12 @@ class WishListAdapter (
             itemView.tvWishListRecyclerView_Name.text = modal.productName
             itemView.tvWishListRecyclerView_Rate.text = modal.productRate.toString()
             itemView.tvWishListRecyclerView_Price.text = modal.productPrice
-
+            itemView.setOnClickListener {
+                clickProductCallBack.invoke(modal.productID)
+            }
+            itemView.btnRemoveProductFromWishList.setOnClickListener {
+                deleteCallback.invoke(modal.productID)
+            }
         }
     }
 }
