@@ -5,7 +5,6 @@ import DefaultProductImage from '../images/default-product-detail-image.png'
 import ProductInfo from '../components/ProductInfo'
 import ProductPurchase from '../components/ProductPurchase'
 import Comments from '../components/Comments'
-import ProductDetailInfo from '../components/ProductDetailInfo'
 
 import productService from '../services/products'
 
@@ -29,14 +28,16 @@ const ProductDetails = ({ img }) => {
       <div className='product-container'>
         <div className='product-left-column'>
           <img src={product.imageUrl || DefaultProductImage} alt='product'/>
-          <ProductPurchase />
         </div>
         <div className='product-right-column'>
           <ProductInfo 
             name={product.name} 
             brand={product.brand} 
-            price={product.price}/>        
-          <ProductDetailInfo />
+            price={product.price}
+            rating={product.rating}
+            vendor={product.vendor.name}
+            vendorRating={product.vendor.rating}/>        
+            <ProductPurchase price={product.price}/>
         </div>
       </div>
       <Comments />

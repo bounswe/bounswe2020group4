@@ -33,7 +33,11 @@
   color: var(--red-secondary);
 }
 
-.product-card-container {
+.product-cards {
   display: flex;
   flex-wrap: wrap;
+}
+
+.product-card-container {
+  margin: 10px 10px;
 }

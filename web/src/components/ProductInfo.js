@@ -8,7 +8,7 @@ import FreeShippingImage from '../images/free-shipping.png'
 import './ProductInfo.css'
 
 
-const ProductInfo = ({ name, brand, price }) => {
+const ProductInfo = ({ name, brand, price, rating, vendor, vendorRating }) => {
   return(
     <div className='product-info-container'>
       <div>          
@@ -18,15 +18,15 @@ const ProductInfo = ({ name, brand, price }) => {
         </div>          
       </div>
       <h3 className='product-brand'>{brand}</h3>
-      <RatingStar rating={4.6} />
+      <RatingStar rating={rating} />
       <div className='product-price'>{price}&#8378;</div>
       <div>
         <div className='shipping-container'>
           <img src={FreeShippingImage} alt='free shipping'/>
         </div>          
         <div className='company-detail-container'>
-          <div>Seller: Xiaomi Türkiye</div>
-          <RatingStar rating={4.8}/>
+          <div>Seller: {vendor}</div>
+          <RatingStar rating={vendorRating}/>
         </div>
       </div>
     </div>

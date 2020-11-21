@@ -12,8 +12,10 @@ const Wishlist = () => {
         <div className='list-links'>
           <h3>Lists</h3>
         </div>
-        <div className='product-card-container'>
-          <ProductCard name='Product' price='$7.99'/>
+        <div className='product-cards'>
+          <div className='product-card-container'>
+            <ProductCard name='Product' price='$7.99'/>
+          </div>          
         </div>
       </div>
     </div>

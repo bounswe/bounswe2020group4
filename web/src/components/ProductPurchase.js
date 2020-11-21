@@ -1,16 +1,16 @@
 import React from 'react'
 import './ProductPurchase.css'
 
-const ProductPurchase = () => {
+const ProductPurchase = ({price}) => {
   return(
     <div className='product-purchase-container'>
       <div className='product-amount-container' >
         <label className='amount-label'>Amount</label>
-        <input type="number" min="1" />
+        <input type="number" min="1" value="1"/>
       </div>
       <div className='product-add-to-cart-container'>
         <div className='product-price'>
-          209.99 &#8378;
+          {price} &#8378;
         </div>
         <button>Add to <br/> Cart</button>
       </div>
