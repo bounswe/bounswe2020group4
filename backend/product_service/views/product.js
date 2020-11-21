@@ -92,3 +92,32 @@ module.exports.getProducts = async (params) => {
     return error;
   }
 };
+
+module.exports.getProduct = async (params) => {
+  try {
+    let product;
+
+    if (params.id) {
+      product = await Product.findOne({ id: params.id})
+    } 
+
+    if (product) {
+      product = product.toJSON();
+
+      const vendor = await Vendor.findOne({ id: product.vendorId});
+
+      product.vendor = {
+        name: vendor.name,
+        rating: vendor.rating,
+      };
+
+      delete product._id;
+      delete product.vendorId;
+    }
+
+    return product;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
