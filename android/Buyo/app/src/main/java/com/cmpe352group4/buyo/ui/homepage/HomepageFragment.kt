@@ -1,4 +1,4 @@
-package com.cmpe352group4.buyo.ui
+package com.cmpe352group4.buyo.ui.homepage
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -42,7 +42,7 @@ class HomepageFragment : BaseFragment() {
                 }
                 else {
                     navigationManager?.onReplace(
-                        ProductListFragment.newInstance(keyword),
+                        ProductListFragment.newInstance(keyword = keyword),
                         TransactionType.Replace, true
                     )
                     return true

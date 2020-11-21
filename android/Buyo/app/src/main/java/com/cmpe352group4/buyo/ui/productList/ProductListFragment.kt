@@ -20,6 +20,7 @@ import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
 import com.cmpe352group4.buyo.viewmodel.ProductViewModel
 import kotlinx.android.synthetic.main.fragment_product_list.*
 import com.cmpe352group4.buyo.vo.Product
+import java.util.ArrayList
 import javax.inject.Inject
 
 
@@ -34,8 +35,10 @@ class ProductListFragment : BaseFragment(){
 
     companion object {
         private const val KEYWORD = "search_keyword"
-        fun newInstance(keyword: String?) = ProductListFragment().apply {
+        private const val CATEGORY_PATH = "category_path"
+        fun newInstance(keyword: String? = "", path: String? = "") = ProductListFragment().apply {
             arguments = Bundle().apply {
+                putString(CATEGORY_PATH, path)
                 putString(KEYWORD, keyword)
             }
         }
@@ -83,7 +86,7 @@ class ProductListFragment : BaseFragment(){
         // BACK BUTTON
 
         btnProductListBack.setOnClickListener {
-            // TODO
+            activity?.onBackPressed()
         }
 
 
@@ -94,7 +97,7 @@ class ProductListFragment : BaseFragment(){
                 }
                 else {
                     navigationManager?.onReplace(
-                        ProductListFragment.newInstance(keyword),
+                        ProductListFragment.newInstance(keyword = keyword),
                         TransactionType.Replace, true
                     )
                     return true

@@ -26,7 +26,7 @@ class NetworkModule {
 
     @Provides
     @Named(PRIMARY_URL)
-    fun providePrimaryURl(): String = "https://buyo/api/"
+    fun providePrimaryURl(): String = "http://3.138.113.101:8080/"
 
     @Provides
     @Named(TIMEOUT_MILLIS)
