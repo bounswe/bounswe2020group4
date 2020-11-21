@@ -7,26 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.cmpe352group4.buyo.R
-import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
-import com.cmpe352group4.buyo.viewmodel.ProductViewModel
 import kotlinx.android.synthetic.main.fragment_product_detail_comments.*
 import kotlinx.android.synthetic.main.fragment_product_detail_content.*
-import javax.inject.Inject
 
 class ProductDetailContentFragment : BaseFragment() {
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    private val productViewModel: ProductViewModel by viewModels {
-        viewModelFactory
-    }
 
 
     companion object {
@@ -54,25 +41,8 @@ class ProductDetailContentFragment : BaseFragment() {
         var productId = arguments?.getInt(PRODUCT_ID) ?: -1
 
 
-        // Backend request
-
-        productViewModel.onFetchProductById(productId)
-
         // Request Backend and fill the xml.
         // TODO
-
-        productViewModel.productDetail.observe(viewLifecycleOwner, Observer {
-            if (it.status == Status.SUCCESS && it.data != null){
-                Log.v("Product Object", it.data.productName)
-
-                //dispatchLoading()
-            } else if (it.status == Status.ERROR){
-                //dispatchLoading()
-            }else if (it.status == Status.LOADING){
-                //showLoading()
-            }
-
-        })
 
         //tvProductDetailName.text = productId.toString()
 
