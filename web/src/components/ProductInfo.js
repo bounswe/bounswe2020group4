@@ -8,18 +8,18 @@ import FreeShippingImage from '../images/free-shipping.png'
 import './ProductInfo.css'
 
 
-const ProductInfo = () => {
+const ProductInfo = ({ name, brand, price }) => {
   return(
     <div className='product-info-container'>
       <div>          
-        <h2 className='product-name' >Bluetooth Kulaklık</h2>
+        <h2 className='product-name' >{name}</h2>
         <div className='wishlist-button-container' >
           <WishlistButton />
         </div>          
       </div>
-      <h3 className='product-brand'>Xiaomi</h3>
+      <h3 className='product-brand'>{brand}</h3>
       <RatingStar rating={4.6} />
-      <div className='product-price'>209.99&#8378;</div>
+      <div className='product-price'>{price}&#8378;</div>
       <div>
         <div className='shipping-container'>
           <img src={FreeShippingImage} alt='free shipping'/>
