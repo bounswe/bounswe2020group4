@@ -1,7 +1,9 @@
 package com.cmpe352group4.buyo.api
 
 import androidx.lifecycle.LiveData
+import com.cmpe352group4.buyo.vo.BaseResponse
 import com.cmpe352group4.buyo.vo.Category
+import com.cmpe352group4.buyo.vo.CategoryList
 import com.cmpe352group4.buyo.vo.Product
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -23,7 +25,7 @@ interface Api {
     fun fetchProductDetail(@Path("id") productId:Int): LiveData<ApiResponse<Product>>
 
     @GET("categories")
-    fun fetchCategories(): LiveData<ApiResponse<List<Category>>>
+    fun fetchCategories(): LiveData<ApiResponse<BaseResponse<CategoryList>>>
 
 
 

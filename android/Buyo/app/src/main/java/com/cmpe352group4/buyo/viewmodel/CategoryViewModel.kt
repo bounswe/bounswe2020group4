@@ -8,6 +8,7 @@ import com.cmpe352group4.buyo.api.Resource
 import com.cmpe352group4.buyo.datamanager.repositories.CategoryRepository
 import com.cmpe352group4.buyo.util.livedata.AbsentLiveData
 import com.cmpe352group4.buyo.vo.Category
+import com.cmpe352group4.buyo.vo.CategoryList
 import javax.inject.Inject
 
 
@@ -17,7 +18,7 @@ class CategoryViewModel @Inject constructor(
 
     private val _category = MutableLiveData<Boolean>()
 
-    val categories: LiveData<Resource<List<Category>>> =
+    val categories: LiveData<Resource<CategoryList>> =
         Transformations.switchMap(_category) { Id ->
             if (Id == null)
                 AbsentLiveData.create()

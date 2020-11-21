@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -28,17 +30,19 @@ class CategoriesPageFragment : BaseFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val categoryViewModel: CategoryViewModel by viewModels {
+    private val categoryViewModel: CategoryViewModel by activityViewModels {
         viewModelFactory
     }
 
     private lateinit var pathIndex: ArrayList<Int>
-    private var newCategoryList: MutableList<Category>? = null
-    var initialCategoryList = mutableListOf(
-        Category(name = "Bebek", path = "bebek", subCategories = mutableListOf(Category(name = "Erkek Bebek", path = "Bebek,Erkek Bebek", subCategories = mutableListOf(Category(name = "Tulum", path = "Bebek,Erkek Bebek,Tulum", subCategories = mutableListOf()))))),
-        Category(name = "Erkek", path = "Erkek", subCategories = mutableListOf(Category(name = "Pijama", path = "Erkek,Pijama", subCategories = mutableListOf()))),
-        Category(name = "Kadin", path = "Kadin", subCategories = mutableListOf(Category(name = "Corap", path = "Kadin,Corap", subCategories = mutableListOf())))
-        )
+    private var newCategoryList: List<Category>? = null
+//    var initialCategoryList = mutableListOf(
+//        Category(name = "Bebek", path = "bebek", subCategories = mutableListOf(Category(name = "Erkek Bebek", path = "Bebek,Erkek Bebek", subCategories = mutableListOf(Category(name = "Tulum", path = "Bebek,Erkek Bebek,Tulum", subCategories = mutableListOf()))))),
+//        Category(name = "Erkek", path = "Erkek", subCategories = mutableListOf(Category(name = "Pijama", path = "Erkek,Pijama", subCategories = mutableListOf()))),
+//        Category(name = "Kadin", path = "Kadin", subCategories = mutableListOf(Category(name = "Corap", path = "Kadin,Corap", subCategories = mutableListOf())))
+//        )
+
+//    private var initialCategoryList: MutableList<Category>? = null
 
 
     companion object {
@@ -91,7 +95,7 @@ class CategoriesPageFragment : BaseFragment() {
             categoryViewModel.categories.observe(viewLifecycleOwner, Observer {
                 if (it.status == Status.SUCCESS && it.data != null) {
 
-                    categoryAdapter.submitList(it.data as MutableList<Category>)
+                    categoryAdapter.submitList(it.data.categories as MutableList<Category>)
 
                     dispatchLoading()
                 } else if (it.status == Status.ERROR) {
@@ -100,16 +104,16 @@ class CategoriesPageFragment : BaseFragment() {
                     showLoading()
                 }
             })
-            categoryAdapter.submitList(initialCategoryList)
+            //categoryAdapter.submitList(initialCategoryList)
 
         }else{
             btnCategoriesBack.visible = true
             logoImageView.visible = false
 
-            newCategoryList = initialCategoryList
+            newCategoryList = categoryViewModel.categories.value?.data?.categories as MutableList<Category>
             pathIndex.forEach {
 //                newCategoryList = categoryViewModel.categories.value?.data?.get(it)?.subCategories
-                newCategoryList = newCategoryList!![it].subCategories
+                newCategoryList = newCategoryList!![it].subcategories
             }
             categoryAdapter.submitList(newCategoryList as MutableList<Category>)
         }
@@ -124,6 +128,26 @@ class CategoriesPageFragment : BaseFragment() {
             pathIndex.removeAt(pathIndex.size - 1)
             activity?.onBackPressed()
         }
+
+        searchBarSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(keyword: String?): Boolean {
+                if (keyword == ""){
+                    return false
+                }
+                else {
+                    navigationManager?.onReplace(
+                        ProductListFragment.newInstance(keyword = keyword),
+                        TransactionType.Replace, true
+                    )
+                    return true
+                }
+
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                return true
+            }
+        })
     }
 
 

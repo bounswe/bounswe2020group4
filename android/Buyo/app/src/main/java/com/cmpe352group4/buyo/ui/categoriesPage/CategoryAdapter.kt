@@ -40,7 +40,7 @@ class CategoryAdapter (
         val view = view
 
         fun bind(modal: Category, position: Int) {
-            if(modal.subCategories.isNullOrEmpty()){
+            if(modal.subcategories.isNullOrEmpty()){
                 itemView.iv_openSubCategories.visible = false
             }
             itemView.tv_categoryName.text = modal.name

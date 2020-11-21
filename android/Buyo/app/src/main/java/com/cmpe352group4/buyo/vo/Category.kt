@@ -5,5 +5,5 @@ import java.io.Serializable
 data class Category(
     var name: String,
     var path: String,
-    var subCategories: MutableList<Category>?
+    var subcategories: List<Category>?
 ): Serializable
