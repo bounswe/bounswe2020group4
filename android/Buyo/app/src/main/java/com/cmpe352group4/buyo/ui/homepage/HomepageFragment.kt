@@ -1,25 +1,71 @@
 package com.cmpe352group4.buyo.ui.homepage
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cmpe352group4.buyo.R
+import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
-import com.cmpe352group4.buyo.ui.homepage.ProductAdapter
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
+import com.cmpe352group4.buyo.ui.productList.ProductListAdapter
 import com.cmpe352group4.buyo.ui.productList.ProductListFragment
+import com.cmpe352group4.buyo.viewmodel.ProductViewModel
+import com.cmpe352group4.buyo.viewmodel.SearchViewModel
 import com.cmpe352group4.buyo.vo.Product
+import com.cmpe352group4.buyo.vo.Vendor
 import kotlinx.android.synthetic.main.fragment_homepage.*
+import kotlinx.android.synthetic.main.fragment_product_list.*
+import javax.inject.Inject
 
 class HomepageFragment : BaseFragment() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    @Inject
+    lateinit var viewModelFactory2: ViewModelProvider.Factory
+
+    private val recommendedViewModel: SearchViewModel by viewModels {
+        viewModelFactory
+    }
+    private val discountViewModel: SearchViewModel by viewModels {
+        viewModelFactory2
+    }
 
     companion object {
         fun newInstance() = HomepageFragment()
     }
+
+    private val recommendedProductListAdapter by lazy {
+        ProductAdapter(mutableListOf()
+        ) { product ->
+            navigationManager?.onReplace(
+                ProductDetailContentFragment.newInstance(product.id),
+                TransactionType.Replace, true
+            )
+
+        }
+    }
+
+    private val discountProductListAdapter by lazy {
+        ProductAdapter(mutableListOf()
+        ) { product ->
+            navigationManager?.onReplace(
+                ProductDetailContentFragment.newInstance(product.id),
+                TransactionType.Replace, true
+            )
+
+        }
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,54 +103,25 @@ class HomepageFragment : BaseFragment() {
 
 
         // Recommendation RV
-        var recommendedProductList = mutableListOf(
-            Product(
-                productImage = "drawable/ic_launcher_background.xml",
-                productInfo = "Product Info", productName = "MyItemName6",
-                productID = 6, productNumComments = 0, productRate = 1.1,
-                productPrice = "0.0", productReleaseDate = "01.01.2020"
-            ),
+        recommendedViewModel.onFetchSearchResultbyKeyword("bebek")
 
-            Product(
-                productImage = "drawable/ic_launcher_background.xml",
-                productInfo = "Product Info", productName = "MyItemName5",
-                productID = 5, productNumComments = 0, productRate = 1.1,
-                productPrice = "0.0", productReleaseDate = "01.01.2020"
-            ),
-            Product(
-                productImage = "drawable/ic_launcher_background.xml",
-                productInfo = "Product Info", productName = "MyItemName4",
-                productID = 4, productNumComments = 0, productRate = 1.1,
-                productPrice = "0.0", productReleaseDate = "01.01.2020"
-            ),
-            Product(
-                productImage = "drawable/ic_launcher_background.xml",
-                productInfo = "Product Info", productName = "MyItemName3",
-                productID = 3, productNumComments = 0, productRate = 1.1,
-                productPrice = "0.0", productReleaseDate = "01.01.2020"
-            ),
-            Product(
-                productImage = "drawable/ic_launcher_background.xml",
-                productInfo = "Product Info", productName = "MyItemName2",
-                productID = 2, productNumComments = 0, productRate = 1.1,
-                productPrice = "0.0", productReleaseDate = "01.01.2020"
-            ),
-            Product(
-                productImage = "drawable/ic_launcher_background.xml",
-                productInfo = "Product Info", productName = "MyItemName1",
-                productID = 1, productNumComments = 0, productRate = 1.1,
-                productPrice = "0.0", productReleaseDate = "01.01.2020"
-            )
-        )
+        recommendedViewModel.searchResult.observe(viewLifecycleOwner, Observer {
 
-        val recommendedProductListAdapter by lazy {
-            ProductAdapter(recommendedProductList) { product ->
-                navigationManager?.onReplace(
-                    ProductDetailContentFragment.newInstance(product.productID),
-                    TransactionType.Replace, true
-                )
+            if (it.status == Status.SUCCESS && it.data != null){
+                Log.v("Products of the Recomm", it.data.products.toString())
+
+                recommendedProductListAdapter.submitList(it.data.products as MutableList<Product>)
+
+                dispatchLoading()
+            } else if (it.status == Status.ERROR){
+                dispatchLoading()
+            }else if (it.status == Status.LOADING){
+                showLoading()
             }
-        }
+        })
+
+
+
 
         recommendationsRecyclerView.adapter = recommendedProductListAdapter
         recommendationsRecyclerView.layoutManager = LinearLayoutManager(
@@ -113,54 +130,24 @@ class HomepageFragment : BaseFragment() {
         )
 
         // Discount RV
-        var discountProductList = mutableListOf(
-            Product(
-                productImage = "drawable/ic_launcher_background.xml",
-                productInfo = "Product Info", productName = "MyItemName1",
-                productID = 0, productNumComments = 0, productRate = 1.1,
-                productPrice = "10.0", productReleaseDate = "01.01.2020"
-            ),
 
-            Product(
-                productImage = "drawable/ic_launcher_background.xml",
-                productInfo = "Product Info", productName = "MyItemName2",
-                productID = 0, productNumComments = 0, productRate = 1.1,
-                productPrice = "20.0", productReleaseDate = "01.01.2020"
-            ),
-            Product(
-                productImage = "drawable/ic_launcher_background.xml",
-                productInfo = "Product Info", productName = "MyItemName3",
-                productID = 0, productNumComments = 0, productRate = 1.1,
-                productPrice = "999.99", productReleaseDate = "01.01.2020"
-            ),
-            Product(
-                productImage = "drawable/ic_launcher_background.xml",
-                productInfo = "Product Info", productName = "MyItemName4",
-                productID = 0, productNumComments = 0, productRate = 1.1,
-                productPrice = "123.2", productReleaseDate = "01.01.2020"
-            ),
-            Product(
-                productImage = "drawable/ic_launcher_background.xml",
-                productInfo = "Product Info", productName = "MyItemName5",
-                productID = 0, productNumComments = 0, productRate = 1.1,
-                productPrice = "0.50", productReleaseDate = "01.01.2020"
-            ),
-            Product(
-                productImage = "drawable/ic_launcher_background.xml",
-                productInfo = "Product Info", productName = "MyItemName6",
-                productID = 0, productNumComments = 0, productRate = 1.1,
-                productPrice = "0.99", productReleaseDate = "01.01.2020"
-            )
-        )
+        discountViewModel.onFetchSearchResultbyCategory( "[\"Erkek\"]")
 
-        val discountProductListAdapter by lazy {
-            ProductAdapter(discountProductList) { product ->
-                navigationManager?.onReplace(
-                    ProductDetailContentFragment.newInstance(product.productID),
-                    TransactionType.Replace, true
-                )
+        discountViewModel.categoryResult.observe(viewLifecycleOwner, Observer {
+
+            if (it.status == Status.SUCCESS && it.data != null){
+                Log.v("Products of the discnt", it.data.products.toString())
+
+                discountProductListAdapter.submitList(it.data.products as MutableList<Product>)
+
+                dispatchLoading()
+            } else if (it.status == Status.ERROR){
+                dispatchLoading()
+            }else if (it.status == Status.LOADING){
+                showLoading()
             }
-        }
+        })
+
 
         discountRecyclerView.adapter = discountProductListAdapter
         discountRecyclerView.layoutManager = LinearLayoutManager(

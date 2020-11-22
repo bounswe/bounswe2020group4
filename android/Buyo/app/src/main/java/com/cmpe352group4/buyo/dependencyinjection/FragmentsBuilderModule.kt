@@ -1,7 +1,6 @@
 package com.cmpe352group4.buyo.dependencyinjection
 
 import com.cmpe352group4.buyo.ui.EmptyFragment
-import com.cmpe352group4.buyo.ui.ExampleFragment
 
 import com.cmpe352group4.buyo.ui.categoriesPage.CategoriesPageFragment
 import com.cmpe352group4.buyo.ui.homepage.HomepageFragment
@@ -18,8 +17,6 @@ import dagger.android.ContributesAndroidInjector
 abstract class FragmentsBuilderModule {
 
     // AFTER CREATING NEW FRAGMENT YOU NEED TO ADD AN INJECTOR FUNCTION LIKE THE OTHERS
-    @ContributesAndroidInjector
-    abstract fun contributeExampleFragment(): ExampleFragment
 
     @ContributesAndroidInjector
     abstract fun contributeEmptyFragment(): EmptyFragment

@@ -11,11 +11,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.cmpe352group4.buyo.MainActivity
 import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.base.BaseFragment
+import com.cmpe352group4.buyo.base.fragment_ops.NavigationManager
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
 import com.cmpe352group4.buyo.viewmodel.WishListViewModel
+import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
+import com.cmpe352group4.buyo.util.extensions.visible
 import com.cmpe352group4.buyo.vo.Product
 import kotlinx.android.synthetic.main.fragment_wish_list.*
 import javax.inject.Inject
@@ -31,6 +35,8 @@ class WishListFragment: BaseFragment() {
 
     private var newWishListProducts: List<Product>? = null
 
+    @Inject
+    lateinit var sharedPref: SharedPref
 
     companion object {
         fun newInstance() = WishListFragment()
@@ -66,6 +72,18 @@ class WishListFragment: BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if(sharedPref.getUserId().isNullOrEmpty()){
+            cl_nonlogin.visible = true
+            cl_wishlist.visible = false
+        }else{
+            cl_nonlogin.visible = false
+            cl_wishlist.visible = true
+        }
+
+        loginButton.setOnClickListener {
+            (activity as MainActivity).onItemSelected(4)
+        }
+
         btnOrderWishList.setOnClickListener{
             TODO()
         }
@@ -78,6 +96,7 @@ class WishListFragment: BaseFragment() {
             TODO()
         }
 
+        /*
         // RECYCLER VIEW
         //var dummyComment = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
 
@@ -141,6 +160,7 @@ class WishListFragment: BaseFragment() {
         val decorator = DividerItemDecoration(rvWishListProducts.context, LinearLayoutManager.VERTICAL)
         decorator.setDrawable(ContextCompat.getDrawable(rvWishListProducts.context, R.drawable.divider_drawable)!!)
         rvWishListProducts.addItemDecoration(decorator)
+         
 
 //        spWishList.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 //            override fun onItemSelected(
@@ -154,6 +174,15 @@ class WishListFragment: BaseFragment() {
 //        }
     }
 
-
+    override fun onResume() {
+        super.onResume()
+        if(sharedPref.getUserId().isNullOrEmpty()){
+            cl_nonlogin.visible = true
+            cl_wishlist.visible = false
+        }else{
+            cl_nonlogin.visible = false
+            cl_wishlist.visible = true
+        }
+    }
 
 }
