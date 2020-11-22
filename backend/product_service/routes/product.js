@@ -53,9 +53,9 @@ module.exports.initialize = (app) => {
   });
 
   app.post("/signup", async (request, response) => {
-    await account.signup(request.query);
+    const result = await account.signup(request.query);
 
-    response.respond(200, "OK");
+    response.respond(200, result);
   });
 
   app.post("/db/init", async (request, response) => {
