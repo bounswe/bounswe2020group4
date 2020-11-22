@@ -110,6 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
+                android:isIndicator="true"
                 app:layout_constraintBottom_toTopOf="@+id/tvProductDetailInfo"
                 app:layout_constraintEnd_toStartOf="@+id/tbProductDetailFav"
                 app:layout_constraintHorizontal_bias="0.5"
