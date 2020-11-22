@@ -7,18 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cmpe352group4.buyo.R
-import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
 import com.cmpe352group4.buyo.viewmodel.WishListViewModel
-import com.cmpe352group4.buyo.vo.Category
 import com.cmpe352group4.buyo.vo.Product
 import kotlinx.android.synthetic.main.fragment_wish_list.*
 import javax.inject.Inject
@@ -123,7 +120,7 @@ class WishListFragment: BaseFragment() {
         )*/
 
         //These will be in if statement
-        wishListViewModel.onFetchWishListProducts(true)
+        /*wishListViewModel.onFetchWishListProducts(true)
 
         wishListViewModel.wishListProducts.observe(viewLifecycleOwner, Observer {
             if (it.status == Status.SUCCESS && it.data != null) {
@@ -136,7 +133,7 @@ class WishListFragment: BaseFragment() {
             } else if (it.status == Status.LOADING) {
                 showLoading()
             }
-        })
+        })*/
 
         rvWishListProducts.adapter = wishListAdapter
         rvWishListProducts.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)

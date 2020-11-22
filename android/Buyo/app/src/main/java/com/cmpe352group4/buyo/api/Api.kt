@@ -1,12 +1,11 @@
 package com.cmpe352group4.buyo.api
 
 import androidx.lifecycle.LiveData
-import com.cmpe352group4.buyo.vo.BaseResponse
-import com.cmpe352group4.buyo.vo.CategoryList
-import com.cmpe352group4.buyo.vo.Product
-import com.cmpe352group4.buyo.vo.WishListProducts
+import com.cmpe352group4.buyo.vo.*
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface Api {
 
@@ -26,10 +25,15 @@ interface Api {
     @GET("categories")
     fun fetchCategories(): LiveData<ApiResponse<BaseResponse<CategoryList>>>
 
-    @GET("wishlist/{customerId}")
-    fun fetchWishList(): LiveData<ApiResponse<BaseResponse<WishListProducts>>>
+    @GET("wishlist")
+    fun fetchWishList(
+        @Query("customerId") customerId: Int
+    ): LiveData<ApiResponse<BaseResponse<WishListProducts>>>
 
 
-//    @POST("like/{customerId}/{productId}")
-//    fun unlikeProductWishList():
+    @POST("like")
+    fun unlikeProductWishList(
+        @Query("customerId") customerId: Int,
+        @Query("productId") productId: Int
+    ): LiveData<ApiResponse<BaseResponsePostRequest>>
 }
