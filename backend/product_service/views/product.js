@@ -41,7 +41,7 @@ module.exports.getProductCategories = async () => {
           temp.push({
             name: category,
             subcategories: [],
-            path: distinctCategory.slice(0, index),
+            path: distinctCategory.slice(0, index).join(","),
           });
         }
 
