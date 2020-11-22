@@ -76,6 +76,15 @@ class ProductDetailContentFragment : BaseFragment() {
 
         })
 
+        tbProductDetailFav.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                // The toggle is enabled
+            } else {
+                // The toggle is disabled
+            }
+        }
+
+
         btnProductDetailCart.setOnClickListener {
             Toast.makeText(context, "Added to your cart!", Toast.LENGTH_LONG).show()
         }

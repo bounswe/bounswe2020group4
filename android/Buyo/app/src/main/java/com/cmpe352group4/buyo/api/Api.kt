@@ -24,4 +24,12 @@ interface Api {
 
     @GET("categories")
     fun fetchCategories(): LiveData<ApiResponse<BaseResponse<CategoryList>>>
+
+    @GET("products")
+    fun fetchSearchResult(@Query("search") searchKeyword: String) : LiveData<ApiResponse<BaseResponse<ProductList>>>
+
+    @GET("products")
+    fun fetchProductsbyCategory(@Query("categories") categoryList: String) : LiveData<ApiResponse<BaseResponse<ProductList>>>
+
+
 }

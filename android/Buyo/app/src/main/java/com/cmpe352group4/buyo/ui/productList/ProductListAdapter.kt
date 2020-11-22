@@ -41,15 +41,23 @@ class ProductListAdapter(
 
         fun bind(modal: Product) {
 
-            itemView.tv_productListRecyclerView_Info.text = "PRODUCT INFO"
+            itemView.tv_productListRecyclerView_Info.text = "Brand: " + modal.brand + " / Vendor: " + modal.vendor.name + " / Vendor Rating : " + modal.vendor.rating.toString()
             itemView.tv_productListRecyclerView_Name.text = modal.name
-            itemView.tv_productListRecyclerView_Rate.text = modal.rating.toString()
+            itemView.tv_productListRecyclerView_Rate.text = "Rating: " + modal.rating.toString()
             itemView.tv_productListRecyclerView_Price.text = modal.price.toString() + " TL"
             Glide.with(itemView.context)
                 .load(modal.imageUrl).centerCrop()
                 .into(itemView.iv_productListRecyclerView_Image)
 
             itemView.setOnClickListener { clickCallback.invoke(modal) }
+
+            itemView.tb_productListRecyclerView_Fav.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    // The toggle is enabled
+                } else {
+                    // The toggle is disabled
+                }
+            }
         }
 
     }
