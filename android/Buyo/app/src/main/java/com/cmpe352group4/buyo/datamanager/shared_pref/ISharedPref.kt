@@ -7,7 +7,7 @@ interface ISharedPref {
 //    fun saveToken(token: String?)
 //    fun getToken(): String?
 //
-//    fun saveUserId(id: String)
-//    fun getUserId(): String?
+    fun saveUserId(id: String)
+    fun getUserId(): String?
 
 }
