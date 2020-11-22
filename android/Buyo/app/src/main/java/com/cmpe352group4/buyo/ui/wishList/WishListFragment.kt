@@ -5,14 +5,19 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cmpe352group4.buyo.MainActivity
 import com.cmpe352group4.buyo.R
+import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.NavigationManager
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
@@ -29,7 +34,7 @@ class WishListFragment: BaseFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val wishListViewModel: WishListViewModel by activityViewModels {
+    private val wishListViewModel: WishListViewModel by viewModels {
         viewModelFactory
     }
 
@@ -78,7 +83,21 @@ class WishListFragment: BaseFragment() {
         }else{
             cl_nonlogin.visible = false
             cl_wishlist.visible = true
+            wishListViewModel.onFetchWishListProducts(sharedPref.getUserId()?.toInt() ?: -1)
         }
+
+        wishListViewModel.wishListProducts.observe(viewLifecycleOwner, Observer {
+            if (it.status == Status.SUCCESS && it.data != null) {
+
+                wishListAdapter.submitList(it.data.products as MutableList<Product>)
+
+                dispatchLoading()
+            } else if (it.status == Status.ERROR) {
+                dispatchLoading()
+            } else if (it.status == Status.LOADING) {
+                showLoading()
+            }
+        })
 
         loginButton.setOnClickListener {
             (activity as MainActivity).onItemSelected(4)
@@ -96,63 +115,9 @@ class WishListFragment: BaseFragment() {
             TODO()
         }
 
-        /*
-        // RECYCLER VIEW
-        //var dummyComment = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-
-        /*var productList = mutableListOf(
-            Product(
-                productImage = "drawable/ic_launcher_background.xml",
-                productInfo = dummyComment, productName = "MyItemName1",
-                productID = 1,
-                productNumComments = 0,
-                productRate = 1.1,
-                productPrice = "0.0",
-                productReleaseDate = "01.01.2020"),
-            Product(
-                productImage = "drawable/ic_launcher_background.xml",
-                productInfo = dummyComment,
-                productName = "MyItemName2",
-                productID = 2,
-                productNumComments = 0,
-                productRate = 1.1,
-                productPrice = "0.0",
-                productReleaseDate = "01.01.2020" ),
-            Product(
-                productImage = "drawable/ic_launcher_background.xml",
-                productInfo = dummyComment,
-                productName = "MyItemName3",
-                productID = 3,
-                productNumComments = 0,
-                productRate = 1.1,
-                productPrice = "0.0",
-                productReleaseDate = "01.01.2020" ),
-            Product(
-                productImage = "drawable/ic_launcher_background.xml",
-                productInfo = dummyComment,
-                productName = "MyItemName4",
-                productID = 4,
-                productNumComments = 0,
-                productRate = 1.1,
-                productPrice = "0.0",
-                productReleaseDate = "01.01.2020" )
-        )*/
 
         //These will be in if statement
-        /*wishListViewModel.onFetchWishListProducts(true)
 
-        wishListViewModel.wishListProducts.observe(viewLifecycleOwner, Observer {
-            if (it.status == Status.SUCCESS && it.data != null) {
-
-                wishListAdapter.submitList(it.data.products as MutableList<Category>)
-
-                dispatchLoading()
-            } else if (it.status == Status.ERROR) {
-                dispatchLoading()
-            } else if (it.status == Status.LOADING) {
-                showLoading()
-            }
-        })*/
 
         rvWishListProducts.adapter = wishListAdapter
         rvWishListProducts.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
@@ -160,7 +125,7 @@ class WishListFragment: BaseFragment() {
         val decorator = DividerItemDecoration(rvWishListProducts.context, LinearLayoutManager.VERTICAL)
         decorator.setDrawable(ContextCompat.getDrawable(rvWishListProducts.context, R.drawable.divider_drawable)!!)
         rvWishListProducts.addItemDecoration(decorator)
-         
+
 
 //        spWishList.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 //            override fun onItemSelected(
@@ -171,7 +136,12 @@ class WishListFragment: BaseFragment() {
 //            ) {
 //                TODO("Not yet implemented")
 //            }
+//
+//            override fun onNothingSelected(p0: AdapterView<*>?) {
+//                TODO("Not yet implemented")
+//            }
 //        }
+
     }
 
     override fun onResume() {
@@ -182,6 +152,7 @@ class WishListFragment: BaseFragment() {
         }else{
             cl_nonlogin.visible = false
             cl_wishlist.visible = true
+            wishListViewModel.onFetchWishListProducts(sharedPref.getUserId()?.toInt() ?: -1)
         }
     }
 
