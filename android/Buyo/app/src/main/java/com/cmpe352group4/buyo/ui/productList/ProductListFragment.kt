@@ -20,11 +20,12 @@ import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
 import com.cmpe352group4.buyo.viewmodel.ProductViewModel
 import kotlinx.android.synthetic.main.fragment_product_list.*
 import com.cmpe352group4.buyo.vo.Product
+import com.cmpe352group4.buyo.vo.Vendor
 import java.util.ArrayList
 import javax.inject.Inject
 
 
-class ProductListFragment : BaseFragment(){
+class ProductListFragment : BaseFragment() {
     /*
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -92,12 +93,11 @@ class ProductListFragment : BaseFragment(){
         }
 
 
-        sv_productListSearchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+        sv_productListSearchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(keyword: String?): Boolean {
-                if (keyword == ""){
+                if (keyword == "") {
                     return false
-                }
-                else {
+                } else {
                     navigationManager?.onReplace(
                         ProductListFragment.newInstance(keyword = keyword),
                         TransactionType.Replace, true
@@ -115,21 +115,68 @@ class ProductListFragment : BaseFragment(){
         // TODO Backend request with keyword and fill the recycler view
 
         // RECYCLER VIEW
-        var dummyComment = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tempus sem tortor, id efficitur nisi feugiat eget. In ac odio sed nisl dapibus consequat. Praesent eu nulla at ipsum elementum varius et suscipit metus."
+        var dummyComment =
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tempus sem tortor, id efficitur nisi feugiat eget. In ac odio sed nisl dapibus consequat. Praesent eu nulla at ipsum elementum varius et suscipit metus."
 
         var productsList = mutableListOf(
-            Product(productImage = "drawable/ic_launcher_background.xml", productInfo = dummyComment, productName = "MyItemName6", productID = 6, productNumComments = 0, productRate = 1.1, productPrice = "0.0", productReleaseDate = "01.01.2020"),
-            Product(productImage = "drawable/ic_launcher_background.xml", productInfo = dummyComment, productName = "MyItemName5", productID = 5, productNumComments = 0, productRate = 1.1, productPrice = "0.0", productReleaseDate = "01.01.2020" ),
-            Product(productImage = "drawable/ic_launcher_background.xml", productInfo = dummyComment, productName = "MyItemName4", productID = 4, productNumComments = 0, productRate = 1.1, productPrice = "0.0", productReleaseDate = "01.01.2020" ),
-            Product(productImage = "drawable/ic_launcher_background.xml", productInfo = dummyComment, productName = "MyItemName3", productID = 3, productNumComments = 0, productRate = 1.1, productPrice = "0.0", productReleaseDate = "01.01.2020" ),
-            Product(productImage = "drawable/ic_launcher_background.xml", productInfo = dummyComment, productName = "MyItemName2", productID = 2, productNumComments = 0, productRate = 1.1, productPrice = "0.0", productReleaseDate = "01.01.2020" ),
-            Product(productImage = "drawable/ic_launcher_background.xml", productInfo = dummyComment, productName = "MyItemName1", productID = 1, productNumComments = 0, productRate = 1.1, productPrice = "0.0", productReleaseDate = "01.01.2020")
+            Product(
+                category = listOf("Bebek", "Kiz Bebek", "Takim"),
+                sizes = null,
+                colors = listOf(),
+                name = "Kiz Bebek Takim 2'li",
+                id = 10000,
+                imageUrl = "https://img-lcwaikiki.mncdn.com/mnresize/230/-/pim/productimages/20202/4353680/l_20202-0w9038z1-qca_a.jpg",
+                rating = 1.95,
+                price = 35.99,
+                originalPrice = 35.99,
+                brand = "Koton",
+                vendor = Vendor("Ahmet", 3.22)
+            ),
+            Product(
+                category = listOf("Bebek", "Kiz Bebek", "Takim"),
+                sizes = null,
+                colors = listOf(),
+                name = "Kiz Bebek Takim 2'li",
+                id = 10000,
+                imageUrl = "https://img-lcwaikiki.mncdn.com/mnresize/230/-/pim/productimages/20202/4353680/l_20202-0w9038z1-qca_a.jpg",
+                rating = 1.95,
+                price = 35.99,
+                originalPrice = 35.99,
+                brand = "Koton",
+                vendor = Vendor("Ahmet", 3.22)
+            ),
+            Product(
+                category = listOf("Bebek", "Kiz Bebek", "Takim"),
+                sizes = null,
+                colors = listOf(),
+                name = "Kiz Bebek Takim 2'li",
+                id = 10000,
+                imageUrl = "https://img-lcwaikiki.mncdn.com/mnresize/230/-/pim/productimages/20202/4353680/l_20202-0w9038z1-qca_a.jpg",
+                rating = 1.95,
+                price = 35.99,
+                originalPrice = 35.99,
+                brand = "Koton",
+                vendor = Vendor("Ahmet", 3.22)
+            ),
+            Product(
+                category = listOf("Bebek", "Kiz Bebek", "Takim"),
+                sizes = null,
+                colors = listOf(),
+                name = "Kiz Bebek Takim 2'li",
+                id = 10000,
+                imageUrl = "https://img-lcwaikiki.mncdn.com/mnresize/230/-/pim/productimages/20202/4353680/l_20202-0w9038z1-qca_a.jpg",
+                rating = 1.95,
+                price = 35.99,
+                originalPrice = 35.99,
+                brand = "Koton",
+                vendor = Vendor("Ahmet", 3.22)
+            )
         )
 
         val productListAdapter by lazy {
             ProductListAdapter(productsList) { product ->
                 navigationManager?.onReplace(
-                    ProductDetailContentFragment.newInstance(product.productID),
+                    ProductDetailContentFragment.newInstance(product.id),
                     TransactionType.Replace, true
                 )
             }
@@ -142,44 +189,96 @@ class ProductListFragment : BaseFragment(){
 
         // ORDER SPINNER
 
-        sp_ProductListSort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                if(adapterView?.getItemAtPosition(position).toString() == "Name"){
-                    productsList.sortBy { product -> product.productName }
+        sp_ProductListSort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                adapterView: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                if (adapterView?.getItemAtPosition(position).toString() == "Name") {
+                    productsList.sortBy { product -> product.name }
                     productListAdapter.notifyDataSetChanged()
-                }else if (adapterView?.getItemAtPosition(position).toString() == "Date (Latest)"){
-                    Toast.makeText(context, adapterView?.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show()
-                }else if (adapterView?.getItemAtPosition(position).toString() == "Date (Latest)"){
-                    Toast.makeText(context, adapterView?.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show()
-                }else if (adapterView?.getItemAtPosition(position).toString() == "Date (Latest)"){
-                    Toast.makeText(context, adapterView?.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show()
-                }else if (adapterView?.getItemAtPosition(position).toString() == "Date (Latest)"){
-                    Toast.makeText(context, adapterView?.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show()
-                }else if (adapterView?.getItemAtPosition(position).toString() == "Date (Latest)"){
-                    Toast.makeText(context, adapterView?.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show()
+                } else if (adapterView?.getItemAtPosition(position).toString() == "Date (Latest)") {
+                    Toast.makeText(
+                        context,
+                        adapterView?.getItemAtPosition(position).toString(),
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else if (adapterView?.getItemAtPosition(position).toString() == "Date (Latest)") {
+                    Toast.makeText(
+                        context,
+                        adapterView?.getItemAtPosition(position).toString(),
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else if (adapterView?.getItemAtPosition(position).toString() == "Date (Latest)") {
+                    Toast.makeText(
+                        context,
+                        adapterView?.getItemAtPosition(position).toString(),
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else if (adapterView?.getItemAtPosition(position).toString() == "Date (Latest)") {
+                    Toast.makeText(
+                        context,
+                        adapterView?.getItemAtPosition(position).toString(),
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else if (adapterView?.getItemAtPosition(position).toString() == "Date (Latest)") {
+                    Toast.makeText(
+                        context,
+                        adapterView?.getItemAtPosition(position).toString(),
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
+
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 TODO("Not yet implemented")
             }
         }
-
 
         // FILTER SPINNER
 
-        sp_ProductListFilter.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                if (adapterView?.getItemAtPosition(position).toString() == "Brand"){
-                    Toast.makeText(context, adapterView?.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show()
-                }else if (adapterView?.getItemAtPosition(position).toString() == "Category"){
-                    Toast.makeText(context, adapterView?.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show()
-                }else if (adapterView?.getItemAtPosition(position).toString() == "Vendor"){
-                    Toast.makeText(context, adapterView?.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show()
-                }else if (adapterView?.getItemAtPosition(position).toString() == "Price Range"){
-                    Toast.makeText(context, adapterView?.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show()
-                }else if (adapterView?.getItemAtPosition(position).toString() == "Category Specific"){
-                    Toast.makeText(context, adapterView?.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show()
+        sp_ProductListFilter.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                adapterView: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                if (adapterView?.getItemAtPosition(position).toString() == "Brand") {
+                    Toast.makeText(
+                        context,
+                        adapterView?.getItemAtPosition(position).toString(),
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else if (adapterView?.getItemAtPosition(position).toString() == "Category") {
+                    Toast.makeText(
+                        context,
+                        adapterView?.getItemAtPosition(position).toString(),
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else if (adapterView?.getItemAtPosition(position).toString() == "Vendor") {
+                    Toast.makeText(
+                        context,
+                        adapterView?.getItemAtPosition(position).toString(),
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else if (adapterView?.getItemAtPosition(position).toString() == "Price Range") {
+                    Toast.makeText(
+                        context,
+                        adapterView?.getItemAtPosition(position).toString(),
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else if (adapterView?.getItemAtPosition(position)
+                        .toString() == "Category Specific"
+                ) {
+                    Toast.makeText(
+                        context,
+                        adapterView?.getItemAtPosition(position).toString(),
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
 
@@ -187,7 +286,5 @@ class ProductListFragment : BaseFragment(){
                 TODO("Not yet implemented")
             }
         }
-
     }
-
 }

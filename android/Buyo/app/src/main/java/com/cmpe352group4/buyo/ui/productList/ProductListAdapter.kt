@@ -8,6 +8,8 @@ import com.bumptech.glide.Glide
 import com.cmpe352group4.buyo.R
 import kotlinx.android.synthetic.main.item_product_list_recycler_view.view.*
 import com.cmpe352group4.buyo.vo.Product
+import kotlinx.android.synthetic.main.fragment_product_detail_content.*
+import kotlinx.android.synthetic.main.fragment_product_detail_content.view.*
 
 
 class ProductListAdapter(
@@ -39,14 +41,15 @@ class ProductListAdapter(
 
         fun bind(modal: Product) {
 
-            itemView.tv_productListRecyclerView_Info.text = modal.productInfo
-            itemView.tv_productListRecyclerView_Name.text = modal.productName
+            itemView.tv_productListRecyclerView_Info.text = "PRODUCT INFO"
+            itemView.tv_productListRecyclerView_Name.text = modal.name
+            itemView.tv_productListRecyclerView_Rate.text = modal.rating.toString()
+            itemView.tv_productListRecyclerView_Price.text = modal.price.toString() + " TL"
+            Glide.with(itemView.context)
+                .load(modal.imageUrl).centerCrop()
+                .into(itemView.iv_productListRecyclerView_Image)
+
             itemView.setOnClickListener { clickCallback.invoke(modal) }
-
-            //Glide.with(itemView.context)
-            //    .load(modal.productImage).centerCrop()
-            //    .into(itemView.iv_productListRecyclerView)
-
         }
 
     }

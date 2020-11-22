@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
@@ -45,7 +46,6 @@ class ProductDetailContentFragment : BaseFragment() {
         super.onCreateView(inflater, container, savedInstanceState)
 
         return inflater.inflate(R.layout.fragment_product_detail_content, container, false)
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,26 +55,26 @@ class ProductDetailContentFragment : BaseFragment() {
 
 
         // Backend request
-
         productViewModel.onFetchProductById(productId)
-
-        // Request Backend and fill the xml.
-        // TODO
-
         productViewModel.productDetail.observe(viewLifecycleOwner, Observer {
             if (it.status == Status.SUCCESS && it.data != null){
-                Log.v("Product Object", it.data.productName)
+                tvProductDetailName.text = it.data.result.name
+                tvProductDetailVendor.text = it.data.result.vendor.name
+                tvProductDetailInfo.text = "PRODUCT INFO PRODUCT INFO PRODUCT INFO PRODUCT INFO "
+                tvProductDetailPrice.text = it.data.result.price.toString() + " TL"
+                rbProductDetailRating.rating = it.data.result.rating.toFloat()
+                Glide.with(this)
+                    .load(it.data.result.imageUrl).centerCrop()
+                    .into(ivProductDetailImage)
 
-                //dispatchLoading()
+                dispatchLoading()
             } else if (it.status == Status.ERROR){
-                //dispatchLoading()
+                dispatchLoading()
             }else if (it.status == Status.LOADING){
-                //showLoading()
+                showLoading()
             }
 
         })
-
-        //tvProductDetailName.text = productId.toString()
 
         btnProductDetailCart.setOnClickListener {
             Toast.makeText(context, "Added to your cart!", Toast.LENGTH_LONG).show()
