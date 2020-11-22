@@ -1,2 +1,3 @@
 export const SHOW_HEADER = 'SHOW_HEADER'
 export const HIDE_HEADER = 'HIDE_HEADER'
+export const SET_LOGIN_STATE = "SET_LOGIN_STATE"
