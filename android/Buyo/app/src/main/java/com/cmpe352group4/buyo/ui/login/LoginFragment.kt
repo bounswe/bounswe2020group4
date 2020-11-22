@@ -1,5 +1,6 @@
 package com.cmpe352group4.buyo.ui.login
 
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -15,7 +16,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
+import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
+import com.cmpe352group4.buyo.ui.EmptyFragment
 import com.cmpe352group4.buyo.viewmodel.ProfileViewModel
 import com.cmpe352group4.buyo.vo.LoginSignupRequest
 import kotlinx.android.synthetic.main.fragment_login.*
@@ -71,8 +74,8 @@ class LoginFragment : BaseFragment() {
                 userNameCountBool = p0?.length ?: 0 >= 6
                 if (userNameCountBool && passwordCountBool) {
                     context?.run {
-                        btn_login.setBackgroundColor(ContextCompat.getColor(this, R.color.buyo_fireEngineRed))
-                        btn_singUp.setBackgroundColor(ContextCompat.getColor(this, R.color.buyo_fireEngineRed))
+                        btn_login.setBackgroundColor(ContextCompat.getColor(this, R.color.ligth_green))
+                        btn_singUp.setBackgroundColor(ContextCompat.getColor(this, R.color.ligth_green))
                     }
                     boolLoginButton = true
                 } else {
@@ -98,8 +101,8 @@ class LoginFragment : BaseFragment() {
 
                 if (userNameCountBool && passwordCountBool) {
                     context?.run {
-                        btn_login.setBackgroundColor(ContextCompat.getColor(this, R.color.buyo_fireEngineRed))
-                        btn_singUp.setBackgroundColor(ContextCompat.getColor(this, R.color.buyo_fireEngineRed))
+                        btn_login.setBackgroundColor(ContextCompat.getColor(this, R.color.ligth_green))
+                        btn_singUp.setBackgroundColor(ContextCompat.getColor(this, R.color.ligth_green))
                     }
                     boolLoginButton = true
                 } else {
@@ -130,9 +133,13 @@ class LoginFragment : BaseFragment() {
 
                         dispatchLoading()
 
-                        val myToast = Toast.makeText(context,"You succesfully logged in",Toast.LENGTH_SHORT)
-                        myToast.setGravity(Gravity.LEFT,200,200)
-                        myToast.show()
+//                        val myToast = Toast.makeText(context,"You succesfully logged in",Toast.LENGTH_SHORT)
+//                        myToast.setGravity(Gravity.LEFT,200,200)
+//                        myToast.show()
+                        navigationManager?.onReplace(
+                            EmptyFragment.newInstance(),
+                            TransactionType.Replace, true
+                        )
                     } else if (it.status == Status.ERROR) {
                         dispatchLoading()
                         val myToast = Toast.makeText(context,it.message,Toast.LENGTH_SHORT)
@@ -167,9 +174,13 @@ class LoginFragment : BaseFragment() {
 
                         dispatchLoading()
 
-                        val myToast = Toast.makeText(context,"You succesfully signed up",Toast.LENGTH_SHORT)
-                        myToast.setGravity(Gravity.LEFT,200,200)
-                        myToast.show()
+//                        val myToast = Toast.makeText(context,"You succesfully signed up",Toast.LENGTH_SHORT)
+//                        myToast.setGravity(Gravity.LEFT,200,200)
+//                        myToast.show()
+                        navigationManager?.onReplace(
+                            EmptyFragment.newInstance(),
+                            TransactionType.Replace, true
+                        )
                     } else if (it.status == Status.ERROR) {
                         dispatchLoading()
                         val myToast = Toast.makeText(context,it.message,Toast.LENGTH_SHORT)

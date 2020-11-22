@@ -82,6 +82,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="remember_me">Remember me</string>
+    <string name="non_login">You need to login first</string>
 
     <!-- Product List Page -->
     <string-array name="sp_productList_order">

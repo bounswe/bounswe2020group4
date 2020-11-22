@@ -8,13 +8,21 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.cmpe352group4.buyo.MainActivity
 import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.base.BaseFragment
+import com.cmpe352group4.buyo.base.fragment_ops.NavigationManager
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
+import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
+import com.cmpe352group4.buyo.util.extensions.visible
 import com.cmpe352group4.buyo.vo.Product
 import kotlinx.android.synthetic.main.fragment_wish_list.*
+import javax.inject.Inject
 
 class WishListFragment: BaseFragment() {
+
+    @Inject
+    lateinit var sharedPref: SharedPref
 
     companion object {
         fun newInstance() = WishListFragment()
@@ -49,6 +57,18 @@ class WishListFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if(sharedPref.getUserId().isNullOrEmpty()){
+            cl_nonlogin.visible = true
+            cl_wishlist.visible = false
+        }else{
+            cl_nonlogin.visible = false
+            cl_wishlist.visible = true
+        }
+
+        loginButton.setOnClickListener {
+            (activity as MainActivity).onItemSelected(4)
+        }
 
         btnOrderWishList.setOnClickListener{
             TODO()

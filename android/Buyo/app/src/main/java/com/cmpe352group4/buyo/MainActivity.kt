@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import com.cmpe352group4.buyo.base.BaseActivity
 import com.cmpe352group4.buyo.base.ConnectionManager
 import com.cmpe352group4.buyo.base.fragment_ops.NavigationManager
+import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.navigationtabs.*
 import com.cmpe352group4.buyo.util.GeneralUtil
 import com.cmpe352group4.buyo.widgets.navigation_bar.NavigationBarOnClickListener
@@ -23,6 +24,9 @@ import javax.inject.Inject
 class MainActivity : BaseActivity(), NavigationBarOnClickListener {
 
     override fun supportFragmentInjector() = dispatchingAndroidInjector
+
+    @Inject
+    lateinit var sharedPref: SharedPref
 
     companion object {
         fun newInstance(context: Context) {
@@ -52,7 +56,7 @@ class MainActivity : BaseActivity(), NavigationBarOnClickListener {
     override fun initialize() {
         initNavigationBar()
         connectionManager.setActivity(this)
-
+        //sharedPref.saveUserId("")
     }
 
     override fun onItemSelected(position: Int) {
