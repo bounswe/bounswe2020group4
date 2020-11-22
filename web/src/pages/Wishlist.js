@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux'
 
 import ProductCard from '../components/ProductCard'
-
 import wishlistService from '../services/wishlist'
-
 import './Wishlist.css'
 
-const Wishlist = () => {
+const Wishlist = (props) => {
   const [products, setProducts] = useState([])
 
-  //TODO read from redux state
-  const customerId = 12341
-
   useEffect(() => {
+    
+    if(!props.isLoggedIn) {
+      //TODO: redirect to signin page!
+      return <div></div>
+    }
+    
     wishlistService
-      .getWishlist(customerId)
+      .getWishlist(props.customerId)
       .then(prods => {
         setProducts(prods)
       })
-  }, [])
+  }, [props.isLoggedIn, props.customerId])
 
   return(
     <div className='wishlist-container'>
@@ -39,4 +41,11 @@ const Wishlist = () => {
   )
 }
 
-export default Wishlist
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.signIn.isLoggedIn,
+    customerId: state.signIn.userId
+  }
+}
+
+export default connect(mapStateToProps)(Wishlist)

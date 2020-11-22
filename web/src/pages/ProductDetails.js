@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import { connect } from 'react-redux'
+
 
 import DefaultProductImage from '../images/default-product-detail-image.png'
 import ProductInfo from '../components/ProductInfo'
@@ -11,7 +13,7 @@ import productService from '../services/products'
 import './ProductDetails.css'
 
 
-const ProductDetails = ({ img }) => {
+const ProductDetails = (props) => {
   const [product, setProduct] = useState(null)
   const id = useParams().id
   
@@ -33,6 +35,8 @@ const ProductDetails = ({ img }) => {
         </div>
         <div className='product-right-column'>
           <ProductInfo 
+            customerId={props.customerId}
+            isLoggedIn={props.isLoggedIn}
             productId={product.id}
             name={product.name} 
             brand={product.brand} 
@@ -48,4 +52,11 @@ const ProductDetails = ({ img }) => {
   )
 }
 
-export default ProductDetails
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.signIn.isLoggedIn,
+    customerId: state.signIn.userId
+  }
+}
+
+export default connect(mapStateToProps)(ProductDetails)

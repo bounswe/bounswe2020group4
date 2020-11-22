@@ -14,25 +14,26 @@ const StyledRating = withStyles({
   },
 })(Rating);
 
-const WishlistButton = ({ productId }) => {
-
-  // TODO: read customer id from redux state
-  const customerId = 12341
+const WishlistButton = ({ customerId, productId, isLoggedIn }) => {
 
   const handleAddtoWishlist = (event, value) => {
     event.preventDefault()
     if(value === 1) {
-      console.log('adding..')
-      wishlistService
-        .addToWishlist(customerId, productId)
-        .then(response => {
-          if(response.status.code !== 200) {
-            console.log(`error while adding ${productId} to wishlist of ${customerId}`)
-          }
-          else {
-            console.log('added to wishlist succesfully!')
-          }
-        })
+      if(!isLoggedIn) {
+        //TODO: redirect to signin page!
+      }
+      else {        
+        wishlistService
+          .addToWishlist(customerId, productId)
+          .then(response => {
+            if(response.status.code !== 200) {
+              console.log(`error while adding ${productId} to wishlist of ${customerId}`)
+            }
+            else {
+              console.log('added to wishlist succesfully!')
+            }
+          })
+      }
     }
   }
 
