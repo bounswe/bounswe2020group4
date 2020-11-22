@@ -34,7 +34,7 @@ const SignIn = ({login, hideHeader}) => {
         e.preventDefault()
         login({'email':email, 'password': password})
     } 
-
+//Berke Crash Course 2
 
     return (
         <div className="signInModal">
