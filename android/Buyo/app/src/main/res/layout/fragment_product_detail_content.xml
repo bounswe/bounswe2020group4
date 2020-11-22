@@ -52,13 +52,13 @@
 
             <ImageView
                 android:id="@+id/ivProductDetailImage"
-                android:layout_width="match_parent"
+                android:layout_width="300dp"
                 android:layout_height="300dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_launcher_background"
                 app:layout_constraintBottom_toTopOf="@+id/tvProductDetailName"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -110,6 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
+                android:isIndicator="true"
                 app:layout_constraintBottom_toTopOf="@+id/tvProductDetailInfo"
                 app:layout_constraintEnd_toStartOf="@+id/tbProductDetailFav"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -122,6 +123,8 @@
                 android:layout_height="wrap_content"
                 android:background="@color/buyo_antiqueWhite"
                 android:text="@string/tv_product_detail_content_info"
+                android:textSize="14sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"

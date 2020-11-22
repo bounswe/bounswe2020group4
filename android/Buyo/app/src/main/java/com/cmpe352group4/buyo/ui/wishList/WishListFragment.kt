@@ -58,6 +58,7 @@ class WishListFragment: BaseFragment() {
             TODO()
         }
 
+        /*
         // RECYCLER VIEW
         var dummyComment = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
 
@@ -104,6 +105,7 @@ class WishListFragment: BaseFragment() {
         rvWishListProducts.adapter = wishListAdapter
         rvWishListProducts.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
+         */
 
 //        spWishList.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 //            override fun onItemSelected(

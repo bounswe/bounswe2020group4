@@ -39,14 +39,14 @@ class WishListAdapter (
 
         fun bind(modal: Product) {
 
-            itemView.tvWishListRecyclerView_Name.text = modal.productName
-            itemView.tvWishListRecyclerView_Rate.text = modal.productRate.toString()
-            itemView.tvWishListRecyclerView_Price.text = modal.productPrice
+            itemView.tvWishListRecyclerView_Name.text = modal.name
+            itemView.tvWishListRecyclerView_Rate.text = modal.rating.toString()
+            itemView.tvWishListRecyclerView_Price.text = modal.price.toString()
             itemView.setOnClickListener {
-                clickProductCallBack.invoke(modal.productID)
+                clickProductCallBack.invoke(modal.id)
             }
             itemView.btnRemoveProductFromWishList.setOnClickListener {
-                deleteCallback.invoke(modal.productID)
+                deleteCallback.invoke(modal.id)
             }
         }
     }
