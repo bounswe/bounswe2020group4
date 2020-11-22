@@ -6,7 +6,7 @@ const ProductPurchase = ({price}) => {
     <div className='product-purchase-container'>
       <div className='product-amount-container' >
         <label className='amount-label'>Amount</label>
-        <input type="number" min="1" value="1"/>
+        <input type="number" min="1" defaultValue="1"/>
       </div>
       <div className='product-add-to-cart-container'>
         <div className='product-price'>

@@ -17,7 +17,9 @@ const ProductDetails = ({ img }) => {
   
   useEffect(() => {
     productService.getProduct(id)
-      .then(p => setProduct(p))
+      .then(p => {
+        setProduct(p)
+      })
   }, [id])
   
   if(product === null)

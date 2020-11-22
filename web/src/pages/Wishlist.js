@@ -15,7 +15,9 @@ const Wishlist = () => {
   useEffect(() => {
     wishlistService
       .getWishlist(customerId)
-      .then(prods => setProducts(prods))
+      .then(prods => {
+        setProducts(prods)
+      })
   }, [])
 
   return(
@@ -27,8 +29,8 @@ const Wishlist = () => {
         </div>
         <div className='product-cards'>
           {products.map(p => 
-            <div className='product-card-container'>
-              <ProductCard key={p.id} name={p.name} price={p.price}/>
+            <div key={p.id} className='product-card-container'>
+              <ProductCard name={p.name} price={p.price} img={p.imageUrl}/>
             </div>          
           )}
         </div>

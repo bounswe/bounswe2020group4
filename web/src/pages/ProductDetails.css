@@ -1,29 +1,31 @@
 .product-details {
-  margin-left: 10%;
-  margin-right: 10%;
+  display: flex;
+  flex-flow: row wrap;
 }
 
 .product-container {
   display: table;
   width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .product-left-column {
   position: relative;
   float: left;
-  width: 35%;
+  text-align: center;
 }
 
 .product-right-column {
   position: relative;
   float: left;
-  width: 40%;
-  margin-left: 5%;
+  width: 35%;
+  margin-left: 10%;
 }
 
 .product-left-column img {
-  width: 100%;
-  height: auto;
+  width: auto;
+  height: 100%;
 }
 
 img {
