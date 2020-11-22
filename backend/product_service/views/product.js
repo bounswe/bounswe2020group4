@@ -41,7 +41,7 @@ module.exports.getProductCategories = async () => {
           temp.push({
             name: category,
             subcategories: [],
-            path: distinctCategory.slice(0, index).join(","),
+            path: distinctCategory.slice(0, index),
           });
         }
 
@@ -98,13 +98,13 @@ module.exports.getProduct = async (params) => {
     let product;
 
     if (params.id) {
-      product = await Product.findOne({ id: params.id})
-    } 
+      product = await Product.findOne({ id: params.id });
+    }
 
     if (product) {
       product = product.toJSON();
 
-      const vendor = await Vendor.findOne({ id: product.vendorId});
+      const vendor = await Vendor.findOne({ id: product.vendorId });
 
       product.vendor = {
         name: vendor.name,
