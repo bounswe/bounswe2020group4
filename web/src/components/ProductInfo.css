@@ -1,8 +1,8 @@
 .product-info-container {
   background-color: var(--beige);
-  padding-left: 1%;
-  padding-right: 5%;
+  padding: 10px;
   position: relative;
+  border-radius: 10px;
 }
 
 .product-brand {
@@ -12,7 +12,6 @@
 }
 
 .product-name {  
-  margin-top: 1%;
   margin-bottom: 0;
   font-size: 24px;
 }
@@ -20,7 +19,7 @@
 .wishlist-button-container {
   position: absolute;
   top: 5%;
-  right: 1%;
+  right: 20px;
 }
 
 .product-price {

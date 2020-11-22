@@ -1,0 +1,43 @@
+.wishlist-container {
+  padding: 0;
+  margin-left: 0;
+}
+
+.list-title {
+  background-color: var(--beige);
+  margin:0;
+  color: #A90011;
+  font-size: 24px;
+  border-radius: 20px;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.list-container {
+  display: flex;
+  margin-top: 10px;
+}
+
+.list-links {
+  background-color: var(--beige);
+  margin-right: 30px;
+  width: 262px;
+  height: 543px;
+  text-align:center;
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.list-links h3 {
+  font-size: 24px;
+  color: var(--red-secondary);
+}
+
+.product-cards {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.product-card-container {
+  margin: 10px 10px;
+}
