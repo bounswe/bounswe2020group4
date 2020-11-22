@@ -5,7 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cmpe352group4.buyo.MainActivity
@@ -13,6 +16,8 @@ import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.NavigationManager
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
+import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
+import com.cmpe352group4.buyo.viewmodel.WishListViewModel
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.util.extensions.visible
 import com.cmpe352group4.buyo.vo.Product
@@ -20,6 +25,15 @@ import kotlinx.android.synthetic.main.fragment_wish_list.*
 import javax.inject.Inject
 
 class WishListFragment: BaseFragment() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val wishListViewModel: WishListViewModel by activityViewModels {
+        viewModelFactory
+    }
+
+    private var newWishListProducts: List<Product>? = null
 
     @Inject
     lateinit var sharedPref: SharedPref
@@ -31,15 +45,15 @@ class WishListFragment: BaseFragment() {
     private val wishListAdapter by lazy {
         WishListAdapter(mutableListOf(),
             { productID ->
-                //Delete functionality
+                //Remove product from wish list functionality
+
                 Log.v("berkay", "delete")
             },
             { productID ->
-                /*navigationManager?.onReplace(
+                navigationManager?.onReplace(
                     ProductDetailContentFragment.newInstance(productID),
                     TransactionType.Replace, true
-                )*/
-                Log.v("berkay", "detail")
+                )
             })
 
     }
@@ -78,11 +92,15 @@ class WishListFragment: BaseFragment() {
             TODO()
         }
 
+        btnDeleteWishlist.setOnClickListener {
+            TODO()
+        }
+
         /*
         // RECYCLER VIEW
-        var dummyComment = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        //var dummyComment = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
 
-        var productList = mutableListOf(
+        /*var productList = mutableListOf(
             Product(
                 productImage = "drawable/ic_launcher_background.xml",
                 productInfo = dummyComment, productName = "MyItemName1",
@@ -118,14 +136,31 @@ class WishListFragment: BaseFragment() {
                 productRate = 1.1,
                 productPrice = "0.0",
                 productReleaseDate = "01.01.2020" )
-        )
+        )*/
 
+        //These will be in if statement
+        /*wishListViewModel.onFetchWishListProducts(true)
 
-        wishListAdapter.submitList(productList)
+        wishListViewModel.wishListProducts.observe(viewLifecycleOwner, Observer {
+            if (it.status == Status.SUCCESS && it.data != null) {
+
+                wishListAdapter.submitList(it.data.products as MutableList<Category>)
+
+                dispatchLoading()
+            } else if (it.status == Status.ERROR) {
+                dispatchLoading()
+            } else if (it.status == Status.LOADING) {
+                showLoading()
+            }
+        })*/
+
         rvWishListProducts.adapter = wishListAdapter
         rvWishListProducts.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
-         */
+        val decorator = DividerItemDecoration(rvWishListProducts.context, LinearLayoutManager.VERTICAL)
+        decorator.setDrawable(ContextCompat.getDrawable(rvWishListProducts.context, R.drawable.divider_drawable)!!)
+        rvWishListProducts.addItemDecoration(decorator)
+         
 
 //        spWishList.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 //            override fun onItemSelected(

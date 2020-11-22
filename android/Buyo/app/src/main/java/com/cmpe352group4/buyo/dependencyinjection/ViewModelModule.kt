@@ -3,6 +3,7 @@ package com.cmpe352group4.buyo.dependencyinjection
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.cmpe352group4.buyo.viewmodel.CategoryViewModel
+import com.cmpe352group4.buyo.viewmodel.WishListViewModel
 import com.cmpe352group4.buyo.viewmodel.ProductViewModel
 import com.cmpe352group4.buyo.viewmodel.SearchViewModel
 import com.cmpe352group4.buyo.viewmodel.ProfileViewModel
@@ -20,6 +21,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(CategoryViewModel::class)
     abstract fun bindCategoryViewModel(viewModel: CategoryViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(WishListViewModel::class)
+    abstract fun bindWishListViewModel(viewModel: WishListViewModel): ViewModel
 
     @Binds
     @IntoMap
