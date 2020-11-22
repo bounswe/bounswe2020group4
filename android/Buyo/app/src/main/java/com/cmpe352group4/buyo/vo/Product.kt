@@ -5,7 +5,7 @@ import java.io.Serializable
 data class Product(
     var category: List<String>,
     var sizes: String?,
-    var colors: List<String>,
+    var colors: List<String>?,
     var name: String,
     var id: Int,
     var imageUrl: String,

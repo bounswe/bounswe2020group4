@@ -139,6 +139,15 @@ class WishListFragment: BaseFragment() {
 //        }
     }
 
-
+    override fun onResume() {
+        super.onResume()
+        if(sharedPref.getUserId().isNullOrEmpty()){
+            cl_nonlogin.visible = true
+            cl_wishlist.visible = false
+        }else{
+            cl_nonlogin.visible = false
+            cl_wishlist.visible = true
+        }
+    }
 
 }

@@ -56,7 +56,7 @@ class MainActivity : BaseActivity(), NavigationBarOnClickListener {
     override fun initialize() {
         initNavigationBar()
         connectionManager.setActivity(this)
-        //sharedPref.saveUserId("")
+        sharedPref.saveUserId("")
     }
 
     override fun onItemSelected(position: Int) {
