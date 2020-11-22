@@ -123,6 +123,8 @@
                 android:layout_height="wrap_content"
                 android:background="@color/buyo_antiqueWhite"
                 android:text="@string/tv_product_detail_content_info"
+                android:textSize="14sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"

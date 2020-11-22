@@ -38,6 +38,9 @@ class ProductDetailContentFragment : BaseFragment() {
             }
         }
     }
+
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -60,7 +63,14 @@ class ProductDetailContentFragment : BaseFragment() {
             if (it.status == Status.SUCCESS && it.data != null){
                 tvProductDetailName.text = it.data.result.name
                 tvProductDetailVendor.text = it.data.result.vendor.name
-                tvProductDetailInfo.text = "PRODUCT INFO PRODUCT INFO PRODUCT INFO PRODUCT INFO "
+                tvProductDetailInfo.text = "Brand: " + it.data.result.brand + "\n" +
+                        "Vendor Rating: " + it.data.result.vendor.rating.toString() + "\n" +
+                        "Category: " + it.data.result.category.toString() + "\n" +
+                        "Available sizes: " + it.data.result.sizes + "\n" +
+                        "Available colors: " + it.data.result.colors.toString() + "\n" +
+                        "Rating: " + it.data.result.rating + "\n" +
+                        "Original Price: " + it.data.result.originalPrice.toString() + "\n" +
+                        "Current Price: " + it.data.result.price.toString() + "\n"
                 tvProductDetailPrice.text = it.data.result.price.toString() + " TL"
                 rbProductDetailRating.rating = it.data.result.rating.toFloat()
                 Glide.with(this)
