@@ -14,9 +14,8 @@ import history from '../util/history';
 import accountService from '../services/account'
 
 
-const SignIn = ({hideHeader, showHeader}) => {
+const SignIn = ({hideHeader, showHeader, setLoginState}) => {
 
-   const dispatch = useDispatch()
 
    //This function corresponds to componentDidMount
    //The return function corresponds to componentDidUnmount
@@ -39,7 +38,7 @@ const SignIn = ({hideHeader, showHeader}) => {
     const handleClick = function(e) {
         e.preventDefault()
         const userId = accountService.login({'email':email, 'password': password})
-        dispatch(setLoginState({ userId: userId})); 
+        setLoginState({ userId: userId}); 
     } 
 
     const redirectToSignup = function(e) {
@@ -98,10 +97,4 @@ const SignIn = ({hideHeader, showHeader}) => {
 }
 
 
-const mapStateToProps = state => {
-    return { showHeader: state.header.showHeader,
-            hideHeader: state.header.hideHeader,
-            signIn: state.signIn.signInReducer}
-}
-
-export default connect(mapStateToProps, {showHeader, hideHeader})(SignIn);
+export default connect(null, {showHeader, hideHeader, setLoginState})(SignIn);

@@ -13,9 +13,8 @@ import { setLoginState } from '../redux/actions';
 
 
 
-const SignUp = ({hideHeader, showHeader}) => {
+const SignUp = ({hideHeader, showHeader, setLoginState}) => {
 
-    const dispatch = useDispatch()
 
     //This function corresponds to componentDidMount
     //The return function corresponds to componentDidUnmount
@@ -38,7 +37,7 @@ const SignUp = ({hideHeader, showHeader}) => {
     const handleClick = function(e) {
         e.preventDefault()
         const userId = accountService.signUp({'email':email, 'password': password})
-        dispatch(setLoginState({ userId: userId}));     
+        setLoginState({ userId: userId});     
     } 
 
     const redirectToSignin = function(e) {
@@ -100,9 +99,4 @@ const SignUp = ({hideHeader, showHeader}) => {
 }
 
 
-const mapStateToProps = state => {
-    return { showHeader: state.header.showHeader,
-            hideHeader: state.header.hideHeader }
-}
-
-export default connect(mapStateToProps, {showHeader, hideHeader})(SignUp);
+export default connect(null, {showHeader, hideHeader, setLoginState})(SignUp);
