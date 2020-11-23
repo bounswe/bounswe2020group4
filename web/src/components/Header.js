@@ -10,8 +10,6 @@ import CartIcon from '../images/cart-icon.png'
 import WishlistIcon from '../images/wishlist-icon.png'
 import SearchIcon from '../images/search-icon.png'
 
-import history from '../util/history';
-
 //Styling
 import './Header.css'
 
