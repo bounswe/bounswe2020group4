@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getCategories } from '../services/category'
+import history from '../util/history'
 
 import Icon from '../images/buyo-icon.png'
 import ProfileIcon from '../images/profile-icon.png'
