@@ -1,4 +1,7 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { getCategories } from '../services/category'
 
 import Icon from '../images/buyo-icon.png'
 import ProfileIcon from '../images/profile-icon.png'
@@ -13,52 +16,19 @@ import './Header.css'
 
 
 
-const sampleCategories = [
-    {
-        "name": "Bebek",
-        "subcategories": [
-            {
-                "name": "Erkek Bebek",
-                "subcategories": [
-                    {
-                        "name": "Tulum",
-                        "subcategories": [],
-                        "path": "Bebek,Erkek Bebek,Tulum"
-                    }
-                ],
-                "path": "Bebek,Erkek Bebek"
-            }
-        ],
-        "path": "Bebek"
-    },
-    {
-        "name": "Erkek",
-        "subcategories": [
-            {
-                "name": "Pijama",
-                "subcategories": [],
-                "path": "Erkek,Pijama"
-            }
-        ],
-        "path": "Erkek"
-    },
-    {
-        "name": "Kadin",
-        "subcategories": [
-            {
-                "name": "Corap",
-                "subcategories": [],
-                "path": "Kadin,Corap"
-            }
-        ],
-        "path": "Kadin"
-    }
-]
 
-const Header = () => {
-    const [selectedPath, setSelectedPath] = useState("");
+const Header = ({ isLoggedIn }) => {
+    const [profileMenuOpen, setProfileMenuOpen] = useState(false)
+    const [selectedPath, setSelectedPath] = useState("")
+    const [categories, setCategories] = useState([])
 
-    const renderCategories = (categories) => {
+    useEffect(async () => {
+        const response = await getCategories()
+        setCategories(response)
+    }, [])
+
+    const renderCategories = () => {
+        console.log(categories)
         return categories.map((category) => {
             const thisPathSelected = selectedPath == category.path
             const handleClick = () => {
@@ -69,9 +39,9 @@ const Header = () => {
             }
 
             return (
-                <div className='col'>
+                <div className='category-container col py-2'>
                     <div className='category text-center' onClick={handleClick}>{category.name}</div>
-                    <div className='position-absolute container-fluid list-group mt-2' style={thisPathSelected ? {} : {maxHeight: '0', overflow: 'hidden'}}>{renderSubcategories(category.subcategories)}</div>
+                    <div className='subcategory-container text-center position-absolute container-fluid list-group mt-2' style={thisPathSelected ? {} : {maxHeight: '0', overflow: 'hidden'}}>{renderSubcategories(category.subcategories)}</div>
                 </div>
             )
         })
@@ -83,11 +53,26 @@ const Header = () => {
         })
     }
 
+    const renderNotLoggedInProfileMenu = () => {
+        return (
+            <div className='profile-menu list-group-item text-center position-absolute'>
+                <div className='list-item'>
+                    <Link to='/signin'>Sign In</Link>
+                </div>
+                <div className='list-item'>
+                    <Link to='signup'>Sign Up</Link>
+                </div>
+            </div>
+        )
+    }
+
     return (
-        <div>
+        <div className='header-container'>
             <div className='header-top-container'>
                 <div className='header-icon-container'>
-                    <img className='header-icon vertical-align-middle' src={Icon} alt='site icon'/>
+                    <Link to='/'>
+                        <img className='header-icon vertical-align-middle' src={Icon} alt='site icon'/>
+                    </Link>
                 </div>
                 <div className='searchbar-container'>
                     <input className='searchbar vertical-align-middle' type='text' placeholder='Search'/>
@@ -95,23 +80,33 @@ const Header = () => {
                 </div>
                 <div className='header-right-container'>
                     <div className='header-right-icon-container'>
-                        <img className='header-right-icon vertical-align-middle' src={ProfileIcon} alt='profile'/>
+                        <img className='header-right-icon vertical-align-middle' onClick={() => setProfileMenuOpen(!profileMenuOpen)} src={ProfileIcon} alt='profile'/>
+                        {profileMenuOpen 
+                            ? (isLoggedIn ? null : renderNotLoggedInProfileMenu())
+                            : null
+                        }
                     </div>
                     <div className='header-right-icon-container'>
-                        <img className='header-right-icon vertical-align-middle' src={WishlistIcon} alt='wishlist icon'/>
+                        <Link to='/wishlist'>
+                            <img className='header-right-icon vertical-align-middle' src={WishlistIcon} alt='wishlist icon'/>
+                        </Link>
                     </div>
                     <div className='header-right-icon-container'>
                         <img className='header-right-icon vertical-align-middle' src={CartIcon} alt='cart icon'/>
                     </div>
                 </div>
             </div>
-            <div className='container-fluid py-4 px-5'>
+            <div className='container-fluid py-3 px-5'>
                 <div className='row'>
-                    {renderCategories(sampleCategories)}
+                    {renderCategories()}
                 </div>
             </div>
         </div>
     );
 }
 
-export default Header;
+const mapStatetoProps = (state) => {
+    return { isLoggedIn: state.signIn.isLoggedIn }
+}
+
+export default connect(mapStatetoProps, {})(Header);
