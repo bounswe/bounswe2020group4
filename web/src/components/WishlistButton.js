@@ -16,8 +16,9 @@ const StyledRating = withStyles({
 })(Rating);
 
 const WishlistButton = ({ customerId, productId, isLoggedIn }) => {
+  customerId = 12341 //TODO delete this line
   const [isLiked, setIsLiked] = useState(0)
-  console.log(isLiked)
+  
   useEffect(() => {
     wishlistService
       .isInWishlist(customerId, productId)
@@ -31,7 +32,7 @@ const WishlistButton = ({ customerId, productId, isLoggedIn }) => {
   const handleAddtoWishlist = (event, value) => {
     event.preventDefault()
     if(value === 1) {
-      if(!isLoggedIn) { 
+      if(isLoggedIn) {  //TODO !isLoggedIn
         history.push('/signin')
       }
       else {     
@@ -39,7 +40,7 @@ const WishlistButton = ({ customerId, productId, isLoggedIn }) => {
         wishlistService
           .addToWishlist(customerId, productId)
           .then(response => {
-            if(response.status.code !== 200) {
+            if(response.status !== 200) {
               console.log(`error while adding ${productId} to wishlist of ${customerId}`)
             }
             else {
@@ -49,7 +50,17 @@ const WishlistButton = ({ customerId, productId, isLoggedIn }) => {
       }
     }
     else {
-      //TODO: dislike product
+      wishlistService
+        .removeFromWishlist(customerId, productId)
+        .then(response => {
+          console.log(response)
+          if(response.status !== 200) {
+            console.log(`error while removing ${productId} from wishlist of ${customerId}`)
+          }
+          else {
+            console.log('removed from wishlist succesfully!')
+          }
+        })
       setIsLiked(0)
     }
   }
