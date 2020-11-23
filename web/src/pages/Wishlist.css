@@ -1,6 +1,5 @@
-.wishlist-container {
-  padding: 0;
-  margin-left: 0;
+.wishlist-container { 
+  padding: 2rem 3rem 2rem 3rem;
 }
 
 .list-title {
