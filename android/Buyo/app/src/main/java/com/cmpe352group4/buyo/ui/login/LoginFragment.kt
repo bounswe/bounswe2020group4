@@ -170,17 +170,17 @@ class LoginFragment : BaseFragment() {
                 profileViewModel.singup.observe(viewLifecycleOwner, Observer {
                     if (it.status == Status.SUCCESS && it.data != null) {
 
-                        sharedPref.saveUserId(it.data.userId)
+                        //sharedPref.saveUserId(it.data.userId)
 
                         dispatchLoading()
 
-//                        val myToast = Toast.makeText(context,"You succesfully signed up",Toast.LENGTH_SHORT)
+                        val myToast = Toast.makeText(context,"You succesfully signed up",Toast.LENGTH_SHORT)
 //                        myToast.setGravity(Gravity.LEFT,200,200)
-//                        myToast.show()
-                        navigationManager?.onReplace(
-                            EmptyFragment.newInstance(),
-                            TransactionType.Replace, true
-                        )
+                        myToast.show()
+                        //navigationManager?.onReplace(
+                        //    EmptyFragment.newInstance(),
+                        //    TransactionType.Replace, true
+                        //)
                     } else if (it.status == Status.ERROR) {
                         dispatchLoading()
                         val myToast = Toast.makeText(context,it.message,Toast.LENGTH_SHORT)
