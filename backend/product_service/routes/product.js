@@ -58,7 +58,7 @@ module.exports.initialize = (app) => {
     if(result == "This email has been already used"){
       data = { info: result };
     }
-    response.respond(200,"OK",info);
+    response.respond(200,"OK",data);
   });
 
   app.post("/db/init", async (request, response) => {
