@@ -33,6 +33,11 @@ const SignUp = ({hideHeader, showHeader}) => {
         e.preventDefault()
         history.push("/")
     } 
+
+    const redirectToSignin = function(e) {
+        e.preventDefault()
+        history.push("/signin")
+    }
   
     return (
             <div className="signInModal">
@@ -70,6 +75,13 @@ const SignUp = ({hideHeader, showHeader}) => {
                         </Button>
                         <Button className="submitButtonTransparent" variant="primary" type="submit">
                             SIGN UP WITH GOOGLE
+                        </Button>
+                        <Button 
+                        className="submitButtonTransparent" 
+                        variant="primary" 
+                        type="submit"
+                        onClick = {redirectToSignin}>
+                            SIGN IN
                         </Button>
                     </Form>
                 </div>

@@ -10,6 +10,8 @@ import { hideHeader } from '../redux/actions';
 import { showHeader } from '../redux/actions';
 import { login } from '../redux/actions';
 import { useHistory, withRouter, Redirect } from "react-router-dom";
+import history from '../util/history';
+
 
 
 
@@ -39,6 +41,11 @@ const SignIn = ({login, hideHeader, showHeader}) => {
         e.preventDefault()
         login({'email':email, 'password': password})
     } 
+
+    const redirectToSignup = function(e) {
+        e.preventDefault()
+        history.push("/signup")
+    }
 
     return (
         <div className="signInModal">
@@ -75,6 +82,13 @@ const SignIn = ({login, hideHeader, showHeader}) => {
                     <Button className="submitButtonTransparent" variant="primary" type="submit">
                         SIGN IN WITH GOOGLE
                     </Button>
+                    <Button 
+                        className="submitButtonTransparent" 
+                        variant="primary" 
+                        type="submit"
+                        onClick = {redirectToSignup}>
+                            SIGN UP
+                        </Button>
                 </Form>
             </div>
         </div>
