@@ -1,0 +1,14 @@
+.rating-container {
+  display: table;
+}
+
+.rating-label {
+  float: left;
+  margin-top: 3px;
+  margin-left: 5px;
+  color: #5a5a5a;
+}
+
+.rating-star {
+  float: left;
+}

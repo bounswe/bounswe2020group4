@@ -1,0 +1,33 @@
+.product-details {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.product-container {
+  display: table;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.product-left-column {
+  position: relative;
+  float: left;
+  text-align: center;
+}
+
+.product-right-column {
+  position: relative;
+  float: left;
+  width: 35%;
+  margin-left: 10%;
+}
+
+.product-left-column img {
+  width: auto;
+  height: 100%;
+}
+
+img {
+  border-radius: 10px;
+}

@@ -1,0 +1,24 @@
+body {
+    --red-main: #D11D27;
+    --red-secondary: #A90011;
+    --red-tertiary: #EC4A3B;
+    --beige: #FFFAEF;
+    --white: white;
+    --surface: #FAFAFA;
+
+    background-color: var(--white);
+}
+
+body * {
+    box-sizing: border-box;
+}
+
+.vertical-align-middle {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+input:focus {
+    outline: none;
+}
