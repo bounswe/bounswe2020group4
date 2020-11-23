@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -7,9 +8,14 @@ import logo from '../logo-buyo.png'
 import { connect } from 'react-redux'
 import { hideHeader, showHeader } from '../redux/actions';
 import history from '../util/history'
+import accountService from '../services/account'
+import { setLoginState } from '../redux/actions';
+
 
 
 const SignUp = ({hideHeader, showHeader}) => {
+
+    const dispatch = useDispatch()
 
     //This function corresponds to componentDidMount
     //The return function corresponds to componentDidUnmount
@@ -31,8 +37,15 @@ const SignUp = ({hideHeader, showHeader}) => {
 
     const handleClick = function(e) {
         e.preventDefault()
-        history.push("/")
+        const userId = accountService.signUp({'email':email, 'password': password})
+        dispatch(setLoginState({ userId: userId}));     
     } 
+
+    const redirectToSignin = function(e) {
+        e.preventDefault()
+        history.push("/signin")
+       
+    }
   
     return (
             <div className="signInModal">
@@ -70,6 +83,13 @@ const SignUp = ({hideHeader, showHeader}) => {
                         </Button>
                         <Button className="submitButtonTransparent" variant="primary" type="submit">
                             SIGN UP WITH GOOGLE
+                        </Button>
+                        <Button 
+                        className="submitButtonTransparent" 
+                        variant="primary" 
+                        type="submit"
+                        onClick = {redirectToSignin}>
+                            SIGN IN
                         </Button>
                     </Form>
                 </div>

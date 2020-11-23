@@ -21,11 +21,5 @@ export const setLoginState = (loginData) => {
     }
 }
 
-export const login = (loginInput) => {
-    const { email, password } = loginInput;
-    return (dispatch) => {
-        dispatch(setLoginState({ userId: 1 }))
-        console.log("dispatched")
-        history.push("/")
-    }
-}
+
+
