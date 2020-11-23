@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import history from '../util/history';
 import { connect } from 'react-redux'
 
 import ProductCard from '../components/ProductCard'
@@ -9,10 +10,10 @@ const Wishlist = (props) => {
   const [products, setProducts] = useState([])
 
   useEffect(() => {
-    
+
     if(!props.isLoggedIn) {
-      //TODO: redirect to signin page!
-      return <div></div>
+      history.push('/signin')
+      return 
     }
     
     wishlistService

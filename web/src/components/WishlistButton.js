@@ -3,6 +3,7 @@ import { Rating } from '@material-ui/lab'
 import { withStyles } from '@material-ui/core/styles'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 
+import history from '../util/history';
 import wishlistService from '../services/wishlist'
 
 const StyledRating = withStyles({
@@ -20,7 +21,7 @@ const WishlistButton = ({ customerId, productId, isLoggedIn }) => {
     event.preventDefault()
     if(value === 1) {
       if(!isLoggedIn) {
-        //TODO: redirect to signin page!
+        history.push('/signin')
       }
       else {        
         wishlistService
