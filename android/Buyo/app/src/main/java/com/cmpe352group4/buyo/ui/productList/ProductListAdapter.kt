@@ -75,8 +75,9 @@ class ProductListAdapter(
 
                     Log.i("ProductList", "This is liked " +modal.id.toString())
 
-                    if (!itemView.tb_productListRecyclerView_Fav.isChecked)
+                    if (!itemView.tb_productListRecyclerView_Fav.isChecked){
                         itemView.tb_productListRecyclerView_Fav.toggle()
+                    }
 
                     itemView.tb_productListRecyclerView_Fav.setOnCheckedChangeListener { button, isChecked ->
                         if (isChecked) {
@@ -87,8 +88,9 @@ class ProductListAdapter(
                         }
                     }
                 }else{
-                    if (itemView.tb_productListRecyclerView_Fav.isChecked)
+                    if (itemView.tb_productListRecyclerView_Fav.isChecked){
                         itemView.tb_productListRecyclerView_Fav.toggle()
+                    }
 
                     Log.i("ProductList", "This is not liked " +modal.id.toString())
                     itemView.tb_productListRecyclerView_Fav.setOnCheckedChangeListener { button, isChecked ->

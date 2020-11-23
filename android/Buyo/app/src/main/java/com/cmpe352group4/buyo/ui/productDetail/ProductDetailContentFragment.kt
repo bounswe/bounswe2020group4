@@ -17,6 +17,8 @@ import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.viewmodel.ProductViewModel
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
+import com.cmpe352group4.buyo.viewmodel.WishListViewModel
+import com.cmpe352group4.buyo.vo.Product
 import kotlinx.android.synthetic.main.fragment_product_detail_comments.*
 import kotlinx.android.synthetic.main.fragment_product_detail_content.*
 import javax.inject.Inject
@@ -33,6 +35,9 @@ class ProductDetailContentFragment : BaseFragment() {
         viewModelFactory
     }
 
+    private val wishListViewModel: WishListViewModel by viewModels {
+        viewModelFactory
+    }
 
     companion object {
         private const val PRODUCT_ID = "product_id"
@@ -60,9 +65,52 @@ class ProductDetailContentFragment : BaseFragment() {
 
 
         // Backend request
+
+        var WishListProducts: List<Product>? = null
+
+        var prod_ids : List<Int>? = null
+
+
+        if(sharedPref.getUserId().isNullOrEmpty()){
+            Log.i("ProductList", "Guest User")
+
+        }else {
+            wishListViewModel.onFetchWishListProducts(sharedPref.getUserId()?.toInt() ?: -1)
+
+            wishListViewModel.wishListProducts.observe(viewLifecycleOwner, Observer {
+                if (it.status == Status.SUCCESS && it.data != null) {
+
+                    WishListProducts = it.data.products as MutableList<Product>
+
+                    prod_ids = WishListProducts?.map{it.id}
+
+                    dispatchLoading()
+                } else if (it.status == Status.ERROR) {
+                    dispatchLoading()
+                } else if (it.status == Status.LOADING) {
+                    showLoading()
+                }
+            })
+        }
+
+
         productViewModel.onFetchProductById(productId)
         productViewModel.productDetail.observe(viewLifecycleOwner, Observer {
             if (it.status == Status.SUCCESS && it.data != null){
+
+                if(prod_ids != null){
+                    if(prod_ids!!.contains(it.data.result.id)){
+                        if (!tbProductDetailFav.isChecked){
+                            tbProductDetailFav.toggle()
+                        }
+                    } else{
+                        if (tbProductDetailFav.isChecked){
+                            tbProductDetailFav.toggle()
+                        }
+                    }
+                }
+
+
                 tvProductDetailName.text = it.data.result.name
                 tvProductDetailVendor.text = it.data.result.vendor.name
                 tvProductDetailInfo.text = "Brand: " + it.data.result.brand + "\n" +
