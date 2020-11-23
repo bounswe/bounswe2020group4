@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import com.cmpe352group4.buyo.vo.*
 import retrofit2.http.GET
 import retrofit2.http.POST
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface Api {
@@ -20,7 +19,6 @@ interface Api {
     fun fetchWishList(
         @Query("customerId") customerId: Int
     ): LiveData<ApiResponse<BaseResponse<WishListProducts>>>
-
 
     @POST("like")
     fun unlikeProductWishList(

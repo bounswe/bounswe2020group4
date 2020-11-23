@@ -4,7 +4,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.cmpe352group4.buyo.R
+import com.cmpe352group4.buyo.util.extensions.visible
 import com.cmpe352group4.buyo.vo.Product
 import kotlinx.android.synthetic.main.item_wish_list_recycler_view.view.*
 
@@ -42,11 +44,16 @@ class WishListAdapter (
             itemView.tvWishListRecyclerView_Name.text = modal.name
             itemView.tvWishListRecyclerView_Rate.text = modal.rating.toString()
             itemView.tvWishListRecyclerView_Price.text = modal.price.toString()
+            Glide.with(itemView.context)
+                .load(modal.imageUrl).centerCrop()
+                .into(itemView.ivWishListRecyclerView_Image)
             itemView.setOnClickListener {
                 clickProductCallBack.invoke(modal.id)
             }
             itemView.btnRemoveProductFromWishList.setOnClickListener {
                 deleteCallback.invoke(modal.id)
+                notifyDataSetChanged()
+                itemView.visible = false
             }
         }
     }

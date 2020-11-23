@@ -5,10 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -19,12 +16,12 @@ import com.cmpe352group4.buyo.MainActivity
 import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
-import com.cmpe352group4.buyo.base.fragment_ops.NavigationManager
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
-import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
-import com.cmpe352group4.buyo.viewmodel.WishListViewModel
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
+import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
 import com.cmpe352group4.buyo.util.extensions.visible
+import com.cmpe352group4.buyo.viewmodel.WishListViewModel
+import com.cmpe352group4.buyo.vo.LikeResponse
 import com.cmpe352group4.buyo.vo.Product
 import kotlinx.android.synthetic.main.fragment_wish_list.*
 import javax.inject.Inject
@@ -50,8 +47,7 @@ class WishListFragment: BaseFragment() {
     private val wishListAdapter by lazy {
         WishListAdapter(mutableListOf(),
             { productID ->
-                //Remove product from wish list functionality
-
+                wishListViewModel.onPostWhislistUpdate(LikeResponse( sharedPref.getUserId()?.toInt() ?: -1, productID))
                 Log.v("berkay", "delete")
             },
             { productID ->
@@ -114,9 +110,6 @@ class WishListFragment: BaseFragment() {
         btnDeleteWishlist.setOnClickListener {
             TODO()
         }
-
-
-        //These will be in if statement
 
 
         rvWishListProducts.adapter = wishListAdapter
