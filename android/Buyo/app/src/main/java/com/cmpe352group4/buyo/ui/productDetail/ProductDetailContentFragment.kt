@@ -146,16 +146,14 @@ class ProductDetailContentFragment : BaseFragment() {
         })
 
         //LIKING / UNLIKING
-        tbProductDetailFav.setOnCheckedChangeListener { _, isChecked ->
+        tbProductDetailFav.setOnCheckedChangeListener { favButton, isChecked ->
             if (!isToggleChangedByUser) {
                 isToggleChangedByUser = true
             } else {
                 if (sharedPref.getUserId().isNullOrEmpty()) {
-                    if (isChecked) {
-                        Toast.makeText(context, "You need to login first", Toast.LENGTH_LONG).show()
-                    } else {
-                        Toast.makeText(context, "You need to login first", Toast.LENGTH_LONG).show()
-                    }
+                    Toast.makeText(context, "You need to login first", Toast.LENGTH_LONG).show()
+                    isToggleChangedByUser = false
+                    favButton.toggle()
                 } else {
                     if (isChecked) {
                         wishListViewModel.onPostWhislistUpdate(

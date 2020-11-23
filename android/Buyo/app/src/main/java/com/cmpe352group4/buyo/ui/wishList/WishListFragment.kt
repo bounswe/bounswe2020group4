@@ -95,6 +95,20 @@ class WishListFragment: BaseFragment() {
             }
         })
 
+        wishListViewModel.statusUnlike.observe(viewLifecycleOwner, Observer {
+            if (it.status == Status.SUCCESS && it.data != null) {
+
+                Log.v("berkay", it.data.toString())
+
+                dispatchLoading()
+            } else if (it.status == Status.ERROR) {
+                dispatchLoading()
+            } else if (it.status == Status.LOADING) {
+                showLoading()
+            }
+        })
+
+
         loginButton.setOnClickListener {
             (activity as MainActivity).onItemSelected(4)
         }

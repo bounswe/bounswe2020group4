@@ -26,7 +26,7 @@ class WishListAdapter (
     }
 
     override fun onBindViewHolder(holder: WishListViewHolder, position: Int) {
-        holder.bind(wishListProducts[position])
+        holder.bind(wishListProducts[position], position)
     }
 
     fun submitList(list: MutableList<Product>) {
@@ -39,7 +39,7 @@ class WishListAdapter (
 
         val view = itemView
 
-        fun bind(modal: Product) {
+        fun bind(modal: Product, position: Int) {
 
             itemView.tvWishListRecyclerView_Name.text = modal.name
             itemView.tvWishListRecyclerView_Rate.text = modal.rating.toString()
@@ -52,8 +52,9 @@ class WishListAdapter (
             }
             itemView.btnRemoveProductFromWishList.setOnClickListener {
                 deleteCallback.invoke(modal.id)
+                wishListProducts.removeAt(position)
                 notifyDataSetChanged()
-                itemView.visible = false
+
             }
         }
     }
