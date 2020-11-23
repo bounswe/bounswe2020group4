@@ -54,8 +54,11 @@ module.exports.initialize = (app) => {
 
   app.post("/signup", async (request, response) => {
     const result = await account.signup(request.query);
-
-    response.respond(200, result);
+    let message = { userId: result };
+    if(result == "This email has been already used"){
+      message = { message: result };
+    }
+    response.respond(200,message);
   });
 
   app.post("/db/init", async (request, response) => {
