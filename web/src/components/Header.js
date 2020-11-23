@@ -9,6 +9,10 @@ import SearchIcon from '../images/search-icon.png'
 //Styling
 import './Header.css'
 
+//Berke Crash Course 
+
+
+
 const sampleCategories = [
     {
         "name": "Bebek",
