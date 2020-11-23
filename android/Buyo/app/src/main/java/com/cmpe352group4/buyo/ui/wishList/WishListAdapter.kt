@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cmpe352group4.buyo.R
+import com.cmpe352group4.buyo.util.extensions.visible
 import com.cmpe352group4.buyo.vo.Product
 import kotlinx.android.synthetic.main.item_wish_list_recycler_view.view.*
 
@@ -52,6 +53,7 @@ class WishListAdapter (
             itemView.btnRemoveProductFromWishList.setOnClickListener {
                 deleteCallback.invoke(modal.id)
                 notifyDataSetChanged()
+                itemView.visible = false
             }
         }
     }
