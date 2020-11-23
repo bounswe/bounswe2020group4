@@ -8,7 +8,6 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
     switch(action.type){
         case SET_LOGIN_STATE:
-            console.log(action.payload)
             return {
                 ...state,
                 ...action.payload,

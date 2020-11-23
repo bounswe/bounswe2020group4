@@ -14,9 +14,6 @@ import history from '../util/history';
 import accountService from '../services/account'
 
 
-
-
-
 const SignIn = ({hideHeader, showHeader}) => {
 
    const dispatch = useDispatch()
@@ -42,7 +39,6 @@ const SignIn = ({hideHeader, showHeader}) => {
     const handleClick = function(e) {
         e.preventDefault()
         const userId = accountService.login({'email':email, 'password': password})
-        //login({'email':email, 'password': password})
         dispatch(setLoginState({ userId: userId})); 
     } 
 

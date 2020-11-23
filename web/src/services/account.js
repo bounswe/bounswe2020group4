@@ -26,7 +26,7 @@ const signUp = async (signUpInput) => {
 
     const { email, password } = signUpInput
 
-    const response = await axios.post(`${baseUrl}login?userType=customer$email=${email}&password=${password}`)
+    const response = await axios.post(`${baseUrl}signup?userType=customer&email=${email}&password=${password}`)
     console.log(response)
     if (response.data.status.code == 200) {
         const userId = login(signUpInput)
