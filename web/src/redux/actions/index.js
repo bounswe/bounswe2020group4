@@ -23,9 +23,30 @@ export const setLoginState = (loginData) => {
 
 export const login = (loginInput) => {
     const { email, password } = loginInput;
-    return (dispatch) => {
-        dispatch(setLoginState({ userId: 1 }))
-        console.log("dispatched")
-        history.push("/")
-    }
+
+    var loginUrl = "http://3.138.113.101:8080/login?userType=customer&email=" + email + "&password=" + password
+    return (dispatch) => {  
+        return fetch(loginUrl, {
+        method: 'POST',
+        headers: { 
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        })
+        .then((response) => response.json())
+        .then((json) => {
+            if (json.status.code === 200) {
+            dispatch(setLoginState({ ...json, userId: json.data.userId})); 
+            console.log("login success")
+            history.push("/")
+            } else {
+            console.log('Login Failed', 'Username or Password is incorrect');
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    };
+
 }
+
