@@ -51,6 +51,7 @@ class WishListAdapter (
             }
             itemView.btnRemoveProductFromWishList.setOnClickListener {
                 deleteCallback.invoke(modal.id)
+                notifyDataSetChanged()
             }
         }
     }

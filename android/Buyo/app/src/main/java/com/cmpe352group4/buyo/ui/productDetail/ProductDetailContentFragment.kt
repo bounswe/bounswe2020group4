@@ -167,11 +167,11 @@ class ProductDetailContentFragment : BaseFragment() {
                         wishListViewModel.statusUnlike.observe(viewLifecycleOwner, Observer {
                             if (it.status == Status.SUCCESS && it.data != null) {
 
-                                Toast.makeText(
+                                /*Toast.makeText(
                                     context,
-                                    "Product is added to your whislist!",
-                                    Toast.LENGTH_LONG
-                                ).show()
+                                    "Product is added to your wishlist!",
+                                    Toast.LENGTH_SHORT
+                                ).show()*/
 
                                 dispatchLoading()
                             } else if (it.status == Status.ERROR) {
@@ -191,11 +191,11 @@ class ProductDetailContentFragment : BaseFragment() {
                         wishListViewModel.statusUnlike.observe(viewLifecycleOwner, Observer {
                             if (it.status == Status.SUCCESS && it.data != null) {
 
-                                Toast.makeText(
+                                /*Toast.makeText(
                                     context,
-                                    "Product is removed from your whislist!",
-                                    Toast.LENGTH_LONG
-                                ).show()
+                                    "Product is removed from your wishlist!",
+                                    Toast.LENGTH_SHORT
+                                ).show()*/
 
                                 dispatchLoading()
                             } else if (it.status == Status.ERROR) {

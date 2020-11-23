@@ -65,13 +65,11 @@ class ProductListFragment : BaseFragment(){
     }
 
     private val productListAdapter by lazy {
-        ProductListAdapter(mutableListOf()
-        ) { product ->
+        ProductListAdapter(mutableListOf(), wishListViewModel, viewLifecycleOwner, sharedPref) { product ->
             navigationManager?.onReplace(
                 ProductDetailContentFragment.newInstance(product.id),
                 TransactionType.Replace, true
             )
-
         }
     }
 

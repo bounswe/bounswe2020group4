@@ -21,6 +21,7 @@ import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
 import com.cmpe352group4.buyo.util.extensions.visible
 import com.cmpe352group4.buyo.viewmodel.WishListViewModel
+import com.cmpe352group4.buyo.vo.LikeResponse
 import com.cmpe352group4.buyo.vo.Product
 import kotlinx.android.synthetic.main.fragment_wish_list.*
 import javax.inject.Inject
@@ -46,8 +47,7 @@ class WishListFragment: BaseFragment() {
     private val wishListAdapter by lazy {
         WishListAdapter(mutableListOf(),
             { productID ->
-                //Remove product from wish list functionality
-//                wishListViewModel.statusUnlike(sharedPref.getUserId()?.toInt() ?: -1, productID)
+                wishListViewModel.onPostWhislistUpdate(LikeResponse( sharedPref.getUserId()?.toInt() ?: -1, productID))
                 Log.v("berkay", "delete")
             },
             { productID ->
