@@ -53,8 +53,18 @@
 }
 
 .profile-menu {
-    /* transform: translate(-32%, 25%); */
+    transform: translate(-32%, 25%);
     z-index: 4000;
+}
+
+.profile-menu-text {
+    color: black;
+    text-decoration: none;
+}
+
+.profile-menu-text:hover {
+    color: black;
+    text-decoration: none;
 }
 
 .category-container {

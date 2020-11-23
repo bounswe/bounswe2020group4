@@ -22,3 +22,7 @@ body * {
 input:focus {
     outline: none;
 }
+
+.cursor-pointer {
+    cursor: pointer;
+}

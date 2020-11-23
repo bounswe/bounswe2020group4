@@ -28,7 +28,6 @@ const Header = ({ isLoggedIn }) => {
     }, [])
 
     const renderCategories = () => {
-        console.log(categories)
         return categories.map((category) => {
             const thisPathSelected = selectedPath == category.path
             const handleClick = () => {
@@ -47,9 +46,16 @@ const Header = ({ isLoggedIn }) => {
         })
     }
 
+    const handleSubcategoryClick = (subc) => {
+        history.push({
+            pathname: '/products',
+            state: subc
+        })
+    }
+
     const renderSubcategories = (subcategories) => {
         return subcategories.map((subc) => {
-            return <div className='list-group-item text-center'>{subc.name}</div>
+            return <div className='list-group-item text-center' onClick={() => handleSubcategoryClick(subc)}>{subc.name}</div>
         })
     }
 
@@ -57,10 +63,10 @@ const Header = ({ isLoggedIn }) => {
         return (
             <div className='profile-menu list-group-item text-center position-absolute'>
                 <div className='list-item'>
-                    <Link to='/signin'>Sign In</Link>
+                    <Link to='/signin' className='profile-menu-text'>Sign In</Link>
                 </div>
                 <div className='list-item'>
-                    <Link to='signup'>Sign Up</Link>
+                    <Link to='signup' className='profile-menu-text'>Sign Up</Link>
                 </div>
             </div>
         )
@@ -80,7 +86,7 @@ const Header = ({ isLoggedIn }) => {
                 </div>
                 <div className='header-right-container'>
                     <div className='header-right-icon-container'>
-                        <img className='header-right-icon vertical-align-middle' onClick={() => setProfileMenuOpen(!profileMenuOpen)} src={ProfileIcon} alt='profile'/>
+                        <img className='header-right-icon vertical-align-middle cursor-pointer' onClick={() => setProfileMenuOpen(!profileMenuOpen)} src={ProfileIcon} alt='profile'/>
                         {profileMenuOpen 
                             ? (isLoggedIn ? null : renderNotLoggedInProfileMenu())
                             : null
