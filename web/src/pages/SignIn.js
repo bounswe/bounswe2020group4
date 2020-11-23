@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -13,11 +13,16 @@ import { useHistory, withRouter, Redirect } from "react-router-dom";
 
 
 
-const SignIn = ({login, hideHeader}) => {
+const SignIn = ({login, hideHeader, showHeader}) => {
 
    // const dispatch = useDispatch()
 
-    hideHeader()
+   //This function corresponds to componentDidMount
+   //The return function corresponds to componentDidUnmount
+    useEffect(() => {
+        hideHeader()
+        return () => showHeader()
+    }, [])
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -34,7 +39,6 @@ const SignIn = ({login, hideHeader}) => {
         e.preventDefault()
         login({'email':email, 'password': password})
     } 
-//Berke Crash Course 2
 
     return (
         <div className="signInModal">

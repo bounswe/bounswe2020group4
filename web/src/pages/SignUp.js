@@ -1,17 +1,22 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './SignIn.css'
 import logo from '../logo-buyo.png'
 import { connect } from 'react-redux'
-import { hideHeader } from '../redux/actions';
-import { showHeader } from '../redux/actions';
+import { hideHeader, showHeader } from '../redux/actions';
+import history from '../util/history'
 
 
-const SignUp = ({hideHeader}) => {
+const SignUp = ({hideHeader, showHeader}) => {
 
-    hideHeader()
+    //This function corresponds to componentDidMount
+    //The return function corresponds to componentDidUnmount
+    useEffect(() => {
+        hideHeader()
+        return () => showHeader()
+    }, [])
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -26,6 +31,7 @@ const SignUp = ({hideHeader}) => {
 
     const handleClick = function(e) {
         e.preventDefault()
+        history.push("/")
     } 
   
     return (
