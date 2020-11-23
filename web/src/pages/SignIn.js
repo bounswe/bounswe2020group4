@@ -8,16 +8,18 @@ import logo from '../logo-buyo.png'
 import { connect } from 'react-redux'
 import { hideHeader } from '../redux/actions';
 import { showHeader } from '../redux/actions';
-import { login } from '../redux/actions';
+import { setLoginState } from '../redux/actions';
 import { useHistory, withRouter, Redirect } from "react-router-dom";
 import history from '../util/history';
+import accountService from '../services/account'
 
 
 
 
-const SignIn = ({login, hideHeader, showHeader}) => {
 
-   // const dispatch = useDispatch()
+const SignIn = ({hideHeader, showHeader}) => {
+
+   const dispatch = useDispatch()
 
    //This function corresponds to componentDidMount
    //The return function corresponds to componentDidUnmount
@@ -39,7 +41,9 @@ const SignIn = ({login, hideHeader, showHeader}) => {
 
     const handleClick = function(e) {
         e.preventDefault()
-        login({'email':email, 'password': password})
+        const userId = accountService.login({'email':email, 'password': password})
+        //login({'email':email, 'password': password})
+        dispatch(setLoginState({ userId: userId})); 
     } 
 
     const redirectToSignup = function(e) {
@@ -104,4 +108,4 @@ const mapStateToProps = state => {
             signIn: state.signIn.signInReducer}
 }
 
-export default connect(mapStateToProps, {showHeader, hideHeader, login})(SignIn);
+export default connect(mapStateToProps, {showHeader, hideHeader})(SignIn);
