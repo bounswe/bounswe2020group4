@@ -259,7 +259,7 @@ class ProductListFragment : BaseFragment(){
                     var prodList = productListAdapter.Products
                     prodList.sortBy { product -> product.name }
                     productListAdapter.notifyDataSetChanged()
-                } else if (adapterView?.getItemAtPosition(position).toString() == "Price (Highest)") {
+                } else if (adapterView?.getItemAtPosition(position).toString() == "Price (Lowest)") {
                     var prodList = productListAdapter.Products
                     prodList.sortBy { product -> product.price }
                     productListAdapter.notifyDataSetChanged()

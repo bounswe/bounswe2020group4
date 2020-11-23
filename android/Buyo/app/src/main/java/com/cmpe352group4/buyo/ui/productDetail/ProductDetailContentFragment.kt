@@ -36,6 +36,8 @@ class ProductDetailContentFragment : BaseFragment() {
         viewModelFactory
     }
 
+    private var isToggleChangedByUser = true
+
     private val wishListViewModel: WishListViewModel by viewModels {
         viewModelFactory
     }
@@ -106,10 +108,12 @@ class ProductDetailContentFragment : BaseFragment() {
                 if(prod_ids != null){
                     if(prod_ids!!.contains(it.data.result.id)){
                         if (!tbProductDetailFav.isChecked){
+                            isToggleChangedByUser = false
                             tbProductDetailFav.toggle()
                         }
                     } else{
                         if (tbProductDetailFav.isChecked){
+                            isToggleChangedByUser = false
                             tbProductDetailFav.toggle()
                         }
                     }
@@ -141,50 +145,66 @@ class ProductDetailContentFragment : BaseFragment() {
 
         })
 
-
         //LIKING / UNLIKING
-
-        if(sharedPref.getUserId().isNullOrEmpty()){
-            tbProductDetailFav.setOnCheckedChangeListener { _, isChecked ->
-                if (isChecked) {
-                    Toast.makeText(context, "You need to login first", Toast.LENGTH_LONG).show()
+        tbProductDetailFav.setOnCheckedChangeListener { _, isChecked ->
+            if (!isToggleChangedByUser) {
+                isToggleChangedByUser = true
+            } else {
+                if (sharedPref.getUserId().isNullOrEmpty()) {
+                    if (isChecked) {
+                        Toast.makeText(context, "You need to login first", Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(context, "You need to login first", Toast.LENGTH_LONG).show()
+                    }
                 } else {
-                    Toast.makeText(context, "You need to login first", Toast.LENGTH_LONG).show()
-                }
-            }
-        }else{
-            tbProductDetailFav.setOnCheckedChangeListener { _, isChecked ->
-                if (isChecked) {
-                    wishListViewModel.onPostWhislistUpdate(LikeResponse(sharedPref.getUserId()?.toInt() ?: -1, productId))
+                    if (isChecked) {
+                        wishListViewModel.onPostWhislistUpdate(
+                            LikeResponse(
+                                sharedPref.getUserId()?.toInt() ?: -1, productId
+                            )
+                        )
 
-                    wishListViewModel.statusUnlike.observe(viewLifecycleOwner, Observer {
-                        if (it.status == Status.SUCCESS && it.data != null) {
+                        wishListViewModel.statusUnlike.observe(viewLifecycleOwner, Observer {
+                            if (it.status == Status.SUCCESS && it.data != null) {
 
-                            Toast.makeText(context, "Product is added to your whislist!", Toast.LENGTH_LONG).show()
+                                Toast.makeText(
+                                    context,
+                                    "Product is added to your whislist!",
+                                    Toast.LENGTH_LONG
+                                ).show()
 
-                            dispatchLoading()
-                        } else if (it.status == Status.ERROR) {
-                            dispatchLoading()
-                        } else if (it.status == Status.LOADING) {
-                            showLoading()
-                        }
-                    })
+                                dispatchLoading()
+                            } else if (it.status == Status.ERROR) {
+                                dispatchLoading()
+                            } else if (it.status == Status.LOADING) {
+                                showLoading()
+                            }
+                        })
 
-                } else {
-                    wishListViewModel.onPostWhislistUpdate(LikeResponse(sharedPref.getUserId()?.toInt() ?: -1, productId))
+                    } else {
+                        wishListViewModel.onPostWhislistUpdate(
+                            LikeResponse(
+                                sharedPref.getUserId()?.toInt() ?: -1, productId
+                            )
+                        )
 
-                    wishListViewModel.statusUnlike.observe(viewLifecycleOwner, Observer {
-                        if (it.status == Status.SUCCESS && it.data != null) {
+                        wishListViewModel.statusUnlike.observe(viewLifecycleOwner, Observer {
+                            if (it.status == Status.SUCCESS && it.data != null) {
 
-                            Toast.makeText(context, "Product is removed from your whislist!", Toast.LENGTH_LONG).show()
+                                Toast.makeText(
+                                    context,
+                                    "Product is removed from your whislist!",
+                                    Toast.LENGTH_LONG
+                                ).show()
 
-                            dispatchLoading()
-                        } else if (it.status == Status.ERROR) {
-                            dispatchLoading()
-                        } else if (it.status == Status.LOADING) {
-                            showLoading()
-                        }
-                    })
+                                dispatchLoading()
+                            } else if (it.status == Status.ERROR) {
+                                dispatchLoading()
+                            } else if (it.status == Status.LOADING) {
+                                showLoading()
+                            }
+                        })
+                    }
                 }
             }
         }
