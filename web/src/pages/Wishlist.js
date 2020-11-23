@@ -17,7 +17,7 @@ const Wishlist = (props) => {
     }
     
     wishlistService
-      .getWishlist(props.customerId)
+      .getWishlist(props.customerId)  
       .then(prods => {
         setProducts(prods)
       })

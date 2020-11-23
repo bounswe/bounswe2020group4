@@ -16,7 +16,6 @@ const StyledRating = withStyles({
 })(Rating);
 
 const WishlistButton = ({ customerId, productId, isLoggedIn }) => {
-  customerId = 12341 //TODO delete this line
   const [isLiked, setIsLiked] = useState(0)
   
   useEffect(() => {
@@ -32,11 +31,10 @@ const WishlistButton = ({ customerId, productId, isLoggedIn }) => {
   const handleAddtoWishlist = (event, value) => {
     event.preventDefault()
     if(value === 1) {
-      if(isLoggedIn) {  //TODO !isLoggedIn
+      if(!isLoggedIn) {
         history.push('/signin')
       }
       else {     
-        setIsLiked(1)   
         wishlistService
           .addToWishlist(customerId, productId)
           .then(response => {
@@ -47,6 +45,7 @@ const WishlistButton = ({ customerId, productId, isLoggedIn }) => {
               console.log('added to wishlist succesfully!')
             }
           })
+          setIsLiked(1)   
       }
     }
     else {
