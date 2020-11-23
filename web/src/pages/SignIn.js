@@ -38,8 +38,10 @@ const SignIn = ({hideHeader, showHeader}) => {
 
     const handleClick = function(e) {
         e.preventDefault()
-        const userId = accountService.login({'email':email, 'password': password})
-        dispatch(setLoginState({ userId: userId})); 
+        accountService
+            .login({'email':email, 'password': password})
+            .then(userId => dispatch(setLoginState({ userId: userId})))
+
     } 
 
     const redirectToSignup = function(e) {

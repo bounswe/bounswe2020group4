@@ -15,7 +15,7 @@ const Comments = () => {
   return(
     <div className='comments-container'>
       <h2>Comments</h2>   
-      <Comment user="Burak" comment="I bought this sweatshirt for my grandson and he loved it. It is made of high-quality material." />
+      <Comment user="Burak" comment="I bought these toys for my grandson and he loved it. It is made of high-quality material." />
       <Comment user="Ayşe" comment="The vendor was really helpful. There was an issue with shipping but it was solved pretty quickly." />
     </div>
   )

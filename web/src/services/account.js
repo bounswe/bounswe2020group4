@@ -14,7 +14,7 @@ const login = async (loginInput) => {
 
     const response = await axios.post(`${baseUrl}login?userType=customer&email=${email}&password=${password}`)
     console.log(response)
-    if (response.data.status.code == 200) {
+    if (response.data.status.code === 200) {
         history.goBack()
         return response.data.data.userId
     }
@@ -28,7 +28,7 @@ const signUp = async (signUpInput) => {
 
     const response = await axios.post(`${baseUrl}signup?userType=customer&email=${email}&password=${password}`)
     console.log(response)
-    if (response.data.status.code == 200) {
+    if (response.data.status.code === 200) {
         const userId = login(signUpInput)
         history.goBack()
         return userId
