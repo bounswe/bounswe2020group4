@@ -18,16 +18,19 @@ import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
+import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
 import com.cmpe352group4.buyo.viewmodel.CategoryViewModel
 import com.cmpe352group4.buyo.viewmodel.ProductViewModel
 import com.cmpe352group4.buyo.viewmodel.SearchViewModel
+import com.cmpe352group4.buyo.viewmodel.WishListViewModel
 import kotlinx.android.synthetic.main.fragment_product_list.*
 import com.cmpe352group4.buyo.vo.Product
 import com.cmpe352group4.buyo.vo.Vendor
 import kotlinx.android.synthetic.main.fragment_categories.*
 import kotlinx.android.synthetic.main.fragment_product_detail_content.*
 import kotlinx.android.synthetic.main.item_product_list_recycler_view.*
+import kotlinx.android.synthetic.main.item_product_list_recycler_view.view.*
 import java.util.ArrayList
 import javax.inject.Inject
 
@@ -35,9 +38,17 @@ import javax.inject.Inject
 class ProductListFragment : BaseFragment(){
 
     @Inject
+    lateinit var sharedPref: SharedPref
+
+
+    @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val productListViewModel: SearchViewModel by viewModels {
+        viewModelFactory
+    }
+
+    private val wishListViewModel: WishListViewModel by viewModels {
         viewModelFactory
     }
 
@@ -108,6 +119,29 @@ class ProductListFragment : BaseFragment(){
                     tv_productListCategoryName.text = categoryList.joinToString(separator = "/")
 
 
+                    if(sharedPref.getUserId().isNullOrEmpty()){
+                        Log.i("ProductList", "Guest User")
+
+                    }else{
+                        Log.i("Liked", "Sending Request")
+                        wishListViewModel.onFetchWishListProducts(sharedPref.getUserId()?.toInt() ?: -1)
+
+                        wishListViewModel.wishListProducts.observe(viewLifecycleOwner, Observer {
+                            if (it.status == Status.SUCCESS && it.data != null) {
+
+                                Log.i("Liked", (it.data.products as MutableList<Product>).toString() )
+                                productListAdapter.WishListProducts = it.data.products as MutableList<Product>
+                                Log.i("Liked", productListAdapter.WishListProducts.toString())
+                                dispatchLoading()
+                            } else if (it.status == Status.ERROR) {
+                                dispatchLoading()
+                            } else if (it.status == Status.LOADING) {
+                                showLoading()
+                            }
+                        })
+
+                    }
+
                     productListAdapter.submitList(it.data.products as MutableList<Product>)
 
                     dispatchLoading()
@@ -128,6 +162,28 @@ class ProductListFragment : BaseFragment(){
                     Log.v("Products of the keyword", it.data.products.toString())
 
                     tv_productListCategoryName.text = keyword
+
+
+                    if(sharedPref.getUserId().isNullOrEmpty()){
+                        Log.i("ProductList", "Guest User")
+
+                    }else{
+                        Log.i("Liked", "Sending Request")
+                        wishListViewModel.onFetchWishListProducts(sharedPref.getUserId()?.toInt() ?: -1)
+
+                        wishListViewModel.wishListProducts.observe(viewLifecycleOwner, Observer {
+                            if (it.status == Status.SUCCESS && it.data != null) {
+
+                                productListAdapter.WishListProducts = it.data.products as MutableList<Product>
+                                dispatchLoading()
+                            } else if (it.status == Status.ERROR) {
+                                dispatchLoading()
+                            } else if (it.status == Status.LOADING) {
+                                showLoading()
+                            }
+                        })
+
+                    }
 
                     productListAdapter.submitList(it.data.products as MutableList<Product>)
 
