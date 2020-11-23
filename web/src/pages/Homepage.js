@@ -47,11 +47,13 @@ const items = [
 
 const Homepage = () => {
     const [bestSellers, setBestSellers] = useState([])
+    const [recommendations, setRecommendations] = useState([])
 
     //This is just used to populate best sellers with dummy data
     useEffect(async () => {
         const response = await searchProducts("Bebek")
         setBestSellers(response.slice(0,20))
+        setRecommendations(response.slice(21,40))
     }, [])
 
 
@@ -69,6 +71,9 @@ const Homepage = () => {
             </div>
             <div className='p-5'>
                 <Carousel items={bestSellers} title="Best Sellers" />
+            </div>
+            <div className='p-5'>
+                <Carousel items={recommendations} title="Recommendations" />
             </div>
         </div>
     )
