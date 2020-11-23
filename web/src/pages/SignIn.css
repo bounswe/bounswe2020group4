@@ -11,7 +11,7 @@ html, body {
     left: 28.4%;
     right: 28.4%;
     width: 43.2%;
-    top: 20%;
+    top: 6%;
     border-radius: 20px;
 
 }
@@ -46,7 +46,7 @@ html, body {
     height: 3em;
     letter-spacing: 0.75px;
     margin-top: 2em;
-    margin-bottom: 2.5em;
+    margin-bottom: 2em;
 }
 
 .submitButton {
