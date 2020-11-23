@@ -45,7 +45,7 @@ input {
   border: solid #fbebd8;
 }
 
-button {
+.product-add-to-cart-container button {
   text-align: center;
   padding: 10px;
   box-shadow: 5px 10px;
