@@ -18,6 +18,7 @@ import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.viewmodel.ProductViewModel
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.viewmodel.WishListViewModel
+import com.cmpe352group4.buyo.vo.LikeResponse
 import com.cmpe352group4.buyo.vo.Product
 import kotlinx.android.synthetic.main.fragment_product_detail_comments.*
 import kotlinx.android.synthetic.main.fragment_product_detail_content.*
@@ -71,6 +72,8 @@ class ProductDetailContentFragment : BaseFragment() {
         var prod_ids : List<Int>? = null
 
 
+        // GET LIKED PRODUCTS IF A USER LOGGED IN
+
         if(sharedPref.getUserId().isNullOrEmpty()){
             Log.i("ProductList", "Guest User")
 
@@ -93,6 +96,8 @@ class ProductDetailContentFragment : BaseFragment() {
             })
         }
 
+
+        // PARSE PRODUCT
 
         productViewModel.onFetchProductById(productId)
         productViewModel.productDetail.observe(viewLifecycleOwner, Observer {
@@ -136,14 +141,56 @@ class ProductDetailContentFragment : BaseFragment() {
 
         })
 
-        tbProductDetailFav.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                // The toggle is enabled
-            } else {
-                // The toggle is disabled
+
+        //LIKING / UNLIKING
+
+        if(sharedPref.getUserId().isNullOrEmpty()){
+            tbProductDetailFav.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    Toast.makeText(context, "You need to login first", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(context, "You need to login first", Toast.LENGTH_LONG).show()
+                }
+            }
+        }else{
+            tbProductDetailFav.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    wishListViewModel.onPostWhislistUpdate(LikeResponse(sharedPref.getUserId()?.toInt() ?: -1, productId))
+
+                    wishListViewModel.statusUnlike.observe(viewLifecycleOwner, Observer {
+                        if (it.status == Status.SUCCESS && it.data != null) {
+
+                            Toast.makeText(context, "Product is added to your whislist!", Toast.LENGTH_LONG).show()
+
+                            dispatchLoading()
+                        } else if (it.status == Status.ERROR) {
+                            dispatchLoading()
+                        } else if (it.status == Status.LOADING) {
+                            showLoading()
+                        }
+                    })
+
+                } else {
+                    wishListViewModel.onPostWhislistUpdate(LikeResponse(sharedPref.getUserId()?.toInt() ?: -1, productId))
+
+                    wishListViewModel.statusUnlike.observe(viewLifecycleOwner, Observer {
+                        if (it.status == Status.SUCCESS && it.data != null) {
+
+                            Toast.makeText(context, "Product is removed from your whislist!", Toast.LENGTH_LONG).show()
+
+                            dispatchLoading()
+                        } else if (it.status == Status.ERROR) {
+                            dispatchLoading()
+                        } else if (it.status == Status.LOADING) {
+                            showLoading()
+                        }
+                    })
+                }
             }
         }
 
+
+        // ADD CART AND OTHER BUTTONS
 
         btnProductDetailCart.setOnClickListener {
             if(sharedPref.getUserId().isNullOrEmpty()){

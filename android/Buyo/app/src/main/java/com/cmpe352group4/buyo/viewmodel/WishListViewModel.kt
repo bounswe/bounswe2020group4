@@ -9,6 +9,7 @@ import com.cmpe352group4.buyo.datamanager.repositories.WishListRepository
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.util.livedata.AbsentLiveData
 import com.cmpe352group4.buyo.vo.BaseResponsePostRequest
+import com.cmpe352group4.buyo.vo.LikeResponse
 import com.cmpe352group4.buyo.vo.WishListProducts
 import javax.inject.Inject
 
@@ -22,6 +23,8 @@ class WishListViewModel @Inject constructor(
 
     private val _wishListProduct = MutableLiveData<Int>()
 
+    private val _whislistAddRemove= MutableLiveData<LikeResponse>()
+
     val wishListProducts: LiveData<Resource<WishListProducts>> =
         Transformations.switchMap(_wishListProduct) { Id ->
             if (Id == null)
@@ -31,12 +34,19 @@ class WishListViewModel @Inject constructor(
         }
 
     val statusUnlike: LiveData<Resource<BaseResponsePostRequest>> =
-        Transformations.switchMap((_wishListProduct)) { Id ->
-            repository.unlikeProduct(sharedPref.getUserId()?.toInt() ?: -1, Id)
+        Transformations.switchMap(_whislistAddRemove) { it ->
+            if (it == null )
+                AbsentLiveData.create()
+            else
+                repository.unlikeProduct(it.custID, it.prodID)
         }
 
     fun onFetchWishListProducts(customerId: Int) {
         _wishListProduct.value = customerId
+    }
+
+    fun onPostWhislistUpdate(update: LikeResponse){
+        _whislistAddRemove.value = update
     }
 
 }
