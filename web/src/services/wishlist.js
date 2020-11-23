@@ -12,4 +12,10 @@ const getWishlist = async (customerId) => {
   return response.data.data.products
 }
 
-export default { addToWishlist, getWishlist }
+const isInWishlist = async (customerId, productId) => {
+  const response = await axios.get(`${baseUrl}/wishlist?customerId=${customerId}`)
+  console.log(response.data.data.products.find(p => p.id === productId) !== undefined)
+  return response.data.data.products.find(p => p.id === productId) !== undefined
+}
+
+export default { addToWishlist, getWishlist, isInWishlist }

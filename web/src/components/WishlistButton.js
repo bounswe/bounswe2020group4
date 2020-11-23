@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Rating } from '@material-ui/lab'
 import { withStyles } from '@material-ui/core/styles'
 import FavoriteIcon from '@material-ui/icons/Favorite'
@@ -16,14 +16,26 @@ const StyledRating = withStyles({
 })(Rating);
 
 const WishlistButton = ({ customerId, productId, isLoggedIn }) => {
+  const [isLiked, setIsLiked] = useState(0)
+  console.log(isLiked)
+  useEffect(() => {
+    wishlistService
+      .isInWishlist(customerId, productId)
+      .then( result => {
+        if(result) {
+          setIsLiked(1)
+        }
+      })
+  }, [customerId, productId])
 
   const handleAddtoWishlist = (event, value) => {
     event.preventDefault()
     if(value === 1) {
-      if(!isLoggedIn) {
+      if(!isLoggedIn) { 
         history.push('/signin')
       }
-      else {        
+      else {     
+        setIsLiked(1)   
         wishlistService
           .addToWishlist(customerId, productId)
           .then(response => {
@@ -36,12 +48,16 @@ const WishlistButton = ({ customerId, productId, isLoggedIn }) => {
           })
       }
     }
+    else {
+      //TODO: dislike product
+      setIsLiked(0)
+    }
   }
 
   return <StyledRating
     name="customized-color"
     size="large"
-    defaultValue={0}
+    value={isLiked}
     max={1}
     onChange={handleAddtoWishlist}
     icon={<FavoriteIcon fontSize="inherit" />}
