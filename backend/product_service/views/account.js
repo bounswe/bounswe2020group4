@@ -23,12 +23,13 @@ module.exports.login = async (params) => {
 
 module.exports.signup = async (params) => {
   try {
-    let userLog = await Customer.findOne({ email: params.email, userType:params.userType });
-    if(!!userLog) {
-      return "This email has been already used";
-    }  
-
     const collection = params.userType === "customer" ? Customer : Vendor;
+
+    let userLog = await collection.findOne({ email: params.email });
+    if (userLog) {
+      return "This email has been already used";
+    }
+
     const counter = await Counter.findOne();
     counter[params.userType + "Counter"]++;
     await counter.save();
@@ -39,7 +40,7 @@ module.exports.signup = async (params) => {
       id: counter[params.userType + "Counter"],
     });
 
-    if (user.length > 0) {
+    if (user) {
       return user.id;
     }
 
