@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ProductCard from '../components/ProductCard'
 import Carousel from '../components/Carousel'
+import { searchProducts } from '../services/products'
 
 import DefaultProductImg from '../images/default-product-image.png'
 import SampleDealsBrand from '../images/sample-deals-brand.jpg'
@@ -45,6 +46,17 @@ const items = [
 ]
 
 const Homepage = () => {
+    const [bestSellers, setBestSellers] = useState([])
+    const [recommendations, setRecommendations] = useState([])
+
+    //This is just used to populate best sellers with dummy data
+    useEffect(async () => {
+        const response = await searchProducts("Bebek")
+        setBestSellers(response.slice(0,20))
+        setRecommendations(response.slice(21,40))
+    }, [])
+
+
     return (
         <div>
             <div className='p-5 deals container-fluid' style={{backgroundColor: 'var(--red-main)'}}>
@@ -58,7 +70,10 @@ const Homepage = () => {
                 </div>
             </div>
             <div className='p-5'>
-                <Carousel items={items} title="Best Sellers" />
+                <Carousel items={bestSellers} title="Best Sellers" />
+            </div>
+            <div className='p-5'>
+                <Carousel items={recommendations} title="Recommendations" />
             </div>
         </div>
     )

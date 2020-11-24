@@ -8,13 +8,13 @@ import FreeShippingImage from '../images/free-shipping.png'
 import './ProductInfo.css'
 
 
-const ProductInfo = ({ productId, name, brand, price, rating, vendor, vendorRating, customerId, isLoggedIn }) => {
+const ProductInfo = ({ productId, name, brand, price, rating, vendor, vendorRating}) => {
   return(
     <div className='product-info-container'>
       <div>          
         <h2 className='product-name' >{name}</h2>
         <div className='wishlist-button-container' >
-          <WishlistButton productId={productId} customerId={customerId} isLoggedIn={isLoggedIn}/>
+          <WishlistButton productId={productId} />
         </div>          
       </div>
       <h3 className='product-brand'>{brand}</h3>

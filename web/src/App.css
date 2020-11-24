@@ -13,6 +13,10 @@ body * {
     box-sizing: border-box;
 }
 
+.page-container {
+    background-color: white;
+}
+
 .vertical-align-middle {
     position: relative;
     top: 50%;
@@ -21,4 +25,8 @@ body * {
 
 input:focus {
     outline: none;
+}
+
+.cursor-pointer {
+    cursor: pointer;
 }

@@ -8,14 +8,15 @@ import logo from '../logo-buyo.png'
 import { connect } from 'react-redux'
 import { hideHeader } from '../redux/actions';
 import { showHeader } from '../redux/actions';
-import { login } from '../redux/actions';
+import { setLoginState } from '../redux/actions';
 import { useHistory, withRouter, Redirect } from "react-router-dom";
+import history from '../util/history';
+import accountService from '../services/account'
 
 
+const SignIn = ({hideHeader, showHeader}) => {
 
-const SignIn = ({login, hideHeader, showHeader}) => {
-
-   // const dispatch = useDispatch()
+   const dispatch = useDispatch()
 
    //This function corresponds to componentDidMount
    //The return function corresponds to componentDidUnmount
@@ -35,10 +36,17 @@ const SignIn = ({login, hideHeader, showHeader}) => {
         setPassword(e.target.value)
     }
 
-    const handleClick = function(e) {
+    const handleClick = async function(e) {
         e.preventDefault()
-        login({'email':email, 'password': password})
+        const userId = await accountService.login({'email':email, 'password': password})
+        dispatch(setLoginState({ userId: userId })); 
+        history.goBack()
     } 
+
+    const redirectToSignup = function(e) {
+        e.preventDefault()
+        history.push("/signup")
+    }
 
     return (
         <div className="signInModal">
@@ -75,6 +83,13 @@ const SignIn = ({login, hideHeader, showHeader}) => {
                     <Button className="submitButtonTransparent" variant="primary" type="submit">
                         SIGN IN WITH GOOGLE
                     </Button>
+                    <Button 
+                        className="submitButtonTransparent" 
+                        variant="primary" 
+                        type="submit"
+                        onClick = {redirectToSignup}>
+                            SIGN UP
+                        </Button>
                 </Form>
             </div>
         </div>
@@ -90,4 +105,4 @@ const mapStateToProps = state => {
             signIn: state.signIn.signInReducer}
 }
 
-export default connect(mapStateToProps, {showHeader, hideHeader, login})(SignIn);
+export default connect(mapStateToProps, {showHeader, hideHeader})(SignIn);
