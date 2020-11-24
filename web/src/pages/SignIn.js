@@ -36,12 +36,11 @@ const SignIn = ({hideHeader, showHeader}) => {
         setPassword(e.target.value)
     }
 
-    const handleClick = function(e) {
+    const handleClick = async function(e) {
         e.preventDefault()
-        accountService
-            .login({'email':email, 'password': password})
-            .then(userId => dispatch(setLoginState({ userId: userId})))
-
+        const userId = await accountService.login({'email':email, 'password': password})
+        dispatch(setLoginState({ userId: userId })); 
+        history.goBack()
     } 
 
     const redirectToSignup = function(e) {

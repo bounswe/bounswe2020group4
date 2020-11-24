@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getCategories } from '../services/category'
+import history from '../util/history'
 
 import Icon from '../images/buyo-icon.png'
 import ProfileIcon from '../images/profile-icon.png'
 import CartIcon from '../images/cart-icon.png'
 import WishlistIcon from '../images/wishlist-icon.png'
 import SearchIcon from '../images/search-icon.png'
-
-import history from '../util/history';
 
 //Styling
 import './Header.css'
