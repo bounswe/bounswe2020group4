@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { connect } from 'react-redux'
 import { Rating } from '@material-ui/lab'
 import { withStyles } from '@material-ui/core/styles'
 import FavoriteIcon from '@material-ui/icons/Favorite'
@@ -15,31 +16,31 @@ const StyledRating = withStyles({
   },
 })(Rating);
 
-const WishlistButton = ({ customerId, productId, isLoggedIn }) => {
+const WishlistButton = (props) => {
   const [isLiked, setIsLiked] = useState(0)
   
   useEffect(() => {
     wishlistService
-      .isInWishlist(customerId, productId)
+      .isInWishlist(props.customerId, props.productId)
       .then( result => {
         if(result) {
           setIsLiked(1)
         }
       })
-  }, [customerId, productId])
+  }, [props.customerId, props.productId])
 
   const handleAddtoWishlist = (event, value) => {
     event.preventDefault()
     if(value === 1) {
-      if(!isLoggedIn) {
+      if(!props.isLoggedIn) {
         history.push('/signin')
       }
       else {     
         wishlistService
-          .addToWishlist(customerId, productId)
+          .addToWishlist(props.customerId, props.productId)
           .then(response => {
             if(response.status !== 200) {
-              console.log(`error while adding ${productId} to wishlist of ${customerId}`)
+              console.log(`error while adding ${props.productId} to wishlist of ${props.customerId}`)
             }
             else {
               console.log('added to wishlist succesfully!')
@@ -50,11 +51,11 @@ const WishlistButton = ({ customerId, productId, isLoggedIn }) => {
     }
     else {
       wishlistService
-        .removeFromWishlist(customerId, productId)
+        .removeFromWishlist(props.customerId, props.productId)
         .then(response => {
           console.log(response)
           if(response.status !== 200) {
-            console.log(`error while removing ${productId} from wishlist of ${customerId}`)
+            console.log(`error while removing ${props.productId} from wishlist of ${props.customerId}`)
           }
           else {
             console.log('removed from wishlist succesfully!')
@@ -74,4 +75,11 @@ const WishlistButton = ({ customerId, productId, isLoggedIn }) => {
   />
 }
 
-export default WishlistButton
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.signIn.isLoggedIn,
+    customerId: state.signIn.userId
+  }
+}
+
+export default connect(mapStateToProps)(WishlistButton)
