@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:textAlignment="center"
-        android:textOn="Unlike"
+        android:textOn="Dislike"
         android:textOff="Like"
         android:background="@color/buyo_Cinnabar"
         android:textColor="@color/buyo_white"

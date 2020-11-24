@@ -98,7 +98,7 @@
                 android:background="@color/buyo_Cinnabar"
                 android:textColor="@color/buyo_antiqueWhite"
                 android:textOff="Like"
-                android:textOn="Unlike"
+                android:textOn="Dislike"
                 app:layout_constraintBottom_toBottomOf="@+id/rbProductDetailRating"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
