@@ -33,7 +33,7 @@ const Wishlist = (props) => {
         <div className='product-cards'>
           {products.map(p => 
             <div key={p.id} className='product-card-container'>
-              <ProductCard name={p.name} price={p.price} img={p.imageUrl}/>
+              <ProductCard name={p.name} price={p.price} imgUrl={p.imageUrl} productId={p.id}/>
             </div>          
           )}
         </div>
