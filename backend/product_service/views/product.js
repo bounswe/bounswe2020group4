@@ -1,26 +1,6 @@
 const Product = require("../models/product").Product;
 const Vendor = require("../models/vendor").Vendor;
 
-/**
- * Get the user location from googleapi and vendor objects from the db.
- * Calcuate distances between vendors and the user and respond with the
- * nearest vendor.
- * Response: {
- *    status: {
- *        success: true,
- *        code: 200
- *    }, data: {
- *        vendor: {
- *            name: 'John',
- *            location: {
- *                latitude: 32.23,
- *                langitude: 38.21
- *            }
- *        },
- *        distance: 32811.13
- *    }
- *}
- */
 module.exports.getProductCategories = async () => {
   try {
     const rawResult = await Product.aggregate([
