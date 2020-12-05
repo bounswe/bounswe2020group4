@@ -1,10 +1,4 @@
 import axios from 'axios'
-import history from '../util/history';
-import { useDispatch } from 'react-redux';
-import { setLoginState } from '../redux/actions';
-
-
-
 
 const baseUrl = 'http://3.138.113.101:8080/'
 

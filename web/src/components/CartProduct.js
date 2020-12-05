@@ -12,7 +12,7 @@ import './CartProduct.css'
 const CartProduct = ({name, price, imgUrl, productId, vendorName, brand, size, amount}) => {
     return (
         
-        <Container>
+        <Container fluid>
         <Card className='cp-container'>
             <Card.Header className="header">
                 <Card.Text>Vendor: {vendorName}</Card.Text>
