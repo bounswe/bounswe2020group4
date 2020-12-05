@@ -20,4 +20,4 @@ const getCategoryProducts = async (path) => {
   return response.data.data.products
 }
 
-export default { getProduct, getCategoryProducts }
+export default { getProduct, getCategoryProducts, searchProducts }
