@@ -2,9 +2,9 @@
 const express = require("express"),
   app = express(),
   bodyParser = require("body-parser"),
-  db = require("./db/product"),
+  db = require("./db/init"),
   cors = require("cors"),
-  routes = require("./routes/product");
+  routes = require("./routes/db");
 
 require("dotenv").config(); // Require the dotenv for constants.
 
@@ -33,4 +33,4 @@ routes.initialize(app); // Start to listen the endpoints.
 
 module.exports.App = app;
 
-console.log("Product service server started on: " + process.env.PORT);
+console.log("DB service server started on: " + process.env.PORT);

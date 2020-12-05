@@ -1,0 +1,51 @@
+version: "3"
+services:
+  product-service:
+    container_name: product-service
+    build: ./product_service
+    ports:
+      - "5000:9876"
+    links:
+      - mongo
+
+  db-service:
+    container_name: db-service
+    build: ./db_service
+    ports:
+      - "5001:9876"
+    links:
+      - mongo
+
+  account-service:
+    container_name: account-service
+    build: ./account_service
+    ports:
+      - "5002:9876"
+    links:
+      - mongo
+
+  interaction-service:
+    container_name: interaction-service
+    build: ./interaction_service
+    ports:
+      - "5003:9876"
+    links:
+      - mongo
+
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - "27017:27017"
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - product-service
+      - db-service
+      - interaction-service
+      - account-service
+    ports:
+      - "8080:8080"

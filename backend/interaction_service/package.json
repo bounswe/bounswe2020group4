@@ -1,7 +1,7 @@
 {
-  "name": "product-service",
+  "name": "interaction-service",
   "version": "1.0.0",
-  "description": "Product Service",
+  "description": "Interaction Service",
   "main": "app.js",
   "dependencies": {
     "body-parser": "1.19.0",
