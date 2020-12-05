@@ -29,6 +29,7 @@ const AddressDummyData = [
 
 
 const Checkout = ({ isLoggedIn }) => {
+    const [isContractChecked, setIsContractChecked] = useState(false)
     const [selectedAddress, selectAddress]= useState(AddressDummyData[0])
 
     // useEffect(() => {
@@ -52,7 +53,7 @@ const Checkout = ({ isLoggedIn }) => {
                         </div>
                     </div>
                     <div className='col-sm-4'>
-                        <CheckoutSidebar />
+                        <CheckoutSidebar setIsContractChecked={setIsContractChecked} isContractChecked={isContractChecked}/>
                     </div>
                 </div>
             </div>
