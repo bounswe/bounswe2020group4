@@ -35,8 +35,6 @@ const ProductDetails = (props) => {
         </div>
         <div className='product-right-column'>
           <ProductInfo 
-            customerId={props.customerId}
-            isLoggedIn={props.isLoggedIn}
             productId={product.id}
             name={product.name} 
             brand={product.brand} 
@@ -52,11 +50,6 @@ const ProductDetails = (props) => {
   )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    isLoggedIn: state.signIn.isLoggedIn,
-    customerId: state.signIn.userId
-  }
-}
 
-export default connect(mapStateToProps)(ProductDetails)
+
+export default ProductDetails

@@ -24,10 +24,7 @@
 }
 
 .product-left-column img {
-  width: auto;
-  height: 100%;
-}
-
-img {
   border-radius: 10px;
+  width: auto;
+  height: 380px;
 }

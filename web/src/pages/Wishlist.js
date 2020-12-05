@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import history from '../util/history';
 import { connect } from 'react-redux'
 
 import ProductCard from '../components/ProductCard'
@@ -9,14 +10,14 @@ const Wishlist = (props) => {
   const [products, setProducts] = useState([])
 
   useEffect(() => {
-    
+
     if(!props.isLoggedIn) {
-      //TODO: redirect to signin page!
-      return <div></div>
+      history.push('/signin')
+      return 
     }
     
     wishlistService
-      .getWishlist(props.customerId)
+      .getWishlist(props.customerId)  
       .then(prods => {
         setProducts(prods)
       })
@@ -32,7 +33,7 @@ const Wishlist = (props) => {
         <div className='product-cards'>
           {products.map(p => 
             <div key={p.id} className='product-card-container'>
-              <ProductCard name={p.name} price={p.price} img={p.imageUrl}/>
+              <ProductCard name={p.name} price={p.price} imgUrl={p.imageUrl} productId={p.id}/>
             </div>          
           )}
         </div>

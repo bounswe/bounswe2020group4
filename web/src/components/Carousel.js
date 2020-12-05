@@ -6,7 +6,7 @@ const Carousel = ({items, title}) => {
     const itemList = items.map((item) => {
         return (
             <div className='m-4'>
-                <ProductCard className='img-fluid' name={item.name} img={item.img} price={item.price} />
+                <ProductCard className='img-fluid' name={item.name} imgUrl={item.imageUrl} price={item.price} productId={item.id}/>
             </div>
         )
     })

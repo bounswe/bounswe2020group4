@@ -3,6 +3,7 @@ const express = require("express"),
   app = express(),
   bodyParser = require("body-parser"),
   db = require("./db/product"),
+  cors = require("cors"),
   routes = require("./routes/product");
 
 require("dotenv").config(); // Require the dotenv for constants.
@@ -26,6 +27,7 @@ express.request.error = function () {
 
 app.listen(process.env.PORT); // Listen requests from the port.
 app.use(bodyParser.json());
+app.use(cors());
 db.initialize(); // Initialize the database.
 routes.initialize(app); // Start to listen the endpoints.
 

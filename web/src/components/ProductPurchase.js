@@ -12,7 +12,7 @@ const ProductPurchase = ({price}) => {
         <div className='product-price'>
           {price} &#8378;
         </div>
-        <button>Add to <br/> Cart</button>
+        <button>Add to Cart</button>
       </div>
     </div>
   )

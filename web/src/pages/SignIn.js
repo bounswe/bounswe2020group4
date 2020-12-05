@@ -35,7 +35,7 @@ const SignIn = ({hideHeader, showHeader, setLoginState}) => {
         setPassword(e.target.value)
     }
 
-    const handleClick = function(e) {
+    const handleClick = async function(e) {
         e.preventDefault()
         const userId = accountService.login({'email':email, 'password': password})
         setLoginState({ userId: userId}); 
