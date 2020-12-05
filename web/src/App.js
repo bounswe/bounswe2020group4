@@ -5,10 +5,12 @@ import history from './util/history';
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 
+//Pages
 import Header from './components/Header';
 import ProductDetails from './pages/ProductDetails';
 import Homepage from './pages/Homepage'
 import Wishlist from './pages/Wishlist'
+import Checkout from './pages/Checkout'
 
 //Styling
 import './App.css'
@@ -25,6 +27,7 @@ const App = ({ showHeader }) => {
                     <Route path="/signup" exact component={SignUp} />
                     <Route path="/product/:id" exact component={ProductDetails}/>
                     <Route path="/wishlist" exact component={Wishlist}/>
+                    <Route path="/checkout" exact component={Checkout} />
                 </div>
             </Router>
         </div>

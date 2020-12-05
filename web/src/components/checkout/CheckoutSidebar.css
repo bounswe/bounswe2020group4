@@ -1,0 +1,10 @@
+.contract-checkbox {
+    width: 48px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.contract-text {
+    margin-left: 48px;
+}

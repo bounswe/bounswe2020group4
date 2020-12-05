@@ -29,14 +29,14 @@ const CheckoutAddressBlock = ({ addresses, selectAddress, selectedAddress }) => 
     }
 
     return (
-        <div className='address-block p-4 border'>
+        <div className='address-block p-4 border rounded-sm'>
             {isAddressPopupOpen ? 
                 <div className='add-new-address-popup-container'>
                     <AddNewAddressPopup setIsAddressPopupOpen={setIsAddressPopupOpen}/>
                 </div> : null
             }
             <h3 className='m-2 mb-4'>Shipping Address</h3>
-            <div className='d-flex'>
+            <div className='d-flex overflow-auto'>
                 <div className='add-new-address p-3 m-2 mx-3 d-flex flex-column justify-content-around' onClick={() => {setIsAddressPopupOpen(true)}}>
                     <div className='add-new-address-img-container text-center'>
                         <img className='add-new-address-img d-inline-block' src={PlusIcon} alt='add new address' />
