@@ -11,7 +11,8 @@ interface ISharedPref {
 //
     fun saveUserId(id: String)
     fun getUserId(): String?
-    fun saveVendorLoc(loc: Marker)
+    fun saveVendorLat(lat: String)
+    fun saveVendorLon(lon: String)
     fun getVendorLat(): String?
     fun getVendorLon(): String?
 }

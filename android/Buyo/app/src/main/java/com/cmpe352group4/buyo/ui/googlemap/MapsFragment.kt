@@ -3,6 +3,7 @@ package com.cmpe352group4.buyo.ui.googlemap
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,8 +32,8 @@ class MapsFragment : BaseFragment() {
         fun newInstance() = MapsFragment()
     }
 
-    lateinit var marker: Marker
-    var markerSet: Boolean = false
+    private lateinit var marker: Marker
+    private var markerSet: Boolean = false
 
     private val callback = OnMapReadyCallback { googleMap ->
         /**
@@ -77,7 +78,8 @@ class MapsFragment : BaseFragment() {
 
     private fun selectLocButtonListener() {
         location_select.setOnClickListener {
-            sharedPref.saveVendorLoc(marker)
+            sharedPref.saveVendorLat(marker.position.latitude.toString())
+            sharedPref.saveVendorLon(marker.position.longitude.toString())
             activity?.onBackPressed()
         }
     }
