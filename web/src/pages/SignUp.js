@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+
 import Button from 'react-bootstrap/Button';
+import ToggleButton from "react-bootstrap/ToggleButton";
+import Col from 'react-bootstrap/Col';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './SignIn.css'
 import logo from '../logo-buyo.png'
@@ -14,9 +18,6 @@ import { setLoginState } from '../redux/actions';
 
 const SignUp = ({hideHeader, showHeader, setLoginState}) => {
 
-
-    //This function corresponds to componentDidMount
-    //The return function corresponds to componentDidUnmount
     useEffect(() => {
         hideHeader()
         return () => showHeader()
@@ -24,6 +25,7 @@ const SignUp = ({hideHeader, showHeader, setLoginState}) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [checked, setChecked] = useState(false);
 
     const handleEmailChange = function(e) {
         setEmail(e.target.value)
@@ -34,9 +36,27 @@ const SignUp = ({hideHeader, showHeader, setLoginState}) => {
     }
 
     const handleClick = async function(e) {
+    
         e.preventDefault()
-        const userId = accountService.signUp({'email':email, 'password': password})
-        setLoginState({ userId: userId});     
+        if(email == '' | password == ''){
+            alert("Enter your credentials")
+        } else if (!checked){
+            alert("Agree to terms and conditions")
+        } 
+        else {
+            const userId = await accountService.signUp({'email':email, 'password': password})
+            console.log(userId)
+            if(userId == -1){
+                alert("This user already exists, use a different email")
+            } else if (userId == null){
+                alert("Something went wrong, try again")
+            } else {
+                setLoginState({ userId: userId});
+                history.goBack();   
+            }
+        }
+        
+          
     } 
 
     const redirectToSignin = function(e) {
@@ -67,10 +87,19 @@ const SignUp = ({hideHeader, showHeader, setLoginState}) => {
                             placeholder="Password" 
                             onChange={handlePasswordChange} 
                             />
+
                         </Form.Group>
-                        <Form.Group controlId="formBasicPassword">
-                            <Form.Control className="formInputBox" type="password" placeholder="Password" />
-                        </Form.Group>
+
+                        <Row>
+                        <ToggleButton variant="light" className="check-box text-left" block
+                            type="checkbox"
+                            checked={checked}
+                            value="1"
+                            onChange={e => setChecked(e.currentTarget.checked)}> 
+                            I agree to terms and conditions.
+                        </ToggleButton>
+                        </Row>
+                        
                         <Button 
                         className="submitButton" 
                         variant="primary" 

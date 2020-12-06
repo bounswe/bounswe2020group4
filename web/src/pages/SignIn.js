@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useState, useEffect } from 'react'
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import './SignIn.css'
 import logo from '../logo-buyo.png'
 import { connect } from 'react-redux'
-import { hideHeader } from '../redux/actions';
-import { showHeader } from '../redux/actions';
-import { setLoginState } from '../redux/actions';
-import history from '../util/history';
+import { hideHeader } from '../redux/actions'
+import { showHeader } from '../redux/actions'
+import { setLoginState } from '../redux/actions'
+import history from '../util/history'
 import accountService from '../services/account'
 
 
@@ -35,8 +35,19 @@ const SignIn = ({hideHeader, showHeader, setLoginState}) => {
 
     const handleClick = async function(e) {
         e.preventDefault()
-        const userId = accountService.login({'email':email, 'password': password})
-        setLoginState({ userId: userId}); 
+        if(email == '' | password == ''){
+            alert("Enter your credentials")
+        } else {
+            const userId = await accountService.login({'email':email, 'password': password})
+            if (userId == null){
+                alert("Wrong credentials")
+            } else {
+                setLoginState({ userId: userId}); 
+                history.goBack();
+            }
+        }
+
+        
     } 
 
     const redirectToSignup = function(e) {
