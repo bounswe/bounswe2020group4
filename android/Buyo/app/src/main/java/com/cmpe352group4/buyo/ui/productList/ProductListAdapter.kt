@@ -62,10 +62,6 @@ class ProductListAdapter(
 
     inner class ProductListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-
-
-
-
         fun bind(modal: Product) {
 
             itemView.tv_productListRecyclerView_Info.text = "Brand: " + modal.brand + " / Vendor: " + modal.vendor.name + " / Vendor Rating : " + modal.vendor.rating.toString()

@@ -37,7 +37,6 @@ class ProductDetailContentFragment : BaseFragment() {
         viewModelFactory
     }
 
-    private var isToggleChangedByUser = true
 
     private val wishListViewModel: WishListViewModel by viewModels {
         viewModelFactory
@@ -316,7 +315,7 @@ class ProductDetailContentFragment : BaseFragment() {
         }
         btnProductDetailComments.setOnClickListener {
             navigationManager?.onReplace(
-                ProductDetailCommentsFragment.newInstance(),
+                ProductDetailCommentsFragment.newInstance(productId),
                 TransactionType.Replace, true
             )
         }
