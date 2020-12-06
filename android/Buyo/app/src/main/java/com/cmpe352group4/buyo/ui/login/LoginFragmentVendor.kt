@@ -17,8 +17,10 @@ import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.EmptyFragment
+import com.cmpe352group4.buyo.ui.googlemap.MapsFragment
 import com.cmpe352group4.buyo.viewmodel.ProfileViewModel
 import com.cmpe352group4.buyo.vo.LoginSignupRequest
+import com.google.android.gms.maps.MapFragment
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_login_vendor.*
 import javax.inject.Inject
@@ -63,6 +65,7 @@ class LoginFragmentVendor : BaseFragment() {
         loginSignUpButton()
         signUpSwitch()
         userTypeSwitchListener()
+        googleMapButtonListener()
     }
 
     private fun addOnTextWatcher() {
@@ -230,6 +233,7 @@ class LoginFragmentVendor : BaseFragment() {
                 vendor_reenter_password.visibility = View.GONE
                 vendor_reset_password.visibility = View.VISIBLE
                 vendor_tax_id.visibility = View.GONE
+                vendor_choose_location.visibility = View.GONE
             } else {
                 vendor_login_signup_button.text = getString(R.string.action_sign_up)
                 vendor_signup_switch.text = getString(R.string.login_switch)
@@ -237,6 +241,7 @@ class LoginFragmentVendor : BaseFragment() {
                 vendor_reenter_password.visibility = View.VISIBLE
                 vendor_reset_password.visibility = View.GONE
                 vendor_tax_id.visibility = View.VISIBLE
+                vendor_choose_location.visibility = View.VISIBLE
             }
         }
     }
@@ -246,6 +251,15 @@ class LoginFragmentVendor : BaseFragment() {
             navigationManager?.onReplace(
                 LoginFragment.newInstance(),
                 TransactionType.Replace, false
+            )
+        }
+    }
+
+    private fun googleMapButtonListener() {
+        vendor_choose_location.setOnClickListener {
+            navigationManager?.onReplace(
+                MapsFragment.newInstance(),
+                TransactionType.Replace, true
             )
         }
     }

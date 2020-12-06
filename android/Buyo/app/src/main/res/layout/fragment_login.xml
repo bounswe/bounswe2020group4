@@ -110,7 +110,7 @@
         android:id="@+id/customer_signup_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="15dp"
         android:text="@string/sign_up_switch"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
