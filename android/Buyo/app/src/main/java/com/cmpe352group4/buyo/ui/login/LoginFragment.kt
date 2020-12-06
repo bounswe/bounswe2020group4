@@ -1,6 +1,5 @@
 package com.cmpe352group4.buyo.ui.login
 
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -19,16 +17,9 @@ import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.EmptyFragment
-import com.cmpe352group4.buyo.ui.homepage.HomepageFragment
 import com.cmpe352group4.buyo.viewmodel.ProfileViewModel
 import com.cmpe352group4.buyo.vo.LoginSignupRequest
 import kotlinx.android.synthetic.main.fragment_login.*
-import kotlinx.android.synthetic.main.fragment_login.login_signup_button
-import kotlinx.android.synthetic.main.fragment_login.password
-import kotlinx.android.synthetic.main.fragment_login.remember_me
-import kotlinx.android.synthetic.main.fragment_login.signup_switch
-import kotlinx.android.synthetic.main.fragment_login.username
-import kotlinx.android.synthetic.main.fragment_login_vendor.*
 import javax.inject.Inject
 
 class LoginFragment : BaseFragment() {
@@ -68,7 +59,7 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun addOnTextWatcher() {
-        username.addTextChangedListener(object : TextWatcher {
+        customer_username.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(p0: Editable?) {}
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -79,19 +70,19 @@ class LoginFragment : BaseFragment() {
 
                 if (userNameCountBool && passwordCountBool) {
                     context?.run {
-                        login_signup_button.isEnabled = true
-                        login_signup_button.alpha = 1f
+                        customer_login_signup_button.isEnabled = true
+                        customer_login_signup_button.alpha = 1f
                     }
                 } else {
                     context?.run {
-                        login_signup_button.isEnabled = false
-                        login_signup_button.alpha = .6f
+                        customer_login_signup_button.isEnabled = false
+                        customer_login_signup_button.alpha = .6f
                     }
                 }
             }
         })
 
-        password.addTextChangedListener(object : TextWatcher {
+        customer_password.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(p0: Editable?) {}
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -102,13 +93,36 @@ class LoginFragment : BaseFragment() {
 
                 if (userNameCountBool && passwordCountBool) {
                     context?.run {
-                        login_signup_button.isEnabled = true
-                        login_signup_button.alpha = 1f
+                        customer_login_signup_button.isEnabled = true
+                        customer_login_signup_button.alpha = 1f
                     }
                 } else {
                     context?.run {
-                        login_signup_button.isEnabled = false
-                        login_signup_button.alpha = .6f
+                        customer_login_signup_button.isEnabled = false
+                        customer_login_signup_button.alpha = .6f
+                    }
+                }
+            }
+        })
+
+        customer_reenter_password.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(p0: Editable?) {}
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                passwordCountBool = p0?.length ?: 0 >= 6
+
+                if (userNameCountBool && passwordCountBool) {
+                    context?.run {
+                        customer_login_signup_button.isEnabled = true
+                        customer_login_signup_button.alpha = 1f
+                    }
+                } else {
+                    context?.run {
+                        customer_login_signup_button.isEnabled = false
+                        customer_login_signup_button.alpha = .6f
                     }
                 }
             }
@@ -116,13 +130,13 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun loginSignUpButton(){
-        login_signup_button.setOnClickListener {
-            if(login_signup_button.isEnabled && !signup_switch.isChecked) {
+        customer_login_signup_button.setOnClickListener {
+            if(customer_login_signup_button.isEnabled && !customer_signup_switch.isChecked) {
                 profileViewModel.onLogin(
                     LoginSignupRequest(
                         userType = "customer",
-                        email = username.text.toString(),
-                        password = password.text.toString()
+                        email = customer_username.text.toString(),
+                        password = customer_password.text.toString()
                     )
                 )
                 profileViewModel.login.observe(viewLifecycleOwner, Observer {
@@ -149,13 +163,13 @@ class LoginFragment : BaseFragment() {
                         showLoading()
                     }
                 })
-            } else if (login_signup_button.isEnabled && signup_switch.isChecked) {
-                if (remember_me.isChecked) {
+            } else if (customer_login_signup_button.isEnabled && customer_signup_switch.isChecked) {
+                if (customer_remember_me.isChecked) {
                     profileViewModel.onSingup(
                         LoginSignupRequest(
                             userType = "customer",
-                            email = username.text.toString(),
-                            password = password.text.toString()
+                            email = customer_username.text.toString(),
+                            password = customer_password.text.toString()
                         )
                     )
                     profileViewModel.singup.observe(viewLifecycleOwner, Observer {
@@ -166,7 +180,7 @@ class LoginFragment : BaseFragment() {
                                 Toast.makeText(context, "You can login now", Toast.LENGTH_SHORT)
                             myToast.setGravity(Gravity.BOTTOM, 0, 200)
                             myToast.show()
-                            signup_switch.isChecked = false
+                            customer_signup_switch.isChecked = false
 
                         } else if (it.status == Status.ERROR) {
                             dispatchLoading()
@@ -195,23 +209,27 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun signUpSwitch() {
-        signup_switch.setOnCheckedChangeListener { _, isChecked ->
+        customer_signup_switch.setOnCheckedChangeListener { _, isChecked ->
             if (!isChecked){
-                login_signup_button.text = getString(R.string.action_login)
-                google_login_signup.text = getString(R.string.google_login)
-                signup_switch.text = getString(R.string.sign_up_switch)
-                remember_me.text = getString(R.string.reset_password)
+                customer_login_signup_button.text = getString(R.string.action_login)
+                customer_google_login_signup.text = getString(R.string.google_login)
+                customer_signup_switch.text = getString(R.string.sign_up_switch)
+                customer_remember_me.text = getString(R.string.remember_me)
+                customer_reset_password.visibility = View.VISIBLE
+                customer_reenter_password.visibility = View.GONE
             } else {
-                login_signup_button.text = getString(R.string.action_sign_up)
-                google_login_signup.text = getString(R.string.google_signup)
-                signup_switch.text = getString(R.string.login_switch)
-                remember_me.text = getString(R.string.kvkk_accept)
+                customer_login_signup_button.text = getString(R.string.action_sign_up)
+                customer_google_login_signup.text = getString(R.string.google_signup)
+                customer_signup_switch.text = getString(R.string.login_switch)
+                customer_remember_me.text = getString(R.string.kvkk_accept)
+                customer_reset_password.visibility = View.GONE
+                customer_reenter_password.visibility = View.VISIBLE
             }
         }
     }
 
     private fun userTypeSwitchListener() {
-        switch_to_vendor.setOnClickListener {
+        customer_switch_to_vendor.setOnClickListener {
             navigationManager?.onReplace(
                 LoginFragmentVendor.newInstance(),
                 TransactionType.Replace, false

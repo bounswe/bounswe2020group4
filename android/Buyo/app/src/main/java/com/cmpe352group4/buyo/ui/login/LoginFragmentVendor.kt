@@ -17,15 +17,8 @@ import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.EmptyFragment
-import com.cmpe352group4.buyo.ui.homepage.HomepageFragment
 import com.cmpe352group4.buyo.viewmodel.ProfileViewModel
 import com.cmpe352group4.buyo.vo.LoginSignupRequest
-import kotlinx.android.synthetic.main.fragment_login.*
-import kotlinx.android.synthetic.main.fragment_login.login_signup_button
-import kotlinx.android.synthetic.main.fragment_login.password
-import kotlinx.android.synthetic.main.fragment_login.remember_me
-import kotlinx.android.synthetic.main.fragment_login.signup_switch
-import kotlinx.android.synthetic.main.fragment_login.username
 import kotlinx.android.synthetic.main.fragment_login_vendor.*
 import javax.inject.Inject
 
@@ -66,7 +59,7 @@ class LoginFragmentVendor : BaseFragment() {
     }
 
     private fun addOnTextWatcher() {
-        username.addTextChangedListener(object : TextWatcher {
+        vendor_username.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(p0: Editable?) {}
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -77,19 +70,19 @@ class LoginFragmentVendor : BaseFragment() {
 
                 if (userNameCountBool && passwordCountBool) {
                     context?.run {
-                        login_signup_button.isEnabled = true
-                        login_signup_button.alpha = 1f
+                        vendor_login_signup_button.isEnabled = true
+                        vendor_login_signup_button.alpha = 1f
                     }
                 } else {
                     context?.run {
-                        login_signup_button.isEnabled = false
-                        login_signup_button.alpha = .6f
+                        vendor_login_signup_button.isEnabled = false
+                        vendor_login_signup_button.alpha = .6f
                     }
                 }
             }
         })
 
-        password.addTextChangedListener(object : TextWatcher {
+        vendor_password.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(p0: Editable?) {}
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -100,13 +93,13 @@ class LoginFragmentVendor : BaseFragment() {
 
                 if (userNameCountBool && passwordCountBool) {
                     context?.run {
-                        login_signup_button.isEnabled = true
-                        login_signup_button.alpha = 1f
+                        vendor_login_signup_button.isEnabled = true
+                        vendor_login_signup_button.alpha = 1f
                     }
                 } else {
                     context?.run {
-                        login_signup_button.isEnabled = false
-                        login_signup_button.alpha = .6f
+                        vendor_login_signup_button.isEnabled = false
+                        vendor_login_signup_button.alpha = .6f
                     }
                 }
             }
@@ -114,13 +107,13 @@ class LoginFragmentVendor : BaseFragment() {
     }
 
     private fun loginSignUpButton(){
-        login_signup_button.setOnClickListener {
-            if(login_signup_button.isEnabled && !signup_switch.isChecked) {
+        vendor_login_signup_button.setOnClickListener {
+            if(vendor_login_signup_button.isEnabled && !vendor_signup_switch.isChecked) {
                 profileViewModel.onLogin(
                     LoginSignupRequest(
                         userType = "vendor",
-                        email = username.text.toString(),
-                        password = password.text.toString()
+                        email = vendor_username.text.toString(),
+                        password = vendor_password.text.toString()
                     )
                 )
                 profileViewModel.login.observe(viewLifecycleOwner, Observer {
@@ -147,13 +140,13 @@ class LoginFragmentVendor : BaseFragment() {
                         showLoading()
                     }
                 })
-            } else if (login_signup_button.isEnabled && signup_switch.isChecked) {
-                if (remember_me.isChecked) {
+            } else if (vendor_login_signup_button.isEnabled && vendor_signup_switch.isChecked) {
+                if (vendor_remember_me.isChecked) {
                     profileViewModel.onSingup(
                         LoginSignupRequest(
                             userType = "vendor",
-                            email = username.text.toString(),
-                            password = password.text.toString()
+                            email = vendor_username.text.toString(),
+                            password = vendor_password.text.toString()
                         )
                     )
                     profileViewModel.singup.observe(viewLifecycleOwner, Observer {
@@ -164,7 +157,7 @@ class LoginFragmentVendor : BaseFragment() {
                                 Toast.makeText(context, "You can login now", Toast.LENGTH_SHORT)
                             myToast.setGravity(Gravity.BOTTOM, 0, 200)
                             myToast.show()
-                            signup_switch.isChecked = false
+                            vendor_signup_switch.isChecked = false
 
                         } else if (it.status == Status.ERROR) {
                             dispatchLoading()
@@ -193,21 +186,25 @@ class LoginFragmentVendor : BaseFragment() {
     }
 
     private fun signUpSwitch() {
-        signup_switch.setOnCheckedChangeListener { _, isChecked ->
+        vendor_signup_switch.setOnCheckedChangeListener { _, isChecked ->
             if (!isChecked){
-                login_signup_button.text = getString(R.string.action_login)
-                signup_switch.text = getString(R.string.sign_up_switch)
-                remember_me.text = getString(R.string.reset_password)
+                vendor_login_signup_button.text = getString(R.string.action_login)
+                vendor_signup_switch.text = getString(R.string.sign_up_switch)
+                vendor_remember_me.text = getString(R.string.remember_me)
+                vendor_reenter_password.visibility = View.GONE
+                vendor_reset_password.visibility = View.VISIBLE
             } else {
-                login_signup_button.text = getString(R.string.action_sign_up)
-                signup_switch.text = getString(R.string.login_switch)
-                remember_me.text = getString(R.string.kvkk_accept)
+                vendor_login_signup_button.text = getString(R.string.action_sign_up)
+                vendor_signup_switch.text = getString(R.string.login_switch)
+                vendor_remember_me.text = getString(R.string.kvkk_accept)
+                vendor_reenter_password.visibility = View.VISIBLE
+                vendor_reset_password.visibility = View.GONE
             }
         }
     }
 
     private fun userTypeSwitchListener() {
-        switch_to_customer.setOnClickListener {
+        vendor_switch_to_customer.setOnClickListener {
             navigationManager?.onReplace(
                 LoginFragment.newInstance(),
                 TransactionType.Replace, false

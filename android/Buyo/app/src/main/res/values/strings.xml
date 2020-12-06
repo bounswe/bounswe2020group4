@@ -76,7 +76,6 @@
     <string name="prompt_password">Password</string>
     <string name="action_login">Login</string>
     <string name="action_sing_up">Sign Up</string>
-    <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome !"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
@@ -93,6 +92,7 @@
     <string name="kvkk_accept">I accept KVKK</string>
     <string name="i_am_a_vendor">I am a vendor</string>
     <string name="i_am_a_customer">I am a customer</string>
+    <string name="reprompt_password">Password Again</string>
 
     <!-- Product List Page -->
     <string-array name="sp_productList_order">
