@@ -25,6 +25,9 @@ import javax.inject.Inject
 
 
 // TODO Make kvkk readable
+// TODO Reset password functionality
+// TODO Sign up e-mail verification
+
 
 class LoginFragmentVendor : BaseFragment() {
 
@@ -164,7 +167,7 @@ class LoginFragmentVendor : BaseFragment() {
                         dispatchLoading()
                         val myToast = Toast.makeText(
                             context,
-                            "Create an account if you don't have one!",
+                            "Create an account if you don't have one",
                             Toast.LENGTH_SHORT
                         )
                         myToast.setGravity(Gravity.BOTTOM, 0, 200)
@@ -208,7 +211,7 @@ class LoginFragmentVendor : BaseFragment() {
                 } else {
                     val myToast = Toast.makeText(
                         context,
-                        "Please accept KVKK!",
+                        "Please read and accept KVKK!",
                         Toast.LENGTH_SHORT
                     )
                     myToast.setGravity(Gravity.BOTTOM, 0, 200)

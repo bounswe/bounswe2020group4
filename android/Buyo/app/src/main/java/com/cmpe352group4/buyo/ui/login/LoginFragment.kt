@@ -23,6 +23,10 @@ import kotlinx.android.synthetic.main.fragment_login.*
 import javax.inject.Inject
 
 // TODO Make kvkk readable
+// TODO Reset password functionality
+// TODO Google sign up, login functionality
+// TODO Sign up e-mail verification
+
 
 class LoginFragment : BaseFragment() {
 
@@ -161,7 +165,7 @@ class LoginFragment : BaseFragment() {
                         dispatchLoading()
                         val myToast = Toast.makeText(
                             context,
-                            "Create an account if you don't have one!",
+                            "Create an account if you don't have one",
                             Toast.LENGTH_SHORT
                         )
                         myToast.setGravity(Gravity.BOTTOM, 0, 200)
@@ -205,7 +209,7 @@ class LoginFragment : BaseFragment() {
                 } else {
                     val myToast = Toast.makeText(
                         context,
-                        "Please accept KVKK!",
+                        "Please read and accept KVKK",
                         Toast.LENGTH_SHORT
                     )
                     myToast.setGravity(Gravity.BOTTOM, 0, 200)
