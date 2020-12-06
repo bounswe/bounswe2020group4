@@ -22,6 +22,8 @@ import com.cmpe352group4.buyo.vo.LoginSignupRequest
 import kotlinx.android.synthetic.main.fragment_login.*
 import javax.inject.Inject
 
+// TODO Make kvkk readable
+
 class LoginFragment : BaseFragment() {
 
     @Inject
@@ -91,6 +93,8 @@ class LoginFragment : BaseFragment() {
 
                 passwordCountBool = p0?.length ?: 0 >= 6
 
+                // TODO check if passwords are same
+
                 if (userNameCountBool && passwordCountBool) {
                     context?.run {
                         customer_login_signup_button.isEnabled = true
@@ -114,6 +118,8 @@ class LoginFragment : BaseFragment() {
 
                 passwordCountBool = p0?.length ?: 0 >= 6
 
+                // TODO check if passwords are same
+
                 if (userNameCountBool && passwordCountBool) {
                     context?.run {
                         customer_login_signup_button.isEnabled = true
@@ -133,6 +139,7 @@ class LoginFragment : BaseFragment() {
         customer_login_signup_button.setOnClickListener {
             if(customer_login_signup_button.isEnabled && !customer_signup_switch.isChecked) {
                 profileViewModel.onLogin(
+                    // TODO Fix backend call format
                     LoginSignupRequest(
                         userType = "customer",
                         email = customer_username.text.toString(),
@@ -165,6 +172,7 @@ class LoginFragment : BaseFragment() {
                 })
             } else if (customer_login_signup_button.isEnabled && customer_signup_switch.isChecked) {
                 if (customer_remember_me.isChecked) {
+                    // TODO Fix backend call format
                     profileViewModel.onSingup(
                         LoginSignupRequest(
                             userType = "customer",
@@ -175,7 +183,6 @@ class LoginFragment : BaseFragment() {
                     profileViewModel.singup.observe(viewLifecycleOwner, Observer {
                         if (it.status == Status.SUCCESS && it.data != null) {
                             dispatchLoading()
-
                             val myToast =
                                 Toast.makeText(context, "You can login now", Toast.LENGTH_SHORT)
                             myToast.setGravity(Gravity.BOTTOM, 0, 200)

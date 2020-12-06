@@ -19,8 +19,12 @@ import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.EmptyFragment
 import com.cmpe352group4.buyo.viewmodel.ProfileViewModel
 import com.cmpe352group4.buyo.vo.LoginSignupRequest
+import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_login_vendor.*
 import javax.inject.Inject
+
+
+// TODO Make kvkk readable
 
 class LoginFragmentVendor : BaseFragment() {
 
@@ -91,6 +95,33 @@ class LoginFragmentVendor : BaseFragment() {
 
                 passwordCountBool = p0?.length ?: 0 >= 6
 
+                // TODO check if passwords are same
+
+                if (userNameCountBool && passwordCountBool) {
+                    context?.run {
+                        vendor_login_signup_button.isEnabled = true
+                        vendor_login_signup_button.alpha = 1f
+                    }
+                } else {
+                    context?.run {
+                        vendor_login_signup_button.isEnabled = false
+                        vendor_login_signup_button.alpha = .6f
+                    }
+                }
+            }
+        })
+
+        vendor_reenter_password.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(p0: Editable?) {}
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                passwordCountBool = p0?.length ?: 0 >= 6
+
+                // TODO check if passwords are same
+
                 if (userNameCountBool && passwordCountBool) {
                     context?.run {
                         vendor_login_signup_button.isEnabled = true
@@ -109,6 +140,8 @@ class LoginFragmentVendor : BaseFragment() {
     private fun loginSignUpButton(){
         vendor_login_signup_button.setOnClickListener {
             if(vendor_login_signup_button.isEnabled && !vendor_signup_switch.isChecked) {
+
+                // TODO Fix backend call format
                 profileViewModel.onLogin(
                     LoginSignupRequest(
                         userType = "vendor",
@@ -142,6 +175,7 @@ class LoginFragmentVendor : BaseFragment() {
                 })
             } else if (vendor_login_signup_button.isEnabled && vendor_signup_switch.isChecked) {
                 if (vendor_remember_me.isChecked) {
+                    // TODO Fix backend call format
                     profileViewModel.onSingup(
                         LoginSignupRequest(
                             userType = "vendor",
@@ -152,7 +186,6 @@ class LoginFragmentVendor : BaseFragment() {
                     profileViewModel.singup.observe(viewLifecycleOwner, Observer {
                         if (it.status == Status.SUCCESS && it.data != null) {
                             dispatchLoading()
-
                             val myToast =
                                 Toast.makeText(context, "You can login now", Toast.LENGTH_SHORT)
                             myToast.setGravity(Gravity.BOTTOM, 0, 200)
