@@ -56,12 +56,12 @@ class LoginFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         addOnTextWatcher()
-        loginButton()
-        //signUpButton()
+        loginSignUpButton()
+        signUpSwitch()
     }
 
     private fun addOnTextWatcher() {
-        login_username.addTextChangedListener(object : TextWatcher {
+        username.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(p0: Editable?) {}
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -72,19 +72,19 @@ class LoginFragment : BaseFragment() {
 
                 if (userNameCountBool && passwordCountBool) {
                     context?.run {
-                        login_button.isEnabled = true
-                        login_button.alpha = 1f
+                        login_signup_button.isEnabled = true
+                        login_signup_button.alpha = 1f
                     }
                 } else {
                     context?.run {
-                        login_button.isEnabled = false
-                        login_button.alpha = .6f
+                        login_signup_button.isEnabled = false
+                        login_signup_button.alpha = .6f
                     }
                 }
             }
         })
 
-        login_password.addTextChangedListener(object : TextWatcher {
+        password.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(p0: Editable?) {}
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -95,27 +95,27 @@ class LoginFragment : BaseFragment() {
 
                 if (userNameCountBool && passwordCountBool) {
                     context?.run {
-                        login_button.isEnabled = true
-                        login_button.alpha = 1f
+                        login_signup_button.isEnabled = true
+                        login_signup_button.alpha = 1f
                     }
                 } else {
                     context?.run {
-                        login_button.isEnabled = false
-                        login_button.alpha = .6f
+                        login_signup_button.isEnabled = false
+                        login_signup_button.alpha = .6f
                     }
                 }
             }
         })
     }
 
-    private fun loginButton(){
-        login_button.setOnClickListener {
-            if(login_button.isEnabled) {
+    private fun loginSignUpButton(){
+        login_signup_button.setOnClickListener {
+            if(login_signup_button.isEnabled && !signup_switch.isChecked) {
                 profileViewModel.onLogin(
                     LoginSignupRequest(
                         userType = "customer",
-                        email = login_username.text.toString(),
-                        password = login_password.text.toString()
+                        email = username.text.toString(),
+                        password = password.text.toString()
                     )
                 )
                 profileViewModel.login.observe(viewLifecycleOwner, Observer {
@@ -133,7 +133,7 @@ class LoginFragment : BaseFragment() {
                         dispatchLoading()
                         val myToast = Toast.makeText(
                             context,
-                            "An error occurred during signing up!",
+                            "Create an account if you don't have one!",
                             Toast.LENGTH_SHORT
                         )
                         myToast.setGravity(Gravity.BOTTOM, 0, 200)
@@ -142,58 +142,63 @@ class LoginFragment : BaseFragment() {
                         showLoading()
                     }
                 })
-            }
-        }
-    }
-    /*
-    private fun signUpButton(){
-        btn_singUp.setOnClickListener {
-            if(boolLoginButton){
-                profileViewModel.onSingup(
-                    LoginSignupRequest(
-                        userType = "customer",
-                        email = login_username.text.toString(),
-                        password = login_password.text.toString()
+            } else if (login_signup_button.isEnabled && signup_switch.isChecked) {
+                if (remember_me.isChecked) {
+                    profileViewModel.onSingup(
+                        LoginSignupRequest(
+                            userType = "customer",
+                            email = username.text.toString(),
+                            password = password.text.toString()
+                        )
                     )
-                )
-                profileViewModel.singup.observe(viewLifecycleOwner, Observer {
-                    if (it.status == Status.SUCCESS && it.data != null) {
+                    profileViewModel.singup.observe(viewLifecycleOwner, Observer {
+                        if (it.status == Status.SUCCESS && it.data != null) {
+                            dispatchLoading()
 
-                        //sharedPref.saveUserId(it.data.userId)
+                            val myToast =
+                                Toast.makeText(context, "You can login now", Toast.LENGTH_SHORT)
+                            myToast.setGravity(Gravity.BOTTOM, 0, 200)
+                            myToast.show()
+                            signup_switch.isChecked = false
 
-                        dispatchLoading()
-
-                        val myToast = Toast.makeText(context,"You succesfully signed up",Toast.LENGTH_SHORT)
-//                        myToast.setGravity(Gravity.LEFT,200,200)
-                        myToast.show()
-                        //navigationManager?.onReplace(
-                        //    EmptyFragment.newInstance(),
-                        //    TransactionType.Replace, true
-                        //)
-                    } else if (it.status == Status.ERROR) {
-                        dispatchLoading()
-                        val myToast = Toast.makeText(context,it.message,Toast.LENGTH_SHORT)
-                        myToast.setGravity(Gravity.LEFT,200,200)
-                        myToast.show()
-                    } else if (it.status == Status.LOADING) {
-                        showLoading()
-                    }
-                })
-            }else{
-                val myToast = Toast.makeText(context,"enter your username and password please",Toast.LENGTH_SHORT)
-                myToast.setGravity(Gravity.LEFT,200,200)
-                myToast.show()
+                        } else if (it.status == Status.ERROR) {
+                            dispatchLoading()
+                            val myToast = Toast.makeText(
+                                context,
+                                "An error occurred during sign up!",
+                                Toast.LENGTH_SHORT
+                            )
+                            myToast.setGravity(Gravity.BOTTOM, 0, 200)
+                            myToast.show()
+                        } else if (it.status == Status.LOADING) {
+                            showLoading()
+                        }
+                    })
+                } else {
+                    val myToast = Toast.makeText(
+                        context,
+                        "Please accept KVKK!",
+                        Toast.LENGTH_SHORT
+                    )
+                    myToast.setGravity(Gravity.BOTTOM, 0, 200)
+                    myToast.show()
+                }
             }
         }
     }
-     */
 
     private fun signUpSwitch() {
         signup_switch.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked){
-
+            if (!isChecked){
+                login_signup_button.text = getString(R.string.action_login)
+                google_login_signup.text = getString(R.string.google_login)
+                signup_switch.text = getString(R.string.sign_up_switch)
+                remember_me.text = getString(R.string.reset_password)
             } else {
-                
+                login_signup_button.text = getString(R.string.action_sign_up)
+                google_login_signup.text = getString(R.string.google_signup)
+                signup_switch.text = getString(R.string.login_switch)
+                remember_me.text = getString(R.string.kvkk_accept)
             }
         }
     }

@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/buyo_antiqueWhite"
-    android:visibility="visible">
+    android:background="@color/buyo_antiqueWhite">
 
     <EditText
-        android:id="@+id/login_username"
+        android:id="@+id/username"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -24,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/login_password"
+        android:id="@+id/password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -38,7 +37,7 @@
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_username" />
+        app:layout_constraintTop_toBottomOf="@+id/username" />
 
     <CheckBox
         android:id="@+id/remember_me"
@@ -48,10 +47,10 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_password" />
+        app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <Button
-        android:id="@+id/login_button"
+        android:id="@+id/login_signup_button"
         android:enabled="false"
         android:alpha="0.6"
         android:layout_width="150dp"
@@ -66,7 +65,7 @@
         app:layout_constraintTop_toBottomOf="@+id/remember_me" />
 
     <Button
-        android:id="@+id/google_login"
+        android:id="@+id/google_login_signup"
         android:layout_width="150dp"
         android:layout_height="30dp"
         android:layout_marginTop="@dimen/medium_margin"
@@ -74,10 +73,9 @@
         android:text="@string/google_login"
         android:textColor="@color/buyo_white"
         android:textAllCaps="false"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_button" />
+        app:layout_constraintTop_toBottomOf="@+id/login_signup_button" />
 
     <Button
         android:id="@+id/reset_password"
@@ -90,7 +88,7 @@
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/google_login" />
+        app:layout_constraintTop_toBottomOf="@+id/google_login_signup" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/signup_switch"
@@ -102,17 +100,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reset_password" />
-
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/user_type_switch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/medium_margin"
-        android:text="@string/user_type_switch"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signup_switch" />
 
     <ImageView
         android:id="@+id/buyo_logo"
