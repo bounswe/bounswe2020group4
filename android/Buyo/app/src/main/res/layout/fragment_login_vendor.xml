@@ -3,13 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/customer_container"
+    android:id="@+id/vendor_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/buyo_antiqueWhite">
 
     <EditText
-        android:id="@+id/customer_username"
+        android:id="@+id/vendor_username"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/customer_password"
+        android:id="@+id/vendor_password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -36,10 +36,10 @@
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/customer_username" />
+        app:layout_constraintTop_toBottomOf="@+id/vendor_username" />
 
     <EditText
-        android:id="@+id/customer_reenter_password"
+        android:id="@+id/vendor_reenter_password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -48,25 +48,54 @@
         android:autofillHints=""
         android:hint="@string/reprompt_password"
         android:inputType="textPassword"
-        android:imeOptions="actionDone"
         android:selectAllOnFocus="true"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/customer_password" />
+        app:layout_constraintTop_toBottomOf="@+id/vendor_password" />
+
+    <EditText
+        android:id="@+id/vendor_tax_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:autofillHints=""
+        android:hint="@string/tr_tax_id"
+        android:imeOptions="actionDone"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vendor_reenter_password" />
+
+    <Button
+        android:id="@+id/vendor_choose_location"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/google_blue"
+        android:text="@string/choose_location"
+        android:textAllCaps="false"
+        android:textColor="@color/buyo_white"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vendor_tax_id" />
 
     <CheckBox
-        android:id="@+id/customer_remember_me"
+        android:id="@+id/vendor_remember_me"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="@string/remember_me"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/customer_reenter_password" />
+        app:layout_constraintTop_toBottomOf="@+id/vendor_choose_location" />
 
     <Button
-        android:id="@+id/customer_login_signup_button"
+        android:id="@+id/vendor_login_signup_button"
         android:enabled="false"
         android:alpha="0.6"
         android:layout_width="150dp"
@@ -78,23 +107,10 @@
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/customer_remember_me" />
+        app:layout_constraintTop_toBottomOf="@+id/vendor_remember_me" />
 
     <Button
-        android:id="@+id/customer_google_login_signup"
-        android:layout_width="150dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="@dimen/medium_margin"
-        android:background="@color/medium_orange"
-        android:text="@string/google_login"
-        android:textColor="@color/buyo_white"
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/customer_login_signup_button" />
-
-    <Button
-        android:id="@+id/customer_reset_password"
+        android:id="@+id/vendor_reset_password"
         android:layout_width="150dp"
         android:layout_height="30dp"
         android:layout_marginTop="@dimen/medium_margin"
@@ -104,10 +120,10 @@
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/customer_google_login_signup" />
+        app:layout_constraintTop_toBottomOf="@+id/vendor_login_signup_button" />
 
     <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/customer_signup_switch"
+        android:id="@+id/vendor_signup_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -115,22 +131,22 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/customer_reset_password" />
+        app:layout_constraintTop_toBottomOf="@+id/vendor_reset_password" />
 
     <Button
-        android:id="@+id/customer_switch_to_vendor"
+        android:id="@+id/vendor_switch_to_customer"
         android:layout_width="120dp"
         android:layout_height="30dp"
-        android:text="@string/i_am_a_vendor"
+        android:text="@string/i_am_a_customer"
         android:background="@color/grey"
         android:textColor="@color/buyo_white"
         android:textAllCaps="false"
-        app:layout_constraintBottom_toTopOf="@+id/customer_buyo_logo"
+        app:layout_constraintBottom_toTopOf="@+id/vendor_buyo_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/customer_buyo_logo"
+        android:id="@+id/vendor_buyo_logo"
         android:layout_width="177dp"
         android:layout_height="102dp"
         android:layout_marginBottom="48dp"

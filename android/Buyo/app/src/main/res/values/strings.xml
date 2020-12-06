@@ -76,13 +76,25 @@
     <string name="prompt_password">Password</string>
     <string name="action_login">Login</string>
     <string name="action_sing_up">Sign Up</string>
-    <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome !"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="remember_me">Remember me</string>
     <string name="non_login">You need to login first</string>
+    <string name="google_login">Login with Gmail</string>
+    <string name="google_signup">Sign up with Gmail</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="sign_up_switch">Switch for sign-up</string>
+    <string name="login_switch">Switch for login</string>
+    <string name="user_type_switch">Switch if you are a vendor</string>
+    <string name="action_sign_up">Sign Up</string>
+    <string name="kvkk_accept">I read and accept KVKK</string>
+    <string name="i_am_a_vendor">I am a vendor</string>
+    <string name="i_am_a_customer">I am a customer</string>
+    <string name="reprompt_password">Password Again</string>
+    <string name="tr_tax_id">TR Tax ID</string>
+    <string name="choose_location">Choose Location</string>
 
     <!-- Product List Page -->
     <string-array name="sp_productList_order">

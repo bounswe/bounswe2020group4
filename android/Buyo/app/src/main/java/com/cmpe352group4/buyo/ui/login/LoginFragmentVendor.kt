@@ -17,18 +17,21 @@ import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.EmptyFragment
+import com.cmpe352group4.buyo.ui.googlemap.MapsFragment
 import com.cmpe352group4.buyo.viewmodel.ProfileViewModel
 import com.cmpe352group4.buyo.vo.LoginSignupRequest
+import com.google.android.gms.maps.MapFragment
 import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.fragment_login_vendor.*
 import javax.inject.Inject
+
 
 // TODO Make kvkk readable
 // TODO Reset password functionality
-// TODO Google sign up, login functionality
 // TODO Sign up e-mail verification
 
 
-class LoginFragment : BaseFragment() {
+class LoginFragmentVendor : BaseFragment() {
 
     @Inject
     lateinit var sharedPref: SharedPref
@@ -44,7 +47,7 @@ class LoginFragment : BaseFragment() {
     private var passwordCountBool: Boolean = false
 
     companion object {
-        fun newInstance() = LoginFragment()
+        fun newInstance() = LoginFragmentVendor()
     }
 
     override fun onCreateView(
@@ -53,7 +56,7 @@ class LoginFragment : BaseFragment() {
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        return inflater.inflate(R.layout.fragment_login_vendor, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -62,10 +65,11 @@ class LoginFragment : BaseFragment() {
         loginSignUpButton()
         signUpSwitch()
         userTypeSwitchListener()
+        googleMapButtonListener()
     }
 
     private fun addOnTextWatcher() {
-        customer_username.addTextChangedListener(object : TextWatcher {
+        vendor_username.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(p0: Editable?) {}
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -76,19 +80,19 @@ class LoginFragment : BaseFragment() {
 
                 if (userNameCountBool && passwordCountBool) {
                     context?.run {
-                        customer_login_signup_button.isEnabled = true
-                        customer_login_signup_button.alpha = 1f
+                        vendor_login_signup_button.isEnabled = true
+                        vendor_login_signup_button.alpha = 1f
                     }
                 } else {
                     context?.run {
-                        customer_login_signup_button.isEnabled = false
-                        customer_login_signup_button.alpha = .6f
+                        vendor_login_signup_button.isEnabled = false
+                        vendor_login_signup_button.alpha = .6f
                     }
                 }
             }
         })
 
-        customer_password.addTextChangedListener(object : TextWatcher {
+        vendor_password.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(p0: Editable?) {}
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -101,19 +105,19 @@ class LoginFragment : BaseFragment() {
 
                 if (userNameCountBool && passwordCountBool) {
                     context?.run {
-                        customer_login_signup_button.isEnabled = true
-                        customer_login_signup_button.alpha = 1f
+                        vendor_login_signup_button.isEnabled = true
+                        vendor_login_signup_button.alpha = 1f
                     }
                 } else {
                     context?.run {
-                        customer_login_signup_button.isEnabled = false
-                        customer_login_signup_button.alpha = .6f
+                        vendor_login_signup_button.isEnabled = false
+                        vendor_login_signup_button.alpha = .6f
                     }
                 }
             }
         })
 
-        customer_reenter_password.addTextChangedListener(object : TextWatcher {
+        vendor_reenter_password.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(p0: Editable?) {}
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -126,13 +130,13 @@ class LoginFragment : BaseFragment() {
 
                 if (userNameCountBool && passwordCountBool) {
                     context?.run {
-                        customer_login_signup_button.isEnabled = true
-                        customer_login_signup_button.alpha = 1f
+                        vendor_login_signup_button.isEnabled = true
+                        vendor_login_signup_button.alpha = 1f
                     }
                 } else {
                     context?.run {
-                        customer_login_signup_button.isEnabled = false
-                        customer_login_signup_button.alpha = .6f
+                        vendor_login_signup_button.isEnabled = false
+                        vendor_login_signup_button.alpha = .6f
                     }
                 }
             }
@@ -140,14 +144,15 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun loginSignUpButton(){
-        customer_login_signup_button.setOnClickListener {
-            if(customer_login_signup_button.isEnabled && !customer_signup_switch.isChecked) {
+        vendor_login_signup_button.setOnClickListener {
+            if(vendor_login_signup_button.isEnabled && !vendor_signup_switch.isChecked) {
+
+                // TODO Fix backend call format
                 profileViewModel.onLogin(
-                    // TODO Fix backend call format
                     LoginSignupRequest(
-                        userType = "customer",
-                        email = customer_username.text.toString(),
-                        password = customer_password.text.toString()
+                        userType = "vendor",
+                        email = vendor_username.text.toString(),
+                        password = vendor_password.text.toString()
                     )
                 )
                 profileViewModel.login.observe(viewLifecycleOwner, Observer {
@@ -174,14 +179,14 @@ class LoginFragment : BaseFragment() {
                         showLoading()
                     }
                 })
-            } else if (customer_login_signup_button.isEnabled && customer_signup_switch.isChecked) {
-                if (customer_remember_me.isChecked) {
+            } else if (vendor_login_signup_button.isEnabled && vendor_signup_switch.isChecked) {
+                if (vendor_remember_me.isChecked) {
                     // TODO Fix backend call format
                     profileViewModel.onSingup(
                         LoginSignupRequest(
-                            userType = "customer",
-                            email = customer_username.text.toString(),
-                            password = customer_password.text.toString()
+                            userType = "vendor",
+                            email = vendor_username.text.toString(),
+                            password = vendor_password.text.toString()
                         )
                     )
                     profileViewModel.singup.observe(viewLifecycleOwner, Observer {
@@ -191,7 +196,7 @@ class LoginFragment : BaseFragment() {
                                 Toast.makeText(context, "You can login now", Toast.LENGTH_SHORT)
                             myToast.setGravity(Gravity.BOTTOM, 0, 200)
                             myToast.show()
-                            customer_signup_switch.isChecked = false
+                            vendor_signup_switch.isChecked = false
 
                         } else if (it.status == Status.ERROR) {
                             dispatchLoading()
@@ -209,7 +214,7 @@ class LoginFragment : BaseFragment() {
                 } else {
                     val myToast = Toast.makeText(
                         context,
-                        "Please read and accept KVKK",
+                        "Please read and accept KVKK!",
                         Toast.LENGTH_SHORT
                     )
                     myToast.setGravity(Gravity.BOTTOM, 0, 200)
@@ -220,30 +225,41 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun signUpSwitch() {
-        customer_signup_switch.setOnCheckedChangeListener { _, isChecked ->
+        vendor_signup_switch.setOnCheckedChangeListener { _, isChecked ->
             if (!isChecked){
-                customer_login_signup_button.text = getString(R.string.action_login)
-                customer_google_login_signup.text = getString(R.string.google_login)
-                customer_signup_switch.text = getString(R.string.sign_up_switch)
-                customer_remember_me.text = getString(R.string.remember_me)
-                customer_reset_password.visibility = View.VISIBLE
-                customer_reenter_password.visibility = View.GONE
+                vendor_login_signup_button.text = getString(R.string.action_login)
+                vendor_signup_switch.text = getString(R.string.sign_up_switch)
+                vendor_remember_me.text = getString(R.string.remember_me)
+                vendor_reenter_password.visibility = View.GONE
+                vendor_reset_password.visibility = View.VISIBLE
+                vendor_tax_id.visibility = View.GONE
+                vendor_choose_location.visibility = View.GONE
             } else {
-                customer_login_signup_button.text = getString(R.string.action_sign_up)
-                customer_google_login_signup.text = getString(R.string.google_signup)
-                customer_signup_switch.text = getString(R.string.login_switch)
-                customer_remember_me.text = getString(R.string.kvkk_accept)
-                customer_reset_password.visibility = View.GONE
-                customer_reenter_password.visibility = View.VISIBLE
+                vendor_login_signup_button.text = getString(R.string.action_sign_up)
+                vendor_signup_switch.text = getString(R.string.login_switch)
+                vendor_remember_me.text = getString(R.string.kvkk_accept)
+                vendor_reenter_password.visibility = View.VISIBLE
+                vendor_reset_password.visibility = View.GONE
+                vendor_tax_id.visibility = View.VISIBLE
+                vendor_choose_location.visibility = View.VISIBLE
             }
         }
     }
 
     private fun userTypeSwitchListener() {
-        customer_switch_to_vendor.setOnClickListener {
+        vendor_switch_to_customer.setOnClickListener {
             navigationManager?.onReplace(
-                LoginFragmentVendor.newInstance(),
+                LoginFragment.newInstance(),
                 TransactionType.Replace, false
+            )
+        }
+    }
+
+    private fun googleMapButtonListener() {
+        vendor_choose_location.setOnClickListener {
+            navigationManager?.onReplace(
+                MapsFragment.newInstance(),
+                TransactionType.Replace, true
             )
         }
     }
