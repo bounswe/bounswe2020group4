@@ -193,12 +193,14 @@ class LoginFragmentVendor : BaseFragment() {
                 vendor_remember_me.text = getString(R.string.remember_me)
                 vendor_reenter_password.visibility = View.GONE
                 vendor_reset_password.visibility = View.VISIBLE
+                vendor_tax_id.visibility = View.GONE
             } else {
                 vendor_login_signup_button.text = getString(R.string.action_sign_up)
                 vendor_signup_switch.text = getString(R.string.login_switch)
                 vendor_remember_me.text = getString(R.string.kvkk_accept)
                 vendor_reenter_password.visibility = View.VISIBLE
                 vendor_reset_password.visibility = View.GONE
+                vendor_tax_id.visibility = View.VISIBLE
             }
         }
     }
