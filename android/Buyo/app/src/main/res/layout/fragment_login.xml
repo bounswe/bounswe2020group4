@@ -5,10 +5,11 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/buyo_antiqueWhite">
+    android:background="@color/buyo_antiqueWhite"
+    android:visibility="visible">
 
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/login_username"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -23,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/login_password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -37,91 +38,91 @@
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
-
-    <Button
-        android:id="@+id/btn_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="64dp"
-        android:background="@color/grey"
-        android:text="@string/action_login"
-        android:textColor="@color/buyo_white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/guideline"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintTop_toBottomOf="@+id/password"
-        app:layout_constraintVertical_bias="0.37" />
-
-    <Button
-        android:id="@+id/btn_singUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="64dp"
-        android:layout_marginStart="24dp"
-        android:background="@color/grey"
-        android:text="@string/action_sing_up"
-        android:textColor="@color/buyo_white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toEndOf="@id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/password"
-        app:layout_constraintVertical_bias="0.37" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="177dp"
-        android:layout_height="102dp"
-        android:contentDescription="@string/logo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
-        app:layout_constraintVertical_bias="0.71000004"
-        app:srcCompat="@mipmap/logo" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="195dp"
-        android:layout_height="43dp"
-        android:text="Google Login"
-        android:layout_marginTop="@dimen/medium_margin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_login" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="140dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/darker_gray"
-        android:text="Reset Password"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/login_username" />
 
     <CheckBox
-        android:id="@+id/checkBox_rememberMe"
+        android:id="@+id/remember_me"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/remember_me"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toBottomOf="@+id/login_password" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
+    <Button
+        android:id="@+id/login_button"
+        android:enabled="false"
+        android:alpha="0.6"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="48dp"
+        android:background="@color/medium_orange"
+        android:text="@string/action_login"
+        android:textColor="@color/buyo_white"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/remember_me" />
+
+    <Button
+        android:id="@+id/google_login"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:background="@color/medium_orange"
+        android:text="@string/google_login"
+        android:textColor="@color/buyo_white"
+        android:textAllCaps="false"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_button" />
+
+    <Button
+        android:id="@+id/reset_password"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:background="@color/grey"
+        android:text="@string/reset_password"
+        android:textColor="@color/buyo_white"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/google_login" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/signup_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
+        android:layout_marginTop="40dp"
+        android:text="@string/sign_up_switch"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reset_password" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/user_type_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:text="@string/user_type_switch"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signup_switch" />
+
+    <ImageView
+        android:id="@+id/buyo_logo"
+        android:layout_width="177dp"
+        android:layout_height="102dp"
+        android:layout_marginBottom="48dp"
+        android:contentDescription="@string/logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@mipmap/logo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

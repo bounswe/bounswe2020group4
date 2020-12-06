@@ -57,114 +57,103 @@ class LoginFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         addOnTextWatcher()
         loginButton()
-        signUpButton()
+        //signUpButton()
     }
 
     private fun addOnTextWatcher() {
-        username.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-            }
+        login_username.addTextChangedListener(object : TextWatcher {
 
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
+            override fun afterTextChanged(p0: Editable?) {}
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
-
                 userNameCountBool = p0?.length ?: 0 >= 6
+
                 if (userNameCountBool && passwordCountBool) {
                     context?.run {
-                        btn_login.setBackgroundColor(ContextCompat.getColor(this, R.color.ligth_green))
-                        btn_singUp.setBackgroundColor(ContextCompat.getColor(this, R.color.ligth_green))
+                        login_button.isEnabled = true
+                        login_button.alpha = 1f
                     }
-                    boolLoginButton = true
                 } else {
                     context?.run {
-                        btn_login.setBackgroundColor(ContextCompat.getColor(this, R.color.grey))
-                        btn_singUp.setBackgroundColor(ContextCompat.getColor(this, R.color.grey))
+                        login_button.isEnabled = false
+                        login_button.alpha = .6f
                     }
-                    boolLoginButton = false
                 }
-
             }
         })
 
-        password.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-            }
+        login_password.addTextChangedListener(object : TextWatcher {
 
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
+            override fun afterTextChanged(p0: Editable?) {}
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
                 passwordCountBool = p0?.length ?: 0 >= 6
 
                 if (userNameCountBool && passwordCountBool) {
                     context?.run {
-                        btn_login.setBackgroundColor(ContextCompat.getColor(this, R.color.ligth_green))
-                        btn_singUp.setBackgroundColor(ContextCompat.getColor(this, R.color.ligth_green))
+                        login_button.isEnabled = true
+                        login_button.alpha = 1f
                     }
-                    boolLoginButton = true
                 } else {
                     context?.run {
-                        btn_login.setBackgroundColor(ContextCompat.getColor(this, R.color.grey))
-                        btn_singUp.setBackgroundColor(ContextCompat.getColor(this, R.color.grey))
+                        login_button.isEnabled = false
+                        login_button.alpha = .6f
                     }
-                    boolLoginButton = false
                 }
             }
         })
     }
 
     private fun loginButton(){
-        btn_login.setOnClickListener {
-            if(boolLoginButton){
+        login_button.setOnClickListener {
+            if(login_button.isEnabled) {
                 profileViewModel.onLogin(
                     LoginSignupRequest(
                         userType = "customer",
-                        email = username.text.toString(),
-                        password = password.text.toString()
+                        email = login_username.text.toString(),
+                        password = login_password.text.toString()
                     )
                 )
                 profileViewModel.login.observe(viewLifecycleOwner, Observer {
                     if (it.status == Status.SUCCESS && it.data != null) {
-
                         sharedPref.saveUserId(it.data.userId)
-
                         dispatchLoading()
 
-//                        val myToast = Toast.makeText(context,"You succesfully logged in",Toast.LENGTH_SHORT)
-//                        myToast.setGravity(Gravity.LEFT,200,200)
-//                        myToast.show()
+                        // TODO: Go homepage or profile page here
                         navigationManager?.onReplace(
                             EmptyFragment.newInstance(),
                             TransactionType.Replace, true
                         )
+
                     } else if (it.status == Status.ERROR) {
                         dispatchLoading()
-                        val myToast = Toast.makeText(context,it.message,Toast.LENGTH_SHORT)
-                        myToast.setGravity(Gravity.LEFT,200,200)
+                        val myToast = Toast.makeText(
+                            context,
+                            "An error occurred during signing up!",
+                            Toast.LENGTH_SHORT
+                        )
+                        myToast.setGravity(Gravity.BOTTOM, 0, 200)
                         myToast.show()
                     } else if (it.status == Status.LOADING) {
                         showLoading()
                     }
                 })
-            }else{
-                val myToast = Toast.makeText(context,"enter your username and password please",Toast.LENGTH_SHORT)
-                myToast.setGravity(Gravity.LEFT,200,200)
-                myToast.show()
             }
         }
     }
-
+    /*
     private fun signUpButton(){
         btn_singUp.setOnClickListener {
             if(boolLoginButton){
                 profileViewModel.onSingup(
                     LoginSignupRequest(
                         userType = "customer",
-                        email = username.text.toString(),
-                        password = password.text.toString()
+                        email = login_username.text.toString(),
+                        password = login_password.text.toString()
                     )
                 )
                 profileViewModel.singup.observe(viewLifecycleOwner, Observer {
@@ -194,6 +183,17 @@ class LoginFragment : BaseFragment() {
                 val myToast = Toast.makeText(context,"enter your username and password please",Toast.LENGTH_SHORT)
                 myToast.setGravity(Gravity.LEFT,200,200)
                 myToast.show()
+            }
+        }
+    }
+     */
+
+    private fun signUpSwitch() {
+        signup_switch.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked){
+
+            } else {
+                
             }
         }
     }

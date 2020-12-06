@@ -83,6 +83,10 @@
     <string name="login_failed">"Login failed"</string>
     <string name="remember_me">Remember me</string>
     <string name="non_login">You need to login first</string>
+    <string name="google_login">Login with Gmail</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="sign_up_switch">Switch for sign-up</string>
+    <string name="user_type_switch">Switch if you are a vendor</string>
 
     <!-- Product List Page -->
     <string-array name="sp_productList_order">
