@@ -91,6 +91,8 @@
     <string name="user_type_switch">Switch if you are a vendor</string>
     <string name="action_sign_up">Sign Up</string>
     <string name="kvkk_accept">I accept KVKK</string>
+    <string name="i_am_a_vendor">I am a vendor</string>
+    <string name="i_am_a_customer">I am a customer</string>
 
     <!-- Product List Page -->
     <string-array name="sp_productList_order">

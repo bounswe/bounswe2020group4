@@ -1,6 +1,5 @@
 package com.cmpe352group4.buyo.ui.login
 
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -31,7 +29,7 @@ import kotlinx.android.synthetic.main.fragment_login.username
 import kotlinx.android.synthetic.main.fragment_login_vendor.*
 import javax.inject.Inject
 
-class LoginFragment : BaseFragment() {
+class LoginFragmentVendor : BaseFragment() {
 
     @Inject
     lateinit var sharedPref: SharedPref
@@ -47,7 +45,7 @@ class LoginFragment : BaseFragment() {
     private var passwordCountBool: Boolean = false
 
     companion object {
-        fun newInstance() = LoginFragment()
+        fun newInstance() = LoginFragmentVendor()
     }
 
     override fun onCreateView(
@@ -56,7 +54,7 @@ class LoginFragment : BaseFragment() {
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        return inflater.inflate(R.layout.fragment_login_vendor, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -120,7 +118,7 @@ class LoginFragment : BaseFragment() {
             if(login_signup_button.isEnabled && !signup_switch.isChecked) {
                 profileViewModel.onLogin(
                     LoginSignupRequest(
-                        userType = "customer",
+                        userType = "vendor",
                         email = username.text.toString(),
                         password = password.text.toString()
                     )
@@ -153,7 +151,7 @@ class LoginFragment : BaseFragment() {
                 if (remember_me.isChecked) {
                     profileViewModel.onSingup(
                         LoginSignupRequest(
-                            userType = "customer",
+                            userType = "vendor",
                             email = username.text.toString(),
                             password = password.text.toString()
                         )
@@ -198,12 +196,10 @@ class LoginFragment : BaseFragment() {
         signup_switch.setOnCheckedChangeListener { _, isChecked ->
             if (!isChecked){
                 login_signup_button.text = getString(R.string.action_login)
-                google_login_signup.text = getString(R.string.google_login)
                 signup_switch.text = getString(R.string.sign_up_switch)
                 remember_me.text = getString(R.string.reset_password)
             } else {
                 login_signup_button.text = getString(R.string.action_sign_up)
-                google_login_signup.text = getString(R.string.google_signup)
                 signup_switch.text = getString(R.string.login_switch)
                 remember_me.text = getString(R.string.kvkk_accept)
             }
@@ -211,9 +207,9 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun userTypeSwitchListener() {
-        switch_to_vendor.setOnClickListener {
+        switch_to_customer.setOnClickListener {
             navigationManager?.onReplace(
-                LoginFragmentVendor.newInstance(),
+                LoginFragment.newInstance(),
                 TransactionType.Replace, false
             )
         }
