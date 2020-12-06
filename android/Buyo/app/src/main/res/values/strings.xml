@@ -95,6 +95,7 @@
     <string name="reprompt_password">Password Again</string>
     <string name="tr_tax_id">TR Tax ID</string>
     <string name="choose_location">Choose Location</string>
+    <string name="select_string">Select</string>
 
     <!-- Product List Page -->
     <string-array name="sp_productList_order">
