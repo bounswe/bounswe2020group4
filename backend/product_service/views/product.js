@@ -1,5 +1,7 @@
 const Product = require("../models/product").Product;
 const Vendor = require("../models/vendor").Vendor;
+const Comment = require("../models/comment").Comment;
+const Customer = require("../models/customer").Customer;
 
 module.exports.getProductCategories = async () => {
   try {
@@ -84,12 +86,31 @@ module.exports.getProduct = async (params) => {
     if (product) {
       product = product.toJSON();
 
+      let comments = await Comment.find({ productId: product.id });
+      comments = await Promise.all(
+        comments.map(async (comment) => {
+          comment = comment.toJSON();
+          const user = (await Customer.findOne({ id: comment.userId })).toJSON();
+
+          return {
+            id: comment._id.toString(),
+            text: comment.text,
+            owner: {
+              username: user.name,
+              email: user.email,
+            },
+          };
+        })
+      );
+
       const vendor = await Vendor.findOne({ id: product.vendorId });
 
       product.vendor = {
         name: vendor.name,
         rating: vendor.rating,
       };
+
+      product.comments = comments;
 
       delete product._id;
       delete product.vendorId;
