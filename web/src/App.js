@@ -9,6 +9,7 @@ import Header from './components/Header';
 import ProductDetails from './pages/ProductDetails';
 import Homepage from './pages/Homepage'
 import Wishlist from './pages/Wishlist'
+import CategoryProducts from './pages/CategoryProducts'
 
 //Styling
 import './App.css'
@@ -25,6 +26,7 @@ const App = ({ showHeader }) => {
                     <Route path="/signup" exact component={SignUp} />
                     <Route path="/product/:id" exact component={ProductDetails}/>
                     <Route path="/wishlist" exact component={Wishlist}/>
+                    <Route path="/products" exact component={CategoryProducts}/>                    
                 </div>
             </Router>
         </div>
