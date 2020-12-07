@@ -13,7 +13,12 @@ import './Cart.css'
 import CartProduct from '../components/CartProduct'
 import Container from 'react-bootstrap/esm/Container'
 
-const Cart = () => {
+const Cart = (props) => {
+
+    if(!props.isLoggedIn) {
+        history.push('/signin')
+        return 
+    }
 
     const cartTotal = "23.99"
 
@@ -65,4 +70,11 @@ const Cart = () => {
     )
 }
 
-export default Cart
+const mapStateToProps = (state) => {
+    return {
+      isLoggedIn: state.signIn.isLoggedIn,
+      customerId: state.signIn.userId
+    }
+  }
+  
+  export default connect(mapStateToProps)(Cart)
