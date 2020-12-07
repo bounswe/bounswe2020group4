@@ -12,9 +12,10 @@ import { hideHeader, showHeader } from '../redux/actions';
 import history from '../util/history'
 import accountService from '../services/account'
 import GoogleMaps from '../components/GoogleMaps'
+import { setLoginState } from '../redux/actions';
 
 
-const VendorSignUp = ({hideHeader, showHeader}) => {
+const VendorSignUp = ({hideHeader, showHeader, setLoginState}) => {
 
     useEffect(() => {
         hideHeader()
@@ -50,17 +51,11 @@ const VendorSignUp = ({hideHeader, showHeader}) => {
             alert("Enter your credentials")
         } else if (!checked){
             alert("Agree to terms and conditions")
-        } 
-        else {
-            const userId = await accountService.signUp({'email':email, 'password': password})
-            console.log(userId)
-            if(userId == -1){
-                alert("This user already exists, use a different email")
-            } else if (userId == null){
-                alert("Something went wrong, try again")
-            } else {
-                history.goBack();   
-            }
+        } else if(name == '' | website == ''){
+            alert("Enter required information")
+        } else {
+          setLoginState({userId:1, userType:"vendor"})
+          history.goBack();   
         }
         
           
@@ -111,10 +106,6 @@ const VendorSignUp = ({hideHeader, showHeader}) => {
 
                         </Form.Group>
 
-                        <Container className = "maps-container">
-                          <GoogleMaps></GoogleMaps>
-                        </Container>
-
                         <Row>
                         <ToggleButton variant="light" className="check-box text-left" block
                             type="checkbox"
@@ -152,4 +143,4 @@ const VendorSignUp = ({hideHeader, showHeader}) => {
 }
 
 
-export default connect(null, {showHeader, hideHeader})(VendorSignUp);
+export default connect(null, {showHeader, hideHeader, setLoginState})(VendorSignUp);

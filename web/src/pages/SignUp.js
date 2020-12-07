@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-
 import Button from 'react-bootstrap/Button';
 import ToggleButton from "react-bootstrap/ToggleButton";
-import Col from 'react-bootstrap/Col';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './SignIn.css'
 import logo from '../logo-buyo.png'
@@ -51,7 +49,7 @@ const SignUp = ({hideHeader, showHeader, setLoginState}) => {
             } else if (userId == null){
                 alert("Something went wrong, try again")
             } else {
-                setLoginState({ userId: userId});
+                setLoginState({ userId: userId, userType: "customer"});
                 history.goBack();   
             }
         }

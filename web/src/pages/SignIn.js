@@ -42,7 +42,7 @@ const SignIn = ({hideHeader, showHeader, setLoginState}) => {
             if (userId == null){
                 alert("Wrong credentials")
             } else {
-                setLoginState({ userId: userId}); 
+                setLoginState({ userId: userId, userType: "customer"}); 
                 history.goBack();
             }
         }
