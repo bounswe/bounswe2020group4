@@ -57,6 +57,8 @@ class MainActivity : BaseActivity(), NavigationBarOnClickListener {
         initNavigationBar()
         connectionManager.setActivity(this)
         sharedPref.saveUserId("")
+        sharedPref.saveVendorLat("")
+        sharedPref.saveVendorLon("")
     }
 
     override fun onItemSelected(position: Int) {

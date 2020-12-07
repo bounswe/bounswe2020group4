@@ -3,6 +3,7 @@ package com.cmpe352group4.buyo.ui.login
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +24,7 @@ import com.cmpe352group4.buyo.vo.LoginSignupRequest
 import com.google.android.gms.maps.MapFragment
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_login_vendor.*
+import kotlinx.android.synthetic.main.fragment_maps.*
 import javax.inject.Inject
 
 
@@ -66,6 +68,16 @@ class LoginFragmentVendor : BaseFragment() {
         signUpSwitch()
         userTypeSwitchListener()
         googleMapButtonListener()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val lat: String? = sharedPref.getVendorLat()
+        val lon: String? = sharedPref.getVendorLon()
+        if (lat != "" && lon != ""){
+            vendor_choose_location?.text = getString(R.string.reselect_location)
+        }
     }
 
     private fun addOnTextWatcher() {
@@ -180,8 +192,10 @@ class LoginFragmentVendor : BaseFragment() {
                     }
                 })
             } else if (vendor_login_signup_button.isEnabled && vendor_signup_switch.isChecked) {
-                if (vendor_remember_me.isChecked) {
-                    // TODO Fix backend call format
+                val lat = sharedPref.getVendorLat()
+                val lon = sharedPref.getVendorLon()
+                if (vendor_remember_me.isChecked && lat != "" && lon != "") {
+                    // TODO Fix backend call format (lat, lon are also available)
                     profileViewModel.onSingup(
                         LoginSignupRequest(
                             userType = "vendor",
@@ -211,6 +225,14 @@ class LoginFragmentVendor : BaseFragment() {
                             showLoading()
                         }
                     })
+                } else if (lat == "" || lon == "") {
+                    val myToast = Toast.makeText(
+                        context,
+                        "You should select your company location",
+                        Toast.LENGTH_SHORT
+                    )
+                    myToast.setGravity(Gravity.BOTTOM, 0, 200)
+                    myToast.show()
                 } else {
                     val myToast = Toast.makeText(
                         context,

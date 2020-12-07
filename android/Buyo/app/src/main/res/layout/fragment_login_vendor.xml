@@ -79,6 +79,7 @@
         android:textAllCaps="false"
         android:textColor="@color/buyo_white"
         android:visibility="gone"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/vendor_tax_id" />
