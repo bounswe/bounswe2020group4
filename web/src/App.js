@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import history from './util/history';
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
+import VendorSignUp from './pages/VendorSignUp'
 
 import Header from './components/Header';
 import ProductDetails from './pages/ProductDetails';
@@ -27,6 +28,7 @@ const App = ({ showHeader }) => {
                     <Route path="/product/:id" exact component={ProductDetails}/>
                     <Route path="/wishlist" exact component={Wishlist}/>
                     <Route path="/cart" exact component={Cart}/>
+                    <Route path="/vendorsignup" exact component={VendorSignUp}/>
                 </div>
             </Router>
         </div>
