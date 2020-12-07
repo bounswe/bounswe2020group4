@@ -14,4 +14,10 @@ const getProduct = async (id) => {
   return response.data.data.result
 }
 
-export default { getProduct }
+const getCategoryProducts = async (path) => {
+  const pathArray = path.split(',').map(s => '"' + s + '"')
+  const response = await axios.get(`${baseUrl}/products?categories=[${pathArray}]`)
+  return response.data.data.products
+}
+
+export default { getProduct, getCategoryProducts, searchProducts }

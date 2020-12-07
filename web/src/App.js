@@ -11,6 +11,7 @@ import ProductDetails from './pages/ProductDetails';
 import Homepage from './pages/Homepage'
 import Wishlist from './pages/Wishlist'
 import Cart from './pages/Cart'
+import CategoryProducts from './pages/CategoryProducts'
 
 //Styling
 import './App.css'
@@ -30,6 +31,7 @@ const App = ({ showHeader }) => {
                     <Route path="/cart" exact component={Cart}/>
                     <Route path="/vendorsignup" exact component={VendorSignUp}/>
                     <Route path="/vendorsignin" exact component={VendorSignIn}/>
+                    <Route path="/products" exact component={CategoryProducts}/>                    
                 </div>
             </Router>
         </div>
