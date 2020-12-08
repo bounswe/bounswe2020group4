@@ -22,6 +22,20 @@ const Header = ({ isLoggedIn }) => {
     const [profileMenuOpen, setProfileMenuOpen] = useState(false)
     const [selectedPath, setSelectedPath] = useState("")
     const [categories, setCategories] = useState([])
+    const [searchArgs, setSearchArgs] = useState("")
+    const [blankSearched, setBlankSearched] = useState(false)
+    
+
+    const handleDocumentClick = () => {
+        if(selectedPath){
+            setSelectedPath("")
+        }
+    }
+
+    useEffect(() => {
+        document.addEventListener("click", handleDocumentClick)
+        return () => document.removeEventListener("click", handleDocumentClick)
+    })
 
     useEffect(async () => {
         const response = await getCategories()
@@ -48,9 +62,10 @@ const Header = ({ isLoggedIn }) => {
     }
 
     const handleSubcategoryClick = (subc) => {
+        let categoriesCleaned = subc.path.replace(/\s+/g, '+')
         history.push({
             pathname: '/products',
-            state: subc
+            search: `?categories=${categoriesCleaned}`
         })
     }
 
@@ -73,6 +88,22 @@ const Header = ({ isLoggedIn }) => {
         )
     }
 
+    const onSearchArgsChange = (e) => {
+        if(e.target.value) {
+            setBlankSearched(false)
+        }
+        setSearchArgs(e.target.value)
+    }
+
+    const onSearchClick = () => {
+        if(searchArgs) {
+            let searchArgsCleaned = searchArgs.replace(/\s+/g, '+')
+            history.push(`/products?search=${searchArgsCleaned}`)
+        } else {
+            setBlankSearched(true)
+        }
+    }
+
     return (
         <div className='header-container'>
             <div className='header-top-container'>
@@ -82,8 +113,8 @@ const Header = ({ isLoggedIn }) => {
                     </Link>
                 </div>
                 <div className='searchbar-container'>
-                    <input className='searchbar vertical-align-middle' type='text' placeholder='Search'/>
-                    <img className='vertical-align-middle searchbar-icon' src={SearchIcon} alt='search'/>
+                    <input className={`searchbar vertical-align-middle ${blankSearched ? 'border border-danger' : null}`} type='text' placeholder='Search' value={searchArgs} onChange={onSearchArgsChange}/>
+                    <img className='vertical-align-middle searchbar-icon' src={SearchIcon} onClick={onSearchClick} alt='search'/>
                 </div>
                 <div className='header-right-container'>
                     <div className='header-right-icon-container'>
