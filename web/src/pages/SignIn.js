@@ -1,22 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useState, useEffect } from 'react'
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import './SignIn.css'
 import logo from '../logo-buyo.png'
 import { connect } from 'react-redux'
-import { hideHeader } from '../redux/actions';
-import { showHeader } from '../redux/actions';
-import { setLoginState } from '../redux/actions';
-import { useHistory, withRouter, Redirect } from "react-router-dom";
-import history from '../util/history';
+import { hideHeader } from '../redux/actions'
+import { showHeader } from '../redux/actions'
+import { setLoginState } from '../redux/actions'
+import history from '../util/history'
 import accountService from '../services/account'
 
 
-const SignIn = ({hideHeader, showHeader}) => {
+const SignIn = ({hideHeader, showHeader, setLoginState}) => {
 
-   const dispatch = useDispatch()
 
    //This function corresponds to componentDidMount
    //The return function corresponds to componentDidUnmount
@@ -38,9 +35,19 @@ const SignIn = ({hideHeader, showHeader}) => {
 
     const handleClick = async function(e) {
         e.preventDefault()
-        const userId = await accountService.login({'email':email, 'password': password})
-        dispatch(setLoginState({ userId: userId })); 
-        history.goBack()
+        if(email == '' | password == ''){
+            alert("Enter your credentials")
+        } else {
+            const userId = await accountService.login({'email':email, 'password': password})
+            if (userId == null){
+                alert("Wrong credentials")
+            } else {
+                setLoginState({ userId: userId, userType: "customer"}); 
+                history.goBack();
+            }
+        }
+
+        
     } 
 
     const redirectToSignup = function(e) {
@@ -99,10 +106,4 @@ const SignIn = ({hideHeader, showHeader}) => {
 }
 
 
-const mapStateToProps = state => {
-    return { showHeader: state.header.showHeader,
-            hideHeader: state.header.hideHeader,
-            signIn: state.signIn.signInReducer}
-}
-
-export default connect(mapStateToProps, {showHeader, hideHeader})(SignIn);
+export default connect(null, {showHeader, hideHeader, setLoginState})(SignIn);

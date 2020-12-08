@@ -3,6 +3,7 @@ import { SET_LOGIN_STATE } from '../actions/types';
 const INITIAL_STATE = {
     isLoggedIn: false,
     userId: '',
+    userType: ''
 }
 
 export default (state = INITIAL_STATE, action) => {

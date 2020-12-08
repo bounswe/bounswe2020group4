@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
+import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import ToggleButton from "react-bootstrap/ToggleButton";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -10,11 +11,11 @@ import { connect } from 'react-redux'
 import { hideHeader, showHeader } from '../redux/actions';
 import history from '../util/history'
 import accountService from '../services/account'
+import GoogleMaps from '../components/GoogleMaps'
 import { setLoginState } from '../redux/actions';
 
 
-
-const SignUp = ({hideHeader, showHeader, setLoginState}) => {
+const VendorSignUp = ({hideHeader, showHeader, setLoginState}) => {
 
     useEffect(() => {
         hideHeader()
@@ -24,6 +25,16 @@ const SignUp = ({hideHeader, showHeader, setLoginState}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [checked, setChecked] = useState(false);
+    const [name, setName] = useState('');
+    const [website, setWebsite] = useState('');
+
+    const handleWebsiteChange = function(e) {
+      setWebsite(e.target.value)
+    }
+
+    const handleNameChange = function(e) {
+      setName(e.target.value)
+    }
 
     const handleEmailChange = function(e) {
         setEmail(e.target.value)
@@ -40,18 +51,11 @@ const SignUp = ({hideHeader, showHeader, setLoginState}) => {
             alert("Enter your credentials")
         } else if (!checked){
             alert("Agree to terms and conditions")
-        } 
-        else {
-            const userId = await accountService.signUp({'email':email, 'password': password})
-            console.log(userId)
-            if(userId == -1){
-                alert("This user already exists, use a different email")
-            } else if (userId == null){
-                alert("Something went wrong, try again")
-            } else {
-                setLoginState({ userId: userId, userType: "customer"});
-                history.goBack();   
-            }
+        } else if(name == '' | website == ''){
+            alert("Enter required information")
+        } else {
+          setLoginState({userId:1, userType:"vendor"})
+          history.goBack();   
         }
         
           
@@ -69,6 +73,20 @@ const SignUp = ({hideHeader, showHeader, setLoginState}) => {
                     <img class="logo" src={logo} alt="Buyo logo"/>
                     <Form>
                         <Form.Group controlId="formBasicEmail">
+                            <Form.Control 
+                                className="formInputBox" 
+                                type="text" 
+                                placeholder="Name and surname"
+                                value = {name}
+                                onChange={handleNameChange} 
+                                />
+                            <Form.Control 
+                                className="formInputBox" 
+                                type="text" 
+                                placeholder="Business website"
+                                value = {website}
+                                onChange={handleWebsiteChange} 
+                            />
                             <Form.Control 
                                 className="formInputBox" 
                                 type="email" 
@@ -125,4 +143,4 @@ const SignUp = ({hideHeader, showHeader, setLoginState}) => {
 }
 
 
-export default connect(null, {showHeader, hideHeader, setLoginState})(SignUp);
+export default connect(null, {showHeader, hideHeader, setLoginState})(VendorSignUp);
