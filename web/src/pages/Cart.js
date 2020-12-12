@@ -20,6 +20,11 @@ const Cart = (props) => {
         return 
     }
 
+    const redirectToCheckout = function(e) {
+        e.preventDefault()
+        history.push("/checkout")
+    }
+
     const cartTotal = "23.99"
 
     const products = [
@@ -60,7 +65,7 @@ const Cart = (props) => {
             <Card >
                 <Card.Header className="header">Cart Total</Card.Header>
                 <Card.Body>{cartTotal}</Card.Body>
-                <Button className="checkout-button">Checkout</Button>
+                <Button className="checkout-button" onClick={redirectToCheckout}>Checkout</Button>
             </Card>
             </Container>
             </Col>
