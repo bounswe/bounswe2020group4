@@ -1,5 +1,6 @@
 const product = require("../views/product");
 const wishlist = require("../views/wishlist");
+const cart = require("../views/cart");
 
 module.exports.initialize = (app) => {
   app.get("/categories", async (request, response) => {
@@ -33,4 +34,22 @@ module.exports.initialize = (app) => {
 
     response.respond(200, "OK", { products });
   });
+  
+  app.post("/update-cart", async (request, response) => {
+    const result = await cart.updateCart(request.query);
+
+    response.respond(200, "OK");
+  });
+
+  app.get("/cart-products", async (request, response) => {
+    const products = await cart.getCartProducts(request.query);
+    if (products == false) {
+      response.respond(404, "User not found");
+    }
+
+    response.respond(200, "OK", {
+      products,
+    });
+  });
+
 };

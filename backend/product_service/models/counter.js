@@ -10,6 +10,7 @@ module.exports.Counter = mongoose.model(
     customerCounter: Number,
     vendorCounter: Number,
     productCounter: Number,
+    cartCounter: Number,
   }),
   "counters"
 );
