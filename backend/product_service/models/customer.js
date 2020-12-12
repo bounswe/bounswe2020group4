@@ -11,7 +11,7 @@ module.exports.Customer = mongoose.model(
     email: String,
     id: Number,
     rating: Number,
-    address: String,
+    address: [String],
     password: String,
   }),
   "customer"
