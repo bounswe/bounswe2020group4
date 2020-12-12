@@ -4,8 +4,8 @@ const ObjectId = require("mongoose").Types.ObjectId;
 module.exports.add = async (params) => {
   try {
     const comment = new Comment({
-      userId: params.userId,
-      productId: params.productId,
+      userId: ObjectId(params.userId),
+      productId: ObjectId(params.productId),
       text: params.comment,
     });
 

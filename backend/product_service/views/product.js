@@ -2,6 +2,7 @@ const Product = require("../models/product").Product;
 const Vendor = require("../models/vendor").Vendor;
 const Comment = require("../models/comment").Comment;
 const Customer = require("../models/customer").Customer;
+const ObjectId = require("mongoose").Types.ObjectId;
 
 module.exports.getProductCategories = async () => {
   try {
@@ -54,12 +55,13 @@ module.exports.getProducts = async (params) => {
       products.map(async (product) => {
         product = product.toJSON();
 
-        const vendor = await Vendor.findOne({ id: product.vendorId });
+        const vendor = await Vendor.findById(product.vendorId);
 
         product.vendor = {
           name: vendor.name,
           rating: vendor.rating,
         };
+        product.id = product._id.toString();
 
         delete product._id;
         delete product.vendorId;
@@ -80,17 +82,17 @@ module.exports.getProduct = async (params) => {
     let product;
 
     if (params.id) {
-      product = await Product.findOne({ id: params.id });
+      product = await Product.findOne({ _id: ObjectId(params.id) });
     }
 
     if (product) {
       product = product.toJSON();
 
-      let comments = await Comment.find({ productId: product.id });
+      let comments = await Comment.find({ productId: ObjectId(product._id) });
       comments = await Promise.all(
         comments.map(async (comment) => {
           comment = comment.toJSON();
-          const user = (await Customer.findOne({ id: comment.userId })).toJSON();
+          const user = (await Customer.findOne({ _id: comment.userId })).toJSON();
 
           return {
             id: comment._id.toString(),
@@ -103,12 +105,13 @@ module.exports.getProduct = async (params) => {
         })
       );
 
-      const vendor = await Vendor.findOne({ id: product.vendorId });
+      const vendor = await Vendor.findOne({ _id: product.vendorId });
 
       product.vendor = {
         name: vendor.name,
         rating: vendor.rating,
       };
+      product.id = product._id.toString();
 
       product.comments = comments;
 
