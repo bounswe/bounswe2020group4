@@ -64,61 +64,66 @@ const SignUp = ({hideHeader, showHeader, setLoginState}) => {
     }
   
     return (
-            <div className="signInModal">
-                <div className="formContainer">
-                    <img class="logo" src={logo} alt="Buyo logo"/>
-                    <Form>
-                        <Form.Group controlId="formBasicEmail">
-                            <Form.Control 
-                                className="formInputBox" 
-                                type="email" 
-                                placeholder="Email"
-                                value = {email}
-                                onChange={handleEmailChange} 
-                                />
-                        </Form.Group>
-
-                        <Form.Group controlId="formBasicPassword">
-                            <Form.Control 
+        <div className="signInModal">
+            <div className="formContainer">
+                <img class="logo" src={logo} alt="Buyo logo"/>
+                <Form>
+                    <Form.Group controlId="formBasicEmail">
+                        <Form.Control 
                             className="formInputBox" 
-                            type="password" 
-                            placeholder="Password" 
-                            onChange={handlePasswordChange} 
+                            type="email" 
+                            placeholder="Email"
+                            value = {email}
+                            onChange={handleEmailChange} 
                             />
+                    </Form.Group>
 
-                        </Form.Group>
+                    <Form.Group controlId="formBasicPassword">
+                        <Form.Control 
+                        className="formInputBox" 
+                        type="password" 
+                        placeholder="Password" 
+                        onChange={handlePasswordChange} 
+                        />
 
-                        <Row>
-                        <ToggleButton variant="light" className="check-box text-left" block
-                            type="checkbox"
-                            checked={checked}
-                            value="1"
-                            onChange={e => setChecked(e.currentTarget.checked)}> 
-                            I agree to terms and conditions.
-                        </ToggleButton>
+                        <Row>               
+                            <ToggleButton variant="light" className="check-box text-left" block
+                                type="checkbox"
+                                checked={checked}
+                                value="1"
+                                onChange={e => setChecked(e.currentTarget.checked)}> 
+                                I agree to terms and conditions.
+                            </ToggleButton>
                         </Row>
-                        
-                        <Button 
-                        className="submitButton" 
-                        variant="primary" 
-                        type="submit"
-                        onClick = {handleClick}
-                        >
-                            SIGN UP
-                        </Button>
-                        <Button className="submitButtonTransparent" variant="primary" type="submit">
-                            SIGN UP WITH GOOGLE
-                        </Button>
-                        <Button 
-                        className="submitButtonTransparent" 
-                        variant="primary" 
-                        type="submit"
-                        onClick = {redirectToSignin}>
-                            SIGN IN
-                        </Button>
-                    </Form>
-                </div>
+
+                        <div className="col text-center">
+                            <a href="/vendorsignup">Are you a vendor?</a>
+                        </div>
+                    </Form.Group>
+                    
+                    <Button 
+                    className="submitButton" 
+                    variant="primary" 
+                    type="submit"
+                    onClick = {handleClick}
+                    >
+                        SIGN UP
+                    </Button>
+
+                    <Button className="submitButtonTransparent" variant="primary" type="submit">
+                        SIGN UP WITH GOOGLE
+                    </Button>
+                    
+                    <Button 
+                    className="submitButtonTransparent" 
+                    variant="primary" 
+                    type="submit"
+                    onClick = {redirectToSignin}>
+                        SIGN IN
+                    </Button>
+                </Form>
             </div>
+        </div>
       
     );
   

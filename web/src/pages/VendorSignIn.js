@@ -50,50 +50,56 @@ const VendorSignIn = ({hideHeader, showHeader, setLoginState}) => {
     }
   
     return (
-            <div className="signInModal">
-                <div className="formContainer">
-                    <img class="logo" src={logo} alt="Buyo logo"/>
-                    <Form>
-                        <Form.Group controlId="formBasicEmail">
-                            <Form.Control 
-                                className="formInputBox" 
-                                type="email" 
-                                placeholder="Email"
-                                value = {email}
-                                onChange={handleEmailChange} 
-                                />
-                        </Form.Group>
-
-                        <Form.Group controlId="formBasicPassword">
-                            <Form.Control 
+        <div className="signInModal">
+            <div className="formContainer">
+                <img class="logo" src={logo} alt="Buyo logo"/>
+                <Form>
+                    <Form.Group controlId="formBasicEmail">
+                        <Form.Control 
                             className="formInputBox" 
-                            type="password" 
-                            placeholder="Password" 
-                            onChange={handlePasswordChange} 
+                            type="email" 
+                            placeholder="Email"
+                            value = {email}
+                            onChange={handleEmailChange} 
                             />
-                        </Form.Group>
-                        
-                        <Button 
-                        className="submitButton" 
-                        variant="primary" 
-                        type="submit"
-                        onClick = {handleClick}
-                        >
-                            SIGN IN AS VENDOR
-                        </Button>
-                        <Button className="submitButtonTransparent" variant="primary" type="submit">
-                            SIGN IN WITH GOOGLE
-                        </Button>
-                        <Button 
-                        className="submitButtonTransparent" 
-                        variant="primary" 
-                        type="submit"
-                        onClick = {redirectToSignUp}>
-                            SIGN UP AS VENDOR
-                        </Button>
-                    </Form>
-                </div>
+                    </Form.Group>
+
+                    <Form.Group controlId="formBasicPassword">
+                        <Form.Control 
+                        className="formInputBox" 
+                        type="password" 
+                        placeholder="Password" 
+                        onChange={handlePasswordChange} 
+                        />
+
+                    <div className="col text-center">
+                        <a href="/signin">Are you a customer?</a>
+                    </div>
+                    </Form.Group>
+                    
+                    <Button 
+                    className="submitButton" 
+                    variant="primary" 
+                    type="submit"
+                    onClick = {handleClick}
+                    >
+                        SIGN IN AS VENDOR
+                    </Button>
+
+                    <Button className="submitButtonTransparent" variant="primary" type="submit">
+                        SIGN IN WITH GOOGLE
+                    </Button>
+                    
+                    <Button 
+                    className="submitButtonTransparent" 
+                    variant="primary" 
+                    type="submit"
+                    onClick = {redirectToSignUp}>
+                        SIGN UP AS VENDOR
+                    </Button>
+                </Form>
             </div>
+        </div>
       
     );
   

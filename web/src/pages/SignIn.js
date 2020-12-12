@@ -78,6 +78,9 @@ const SignIn = ({hideHeader, showHeader, setLoginState}) => {
                         value = {password}
                         onChange={handlePasswordChange} 
                         />
+                        <div className="col text-center">
+                            <a href="/vendorsignin">Are you a vendor?</a>
+                        </div>
                     </Form.Group>
                     <Button 
                     className="submitButton"
