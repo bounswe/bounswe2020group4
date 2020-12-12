@@ -7,8 +7,8 @@ const mongoose = require("mongoose");
 module.exports.Like = mongoose.model(
   "Like",
   new mongoose.Schema({
-    customerId: Number,
-    productId: Number,
+    customerId: mongoose.Schema.Types.ObjectId,
+    productId: mongoose.Schema.Types.ObjectId,
   }),
   "likes"
 );

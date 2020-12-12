@@ -18,7 +18,7 @@ module.exports.Product = mongoose.model(
     sizes: [String],
     description: String,
     colors: [String],
-    vendorId: Number,
+    vendorId: mongoose.Schema.Types.ObjectId,
   }),
   "products"
 );
