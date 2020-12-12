@@ -8,7 +8,6 @@ module.exports.Product = mongoose.model(
   "Product",
   new mongoose.Schema({
     name: String,
-    id: Number,
     imageUrl: String,
     category: [String],
     rating: Number,
@@ -17,6 +16,7 @@ module.exports.Product = mongoose.model(
     stockValue: Object,
     brand: String,
     sizes: [String],
+    description: String,
     colors: [String],
     vendorId: Number,
   }),

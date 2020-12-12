@@ -8,7 +8,6 @@ module.exports.Product = mongoose.model(
   "Product",
   new mongoose.Schema({
     name: String,
-    id: Number,
     imageUrl: String,
     category: [String],
     rating: Number,
