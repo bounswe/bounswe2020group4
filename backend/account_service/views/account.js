@@ -1,6 +1,5 @@
 const Customer = require("../models/customer").Customer;
 const Vendor = require("../models/vendor").Vendor;
-const Counter = require("../models/counter").Counter;
 
 module.exports.login = async (params) => {
   try {
@@ -11,7 +10,7 @@ module.exports.login = async (params) => {
     });
 
     if (user) {
-      return user.id;
+      return user._id.toString();
     }
 
     return false;
@@ -30,18 +29,13 @@ module.exports.signup = async (params) => {
       return "This email has been already used";
     }
 
-    const counter = await Counter.findOne();
-    counter[params.userType + "Counter"]++;
-    await counter.save();
-
     const user = await collection.create({
       email: params.email,
       password: params.password,
-      id: counter[params.userType + "Counter"],
     });
 
     if (user) {
-      return user.id;
+      return user._id.toString();
     }
 
     return false;
