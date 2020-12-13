@@ -1,5 +1,6 @@
 const Product = require("../models/product").Product;
 const Vendor = require("../models/vendor").Vendor;
+const ObjectId = require("mongoose").Types.ObjectId;
 
 module.exports.getProductCategories = async () => {
   try {
@@ -52,12 +53,13 @@ module.exports.getProducts = async (params) => {
       products.map(async (product) => {
         product = product.toJSON();
 
-        const vendor = await Vendor.findOne({ id: product.vendorId });
+        const vendor = await Vendor.findById(product.vendorId);
 
         product.vendor = {
           name: vendor.name,
           rating: vendor.rating,
         };
+        product.id = product._id.toString();
 
         delete product._id;
         delete product.vendorId;
@@ -78,18 +80,19 @@ module.exports.getProduct = async (params) => {
     let product;
 
     if (params.id) {
-      product = await Product.findOne({ id: params.id });
+      product = await Product.findOne({ _id: ObjectId(params.id) });
     }
 
     if (product) {
       product = product.toJSON();
 
-      const vendor = await Vendor.findOne({ id: product.vendorId });
+      const vendor = await Vendor.findOne({ _id: product.vendorId });
 
       product.vendor = {
         name: vendor.name,
         rating: vendor.rating,
       };
+      product.id = product._id.toString();
 
       delete product._id;
       delete product.vendorId;

@@ -8,7 +8,6 @@ module.exports.Vendor = mongoose.model(
   "Vendor",
   new mongoose.Schema({
     name: String,
-    id: Number,
     email: String,
     password: String,
     rating: Number,
