@@ -27,6 +27,7 @@ const VendorSignUp = ({hideHeader, showHeader, setLoginState}) => {
     const [checked, setChecked] = useState(false);
     const [name, setName] = useState('');
     const [website, setWebsite] = useState('');
+    const [selectedCoord, setSelectedCoord] = useState();
 
     const handleWebsiteChange = function(e) {
       setWebsite(e.target.value)
@@ -79,7 +80,7 @@ const VendorSignUp = ({hideHeader, showHeader, setLoginState}) => {
                                 placeholder="Name and surname"
                                 value = {name}
                                 onChange={handleNameChange} 
-                                />
+                            />
                             <Form.Control 
                                 className="formInputBox" 
                                 type="text" 
@@ -93,9 +94,8 @@ const VendorSignUp = ({hideHeader, showHeader, setLoginState}) => {
                                 placeholder="Email"
                                 value = {email}
                                 onChange={handleEmailChange} 
-                                />
+                            />
                         </Form.Group>
-
                         <Form.Group controlId="formBasicPassword">
                             <Form.Control 
                             className="formInputBox" 
@@ -103,24 +103,25 @@ const VendorSignUp = ({hideHeader, showHeader, setLoginState}) => {
                             placeholder="Password" 
                             onChange={handlePasswordChange} 
                             />
-
                         </Form.Group>
-
+                        <div className='pb-4'>
+                            <div className='map-label text-center'>Enter the position of your distribution center</div>
+                            <GoogleMaps selectedCoord={selectedCoord} setSelectedCoord={setSelectedCoord}/>
+                        </div>
                         <Row>
-                        <ToggleButton variant="light" className="check-box text-left" block
-                            type="checkbox"
-                            checked={checked}
-                            value="1"
-                            onChange={e => setChecked(e.currentTarget.checked)}> 
-                            I agree to terms and conditions.
-                        </ToggleButton>
+                            <ToggleButton variant="light" className="check-box text-left" block
+                                type="checkbox"
+                                checked={checked}
+                                value="1"
+                                onChange={e => setChecked(e.currentTarget.checked)}> 
+                                I agree to terms and conditions.
+                            </ToggleButton>
                         </Row>
-                        
                         <Button 
-                        className="submitButton" 
-                        variant="primary" 
-                        type="submit"
-                        onClick = {handleClick}
+                            className="submitButton" 
+                            variant="primary" 
+                            type="submit"
+                            onClick = {handleClick}
                         >
                             SIGN UP
                         </Button>
@@ -128,10 +129,10 @@ const VendorSignUp = ({hideHeader, showHeader, setLoginState}) => {
                             SIGN UP WITH GOOGLE
                         </Button>
                         <Button 
-                        className="submitButtonTransparent" 
-                        variant="primary" 
-                        type="submit"
-                        onClick = {redirectToSignin}>
+                            className="submitButtonTransparent" 
+                            variant="primary" 
+                            type="submit"
+                            onClick = {redirectToSignin}>
                             SIGN IN
                         </Button>
                     </Form>
