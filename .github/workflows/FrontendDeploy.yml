@@ -1,0 +1,59 @@
+name: Frontend Deploy
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  deploy-frontend:
+    name: Deploy Frontend
+    runs-on: ubuntu-latest
+    steps:
+   
+    - uses: actions/checkout@v2
+    
+    - name: Configure Environment Variables
+      env: 
+        AWS_FRONTEND_PUBLIC_DNS: ec2-3-17-180-100.us-east-2.compute.amazonaws.com
+    
+    - name: Build the Docker Image
+      run: docker build -t webimage web
+    
+    - name: Save the Docker Image
+      run: docker save webimage | gzip > webimage.tar.gz
+   
+    - name: Clear the machine
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ env.AWS_FRONTEND_PUBLIC_DNS }}
+        username: ubuntu
+        key: ${{ secrets.FRONTEND_PRIVATE_KEY }}
+        script_stop: true
+        script: | 
+          sudo rm -rf ~/app || true
+          sudo docker container stop $(sudo docker container ls -aq) || true
+          docker system prune –af ––volumes || true
+          mkdir ~/app
+    
+    - name: Push Docker Image to AWS
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ env.AWS_FRONTEND_PUBLIC_DNS }}
+        key: ${{ secrets.FRONTEND_PRIVATE_KEY }}
+        username: ubuntu
+        source: webimage.tar.gz
+        target: ~/app/
+    
+    - name: Run Docker Container
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ env.AWS_FRONTEND_PUBLIC_DNS }}
+        username: ubuntu
+        key: ${{ secrets.FRONTEND_PRIVATE_KEY }}
+        script_stop: true
+        script: | 
+          cd ~/app
+          sudo docker load -i webimage.tar.gz
+          sudo docker run -p 80:80 
