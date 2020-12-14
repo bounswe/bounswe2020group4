@@ -38,7 +38,7 @@ module.exports.getCartProducts = async (params) => {
         }
 
         products = await Promise.all(
-            products.map(async (product => {
+            products.map(async (product) => {
                 product = product.toJSON();
 
                 const vendor = await Vendor.findOne({ _id: product.vendorId });
@@ -53,7 +53,7 @@ module.exports.getCartProducts = async (params) => {
                 delete product.vendorId;
 
                 return product;
-            }))
+            })
         );
 
         return products;
