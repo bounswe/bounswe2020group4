@@ -35,7 +35,7 @@ module.exports.initialize = (app) => {
     response.respond(200, "OK", { products });
   });
   
-  app.post("/update-cart", async (request, response) => {
+  app.post("/cart-update", async (request, response) => {
     const result = await cart.updateCart(request.query);
 
     response.respond(200, "OK");
@@ -52,7 +52,7 @@ module.exports.initialize = (app) => {
     });
   });
 
-  app.post("/empty-cart", async (request, response) => {
+  app.post("/cart-empty", async (request, response) => {
     const success = await cart.emptyCart(request.query);
     
     if (success) {

@@ -15,7 +15,7 @@ module.exports.initialize = (app) => {
         }
     });
 
-    app.post("/add-address", async (request, response) => {
+    app.post("/address-add", async (request, response) => {
         await checkout.addCustomerAddress(request.query);
 
         response.respond(200, "OK");
@@ -31,7 +31,7 @@ module.exports.initialize = (app) => {
         }
     });
 
-    app.post("/add-order", async (request, response) => {
+    app.post("/order-add", async (request, response) => {
         const result = await order.addOrder(request.query);
 
         if (result) {
@@ -52,7 +52,7 @@ module.exports.initialize = (app) => {
         }
     });
 
-    app.post("/update-order", async (params) => {
+    app.post("/order-update", async (params) => {
         const result = await order.updateOrderStatus(request.query);
 
         if (result) {
