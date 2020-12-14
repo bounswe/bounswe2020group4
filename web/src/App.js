@@ -15,6 +15,7 @@ import Wishlist from './pages/Wishlist'
 import Cart from './pages/Cart'
 import Checkout from './pages/Checkout'
 import CategoryProducts from './pages/CategoryProducts'
+import Orders from './pages/Orders'
 
 //Styling
 import './App.css'
@@ -35,7 +36,8 @@ const App = ({ showHeader }) => {
                     <Route path="/vendorsignup" exact component={VendorSignUp}/>
                     <Route path="/vendorsignin" exact component={VendorSignIn}/>
                     <Route path="/checkout" exact component={Checkout} />
-                    <Route path="/products" exact component={CategoryProducts}/>                    
+                    <Route path="/products" exact component={CategoryProducts}/>   
+                    <Route path="/orders" exact component={Orders}/>                 
                 </div>
             </Router>
         </div>
