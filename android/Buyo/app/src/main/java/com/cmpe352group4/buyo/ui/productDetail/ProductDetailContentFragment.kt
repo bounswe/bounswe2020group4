@@ -126,17 +126,6 @@ class ProductDetailContentFragment : BaseFragment() {
 
                 tvProductDetailName.text = it.data.result.name
                 tvProductDetailVendor.text = it.data.result.vendor.name
-                /*
-                tvProductDetailInfo.text = "Brand: " + it.data.result.brand + "\n" +
-                        "Vendor Rating: " + it.data.result.vendor.rating.toString() + "\n" +
-                        "Category: " + it.data.result.category.toString() + "\n" +
-                        "Available sizes: " + it.data.result.sizes + "\n" +
-                        "Available colors: " + it.data.result.colors.toString() + "\n" +
-                        "Rating: " + it.data.result.rating + "\n" +
-                        "Original Price: " + it.data.result.originalPrice.toString() + "\n" +
-                        "Current Price: " + it.data.result.price.toString() + "\n"
-
-                 */
 
                 if (it.data.result.price != it.data.result.originalPrice) {
                     tvProductDetailInfoCampaign.text = "DISCOUNT: Buy this product for " + it.data.result.price + " instead of " + it.data.result.originalPrice + "."
@@ -154,9 +143,9 @@ class ProductDetailContentFragment : BaseFragment() {
                     stockStatusColor += color.key + " (" + color.value.toString() + ")\n"
                 }
 
-                tvProductDetailInfoColors.text = "Available colors: \n" + stockStatusColor
+                tvProductDetailInfoColors.text = "Available colors: (stocks) \n" + stockStatusColor
 
-                tvProductDetailInfoSizes.text = "Available sizes: \n in progress..."
+                tvProductDetailInfoSizes.text = "Available sizes: (stocks) \n in progress..."
 
                 tvProductDetailPrice.text = it.data.result.price.toString() + " TL"
                 rbProductDetailRating.rating = it.data.result.rating.toFloat()
@@ -237,72 +226,6 @@ class ProductDetailContentFragment : BaseFragment() {
                 }
             }
         }
-
-        /*
-
-        tbProductDetailFav.setOnCheckedChangeListener { favButton, isChecked ->
-            if (!isToggleChangedByUser) {
-                isToggleChangedByUser = true
-            } else {
-                if (sharedPref.getUserId().isNullOrEmpty()) {
-                    Toast.makeText(context, "You need to login first", Toast.LENGTH_LONG).show()
-                    isToggleChangedByUser = false
-                    favButton.toggle()
-                } else {
-                    if (isChecked) {
-                        wishListViewModel.onPostWhislistUpdate(
-                            LikeResponse(
-                                sharedPref.getUserId()?.toInt() ?: -1, productId
-                            )
-                        )
-
-                        wishListViewModel.statusUnlike.observe(viewLifecycleOwner, Observer {
-                            if (it.status == Status.SUCCESS && it.data != null) {
-
-                                /*Toast.makeText(
-                                    context,
-                                    "Product is added to your wishlist!",
-                                    Toast.LENGTH_SHORT
-                                ).show()*/
-
-                                dispatchLoading()
-                            } else if (it.status == Status.ERROR) {
-                                dispatchLoading()
-                            } else if (it.status == Status.LOADING) {
-                                showLoading()
-                            }
-                        })
-
-                    } else {
-                        wishListViewModel.onPostWhislistUpdate(
-                            LikeResponse(
-                                sharedPref.getUserId()?.toInt() ?: -1, productId
-                            )
-                        )
-
-                        wishListViewModel.statusUnlike.observe(viewLifecycleOwner, Observer {
-                            if (it.status == Status.SUCCESS && it.data != null) {
-
-                                /*Toast.makeText(
-                                    context,
-                                    "Product is removed from your wishlist!",
-                                    Toast.LENGTH_SHORT
-                                ).show()*/
-
-                                dispatchLoading()
-                            } else if (it.status == Status.ERROR) {
-                                dispatchLoading()
-                            } else if (it.status == Status.LOADING) {
-                                showLoading()
-                            }
-                        })
-                    }
-                }
-            }
-        }
-
-
-         */
 
         // ADD CART AND OTHER BUTTONS
 

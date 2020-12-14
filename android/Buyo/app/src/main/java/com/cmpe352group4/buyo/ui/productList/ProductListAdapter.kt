@@ -36,8 +36,6 @@ class ProductListAdapter(
 
     var WishListProducts: List<Product>? = null
 
-    private var isToggleChangedByUser = true
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductListViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_product_list_recycler_view, parent, false)
@@ -63,6 +61,8 @@ class ProductListAdapter(
     inner class ProductListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(modal: Product) {
+            itemView.iv_productListRecyclerView_Fav.tag = R.drawable.ic_product_disliked
+            itemView.iv_productListRecyclerView_Cart.tag = R.drawable.ic_add2cart
 
             itemView.tv_productListRecyclerView_Info.text = "Brand: " + modal.brand + " / Vendor: " + modal.vendor.name + " / Vendor Rating : " + modal.vendor.rating.toString()
             itemView.tv_productListRecyclerView_Name.text = modal.name
@@ -79,51 +79,65 @@ class ProductListAdapter(
             Log.i("Liked Prods", prod_ids.toString())
 
 
+
             if(prod_ids != null){
                 if(prod_ids!!.contains(modal.id)){
-                    if (!itemView.tb_productListRecyclerView_Fav.isChecked){
-                        isToggleChangedByUser = false
-                        itemView.tb_productListRecyclerView_Fav.toggle()
+                    if (itemView.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_disliked){
+                        itemView.iv_productListRecyclerView_Fav.setImageResource(R.drawable.ic_product_liked)
+                        itemView.iv_productListRecyclerView_Fav.tag = R.drawable.ic_product_liked
                     }
                 } else{
-                    if (itemView.tb_productListRecyclerView_Fav.isChecked){
-                        isToggleChangedByUser = false
-                        itemView.tb_productListRecyclerView_Fav.toggle()
+                    if (itemView.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_liked){
+                        itemView.iv_productListRecyclerView_Fav.setImageResource(R.drawable.ic_product_disliked)
+                        itemView.iv_productListRecyclerView_Fav.tag = R.drawable.ic_product_disliked
                     }
                 }
             }
 
-
-            itemView.tb_productListRecyclerView_Fav.setOnCheckedChangeListener { _, isChecked ->
-                if (!isToggleChangedByUser) {
-                    isToggleChangedByUser = true
+            itemView.iv_productListRecyclerView_Fav.setOnClickListener {
+                if (sharedPref.getUserId().isNullOrEmpty()) {
+                    Log.v("","login first")
                 } else {
-                    if (sharedPref.getUserId().isNullOrEmpty()) {
-                        Log.v("","login first")
-                    } else {
-                        if (isChecked) {
-                            wishListViewModel.onPostWhislistUpdate(
-                                LikeResponse(
-                                    sharedPref.getUserId()?.toInt() ?: -1, modal.id
-                                )
-                            )
+                    wishListViewModel.onPostWhislistUpdate(
+                        LikeResponse(
+                            sharedPref.getUserId()?.toInt() ?: -1, modal.id
+                        )
+                    )
 
-                            wishListViewModel.statusUnlike.observe(lifeCycleOwner, Observer{})
+                    wishListViewModel.statusUnlike.observe(lifeCycleOwner, Observer{})
 
-                        } else {
-                            wishListViewModel.onPostWhislistUpdate(
-                                LikeResponse(
-                                    sharedPref.getUserId()?.toInt() ?: -1, modal.id
-                                )
-                            )
-
-                            wishListViewModel.statusUnlike.observe(lifeCycleOwner, Observer{})
-
-
-                        }
+                    if (it.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_disliked){
+                        Log.v("PRODUCTLIST", "liking")
+                        it.iv_productListRecyclerView_Fav.setImageResource(R.drawable.ic_product_liked)
+                        it.iv_productListRecyclerView_Fav.tag = R.drawable.ic_product_liked
+                    }
+                    else if (it.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_liked){
+                        Log.v("PRODUCTLIST", "disliking")
+                        it.iv_productListRecyclerView_Fav.setImageResource(R.drawable.ic_product_disliked)
+                        it.iv_productListRecyclerView_Fav.tag = R.drawable.ic_product_disliked
                     }
                 }
             }
+
+            itemView.iv_productListRecyclerView_Cart.setOnClickListener {
+                if (sharedPref.getUserId().isNullOrEmpty()) {
+                    Log.v("","login first")
+                } else {
+
+                    // TODO : SEND BACKEND REQUEST HERE
+
+                    if (it.iv_productListRecyclerView_Cart.tag == R.drawable.ic_add2cart){
+                        it.iv_productListRecyclerView_Cart.setImageResource(R.drawable.ic_remove_from_cart)
+                        it.iv_productListRecyclerView_Cart.tag = R.drawable.ic_remove_from_cart
+                    }
+                    else if (it.iv_productListRecyclerView_Cart.tag == R.drawable.ic_remove_from_cart){
+                        it.iv_productListRecyclerView_Cart.setImageResource(R.drawable.ic_add2cart)
+                        it.iv_productListRecyclerView_Cart.tag = R.drawable.ic_add2cart
+                    }
+                }
+            }
+
+
 
 
 
