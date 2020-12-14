@@ -16,7 +16,7 @@
         android:layout_marginTop="96dp"
         android:layout_marginEnd="24dp"
         android:autofillHints=""
-        android:hint="@string/prompt_email"
+        android:hint="@string/company_e_mail"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,24 +50,42 @@
         android:inputType="textPassword"
         android:selectAllOnFocus="true"
         android:visibility="gone"
+        tools:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/vendor_password" />
 
     <EditText
-        android:id="@+id/vendor_tax_id"
+        android:id="@+id/vendor_company_website"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:autofillHints=""
-        android:hint="@string/tr_tax_id"
+        android:hint="@string/company_website"
         android:imeOptions="actionDone"
         android:visibility="gone"
+        tools:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/vendor_reenter_password" />
+
+    <EditText
+        android:id="@+id/vendor_name_surname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:autofillHints=""
+        android:hint="@string/name_surname"
+        android:imeOptions="actionDone"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vendor_company_website" />
 
     <Button
         android:id="@+id/vendor_choose_location"
@@ -79,10 +97,11 @@
         android:textAllCaps="false"
         android:textColor="@color/buyo_white"
         android:visibility="gone"
+        tools:visibility="visible"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vendor_tax_id" />
+        app:layout_constraintTop_toBottomOf="@+id/vendor_name_surname" />
 
     <CheckBox
         android:id="@+id/vendor_remember_me"

@@ -1,13 +1,15 @@
 package com.cmpe352group4.buyo.ui.login
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
+import android.text.*
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -32,6 +34,35 @@ import javax.inject.Inject
 // TODO Reset password functionality
 // TODO Sign up e-mail verification
 
+/*
+// https://stackoverflow.com/a/45727769
+fun TextView.makeLinks(vararg links: Pair<String, View.OnClickListener>) {
+    val spannableString = SpannableString(this.text)
+    for (link in links) {
+        val clickableSpan = object : ClickableSpan() {
+
+            override fun updateDrawState(textPaint: TextPaint) {
+                // use this to change the link color
+                textPaint.color = textPaint.linkColor
+                // toggle below value to enable/disable
+                // the underline shown below the clickable text
+                textPaint.isUnderlineText = true
+            }
+
+            override fun onClick(view: View) {
+                Selection.setSelection((view as TextView).text as Spannable, 0)
+                view.invalidate()
+                link.second.onClick(view)
+            }
+        }
+        val startIndexOfLink = this.text.toString().indexOf(link.first)
+        spannableString.setSpan(clickableSpan, startIndexOfLink, startIndexOfLink + link.first.length,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+    }
+    this.movementMethod = LinkMovementMethod.getInstance() // without LinkMovementMethod, link can not click
+    this.setText(spannableString, TextView.BufferType.SPANNABLE)
+}
+*/
 
 class LoginFragmentVendor : BaseFragment() {
 
@@ -254,7 +285,8 @@ class LoginFragmentVendor : BaseFragment() {
                 vendor_remember_me.text = getString(R.string.remember_me)
                 vendor_reenter_password.visibility = View.GONE
                 vendor_reset_password.visibility = View.VISIBLE
-                vendor_tax_id.visibility = View.GONE
+                vendor_company_website.visibility = View.GONE
+                vendor_name_surname.visibility = View.GONE
                 vendor_choose_location.visibility = View.GONE
             } else {
                 vendor_login_signup_button.text = getString(R.string.action_sign_up)
@@ -262,7 +294,8 @@ class LoginFragmentVendor : BaseFragment() {
                 vendor_remember_me.text = getString(R.string.kvkk_accept)
                 vendor_reenter_password.visibility = View.VISIBLE
                 vendor_reset_password.visibility = View.GONE
-                vendor_tax_id.visibility = View.VISIBLE
+                vendor_company_website.visibility = View.VISIBLE
+                vendor_name_surname.visibility = View.VISIBLE
                 vendor_choose_location.visibility = View.VISIBLE
             }
         }
