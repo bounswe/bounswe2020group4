@@ -1,7 +1,7 @@
 const Product = require("../models/product").Product;
 const Vendor = require("../models/vendor").Vendor;
 const CartProduct = require("../models/cart_products").CartProduct;
-const Counter = require("../models/counter").Counter;
+const ObjectId = require("mongoose").Types.ObjectId;
 
 module.exports.updateCart = async (params) => {
     try {
@@ -14,16 +14,10 @@ module.exports.updateCart = async (params) => {
             if (userCart) {
                 await CartProduct.create({cartId: userCart.cartId, customerId: params.customerId, vendorId: params.vendorId, productId: params.productId, status: userCart.status });
             } else {
-                const counter = await Counter.findOne();
-                counter["cartCounter"]++;
-                await counter.save();
-
                 await CartProduct.create({
-                    cartId: counter["cartCounter"], 
-                    customerId: params.customerId, 
-                    vendorId: params.vendorId, 
-                    productId: params.productId, 
-                    status: params.status, 
+                    customerId: ObjectId(params.customerId), 
+                    vendorId: ObjectId(params.vendorId), 
+                    productId: ObjectId(params.productId), 
                 });
             }
         }
@@ -38,7 +32,7 @@ module.exports.getCartProducts = async (params) => {
         let products;
 
         if (params.customerId) {
-            products = await Product.find({ customerId: { $all: JSON.parse(params.customerId) } });
+            products = await Product.find({ customerId: ObjectId(params.customerId) });
         } else {
             return false;
         }
@@ -47,12 +41,12 @@ module.exports.getCartProducts = async (params) => {
             products.map(async (product => {
                 product = product.toJSON();
 
-                const vendor = await Vendor.findOne({ id: product.vendorId });
+                const vendor = await Vendor.findOne({ _id: product.vendorId });
 
                 product.vendor = {
                     name: vendor.name,
                     rating: vendor.rating,
-                    id: vendor.id,
+                    id: vendor._id,
                 };
 
                 delete product._id;
@@ -63,6 +57,19 @@ module.exports.getCartProducts = async (params) => {
         );
 
         return products;
+    } catch (error) {
+        return error;
+    }
+};
+
+module.exports.emptyCart = async (params) => {
+    try {
+        if (params.id) {
+            await CartProduct.deleteMany({ customerId: ObjectId(params.customerId) });
+            return true;
+        } else {
+            return false;
+        }
     } catch (error) {
         return error;
     }

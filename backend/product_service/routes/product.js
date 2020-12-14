@@ -52,4 +52,14 @@ module.exports.initialize = (app) => {
     });
   });
 
+  app.post("/empty-cart", async (request, response) => {
+    const success = await cart.emptyCart(request.query);
+    
+    if (success) {
+      response.respond(200, "OK");
+    } else {
+      response.respond(400, "Missing arguments");
+    }
+  });
+
 };

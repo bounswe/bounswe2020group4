@@ -7,11 +7,9 @@ const mongoose = require("mongoose");
 module.exports.CartProduct = mongoose.model(
   "CartProduct",
   new mongoose.Schema({
-    cartId: Number,
-    customerId: Number,
-    vendorId: Number,
-    productId: Number,
-    status: String,
+    customerId: mongoose.Schema.Types.ObjectId,
+    vendorId:  mongoose.Schema.Types.ObjectId,
+    productId:  mongoose.Schema.Types.ObjectId,
   }),
   "cart_products"
 );
