@@ -11,7 +11,7 @@ module.exports.addOrder = async (params) => {
             const randId = (Date.now().toString(36) + Math.random().toString(36).substr(2, 5)).toUpperCase();
 
             products = await Promise.all(
-                products.map(async (cart_product => {
+                products.map(async (cart_product) => {
                     cart_product = cart_product.toJSON();
 
                     const result = await Order.create({
@@ -22,7 +22,7 @@ module.exports.addOrder = async (params) => {
                        productId: cart_product.productId,
                        paymentType: params.paymentType,
                     });
-                }))
+                })
             );
             await CartProduct.deleteMany({ customerId: ObjectId(params.customerId) });
 
@@ -82,13 +82,13 @@ module.exports.updateOrderStatus = async (params) => {
             let orderedProducts = await Order.find({ id: ObjectId(params.id) });
             
             orderedProducts = await Promise.all(
-                orderedProducts.map(async (product => {
+                orderedProducts.map(async (product) => {
                     product.status = params.status;
 
                     await product.save();
 
                     return product;
-                }))
+                })
             );
 
             return true;
