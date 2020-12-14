@@ -1,7 +1,7 @@
 {
-    "name": "interaction-service",
+    "name": "checkout-service",
     "version": "1.0.0",
-    "description": "Interaction Service",
+    "description": "Checkout Service",
     "main": "app.js",
     "dependencies": {
       "body-parser": "1.19.0",

@@ -4,7 +4,7 @@ const express = require("express"),
   bodyParser = require("body-parser"),
   db = require("./db/init"),
   cors = require("cors"),
-  routes = require("./routes/account");
+  routes = require("./routes/checkout");
 
 require("dotenv").config(); // Require the dotenv for constants.
 
@@ -33,4 +33,4 @@ routes.initialize(app); // Start to listen the endpoints.
 
 module.exports.App = app;
 
-console.log("Account service server started on: " + process.env.PORT);
+console.log("Checkout service server started on: " + process.env.PORT);
