@@ -18,7 +18,6 @@ const Cart = (props) => {
 
     if(!props.isLoggedIn) {
         history.push('/signin')
-        return 
     }
 
     const redirectToCheckout = function(e) {

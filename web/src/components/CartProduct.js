@@ -42,7 +42,7 @@ const CartProduct = ({name, price, imgUrl, productId, vendorName, brand, size, a
                     </Card.Body>
                 </Col>
                 <Col className="align-self-center text-center">
-                    <Card.Img className="trash-icon" src={TrashIcon}></Card.Img>
+                    <img className="trash-icon" src={TrashIcon}></img>
                 </Col>
                 
              </Row>
