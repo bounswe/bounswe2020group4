@@ -14,99 +14,96 @@ import accountService from '../services/account'
 
 const SignIn = ({hideHeader, showHeader, setLoginState}) => {
 
+	//This function corresponds to componentDidMount
+	//The return function corresponds to componentDidUnmount
+	useEffect(() => {
+		hideHeader()
+		return () => showHeader()
+	}, [])
 
-   //This function corresponds to componentDidMount
-   //The return function corresponds to componentDidUnmount
-    useEffect(() => {
-        hideHeader()
-        return () => showHeader()
-    }, [])
+	const [email, setEmail] = useState('')
+	const [password, setPassword] = useState('')
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+	const handleEmailChange = function(e) {
+		setEmail(e.target.value)
+	}
 
-    const handleEmailChange = function(e) {
-        setEmail(e.target.value)
-    }
+	const handlePasswordChange = function(e) {
+		setPassword(e.target.value)
+	}
 
-    const handlePasswordChange = function(e) {
-        setPassword(e.target.value)
-    }
+	const handleClick = async function(e) {
+		e.preventDefault()
+		if(email == '' | password == ''){
+			alert('Enter your credentials')
+		} else {
+			const userId = await accountService.login({ 'email': email, 'password': password})
+			if (userId == null){
+				alert('Wrong credentials')
+			} else {
+				setLoginState({ userId: userId, userType: 'customer'})
+				history.goBack()
+			}
+		}
+	}
+	const redirectToSignup = function(e) {
+		e.preventDefault()
+		history.push('/signup')
+	}
 
-    const handleClick = async function(e) {
-        e.preventDefault()
-        if(email == '' | password == ''){
-            alert("Enter your credentials")
-        } else {
-            const userId = await accountService.login({'email':email, 'password': password})
-            if (userId == null){
-                alert("Wrong credentials")
-            } else {
-                setLoginState({ userId: userId, userType: "customer"}); 
-                history.goBack();
-            }
-        }
+	return (
+		<div className="signInModal">
+			<div className="formContainer">
+				<img className="logo" src={logo} alt="Buyo logo"/>
+				<Form>
+					<Form.Group controlId="formBasicEmail">
+						<Form.Control
+							className="formInputBox"
+							type="email"
+							placeholder="Email"
+							value = {email}
+							onChange={handleEmailChange}
+						/>
+					</Form.Group>
 
-        
-    } 
+					<Form.Group controlId="formBasicPassword">
+						<Form.Control
+							className="formInputBox"
+							type="password"
+							placeholder="Password"
+							value = {password}
+							onChange={handlePasswordChange}
+						/>
+						<div className="col text-center">
+							<a href="/vendorsignin">Are you a vendor?</a>
+						</div>
+					</Form.Group>
+					<Button
+						className="submitButton"
+						variant="primary"
+						type="submit"
+						onClick = {handleClick}
+					>
+						SIGN IN
+					</Button>
+					<Button className="submitButtonTransparent" variant="primary" type="submit">
+						SIGN IN WITH GOOGLE
+					</Button>
+					<Button
+						className="submitButtonTransparent"
+						variant="primary"
+						type="submit"
+						onClick = {redirectToSignup}
+					>
+							SIGN UP
+					</Button>
+				</Form>
+			</div>
+		</div>
 
-    const redirectToSignup = function(e) {
-        e.preventDefault()
-        history.push("/signup")
-    }
+	)
 
-    return (
-        <div className="signInModal">
-            <div className="formContainer">
-                <img className="logo" src={logo} alt="Buyo logo"/>
-                <Form>
-                    <Form.Group controlId="formBasicEmail">
-                        <Form.Control 
-                        className="formInputBox" 
-                        type="email" 
-                        placeholder="Email"
-                        value = {email}
-                        onChange={handleEmailChange} 
-                        />
-                    </Form.Group>
-
-                    <Form.Group controlId="formBasicPassword">
-                        <Form.Control 
-                        className="formInputBox" 
-                        type="password" 
-                        placeholder="Password"
-                        value = {password}
-                        onChange={handlePasswordChange} 
-                        />
-                        <div className="col text-center">
-                            <a href="/vendorsignin">Are you a vendor?</a>
-                        </div>
-                    </Form.Group>
-                    <Button 
-                    className="submitButton"
-                    variant="primary" 
-                    type="submit"
-                    onClick = {handleClick}
-                    >
-                        SIGN IN
-                    </Button>
-                    <Button className="submitButtonTransparent" variant="primary" type="submit">
-                        SIGN IN WITH GOOGLE
-                    </Button>
-                    <Button 
-                        className="submitButtonTransparent" 
-                        variant="primary" 
-                        type="submit"
-                        onClick = {redirectToSignup}>
-                            SIGN UP
-                        </Button>
-                </Form>
-            </div>
-        </div>
-    
-    );
-  
 }
 
 
-export default connect(null, {showHeader, hideHeader, setLoginState})(SignIn);
+export default connect(null, {showHeader, hideHeader, setLoginState})(SignIn)

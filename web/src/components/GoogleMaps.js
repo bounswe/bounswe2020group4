@@ -1,67 +1,47 @@
-import React from 'react'
-import GoogleMapReact from 'google-map-react';
-import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
+import React, { useState, useEffect } from 'react'
+import GoogleMapReact from 'google-map-react'
+import MapMarker from '../images/map-marker.png'
 
-const mapStyles = {
-    width: '100%',
-    height: '100%'
-  };
+import './GoogleMaps.css'
 
-const GoogleMaps = (props) => {
+const GoogleMaps = ({ selectedCoord, setSelectedCoord }) => {
+	const [coord, setCoord] = useState()
 
-    var state = {
-        showingInfoWindow: false,  // Hides or shows the InfoWindow
-        activeMarker: {},          // Shows the active marker upon click
-        selectedPlace: {}          // Shows the InfoWindow to the selected place upon a marker
-      };
+	useEffect(() => {
+		navigator.geolocation.getCurrentPosition((pos) => {
+			setCoord({ lat: pos.coords.latitude, lng: pos.coords.longitude})
+		})
+	}, [])
 
-     const onMarkerClick = (props, marker, e) =>
-      this.setState({
-        selectedPlace: props,
-        activeMarker: marker,
-        showingInfoWindow: true
-      });
-  
-    const onClose = props => {
-      if (this.state.showingInfoWindow) {
-        this.setState({
-          showingInfoWindow: false,
-          activeMarker: null
-        });
-      }
-    };
+	const handleApiLoaded = (map) => {
+		map.addListener('click', (e) => {
+			setSelectedCoord(e.latLng)
+			map.panTo(e.latLng)
+		})
+	}
 
-    return (
-        <div >
-          <Map
-        google={props.google}
-        zoom={14}
-        style={mapStyles}
-        initialCenter={
-          {
-            lat: -1.2884,
-            lng: 36.8233
-          }
-        }
-      />
-      <Marker
-          onClick={onMarkerClick}
-          name={'Kenyatta International Convention Centre'}
-        />
-        <InfoWindow
-          marker={state.activeMarker}
-          visible={state.showingInfoWindow}
-          onClose={onClose}
-        >
-          <div>
-            <h4>{state.selectedPlace.name}</h4>
-          </div>
-        </InfoWindow>
-        </div>
-      );
 
+	return (
+		<div className={ coord ? 'google-maps-container cursor-pointer' : null }>
+			{ coord ?
+				<GoogleMapReact
+					bootstrapURLKeys={{ key: 'AIzaSyCYMANjIVMZ7MYjbi6CpEEZfs4OFVTi8FE' }}
+					defaultCenter={coord}
+					defaultZoom={11}
+					yesIWantToUseGoogleMapApiInternals
+					onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}
+				>
+					{ selectedCoord ?
+						<div className='marker-container' lat={selectedCoord.lat} lng={selectedCoord.lng}>
+							<img className='marker' src={MapMarker} alt='marker'/>
+						</div>
+						: null
+					}
+				</GoogleMapReact>
+				: null
+			}
+		</div>
+	)
 }
 
-export default GoogleApiWrapper({
-    apiKey: '' //put api key here
-  })(GoogleMaps)
+export default GoogleMaps
