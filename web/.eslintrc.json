@@ -5,7 +5,8 @@
     },
     "extends": [
         "eslint:recommended",
-        "plugin:react/recommended"
+        "plugin:react/recommended",
+        "@webpack-contrib/eslint-config-webpack"
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -19,11 +20,11 @@
     ],
     "rules": {
         "indent": [
-            "error",
+            "warn",
             "tab"
         ],
         "linebreak-style": [
-            "error",
+            "warn",
             "unix"
         ],
         "quotes": [
@@ -31,32 +32,32 @@
             "single"
         ],
         "semi": [
-            "error",
+            "warn",
             "never"
         ], 
-        "no-irregular-whitespace": "error",
-        "default-case": "error",
-        "no-empty-function": "error",
-        "no-multi-spaces": "error",
-        "no-useless-return": "error",
-        "no-unused-vars": "error",
-        "array-bracket-spacing": "error",
+        "no-irregular-whitespace": "warn",
+        "default-case": "warn",
+        "no-empty-function": "warn",
+        "no-multi-spaces": "warn",
+        "no-useless-return": "warn",
+        "no-unused-vars": "warn",
+        "array-bracket-spacing": "warn",
         "block-spacing": [
-            "error", 
+            "warn", 
             "always"
         ],
         "brace-style": [
-            "error",
+            "warn",
             "1tbs",
             { "allowSingleLine": true }
         ],
-        "comma-spacing": "error",
-        "func-call-spacing": "error",
-        "key-spacing": "error",
-        "no-trailing-spaces": "error",
-        "arrow-spacing": "error",
-        "no-var": "error",
-        "prefer-const": "error",
+        "comma-spacing": "warn",
+        "func-call-spacing": "warn",
+        "key-spacing": "warn",
+        "no-trailing-spaces": "warn",
+        "arrow-spacing": "warn",
+        "no-var": "warn",
+        "prefer-const": "warn",
         "react/prop-types": "off",
         "react/no-unescaped-entities": "off"
 
