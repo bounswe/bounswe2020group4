@@ -1,5 +1,7 @@
 const Product = require("../models/product").Product;
 const Vendor = require("../models/vendor").Vendor;
+const Comment = require("../models/comment").Comment;
+const Customer = require("../models/customer").Customer;
 const ObjectId = require("mongoose").Types.ObjectId;
 
 module.exports.getProductCategories = async () => {
@@ -118,6 +120,23 @@ module.exports.getProduct = async (params) => {
     if (product) {
       product = product.toJSON();
 
+      let comments = await Comment.find({ productId: ObjectId(product._id) });
+      comments = await Promise.all(
+        comments.map(async (comment) => {
+          comment = comment.toJSON();
+          const user = (await Customer.findOne({ _id: comment.userId })).toJSON();
+
+          return {
+            id: comment._id.toString(),
+            text: comment.text,
+            owner: {
+              username: user.name,
+              email: user.email,
+            },
+          };
+        })
+      );
+
       const vendor = await Vendor.findOne({ _id: product.vendorId });
 
       product.vendor = {
@@ -125,6 +144,8 @@ module.exports.getProduct = async (params) => {
         rating: vendor.rating,
       };
       product.id = product._id.toString();
+
+      product.comments = comments;
 
       delete product._id;
       delete product.vendorId;
