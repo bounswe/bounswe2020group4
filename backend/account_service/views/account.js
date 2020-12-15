@@ -1,6 +1,34 @@
 const Customer = require("../models/customer").Customer;
 const Vendor = require("../models/vendor").Vendor;
 
+module.exports.getAccountInfo = async (params) => {
+  let account;
+  const collection = params.userType === "customer" ? Customer : Vendor;
+  try {
+    account = await collection.findOne({ id: params.id });
+
+    if (account && params.userType === "customer") {
+
+      account = account.toJSON();
+      delete account._id;
+      delete account.__v;
+      delete account.password;
+
+    } else if(account && params.userType === "vendor"){
+
+      account = account.toJSON();
+      delete account._id;
+
+    }
+
+    return account;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+
 module.exports.login = async (params) => {
   try {
     const collection = params.userType === "customer" ? Customer : Vendor;
@@ -29,10 +57,25 @@ module.exports.signup = async (params) => {
       return "This email has been already used";
     }
 
-    const user = await collection.create({
-      email: params.email,
-      password: params.password,
-    });
+    var user;
+    if(params.userType === "customer") {
+
+       user = await Customer.create({
+        email: params.email,
+        password: params.password,
+        
+      });
+  
+     } else{
+
+         user = await Vendor.create({
+          email: params.email,
+          password: params.password,
+          longitude: params.longitude,
+          latitude: params.latitude,
+          website: params.website,
+        });
+      }
 
     if (user) {
       return user._id.toString();
