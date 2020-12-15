@@ -34,7 +34,6 @@ const SignUp = ({hideHeader, showHeader, setLoginState}) => {
 	}
 
 	const handleClick = async function(e) {
-
 		e.preventDefault()
 		if(email == '' | password == ''){
 			alert('Enter your credentials')
@@ -42,6 +41,7 @@ const SignUp = ({hideHeader, showHeader, setLoginState}) => {
 			alert('Agree to terms and conditions')
 		} else {
 			const userId = await accountService.signUp({'email': email, 'password': password})
+			console.log(userId)
 			if(userId == -1){
 				alert('This user already exists, use a different email')
 			} else if (userId == null){
@@ -51,14 +51,10 @@ const SignUp = ({hideHeader, showHeader, setLoginState}) => {
 				history.goBack()
 			}
 		}
-
-
 	}
-
 	const redirectToSignin = function(e) {
 		e.preventDefault()
 		history.push('/signin')
-
 	}
 
 	return (
@@ -83,43 +79,44 @@ const SignUp = ({hideHeader, showHeader, setLoginState}) => {
 							placeholder="Password"
 							onChange={handlePasswordChange}
 						/>
+						<Row>
+							<ToggleButton variant="light" className="check-box text-left" block
+								type="checkbox"
+								checked={checked}
+								value="1"
+								onChange={e => setChecked(e.currentTarget.checked)}>
+									I agree to terms and conditions.
+							</ToggleButton>
+						</Row>
 
+						<div className="col text-center">
+							<a href="/vendorsignup">Are you a vendor?</a>
+						</div>
 					</Form.Group>
-
-					<Row>
-						<ToggleButton variant="light" className="check-box text-left" block
-							type="checkbox"
-							checked={checked}
-							value="1"
-							onChange={e => setChecked(e.currentTarget.checked)}>
-                            I agree to terms and conditions.
-						</ToggleButton>
-					</Row>
-
 					<Button
 						className="submitButton"
 						variant="primary"
 						type="submit"
 						onClick = {handleClick}
 					>
-                            SIGN UP
+						SIGN UP
 					</Button>
+
 					<Button className="submitButtonTransparent" variant="primary" type="submit">
-                            SIGN UP WITH GOOGLE
+						SIGN UP WITH GOOGLE
 					</Button>
+
 					<Button
 						className="submitButtonTransparent"
 						variant="primary"
 						type="submit"
 						onClick = {redirectToSignin}>
-                            SIGN IN
+							SIGN IN
 					</Button>
 				</Form>
 			</div>
 		</div>
-
 	)
-
 }
 
 

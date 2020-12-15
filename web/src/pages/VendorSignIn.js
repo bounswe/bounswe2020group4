@@ -20,7 +20,6 @@ const VendorSignIn = ({hideHeader, showHeader, setLoginState}) => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 
-
 	const handleEmailChange = function(e) {
 		setEmail(e.target.value)
 	}
@@ -30,7 +29,6 @@ const VendorSignIn = ({hideHeader, showHeader, setLoginState}) => {
 	}
 
 	const handleClick = async function(e) {
-
 		e.preventDefault()
 		if(email == '' | password == ''){
 			alert('Enter your credentials')
@@ -38,14 +36,11 @@ const VendorSignIn = ({hideHeader, showHeader, setLoginState}) => {
 			setLoginState({userId: 1, userType: 'vendor'})
 			history.goBack()
 		}
-
-
 	}
 
 	const redirectToSignUp = function(e) {
 		e.preventDefault()
 		history.push('/vendorsignup')
-
 	}
 
 	return (
@@ -70,6 +65,9 @@ const VendorSignIn = ({hideHeader, showHeader, setLoginState}) => {
 							placeholder="Password"
 							onChange={handlePasswordChange}
 						/>
+						<div className="col text-center">
+							<a href="/signin">Are you a customer?</a>
+						</div>
 					</Form.Group>
 
 					<Button
@@ -78,24 +76,25 @@ const VendorSignIn = ({hideHeader, showHeader, setLoginState}) => {
 						type="submit"
 						onClick = {handleClick}
 					>
-                            SIGN IN AS VENDOR
+						SIGN IN AS VENDOR
 					</Button>
+
 					<Button className="submitButtonTransparent" variant="primary" type="submit">
-                            SIGN IN WITH GOOGLE
+						SIGN IN WITH GOOGLE
 					</Button>
+
 					<Button
 						className="submitButtonTransparent"
 						variant="primary"
 						type="submit"
-						onClick = {redirectToSignUp}>
-                            SIGN UP AS VENDOR
+						onClick = {redirectToSignUp}
+					>
+						SIGN UP AS VENDOR
 					</Button>
 				</Form>
 			</div>
 		</div>
-
 	)
-
 }
 
 

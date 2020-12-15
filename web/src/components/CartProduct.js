@@ -10,7 +10,6 @@ import './CartProduct.css'
 
 const CartProduct = ({name, price, imgUrl, productId, vendorName, brand, size, amount}) => {
 	return (
-
 		<Container fluid>
 			<Card className='cp-container'>
 				<Card.Header className="header">
@@ -22,7 +21,6 @@ const CartProduct = ({name, price, imgUrl, productId, vendorName, brand, size, a
 							<Card.Img className="cart-img" src={imgUrl}></Card.Img>
 						</Link>
 					</Col>
-
 					<Col className="align-self-center text-center">
 						<Card.Body >
 							<Row ><Card.Title>Product: {name}</Card.Title></Row>
@@ -41,14 +39,12 @@ const CartProduct = ({name, price, imgUrl, productId, vendorName, brand, size, a
 						</Card.Body>
 					</Col>
 					<Col className="align-self-center text-center">
-						<Card.Img className="trash-icon" src={TrashIcon}></Card.Img>
+						<img className="trash-icon" src={TrashIcon}></img>
 					</Col>
-
 				</Row>
 			</Card>
 		</Container>
 	)
-
 }
 
 export default CartProduct

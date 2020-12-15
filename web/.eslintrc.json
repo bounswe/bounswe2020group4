@@ -5,8 +5,7 @@
     },
     "extends": [
         "eslint:recommended",
-        "plugin:react/recommended",
-        "@webpack-contrib/eslint-config-webpack"
+        "plugin:react/recommended"
     ],
     "parserOptions": {
         "ecmaFeatures": {
