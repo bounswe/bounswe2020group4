@@ -85,6 +85,10 @@ const ProfileInfo = () => {
                         </div>
                     </div>
 
+                    <div className='text-right'>
+                        <button type='submit' className='btn btn-danger'>Update</button>
+                    </div>
+
                 </form>
             </div>
         </div>

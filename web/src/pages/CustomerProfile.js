@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import history from '../util/history'
 
 import ProfileInfo from '../components/customer-profile/ProfileInfo'
+import UpdatePassword from '../components/customer-profile/UpdatePassword'
 
 import './CustomerProfile.css'
 
@@ -17,7 +18,7 @@ const CustomerProfile = () => {
                         <ProfileInfo/>
                     </div>
                     <div className="col">
-
+                        <UpdatePassword/>
                     </div>
                 </div>
                 

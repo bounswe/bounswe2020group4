@@ -5,3 +5,7 @@
 .form-column{
     width: 100%;
 }
+
+.text-container{
+    color: var(--red-secondary);
+}
