@@ -1,3 +1,27 @@
+# Deployment and Dockerization
+
+- Login to the Amazon EC2 using ssh: `ssh -i "{path-to-key-pair}" {public-dns-address}`
+
+- Pull/Clone the git repository: `git clone https://github.com/bounswe/bounswe2020group4.git`
+
+- Go into the web folder: `cd web`
+
+- Clean the system of unused docker containers and images: `docker system prune -a`
+
+- Build the Docker Image: `docker build -t webimage .`
+
+- Run the Docker Image: `docker run -d -p 80:80 --rm webimage`
+
+# Eslint
+
+Eslint rules are configured in .eslintrc.json
+
+To use it normally: `./node_modules/.bin/eslint src`
+
+To automatically fix most of the common cases: `./node_modules/.bin/eslint src --fix`
+
+Don't forget to check code style with eslint everytime you push
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -68,3 +92,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `yarn build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+

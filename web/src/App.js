@@ -1,15 +1,15 @@
-import React from 'react';
-import { Router, Route } from 'react-router-dom';
+import React from 'react'
+import { Router, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
-import history from './util/history';
+import history from './util/history'
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import VendorSignUp from './pages/VendorSignUp'
 import VendorSignIn from './pages/VendorSignIn'
 
 //Pages
-import Header from './components/Header';
-import ProductDetails from './pages/ProductDetails';
+import Header from './components/Header'
+import ProductDetails from './pages/ProductDetails'
 import Homepage from './pages/Homepage'
 import Wishlist from './pages/Wishlist'
 import Cart from './pages/Cart'
@@ -22,6 +22,7 @@ import './App.css'
 
 
 const App = ({ showHeader }) => {
+
     return (
         <div className='page-container'>
             <Router history={history}>
@@ -45,7 +46,7 @@ const App = ({ showHeader }) => {
 }
 
 const mapStateToProps = state => {
-    return { showHeader: state.header.showHeader }
+	return { showHeader: state.header.showHeader }
 }
 
-export default connect(mapStateToProps, {})(App);
+export default connect(mapStateToProps, {})(App)
