@@ -1,6 +1,34 @@
 const Customer = require("../models/customer").Customer;
 const Vendor = require("../models/vendor").Vendor;
 
+module.exports.getAccountInfo = async (params) => {
+  let account;
+  const collection = params.userType === "customer" ? Customer : Vendor;
+  try {
+    account = await collection.findOne({ id: params.id });
+
+    if (account && params.userType === "customer") {
+
+      account = account.toJSON();
+      delete account._id;
+      delete account.__v;
+      delete account.password;
+
+    } else if(account && params.userType === "vendor"){
+
+      account = account.toJSON();
+      delete account._id;
+
+    }
+
+    return account;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+
 module.exports.login = async (params) => {
   try {
     const collection = params.userType === "customer" ? Customer : Vendor;
