@@ -30,7 +30,7 @@
   flex-direction: column;
 }
 
-.order-button-container button {
+.order-page-button {
   text-align: center;
   padding: 10px;
   box-shadow: 5px 10px;
@@ -40,6 +40,19 @@
   border-radius: 10px;
   color: #ec4a3b;
   margin-bottom: 10%;
+}
+
+.add-comment-button {
+  text-align: center;
+  padding: 10px;
+  box-shadow: 5px 10px;
+  font-size: 15px;
+  background-color: var(--surface);
+  border: solid;
+  border-radius: 10px;
+  color: #ec4a3b;
+  margin-left: 10%;
+  height: 50%;
 }
 
 .address-container {
