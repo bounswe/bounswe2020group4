@@ -1,5 +1,6 @@
 package com.cmpe352group4.buyo.ui.productDetail
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -36,7 +37,6 @@ class ProductDetailContentFragment : BaseFragment() {
         viewModelFactory
     }
 
-    private var isToggleChangedByUser = true
 
     private val wishListViewModel: WishListViewModel by viewModels {
         viewModelFactory
@@ -50,6 +50,8 @@ class ProductDetailContentFragment : BaseFragment() {
             }
         }
     }
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,6 +67,8 @@ class ProductDetailContentFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         var productId = arguments?.getInt(PRODUCT_ID) ?: -1
+
+        iv_ProductDetailFav.tag = R.drawable.ic_product_disliked
 
 
         // Backend request
@@ -107,14 +111,14 @@ class ProductDetailContentFragment : BaseFragment() {
 
                 if(prod_ids != null){
                     if(prod_ids!!.contains(it.data.result.id)){
-                        if (!tbProductDetailFav.isChecked){
-                            isToggleChangedByUser = false
-                            tbProductDetailFav.toggle()
+                        if (iv_ProductDetailFav.tag == R.drawable.ic_product_disliked){
+                            iv_ProductDetailFav.setImageResource(R.drawable.ic_product_liked)
+                            iv_ProductDetailFav.tag = R.drawable.ic_product_liked
                         }
                     } else{
-                        if (tbProductDetailFav.isChecked){
-                            isToggleChangedByUser = false
-                            tbProductDetailFav.toggle()
+                        if (iv_ProductDetailFav.tag == R.drawable.ic_product_liked){
+                            iv_ProductDetailFav.setImageResource(R.drawable.ic_product_disliked)
+                            iv_ProductDetailFav.tag = R.drawable.ic_product_disliked
                         }
                     }
                 }
@@ -122,14 +126,27 @@ class ProductDetailContentFragment : BaseFragment() {
 
                 tvProductDetailName.text = it.data.result.name
                 tvProductDetailVendor.text = it.data.result.vendor.name
-                tvProductDetailInfo.text = "Brand: " + it.data.result.brand + "\n" +
-                        "Vendor Rating: " + it.data.result.vendor.rating.toString() + "\n" +
-                        "Category: " + it.data.result.category.toString() + "\n" +
-                        "Available sizes: " + it.data.result.sizes + "\n" +
-                        "Available colors: " + it.data.result.colors.toString() + "\n" +
-                        "Rating: " + it.data.result.rating + "\n" +
-                        "Original Price: " + it.data.result.originalPrice.toString() + "\n" +
-                        "Current Price: " + it.data.result.price.toString() + "\n"
+
+                if (it.data.result.price != it.data.result.originalPrice) {
+                    tvProductDetailInfoCampaign.text = "DISCOUNT: Buy this product for " + it.data.result.price + " instead of " + it.data.result.originalPrice + "."
+                }
+                else{
+                    tvProductDetailInfoCampaign.visibility = View.INVISIBLE
+                }
+
+                tvProductDetailInfoBrand.text = "Brand: " + it.data.result.brand
+
+
+                var stockStatusColor = ""
+
+                for (color in it.data.result.stockValue){
+                    stockStatusColor += color.key + " (" + color.value.toString() + ")\n"
+                }
+
+                tvProductDetailInfoColors.text = "Available colors: (stocks) \n" + stockStatusColor
+
+                tvProductDetailInfoSizes.text = "Available sizes: (stocks) \n in progress..."
+
                 tvProductDetailPrice.text = it.data.result.price.toString() + " TL"
                 rbProductDetailRating.rating = it.data.result.rating.toFloat()
                 Glide.with(this)
@@ -145,68 +162,70 @@ class ProductDetailContentFragment : BaseFragment() {
 
         })
 
+
+
         //LIKING / UNLIKING
-        tbProductDetailFav.setOnCheckedChangeListener { favButton, isChecked ->
-            if (!isToggleChangedByUser) {
-                isToggleChangedByUser = true
+
+        iv_ProductDetailFav.setOnClickListener {
+            if (sharedPref.getUserId().isNullOrEmpty()) {
+                Toast.makeText(context, "You need to login first", Toast.LENGTH_LONG).show()
             } else {
-                if (sharedPref.getUserId().isNullOrEmpty()) {
-                    Toast.makeText(context, "You need to login first", Toast.LENGTH_LONG).show()
-                    isToggleChangedByUser = false
-                    favButton.toggle()
-                } else {
-                    if (isChecked) {
-                        wishListViewModel.onPostWhislistUpdate(
-                            LikeResponse(
-                                sharedPref.getUserId()?.toInt() ?: -1, productId
-                            )
+                if (iv_ProductDetailFav.tag == R.drawable.ic_product_disliked) {
+                    iv_ProductDetailFav.setImageResource(R.drawable.ic_product_liked)
+                    iv_ProductDetailFav.tag = R.drawable.ic_product_liked
+                    wishListViewModel.onPostWhislistUpdate(
+                        LikeResponse(
+                            sharedPref.getUserId()?.toInt() ?: -1, productId
                         )
+                    )
 
-                        wishListViewModel.statusUnlike.observe(viewLifecycleOwner, Observer {
-                            if (it.status == Status.SUCCESS && it.data != null) {
+                    wishListViewModel.statusUnlike.observe(viewLifecycleOwner, Observer {
+                        if (it.status == Status.SUCCESS && it.data != null) {
 
-                                /*Toast.makeText(
-                                    context,
-                                    "Product is added to your wishlist!",
-                                    Toast.LENGTH_SHORT
-                                ).show()*/
+                            /*Toast.makeText(
+                                context,
+                                "Product is added to your wishlist!",
+                                Toast.LENGTH_SHORT
+                            ).show()*/
 
-                                dispatchLoading()
-                            } else if (it.status == Status.ERROR) {
-                                dispatchLoading()
-                            } else if (it.status == Status.LOADING) {
-                                showLoading()
-                            }
-                        })
+                            dispatchLoading()
+                        } else if (it.status == Status.ERROR) {
+                            dispatchLoading()
+                        } else if (it.status == Status.LOADING) {
+                            showLoading()
+                        }
+                    })
 
-                    } else {
-                        wishListViewModel.onPostWhislistUpdate(
-                            LikeResponse(
-                                sharedPref.getUserId()?.toInt() ?: -1, productId
-                            )
+                } else if (iv_ProductDetailFav.tag == R.drawable.ic_product_liked) {
+                    iv_ProductDetailFav.setImageResource(R.drawable.ic_product_disliked)
+                    iv_ProductDetailFav.tag = R.drawable.ic_product_disliked
+
+                    wishListViewModel.onPostWhislistUpdate(
+                        LikeResponse(
+                            sharedPref.getUserId()?.toInt() ?: -1, productId
                         )
+                    )
 
-                        wishListViewModel.statusUnlike.observe(viewLifecycleOwner, Observer {
-                            if (it.status == Status.SUCCESS && it.data != null) {
+                    wishListViewModel.statusUnlike.observe(viewLifecycleOwner, Observer {
+                        if (it.status == Status.SUCCESS && it.data != null) {
 
-                                /*Toast.makeText(
-                                    context,
-                                    "Product is removed from your wishlist!",
-                                    Toast.LENGTH_SHORT
-                                ).show()*/
+                            /*Toast.makeText(
+                                context,
+                                "Product is removed from your wishlist!",
+                                Toast.LENGTH_SHORT
+                            ).show()*/
 
-                                dispatchLoading()
-                            } else if (it.status == Status.ERROR) {
-                                dispatchLoading()
-                            } else if (it.status == Status.LOADING) {
-                                showLoading()
-                            }
-                        })
-                    }
+                            dispatchLoading()
+                        } else if (it.status == Status.ERROR) {
+                            dispatchLoading()
+                        } else if (it.status == Status.LOADING) {
+                            showLoading()
+                        }
+                    })
+
                 }
             }
         }
-
 
         // ADD CART AND OTHER BUTTONS
 
@@ -219,7 +238,7 @@ class ProductDetailContentFragment : BaseFragment() {
         }
         btnProductDetailComments.setOnClickListener {
             navigationManager?.onReplace(
-                ProductDetailCommentsFragment.newInstance(),
+                ProductDetailCommentsFragment.newInstance(productId),
                 TransactionType.Replace, true
             )
         }
