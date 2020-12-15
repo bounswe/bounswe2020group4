@@ -29,10 +29,25 @@ module.exports.signup = async (params) => {
       return "This email has been already used";
     }
 
-    const user = await collection.create({
-      email: params.email,
-      password: params.password,
-    });
+    var user;
+    if(params.userType === "customer") {
+
+       user = await Customer.create({
+        email: params.email,
+        password: params.password,
+        
+      });
+  
+     } else{
+
+         user = await Vendor.create({
+          email: params.email,
+          password: params.password,
+          longitude: params.longitude,
+          latitude: params.latitude,
+          website: params.website,
+        });
+      }
 
     if (user) {
       return user._id.toString();
