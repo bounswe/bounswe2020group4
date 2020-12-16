@@ -17,9 +17,12 @@ import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.EmptyFragment
+import com.cmpe352group4.buyo.ui.LegalDocFragment
+import com.cmpe352group4.buyo.ui.googlemap.MapsFragment
 import com.cmpe352group4.buyo.viewmodel.ProfileViewModel
 import com.cmpe352group4.buyo.vo.LoginSignupRequest
 import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.fragment_login_vendor.*
 import javax.inject.Inject
 
 // TODO Make kvkk readable
@@ -62,6 +65,23 @@ class LoginFragment : BaseFragment() {
         loginSignUpButton()
         signUpSwitch()
         userTypeSwitchListener()
+        legalDocLinkSet()
+    }
+
+    private fun legalDocLinkSet() {
+        legal_documents_customer.makeLinks(
+            Pair("Terms of Service", View.OnClickListener {
+                navigationManager?.onReplace(
+                    LegalDocFragment.newInstance("termsOfService"),
+                    TransactionType.Replace, true
+                )
+            }),
+            Pair("Privacy Policy", View.OnClickListener {
+                navigationManager?.onReplace(
+                    LegalDocFragment.newInstance("privacyPolicy"),
+                    TransactionType.Replace, true
+                )
+            }))
     }
 
     private fun addOnTextWatcher() {

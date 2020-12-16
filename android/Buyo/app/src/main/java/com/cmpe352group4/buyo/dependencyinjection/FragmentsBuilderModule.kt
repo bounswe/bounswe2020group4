@@ -1,6 +1,7 @@
 package com.cmpe352group4.buyo.dependencyinjection
 
 import com.cmpe352group4.buyo.ui.EmptyFragment
+import com.cmpe352group4.buyo.ui.LegalDocFragment
 
 import com.cmpe352group4.buyo.ui.categoriesPage.CategoriesPageFragment
 import com.cmpe352group4.buyo.ui.googlemap.MapsFragment
@@ -67,4 +68,7 @@ abstract class FragmentsBuilderModule {
 
     @ContributesAndroidInjector
     abstract  fun contributeMapsFragment(): MapsFragment
+
+    @ContributesAndroidInjector
+    abstract  fun contributeLegalDocFragment(): LegalDocFragment
 }

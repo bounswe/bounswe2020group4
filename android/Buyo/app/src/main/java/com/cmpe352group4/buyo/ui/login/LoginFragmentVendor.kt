@@ -20,6 +20,7 @@ import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.EmptyFragment
+import com.cmpe352group4.buyo.ui.LegalDocFragment
 import com.cmpe352group4.buyo.ui.googlemap.MapsFragment
 import com.cmpe352group4.buyo.viewmodel.ProfileViewModel
 import com.cmpe352group4.buyo.vo.LoginSignupRequest
@@ -34,7 +35,7 @@ import javax.inject.Inject
 // TODO Reset password functionality
 // TODO Sign up e-mail verification
 
-/*
+
 // https://stackoverflow.com/a/45727769
 fun TextView.makeLinks(vararg links: Pair<String, View.OnClickListener>) {
     val spannableString = SpannableString(this.text)
@@ -62,7 +63,7 @@ fun TextView.makeLinks(vararg links: Pair<String, View.OnClickListener>) {
     this.movementMethod = LinkMovementMethod.getInstance() // without LinkMovementMethod, link can not click
     this.setText(spannableString, TextView.BufferType.SPANNABLE)
 }
-*/
+
 
 class LoginFragmentVendor : BaseFragment() {
 
@@ -99,6 +100,7 @@ class LoginFragmentVendor : BaseFragment() {
         signUpSwitch()
         userTypeSwitchListener()
         googleMapButtonListener()
+        legalDocLinkSet()
     }
 
     override fun onResume() {
@@ -107,9 +109,27 @@ class LoginFragmentVendor : BaseFragment() {
         val lat: String? = sharedPref.getVendorLat()
         val lon: String? = sharedPref.getVendorLon()
         if (lat != "" && lon != ""){
-            vendor_choose_location?.text = getString(R.string.reselect_location)
+            vendor_choose_location?.text = getString(R.string.reselect_location) // TODO SHOW SELECTED ADDRESS
         }
     }
+
+
+    private fun legalDocLinkSet() {
+        legal_documents_vendor.makeLinks(
+            Pair("Terms of Service", View.OnClickListener {
+                navigationManager?.onReplace(
+                    LegalDocFragment.newInstance("termsOfService"),
+                    TransactionType.Replace, true
+                )
+            }),
+            Pair("Privacy Policy", View.OnClickListener {
+                navigationManager?.onReplace(
+                    LegalDocFragment.newInstance("privacyPolicy"),
+                    TransactionType.Replace, true
+                )
+            }))
+    }
+
 
     private fun addOnTextWatcher() {
         vendor_username.addTextChangedListener(object : TextWatcher {
