@@ -25,7 +25,6 @@ import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_login_vendor.*
 import javax.inject.Inject
 
-// TODO Make kvkk readable
 // TODO Reset password functionality
 // TODO Google sign up, login functionality
 // TODO Sign up e-mail verification

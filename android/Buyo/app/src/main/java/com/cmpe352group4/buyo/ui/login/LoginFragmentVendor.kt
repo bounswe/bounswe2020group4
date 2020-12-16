@@ -31,7 +31,6 @@ import kotlinx.android.synthetic.main.fragment_maps.*
 import javax.inject.Inject
 
 
-// TODO Make kvkk readable
 // TODO Reset password functionality
 // TODO Sign up e-mail verification
 
@@ -307,6 +306,7 @@ class LoginFragmentVendor : BaseFragment() {
                 vendor_reset_password.visibility = View.VISIBLE
                 vendor_company_website.visibility = View.GONE
                 vendor_name_surname.visibility = View.GONE
+                vendor_company_name.visibility = View.GONE
                 vendor_choose_location.visibility = View.GONE
             } else {
                 vendor_login_signup_button.text = getString(R.string.action_sign_up)
@@ -316,6 +316,7 @@ class LoginFragmentVendor : BaseFragment() {
                 vendor_reset_password.visibility = View.GONE
                 vendor_company_website.visibility = View.VISIBLE
                 vendor_name_surname.visibility = View.VISIBLE
+                vendor_company_name.visibility = View.VISIBLE
                 vendor_choose_location.visibility = View.VISIBLE
             }
         }
