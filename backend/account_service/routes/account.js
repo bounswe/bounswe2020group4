@@ -17,9 +17,7 @@ module.exports.initialize = (app) => {
     const result = await account.updateAccountInfo(request.query);
 
     if (result) {
-      response.respond(200, "OK", {
-        result,
-      });
+      response.respond(200, "OK");
     } else {
       response.respond(404, "Account not found");
     }

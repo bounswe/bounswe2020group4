@@ -3,20 +3,15 @@ const Vendor = require("../models/vendor").Vendor;
 const ObjectId = require("mongoose").Types.ObjectId;
 
 module.exports.getAccountInfo = async (params) => {
-  let account;
-  const collection = params.userType === "customer" ? Customer : Vendor;
   try {
-    account = await collection.findOne({ _id: ObjectId(params.id) });
+    let account;
+    const collection = params.userType === "customer" ? Customer : Vendor;
 
-    if (account && params.userType === "customer") {
-      account = account.toJSON();
-      delete account._id;
-      delete account.__v;
-      delete account.password;
-    } else if (account && params.userType === "vendor") {
-      account = account.toJSON();
-      delete account._id;
-    }
+    account = await collection.findOne({ _id: ObjectId(params.id) });
+    account = account.toJSON();
+
+    delete account._id;
+    delete account.__v;
 
     return account;
   } catch (error) {
