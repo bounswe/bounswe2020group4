@@ -1,11 +1,12 @@
 const Customer = require("../models/customer").Customer;
 const Vendor = require("../models/vendor").Vendor;
+const ObjectId = require("mongoose").Types.ObjectId;
 
 module.exports.getAccountInfo = async (params) => {
   let account;
   const collection = params.userType === "customer" ? Customer : Vendor;
   try {
-    account = await collection.findOne({ id: params.id });
+    account = await collection.findOne({ _id: ObjectId(params.id) });
 
     if (account && params.userType === "customer") {
       account = account.toJSON();
@@ -27,7 +28,7 @@ module.exports.getAccountInfo = async (params) => {
 module.exports.updateAccountInfo = async (params) => {
   try {
     const collection = params.userType === "customer" ? Customer : Vendor;
-    const account = await collection.findOne({ id: params.id });
+    const account = await collection.findOne({ _id: ObjectId(params.id) });
 
     if (account && params.userType === "customer") {
       ["name", "email", "password", "rating", "address", "password", "gender"].forEach((field) => {
