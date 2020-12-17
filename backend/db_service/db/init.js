@@ -3,10 +3,10 @@ const Product = require("../models/product").Product;
 const Vendor = require("../models/vendor").Vendor;
 const fs = require("fs");
 
-/*
- * Initialize the mongo connection.
+/**
+ * Adds mock documents to the database from mock
+ * product json files.
  */
-
 module.exports.initializeMockDB = async () => {
   await Product.deleteMany();
   await Vendor.deleteMany();
@@ -27,6 +27,9 @@ module.exports.initializeMockDB = async () => {
   await Product.collection.insertMany(products);
 };
 
+/**
+ * Connects to the mongodb database.
+ */
 module.exports.initialize = async function () {
   try {
     await mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true });
