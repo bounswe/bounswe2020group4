@@ -8,17 +8,13 @@ module.exports.getAccountInfo = async (params) => {
     account = await collection.findOne({ id: params.id });
 
     if (account && params.userType === "customer") {
-
       account = account.toJSON();
       delete account._id;
       delete account.__v;
       delete account.password;
-
-    } else if(account && params.userType === "vendor"){
-
+    } else if (account && params.userType === "vendor") {
       account = account.toJSON();
       delete account._id;
-
     }
 
     return account;
@@ -28,6 +24,35 @@ module.exports.getAccountInfo = async (params) => {
   }
 };
 
+module.exports.updateAccountInfo = async (params) => {
+  try {
+    const collection = params.userType === "customer" ? Customer : Vendor;
+    const account = await collection.findOne({ id: params.id });
+
+    if (account && params.userType === "customer") {
+      ["name", "email", "password", "rating", "address", "password", "gender"].forEach((field) => {
+        if (params[field]) {
+          account[field] = params[field];
+        }
+      });
+
+      await account.save();
+    } else if (account && params.userType === "vendor") {
+      ["name", "email", "password", "longitude", "latitude", "website", "company"].forEach((field) => {
+        if (params[field]) {
+          account[field] = params[field];
+        }
+      });
+
+      await account.save();
+    }
+
+    return !!account;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
 
 module.exports.login = async (params) => {
   try {
@@ -58,24 +83,21 @@ module.exports.signup = async (params) => {
     }
 
     var user;
-    if(params.userType === "customer") {
-
-       user = await Customer.create({
+    if (params.userType === "customer") {
+      user = await Customer.create({
         email: params.email,
         password: params.password,
-        
       });
-  
-     } else{
-
-         user = await Vendor.create({
-          email: params.email,
-          password: params.password,
-          longitude: params.longitude,
-          latitude: params.latitude,
-          website: params.website,
-        });
-      }
+    } else {
+      user = await Vendor.create({
+        email: params.email,
+        password: params.password,
+        longitude: params.longitude,
+        latitude: params.latitude,
+        website: params.website,
+        company: params.company,
+      });
+    }
 
     if (user) {
       return user._id.toString();
