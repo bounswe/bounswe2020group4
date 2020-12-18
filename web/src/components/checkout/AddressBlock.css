@@ -1,6 +1,6 @@
-.address-container {
+.ab-address-container {
     width: 240px;
-    cursor: pointer;
+    width: fit-content;
 }
 
 .address-info-container {
@@ -23,4 +23,8 @@
 
 .add-new-address-img {
     height: 100%;
+}
+
+.edit-icon-container {
+    width: 18px;
 }

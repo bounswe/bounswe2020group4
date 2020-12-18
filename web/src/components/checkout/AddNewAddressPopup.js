@@ -3,7 +3,7 @@ import CrossIcon from '../../images/cross-icon.png'
 
 import './AddNewAddressPopup.css'
 
-const AddNewAddressPopup = ({ setIsAddressPopupOpen }) => {
+const AddNewAddressPopup = ({ setIsAddressPopupOpen, defaultInfo }) => {
 	return (
 		<div className='add-new-address-popup'>
 			<div className='add-new-address-popup-inner-container p-4 rounded'>
@@ -18,36 +18,36 @@ const AddNewAddressPopup = ({ setIsAddressPopupOpen }) => {
 					<div className='d-flex'>
 						<div className='form-group px-2'>
 							<label htmlFor='name'>Name</label>
-							<input type='text' className='form-control' id='name'/>
+							<input type='text' className='form-control' id='name' defaultValue={defaultInfo?.receivingName}/>
 						</div>
 						<div className='form-group px-2'>
 							<label htmlFor='surname'>Surname</label>
-							<input type='text' className='form-control' id='surname'/>
+							<input type='text' className='form-control' id='surname' defaultValue={defaultInfo?.receivingSurname}/>
 						</div>
 					</div>
 					<div className='d-flex'>
 						<div className='form-group px-2'>
 							<label htmlFor='phone'>Phone</label>
-							<input type='text' className='form-control' id='phone'/>
+							<input type='text' className='form-control' id='phone' defaultValue={defaultInfo?.receivingPhone}/>
 						</div>
 						<div className='form-group px-2'>
 							<label htmlFor='city'>City</label>
-							<input type='text' className='form-control' id='city'/>
+							<input type='text' className='form-control' id='city' defaultValue={defaultInfo?.city}/>
 						</div>
 					</div>
 					<div className='d-flex'>
 						<div className='form-group px-2'>
 							<label htmlFor='name'>Province</label>
-							<input type='text' className='form-control' id='province'/>
+							<input type='text' className='form-control' id='province' defaultValue={defaultInfo?.province}/>
 						</div>
 						<div className='form-group px-2'>
 							<label htmlFor='title'>Address Title</label>
-							<input type='text' className='form-control' id='title'/>
+							<input type='text' className='form-control' id='title' defaultValue={defaultInfo?.title}/>
 						</div>
 					</div>
 					<div className='form-group'>
 						<label htmlFor='address'>Address</label>
-						<textarea className='form-control' id='address' />
+						<textarea className='form-control' id='address' defaultValue={defaultInfo?.address}/>
 					</div>
 					<hr/>
 					<div className='text-center'>
