@@ -14,9 +14,9 @@ jobs:
    
     - uses: actions/checkout@v2
     
-    - name: Configure Environment Variables
-      env: 
-        AWS_FRONTEND_PUBLIC_DNS: ec2-3-17-180-100.us-east-2.compute.amazonaws.com
+#     - name: Configure Environment Variables
+#       env: 
+#         AWS_FRONTEND_PUBLIC_DNS: ec2-3-17-180-100.us-east-2.compute.amazonaws.com
     
     - name: Build the Docker Image
       run: docker build -t webimage web
@@ -27,7 +27,7 @@ jobs:
     - name: Clear the machine
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ env.AWS_FRONTEND_PUBLIC_DNS }}
+        host: ec2-3-17-180-100.us-east-2.compute.amazonaws.com
         username: ubuntu
         key: ${{ secrets.FRONTEND_PRIVATE_KEY }}
         script_stop: true
