@@ -1,0 +1,6 @@
+.checkout-header-container {
+    background-color: var(--beige);
+    font-size: 24px;
+    color: var(--red-secondary);
+    font-weight: bold;
+}

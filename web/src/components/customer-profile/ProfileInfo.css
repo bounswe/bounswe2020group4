@@ -1,0 +1,11 @@
+.form-container {
+    width: 100%;
+}
+
+.form-column{
+    width: 100%;
+}
+
+.text-container{
+    color: var(--red-secondary);
+}
