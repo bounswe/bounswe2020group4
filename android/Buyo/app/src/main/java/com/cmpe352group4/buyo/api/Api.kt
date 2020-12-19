@@ -46,4 +46,9 @@ interface Api {
         @Query("password") password: String
     ): LiveData<ApiResponse<BaseResponse<LoginSingupResponse>>>
 
+    @GET("cart")
+    fun fetchCartInfo(
+        @Query("customerId") customerId: Int
+    ): LiveData<ApiResponse<BaseResponse<Cart>>>
+
 }
