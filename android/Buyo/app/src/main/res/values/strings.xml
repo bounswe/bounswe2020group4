@@ -115,4 +115,9 @@
         <item>Price Range</item>
         <item>Category Specific</item>
     </string-array>
+
+    <!--  Cart Page - Checkout Page   -->
+    <string name="empty_cart"> You do not have any product in your cart</string>
+    <string name="gotoshop"> Let\'s shop</string>
+    <string name="checkout"> Checkout</string>
 </resources>
