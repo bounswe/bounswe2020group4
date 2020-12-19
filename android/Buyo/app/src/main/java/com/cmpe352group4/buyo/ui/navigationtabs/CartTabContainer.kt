@@ -9,6 +9,7 @@ import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.base.fragment_ops.*
 import com.cmpe352group4.buyo.dependencyinjection.Injectable
 import com.cmpe352group4.buyo.ui.EmptyFragment
+import com.cmpe352group4.buyo.ui.cart.CartPageFragment
 import com.cmpe352group4.buyo.util.extensions.hideKeyboardFrom
 import javax.inject.Inject
 
@@ -21,7 +22,7 @@ class CartTabContainer : StackOwnerFragment(), INavigationManager, Injectable {
     @Inject
     lateinit var navManager: NavigationManager
     private val initialFragment by lazy {
-        EmptyFragment.newInstance()
+        CartPageFragment.newInstance()
     }
 
     override fun onCreateView(
