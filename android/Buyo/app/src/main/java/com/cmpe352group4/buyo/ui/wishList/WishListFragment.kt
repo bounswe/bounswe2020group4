@@ -23,6 +23,7 @@ import com.cmpe352group4.buyo.util.extensions.visible
 import com.cmpe352group4.buyo.viewmodel.WishListViewModel
 import com.cmpe352group4.buyo.vo.LikeResponse
 import com.cmpe352group4.buyo.vo.Product
+import com.cmpe352group4.buyo.widgets.navigation_bar.NavigationBar
 import kotlinx.android.synthetic.main.fragment_wish_list.*
 import javax.inject.Inject
 
@@ -110,7 +111,7 @@ class WishListFragment: BaseFragment() {
 
 
         loginButton.setOnClickListener {
-            (activity as MainActivity).onItemSelected(4)
+            (activity as MainActivity).changeActiveTab(NavigationBar.PROFILE_INDEX)
         }
 
         btnOrderWishList.setOnClickListener{
