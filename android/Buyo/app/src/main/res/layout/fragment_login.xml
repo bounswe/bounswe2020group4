@@ -67,8 +67,6 @@
 
     <Button
         android:id="@+id/customer_login_signup_button"
-        android:enabled="false"
-        android:alpha="0.6"
         android:layout_width="150dp"
         android:layout_height="30dp"
         android:layout_marginTop="48dp"
