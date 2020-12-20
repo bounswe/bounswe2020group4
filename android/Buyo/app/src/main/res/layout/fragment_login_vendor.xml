@@ -115,9 +115,20 @@
         android:visibility="gone"
         tools:visibility="visible"
         android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/given_address"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/vendor_company_name" />
+
+    <TextView
+        android:id="@+id/given_address"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/please_select_your_location"
+        android:textColorHighlight="@color/buyo_fireEngineRed"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/vendor_choose_location"
+        app:layout_constraintBottom_toTopOf="@+id/vendor_remember_me"  />
 
     <CheckBox
         android:id="@+id/vendor_remember_me"

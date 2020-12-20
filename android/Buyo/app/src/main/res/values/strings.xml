@@ -285,5 +285,6 @@
         "Very Long Legal Document That Nobody Will Read"
     </string>
     <string name="company_name">Company Name</string>
+    <string name="please_select_your_location">Please select your location!</string>
 
 </resources>

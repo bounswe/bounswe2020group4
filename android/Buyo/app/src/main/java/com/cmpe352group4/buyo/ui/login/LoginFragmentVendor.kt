@@ -100,7 +100,8 @@ class LoginFragmentVendor : BaseFragment() {
         val lat: String? = sharedPref.getVendorLat()
         val lon: String? = sharedPref.getVendorLon()
         if (lat != "" && lon != ""){
-            vendor_choose_location?.text = getString(R.string.reselect_location) // TODO SHOW SELECTED ADDRESS
+            vendor_choose_location?.text = getString(R.string.reselect_location)
+            given_address?.text = sharedPref.getVendorAddress()
         }
     }
 
