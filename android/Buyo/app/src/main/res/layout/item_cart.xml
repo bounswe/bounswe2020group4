@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="@dimen/minimum_margin">
 
     <TextView
         android:id="@+id/tv_vendor"
@@ -17,8 +18,8 @@
 
     <ImageView
         android:id="@+id/iv_productPhoto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         tools:src="@drawable/ic_launcher_background"
         app:layout_constraintTop_toBottomOf="@id/tv_vendor"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,6 +34,8 @@
         android:textColor="@color/black"
         app:layout_constraintTop_toTopOf="@id/iv_productPhoto"
         app:layout_constraintStart_toEndOf="@id/iv_productPhoto"
+        app:layout_constraintEnd_toStartOf="@id/iv_delete"
+        android:layout_marginEnd="@dimen/minimum_margin"
         />
 
     <TextView
@@ -47,13 +50,13 @@
         android:layout_marginTop="@dimen/minimum_margin"
         />
 
-    <Spinner
-        android:id="@+id/spQuantity"
-        android:layout_width="30dp"
-        android:layout_height="20dp"
-        android:spinnerMode="dialog"
-        app:layout_constraintStart_toEndOf="@id/iv_productPhoto"
-        app:layout_constraintBottom_toBottomOf="@id/iv_productPhoto"/>
+<!--    <Spinner-->
+<!--        android:id="@+id/spQuantity"-->
+<!--        android:layout_width="30dp"-->
+<!--        android:layout_height="20dp"-->
+<!--        android:spinnerMode="dialog"-->
+<!--        app:layout_constraintStart_toEndOf="@id/iv_productPhoto"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/iv_productPhoto"/>-->
 
     <ImageView
         android:id="@+id/iv_delete"
