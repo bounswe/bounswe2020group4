@@ -120,4 +120,13 @@
     <string name="empty_cart"> You do not have any product in your cart</string>
     <string name="gotoshop"> Let\'s shop</string>
     <string name="checkout"> Checkout</string>
+
+    <!--  Address Page   -->
+    <string name="prompt_name">Name</string>
+    <string name="prompt_surname">Surname</string>
+    <string name="prompt_phone">Phone</string>
+    <string name="prompt_city">City</string>
+    <string name="prompt_addressTitle">Address Title</string>
+    <string name="prompt_address">Address</string>
+
 </resources>
