@@ -166,7 +166,7 @@ class LoginFragment : BaseFragment() {
                             // TODO Go to profile page here
                             navigationManager?.onReplace(
                                 EmptyFragment.newInstance(),
-                                TransactionType.Replace, true
+                                TransactionType.Replace, false
                             )
 
                         } else if (it.status == Status.ERROR) {
