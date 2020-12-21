@@ -7,7 +7,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-
+import RatingStar from './RatingStar'
 
 import DefaultProductImage from '../images/default-product-detail-image.png'
 
@@ -29,10 +29,17 @@ const ProductOrder = ({imgUrl, name, brand, price, isDelivered}) => {
         <div>{brand}</div>
         <div>{price}</div>
       </div>
-      {isDelivered && <button className="add-comment-button" onClick={handleClickOpen}>Add Comment</button>}
+      {isDelivered && <button className="add-comment-button" onClick={handleClickOpen}>Give Feedback</button>}
+      <button className="add-comment-button">Message Vendor</button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Add Comment</DialogTitle>
+        <DialogTitle id="form-dialog-title">Give Feedback</DialogTitle>
         <DialogContent>
+          <div className="dialog-rating">
+            <DialogContentText>
+              Rate this product: &nbsp;
+            </DialogContentText>
+            <RatingStar readOnly={false} precision={1} />
+          </div>
           <DialogContentText>
             Add your comments on this product. Please describe your shopping experience, product quality etc.
           </DialogContentText>
@@ -43,6 +50,7 @@ const ProductOrder = ({imgUrl, name, brand, price, isDelivered}) => {
             label="Comment"
             type="text"
             fullWidth
+            multiline
           />
         </DialogContent>
         <DialogActions>
@@ -69,7 +77,7 @@ const OrderDetails = ({isDelivered}) => {
         </div>  
         <div className="order-button-container">
           {!isDelivered ? <button className="order-page-button">Cancel Order</button> : null}
-          <button className="order-page-button" >Message Vendor</button>
+          {isDelivered && <button className="order-page-button" >Return Order</button>}
         </div>
       </div>
       <div className="address-container"> Address: Rumeli Hisarı, Hisar Üstü Nispetiye Cd No:7, 34342 Sarıyer/İstanbul
