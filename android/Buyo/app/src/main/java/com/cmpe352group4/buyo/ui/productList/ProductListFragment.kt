@@ -149,7 +149,7 @@ class ProductListFragment : BaseFragment(){
 
                     if(sharedPref.getUserId().isNullOrEmpty()){
                         Log.i("ProductList", "Guest User")
-
+                        productListAdapter.submitList(fetchedProducts as MutableList<Product>)
                     }else{
                         Log.i("Liked", "Sending Request")
                         wishListViewModel.onFetchWishListProducts(sharedPref.getUserId()?.toInt() ?: -1)
@@ -197,7 +197,7 @@ class ProductListFragment : BaseFragment(){
 
                     if(sharedPref.getUserId().isNullOrEmpty()){
                         Log.i("ProductList", "Guest User")
-
+                        productListAdapter.submitList(fetchedProducts as MutableList<Product>)
                     }else{
                         Log.i("Liked", "Sending Request")
                         wishListViewModel.onFetchWishListProducts(sharedPref.getUserId()?.toInt() ?: -1)
