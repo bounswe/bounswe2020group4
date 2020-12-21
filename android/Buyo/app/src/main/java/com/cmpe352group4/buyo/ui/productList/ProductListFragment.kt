@@ -90,15 +90,6 @@ class ProductListFragment : BaseFragment(){
                     wishListViewModel.statusUnlike.observe(viewLifecycleOwner, Observer{
                         if (it.status == Status.SUCCESS && it.data != null) {
 
-                            if (itemView.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_disliked){
-                                itemView.iv_productListRecyclerView_Fav.setImageResource(R.drawable.ic_product_liked)
-                                itemView.iv_productListRecyclerView_Fav.tag = R.drawable.ic_product_liked
-                            }
-                            else if (itemView.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_liked){
-                                itemView.iv_productListRecyclerView_Fav.setImageResource(R.drawable.ic_product_disliked)
-                                itemView.iv_productListRecyclerView_Fav.tag = R.drawable.ic_product_disliked
-                            }
-
                             dispatchLoading()
                         } else if (it.status == Status.ERROR) {
                             dispatchLoading()
@@ -106,9 +97,26 @@ class ProductListFragment : BaseFragment(){
                             showLoading()
                         }
                     })
-
+                    if (itemView.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_disliked) {
+                        itemView.iv_productListRecyclerView_Fav.setImageResource(R.drawable.ic_product_liked)
+                        itemView.iv_productListRecyclerView_Fav.tag = R.drawable.ic_product_liked
+                    }
+                    else if (itemView.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_liked) {
+                        itemView.iv_productListRecyclerView_Fav.setImageResource(R.drawable.ic_product_disliked)
+                        itemView.iv_productListRecyclerView_Fav.tag = R.drawable.ic_product_disliked
+                    }
                 }
-            })
+            },{ toastText ->
+                val myToast = Toast.makeText(
+                    context,
+                    toastText,
+                    Toast.LENGTH_SHORT
+                )
+                myToast.setGravity(Gravity.BOTTOM, 0, 200)
+                myToast.show()
+
+            }
+        )
     }
 
     override fun onCreateView(

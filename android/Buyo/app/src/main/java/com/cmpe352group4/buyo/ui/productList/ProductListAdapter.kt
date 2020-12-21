@@ -30,7 +30,8 @@ class ProductListAdapter(
     var Products: MutableList<Product>,
     val sharedPref : SharedPref,
     val clickCallback: (Product) -> Unit,
-    val likeCallback: (Product, View) -> Unit
+    val likeCallback: (Product, View) -> Unit,
+    val toastCallback: (String) -> Unit
 ) : RecyclerView.Adapter<ProductListAdapter.ProductListViewHolder>(){
 
     var WishListProducts: List<Product>? = null
@@ -74,23 +75,31 @@ class ProductListAdapter(
             itemView.setOnClickListener { clickCallback.invoke(modal) }
 
             val prod_ids = WishListProducts?.map{it.id}
-
-
             if(prod_ids != null){
                 if(prod_ids!!.contains(modal.id)){
                     if (itemView.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_disliked){
+                        Log.d("ListAdapterParseLike", "${modal.name}")
                         itemView.iv_productListRecyclerView_Fav.setImageResource(R.drawable.ic_product_liked)
                         itemView.iv_productListRecyclerView_Fav.tag = R.drawable.ic_product_liked
                     }
                 } else{
                     if (itemView.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_liked){
+                        Log.d("ListAdapterParseDisLike", "${modal.name}")
                         itemView.iv_productListRecyclerView_Fav.setImageResource(R.drawable.ic_product_disliked)
                         itemView.iv_productListRecyclerView_Fav.tag = R.drawable.ic_product_disliked
                     }
                 }
             }
 
-            itemView.iv_productListRecyclerView_Fav.setOnClickListener { likeCallback.invoke(modal, itemView)}
+            itemView.iv_productListRecyclerView_Fav.setOnClickListener {
+                likeCallback.invoke(modal, itemView)
+                if (itemView.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_liked) {
+                    toastCallback.invoke("${modal.name} is added to your wishlist!")
+                }else if(itemView.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_disliked){
+                    toastCallback.invoke("${modal.name} is removed from your wishlist!")
+                }
+
+            }
 
             itemView.iv_productListRecyclerView_Cart.setOnClickListener {
                 if (sharedPref.getUserId().isNullOrEmpty()) {
