@@ -2,6 +2,7 @@ package com.cmpe352group4.buyo.ui.productList
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -76,6 +77,13 @@ class ProductListFragment : BaseFragment(){
             { product, itemView ->
                 if (sharedPref.getUserId().isNullOrEmpty()) {
                     Log.v("ListRV","Guest User")
+                    val myToast = Toast.makeText(
+                        context,
+                        "You need to Login first!",
+                        Toast.LENGTH_SHORT
+                    )
+                    myToast.setGravity(Gravity.BOTTOM, 0, 200)
+                    myToast.show()
                 } else {
                     wishListViewModel.onPostWhislistUpdate(LikeResponse(sharedPref.getUserId()?.toInt() ?: -1, product.id))
 

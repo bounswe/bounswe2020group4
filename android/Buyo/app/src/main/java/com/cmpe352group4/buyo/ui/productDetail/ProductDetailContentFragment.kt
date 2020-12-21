@@ -3,6 +3,7 @@ package com.cmpe352group4.buyo.ui.productDetail
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -83,6 +84,7 @@ class ProductDetailContentFragment : BaseFragment() {
 
         if(sharedPref.getUserId().isNullOrEmpty()){
             Log.i("ProductList", "Guest User")
+            prod_ids = emptyList()
 
         }else {
             wishListViewModel.onFetchWishListProducts(sharedPref.getUserId()?.toInt() ?: -1)
@@ -133,7 +135,13 @@ class ProductDetailContentFragment : BaseFragment() {
 
         iv_ProductDetailFav.setOnClickListener {
             if (sharedPref.getUserId().isNullOrEmpty()) {
-                Toast.makeText(context, "You need to login first", Toast.LENGTH_LONG).show()
+                val myToast = Toast.makeText(
+                    context,
+                    "You need to Login first!",
+                    Toast.LENGTH_SHORT
+                )
+                myToast.setGravity(Gravity.BOTTOM, 0, 200)
+                myToast.show()
             } else {
                 if (iv_ProductDetailFav.tag == R.drawable.ic_product_disliked) {
                     wishListViewModel.onPostWhislistUpdate(LikeResponse(sharedPref.getUserId()?.toInt() ?: -1, productId))

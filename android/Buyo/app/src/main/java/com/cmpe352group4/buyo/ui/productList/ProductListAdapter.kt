@@ -1,6 +1,7 @@
 package com.cmpe352group4.buyo.ui.productList
 
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -94,6 +95,7 @@ class ProductListAdapter(
             itemView.iv_productListRecyclerView_Cart.setOnClickListener {
                 if (sharedPref.getUserId().isNullOrEmpty()) {
                     Log.v("ListRV","Guest User")
+
                 } else {
 
                     // TODO : SEND BACKEND REQUEST HERE
