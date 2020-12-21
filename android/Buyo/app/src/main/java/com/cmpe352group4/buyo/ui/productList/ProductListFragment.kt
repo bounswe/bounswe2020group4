@@ -24,6 +24,7 @@ import com.cmpe352group4.buyo.viewmodel.CategoryViewModel
 import com.cmpe352group4.buyo.viewmodel.ProductViewModel
 import com.cmpe352group4.buyo.viewmodel.SearchViewModel
 import com.cmpe352group4.buyo.viewmodel.WishListViewModel
+import com.cmpe352group4.buyo.vo.LikeResponse
 import kotlinx.android.synthetic.main.fragment_product_list.*
 import com.cmpe352group4.buyo.vo.Product
 import com.cmpe352group4.buyo.vo.Vendor
@@ -65,12 +66,41 @@ class ProductListFragment : BaseFragment(){
     }
 
     private val productListAdapter by lazy {
-        ProductListAdapter(mutableListOf(), wishListViewModel, viewLifecycleOwner, sharedPref) { product ->
-            navigationManager?.onReplace(
-                ProductDetailContentFragment.newInstance(product.id),
-                TransactionType.Replace, true
-            )
-        }
+        ProductListAdapter(mutableListOf(), sharedPref,
+            { product ->
+                navigationManager?.onReplace(
+                    ProductDetailContentFragment.newInstance(product.id),
+                    TransactionType.Replace, true
+                )
+            },
+            { product, itemView ->
+                if (sharedPref.getUserId().isNullOrEmpty()) {
+                    Log.v("ListRV","Guest User")
+                } else {
+                    wishListViewModel.onPostWhislistUpdate(LikeResponse(sharedPref.getUserId()?.toInt() ?: -1, product.id))
+
+                    wishListViewModel.statusUnlike.observe(viewLifecycleOwner, Observer{
+                        if (it.status == Status.SUCCESS && it.data != null) {
+
+                            if (itemView.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_disliked){
+                                itemView.iv_productListRecyclerView_Fav.setImageResource(R.drawable.ic_product_liked)
+                                itemView.iv_productListRecyclerView_Fav.tag = R.drawable.ic_product_liked
+                            }
+                            else if (itemView.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_liked){
+                                itemView.iv_productListRecyclerView_Fav.setImageResource(R.drawable.ic_product_disliked)
+                                itemView.iv_productListRecyclerView_Fav.tag = R.drawable.ic_product_disliked
+                            }
+
+                            dispatchLoading()
+                        } else if (it.status == Status.ERROR) {
+                            dispatchLoading()
+                        } else if (it.status == Status.LOADING) {
+                            showLoading()
+                        }
+                    })
+
+                }
+            })
     }
 
     override fun onCreateView(
@@ -127,9 +157,8 @@ class ProductListFragment : BaseFragment(){
                         wishListViewModel.wishListProducts.observe(viewLifecycleOwner, Observer {
                             if (it.status == Status.SUCCESS && it.data != null) {
 
-                                Log.i("Liked", (it.data.products as MutableList<Product>).toString() )
                                 productListAdapter.WishListProducts = it.data.products as MutableList<Product>
-                                Log.i("Liked", productListAdapter.WishListProducts.toString())
+
                                 dispatchLoading()
                             } else if (it.status == Status.ERROR) {
                                 dispatchLoading()
@@ -173,6 +202,7 @@ class ProductListFragment : BaseFragment(){
                             if (it.status == Status.SUCCESS && it.data != null) {
 
                                 productListAdapter.WishListProducts = it.data.products as MutableList<Product>
+
                                 dispatchLoading()
                             } else if (it.status == Status.ERROR) {
                                 dispatchLoading()
@@ -194,11 +224,6 @@ class ProductListFragment : BaseFragment(){
             })
 
 
-        }else{
-            Log.i("ProductList", "Product list page got neither keyword nor category.")
-            Log.i("ProductListK" , keyword)
-
-            Log.i("ProductListC" , category)
         }
 
 
@@ -218,7 +243,7 @@ class ProductListFragment : BaseFragment(){
                     return false
                 } else {
                     navigationManager?.onReplace(
-                        ProductListFragment.newInstance(keyword = keyword),
+                        newInstance(keyword = keyword),
                         TransactionType.Replace, true
                     )
                     return true
