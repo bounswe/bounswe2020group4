@@ -126,6 +126,7 @@
         android:layout_marginBottom="8dp"
         android:text="@string/please_select_your_location"
         android:textColorHighlight="@color/buyo_fireEngineRed"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/vendor_choose_location"
         app:layout_constraintBottom_toTopOf="@+id/vendor_remember_me"  />
