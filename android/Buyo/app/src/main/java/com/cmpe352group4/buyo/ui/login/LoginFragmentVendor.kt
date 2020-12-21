@@ -332,6 +332,7 @@ class LoginFragmentVendor : BaseFragment() {
                 vendor_name_surname.visibility = View.GONE
                 vendor_company_name.visibility = View.GONE
                 vendor_choose_location.visibility = View.GONE
+                given_address.visibility = View.GONE
             } else {
                 vendor_login_signup_button.text = getString(R.string.action_sign_up)
                 vendor_signup_switch.text = getString(R.string.login_switch)
@@ -342,6 +343,7 @@ class LoginFragmentVendor : BaseFragment() {
                 vendor_name_surname.visibility = View.VISIBLE
                 vendor_company_name.visibility = View.VISIBLE
                 vendor_choose_location.visibility = View.VISIBLE
+                given_address.visibility = View.VISIBLE
             }
         }
     }
