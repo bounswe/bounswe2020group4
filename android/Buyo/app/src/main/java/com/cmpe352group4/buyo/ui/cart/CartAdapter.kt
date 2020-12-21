@@ -6,6 +6,7 @@ import android.widget.ArrayAdapter
 import com.cmpe352group4.buyo.R
 import androidx.recyclerview.widget.RecyclerView
 import com.cmpe352group4.buyo.util.extensions.inflate
+import com.cmpe352group4.buyo.util.extensions.loadFromURL
 import com.cmpe352group4.buyo.vo.CartProduct
 import kotlinx.android.synthetic.main.item_cart.view.*
 
@@ -40,15 +41,16 @@ class CartAdapter (
 
         fun bind(modal: CartProduct) {
 
-            var vendorName = "Vendor: " + modal.vendor
+            var vendorInfo = "Vendor: " + modal.vendor.name + "   Rate: " + modal.vendor.rating
             var productName = "Product: " + modal.name
-            var productInfo = "Brand: " + modal.brand + "\n" +
-                              "Size: " + modal.size + "\n" +
-                              "Color: " + modal.color
-            itemView.tv_vendor.text = vendorName
+            var productInfo = "Brand: " + modal.brand + "\n"
+            modal.size?.let { productInfo += "Size: $it\n" }
+            modal.color?.let { productInfo += "Size: $it" }
+
+            itemView.tv_vendor.text = vendorInfo
             itemView.tv_productName.text = productName
             itemView.tv_productInfo.text = productInfo
-
+            itemView.iv_productPhoto.loadFromURL(modal.imageUrl)
             //Delete item from cart
             itemView.iv_delete.setOnClickListener { clickDeleteItemFromCartCallback.invoke(modal) }
             // Vendor'a tıklanıp vendor profile'a gidilebilir it may be implemented later

@@ -3,7 +3,7 @@ package com.cmpe352group4.buyo.vo
 import java.io.Serializable
 
 data class CartProduct(
-    var category: List<String>,
+    var category: List<String>?,
     var size: String?,
     var color: String?,
     var name: String,

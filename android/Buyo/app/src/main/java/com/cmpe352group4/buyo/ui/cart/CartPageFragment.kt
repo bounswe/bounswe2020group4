@@ -16,10 +16,12 @@ import com.cmpe352group4.buyo.MainActivity
 import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
+import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.util.extensions.visible
 import com.cmpe352group4.buyo.viewmodel.CartViewModel
 import com.cmpe352group4.buyo.vo.CartProduct
+import com.cmpe352group4.buyo.vo.Vendor
 import com.cmpe352group4.buyo.widgets.navigation_bar.NavigationBar
 import kotlinx.android.synthetic.main.fragment_cart.*
 import javax.inject.Inject
@@ -40,6 +42,37 @@ class CartPageFragment : BaseFragment() {
     companion object {
         fun newInstance() = CartPageFragment()
     }
+
+    val dummyCartProduct = mutableListOf(
+        CartProduct(name = "Erkek Bebek Bugs Bunny Desenli Takim 2'li",
+            id = 1,
+            color = "Red",
+            imageUrl = "https://img-lcwaikiki.mncdn.com/mnresize/230/-/pim/productimages/20202/4692240/l_20202-0weg94z1-g4y_a.jpg",
+            rating = 2.15,
+            price = 64.99,
+            originalPrice = 74.99,
+            brand = "Watsons",
+            vendor = Vendor(id = 12, name = "Pablos", rating = 2.43),
+            size = null,
+            stockValue = null,
+            category = null,
+            quantity = 1
+        ),
+        CartProduct(name = "Slim Fit Jogger Esofman Alti",
+            id = 2,
+            color = "Blue",
+            imageUrl = "https://img-lcwaikiki.mncdn.com/mnresize/230/-/productimages/20192/1/3891903/l_20192-9wr187z8-mgl_a.jpg",
+            rating = 1.01,
+            price = 35.00,
+            originalPrice = 70.00,
+            brand = "Koton",
+            vendor = Vendor(id = 12, name = "AyseTeyze", rating = 3.21),
+            size = "L",
+            stockValue = null,
+            category = null,
+            quantity = 1
+        )
+    )
 
     private val cartAdapter by lazy {
         CartAdapter(mutableListOf(),
@@ -62,7 +95,12 @@ class CartPageFragment : BaseFragment() {
 
         if(checkLoginState()){
             //cartViewModel.onFetchCartInfo(sharedPref.getUserId()?.toInt() ?: -1)
-            clEmptyCart.visible = true
+            clNonEmptyCart.visible = true
+            tv_product_price_dollar.text = "144.99 $"
+            tv_discount_dollar.text = "45 $"
+            tv_final_price.text = "Total: 119.99 $"
+
+            cartAdapter.submitList(dummyCartProduct)
         }
 
         initializeAdapter()
@@ -76,7 +114,12 @@ class CartPageFragment : BaseFragment() {
         super.onResume()
         if(checkLoginState()){
             //cartViewModel.onFetchCartInfo(sharedPref.getUserId()?.toInt() ?: -1)
-            clEmptyCart.visible = true
+            clNonEmptyCart.visible = true
+            tv_product_price_dollar.text = "144.99 $"
+            tv_discount_dollar.text = "45 $"
+            tv_final_price.text = "119.99 $"
+
+            cartAdapter.submitList(dummyCartProduct)
         }
     }
 
@@ -121,7 +164,10 @@ class CartPageFragment : BaseFragment() {
 
 
         tv_checkout.setOnClickListener {
-            // Go to checkout page
+            navigationManager?.onReplace(
+                CheckoutPageFragment.newInstance(),
+                TransactionType.Replace, true
+            )
         }
     }
 
