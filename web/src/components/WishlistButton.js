@@ -17,7 +17,23 @@ const StyledRating = withStyles({
 })(Rating)
 
 const WishlistButton = (props) => {
+<<<<<<< Updated upstream
 	const [isLiked, setIsLiked] = useState(0)
+=======
+  const [isLiked, setIsLiked] = useState(0)
+
+  useEffect(() => {
+    const isInWishlist = async () => {
+      const result = await wishlistService.isInWishlist(props.customerId, 
+        props.productId)  
+        if(result) {
+          setIsLiked(1)
+        }
+    }
+    
+    isInWishlist()
+  }, [props.customerId, props.productId])
+>>>>>>> Stashed changes
 
 	useEffect(() => {
 		wishlistService
