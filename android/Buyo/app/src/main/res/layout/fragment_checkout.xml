@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:padding="4dp"
+        android:background="@color/buyo_darkCandyAppleRed"
+        android:text="Back"
+        android:textColor="@color/buyo_white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_shipping_address"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/btnBack"
+        app:layout_constraintBottom_toTopOf="@id/cl_payment_information"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:padding="@dimen/default_margin"
+        >
+
+        <TextView
+            android:id="@+id/tv_shipping_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Shipping Address"
+            android:textSize="16sp"
+            android:textColor="@color/safety_orange"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_add_or_choose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add / Choose"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <View
+            android:id="@+id/Separator1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey"
+            app:layout_constraintTop_toBottomOf="@+id/tv_shipping_title"
+            app:layout_constraintBottom_toTopOf="@id/tv_chosen_address"
+            android:layout_marginVertical="@dimen/medium_margin"/>
+
+        <TextView
+            android:id="@+id/tv_chosen_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Home (Rumelihisarı Mah/Sarıyer/Istanbul)"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_payment_information"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/cl_shipping_address"
+        app:layout_constraintBottom_toTopOf="@id/tv_contract"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:padding="@dimen/default_margin"
+        >
+
+        <TextView
+            android:id="@+id/tv_payment_info_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Payment Information"
+            android:textSize="16sp"
+            android:textColor="@color/safety_orange"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_add_or_choose_card"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Add / Choose"-->
+<!--            android:textSize="14sp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"/>-->
+
+        <View
+            android:id="@+id/Separator2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey"
+            app:layout_constraintTop_toBottomOf="@+id/tv_payment_info_title"
+            android:layout_marginTop="@dimen/medium_margin"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/card_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Separator2"
+            app:hintTextColor="#9D9D9D">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_card_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Name On Card"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColorHint="#ff000000"
+                android:textSize="15sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/card_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card_name"
+            app:hintTextColor="#9D9D9D">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_card_number"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Card Number"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:inputType="number"
+                android:textColorHint="#ff000000"
+                android:textSize="15sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/card_exp_month"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/card_exp_year"
+            app:layout_constraintTop_toBottomOf="@+id/card_number"
+            app:hintTextColor="#9D9D9D">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_card_exp_month"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Exp. Month"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:inputType="number"
+                android:textColorHint="#ff000000"
+                android:textSize="15sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/card_exp_year"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/card_exp_month"
+            app:layout_constraintEnd_toStartOf="@id/card_ccv"
+            app:layout_constraintTop_toBottomOf="@+id/card_number"
+            app:hintTextColor="#9D9D9D">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_card_exp_year"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Exp. Year"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:inputType="number"
+                android:textColorHint="#ff000000"
+                android:textSize="15sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/card_ccv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/card_exp_year"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card_number"
+            app:hintTextColor="#9D9D9D">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_card_ccv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="CCV"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:inputType="number"
+                android:textColorHint="#ff000000"
+                android:textSize="15sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <CheckBox
+        android:id="@+id/cb_accept"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="@dimen/medium_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_contract"
+        app:layout_constraintBottom_toBottomOf="@id/tv_contract"
+        android:button="@drawable/check_box_state" />
+
+    <TextView
+        android:id="@+id/tv_contract"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="I read and accept Distant Sales Agreement \nAnd Pre-Information Form "
+        app:layout_constraintStart_toEndOf="@id/cb_accept"
+        app:layout_constraintBottom_toTopOf="@id/Separator3"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginBottom="@dimen/default_margin"/>
+
+    <View
+        android:id="@+id/Separator3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey"
+        app:layout_constraintBottom_toTopOf="@id/cl_checkoutSummary" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_checkoutSummary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/medium_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/tv_final_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total: 119.99 $"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:paddingHorizontal="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_checkout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pay"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/buyo_antiqueWhite"
+            android:background="@color/medium_orange"
+            android:paddingHorizontal="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
