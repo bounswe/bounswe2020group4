@@ -1,0 +1,16 @@
+.cart-product{
+    padding: 2em;
+}
+
+.cart-total{
+    padding: 0.5em;
+}
+
+.checkout-button{
+    background: #EC4A3B;
+    border: none;
+}
+
+.header{
+    background-color: #fce1c0;
+}
