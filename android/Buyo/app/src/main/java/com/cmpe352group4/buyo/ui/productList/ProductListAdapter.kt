@@ -1,6 +1,7 @@
 package com.cmpe352group4.buyo.ui.productList
 
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,11 +28,10 @@ import javax.inject.Inject
 
 class ProductListAdapter(
     var Products: MutableList<Product>,
-    val wishListViewModel: WishListViewModel,
-    val lifeCycleOwner : LifecycleOwner,
     val sharedPref : SharedPref,
-    val clickCallback: (Product) -> Unit
-
+    val clickCallback: (Product) -> Unit,
+    val likeCallback: (Product, View) -> Unit,
+    val toastCallback: (String) -> Unit
 ) : RecyclerView.Adapter<ProductListAdapter.ProductListViewHolder>(){
 
     var WishListProducts: List<Product>? = null
@@ -75,19 +75,16 @@ class ProductListAdapter(
             itemView.setOnClickListener { clickCallback.invoke(modal) }
 
             val prod_ids = WishListProducts?.map{it.id}
-
-            Log.i("Liked Prods", prod_ids.toString())
-
-
-
             if(prod_ids != null){
                 if(prod_ids!!.contains(modal.id)){
                     if (itemView.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_disliked){
+                        Log.d("ListAdapterParseLike", "${modal.name}")
                         itemView.iv_productListRecyclerView_Fav.setImageResource(R.drawable.ic_product_liked)
                         itemView.iv_productListRecyclerView_Fav.tag = R.drawable.ic_product_liked
                     }
                 } else{
                     if (itemView.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_liked){
+                        Log.d("ListAdapterParseDisLike", "${modal.name}")
                         itemView.iv_productListRecyclerView_Fav.setImageResource(R.drawable.ic_product_disliked)
                         itemView.iv_productListRecyclerView_Fav.tag = R.drawable.ic_product_disliked
                     }
@@ -95,33 +92,23 @@ class ProductListAdapter(
             }
 
             itemView.iv_productListRecyclerView_Fav.setOnClickListener {
+                likeCallback.invoke(modal, itemView)
                 if (sharedPref.getUserId().isNullOrEmpty()) {
-                    Log.v("","login first")
+
                 } else {
-                    wishListViewModel.onPostWhislistUpdate(
-                        LikeResponse(
-                            sharedPref.getUserId()?.toInt() ?: -1, modal.id
-                        )
-                    )
-
-                    wishListViewModel.statusUnlike.observe(lifeCycleOwner, Observer{})
-
-                    if (it.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_disliked){
-                        Log.v("PRODUCTLIST", "liking")
-                        it.iv_productListRecyclerView_Fav.setImageResource(R.drawable.ic_product_liked)
-                        it.iv_productListRecyclerView_Fav.tag = R.drawable.ic_product_liked
-                    }
-                    else if (it.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_liked){
-                        Log.v("PRODUCTLIST", "disliking")
-                        it.iv_productListRecyclerView_Fav.setImageResource(R.drawable.ic_product_disliked)
-                        it.iv_productListRecyclerView_Fav.tag = R.drawable.ic_product_disliked
+                    if (itemView.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_liked) {
+                        toastCallback.invoke("${modal.name} is added to your wishlist!")
+                    } else if (itemView.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_disliked) {
+                        toastCallback.invoke("${modal.name} is removed from your wishlist!")
                     }
                 }
+
             }
 
             itemView.iv_productListRecyclerView_Cart.setOnClickListener {
                 if (sharedPref.getUserId().isNullOrEmpty()) {
-                    Log.v("","login first")
+                    Log.v("ListRV","Guest User")
+
                 } else {
 
                     // TODO : SEND BACKEND REQUEST HERE

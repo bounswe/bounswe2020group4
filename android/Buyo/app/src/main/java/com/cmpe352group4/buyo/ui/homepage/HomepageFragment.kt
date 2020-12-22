@@ -103,7 +103,7 @@ class HomepageFragment : BaseFragment() {
 
 
         // Recommendation RV
-        recommendedViewModel.onFetchSearchResultbyKeyword("bebek")
+        recommendedViewModel.onFetchSearchResultbyKeyword("dress")
 
         recommendedViewModel.searchResult.observe(viewLifecycleOwner, Observer {
 
@@ -131,7 +131,7 @@ class HomepageFragment : BaseFragment() {
 
         // Discount RV
 
-        discountViewModel.onFetchSearchResultbyCategory( "[\"Erkek\"]")
+        discountViewModel.onFetchSearchResultbyCategory( "[\"Men\"Pyjamas\"]")
 
         discountViewModel.categoryResult.observe(viewLifecycleOwner, Observer {
 

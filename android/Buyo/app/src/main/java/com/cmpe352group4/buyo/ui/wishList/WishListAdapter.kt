@@ -12,8 +12,8 @@ import kotlinx.android.synthetic.main.item_wish_list_recycler_view.view.*
 
 class WishListAdapter (
     var wishListProducts: MutableList<Product>,
-    val deleteCallback: (Int) -> Unit,
-    val clickProductCallBack: (Int) -> Unit
+    val deleteCallback: (String) -> Unit,
+    val clickProductCallBack: (String) -> Unit
 ) : RecyclerView.Adapter<WishListAdapter.WishListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WishListViewHolder {

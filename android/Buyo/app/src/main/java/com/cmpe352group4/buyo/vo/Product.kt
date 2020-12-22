@@ -4,15 +4,16 @@ import java.io.Serializable
 
 data class Product(
     var category: List<String>,
-    var sizes: String?,
+    var sizes: List<String>,
     var colors: List<String>?,
     var name: String,
-    var id: Int,
+    var id: String,
     var imageUrl: String,
     var rating: Double,
     var price: Double,
     var originalPrice: Double,
     var brand: String,
     var stockValue: Map<String, Int>,
-    var vendor: Vendor
+    var vendor: Vendor,
+    var description: String
 ): Serializable

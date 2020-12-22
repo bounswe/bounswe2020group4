@@ -2,6 +2,7 @@ package com.cmpe352group4.buyo.ui.productList
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,7 @@ import com.cmpe352group4.buyo.viewmodel.CategoryViewModel
 import com.cmpe352group4.buyo.viewmodel.ProductViewModel
 import com.cmpe352group4.buyo.viewmodel.SearchViewModel
 import com.cmpe352group4.buyo.viewmodel.WishListViewModel
+import com.cmpe352group4.buyo.vo.LikeResponse
 import kotlinx.android.synthetic.main.fragment_product_list.*
 import com.cmpe352group4.buyo.vo.Product
 import com.cmpe352group4.buyo.vo.Vendor
@@ -65,12 +67,56 @@ class ProductListFragment : BaseFragment(){
     }
 
     private val productListAdapter by lazy {
-        ProductListAdapter(mutableListOf(), wishListViewModel, viewLifecycleOwner, sharedPref) { product ->
-            navigationManager?.onReplace(
-                ProductDetailContentFragment.newInstance(product.id),
-                TransactionType.Replace, true
-            )
-        }
+        ProductListAdapter(mutableListOf(), sharedPref,
+            { product ->
+                navigationManager?.onReplace(
+                    ProductDetailContentFragment.newInstance(product.id),
+                    TransactionType.Replace, true
+                )
+            },
+            { product, itemView ->
+                if (sharedPref.getUserId().isNullOrEmpty()) {
+                    Log.v("ListRV","Guest User")
+                    val myToast = Toast.makeText(
+                        context,
+                        "You need to Login first!",
+                        Toast.LENGTH_SHORT
+                    )
+                    myToast.setGravity(Gravity.BOTTOM, 0, 200)
+                    myToast.show()
+                } else {
+                    wishListViewModel.onPostWhislistUpdate(LikeResponse(sharedPref.getUserId()?.toInt() ?: -1, product.id))
+
+                    wishListViewModel.statusUnlike.observe(viewLifecycleOwner, Observer{
+                        if (it.status == Status.SUCCESS && it.data != null) {
+
+                            dispatchLoading()
+                        } else if (it.status == Status.ERROR) {
+                            dispatchLoading()
+                        } else if (it.status == Status.LOADING) {
+                            showLoading()
+                        }
+                    })
+                    if (itemView.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_disliked) {
+                        itemView.iv_productListRecyclerView_Fav.setImageResource(R.drawable.ic_product_liked)
+                        itemView.iv_productListRecyclerView_Fav.tag = R.drawable.ic_product_liked
+                    }
+                    else if (itemView.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_liked) {
+                        itemView.iv_productListRecyclerView_Fav.setImageResource(R.drawable.ic_product_disliked)
+                        itemView.iv_productListRecyclerView_Fav.tag = R.drawable.ic_product_disliked
+                    }
+                }
+            },{ toastText ->
+                val myToast = Toast.makeText(
+                    context,
+                    toastText,
+                    Toast.LENGTH_SHORT
+                )
+                myToast.setGravity(Gravity.BOTTOM, 0, 200)
+                myToast.show()
+
+            }
+        )
     }
 
     override fun onCreateView(
@@ -89,14 +135,14 @@ class ProductListFragment : BaseFragment(){
 
         val category = arguments?.getString(CATEGORY_PATH) ?: "empty"
 
+        var fetchedProducts: List<Product>? = null
+
 
         // SEARCH API CALL
 
         if (keyword == ""){ // Category call
 
             val categoryList = category.split(",").toList()
-
-            //Log.v("ProductList C", categoryList.toString())
 
             var query_string = "["
 
@@ -105,9 +151,7 @@ class ProductListFragment : BaseFragment(){
             }
 
             query_string = query_string.dropLast(1) + "]"
-
-            //Log.v("ProductList S", query_string)
-
+            
             productListViewModel.onFetchSearchResultbyCategory(query_string)
 
             productListViewModel.categoryResult.observe(viewLifecycleOwner, Observer {
@@ -116,10 +160,12 @@ class ProductListFragment : BaseFragment(){
 
                     tv_productListCategoryName.text = categoryList.joinToString(separator = "/")
 
+                    fetchedProducts = it.data.products
+
 
                     if(sharedPref.getUserId().isNullOrEmpty()){
                         Log.i("ProductList", "Guest User")
-
+                        productListAdapter.submitList(fetchedProducts as MutableList<Product>)
                     }else{
                         Log.i("Liked", "Sending Request")
                         wishListViewModel.onFetchWishListProducts(sharedPref.getUserId()?.toInt() ?: -1)
@@ -127,9 +173,10 @@ class ProductListFragment : BaseFragment(){
                         wishListViewModel.wishListProducts.observe(viewLifecycleOwner, Observer {
                             if (it.status == Status.SUCCESS && it.data != null) {
 
-                                Log.i("Liked", (it.data.products as MutableList<Product>).toString() )
                                 productListAdapter.WishListProducts = it.data.products as MutableList<Product>
-                                Log.i("Liked", productListAdapter.WishListProducts.toString())
+
+                                productListAdapter.submitList(fetchedProducts as MutableList<Product>)
+
                                 dispatchLoading()
                             } else if (it.status == Status.ERROR) {
                                 dispatchLoading()
@@ -140,7 +187,7 @@ class ProductListFragment : BaseFragment(){
 
                     }
 
-                    productListAdapter.submitList(it.data.products as MutableList<Product>)
+
 
                     dispatchLoading()
                 } else if (it.status == Status.ERROR){
@@ -161,10 +208,12 @@ class ProductListFragment : BaseFragment(){
 
                     tv_productListCategoryName.text = keyword
 
+                    fetchedProducts = it.data.products
+
 
                     if(sharedPref.getUserId().isNullOrEmpty()){
                         Log.i("ProductList", "Guest User")
-
+                        productListAdapter.submitList(fetchedProducts as MutableList<Product>)
                     }else{
                         Log.i("Liked", "Sending Request")
                         wishListViewModel.onFetchWishListProducts(sharedPref.getUserId()?.toInt() ?: -1)
@@ -173,6 +222,9 @@ class ProductListFragment : BaseFragment(){
                             if (it.status == Status.SUCCESS && it.data != null) {
 
                                 productListAdapter.WishListProducts = it.data.products as MutableList<Product>
+
+                                productListAdapter.submitList(fetchedProducts as MutableList<Product>)
+
                                 dispatchLoading()
                             } else if (it.status == Status.ERROR) {
                                 dispatchLoading()
@@ -183,8 +235,6 @@ class ProductListFragment : BaseFragment(){
 
                     }
 
-                    productListAdapter.submitList(it.data.products as MutableList<Product>)
-
                     dispatchLoading()
                 } else if (it.status == Status.ERROR){
                     dispatchLoading()
@@ -194,11 +244,6 @@ class ProductListFragment : BaseFragment(){
             })
 
 
-        }else{
-            Log.i("ProductList", "Product list page got neither keyword nor category.")
-            Log.i("ProductListK" , keyword)
-
-            Log.i("ProductListC" , category)
         }
 
 
@@ -218,7 +263,7 @@ class ProductListFragment : BaseFragment(){
                     return false
                 } else {
                     navigationManager?.onReplace(
-                        ProductListFragment.newInstance(keyword = keyword),
+                        newInstance(keyword = keyword),
                         TransactionType.Replace, true
                     )
                     return true
@@ -338,5 +383,7 @@ class ProductListFragment : BaseFragment(){
         }
 
     }
+
+
 
 }

@@ -4,5 +4,5 @@ import java.io.Serializable
 
 data class LikeResponse(
     var custID: Int,
-    var prodID: Int
+    var prodID: String
 ): Serializable

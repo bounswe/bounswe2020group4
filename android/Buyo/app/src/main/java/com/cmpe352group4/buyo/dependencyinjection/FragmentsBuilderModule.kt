@@ -3,7 +3,7 @@ package com.cmpe352group4.buyo.dependencyinjection
 import com.cmpe352group4.buyo.ui.EmptyFragment
 import com.cmpe352group4.buyo.ui.cart.CartPageFragment
 import com.cmpe352group4.buyo.ui.cart.CheckoutPageFragment
-
+import com.cmpe352group4.buyo.ui.LegalDocFragment
 import com.cmpe352group4.buyo.ui.categories.CategoriesPageFragment
 import com.cmpe352group4.buyo.ui.googlemap.MapsFragment
 import com.cmpe352group4.buyo.ui.homepage.HomepageFragment
@@ -79,4 +79,8 @@ abstract class FragmentsBuilderModule {
 
     @ContributesAndroidInjector
     abstract  fun contributeCheckoutPageFragment(): CheckoutPageFragment
+    
+  @ContributesAndroidInjector
+    abstract  fun contributeLegalDocFragment(): LegalDocFragment
+
 }

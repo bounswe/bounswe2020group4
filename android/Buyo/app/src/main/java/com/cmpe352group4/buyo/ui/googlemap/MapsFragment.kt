@@ -1,5 +1,6 @@
 package com.cmpe352group4.buyo.ui.googlemap
 
+import android.location.Geocoder
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
@@ -80,6 +81,9 @@ class MapsFragment : BaseFragment() {
         location_select.setOnClickListener {
             sharedPref.saveVendorLat(marker.position.latitude.toString())
             sharedPref.saveVendorLon(marker.position.longitude.toString())
+            val geocoder = Geocoder(context)
+            val list = geocoder.getFromLocation(marker.position.latitude, marker.position.longitude,1)
+            sharedPref.saveVendorAddress(list[0].getAddressLine(0))
             activity?.onBackPressed()
         }
     }
