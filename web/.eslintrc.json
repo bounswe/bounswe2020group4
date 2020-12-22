@@ -1,0 +1,71 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended"
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+        "indent": [
+            "warn",
+            "tab"
+        ],
+        "linebreak-style": [
+            "warn",
+            "unix"
+        ],
+        "quotes": [
+            "warn",
+            "single"
+        ],
+        "semi": [
+            "warn",
+            "never"
+        ], 
+        "no-irregular-whitespace": "warn",
+        "default-case": "warn",
+        "no-empty-function": "warn",
+        "no-multi-spaces": "warn",
+        "no-useless-return": "warn",
+        "no-unused-vars": "warn",
+        "array-bracket-spacing": "warn",
+        "block-spacing": [
+            "warn", 
+            "always"
+        ],
+        "brace-style": [
+            "warn",
+            "1tbs",
+            { "allowSingleLine": true }
+        ],
+        "comma-spacing": "warn",
+        "func-call-spacing": "warn",
+        "key-spacing": "warn",
+        "no-trailing-spaces": "warn",
+        "arrow-spacing": "warn",
+        "no-var": "warn",
+        "prefer-const": "warn",
+        "react/prop-types": "off",
+        "react/no-unescaped-entities": "off"
+
+
+
+
+
+
+
+
+    }
+}
