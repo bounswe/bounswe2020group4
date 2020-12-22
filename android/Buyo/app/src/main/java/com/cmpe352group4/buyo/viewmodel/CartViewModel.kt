@@ -15,7 +15,7 @@ class CartViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    private val _userId =  MutableLiveData<Int>()
+    private val _userId =  MutableLiveData<String>()
 
     val cartInfo: LiveData<Resource<Cart>> =
         Transformations.switchMap(_userId) { Id ->
@@ -26,7 +26,7 @@ class CartViewModel @Inject constructor(
         }
 
 
-    fun onFetchCartInfo(userId: Int) {
+    fun onFetchCartInfo(userId: String) {
         _userId.value = userId
     }
 

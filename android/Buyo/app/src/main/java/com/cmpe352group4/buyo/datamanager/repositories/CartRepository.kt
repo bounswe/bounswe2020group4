@@ -20,7 +20,7 @@ class CartRepository @Inject constructor(
     private val connectionManager: ConnectionManager
 ){
 
-    fun getCartInfo(userId:Int): LiveData<Resource<Cart>> {
+    fun getCartInfo(userId:String): LiveData<Resource<Cart>> {
         return object : NetworkServiceWrapper<Cart, BaseResponse<Cart>>(appExecutors,connectionManager){
             override fun loadFromApi(data: BaseResponse<Cart>): LiveData<Cart> {
                 return InitialLiveData.create(data.data)

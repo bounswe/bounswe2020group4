@@ -48,7 +48,7 @@ class WishListFragment: BaseFragment() {
     private val wishListAdapter by lazy {
         WishListAdapter(mutableListOf(),
             { productID ->
-                wishListViewModel.onPostWhislistUpdate(LikeResponse( sharedPref.getUserId()?.toInt() ?: -1, productID))
+                wishListViewModel.onPostWhislistUpdate(LikeResponse( sharedPref.getUserId() ?: "", productID))
                 Log.v("berkay", "delete")
             },
             { productID ->
@@ -80,7 +80,7 @@ class WishListFragment: BaseFragment() {
         }else{
             cl_nonlogin.visible = false
             cl_wishlist.visible = true
-            wishListViewModel.onFetchWishListProducts(sharedPref.getUserId()?.toInt() ?: -1)
+            wishListViewModel.onFetchWishListProducts(sharedPref.getUserId() ?: "")
         }
 
         wishListViewModel.wishListProducts.observe(viewLifecycleOwner, Observer {
@@ -160,7 +160,7 @@ class WishListFragment: BaseFragment() {
         }else{
             cl_nonlogin.visible = false
             cl_wishlist.visible = true
-            wishListViewModel.onFetchWishListProducts(sharedPref.getUserId()?.toInt() ?: -1)
+            wishListViewModel.onFetchWishListProducts(sharedPref.getUserId() ?: "")
         }
     }
 

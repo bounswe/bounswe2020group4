@@ -85,7 +85,7 @@ class ProductListFragment : BaseFragment(){
                     myToast.setGravity(Gravity.BOTTOM, 0, 200)
                     myToast.show()
                 } else {
-                    wishListViewModel.onPostWhislistUpdate(LikeResponse(sharedPref.getUserId()?.toInt() ?: -1, product.id))
+                    wishListViewModel.onPostWhislistUpdate(LikeResponse(sharedPref.getUserId() ?: "", product.id))
 
                     wishListViewModel.statusUnlike.observe(viewLifecycleOwner, Observer{
                         if (it.status == Status.SUCCESS && it.data != null) {
@@ -168,7 +168,7 @@ class ProductListFragment : BaseFragment(){
                         productListAdapter.submitList(fetchedProducts as MutableList<Product>)
                     }else{
                         Log.i("Liked", "Sending Request")
-                        wishListViewModel.onFetchWishListProducts(sharedPref.getUserId()?.toInt() ?: -1)
+                        wishListViewModel.onFetchWishListProducts(sharedPref.getUserId() ?: "")
 
                         wishListViewModel.wishListProducts.observe(viewLifecycleOwner, Observer {
                             if (it.status == Status.SUCCESS && it.data != null) {
@@ -216,7 +216,7 @@ class ProductListFragment : BaseFragment(){
                         productListAdapter.submitList(fetchedProducts as MutableList<Product>)
                     }else{
                         Log.i("Liked", "Sending Request")
-                        wishListViewModel.onFetchWishListProducts(sharedPref.getUserId()?.toInt() ?: -1)
+                        wishListViewModel.onFetchWishListProducts(sharedPref.getUserId() ?: "")
 
                         wishListViewModel.wishListProducts.observe(viewLifecycleOwner, Observer {
                             if (it.status == Status.SUCCESS && it.data != null) {

@@ -10,6 +10,7 @@ import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.viewmodel.CartViewModel
+import kotlinx.android.synthetic.main.fragment_checkout.*
 import javax.inject.Inject
 
 
@@ -43,6 +44,9 @@ class CheckoutPageFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        btnBack.setOnClickListener {
+            activity?.onBackPressed()
+        }
 
     }
 

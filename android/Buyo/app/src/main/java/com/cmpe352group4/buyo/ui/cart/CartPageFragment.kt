@@ -117,7 +117,7 @@ class CartPageFragment : BaseFragment() {
             clNonEmptyCart.visible = true
             tv_product_price_dollar.text = "144.99 $"
             tv_discount_dollar.text = "45 $"
-            tv_final_price.text = "119.99 $"
+            tv_final_price.text = "Total: 119.99 $"
 
             cartAdapter.submitList(dummyCartProduct)
         }

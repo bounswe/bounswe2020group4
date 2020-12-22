@@ -87,7 +87,7 @@ class ProductDetailContentFragment : BaseFragment() {
             prod_ids = emptyList()
 
         }else {
-            wishListViewModel.onFetchWishListProducts(sharedPref.getUserId()?.toInt() ?: -1)
+            wishListViewModel.onFetchWishListProducts(sharedPref.getUserId() ?: "")
 
             wishListViewModel.wishListProducts.observe(viewLifecycleOwner, Observer {
                 Log.d("LikedProdStFetch", "$it.status")
@@ -144,7 +144,7 @@ class ProductDetailContentFragment : BaseFragment() {
                 myToast.show()
             } else {
                 if (iv_ProductDetailFav.tag == R.drawable.ic_product_disliked) {
-                    wishListViewModel.onPostWhislistUpdate(LikeResponse(sharedPref.getUserId()?.toInt() ?: -1, productId))
+                    wishListViewModel.onPostWhislistUpdate(LikeResponse(sharedPref.getUserId() ?: "", productId))
 
                     wishListViewModel.statusUnlike.observe(viewLifecycleOwner, Observer {
                         if (it.status == Status.SUCCESS && it.data != null) {
@@ -163,7 +163,7 @@ class ProductDetailContentFragment : BaseFragment() {
                 } else if (iv_ProductDetailFav.tag == R.drawable.ic_product_liked) {
 
 
-                    wishListViewModel.onPostWhislistUpdate(LikeResponse(sharedPref.getUserId()?.toInt() ?: -1, productId))
+                    wishListViewModel.onPostWhislistUpdate(LikeResponse(sharedPref.getUserId() ?: "", productId))
 
                     wishListViewModel.statusUnlike.observe(viewLifecycleOwner, Observer {
                         if (it.status == Status.SUCCESS && it.data != null) {
@@ -212,7 +212,7 @@ class ProductDetailContentFragment : BaseFragment() {
         if(sharedPref.getUserId().isNullOrEmpty()){
 
         }else{
-            wishListViewModel.onFetchWishListProducts(sharedPref.getUserId()?.toInt() ?: -1)
+            wishListViewModel.onFetchWishListProducts(sharedPref.getUserId() ?: "")
 
         }
 

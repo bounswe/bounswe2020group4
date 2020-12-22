@@ -17,12 +17,12 @@ interface Api {
 
     @GET("wishlist")
     fun fetchWishList(
-        @Query("customerId") customerId: Int
+        @Query("customerId") customerId: String
     ): LiveData<ApiResponse<BaseResponse<WishListProducts>>>
 
     @POST("like")
     fun unlikeProductWishList(
-        @Query("customerId") customerId: Int,
+        @Query("customerId") customerId: String,
         @Query("productId") productId: String
     ): LiveData<ApiResponse<BaseResponsePostRequest>>
 
@@ -48,7 +48,7 @@ interface Api {
 
     @GET("cart")
     fun fetchCartInfo(
-        @Query("customerId") customerId: Int
+        @Query("customerId") customerId: String
     ): LiveData<ApiResponse<BaseResponse<Cart>>>
 
 }
