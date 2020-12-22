@@ -2,7 +2,7 @@ const { parse } = require("path");
 
 module.exports.checkCreditCard = async (params) => {
     try {
-        creditCard = params.creditCard;
+        const creditCard = params.creditCard;
         
         const creditCardNumber = creditCard.number;
         const expirationMonth = creditCard.expirationMonth;
