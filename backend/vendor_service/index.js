@@ -8,7 +8,6 @@ const express = require("express"),
   routes = require("./routes/vendor");
 
 require("dotenv").config(); // Require the dotenv for constants.
-app.use(fileupload());
 
 express.response.respond = function (code, message, data) {
   this.status(code).send({
@@ -17,19 +16,10 @@ express.response.respond = function (code, message, data) {
   });
 };
 
-express.request.error = function () {
-  return {
-    url: this.url,
-    params: this.params,
-    query: this.query,
-    body: this.body,
-    headers: this.headers,
-  };
-};
-
 app.listen(process.env.PORT); // Listen requests from the port.
 app.use(bodyParser.json());
 app.use(cors());
+app.use(fileupload());
 db.initialize(); // Initialize the database.
 routes.initialize(app); // Start to listen the endpoints.
 

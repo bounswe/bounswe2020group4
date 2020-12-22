@@ -1,8 +1,8 @@
 const file = require("../views/file");
 
 module.exports.initialize = (app) => {
-  app.post("/vendor/product", async (request, response) => {
-    const result = await product.addProduct(request.query);
+  app.post("/vendor/products", async (request, response) => {
+    const result = await product.addProducts(request.body.products);
     if (result) {
       response.respond(200, "OK", {
         result,

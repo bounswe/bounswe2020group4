@@ -11,6 +11,7 @@ module.exports.Product = mongoose.model(
     imageUrl: String,
     category: [String],
     rating: Number,
+    numberOfRatings: Number,
     price: Number,
     originalPrice: Number,
     stockValue: Object,
