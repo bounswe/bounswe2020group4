@@ -49,7 +49,6 @@ class WishListFragment: BaseFragment() {
         WishListAdapter(mutableListOf(),
             { productID ->
                 wishListViewModel.onPostWhislistUpdate(LikeResponse( sharedPref.getUserId() ?: "", productID))
-                Log.v("berkay", "delete")
             },
             { productID ->
                 navigationManager?.onReplace(
@@ -111,7 +110,7 @@ class WishListFragment: BaseFragment() {
 
 
         loginButton.setOnClickListener {
-            (activity as MainActivity).changeActiveTab(NavigationBar.PROFILE_INDEX)
+            (activity as MainActivity).onItemSelected(4)
         }
 
         btnOrderWishList.setOnClickListener{
