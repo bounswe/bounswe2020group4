@@ -25,7 +25,7 @@ class SearchViewModel @Inject constructor(
             if ( keyword == null)
                 AbsentLiveData.create()
             else
-                repository.getProductsbyKeyword(keyword)
+                repository.getProductsbyKeyword("[$keyword]")
         }
 
     val categoryResult: LiveData<Resource<ProductList>> =

@@ -28,9 +28,9 @@ class ProductDetailCommentsFragment : BaseFragment() {
 
     companion object {
         private const val PRODUCT_ID = "product_id"
-        fun newInstance(productID: Int) = ProductDetailCommentsFragment().apply {
+        fun newInstance(productID: String) = ProductDetailCommentsFragment().apply {
             arguments = Bundle().apply {
-                putInt(PRODUCT_ID, productID)
+                putString(PRODUCT_ID, productID)
             }
         }
     }

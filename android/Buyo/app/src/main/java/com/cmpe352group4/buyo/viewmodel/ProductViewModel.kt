@@ -17,7 +17,7 @@ class ProductViewModel @Inject constructor(
 
     // Things we need to conduct a request
 
-    private val _productId =  MutableLiveData<Int>()
+    private val _productId =  MutableLiveData<String>()
 
     //private val _searchKeyword = MutableLiveData<String>()
 
@@ -41,7 +41,7 @@ class ProductViewModel @Inject constructor(
 
     // Triggers to make a http request
 
-    fun onFetchProductById(productId: Int) {
+    fun onFetchProductById(productId: String) {
         _productId.value = productId
     }
 

@@ -93,10 +93,14 @@ class ProductListAdapter(
 
             itemView.iv_productListRecyclerView_Fav.setOnClickListener {
                 likeCallback.invoke(modal, itemView)
-                if (itemView.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_liked) {
-                    toastCallback.invoke("${modal.name} is added to your wishlist!")
-                }else if(itemView.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_disliked){
-                    toastCallback.invoke("${modal.name} is removed from your wishlist!")
+                if (sharedPref.getUserId().isNullOrEmpty()) {
+
+                } else {
+                    if (itemView.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_liked) {
+                        toastCallback.invoke("${modal.name} is added to your wishlist!")
+                    } else if (itemView.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_disliked) {
+                        toastCallback.invoke("${modal.name} is removed from your wishlist!")
+                    }
                 }
 
             }

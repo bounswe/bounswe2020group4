@@ -30,7 +30,7 @@ class WishListRepository @Inject constructor(
         }.asLiveData()
     }
 
-    fun unlikeProduct(customerId: Int, productId: Int): LiveData<Resource<BaseResponsePostRequest>> {
+    fun unlikeProduct(customerId: Int, productId: String): LiveData<Resource<BaseResponsePostRequest>> {
         return object : NetworkServiceWrapper<BaseResponsePostRequest, BaseResponsePostRequest>(appExecutors,connectionManager){
             override fun loadFromApi(data: BaseResponsePostRequest): LiveData<BaseResponsePostRequest> {
                 return InitialLiveData.create(data)

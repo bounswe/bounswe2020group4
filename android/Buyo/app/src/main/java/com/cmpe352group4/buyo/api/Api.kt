@@ -9,7 +9,7 @@ import retrofit2.http.Query
 interface Api {
 
     @GET("product")
-    fun fetchProductById(@Query("id") productId:Int): LiveData<ApiResponse<BaseResponse
+    fun fetchProductById(@Query("id") productId:String): LiveData<ApiResponse<BaseResponse
     <ProductResult>>>
 
     @GET("categories")
@@ -23,7 +23,7 @@ interface Api {
     @POST("like")
     fun unlikeProductWishList(
         @Query("customerId") customerId: Int,
-        @Query("productId") productId: Int
+        @Query("productId") productId: String
     ): LiveData<ApiResponse<BaseResponsePostRequest>>
 
     @GET("products")

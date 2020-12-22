@@ -47,9 +47,9 @@ class ProductDetailContentFragment : BaseFragment() {
 
     companion object {
         private const val PRODUCT_ID = "product_id"
-        fun newInstance(productID: Int) = ProductDetailContentFragment().apply {
+        fun newInstance(productID: String) = ProductDetailContentFragment().apply {
             arguments = Bundle().apply {
-                putInt(PRODUCT_ID, productID)
+                putString(PRODUCT_ID, productID)
             }
         }
     }
@@ -68,11 +68,11 @@ class ProductDetailContentFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var productId = arguments?.getInt(PRODUCT_ID) ?: -1
+        var productId = arguments?.getString(PRODUCT_ID) ?: ""
 
         var WishListProducts: List<Product>?
 
-        var prod_ids : List<Int>? = null
+        var prod_ids : List<String>? = null
 
         var product : Product? = null
 
@@ -218,7 +218,7 @@ class ProductDetailContentFragment : BaseFragment() {
 
     }
 
-    fun parse(prod_ids: List<Int>?, product : Product? ){
+    fun parse(prod_ids: List<String>?, product : Product? ){
         if (prod_ids != null && product != null){
             Log.d("LikedProdParse", "$prod_ids")
 

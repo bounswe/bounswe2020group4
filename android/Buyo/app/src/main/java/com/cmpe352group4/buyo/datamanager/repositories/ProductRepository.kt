@@ -22,7 +22,7 @@ class ProductRepository @Inject constructor(
     private val connectionManager: ConnectionManager
 ){
 
-    fun getProductById(productId:Int): LiveData<Resource<ProductResult>> {
+    fun getProductById(productId:String): LiveData<Resource<ProductResult>> {
         return object : NetworkServiceWrapper<ProductResult,BaseResponse<ProductResult>>(appExecutors,connectionManager){
             override fun loadFromApi(data: BaseResponse<ProductResult>): LiveData<ProductResult> {
                 return InitialLiveData.create(data.data)
