@@ -1,7 +1,6 @@
 package com.cmpe352group4.buyo.ui.wishList
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,7 +47,6 @@ class WishListFragment: BaseFragment() {
         WishListAdapter(mutableListOf(),
             { productID ->
                 wishListViewModel.onPostWhislistUpdate(LikeResponse( sharedPref.getUserId()?.toInt() ?: -1, productID))
-                Log.v("berkay", "delete")
             },
             { productID ->
                 navigationManager?.onReplace(
@@ -97,8 +95,6 @@ class WishListFragment: BaseFragment() {
 
         wishListViewModel.statusUnlike.observe(viewLifecycleOwner, Observer {
             if (it.status == Status.SUCCESS && it.data != null) {
-
-                Log.v("berkay", it.data.toString())
 
                 dispatchLoading()
             } else if (it.status == Status.ERROR) {

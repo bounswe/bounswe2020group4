@@ -7,13 +7,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.base.fragment_ops.*
+import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.dependencyinjection.Injectable
 import com.cmpe352group4.buyo.ui.login.LoginFragment
-import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
+import com.cmpe352group4.buyo.ui.profilePage.ProfilePageFragment
 import com.cmpe352group4.buyo.util.extensions.hideKeyboardFrom
 import javax.inject.Inject
 
 class ProfileTabContainer : StackOwnerFragment(), INavigationManager, Injectable {
+
+    @Inject
+    lateinit var sharedPref: SharedPref
 
     companion object {
         fun newInstance() = ProfileTabContainer()
@@ -22,7 +26,12 @@ class ProfileTabContainer : StackOwnerFragment(), INavigationManager, Injectable
     @Inject
     lateinit var navManager: NavigationManager
     private val initialFragment by lazy {
-        LoginFragment.newInstance()
+        if(sharedPref.getUserId().isNullOrEmpty()) {
+            LoginFragment.newInstance()
+        } else {
+            ProfilePageFragment.newInstance()
+        }
+
     }
 
     override fun onCreateView(
