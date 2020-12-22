@@ -25,28 +25,29 @@ import './App.css'
 
 const App = ({ showHeader }) => {
 
-    return (
-        <div className='page-container'>
-            <Router history={history}>
-                <div>
-                    {showHeader ? <Header /> : null}
-                    <Route path="/" exact component={Homepage}/>
-                    <Route path="/signin" exact component={SignIn} />
-                    <Route path="/signup" exact component={SignUp} />
-                    <Route path="/product/:id" exact component={ProductDetails}/>
-                    <Route path="/wishlist" exact component={Wishlist}/>
-                    <Route path="/cart" exact component={Cart}/>
-                    <Route path="/vendorsignup" exact component={VendorSignUp}/>
-                    <Route path="/vendorsignin" exact component={VendorSignIn}/>
-                    <Route path="/checkout" exact component={Checkout} />
-                    <Route path="/products" exact component={CategoryProducts}/> 
-                    <Route path="/orders" exact component={Orders}/>
+	return (
+		<div className='page-container'>
+			<Router history={history}>
+				<div>
+					{showHeader ? <Header /> : null}
+					<Route path="/" exact component={Homepage}/>
+					<Route path="/signin" exact component={SignIn} />
+					<Route path="/signup" exact component={SignUp} />
+					<Route path="/product/:id" exact component={ProductDetails}/>
+					<Route path="/wishlist" exact component={Wishlist}/>
+					<Route path="/cart" exact component={Cart}/>
+					<Route path="/vendorsignup" exact component={VendorSignUp}/>
+					<Route path="/vendorsignin" exact component={VendorSignIn}/>
+					<Route path="/checkout" exact component={Checkout} />
+					<Route path="/products" exact component={CategoryProducts}/>
+					<Route path="/orders" exact component={Orders}/>
 					<Route path="/customerprofile" exact component={CustomerProfile}/>
-                    <Route path="/customeraddresses" exact component={CustomerAddresses}/>
-                </div>
-            </Router>
-        </div>
+          <Route path="/customeraddresses" exact component={CustomerAddresses}/>
+         </div>
+       </Router>
+     </div>
     )
+
 }
 
 const mapStateToProps = state => {
