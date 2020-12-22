@@ -1,9 +1,12 @@
 package com.cmpe352group4.buyo.ui.profilePage
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.vo.ProfilePageItem
+import kotlinx.android.synthetic.main.item_profile_page.view.*
 
 class ProfilePageAdapter (
     var profilePageItems: MutableList<ProfilePageItem>

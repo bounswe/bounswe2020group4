@@ -3,7 +3,6 @@ package com.cmpe352group4.buyo.ui.login
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -17,14 +16,11 @@ import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
-import com.cmpe352group4.buyo.ui.EmptyFragment
 import com.cmpe352group4.buyo.ui.googlemap.MapsFragment
+import com.cmpe352group4.buyo.ui.profilePage.ProfilePageFragment
 import com.cmpe352group4.buyo.viewmodel.ProfileViewModel
 import com.cmpe352group4.buyo.vo.LoginSignupRequest
-import com.google.android.gms.maps.MapFragment
-import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_login_vendor.*
-import kotlinx.android.synthetic.main.fragment_maps.*
 import javax.inject.Inject
 
 
@@ -174,7 +170,7 @@ class LoginFragmentVendor : BaseFragment() {
 
                         // TODO Go to profile page here
                         navigationManager?.onReplace(
-                            EmptyFragment.newInstance(),
+                            ProfilePageFragment.newInstance(),
                             TransactionType.Replace, true
                         )
 

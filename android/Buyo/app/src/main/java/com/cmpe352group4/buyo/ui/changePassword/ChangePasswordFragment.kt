@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
+import kotlinx.android.synthetic.main.fragment_change_password.*
 import javax.inject.Inject
 
 class ChangePasswordFragment: BaseFragment() {
