@@ -17,6 +17,7 @@ import VendorSignUp from './pages/VendorSignUp'
 import VendorSignIn from './pages/VendorSignIn'
 import CustomerProfile from './pages/CustomerProfile'
 import Orders from './pages/Orders'
+import CustomerAddresses from './pages/CustomerAddresses'
 
 //Styling
 import './App.css'
@@ -41,10 +42,12 @@ const App = ({ showHeader }) => {
 					<Route path="/products" exact component={CategoryProducts}/>
 					<Route path="/orders" exact component={Orders}/>
 					<Route path="/customerprofile" exact component={CustomerProfile}/>
-				</div>
-			</Router>
-		</div>
-	)
+          <Route path="/customeraddresses" exact component={CustomerAddresses}/>
+         </div>
+       </Router>
+     </div>
+    )
+
 }
 
 const mapStateToProps = state => {
