@@ -7,10 +7,14 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.base.BaseFragment
+import com.cmpe352group4.buyo.ui.accountInfo.AccountInfoFragment
+import com.cmpe352group4.buyo.ui.wishList.WishListFragment
+import com.cmpe352group4.buyo.vo.ProfilePageItem
 import kotlinx.android.synthetic.main.fragment_profile_page.*
 import javax.inject.Inject
 
