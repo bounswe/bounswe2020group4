@@ -2,11 +2,7 @@ package com.cmpe352group4.buyo.dependencyinjection
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.cmpe352group4.buyo.viewmodel.CategoryViewModel
-import com.cmpe352group4.buyo.viewmodel.WishListViewModel
-import com.cmpe352group4.buyo.viewmodel.ProductViewModel
-import com.cmpe352group4.buyo.viewmodel.SearchViewModel
-import com.cmpe352group4.buyo.viewmodel.ProfileViewModel
+import com.cmpe352group4.buyo.viewmodel.*
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -41,6 +37,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(SearchViewModel::class)
     abstract fun bindSearchViewModel(viewModel: SearchViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CartViewModel::class)
+    abstract fun bindCartViewModel(viewModel: CartViewModel): ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(factory: ApplicationViewModelFactory): ViewModelProvider.Factory

@@ -120,6 +120,18 @@
         <item>Category Specific</item>
     </string-array>
 
+    <!--  Cart Page - Checkout Page   -->
+    <string name="empty_cart"> You do not have any product in your cart</string>
+    <string name="gotoshop"> Let\'s shop</string>
+    <string name="checkout"> Checkout</string>
+
+    <!--  Address Page   -->
+    <string name="prompt_name">Name</string>
+    <string name="prompt_surname">Surname</string>
+    <string name="prompt_phone">Phone</string>
+    <string name="prompt_city">City</string>
+    <string name="prompt_addressTitle">Address Title</string>
+    <string name="prompt_address">Address</string>
     <string name="privacy_policy_string">
 "08.12.2020 (Inspired from amazon.com)\n\n"
 ""

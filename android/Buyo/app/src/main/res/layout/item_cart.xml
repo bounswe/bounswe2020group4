@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/minimum_margin">
+
+    <TextView
+        android:id="@+id/tv_vendor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/buyo_Cinnabar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Vendor: Ayşe Teyze"/>
+
+    <ImageView
+        android:id="@+id/iv_productPhoto"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        tools:src="@drawable/ic_launcher_background"
+        app:layout_constraintTop_toBottomOf="@id/tv_vendor"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingEnd="@dimen/default_margin"
+        android:layout_marginTop="@dimen/minimum_margin"/>
+
+    <TextView
+        android:id="@+id/tv_productName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Product: Kazak"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="@id/iv_productPhoto"
+        app:layout_constraintStart_toEndOf="@id/iv_productPhoto"
+        app:layout_constraintEnd_toStartOf="@id/iv_delete"
+        android:layout_marginEnd="@dimen/minimum_margin"
+        />
+
+    <TextView
+        android:id="@+id/tv_productInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="Size: M\nBrand: LC Waikiki"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@id/tv_productName"
+        app:layout_constraintStart_toEndOf="@id/iv_productPhoto"
+        android:layout_marginTop="@dimen/minimum_margin"
+        />
+
+<!--    <Spinner-->
+<!--        android:id="@+id/spQuantity"-->
+<!--        android:layout_width="30dp"-->
+<!--        android:layout_height="20dp"-->
+<!--        android:spinnerMode="dialog"-->
+<!--        app:layout_constraintStart_toEndOf="@id/iv_productPhoto"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/iv_productPhoto"/>-->
+
+    <ImageView
+        android:id="@+id/iv_delete"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_trash_can"
+        app:layout_constraintTop_toTopOf="@id/iv_productPhoto"
+        app:layout_constraintBottom_toBottomOf="@id/iv_productPhoto"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/medium_margin"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

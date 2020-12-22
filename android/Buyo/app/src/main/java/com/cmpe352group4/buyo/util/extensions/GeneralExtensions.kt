@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.IBinder
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
+import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
 fun hideKeyboardFrom(context: Context?, windowToken: IBinder?) {
@@ -13,13 +14,13 @@ fun hideKeyboardFrom(context: Context?, windowToken: IBinder?) {
 
  // It doesn't find GlideApp, find out the problem later
 
-//fun ImageView.loadFromURL(url: String) {
-//    GlideApp.with(this)
-//        .load(url)
-//        .centerCrop()
-//        .fitCenter()
-//        .into(this)
-//}
+fun ImageView.loadFromURL(url: String) {
+    Glide.with(this)
+        .load(url)
+        .centerCrop()
+        .fitCenter()
+        .into(this)
+}
 //
 //fun ImageView.loadFromURLWithCircle(url: String) {
 //    GlideApp.with(this)

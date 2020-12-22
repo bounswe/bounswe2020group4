@@ -1,9 +1,10 @@
 package com.cmpe352group4.buyo.dependencyinjection
 
 import com.cmpe352group4.buyo.ui.EmptyFragment
+import com.cmpe352group4.buyo.ui.cart.CartPageFragment
+import com.cmpe352group4.buyo.ui.cart.CheckoutPageFragment
 import com.cmpe352group4.buyo.ui.LegalDocFragment
-
-import com.cmpe352group4.buyo.ui.categoriesPage.CategoriesPageFragment
+import com.cmpe352group4.buyo.ui.categories.CategoriesPageFragment
 import com.cmpe352group4.buyo.ui.googlemap.MapsFragment
 import com.cmpe352group4.buyo.ui.homepage.HomepageFragment
 import com.cmpe352group4.buyo.ui.login.LoginFragment
@@ -13,6 +14,7 @@ import com.cmpe352group4.buyo.ui.wishList.WishListFragment
 import com.cmpe352group4.buyo.ui.productList.ProductListFragment
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailCommentsFragment
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
+import com.cmpe352group4.buyo.ui.profile.AddUpdateAddressFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -70,5 +72,15 @@ abstract class FragmentsBuilderModule {
     abstract  fun contributeMapsFragment(): MapsFragment
 
     @ContributesAndroidInjector
+    abstract  fun contributeCartPageFragment(): CartPageFragment
+
+    @ContributesAndroidInjector
+    abstract  fun contributeAddUpdateAddressFragment(): AddUpdateAddressFragment
+
+    @ContributesAndroidInjector
+    abstract  fun contributeCheckoutPageFragment(): CheckoutPageFragment
+    
+  @ContributesAndroidInjector
     abstract  fun contributeLegalDocFragment(): LegalDocFragment
+
 }
