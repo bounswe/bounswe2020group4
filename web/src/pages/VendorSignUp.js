@@ -72,6 +72,9 @@ const VendorSignUp = ({hideHeader, showHeader, setLoginState}) => {
 				<img className="logo" src={logo} alt="Buyo logo"/>
 				<Form>
 					<Form.Group controlId="formBasicEmail">
+						<div className="col text-center">
+							<a href="/signup">Are you a customer?</a>
+						</div>
 						<Form.Control
 							className="formInputBox"
 							type="text"

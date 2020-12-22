@@ -14,7 +14,6 @@ import accountService from '../services/account'
 
 const SignIn = ({hideHeader, showHeader, setLoginState}) => {
 
-
 	//This function corresponds to componentDidMount
 	//The return function corresponds to componentDidUnmount
 	useEffect(() => {
@@ -38,7 +37,7 @@ const SignIn = ({hideHeader, showHeader, setLoginState}) => {
 		if(email == '' | password == ''){
 			alert('Enter your credentials')
 		} else {
-			const userId = await accountService.login({'email': email, 'password': password})
+			const userId = await accountService.login({ 'email': email, 'password': password})
 			if (userId == null){
 				alert('Wrong credentials')
 			} else {
@@ -46,10 +45,7 @@ const SignIn = ({hideHeader, showHeader, setLoginState}) => {
 				history.goBack()
 			}
 		}
-
-
 	}
-
 	const redirectToSignup = function(e) {
 		e.preventDefault()
 		history.push('/signup')
@@ -78,6 +74,9 @@ const SignIn = ({hideHeader, showHeader, setLoginState}) => {
 							value = {password}
 							onChange={handlePasswordChange}
 						/>
+						<div className="col text-center">
+							<a href="/vendorsignin">Are you a vendor?</a>
+						</div>
 					</Form.Group>
 					<Button
 						className="submitButton"
@@ -85,17 +84,18 @@ const SignIn = ({hideHeader, showHeader, setLoginState}) => {
 						type="submit"
 						onClick = {handleClick}
 					>
-                        SIGN IN
+						SIGN IN
 					</Button>
 					<Button className="submitButtonTransparent" variant="primary" type="submit">
-                        SIGN IN WITH GOOGLE
+						SIGN IN WITH GOOGLE
 					</Button>
 					<Button
 						className="submitButtonTransparent"
 						variant="primary"
 						type="submit"
-						onClick = {redirectToSignup}>
-                            SIGN UP
+						onClick = {redirectToSignup}
+					>
+							SIGN UP
 					</Button>
 				</Form>
 			</div>
