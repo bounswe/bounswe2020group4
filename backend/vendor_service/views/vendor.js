@@ -1,5 +1,4 @@
 const Product = require("../models/product").Product;
-("/");
 const ObjectId = require("mongoose").Types.ObjectId;
 
 module.exports.addProducts = async (products) => {
