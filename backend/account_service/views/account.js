@@ -39,6 +39,24 @@ module.exports.getAccountInfo = async (params) => {
   }
 };
 
+/**
+ * Gets the account id and fields, updates the account with that id
+ *
+ * @param {
+ * id: String,
+ * userType: String,
+ * name: String,
+ * email: String,
+ * rating: Number,
+ * password: String,
+ * address: String,
+ * gender: String
+ * } params
+ *
+ * @return {
+ *  Boolean: Account exists
+ * }
+ */
 module.exports.updateAccountInfo = async (params) => {
   try {
     const collection = params.userType === "customer" ? Customer : Vendor;

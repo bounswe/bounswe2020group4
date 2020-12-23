@@ -15,6 +15,11 @@ module.exports.initialize = (app) => {
       response.respond(404, "Account not found");
     }
   });
+
+  /**
+   * Gets user id, user type, and some fields, updates the account
+   * with that id.
+   */
   app.post("/account", async (request, response) => {
     const result = await account.updateAccountInfo(request.query);
 

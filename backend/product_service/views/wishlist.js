@@ -3,6 +3,12 @@ const Product = require("../models/product").Product;
 const Vendor = require("../models/vendor").Vendor;
 const ObjectId = require("mongoose").Types.ObjectId;
 
+/**
+ * Gets a customerId and returns that customer's wishlist.
+ * @param {customerId: String} customerId
+ *
+ * @returns {[Product]}
+ */
 module.exports.getWishlist = async (customerId) => {
   try {
     let likedProductIds = (await Like.find({ customerId: ObjectId(customerId) })).map(

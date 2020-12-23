@@ -4,6 +4,18 @@ const Comment = require("../models/comment").Comment;
 const Customer = require("../models/customer").Customer;
 const ObjectId = require("mongoose").Types.ObjectId;
 
+/**
+ * Returns the whole categories in the app as a tree.
+ *
+ * @object {
+ *  path: String,
+ *  subcategories: [CategoryObject],
+ *  name: String
+ * } CategoryObject
+ * @returns {[
+ *  CategoryObject
+ * ]}
+ */
 module.exports.getProductCategories = async () => {
   try {
     const rawResult = await Product.aggregate([
@@ -41,6 +53,23 @@ module.exports.getProductCategories = async () => {
   }
 };
 
+/**
+ * Gets products within a specific category or with a search parameter
+ * Filters and sort them with certain parameters and returns the result.
+ *
+ * @param {
+ *  categories: [String],
+ *  search: String,
+ *  sortingFactor: String,
+ *  sortingType: descending | ascending
+ *  color: String,
+ *  brand: String
+ * } params
+ *
+ * @returns {[
+ *  Product
+ * ]}
+ */
 module.exports.getProducts = async (params) => {
   try {
     let products;
@@ -51,36 +80,40 @@ module.exports.getProducts = async (params) => {
       products = await Product.find({ name: { $regex: params.search, $options: "i" } });
     }
 
-    if(!!params.sortingFactor){
-      try{
-        products = products.sort((product1, product2) => (params.sortingType =="descending" ? -1 : 1)*(product1[params.sortingFactor]-product2[params.sortingFactor]));
-      } catch{
-        console.log("Check your sorting factor") // No need to return this value. I put it here for debugging.
+    if (!!params.sortingFactor) {
+      try {
+        products = products.sort(
+          (product1, product2) =>
+            (params.sortingType == "descending" ? -1 : 1) *
+            (product1[params.sortingFactor] - product2[params.sortingFactor])
+        );
+      } catch {
+        console.log("Check your sorting factor"); // No need to return this value. I put it here for debugging.
       }
     }
 
     if (!!params.subcategory) {
       products = products.filter(function (product) {
-        return product.category.indexOf(params.subcategory) > -1
-      })
+        return product.category.indexOf(params.subcategory) > -1;
+      });
     }
 
     if (!!params.color) {
       products = products.filter(function (product) {
-        return product.colors.indexOf(params.color) > -1
-      })
+        return product.colors.indexOf(params.color) > -1;
+      });
     }
 
     if (!!params.size) {
       products = products.filter(function (product) {
-        return product.sizes.indexOf(params.size) > -1
-      })
+        return product.sizes.indexOf(params.size) > -1;
+      });
     }
 
     if (!!params.brand) {
       products = products.filter(function (product) {
-        return product.brand.indexOf(params.brand) > -1
-      })
+        return product.brand.indexOf(params.brand) > -1;
+      });
     }
 
     products = await Promise.all(
@@ -109,6 +142,14 @@ module.exports.getProducts = async (params) => {
   }
 };
 
+/**
+ * Gets an product id and returns that product if it exists.
+ *
+ * @param {id: String} params
+ * @returns {
+ *  Product
+ * }
+ */
 module.exports.getProduct = async (params) => {
   try {
     let product;
