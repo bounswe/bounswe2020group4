@@ -1,6 +1,24 @@
 import axios from 'axios'
+import { data } from 'jquery'
 
 const baseUrl = 'http://3.138.113.101:8080/'
+
+const getProfileInfo = async (userType, id) => {
+	let response
+	try{
+		response = await axios.post(`${baseUrl}account?id=${id}userType=${userType}`)
+	} catch(err){
+		console.log(err)
+		return null
+	}
+
+	if (userType == 'customer'){
+		if (response.data.status.code == 200){
+			return response.data.data.result
+		}
+		//TODO: error handling
+	}
+}
 
 const login = async (loginInput) => {
 
@@ -36,4 +54,4 @@ const signUp = async (signUpInput) => {
 
 }
 
-export default { login, signUp }
+export default { login, signUp, getProfileInfo }
