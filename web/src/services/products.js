@@ -28,6 +28,7 @@ const getProducts = async (params) => {
 	}
 
 	const queryUrl = `${baseUrl}/products?` + queryString.stringify(params)
+	console.log(queryUrl)
 
 	const response = await axios.get(queryUrl)
 	return response.data.data.products
