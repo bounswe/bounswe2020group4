@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Form from 'react-bootstrap/Form'
-import Row from 'react-bootstrap/Row'
 import Button from 'react-bootstrap/Button'
-import ToggleButton from 'react-bootstrap/ToggleButton'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './SignIn.css'
 import logo from '../logo-buyo.png'
@@ -11,6 +9,8 @@ import { hideHeader, showHeader } from '../redux/actions'
 import history from '../util/history'
 import GoogleMaps from '../components/GoogleMaps'
 import { setLoginState } from '../redux/actions'
+import { Link } from 'react-router-dom'
+
 
 
 const VendorSignUp = ({hideHeader, showHeader, setLoginState}) => {
@@ -24,8 +24,17 @@ const VendorSignUp = ({hideHeader, showHeader, setLoginState}) => {
 	const [password, setPassword] = useState('')
 	const [checked, setChecked] = useState(false)
 	const [name, setName] = useState('')
+	const [companyName, setCompanyName] = useState('')
 	const [website, setWebsite] = useState('')
 	const [selectedCoord, setSelectedCoord] = useState()
+
+	const handleCheckedChange = function(e) {
+		setChecked(!checked)
+	}
+
+	const handleCompanyNameChange = function(e) {
+		setCompanyName(e.target.value)
+	}
 
 	const handleWebsiteChange = function(e) {
 		setWebsite(e.target.value)
@@ -46,11 +55,11 @@ const VendorSignUp = ({hideHeader, showHeader, setLoginState}) => {
 	const handleClick = async function(e) {
 
 		e.preventDefault()
-		if(email == '' | password == ''){
+		if(!email | !password){
 			alert('Enter your credentials')
 		} else if (!checked){
 			alert('Agree to terms and conditions')
-		} else if(name == '' | website == ''){
+		} else if(!name | !website | !companyName){
 			alert('Enter required information')
 		} else {
 			setLoginState({userId: 1, userType: 'vendor'})
@@ -69,7 +78,9 @@ const VendorSignUp = ({hideHeader, showHeader, setLoginState}) => {
 	return (
 		<div className="signInModal">
 			<div className="formContainer">
-				<img className="logo" src={logo} alt="Buyo logo"/>
+				<Link to='/'>
+					<img className="logo" src={logo} alt="Buyo logo"/>
+				</Link>
 				<Form>
 					<Form.Group controlId="formBasicEmail">
 						<div className="col text-center">
@@ -85,6 +96,13 @@ const VendorSignUp = ({hideHeader, showHeader, setLoginState}) => {
 						<Form.Control
 							className="formInputBox"
 							type="text"
+							placeholder="Company name"
+							value = {companyName}
+							onChange={handleCompanyNameChange}
+						/>
+						<Form.Control
+							className="formInputBox"
+							type="text"
 							placeholder="Business website"
 							value = {website}
 							onChange={handleWebsiteChange}
@@ -92,7 +110,7 @@ const VendorSignUp = ({hideHeader, showHeader, setLoginState}) => {
 						<Form.Control
 							className="formInputBox"
 							type="email"
-							placeholder="Email"
+							placeholder="Business email"
 							value = {email}
 							onChange={handleEmailChange}
 						/>
@@ -109,15 +127,14 @@ const VendorSignUp = ({hideHeader, showHeader, setLoginState}) => {
 						<div className='map-label text-center'>Enter the position of your distribution center</div>
 						<GoogleMaps selectedCoord={selectedCoord} setSelectedCoord={setSelectedCoord}/>
 					</div>
-					<Row>
-						<ToggleButton variant="light" className="check-box text-left" block
-							type="checkbox"
-							checked={checked}
-							value="1"
-							onChange={e => setChecked(e.currentTarget.checked)}>
-                                I agree to terms and conditions.
-						</ToggleButton>
-					</Row>
+					<div className='row pb-4'>
+						<div className='col-2'>
+							<input type='checkbox' className='check-box' checked={checked} onChange={handleCheckedChange}/>
+						</div>
+						<div className='col'>
+							I agree to terms and conditions.
+						</div>
+					</div>
 					<Button
 						className="submitButton"
 						variant="primary"

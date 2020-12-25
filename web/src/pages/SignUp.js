@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Form from 'react-bootstrap/Form'
-import Row from 'react-bootstrap/Row'
 import Button from 'react-bootstrap/Button'
-import ToggleButton from 'react-bootstrap/ToggleButton'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './SignIn.css'
 import logo from '../logo-buyo.png'
@@ -11,8 +9,7 @@ import { hideHeader, showHeader } from '../redux/actions'
 import history from '../util/history'
 import accountService from '../services/account'
 import { setLoginState } from '../redux/actions'
-
-
+import { Link } from 'react-router-dom'
 
 const SignUp = ({hideHeader, showHeader, setLoginState}) => {
 
@@ -24,6 +21,10 @@ const SignUp = ({hideHeader, showHeader, setLoginState}) => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [checked, setChecked] = useState(false)
+
+	const handleCheckedChange = function(e) {
+		setChecked(!checked)
+	}
 
 	const handleEmailChange = function(e) {
 		setEmail(e.target.value)
@@ -60,7 +61,9 @@ const SignUp = ({hideHeader, showHeader, setLoginState}) => {
 	return (
 		<div className="signInModal">
 			<div className="formContainer">
-				<img className="logo" src={logo} alt="Buyo logo"/>
+				<Link to='/'>
+					<img className="logo" src={logo} alt="Buyo logo"/>
+				</Link>
 				<Form>
 					<Form.Group controlId="formBasicEmail">
 						<Form.Control
@@ -79,15 +82,14 @@ const SignUp = ({hideHeader, showHeader, setLoginState}) => {
 							placeholder="Password"
 							onChange={handlePasswordChange}
 						/>
-						<Row>
-							<ToggleButton variant="light" className="check-box text-left" block
-								type="checkbox"
-								checked={checked}
-								value="1"
-								onChange={e => setChecked(e.currentTarget.checked)}>
-									I agree to terms and conditions.
-							</ToggleButton>
-						</Row>
+						<div className='row pb-4'>
+							<div className='col-2'>
+								<input type='checkbox' className='check-box' checked={checked} onChange={handleCheckedChange}/>
+							</div>
+							<div className='col'>
+								I agree to terms and conditions.
+							</div>
+						</div>
 
 						<div className="col text-center">
 							<a href="/vendorsignup">Are you a vendor?</a>
