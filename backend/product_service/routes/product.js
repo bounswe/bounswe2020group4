@@ -35,13 +35,13 @@ module.exports.initialize = (app) => {
     response.respond(200, "OK", { products });
   });
   
-  app.post("/cart-update", async (request, response) => {
+  app.post("/cart", async (request, response) => {
     const result = await cart.updateCart(request.query);
 
     response.respond(200, "OK");
   });
 
-  app.get("/cart-products", async (request, response) => {
+  app.get("/cart", async (request, response) => {
     const products = await cart.getCartProducts(request.query);
     if (products == false) {
       response.respond(404, "User not found");
@@ -52,7 +52,7 @@ module.exports.initialize = (app) => {
     });
   });
 
-  app.post("/cart-empty", async (request, response) => {
+  app.delete("/cart", async (request, response) => {
     const success = await cart.emptyCart(request.query);
     
     if (success) {

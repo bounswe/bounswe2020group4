@@ -13,10 +13,8 @@ module.exports.Product = mongoose.model(
     rating: Number,
     price: Number,
     originalPrice: Number,
-    stockValue: Object,
+    productInfos: [Object],
     brand: String,
-    sizes: [String],
-    colors: [String],
     vendorId: mongoose.Schema.Types.ObjectId,
   }),
   "products"

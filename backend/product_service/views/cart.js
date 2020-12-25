@@ -3,22 +3,109 @@ const Vendor = require("../models/vendor").Vendor;
 const CartProduct = require("../models/cart_products").CartProduct;
 const ObjectId = require("mongoose").Types.ObjectId;
 
+async function updateProductInfos(cartProductId, productInfoList, paramProductInfo) {
+    let isProductInfoFound = false;
+
+    productInfoList.forEach(dbProductInfo => {
+        isCorrectProductInfo = true;
+        // Compare product's attributes with the given attributes
+        dbProductInfo.attributes.forEach(cart_attr => {
+            paramProductInfo.attributes.forEach(attr => {
+                if (attr.name === cart_attr.name) {
+                    if (attr.value !== cart_attr.value) {
+                        isCorrectProductInfo = false;
+                        return;
+                    } 
+                } 
+            });
+            if (!isCorrectProductInfo) {
+                return;
+            }
+        });
+        // add all infos except the one that matches(that is going to be removed)
+        if (isCorrectProductInfo) {
+            dbProductInfo = paramProductInfo;
+            isProductInfoFound = true;
+            return;
+        } 
+    });
+    // If the product info is not updated above, push the new product info to the array.
+    if (!isProductInfoFound) {
+        const isUpdated = await CartProduct.update({ _id: cartProductId }, { $push: { productInfos: paramProductInfo }});
+        return isUpdated;
+    } else {
+        return true;
+    }
+};
+
+function deleteFromProductInfos(productInfoList, updatedProductInfoList, paramProductInfo) {
+    productInfoList.forEach(dbProductInfo => {
+        isCorrectProductInfo = true;
+        // Compare product's attributes with the given attributes
+        dbProductInfo.attributes.forEach(cart_attr => {
+            paramProductInfo.attributes.forEach(attr => {
+                if (attr.name === cart_attr.name) {
+                    if (attr.value !== cart_attr.value) {
+                        isCorrectProductInfo = false;
+                        return;
+                    } 
+                } 
+            });
+            if (!isCorrectProductInfo) {
+                return;
+            }
+        });
+        // add all infos except the one that matches(that is going to be removed)
+        if (!isCorrectProductInfo) {
+            updatedProductInfoList.push(dbProductInfo);
+        }  
+    });
+};
+
 module.exports.updateCart = async (params) => {
     try {
-        const isInCart = await CartProduct.countDocuments({ customerId: params.customerId, productId: params.productId });
+        const paramCustomerId = params.customerId;
+        const paramProductId = params.productId;
+        const paramProductInfo = params.productInfo;
+        // Delete the product from the cart
+        if (!paramProductInfo.quantity) {
+            let cart_product = await CartProduct.findOne({customerId: ObjectId(paramCustomerId), productId: ObjectId(paramProductId)});
 
-        if (isInCart) {
-            await CartProduct.deleteOne({ customerId: params.customerId, productId: params.productId });
-        } else {
-            const userCart = await CartProduct.findOne({ customerId: params.customerId });
-            if (userCart) {
-                await CartProduct.create({cartId: userCart.cartId, customerId: params.customerId, vendorId: params.vendorId, productId: params.productId, status: userCart.status });
+            cart_product = cart_product.toJSON();
+
+            productInfoList = cart_product.productInfos;
+
+            let updatedProductInfoList = [];
+            // Check each product info in the product
+            deleteFromProductInfos(productInfoList, updatedProductInfoList, paramProductInfo);
+            // remove completely
+            if (!updatedProductInfoList.length) {
+                CartProduct.findByIdAndDelete(cart_product._id);
             } else {
-                await CartProduct.create({
-                    customerId: ObjectId(params.customerId), 
-                    vendorId: ObjectId(params.vendorId), 
-                    productId: ObjectId(params.productId), 
+                cart_product.productInfos = updatedProductInfoList;
+            }
+            await cart_product.save();
+
+        } else {
+        // Add new product or update the product in the cart
+            let cart_product = await CartProduct.findOne({ customerId: ObjectId(paramCustomerId), productId: ObjectId(paramCustomerId) });
+            // If the product exists in user's cart before
+            if (cart_product) {
+                cart_product = cart_product.toJSON();
+                productInfoList = cart_product.productInfos;
+
+                await updateProductInfos(cart_product._id, productInfoList, paramProductInfo)
+                await cart_product.save();
+            } else {
+            // Product doesn't exist in the cart, so it will be created the first time
+                const newCartProduct = await CartProduct.create({
+                    customerId: ObjectId(paramCustomerId),
+                    productId: ObjectId(paramProductId),
+                    productInfos: [],
                 });
+                const isUpdated = await CartProduct.update({ _id: newCartProduct._id }, { $push: { productInfos: paramProductInfo }});
+                
+                return isUpdated;
             }
         }
         return true;
@@ -36,27 +123,37 @@ module.exports.getCartProducts = async (params) => {
         } else {
             return false;
         }
+        let productsWithAttributes = [];
 
-        products = await Promise.all(
+        await Promise.all(
             products.map(async (product) => {
                 product = product.toJSON();
+                
+                const vendor = await Vendor.findById(product.vendorId);
+                
+                product.productInfos.forEach(productInfo => {
+                    let updatedProduct = {
+                        id: product._id,
+                        name: product.name,
+                        imageUrl: product.imageUrl,
+                        rating: product.rating,
+                        price: product.price,
+                        originalPrice: product.originalPrice,
+                        brand: product.brand,
+                        vendor: {
+                            id: product.vendorId,
+                            name: vendor.name,
+                            rating: vendor.rating,
+                        },
+                        attributes: productInfo.attributes,
+                        quantity: productInfo.quantity,
+                    };
 
-                const vendor = await Vendor.findOne({ _id: product.vendorId });
-
-                product.vendor = {
-                    name: vendor.name,
-                    rating: vendor.rating,
-                    id: vendor._id,
-                };
-
-                delete product._id;
-                delete product.vendorId;
-
-                return product;
+                    productsWithAttributes.push(updatedProduct);
+                });
             })
         );
-
-        return products;
+        return productsWithAttributes;
     } catch (error) {
         return error;
     }
