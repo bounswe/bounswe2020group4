@@ -8,6 +8,7 @@ module.exports.CartProduct = mongoose.model(
   "CartProduct",
   new mongoose.Schema({
     customerId: mongoose.Schema.Types.ObjectId,
+    vendorId: mongoose.Schema.Types.ObjectId,
     productId:  mongoose.Schema.Types.ObjectId,
     productInfos: [Object],
   }),

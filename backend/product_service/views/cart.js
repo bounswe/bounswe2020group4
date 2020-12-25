@@ -86,7 +86,7 @@ module.exports.updateCart = async (params) => {
             }
             await cart_product.save();
 
-        } else {
+        } else { 
         // Add new product or update the product in the cart
             let cart_product = await CartProduct.findOne({ customerId: ObjectId(paramCustomerId), productId: ObjectId(paramCustomerId) });
             // If the product exists in user's cart before
@@ -98,8 +98,13 @@ module.exports.updateCart = async (params) => {
                 await cart_product.save();
             } else {
             // Product doesn't exist in the cart, so it will be created the first time
+                const product = await Product.findById(paramCustomerId);
+                product = product.toJSON()
+                const vendorId = product.vendorId;
+
                 const newCartProduct = await CartProduct.create({
                     customerId: ObjectId(paramCustomerId),
+                    vendorId: vendorId,
                     productId: ObjectId(paramProductId),
                     productInfos: [],
                 });
@@ -116,22 +121,26 @@ module.exports.updateCart = async (params) => {
 
 module.exports.getCartProducts = async (params) => {
     try {
-        let products;
+        let cart_products;
 
         if (params.customerId) {
-            products = await Product.find({ customerId: ObjectId(params.customerId) });
+            cart_products = await CartProduct.find({ customerId: ObjectId(params.customerId) });
         } else {
             return false;
         }
+        
         let productsWithAttributes = [];
+        let totalPrice = 0;
+        let discountedPrice = 0;
 
         await Promise.all(
-            products.map(async (product) => {
-                product = product.toJSON();
+            cart_products.map(async (cart_product) => {
+                cart_product = cart_product.toJSON();
                 
-                const vendor = await Vendor.findById(product.vendorId);
+                const product = await Product.findById(cart_product.productId);
+                const vendor = await Vendor.findById(cart_product.vendorId);
                 
-                product.productInfos.forEach(productInfo => {
+                cart_product.productInfos.forEach(productInfo => {
                     let updatedProduct = {
                         id: product._id,
                         name: product.name,
@@ -149,11 +158,14 @@ module.exports.getCartProducts = async (params) => {
                         quantity: productInfo.quantity,
                     };
 
+                    totalPrice += product.originalPrice;
+                    discountedPrice += product.price;
+
                     productsWithAttributes.push(updatedProduct);
                 });
             })
         );
-        return productsWithAttributes;
+        return { products: productsWithAttributes, totalPrice, discountedPrice };
     } catch (error) {
         return error;
     }
