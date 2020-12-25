@@ -25,6 +25,10 @@ const SignUp = ({hideHeader, showHeader, setLoginState}) => {
 	const [password, setPassword] = useState('')
 	const [checked, setChecked] = useState(false)
 
+	const handleCheckedChange = function(e) {
+		setChecked(!checked)
+	}
+
 	const handleEmailChange = function(e) {
 		setEmail(e.target.value)
 	}
@@ -79,15 +83,14 @@ const SignUp = ({hideHeader, showHeader, setLoginState}) => {
 							placeholder="Password"
 							onChange={handlePasswordChange}
 						/>
-						<Row>
-							<ToggleButton variant="light" className="check-box text-left" block
-								type="checkbox"
-								checked={checked}
-								value="1"
-								onChange={e => setChecked(e.currentTarget.checked)}>
-									I agree to terms and conditions.
-							</ToggleButton>
-						</Row>
+						<div className='row pb-4'>
+							<div className='col-2'>
+								<input type='checkbox' className='check-box' checked={checked} onChange={handleCheckedChange}/>
+							</div>
+							<div className='col'>
+								I agree to terms and conditions.
+							</div>
+						</div>
 
 						<div className="col text-center">
 							<a href="/vendorsignup">Are you a vendor?</a>

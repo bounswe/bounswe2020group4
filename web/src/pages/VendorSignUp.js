@@ -28,6 +28,10 @@ const VendorSignUp = ({hideHeader, showHeader, setLoginState}) => {
 	const [website, setWebsite] = useState('')
 	const [selectedCoord, setSelectedCoord] = useState()
 
+	const handleCheckedChange = function(e) {
+		setChecked(!checked)
+	}
+
 	const handleCompanyNameChange = function(e) {
 		setCompanyName(e.target.value)
 	}
@@ -121,15 +125,14 @@ const VendorSignUp = ({hideHeader, showHeader, setLoginState}) => {
 						<div className='map-label text-center'>Enter the position of your distribution center</div>
 						<GoogleMaps selectedCoord={selectedCoord} setSelectedCoord={setSelectedCoord}/>
 					</div>
-					<Row>
-						<ToggleButton variant="light" className="check-box text-left" block
-							type="checkbox"
-							checked={checked}
-							value="1"
-							onChange={e => setChecked(e.currentTarget.checked)}>
-                                I agree to terms and conditions.
-						</ToggleButton>
-					</Row>
+					<div className='row pb-4'>
+						<div className='col-2'>
+							<input type='checkbox' className='check-box' checked={checked} onChange={handleCheckedChange}/>
+						</div>
+						<div className='col'>
+							I agree to terms and conditions.
+						</div>
+					</div>
 					<Button
 						className="submitButton"
 						variant="primary"

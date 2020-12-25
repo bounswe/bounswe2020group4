@@ -88,36 +88,6 @@ html, body {
     background: #ff6b5d;
 }
 
-.check-box {
-    background: #FBEBD8;
-    border: none;
-    margin-left: auto;
-    margin-right: auto;
-    width: 90%;
-    text-align: left;
-    align-content: flex-start;
-}
-
-.check-box:hover {
-    background: #FBEBD8;
-}
-
-.check-box:not(:disabled):not(.disabled).active{
-    background: #FBEBD8;
-}
-
-.check-box:not(:disabled):not(.disabled){
-    background: #FBEBD8;
-}
-
-.check-box:focus{
-    background: #FBEBD8;
-}
-
-.check-box:checked{
-    background: #FBEBD8;
-}
-
 .maps-container{
     margin-left: auto;
     margin-right: auto;
