@@ -1,0 +1,117 @@
+[
+    {
+        "description": "You'll enjoy powerful performance for all types of everyday tasks. Whether you're working from your home office, a student who needs a lightweight laptop for school, or just need a great entry-level Windows computer for entertainment, video chats, and other day-to-day uses, this practical notebook is engineered for long-lasting performance.",
+        "name": "Lenovo Thinkpad 381W0003QUS" ,
+        "price": 3800,
+        "category": [
+            "Electronics",
+            "Computers"
+        ],
+        "originalPrice": 4000,
+        "imageUrl": "",
+        "rating": 4.2,
+        "screenSize": "14 Inch",
+        "RAM": "8 GB",
+        "brand": "Lenovo",
+        "diskSize": ["256 GB","512 GB"]
+    },
+    {
+        "description": "You'll enjoy powerful performance for all types of everyday tasks. Whether you're working from your home office, a student who needs a lightweight laptop for school, or just need a great entry-level Windows computer for entertainment, video chats, and other day-to-day uses, this practical notebook is engineered for long-lasting performance.",
+        "name": "Asus Zenbook" ,
+        "price": 4000,
+        "category": [
+            "Electronics",
+            "Computers"
+        ],
+        "originalPrice": 4100,
+        "imageUrl": "",
+        "rating": 4.2,
+        "screenSize": "14 Inch",
+        "RAM": "16 GB",
+        "brand": "Asus",
+        "diskSize": ["512 GB","1024 GB"]
+    },
+    {
+        "description": "You'll enjoy powerful performance for all types of everyday tasks. Whether you're working from your home office, a student who needs a lightweight laptop for school, or just need a great entry-level Windows computer for entertainment, video chats, and other day-to-day uses, this practical notebook is engineered for long-lasting performance.",
+        "name": "ASUS X540UA CORE" ,
+        "price": 4000,
+        "category": [
+            "Electronics",
+            "Computers"
+        ],
+        "originalPrice": 4300,
+        "imageUrl": "",
+        "rating": 4.2,
+        "screenSize": "15 Inch",
+        "RAM": "8 GB",
+        "brand": "Asus",
+        "diskSize": ["512 GB","1024 GB"]
+    },
+    {
+        "description": "You'll enjoy powerful performance for all types of everyday tasks. Whether you're working from your home office, a student who needs a lightweight laptop for school, or just need a great entry-level Windows computer for entertainment, video chats, and other day-to-day uses, this practical notebook is engineered for long-lasting performance.",
+        "name": "ASUS X540UA CORE" ,
+        "price": 4000,
+        "category": [
+            "Electronics",
+            "Computers"
+        ],
+        "originalPrice": 4300,
+        "imageUrl": "",
+        "rating": 4.2,
+        "screenSize": "15 Inch",
+        "RAM": ["8 GB","16 GB"],
+        "brand": "Asus",
+        "diskSize": ["512 GB","1024 GB"]
+    },
+
+    {
+        "description": "You'll enjoy powerful performance for all types of everyday tasks. Whether you're working from your home office, a student who needs a lightweight laptop for school, or just need a great entry-level Windows computer for entertainment, video chats, and other day-to-day uses, this practical notebook is engineered for long-lasting performance.",
+        "name": "ASUS D509DA" ,
+        "price": 4000,
+        "category": [
+            "Electronics",
+            "Computers"
+        ],
+        "originalPrice": 4300,
+        "imageUrl": "",
+        "rating": 4.2,
+        "screenSize": "15 Inch",
+        "RAM": ["8 GB","16 GB"],
+        "brand": "Asus",
+        "diskSize": ["512 GB","1024 GB"]
+    },
+
+    {
+        "description": "You'll enjoy powerful performance for all types of everyday tasks. Whether you're working from your home office, a student who needs a lightweight laptop for school, or just need a great entry-level Windows computer for entertainment, video chats, and other day-to-day uses, this practical notebook is engineered for long-lasting performance.",
+        "name": "ASUS D509DA" ,
+        "price": 4000,
+        "category": [
+            "Electronics",
+            "Computers"
+        ],
+        "originalPrice": 4300,
+        "imageUrl": "",
+        "rating": 4.2,
+        "screenSize": "15 Inch",
+        "RAM": ["8 GB","16 GB"],
+        "brand": "Asus",
+        "diskSize": ["512 GB","1024 GB"]
+    },
+
+    {
+        "description": "You'll enjoy powerful performance for all types of everyday tasks. Whether you're working from your home office, a student who needs a lightweight laptop for school, or just need a great entry-level Windows computer for entertainment, video chats, and other day-to-day uses, this practical notebook is engineered for long-lasting performance.",
+        "name": "ASUS D509DA" ,
+        "price": 4000,
+        "category": [
+            "Electronics",
+            "Computers"
+        ],
+        "originalPrice": 4300,
+        "imageUrl": "",
+        "rating": 4.2,
+        "screenSize": "15 Inch",
+        "RAM": ["8 GB","16 GB"],
+        "brand": "Asus",
+        "diskSize": ["512 GB","1024 GB"]
+    }
+] 
