@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import { hideHeader, showHeader } from '../redux/actions'
 import history from '../util/history'
 import { setLoginState } from '../redux/actions'
-
+import { Link } from 'react-router-dom'
 
 const VendorSignIn = ({hideHeader, showHeader, setLoginState}) => {
 
@@ -46,7 +46,9 @@ const VendorSignIn = ({hideHeader, showHeader, setLoginState}) => {
 	return (
 		<div className="signInModal">
 			<div className="formContainer">
-				<img className="logo" src={logo} alt="Buyo logo"/>
+				<Link to='/'>
+					<img className="logo" src={logo} alt="Buyo logo"/>
+				</Link>
 				<Form>
 					<Form.Group controlId="formBasicEmail">
 						<Form.Control

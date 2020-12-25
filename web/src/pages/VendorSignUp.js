@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Form from 'react-bootstrap/Form'
-import Row from 'react-bootstrap/Row'
 import Button from 'react-bootstrap/Button'
-import ToggleButton from 'react-bootstrap/ToggleButton'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './SignIn.css'
 import logo from '../logo-buyo.png'
@@ -11,6 +9,8 @@ import { hideHeader, showHeader } from '../redux/actions'
 import history from '../util/history'
 import GoogleMaps from '../components/GoogleMaps'
 import { setLoginState } from '../redux/actions'
+import { Link } from 'react-router-dom'
+
 
 
 const VendorSignUp = ({hideHeader, showHeader, setLoginState}) => {
@@ -78,7 +78,9 @@ const VendorSignUp = ({hideHeader, showHeader, setLoginState}) => {
 	return (
 		<div className="signInModal">
 			<div className="formContainer">
-				<img className="logo" src={logo} alt="Buyo logo"/>
+				<Link to='/'>
+					<img className="logo" src={logo} alt="Buyo logo"/>
+				</Link>
 				<Form>
 					<Form.Group controlId="formBasicEmail">
 						<div className="col text-center">
