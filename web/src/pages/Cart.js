@@ -22,7 +22,7 @@ const Cart = (props) => {
 
 	const redirectToCheckout = function(e) {
 		e.preventDefault()
-		history.push("/checkout")
+		history.push('/checkout')
 	}
 
 	const cartTotal = '23.99'

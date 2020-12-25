@@ -1,20 +1,14 @@
-.wishlist-container { 
-  padding: 2rem 3rem 2rem 3rem;
-}
-
 .list-title {
   background-color: var(--beige);
-  margin:0;
-  color: #A90011;
+  color: var(--red-secondary);
   font-size: 24px;
-  border-radius: 20px;
-  padding: 10px;
   font-weight: bold;
 }
 
 .list-container {
   display: flex;
   margin-top: 10px;
+  padding: 2rem 3rem 2rem 3rem;
 }
 
 .list-links {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import history from '../util/history'
-import CheckoutAddressBlock from '../components/checkout/CheckoutAddressBlock'
+import CheckoutAddressBlock from '../components/checkout/AddressBlock'
 import PaymentInfoBlock from '../components/checkout/PaymentInfoBlock'
 import CheckoutSidebar from '../components/checkout/CheckoutSidebar'
 
@@ -11,6 +11,7 @@ const AddressDummyData = [
 	{
 		title: 'EV',
 		receivingName: 'Meric',
+		receivingSurname: 'Ungor',
 		receivingPhone: '0531 932 8388',
 		address: 'Etiler Mah, Ucaksavarn Sit',
 		province: 'Besiktas',
@@ -19,6 +20,7 @@ const AddressDummyData = [
 	{
 		title: 'Ucaksavar',
 		receivingName: 'Meric',
+		receivingSurname: 'Ungor',
 		receivingPhone: '0531 932 8388',
 		address: 'Etiler Mah, Ucaksavarn Sit',
 		province: 'Besiktas',
@@ -46,7 +48,7 @@ const Checkout = ({ isLoggedIn }) => {
 				<div className='row'>
 					<div className='col-sm-8'>
 						<div className='address-block-container'>
-							<CheckoutAddressBlock addresses={AddressDummyData} selectAddress={selectAddress} selectedAddress={selectedAddress}/>
+							<CheckoutAddressBlock title='Shipping Address' onCheckout addresses={AddressDummyData} selectAddress={selectAddress} selectedAddress={selectedAddress}/>
 						</div>
 						<div className='payment-info-container'>
 							<PaymentInfoBlock />

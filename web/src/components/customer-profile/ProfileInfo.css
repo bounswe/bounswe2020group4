@@ -1,3 +1,8 @@
+.container-main {
+    border-width:3px !important;
+    background-color: var(--beige);
+}
+
 .form-container {
     width: 100%;
 }
