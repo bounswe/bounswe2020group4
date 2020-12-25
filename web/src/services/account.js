@@ -47,6 +47,26 @@ const updateProfileInfo = async (userType, id, profileInfo) => {
 	}
 }
 
+const updatePassword = async (userType, id, passwordInfo) => {
+
+	const {oldPassword, newPassword} = passwordInfo
+	let response
+	//TODO: Add backend call when it's ready
+	/* 
+	try{
+		response = await axios.post(`${baseUrl}account?id=${id}userType=${userType}`)
+	} catch(err){
+		console.log(err)
+		return null
+	}
+	*/
+	if (userType == 'customer'){
+		return null
+	} else {
+		return null
+	}
+}
+
 const login = async (loginInput) => {
 
 	const { email, password } = loginInput
@@ -81,4 +101,4 @@ const signUp = async (signUpInput) => {
 
 }
 
-export default { login, signUp, getProfileInfo, updateProfileInfo }
+export default { login, signUp, getProfileInfo, updateProfileInfo, updatePassword }
