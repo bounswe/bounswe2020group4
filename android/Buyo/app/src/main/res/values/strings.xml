@@ -298,5 +298,7 @@
     </string>
     <string name="company_name">Company Name</string>
     <string name="please_select_your_location">Please select your location!</string>
+    <string name="back">Back</string>
+    <string name="i_understand">I understand</string>
 
 </resources>

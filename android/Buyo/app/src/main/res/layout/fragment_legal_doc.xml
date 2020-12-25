@@ -1,14 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/buyo_antiqueWhite">
+    android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/legal_text"
-        android:layout_width="wrap_content"
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.9"
+        android:background="@color/buyo_antiqueWhite">
+
+        <TextView
+            android:id="@+id/legal_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:text="" />
+
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:text="" />
-</androidx.core.widget.NestedScrollView>
+        android:layout_weight="0.1"
+        android:orientation="horizontal"
+        android:background="@color/buyo_antiqueWhite"
+        android:gravity="center">
+
+
+        <Button
+            android:id="@+id/docs_ok_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/safety_orange"
+            android:text="@string/i_understand"
+            android:textAllCaps="false"
+            android:layout_margin="8dp"
+            android:textColor="@color/buyo_white"/>
+
+    </LinearLayout>
+
+</LinearLayout>
