@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 
+import history from '../../util/history'
 import accountService from '../../services/account.js'
 
 import './ProfileInfo.css'
@@ -33,6 +34,24 @@ const ProfileInfo = (props) => {
 		setGender(e.target.value)
 	}
 
+	const handleClick = async function(e) {
+		e.preventDefault()
+		const profileInfo = {
+			'firstName': firstName,
+			'lastName': lastName,
+			'email': email,
+			'phone': phone,
+			'gender': gender
+		}
+
+		const updateProfile = await accountService.updateProfileInfo('customer', props.customerId, profileInfo)
+		if(!updateProfile){
+			history.push('/customerprofile')
+		}
+		//TODO: Use backend data when endpoint is ready
+
+	}
+
 	useEffect(() => {
 
 		if(!props.isLoggedIn | props.userType != 'customer') {
@@ -50,7 +69,7 @@ const ProfileInfo = (props) => {
 				setPhone('05305005050')
 				setGender('Female')
 			}
-			//TODO: Connect to backend when endpoint is ready
+			//TODO: Use backend data when endpoint is ready
 		}
 
 		getProfileInfo()
@@ -118,7 +137,7 @@ const ProfileInfo = (props) => {
 						</div>
 					</div>
 					<div className='text-right'>
-						<button type='submit' className='btn btn-danger'>Update your profile</button>
+						<button type='submit' className='btn btn-danger' onSubmit={handleClick}>Update your profile</button>
 					</div>
 
 				</form>
