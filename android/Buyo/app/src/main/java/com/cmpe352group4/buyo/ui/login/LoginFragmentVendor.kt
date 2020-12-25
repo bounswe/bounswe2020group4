@@ -31,6 +31,9 @@ import javax.inject.Inject
 // TODO Reset password functionality
 // TODO Sign up e-mail verification
 
+// Vendor must not use an e-mail domain if its domain is in the list below.
+val badDomainList : List<String> = listOf<String>("gmail", "windowslive", "hotmail", "outlook",
+                                                    "yahoo", "msn", "aol", "yandex")
 
 class LoginFragmentVendor : BaseFragment() {
 
@@ -132,7 +135,7 @@ class LoginFragmentVendor : BaseFragment() {
             var websiteDomain : String = websiteList[websiteList.lastIndex].split(".")[0]
             var emailList : List<String> = companyEmail.split("@")
             var emailDomain : String = emailList[emailList.lastIndex].split(".")[0]
-            companyEmailMatch = websiteDomain == emailDomain
+            companyEmailMatch = (websiteDomain == emailDomain) && (emailDomain !in badDomainList)
         }
 
         if (vendor_reenter_password.visibility == View.VISIBLE) {
@@ -157,7 +160,8 @@ class LoginFragmentVendor : BaseFragment() {
                 } else if (!passwordSame) {
                     toastText = "Given passwords are not the same"
                 } else if (!companyEmailMatch) {
-                    toastText = "Your e-mail and the company website must have the same domain name"
+                    toastText = "You should use your company e-mail which has the same domain" +
+                            " with your company website"
                 }
 
                 val myToast = Toast.makeText(
