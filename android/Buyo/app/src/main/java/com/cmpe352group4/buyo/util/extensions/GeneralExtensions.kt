@@ -12,7 +12,6 @@ fun hideKeyboardFrom(context: Context?, windowToken: IBinder?) {
     imm?.hideSoftInputFromWindow(windowToken, 0)
 }
 
- // It doesn't find GlideApp, find out the problem later
 
 fun ImageView.loadFromURL(url: String) {
     Glide.with(this)
