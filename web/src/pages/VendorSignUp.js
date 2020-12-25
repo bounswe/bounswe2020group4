@@ -24,8 +24,13 @@ const VendorSignUp = ({hideHeader, showHeader, setLoginState}) => {
 	const [password, setPassword] = useState('')
 	const [checked, setChecked] = useState(false)
 	const [name, setName] = useState('')
+	const [companyName, setCompanyName] = useState('')
 	const [website, setWebsite] = useState('')
 	const [selectedCoord, setSelectedCoord] = useState()
+
+	const handleCompanyNameChange = function(e) {
+		setCompanyName(e.target.value)
+	}
 
 	const handleWebsiteChange = function(e) {
 		setWebsite(e.target.value)
@@ -46,11 +51,11 @@ const VendorSignUp = ({hideHeader, showHeader, setLoginState}) => {
 	const handleClick = async function(e) {
 
 		e.preventDefault()
-		if(email == '' | password == ''){
+		if(!email | !password){
 			alert('Enter your credentials')
 		} else if (!checked){
 			alert('Agree to terms and conditions')
-		} else if(name == '' | website == ''){
+		} else if(!name | !website | !companyName){
 			alert('Enter required information')
 		} else {
 			setLoginState({userId: 1, userType: 'vendor'})
@@ -85,6 +90,13 @@ const VendorSignUp = ({hideHeader, showHeader, setLoginState}) => {
 						<Form.Control
 							className="formInputBox"
 							type="text"
+							placeholder="Company name"
+							value = {companyName}
+							onChange={handleCompanyNameChange}
+						/>
+						<Form.Control
+							className="formInputBox"
+							type="text"
 							placeholder="Business website"
 							value = {website}
 							onChange={handleWebsiteChange}
@@ -92,7 +104,7 @@ const VendorSignUp = ({hideHeader, showHeader, setLoginState}) => {
 						<Form.Control
 							className="formInputBox"
 							type="email"
-							placeholder="Email"
+							placeholder="Business email"
 							value = {email}
 							onChange={handleEmailChange}
 						/>
