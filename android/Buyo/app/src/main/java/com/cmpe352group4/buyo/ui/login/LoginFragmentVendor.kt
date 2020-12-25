@@ -23,7 +23,8 @@ import com.cmpe352group4.buyo.ui.LegalDocFragment
 import com.cmpe352group4.buyo.ui.googlemap.MapsFragment
 import com.cmpe352group4.buyo.util.extensions.makeLinks
 import com.cmpe352group4.buyo.viewmodel.ProfileViewModel
-import com.cmpe352group4.buyo.vo.LoginSignupRequest
+import com.cmpe352group4.buyo.vo.SignupRequestVendor
+import com.cmpe352group4.buyo.vo.LoginRequestVendor
 import kotlinx.android.synthetic.main.fragment_login_vendor.*
 import javax.inject.Inject
 
@@ -208,15 +209,14 @@ class LoginFragmentVendor : BaseFragment() {
             if (check) {
                 if (vendor_login_signup_button.isEnabled && !vendor_signup_switch.isChecked) {
 
-                    // TODO Fix backend call format
-                    profileViewModel.onLogin(
-                        LoginSignupRequest(
+                    profileViewModel.onLoginVendor(
+                        LoginRequestVendor(
                             userType = "vendor",
                             email = vendor_username.text.toString(),
                             password = vendor_password.text.toString()
                         )
                     )
-                    profileViewModel.login.observe(viewLifecycleOwner, Observer {
+                    profileViewModel.loginVendor.observe(viewLifecycleOwner, Observer {
                         if (it.status == Status.SUCCESS && it.data != null) {
                             sharedPref.saveUserId(it.data.userId)
                             dispatchLoading()
@@ -244,15 +244,18 @@ class LoginFragmentVendor : BaseFragment() {
                     val lat = sharedPref.getVendorLat()
                     val lon = sharedPref.getVendorLon()
                     if (vendor_remember_me.isChecked && lat != "" && lon != "") {
-                        // TODO Fix backend call format (lat, lon are also available)
-                        profileViewModel.onSingup(
-                            LoginSignupRequest(
+                        profileViewModel.onSingupVendor(
+                            SignupRequestVendor(
                                 userType = "vendor",
                                 email = vendor_username.text.toString(),
-                                password = vendor_password.text.toString()
+                                password = vendor_password.text.toString(),
+                                longitude = lon!!,
+                                latitude = lat!!,
+                                website = vendor_company_website.text.toString(),
+                                company = vendor_company_name.text.toString()
                             )
                         )
-                        profileViewModel.singup.observe(viewLifecycleOwner, Observer {
+                        profileViewModel.singupVendor.observe(viewLifecycleOwner, Observer {
                             if (it.status == Status.SUCCESS && it.data != null) {
                                 dispatchLoading()
                                 val myToast =
