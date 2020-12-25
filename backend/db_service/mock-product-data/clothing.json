@@ -26,10 +26,10 @@
         ],
         "brand": "Nike",
         "stockValue": {
-            "42-Black": 71,
-            "43-Black": 45,
-            "44-Black": 86,
-            "45-Black": 65
+            "42-Black": 15,
+            "43-Black": 57,
+            "44-Black": 78,
+            "45-Black": 67
         }
     },
     {
@@ -59,10 +59,10 @@
         ],
         "brand": "Nike",
         "stockValue": {
-            "40-Grey": 87,
-            "41-Grey": 72,
-            "42-Grey": 27,
-            "43-Grey": 64
+            "40-Grey": 71,
+            "41-Grey": 14,
+            "42-Grey": 7,
+            "43-Grey": 27
         }
     },
     {
@@ -89,8 +89,8 @@
         ],
         "brand": "Coco Chanel",
         "stockValue": {
-            "XS-Orange": 28,
-            "S-Orange": 4
+            "XS-Orange": 82,
+            "S-Orange": 11
         }
     },
     {
@@ -115,10 +115,10 @@
         ],
         "brand": "Zara",
         "stockValue": {
-            "XS-Blue": 35,
-            "S-Blue": 91,
-            "M-Blue": 82,
-            "L-Blue": 69
+            "XS-Blue": 20,
+            "S-Blue": 6,
+            "M-Blue": 18,
+            "L-Blue": 71
         }
     },
     {
@@ -143,9 +143,9 @@
         ],
         "brand": "Jack & Jones",
         "stockValue": {
-            "XS-Blue": 68,
-            "S-Blue": 22,
-            "M-Blue": 54
+            "XS-Blue": 21,
+            "S-Blue": 0,
+            "M-Blue": 38
         }
     },
     {
@@ -170,10 +170,10 @@
         ],
         "brand": "Altinyildiz",
         "stockValue": {
-            "XS-Black": 22,
-            "S-Black": 94,
-            "M-Black": 26,
-            "L-Black": 4
+            "XS-Black": 40,
+            "S-Black": 2,
+            "M-Black": 94,
+            "L-Black": 22
         }
     },
     {
@@ -197,9 +197,9 @@
         ],
         "brand": "Defacto",
         "stockValue": {
-            "XS-Pink": 96,
-            "S-Pink": 23,
-            "M-Pink": 2
+            "XS-Pink": 45,
+            "S-Pink": 94,
+            "M-Pink": 73
         }
     },
     {
@@ -222,7 +222,7 @@
         ],
         "brand": "Decathlon",
         "stockValue": {
-            "70L-Green": 4
+            "70L-Green": 9
         }
     },
     {
@@ -245,7 +245,7 @@
         ],
         "brand": "LC Waikiki",
         "stockValue": {
-            "20L-Green": 43
+            "20L-Green": 63
         }
     },
     {
@@ -270,9 +270,9 @@
         ],
         "brand": "Koton",
         "stockValue": {
-            "S-Blue": 84,
-            "M-Blue": 48,
-            "L-Blue": 1
+            "S-Blue": 39,
+            "M-Blue": 15,
+            "L-Blue": 49
         }
     },
     {
@@ -298,11 +298,11 @@
         ],
         "brand": "Koton",
         "stockValue": {
-            "XS-Black": 76,
-            "S-Black": 19,
-            "M-Black": 12,
-            "L-Black": 75,
-            "XL-Black": 59
+            "XS-Black": 46,
+            "S-Black": 70,
+            "M-Black": 40,
+            "L-Black": 78,
+            "XL-Black": 65
         }
     },
     {
@@ -326,9 +326,9 @@
         ],
         "brand": "Inci",
         "stockValue": {
-            "XS-Red": 90,
-            "M-Red": 54,
-            "L-Red": 23
+            "XS-Red": 67,
+            "M-Red": 45,
+            "L-Red": 59
         }
     },
     {
@@ -352,9 +352,9 @@
         ],
         "brand": "Zara",
         "stockValue": {
-            "XS-Pink": 66,
-            "S-Pink": 35,
-            "L-Pink": 30
+            "XS-Pink": 14,
+            "S-Pink": 1,
+            "L-Pink": 9
         }
     },
     {
@@ -382,12 +382,12 @@
         ],
         "brand": "Nike",
         "stockValue": {
-            "40-Red": 58,
-            "41-Red": 86,
-            "42-Red": 97,
-            "43-Red": 38,
-            "44-Red": 20,
-            "45-Red": 92
+            "40-Red": 54,
+            "41-Red": 39,
+            "42-Red": 85,
+            "43-Red": 14,
+            "44-Red": 59,
+            "45-Red": 8
         }
     },
     {
@@ -411,9 +411,9 @@
         ],
         "brand": "Zara",
         "stockValue": {
-            "M-Pink": 87,
-            "L-Pink": 25,
-            "XL-Pink": 78
+            "M-Pink": 44,
+            "L-Pink": 89,
+            "XL-Pink": 73
         }
     },
     {
@@ -438,9 +438,9 @@
         ],
         "brand": "Jack & Jones",
         "stockValue": {
-            "XS-Black": 65,
-            "S-Black": 85,
-            "L-Black": 54
+            "XS-Black": 17,
+            "S-Black": 24,
+            "L-Black": 4
         }
     },
     {
@@ -465,10 +465,10 @@
         ],
         "brand": "Damat",
         "stockValue": {
-            "XS-Black": 69,
-            "S-Black": 54,
-            "M-Black": 2,
-            "L-Black": 77
+            "XS-Black": 90,
+            "S-Black": 70,
+            "M-Black": 5,
+            "L-Black": 85
         }
     },
     {
@@ -488,7 +488,9 @@
         ],
         "sizes": [],
         "brand": "Pact",
-        "stockValue": {}
+        "stockValue": {
+            "self": 44
+        }
     },
     {
         "description": "Men smart brown coat. It'll make you warm and look good. And it's 100% Cotton too.",
@@ -510,8 +512,8 @@
         ],
         "brand": "Boss",
         "stockValue": {
-            "XS-Brown": 24,
-            "S-Brown": 84
+            "XS-Brown": 75,
+            "S-Brown": 1
         }
     },
     {
@@ -535,9 +537,9 @@
         ],
         "brand": "Pact",
         "stockValue": {
-            "XS-Grey": 56,
-            "M-Grey": 71,
-            "L-Grey": 78
+            "XS-Grey": 99,
+            "M-Grey": 72,
+            "L-Grey": 57
         }
     },
     {
@@ -562,9 +564,9 @@
         ],
         "brand": "Adidas",
         "stockValue": {
-            "38-Black": 37,
+            "38-Black": 61,
             "39-Black": 65,
-            "40-Black": 33
+            "40-Black": 56
         }
     },
     {
@@ -578,13 +580,18 @@
         "originalPrice": 99.99,
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160891465972121",
         "rating": "4.49",
-        "colors": [],
+        "colors": [
+            "Blue"
+        ],
         "sizes": [
             "XS",
             "S"
         ],
         "brand": "Kappa",
-        "stockValue": {}
+        "stockValue": {
+            "XS-Blue": 11,
+            "S-Blue": 12
+        }
     },
     {
         "description": "Women Grey Thermal Coat. It'll make you warm no matter the weather is like.",
@@ -608,10 +615,10 @@
         ],
         "brand": "Uniqlo",
         "stockValue": {
-            "XS-Grey": 82,
-            "S-Grey": 66,
-            "M-Grey": 42,
-            "L-Grey": 97
+            "XS-Grey": 5,
+            "S-Grey": 46,
+            "M-Grey": 44,
+            "L-Grey": 1
         }
     }
 ]
