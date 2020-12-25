@@ -1,13 +1,63 @@
 import React, { useEffect, useState } from 'react'
+import { connect } from 'react-redux'
 
-import getProfileInfo from '../../services/account.js'
+import accountService from '../../services/account.js'
 
 import './ProfileInfo.css'
 
 const ProfileInfo = (props) => {
 
+	const [firstName, setFirstName] = useState('')
+	const [lastName, setLastName] = useState('')
+	const [email, setEmail] = useState('')
+	const [phone, setPhone] = useState('')
+	const [gender, setGender] = useState('choose')
+
+	const handleFirstNameChange = function(e) {
+		setFirstName(e.target.value)
+	}
+
+	const handleLastNameChange = function(e) {
+		setLastName(e.target.value)
+	}
+
+	const handleEmailChange = function(e) {
+		setEmail(e.target.value)
+	}
+
+	const handlePhoneChange = function(e) {
+		setPhone(e.target.value)
+	}
+
+	const handleGenderChange = function(e){
+		setGender(e.target.value)
+	}
+
+	useEffect(() => {
+
+		if(!props.isLoggedIn | props.userType != 'customer') {
+			history.push('/signin')
+			return
+		}
+
+		const getProfileInfo = async () => {
+			const profileInfo = await accountService.getProfileInfo('customer', props.customerId)
+			console.log(profileInfo)
+			if (!profileInfo){
+				setFirstName('Eylul')
+				setLastName('Yalcinkaya')
+				setEmail('eylul@hotmail.com')
+				setPhone('05305005050')
+				setGender('Female')
+			}
+			//TODO: Connect to backend when endpoint is ready
+		}
+
+		getProfileInfo()
+	}, [props.isLoggedIn, props.customerId])
+
 	return (
-		<div className='container p-3'>
+		<div className='container-main p-3 mt-3 mb-3 mr-1 ml-3 rounded'>
 			<div className='row m-3'>
 				<form className="form-container">
 					<div className='form-group'>
@@ -16,7 +66,7 @@ const ProfileInfo = (props) => {
 								<label hmtlFor='name'>Name</label>
 							</div>
 							<div className='col'>
-								<input type='text' className='form-control form-control-md text-left' id='name' value={firstName}'/>
+								<input type='text' className='form-control form-control-md text-left' id='name' value={firstName} onChange={handleFirstNameChange}/>
 							</div>
 						</div>
 					</div>
@@ -26,7 +76,7 @@ const ProfileInfo = (props) => {
 								<label htmlFor='surname'>Surname</label>
 							</div>
 							<div className='col'>
-								<input type='text' className='form-control form-control-md text-left' id='surname' value='Gazi'/>
+								<input type='text' className='form-control form-control-md text-left' id='surname' value={lastName} onChange={handleLastNameChange}/>
 							</div>
 						</div>
 					</div>
@@ -37,7 +87,7 @@ const ProfileInfo = (props) => {
 								<label htmlFor='email'>Email</label>
 							</div>
 							<div className='col'>
-								<input type='text' readOnly className='form-control-plaintext text-left' id='email' value='battal@hotmail.com'/>
+								<input type='text' readOnly className='form-control-plaintext text-left' id='email' value={email} onChange={handleEmailChange}/>
 							</div>
 						</div>
 					</div>
@@ -47,7 +97,7 @@ const ProfileInfo = (props) => {
 								<label htmlFor='phone'>Phone number</label>
 							</div>
 							<div className='col'>
-								<input type='text' readOnly className='form-control form-control-md text-left' id='phone' value='+901234567890'/>
+								<input type='text' className='form-control form-control-md text-left' id='phone' value={phone} onChange={handlePhoneChange}/>
 							</div>
 						</div>
 					</div>
@@ -57,8 +107,8 @@ const ProfileInfo = (props) => {
 								<label htmlFor='gender'>Gender</label>
 							</div>
 							<div className='col'>
-								<select className="form-select form-select-lg p-1 mb-1">
-									<option selected>Choose</option>
+								<select className="form-select form-select-lg p-1 mb-1" value={gender} onChange={handleGenderChange}>
+									<option value="choose" disabled hidden>Choose</option>
 									<option value="female">Female</option>
 									<option value="male">Male</option>
 									<option value="other">Other</option>
@@ -68,7 +118,7 @@ const ProfileInfo = (props) => {
 						</div>
 					</div>
 					<div className='text-right'>
-						<button type='submit' className='btn btn-danger'>Update</button>
+						<button type='submit' className='btn btn-danger'>Update your profile</button>
 					</div>
 
 				</form>

@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { data } from 'jquery'
 
 const baseUrl = 'http://3.138.113.101:8080/'
 
@@ -15,8 +14,16 @@ const getProfileInfo = async (userType, id) => {
 	if (userType == 'customer'){
 		if (response.data.status.code == 200){
 			return response.data.data.result
+		} else {
+			return null
 		}
 		//TODO: error handling
+	} else {
+		if (response.data.status.code == 200){
+			return response.data.data.result
+		} else {
+			return null
+		}
 	}
 }
 
