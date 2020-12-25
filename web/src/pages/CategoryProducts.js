@@ -31,13 +31,8 @@ const CategoryProducts = () => {
 
 	useEffect(() => {
 		const getProducts = async () => {
-			if(params.categories) {
-				const products = await productService
-					.getCategoryProducts(params.categories)
-				setProducts(products)
-			} else if(params.search) {
-				const products = await productService
-					.searchProducts(params.search)
+			if(params.categories || params.search) {
+				const products = await productService.getProducts(params)
 				setProducts(products)
 			} else {
 				history.push('/')
