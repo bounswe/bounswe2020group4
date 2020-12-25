@@ -8,7 +8,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.base.BaseFragment
+import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
+import com.cmpe352group4.buyo.ui.profile.AddUpdateAddressFragment
 import com.cmpe352group4.buyo.viewmodel.CartViewModel
 import kotlinx.android.synthetic.main.fragment_checkout.*
 import javax.inject.Inject
@@ -46,6 +48,13 @@ class CheckoutPageFragment : BaseFragment() {
 
         btnBack.setOnClickListener {
             activity?.onBackPressed()
+        }
+
+        tv_add_or_choose.setOnClickListener {
+            navigationManager?.onReplace(
+                AddUpdateAddressFragment.newInstance(),
+                TransactionType.Replace, true
+            )
         }
 
     }
