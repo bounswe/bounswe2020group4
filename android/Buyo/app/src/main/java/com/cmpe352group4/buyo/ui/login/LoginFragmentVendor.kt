@@ -21,6 +21,7 @@ import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.EmptyFragment
 import com.cmpe352group4.buyo.ui.LegalDocFragment
 import com.cmpe352group4.buyo.ui.googlemap.MapsFragment
+import com.cmpe352group4.buyo.util.extensions.makeLinks
 import com.cmpe352group4.buyo.viewmodel.ProfileViewModel
 import com.cmpe352group4.buyo.vo.LoginSignupRequest
 import kotlinx.android.synthetic.main.fragment_login_vendor.*
@@ -29,35 +30,6 @@ import javax.inject.Inject
 
 // TODO Reset password functionality
 // TODO Sign up e-mail verification
-
-
-// https://stackoverflow.com/a/45727769
-fun TextView.makeLinks(vararg links: Pair<String, View.OnClickListener>) {
-    val spannableString = SpannableString(this.text)
-    for (link in links) {
-        val clickableSpan = object : ClickableSpan() {
-
-            override fun updateDrawState(textPaint: TextPaint) {
-                // use this to change the link color
-                textPaint.color = textPaint.linkColor
-                // toggle below value to enable/disable
-                // the underline shown below the clickable text
-                textPaint.isUnderlineText = true
-            }
-
-            override fun onClick(view: View) {
-                Selection.setSelection((view as TextView).text as Spannable, 0)
-                view.invalidate()
-                link.second.onClick(view)
-            }
-        }
-        val startIndexOfLink = this.text.toString().indexOf(link.first)
-        spannableString.setSpan(clickableSpan, startIndexOfLink, startIndexOfLink + link.first.length,
-            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-    }
-    this.movementMethod = LinkMovementMethod.getInstance()
-    this.setText(spannableString, TextView.BufferType.SPANNABLE)
-}
 
 
 class LoginFragmentVendor : BaseFragment() {
