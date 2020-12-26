@@ -42,9 +42,6 @@ class ProfileViewModel @Inject constructor(
                 repository.singupCustomer(it.userType, it.email, it.password)
         }
 
-
-
-
     val loginVendor: LiveData<Resource<LoginSingupResponse>> =
         Transformations.switchMap(_loginRequestVendor) { it ->
             if (it == null)

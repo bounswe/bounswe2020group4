@@ -174,7 +174,7 @@ class LoginFragment : BaseFragment() {
                             dispatchLoading()
                             val myToast = Toast.makeText(
                                 context,
-                                "Create an account if you don't have one",
+                                "Given e-mail or password is wrong",
                                 Toast.LENGTH_SHORT
                             )
                             myToast.setGravity(Gravity.BOTTOM, 0, 200)
