@@ -1,0 +1,30 @@
+.ab-address-container {
+    width: 240px;
+    width: fit-content;
+}
+
+.address-info-container {
+    background-color: var(--beige);
+}
+
+.address-title-radio {
+    width: fit-content;
+}
+
+.add-new-address {
+    background-color: var(--beige);
+    width: 240px;
+    cursor: pointer;
+}
+
+.add-new-address-img-container {
+    height: 80px;
+}
+
+.add-new-address-img {
+    height: 100%;
+}
+
+.edit-icon-container {
+    width: 18px;
+}

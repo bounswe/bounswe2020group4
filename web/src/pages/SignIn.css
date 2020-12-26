@@ -88,4 +88,9 @@ html, body {
     background: #ff6b5d;
 }
 
-
+.maps-container{
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    height: 60%;
+}
