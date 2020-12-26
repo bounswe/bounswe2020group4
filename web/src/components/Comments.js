@@ -15,7 +15,9 @@ const Comments = ({ comments }) => {
 	return(
 		<div className='comments-container'>
 			<h2>Comments</h2>
-			{comments ? comments.map(c => <Comment key={c.id} comment={c.text} user={c.owner.username}/>) : null}
+			{comments.length !== 0 ?
+				comments.map(c => <Comment key={c.id} comment={c.text} user={c.owner.username}/>) :
+				<p>No comments have been made for this product!</p>}
 		</div>
 	)
 }
