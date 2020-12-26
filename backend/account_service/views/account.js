@@ -3,6 +3,126 @@ const Vendor = require("../models/vendor").Vendor;
 const ObjectId = require("mongoose").Types.ObjectId;
 
 /**
+ * Adds a new address to a customer user.
+ *
+ * @param {
+  *  id: String
+  *  address: Object
+  * } params
+  *
+  * @returns {
+  *  address: [Object],
+  * } 
+  */
+
+module.exports.addAddress = async (params) => {
+  try {
+    const account = await Customer.findOne({ _id: ObjectId(params.id) });
+
+    if (account){
+
+      await Promise.all(account.address.map(async(addr) => {
+        if(addr.addressTitle === params.address.addressTitle){
+            return "Please change your address title.";
+        }
+      }));
+
+        account.address.push(params.address);
+        await account.save();
+    } 
+    return account.address;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+/**
+ * Updates an address of a customer user with the same address title.
+ *
+ * @param {
+  *  id: String
+  *  address: Object
+  * } params
+  *
+  * @returns {
+  *  address: [Object],
+  * } | false
+  */
+
+ module.exports.updateAddress = async (params) => {
+  try {
+    const account = await Customer.findOne({ _id: ObjectId(params.id) });
+    var found = false;
+    if (account){
+
+      await Promise.all(account.address.map(async(addr) => {
+        if(addr.addressTitle === params.address.addressTitle){
+          await Customer.update(
+            {_id: ObjectId(params.id)},
+            { $pull: {'address' : {addr}}}
+          );
+          found = true;
+        }}
+      ));
+        if(found){
+        account.address.push(params.address);
+        await account.save();
+        return account.address;
+
+        } else {
+          return false;
+        }
+    } 
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+/**
+ * Deletes the address of a customer user with the same address title.
+ *
+ * @param {
+  *  id: String
+  *  address: Object
+  * } params
+  *
+  * @returns {
+  *  address: [Object],
+  * } | false
+  */
+
+ module.exports.deleteAddress = async (params) => {
+  try {
+    const account = await Customer.findOne({ _id: ObjectId(params.id) });
+    var found = false;
+    if (account){
+
+      await Promise.all(account.address.map(async(addr) => {
+        if(addr.addressTitle === params.address.addressTitle){
+          await Customer.update(
+            {_id: ObjectId(params.id)},
+            { $pull: {'address' : {addr}}}
+          );
+          found = true;
+        }}
+      ));
+        if(found){
+        await account.save();
+        return account.address;
+
+        } else {
+          return false;
+        }
+    } 
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+/**
  * Gets account information for a customer or vendor
  *
  * @param {
@@ -63,7 +183,7 @@ module.exports.updateAccountInfo = async (params) => {
     const account = await collection.findOne({ _id: ObjectId(params.id) });
 
     if (account && params.userType === "customer") {
-      ["name", "surname", "email", "rating", "password", "gender"].forEach((field) => {
+      ["name", "surname", "email", "rating", "gender"].forEach((field) => {
         if (params[field]) {
           account[field] = params[field];
         }

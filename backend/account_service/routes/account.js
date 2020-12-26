@@ -45,6 +45,48 @@ module.exports.initialize = (app) => {
   });
 
   /**
+   * Gets user id, and new address then adds the address
+   * of the account with that id.
+   */
+  app.post("/account-add-address", async (request, response) => {
+    const result = await account.addAddress(request.query);
+
+    if (result) {
+      response.respond(200, "OK");
+    } else {
+      response.respond(404, "Account not found");
+    }
+  });
+
+  /**
+   * Gets user id, and new address then updates the address
+   * of the account with that address title.
+   */
+  app.post("/account-update-address", async (request, response) => {
+    const result = await account.updateAddress(request.query);
+
+    if (result) {
+      response.respond(200, "OK");
+    } else {
+      response.respond(404, "Account not found");
+    }
+  });
+
+    /**
+   * Gets user id, and new address then updates the address
+   * of the account with that address title.
+   */
+  app.post("/account-delete-address", async (request, response) => {
+    const result = await account.deleteAddress(request.query);
+
+    if (result) {
+      response.respond(200, "OK");
+    } else {
+      response.respond(404, "Account not found");
+    }
+  });
+
+  /**
    * Gets email, password, user type and responds with status.
    */
   app.post("/login", async (request, response) => {
