@@ -7,12 +7,12 @@ const mongoose = require("mongoose");
 module.exports.Order = mongoose.model(
     "Order",
     new mongoose.Schema({
-        id: String,
+        orderId: String,
         address: String,
         customerId: mongoose.Schema.Types.ObjectId,
         vendorId: mongoose.Schema.Types.ObjectId,
         productId: mongoose.Schema.Types.ObjectId,
-        productInfos: [Object],
+        productInfo: Object,
         date: Date,
         status: { type: String, default: "Pending" },
         shippingPrice: { type: Number, default: 9.99 },
