@@ -26,7 +26,7 @@ import './App.css'
 const App = ({ showHeader }) => {
 
 	return (
-		<div className='page-container'>
+		<div className='page-container pb-5'>
 			<Router history={history}>
 				<div>
 					{showHeader ? <Header /> : null}
