@@ -288,99 +288,16 @@ class ProductListFragment : BaseFragment(){
 
         rv_ProductList.layoutManager = LinearLayoutManager(this.context)
 
+        // FILTER SORT
 
-        // ORDER SPINNER
-
-        sp_ProductListSort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                adapterView: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                if (adapterView?.getItemAtPosition(position).toString() == "Name") {
-                    var prodList = productListAdapter.Products
-                    prodList.sortBy { product -> product.name }
-                    productListAdapter.notifyDataSetChanged()
-                } else if (adapterView?.getItemAtPosition(position).toString() == "Price (Lowest)") {
-                    var prodList = productListAdapter.Products
-                    prodList.sortBy { product -> product.price }
-                    productListAdapter.notifyDataSetChanged()
-                } else if (adapterView?.getItemAtPosition(position).toString() == "Rating") {
-                    var prodList = productListAdapter.Products
-                    prodList.sortBy { product -> product.rating }
-                    productListAdapter.notifyDataSetChanged()
-                } else if (adapterView?.getItemAtPosition(position).toString() == "Date (Latest)") {
-
-                } else if (adapterView?.getItemAtPosition(position).toString() == "Date (Latest)") {
-                    Toast.makeText(
-                        context,
-                        adapterView?.getItemAtPosition(position).toString(),
-                        Toast.LENGTH_LONG
-                    ).show()
-                } else if (adapterView?.getItemAtPosition(position).toString() == "Date (Latest)") {
-                    Toast.makeText(
-                        context,
-                        adapterView?.getItemAtPosition(position).toString(),
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            }
-
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
-            }
+        btn_ProductListSort.setOnClickListener {
+            navigationManager?.onReplace(
+                ListSortFilterFragment(),
+                TransactionType.Replace, true
+            )
         }
 
-        // FILTER SPINNER
 
-        sp_ProductListFilter.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                adapterView: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                if (adapterView?.getItemAtPosition(position).toString() == "Category") {
-                    Toast.makeText(
-                        context,
-                        adapterView?.getItemAtPosition(position).toString(),
-                        Toast.LENGTH_LONG
-                    ).show()
-                } else if (adapterView?.getItemAtPosition(position).toString() == "Category") {
-                    Toast.makeText(
-                        context,
-                        adapterView?.getItemAtPosition(position).toString(),
-                        Toast.LENGTH_LONG
-                    ).show()
-                } else if (adapterView?.getItemAtPosition(position).toString() == "Vendor") {
-                    Toast.makeText(
-                        context,
-                        adapterView?.getItemAtPosition(position).toString(),
-                        Toast.LENGTH_LONG
-                    ).show()
-                } else if (adapterView?.getItemAtPosition(position).toString() == "Price Range") {
-                    Toast.makeText(
-                        context,
-                        adapterView?.getItemAtPosition(position).toString(),
-                        Toast.LENGTH_LONG
-                    ).show()
-                } else if (adapterView?.getItemAtPosition(position)
-                        .toString() == "Category Specific"
-                ) {
-                    Toast.makeText(
-                        context,
-                        adapterView?.getItemAtPosition(position).toString(),
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
-            }
-        }
 
     }
 
