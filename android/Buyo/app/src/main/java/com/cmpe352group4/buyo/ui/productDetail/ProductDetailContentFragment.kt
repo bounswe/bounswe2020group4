@@ -1,13 +1,11 @@
 package com.cmpe352group4.buyo.ui.productDetail
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -19,13 +17,10 @@ import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.viewmodel.ProductViewModel
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
-import com.cmpe352group4.buyo.util.extensions.visible
 import com.cmpe352group4.buyo.viewmodel.WishListViewModel
 import com.cmpe352group4.buyo.vo.LikeResponse
 import com.cmpe352group4.buyo.vo.Product
-import kotlinx.android.synthetic.main.fragment_product_detail_comments.*
 import kotlinx.android.synthetic.main.fragment_product_detail_content.*
-import kotlinx.android.synthetic.main.fragment_wish_list.*
 import javax.inject.Inject
 
 class ProductDetailContentFragment : BaseFragment() {
@@ -189,7 +184,11 @@ class ProductDetailContentFragment : BaseFragment() {
             if(sharedPref.getUserId().isNullOrEmpty()){
                 Toast.makeText(context, "You need to login first", Toast.LENGTH_LONG).show()
             }else{
-                Toast.makeText(context, "Added to your cart!", Toast.LENGTH_LONG).show()
+                //Toast.makeText(context, "Added to your cart!", Toast.LENGTH_LONG).show()
+                navigationManager?.onReplace(
+                    AddCartFragment.newInstance(productId),
+                    TransactionType.Replace, true
+                )
             }
         }
         btnProductDetailComments.setOnClickListener {

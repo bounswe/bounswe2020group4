@@ -120,6 +120,21 @@
         <item>Category Specific</item>
     </string-array>
 
+    <!-- Dummy Attribute Values -->
+    <string-array name="sp_dummy_values">
+        <item>Value1</item>
+        <item>Value2</item>
+        <item>Value3</item>
+        <item>Value4</item>
+        <item>Value5</item>
+    </string-array>
+
+    <!-- Sort Type -->
+    <string-array name="sp_sort_type">
+        <item>Ascending</item>
+        <item>Descending</item>
+    </string-array>
+
     <!--  Cart Page - Checkout Page   -->
     <string name="empty_cart"> You do not have any product in your cart</string>
     <string name="gotoshop"> Let\'s shop</string>
