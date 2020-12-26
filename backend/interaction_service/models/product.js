@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
 /**
- * Schema of a Vendor object in the database, vendor documents resides
- * in 'vendors' collection.
+ * Schema of a Product object in the database, product documents resides
+ * in 'products' collection.
  */
 module.exports.Product = mongoose.model(
   "Product",

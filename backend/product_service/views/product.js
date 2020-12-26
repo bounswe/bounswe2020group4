@@ -4,6 +4,18 @@ const Comment = require("../models/comment").Comment;
 const Customer = require("../models/customer").Customer;
 const ObjectId = require("mongoose").Types.ObjectId;
 
+/**
+ * Returns the whole categories in the app as a tree.
+ *
+ * @object {
+ *  path: String,
+ *  subcategories: [CategoryObject],
+ *  name: String
+ * } CategoryObject
+ * @returns {[
+ *  CategoryObject
+ * ]}
+ */
 module.exports.getProductCategories = async () => {
   try {
     const rawResult = await Product.aggregate([
@@ -41,6 +53,23 @@ module.exports.getProductCategories = async () => {
   }
 };
 
+/**
+ * Gets products within a specific category or with a search parameter
+ * Filters and sort them with certain parameters and returns the result.
+ *
+ * @param {
+ *  categories: [String],
+ *  search: String,
+ *  sortingFactor: String,
+ *  sortingType: descending | ascending
+ *  color: String,
+ *  brand: String
+ * } params
+ *
+ * @returns {[
+ *  Product
+ * ]}
+ */
 module.exports.getProducts = async (params) => {
   try {
     let products;
@@ -114,6 +143,14 @@ module.exports.getProducts = async (params) => {
   }
 };
 
+/**
+ * Gets an product id and returns that product if it exists.
+ *
+ * @param {id: String} params
+ * @returns {
+ *  Product
+ * }
+ */
 module.exports.getProduct = async (params) => {
   try {
     let product;
