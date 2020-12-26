@@ -43,7 +43,7 @@ const ProductDetails = () => {
 						rating={product.rating}
 						vendor={product.vendor.name}
 						vendorRating={product.vendor.rating}/>
-					<ProductPurchase price={product.price}/>
+					<ProductPurchase price={product.price} sizes={product.sizes} colors={product.colors} stockValue={product.stockValue}/>
 				</div>
 			</div>
 			<ProductDescription description={product.description} />
