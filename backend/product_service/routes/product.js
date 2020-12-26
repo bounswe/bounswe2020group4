@@ -3,6 +3,9 @@ const wishlist = require("../views/wishlist");
 const cart = require("../views/cart");
 
 module.exports.initialize = (app) => {
+  /**
+   * Returns the whole categories present in the app.
+   */
   app.get("/categories", async (request, response) => {
     const categories = await product.getProductCategories();
 
@@ -11,6 +14,9 @@ module.exports.initialize = (app) => {
     });
   });
 
+  /**
+   * Gets products with some filter(category, search, attribute etc.)
+   */
   app.get("/products", async (request, response) => {
     const products = await product.getProducts(request.query);
     response.respond(200, "OK", {
@@ -18,6 +24,9 @@ module.exports.initialize = (app) => {
     });
   });
 
+  /**
+   * Returns product with given id.
+   */
   app.get("/product", async (request, response) => {
     const result = await product.getProduct(request.query);
     if (result) {
@@ -29,6 +38,9 @@ module.exports.initialize = (app) => {
     }
   });
 
+  /**
+   * Get wishlist of the user with given id
+   */
   app.get("/wishlist", async (request, response) => {
     const products = await wishlist.getWishlist(request.query.customerId);
 

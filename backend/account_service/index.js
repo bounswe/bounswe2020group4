@@ -8,21 +8,17 @@ const express = require("express"),
 
 require("dotenv").config(); // Require the dotenv for constants.
 
+/**
+ *
+ * @param {String} code: Status code
+ * @param {String} message: Status message
+ * @param {Object} data: Payload
+ */
 express.response.respond = function (code, message, data) {
   this.status(code).send({
     status: { code, message },
     data,
   });
-};
-
-express.request.error = function () {
-  return {
-    url: this.url,
-    params: this.params,
-    query: this.query,
-    body: this.body,
-    headers: this.headers,
-  };
 };
 
 app.listen(process.env.PORT); // Listen requests from the port.

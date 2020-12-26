@@ -2,6 +2,25 @@ const Customer = require("../models/customer").Customer;
 const Vendor = require("../models/vendor").Vendor;
 const ObjectId = require("mongoose").Types.ObjectId;
 
+/**
+ * Gets account information for a customer or vendor
+ *
+ * @param {
+ *  userType: "customer" | "vendor",
+ *  id: String
+ * } params
+ *
+ * @returns {
+ *  name: String,
+ *  email: String,
+ *  rating: Number,
+ *  address: [String],
+ *  password: String,
+ *  longitude: String,
+ *  latitude: String,
+ *  website: String
+ * } | false
+ */
 module.exports.getAccountInfo = async (params) => {
   try {
     let account;
@@ -20,6 +39,24 @@ module.exports.getAccountInfo = async (params) => {
   }
 };
 
+/**
+ * Gets the account id and fields, updates the account with that id
+ *
+ * @param {
+ * id: String,
+ * userType: String,
+ * name: String,
+ * email: String,
+ * rating: Number,
+ * password: String,
+ * address: String,
+ * gender: String
+ * } params
+ *
+ * @return {
+ *  Boolean: Account exists
+ * }
+ */
 module.exports.updateAccountInfo = async (params) => {
   try {
     const collection = params.userType === "customer" ? Customer : Vendor;
@@ -50,6 +87,16 @@ module.exports.updateAccountInfo = async (params) => {
   }
 };
 
+/**
+ * Performs login for vendor or customer.
+ * @param {
+ *  userType: "customer" | "vendor",
+ *  email: String,
+ *  password: String
+ * } params
+ *
+ * @returns {userId | false}
+ */
 module.exports.login = async (params) => {
   try {
     const collection = params.userType === "customer" ? Customer : Vendor;
@@ -69,6 +116,19 @@ module.exports.login = async (params) => {
   }
 };
 
+/**
+ * Performs signup for vendor or customer.
+ * @param {
+ *  userType: "customer" | "vendor",
+ *  email: String,
+ *  password: String,
+ *  longitude: String,
+ *  latitude: String,
+ *  website: String
+ * } params
+ *
+ * @returns {userId | false}
+ */
 module.exports.signup = async (params) => {
   try {
     const collection = params.userType === "customer" ? Customer : Vendor;
