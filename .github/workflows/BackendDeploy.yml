@@ -1,0 +1,63 @@
+name: Backend Deploy
+
+on:
+  push:
+    branches:
+      - backend-staging
+  pull_request:
+    branches:
+      - backend-staging
+
+
+jobs:
+  deploy-backend:
+    name: Deploy Backend
+    runs-on: ubuntu-latest
+    steps:
+   
+    - uses: actions/checkout@v2
+    
+#     - name: Configure Environment Variables
+#       env: 
+#         AWS_BACKEND_PUBLIC_DNS: https://ec2-100-26-157-85.compute-1.amazonaws.com/
+    
+    - name: Build the Docker Image
+      run: docker-compose build
+
+    - name: Build the Docker Image
+      run: docker-compose build
+    
+   
+    - name: Clear the machine
+      uses: buyo/ssh-action@master
+      with:
+        host: https://ec2-100-26-157-85.compute-1.amazonaws.com/
+        username: ubuntu
+        key: ${{ secrets.BACKEND_PRIVATE_KEY }}
+        script_stop: true
+        script: | 
+          sudo rm -rf ~/app || true
+          sudo docker container stop $(sudo docker container ls -aq) || true
+          docker system prune –af ––volumes || true
+          mkdir ~/app
+    
+    - name: Push Docker Image to AWS
+      uses: buyo/scp-action@master
+      with:
+        host: ${{ env.AWS_BACKEND_PUBLIC_DNS }}
+        key: ${{ secrets.BACKEND_PRIVATE_KEY }}
+        username: ubuntu
+        source: webimage.tar.gz
+        target: ~/app/
+    
+    - name: Run Docker Container
+      uses: buyo/ssh-action@master
+      with:
+        host: ${{ env.AWS_BACKEND_PUBLIC_DNS }}
+        username: ubuntu
+        key: ${{ secrets.BACKEND_PRIVATE_KEY }}
+        script_stop: true
+        script: | 
+          cd ~/app
+          sudo docker load -i webimage.tar.gz
+          sudo docker run -p 80:80 

@@ -16,16 +16,17 @@ const Wishlist = (props) => {
 			return
 		}
 
-		wishlistService
-			.getWishlist(props.customerId)
-			.then(prods => {
-				setProducts(prods)
-			})
+		const getWishlist = async () => {
+			const prods = await wishlistService.getWishlist(props.customerId)
+			setProducts(prods)
+		}
+
+		getWishlist()
 	}, [props.isLoggedIn, props.customerId])
 
 	return(
-		<div className='wishlist-container'>
-			<div className='list-title' >List: Wishlist(All)</div>
+		<div>
+			<div className='list-title px-5 py-3' >List: Wishlist(All)</div>
 			<div className='list-container'>
 				<div className='list-links'>
 					<h3>Lists</h3>
