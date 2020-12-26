@@ -16,8 +16,11 @@ import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.EmptyFragment
 import com.cmpe352group4.buyo.ui.LegalDocFragment
+import com.cmpe352group4.buyo.ui.orderpage.OrderPageFragment
+import com.cmpe352group4.buyo.util.extensions.makeLinks
 import com.cmpe352group4.buyo.viewmodel.ProfileViewModel
-import com.cmpe352group4.buyo.vo.LoginSignupRequest
+import com.cmpe352group4.buyo.vo.LoginRequestCustomer
+import com.cmpe352group4.buyo.vo.SignupRequestCustomer
 import kotlinx.android.synthetic.main.fragment_login.*
 import javax.inject.Inject
 
@@ -150,22 +153,21 @@ class LoginFragment : BaseFragment() {
             val check : Boolean = checkCredentials()
             if (check) {
                 if (customer_login_signup_button.isEnabled && !customer_signup_switch.isChecked) {
-                    profileViewModel.onLogin(
-                        // TODO Fix backend call format
-                        LoginSignupRequest(
+                    profileViewModel.onLoginCustomer(
+                        LoginRequestCustomer(
                             userType = "customer",
                             email = customer_username.text.toString(),
                             password = customer_password.text.toString()
                         )
                     )
-                    profileViewModel.login.observe(viewLifecycleOwner, Observer {
+                    profileViewModel.loginCustomer.observe(viewLifecycleOwner, Observer {
                         if (it.status == Status.SUCCESS && it.data != null) {
                             sharedPref.saveUserId(it.data.userId)
                             dispatchLoading()
 
                             // TODO Go to profile page here
                             navigationManager?.onReplace(
-                                EmptyFragment.newInstance(),
+                                OrderPageFragment.newInstance(),
                                 TransactionType.Replace, false
                             )
 
@@ -173,7 +175,7 @@ class LoginFragment : BaseFragment() {
                             dispatchLoading()
                             val myToast = Toast.makeText(
                                 context,
-                                "Create an account if you don't have one",
+                                "Given e-mail or password is wrong",
                                 Toast.LENGTH_SHORT
                             )
                             myToast.setGravity(Gravity.BOTTOM, 0, 200)
@@ -184,15 +186,14 @@ class LoginFragment : BaseFragment() {
                     })
                 } else if (customer_login_signup_button.isEnabled && customer_signup_switch.isChecked) {
                     if (customer_remember_me.isChecked) {
-                        // TODO Fix backend call format
-                        profileViewModel.onSingup(
-                            LoginSignupRequest(
+                        profileViewModel.onSingupCustomer(
+                            SignupRequestCustomer(
                                 userType = "customer",
                                 email = customer_username.text.toString(),
                                 password = customer_password.text.toString()
                             )
                         )
-                        profileViewModel.singup.observe(viewLifecycleOwner, Observer {
+                        profileViewModel.singupCustomer.observe(viewLifecycleOwner, Observer {
                             if (it.status == Status.SUCCESS && it.data != null) {
                                 dispatchLoading()
                                 val myToast =

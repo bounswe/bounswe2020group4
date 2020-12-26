@@ -11,6 +11,7 @@ import com.cmpe352group4.buyo.ui.login.LoginFragment
 import com.cmpe352group4.buyo.ui.login.LoginFragmentVendor
 import com.cmpe352group4.buyo.ui.navigationtabs.*
 import com.cmpe352group4.buyo.ui.productDetail.AddCartFragment
+import com.cmpe352group4.buyo.ui.orderpage.OrderPageFragment
 import com.cmpe352group4.buyo.ui.wishList.WishListFragment
 import com.cmpe352group4.buyo.ui.productList.ProductListFragment
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailCommentsFragment
@@ -90,5 +91,8 @@ abstract class FragmentsBuilderModule {
 
     @ContributesAndroidInjector
     abstract  fun contributeAddCartFragment(): AddCartFragment
+    
+    @ContributesAndroidInjector
+    abstract  fun contributeOrderPageFragment(): OrderPageFragment
 
 }

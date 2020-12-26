@@ -75,6 +75,7 @@ class MapsFragment : BaseFragment() {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
         selectLocButtonListener()
+        backButtonListener()
     }
 
     private fun selectLocButtonListener() {
@@ -84,6 +85,12 @@ class MapsFragment : BaseFragment() {
             val geocoder = Geocoder(context)
             val list = geocoder.getFromLocation(marker.position.latitude, marker.position.longitude,1)
             sharedPref.saveVendorAddress(list[0].getAddressLine(0))
+            activity?.onBackPressed()
+        }
+    }
+
+    private fun backButtonListener() {
+        map_back_button.setOnClickListener {
             activity?.onBackPressed()
         }
     }
