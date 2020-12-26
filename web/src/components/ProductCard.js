@@ -21,7 +21,7 @@ const ProductCard = ({ name, price, imgUrl, productId }) => {
 					<div className='pc-name'>{name}</div>
 				</Link>
 				<div className='pc-info-bottom'>
-					<div className='pc-price'>{price}</div>
+					<div className='pc-price'>{price}₺</div>
 					<div className='pc-cart-wishlist'>
 						<img className='pc-wishlist-icon' src={PCWishlistIcon} alt='wishlist icon'/>
 						<img className='pc-cart-icon' src={PCCartIcon} alt='cart icon'/>

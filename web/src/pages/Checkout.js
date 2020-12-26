@@ -15,7 +15,8 @@ const AddressDummyData = [
 		receivingPhone: '0531 932 8388',
 		address: 'Etiler Mah, Ucaksavarn Sit',
 		province: 'Besiktas',
-		city: 'Istanbul'
+		city: 'Istanbul',
+		street: 'Ihsan Hilmi Alantar sokak'
 	},
 	{
 		title: 'Ucaksavar',
@@ -24,7 +25,8 @@ const AddressDummyData = [
 		receivingPhone: '0531 932 8388',
 		address: 'Etiler Mah, Ucaksavarn Sit',
 		province: 'Besiktas',
-		city: 'Istanbul'
+		city: 'Istanbul',
+		street: 'Ihsan Hilmi Alantar sokak'
 	}
 ]
 

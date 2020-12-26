@@ -15,6 +15,10 @@ const AddNewAddressPopup = ({ setIsAddressPopupOpen, defaultInfo }) => {
 				</div>
 				<hr/>
 				<form>
+					<div className='form-group px-2'>
+						<label htmlFor='title'>Address Title</label>
+						<input typ='text' className='form-control' id='title' defaultValue={defaultInfo?.title}/>
+					</div>
 					<div className='d-flex'>
 						<div className='form-group px-2'>
 							<label htmlFor='name'>Name</label>
@@ -41,11 +45,11 @@ const AddNewAddressPopup = ({ setIsAddressPopupOpen, defaultInfo }) => {
 							<input type='text' className='form-control' id='province' defaultValue={defaultInfo?.province}/>
 						</div>
 						<div className='form-group px-2'>
-							<label htmlFor='title'>Address Title</label>
-							<input type='text' className='form-control' id='title' defaultValue={defaultInfo?.title}/>
+							<label htmlFor='street'>Street</label>
+							<input type='text' className='form-control' id='street' defaultValue={defaultInfo?.street}/>
 						</div>
 					</div>
-					<div className='form-group'>
+					<div className='form-group px-2'>
 						<label htmlFor='address'>Address</label>
 						<textarea className='form-control' id='address' defaultValue={defaultInfo?.address}/>
 					</div>
