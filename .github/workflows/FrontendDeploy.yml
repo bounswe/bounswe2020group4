@@ -21,7 +21,7 @@ jobs:
       run: docker save webimage | gzip > webimage.tar.gz
 
     - name: Decrypt Key pair
-      run: gpg --batch --yes --decrypt --passphrase="$GPG_PASSWORD" --output FrontendServerKeyPair.pem ./FrontendServerKeyPair.pem.gpg
+      run: gpg --batch --yes --decrypt --passphrase="$GPG_PASSWORD" --output FrontendServerKeyPair.pem ./secrets/FrontendServerKeyPair.pem.gpg
       env:
         GPG_PASSWORD: ${{ secrets.FRONTEND_GPG_PASSWORD }}
         
