@@ -82,7 +82,7 @@ class ProductListAdapter(
             itemView.iv_productListRecyclerView_Fav.setOnClickListener {
                 likeCallback.invoke(modal, itemView)
                 if (sharedPref.getUserId().isNullOrEmpty()) {
-
+                    toastCallback.invoke("You need to Login first!")
                 } else {
                     if (itemView.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_liked) {
                         toastCallback.invoke("${modal.name} is added to your wishlist!")
@@ -96,7 +96,7 @@ class ProductListAdapter(
             itemView.iv_productListRecyclerView_Cart.setOnClickListener {
                 if (sharedPref.getUserId().isNullOrEmpty()) {
                     Log.v("ListRV","Guest User")
-
+                    toastCallback.invoke("You need to Login first!")
                 } else {
 
                     // TODO : SEND BACKEND REQUEST HERE

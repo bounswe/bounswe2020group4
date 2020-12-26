@@ -1,5 +1,6 @@
 package com.cmpe352group4.buyo.vo
 
+import android.os.Parcelable
 import java.io.Serializable
 
 data class Product(

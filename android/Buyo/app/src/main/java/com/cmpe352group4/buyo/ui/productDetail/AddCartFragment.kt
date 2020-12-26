@@ -68,11 +68,31 @@ class AddCartFragment: BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var productId = arguments?.getString(AddCartFragment.PRODUCT_ID) ?: ""
+        var productId = arguments?.getString(PRODUCT_ID) ?: ""
 
         var product : Product? = null
 
         var parsed_attributes : MutableList<ParsedAttribute> = mutableListOf()
+
+        // RECYCLER VIEW
+
+        val decorator = DividerItemDecoration(
+            rv_addCartFilters.context,
+            LinearLayoutManager.VERTICAL
+        )
+        decorator.setDrawable(
+            ContextCompat.getDrawable(
+                rv_addCartFilters.context,
+                R.drawable.divider_drawable
+            )!!
+        )
+        rv_addCartFilters.addItemDecoration(decorator)
+
+        rv_addCartFilters.adapter = AddCartAdapter
+
+        rv_addCartFilters.layoutManager = LinearLayoutManager(this.context)
+
+
 
         productViewModel.onFetchProductById(productId)
 
@@ -84,6 +104,57 @@ class AddCartFragment: BaseFragment() {
 
                 parsed_attributes = extract_features(product!!)
 
+                if(parsed_attributes.size != 0){
+                    AddCartAdapter.Attributes = parsed_attributes
+
+
+                    // AMOUNT
+
+                    var amount : Int
+
+                    sb_addCartAmountBar.max = 100
+
+
+                    sb_addCartAmountBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+                        override fun onProgressChanged(seek: SeekBar?, progress: Int, fromUser: Boolean) {
+                            tv_addCartCurrentAmount.text = progress.toString()
+                        }
+
+                        override fun onStartTrackingTouch(seek: SeekBar?) {
+                            if (seek != null) {
+                                tv_addCartCurrentAmount.text = seek.progress.toString()
+                            }
+                        }
+
+                        override fun onStopTrackingTouch(seek: SeekBar?) {
+                            if (seek != null) {
+                                tv_addCartCurrentAmount.text = seek.progress.toString()
+                                amount = seek.progress
+                            }
+                        }
+
+                    })
+
+
+                    // SEND Backend Request Here Using order_details and amount
+
+                    btn_addCart.setOnClickListener {
+
+                        if (order_details.size == rv_addCartFilters.adapter!!.itemCount){
+                            // Send Request here
+                            activity?.onBackPressed()
+
+                            val myToast = Toast.makeText(
+                                context,
+                                "${productId} successfully added to your cart !",
+                                Toast.LENGTH_SHORT
+                            )
+                            myToast.setGravity(Gravity.BOTTOM, 0, 200)
+                            myToast.show()
+                        }
+                    }
+                }
+
                 dispatchLoading()
             } else if (it.status == Status.ERROR){
                 dispatchLoading()
@@ -92,76 +163,6 @@ class AddCartFragment: BaseFragment() {
             }
 
         })
-
-        if(parsed_attributes.size != 0){
-            AddCartAdapter.Attributes = parsed_attributes
-
-
-            // RECYCLER VIEW
-
-            val decorator = DividerItemDecoration(
-                rv_addCartFilters.context,
-                LinearLayoutManager.VERTICAL
-            )
-            decorator.setDrawable(
-                ContextCompat.getDrawable(
-                    rv_addCartFilters.context,
-                    R.drawable.divider_drawable
-                )!!
-            )
-            rv_addCartFilters.addItemDecoration(decorator)
-
-            rv_addCartFilters.adapter = AddCartAdapter
-
-            rv_addCartFilters.layoutManager = LinearLayoutManager(this.context)
-
-
-            // AMOUNT
-
-            var amount : Int
-
-            sb_addCartAmountBar.max = 100
-
-
-            sb_addCartAmountBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
-                override fun onProgressChanged(seek: SeekBar?, progress: Int, fromUser: Boolean) {
-                    tv_addCartCurrentAmount.text = progress.toString()
-                }
-
-                override fun onStartTrackingTouch(seek: SeekBar?) {
-                    if (seek != null) {
-                        tv_addCartCurrentAmount.text = seek.progress.toString()
-                    }
-                }
-
-                override fun onStopTrackingTouch(seek: SeekBar?) {
-                    if (seek != null) {
-                        tv_addCartCurrentAmount.text = seek.progress.toString()
-                        amount = seek.progress
-                    }
-                }
-
-            })
-
-
-            // SEND Backend Request Here Using order_details and amount
-
-            btn_addCart.setOnClickListener {
-
-                if (order_details.size == rv_addCartFilters.adapter!!.itemCount){
-                    // Send Request here
-                    activity?.onBackPressed()
-
-                    val myToast = Toast.makeText(
-                        context,
-                        "${productId} successfully added to your cart !",
-                        Toast.LENGTH_SHORT
-                    )
-                    myToast.setGravity(Gravity.BOTTOM, 0, 200)
-                    myToast.show()
-                }
-            }
-        }
 
     }
 
