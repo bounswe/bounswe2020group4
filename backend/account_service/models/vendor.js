@@ -13,6 +13,8 @@ module.exports.Vendor = mongoose.model(
     rating: Number,
     longitude: String,
     latitude: String,
+    website: String,
+    company: String,
   }),
   "vendors"
 );

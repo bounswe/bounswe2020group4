@@ -50,6 +50,7 @@
 .searchbar-icon {
     position: absolute !important;
     right: 13px;
+    cursor: pointer;
 }
 
 .profile-menu {
