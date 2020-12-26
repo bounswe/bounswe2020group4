@@ -30,6 +30,20 @@ module.exports.initialize = (app) => {
     }
   });
 
+    /**
+   * Gets user id, user type, and new password, then changes the password
+   * of the account with that id.
+   */
+  app.post("/account-change-password", async (request, response) => {
+    const result = await account.changePassword(request.query);
+
+    if (result) {
+      response.respond(200, "OK");
+    } else {
+      response.respond(404, "Account not found");
+    }
+  });
+
   /**
    * Gets email, password, user type and responds with status.
    */

@@ -21,6 +21,8 @@ const ObjectId = require("mongoose").Types.ObjectId;
  *  website: String
  * } | false
  */
+
+ 
 module.exports.getAccountInfo = async (params) => {
   try {
     let account;
@@ -48,11 +50,9 @@ module.exports.getAccountInfo = async (params) => {
  * name: String,
  * email: String,
  * rating: Number,
- * password: String,
  * address: String,
  * gender: String
  * } params
- *
  * @return {
  *  Boolean: Account exists
  * }
@@ -63,7 +63,7 @@ module.exports.updateAccountInfo = async (params) => {
     const account = await collection.findOne({ _id: ObjectId(params.id) });
 
     if (account && params.userType === "customer") {
-      ["name", "email", "password", "rating", "address", "password", "gender"].forEach((field) => {
+      ["name", "surname", "email", "rating", "gender"].forEach((field) => {
         if (params[field]) {
           account[field] = params[field];
         }
@@ -71,7 +71,7 @@ module.exports.updateAccountInfo = async (params) => {
 
       await account.save();
     } else if (account && params.userType === "vendor") {
-      ["name", "email", "password", "longitude", "latitude", "website", "company"].forEach((field) => {
+      ["name", "surname", "email", "longitude", "latitude", "website", "company"].forEach((field) => {
         if (params[field]) {
           account[field] = params[field];
         }
@@ -80,6 +80,34 @@ module.exports.updateAccountInfo = async (params) => {
       await account.save();
     }
 
+    return !!account;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+/**
+ * Gets the account id and updates changes the password of the account of that id
+ *
+ * @param {
+  * id: String,
+  * userType: String,
+  * password: String
+  * } params
+  * @return {
+  *  Boolean: Account exists
+  * }
+  */
+
+module.exports.changePassword = async (params) => {
+  try {
+    const collection = params.userType === "customer" ? Customer : Vendor;
+    const account = await collection.findOne({ _id: ObjectId(params.id) });
+    if (account){
+        account.password = params.password;
+      await account.save();
+    } 
     return !!account;
   } catch (error) {
     console.log(error);
