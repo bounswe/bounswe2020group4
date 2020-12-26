@@ -112,8 +112,8 @@ module.exports.getProducts = async (params) => {
         var checker = false;
 
         try {
-          checker = product["productInfos"].some(function eachKey(attributes) {             
-            return attributes["attributes"].some(function eachKey(attribute) {  
+          checker = product["productInfos"].some(function(attributes) {             
+            return attributes["attributes"].some(function(attribute) {  
               return attribute.name === "color" && attribute.value === params.color 
             });
           });
@@ -130,8 +130,8 @@ module.exports.getProducts = async (params) => {
         var checker = false;
 
         try {
-          checker = product["productInfos"].some(function eachKey(attributes) {             
-            return attributes["attributes"].some(function eachKey(attribute) {  
+          checker = product["productInfos"].some(function(attributes) {             
+            return attributes["attributes"].some(function(attribute) {  
               return attribute.name === "size" && attribute.value === params.size 
             });
           });
@@ -149,8 +149,8 @@ module.exports.getProducts = async (params) => {
         var checker = false;
 
         try {
-          checker = product["productInfos"].some(function eachKey(attributes) {             
-            return attributes["attributes"].some(function eachKey(attribute) {  
+          checker = product["productInfos"].some(function(attributes) {             
+            return attributes["attributes"].some(function(attribute) {  
               return attribute.name === "screenSize" && attribute.value === params.screenSize 
             });
           });
@@ -169,8 +169,8 @@ module.exports.getProducts = async (params) => {
         var checker = false;
 
         try {
-          checker = product["productInfos"].some(function eachKey(attributes) {             
-            return attributes["attributes"].some(function eachKey(attribute) {  
+          checker = product["productInfos"].some(function(attributes) {             
+            return attributes["attributes"].some(function(attribute) {  
               return attribute.name === "aroma" && attribute.value === params.aroma 
             });
           });
@@ -189,8 +189,8 @@ module.exports.getProducts = async (params) => {
         var checker = false;
 
         try {
-          checker = product["productInfos"].some(function eachKey(attributes) {             
-            return attributes["attributes"].some(function eachKey(attribute) {  
+          checker = product["productInfos"].some(function(attributes) {             
+            return attributes["attributes"].some(function(attribute) {  
               return attribute.name === "RAM" && attribute.value === params.RAM 
             });
           });
@@ -208,8 +208,8 @@ module.exports.getProducts = async (params) => {
         var checker = false;
 
         try {
-          checker = product["productInfos"].some(function eachKey(attributes) {             
-            return attributes["attributes"].some(function eachKey(attribute) {  
+          checker = product["productInfos"].some(function(attributes) {             
+            return attributes["attributes"].some(function(attribute) {  
               return attribute.name === "diskSize" && attribute.value === params.diskSize 
             });
           });
@@ -227,8 +227,8 @@ module.exports.getProducts = async (params) => {
         var checker = false;
 
         try {
-          checker = product["productInfos"].some(function eachKey(attributes) {             
-            return attributes["attributes"].some(function eachKey(attribute) {  
+          checker = product["productInfos"].some(function(attributes) {             
+            return attributes["attributes"].some(function(attribute) {  
               return attribute.name === "noiseCancelling" && attribute.value === params.noiseCancelling 
             });
           });
@@ -256,9 +256,9 @@ module.exports.getProducts = async (params) => {
         
         if(product.productInfos.length > 0){
 
-          product.productInfos.forEach(function eachKey(property) { 
+          product.productInfos.forEach(function(property) { 
             
-            property["attributes"].forEach(function eachKey(attribute) { 
+            property["attributes"].forEach(function(attribute) { 
               if(filterCriterias.indexOf(attribute.name) === -1){
                 filterCriterias.push(attribute.name)
               }          
