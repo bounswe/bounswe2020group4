@@ -63,7 +63,7 @@ module.exports.updateAccountInfo = async (params) => {
     const account = await collection.findOne({ _id: ObjectId(params.id) });
 
     if (account && params.userType === "customer") {
-      ["name", "surname", "email", "rating", "password", "gender"].forEach((field) => {
+      ["name", "surname", "email", "rating", "gender"].forEach((field) => {
         if (params[field]) {
           account[field] = params[field];
         }
