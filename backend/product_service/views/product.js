@@ -164,6 +164,26 @@ module.exports.getProducts = async (params) => {
 
 
 
+    if (!!params.aroma) {
+      products = products.filter(function (product) {
+        var checker = false;
+
+        try {
+          checker = product["productInfos"].some(function eachKey(attributes) {             
+            return attributes["attributes"].some(function eachKey(attribute) {  
+              return attribute.name === "aroma" && attribute.value === params.aroma 
+            });
+          });
+        } catch (error) {
+          checker = false;
+          console.log(error)
+        }
+          return checker;       
+      })
+    }
+
+
+
     if (!!params.RAM) {
       products = products.filter(function (product) {
         var checker = false;
