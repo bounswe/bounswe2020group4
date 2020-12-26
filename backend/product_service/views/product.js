@@ -94,29 +94,154 @@ module.exports.getProducts = async (params) => {
 
     
     if (!!params.subcategory) {
-      products = products.productInfos.filter(function (product) {
+      products = products.filter(function (product) {
         return product.category.indexOf(params.subcategory) > -1
       })
     }
 
-    if (!!params.color) {
-      products = products.productInfos.filter(function (product) {
-        return product.colors.indexOf(params.color) > -1
-      })
-    }
-
-    if (!!params.size) {
-      products = products.productInfos.filter(function (product) {
-        return product.sizes.indexOf(params.size) > -1
-      })
-    }
-
     if (!!params.brand) {
-      products = products.productInfos.filter(function (product) {
+      products = products.filter(function (product) {
         return product.brand.indexOf(params.brand) > -1
       })
     }
 
+   
+
+    if (!!params.color) {
+      products = products.filter(function (product) {
+        var checker = false;
+
+        try {
+          checker = product["productInfos"].some(function(attributes) {             
+            return attributes["attributes"].some(function(attribute) {  
+              return attribute.name === "color" && attribute.value === params.color 
+            });
+          });
+        } catch (error) {
+          checker = false;
+          console.log(error)
+        }
+          return checker;       
+      })
+    }
+
+    if (!!params.size) {
+      products = products.filter(function (product) {
+        var checker = false;
+
+        try {
+          checker = product["productInfos"].some(function(attributes) {             
+            return attributes["attributes"].some(function(attribute) {  
+              return attribute.name === "size" && attribute.value === params.size 
+            });
+          });
+        } catch (error) {
+          checker = false;
+          console.log(error)
+        }
+          return checker;       
+      })
+    }
+
+
+    if (!!params.screenSize) {
+      products = products.filter(function (product) {
+        var checker = false;
+
+        try {
+          checker = product["productInfos"].some(function(attributes) {             
+            return attributes["attributes"].some(function(attribute) {  
+              return attribute.name === "screenSize" && attribute.value === params.screenSize 
+            });
+          });
+        } catch (error) {
+          checker = false;
+          console.log(error)
+        }
+          return checker;       
+      })
+    }
+
+
+
+    if (!!params.aroma) {
+      products = products.filter(function (product) {
+        var checker = false;
+
+        try {
+          checker = product["productInfos"].some(function(attributes) {             
+            return attributes["attributes"].some(function(attribute) {  
+              return attribute.name === "aroma" && attribute.value === params.aroma 
+            });
+          });
+        } catch (error) {
+          checker = false;
+          console.log(error)
+        }
+          return checker;       
+      })
+    }
+
+
+
+    if (!!params.RAM) {
+      products = products.filter(function (product) {
+        var checker = false;
+
+        try {
+          checker = product["productInfos"].some(function(attributes) {             
+            return attributes["attributes"].some(function(attribute) {  
+              return attribute.name === "RAM" && attribute.value === params.RAM 
+            });
+          });
+        } catch (error) {
+          checker = false;
+          console.log(error)
+        }
+          return checker;       
+      })
+    }
+
+
+    if (!!params.diskSize) {
+      products = products.filter(function (product) {
+        var checker = false;
+
+        try {
+          checker = product["productInfos"].some(function(attributes) {             
+            return attributes["attributes"].some(function(attribute) {  
+              return attribute.name === "diskSize" && attribute.value === params.diskSize 
+            });
+          });
+        } catch (error) {
+          checker = false;
+          console.log(error)
+        }
+          return checker;       
+      })
+    }
+
+
+    if (!!params.noiseCancelling) {
+      products = products.filter(function (product) {
+        var checker = false;
+
+        try {
+          checker = product["productInfos"].some(function(attributes) {             
+            return attributes["attributes"].some(function(attribute) {  
+              return attribute.name === "noiseCancelling" && attribute.value === params.noiseCancelling 
+            });
+          });
+        } catch (error) {
+          checker = false;
+          console.log(error)
+        }
+          return checker;       
+      })
+    }
+
+
+    var filterCriterias = [];
     products = await Promise.all(
       products.map(async (product) => {
         product = product.toJSON();
@@ -128,7 +253,21 @@ module.exports.getProducts = async (params) => {
           rating: vendor.rating,
         };
         product.id = product._id.toString();
+        
+        if(product.productInfos.length > 0){
 
+          product.productInfos.forEach(function(property) { 
+            
+            property["attributes"].forEach(function(attribute) { 
+              if(filterCriterias.indexOf(attribute.name) === -1){
+                filterCriterias.push(attribute.name)
+              }          
+            });
+            
+            
+          });
+        }
+        
         delete product._id;
         delete product.vendorId;
 
@@ -136,7 +275,7 @@ module.exports.getProducts = async (params) => {
       })
     );
 
-    return products;
+    return {productList:products,filterCriterias};
   } catch (error) {
     console.log(error);
     return error;
