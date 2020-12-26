@@ -18,7 +18,6 @@ import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
-import com.cmpe352group4.buyo.ui.EmptyFragment
 import com.cmpe352group4.buyo.ui.LegalDocFragment
 import com.cmpe352group4.buyo.ui.googlemap.MapsFragment
 import com.cmpe352group4.buyo.ui.profilePage.ProfilePageFragment
@@ -249,6 +248,7 @@ class LoginFragmentVendor : BaseFragment() {
                         // TODO Go to profile page here
                         navigationManager?.onReplace(
                             ProfilePageFragment.newInstance(),
+                            //VendorProfilePageFragment.newInstance(),
                             TransactionType.Replace, false
                         )
 

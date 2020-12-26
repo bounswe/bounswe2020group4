@@ -51,4 +51,10 @@ interface Api {
         @Query("customerId") customerId: String
     ): LiveData<ApiResponse<BaseResponse<Cart>>>
 
+    @GET("account")
+    fun fetchAccountInformation(
+        @Query("id") userId: String,
+        @Query("userType") userType: String
+    ): LiveData<ApiResponse<BaseResponse<CustomerInformationResult>>>
+
 }

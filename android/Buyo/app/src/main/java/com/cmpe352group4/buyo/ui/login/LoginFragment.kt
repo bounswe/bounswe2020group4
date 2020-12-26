@@ -14,8 +14,8 @@ import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
-import com.cmpe352group4.buyo.ui.EmptyFragment
 import com.cmpe352group4.buyo.ui.LegalDocFragment
+import com.cmpe352group4.buyo.ui.profilePage.ProfilePageFragment
 import com.cmpe352group4.buyo.viewmodel.ProfileViewModel
 import com.cmpe352group4.buyo.vo.LoginSignupRequest
 import kotlinx.android.synthetic.main.fragment_login.*
@@ -165,7 +165,7 @@ class LoginFragment : BaseFragment() {
 
                             // TODO Go to profile page here
                             navigationManager?.onReplace(
-                                EmptyFragment.newInstance(),
+                                ProfilePageFragment.newInstance(),
                                 TransactionType.Replace, false
                             )
 
