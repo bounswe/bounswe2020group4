@@ -50,13 +50,31 @@
         android:layout_marginTop="@dimen/minimum_margin"
         />
 
-<!--    <Spinner-->
-<!--        android:id="@+id/spQuantity"-->
-<!--        android:layout_width="30dp"-->
-<!--        android:layout_height="20dp"-->
-<!--        android:spinnerMode="dialog"-->
-<!--        app:layout_constraintStart_toEndOf="@id/iv_productPhoto"-->
-<!--        app:layout_constraintBottom_toBottomOf="@id/iv_productPhoto"/>-->
+    <TextView
+        android:id="@+id/tv_product_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Quantity: 3"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintTop_toTopOf="@id/tv_productInfo"
+        app:layout_constraintBottom_toTopOf="@id/tv_price"
+        app:layout_constraintStart_toEndOf="@id/tv_productInfo"
+        app:layout_constraintEnd_toStartOf="@id/iv_delete"
+        />
+
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Price: 80$"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@id/tv_product_quantity"
+        app:layout_constraintBottom_toBottomOf="@id/tv_productInfo"
+        app:layout_constraintStart_toEndOf="@id/tv_productInfo"
+        app:layout_constraintEnd_toStartOf="@id/iv_delete"
+        />
 
     <ImageView
         android:id="@+id/iv_delete"
