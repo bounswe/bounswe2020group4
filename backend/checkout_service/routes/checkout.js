@@ -1,25 +1,7 @@
-const checkout = require("../views/customer");
 const verification = require("../views/verification");
 const order = require("../views/order");
 
 module.exports.initialize = (app) => {
-    app.get("/addresses", async (request, response) => {
-        const addresses = await checkout.getCustomerAddresses();
-
-        if (addresses) {
-            response.respond(200, "OK", { 
-                addresses,
-            });
-        } else {
-            response.respond(404, "No customer is found.");
-        }
-    });
-
-    app.post("/address-add", async (request, response) => {
-        await checkout.addCustomerAddress(request.query);
-
-        response.respond(200, "OK");
-    });
 
     app.post("/check-credit-card", async (request, response) => {
         const result = await verification.checkCreditCard(request.query);
