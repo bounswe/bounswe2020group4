@@ -8,7 +8,7 @@
             "Computers"
         ],
         "originalPrice": 4000,
-        "imageUrl": "",
+        "imageUrl":  "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089907471520",
         "rating": 4.2,
         "screenSize": ["14 Inch"],
         "RAM": "8 GB",
@@ -24,7 +24,7 @@
             "Computers"
         ],
         "originalPrice": 4100,
-        "imageUrl": "",
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089907471881",
         "rating": 4.2,
         "screenSize": ["14 Inch"],
         "RAM": "16 GB",
@@ -40,7 +40,7 @@
             "Computers"
         ],
         "originalPrice": 4300,
-        "imageUrl": "",
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089907471912",
         "rating": 4.2,
         "screenSize": ["15 Inch"],
         "RAM": "8 GB",
@@ -56,7 +56,7 @@
             "Computers"
         ],
         "originalPrice": 4300,
-        "imageUrl": "",
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089907471983",
         "rating": 4.2,
         "screenSize": ["15 Inch"],
         "RAM": ["8 GB","16 GB"],
@@ -74,7 +74,7 @@
             "Computers"
         ],
         "originalPrice": 6200,
-        "imageUrl": "",
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089907472004",
         "rating": 4.6,
         "screenSize": ["13 Inch"],
         "RAM": ["8 GB","16 GB"],
@@ -106,7 +106,7 @@
             "Computers"
         ],
         "originalPrice": 4500,
-        "imageUrl": "",
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089907472025",
         "rating": 3.8,
         "screenSize": ["15 Inch"],
         "RAM": ["4 GB","8 GB","16 GB"],
@@ -140,7 +140,7 @@
             "Phones"
         ],
         "originalPrice": 3000,
-        "imageUrl": "",
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089907472046",
         "rating": 4.0,
         "screenSize": ["5.5 Inch"],
         "RAM": ["4 GB"],
@@ -157,7 +157,7 @@
             "Phones"
         ],
         "originalPrice": 4200,
-        "imageUrl": "",
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089907472057",
         "rating": 4.4,
         "screenSize": ["5.5 Inch"],
         "RAM": ["8 GB"],
@@ -174,7 +174,7 @@
             "Phones"
         ],
         "originalPrice": 5000,
-        "imageUrl": "",
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089907472078",
         "rating": 4.4,
         "screenSize": ["6 Inch"],
         "RAM": ["8 GB"],
@@ -190,7 +190,7 @@
             "Phones"
         ],
         "originalPrice": 5000,
-        "imageUrl": "",
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089907472099",
         "rating": 3.5,
         "screenSize": ["5 Inch"],
         "RAM": ["4 GB"],
@@ -206,7 +206,7 @@
             "Phones"
         ],
         "originalPrice": 5000,
-        "imageUrl": "",
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160899074721010",
         "rating": 4.8,
         "screenSize": ["5 Inch"],
         "RAM": ["8 GB"],
@@ -222,7 +222,7 @@
             "Phones"
         ],
         "originalPrice": 5500,
-        "imageUrl": "",
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160899074721211",
         "rating": 4.0,
         "screenSize": ["5 Inch"],
         "RAM": ["4 GB"],
@@ -239,10 +239,10 @@
             "Headphone"
         ],
         "originalPrice": 2000,
-        "imageUrl": "",
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160899074721312",
         "brand": "Marshall",
         "rating": 4.5,
-        "NoiseCancelling": "Yes"
+        "noiseCancelling": "Yes"
     },
     {
         "description": "Poweful sound & unique enjoyment!",
@@ -253,10 +253,10 @@
             "Headphone"
         ],
         "originalPrice": 1700,
-        "imageUrl": "",
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160899074721513",
         "rating": 4.3,
         "brand": "Marshall",
-        "NoiseCancelling": "No"
+        "noiseCancelling": "No"
     }
 
     ,
@@ -269,10 +269,10 @@
             "Headphone"
         ],
         "originalPrice": 1500,
-        "imageUrl": "",
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160899074721614",
         "rating": 4.3,
         "brand": "Sennheiser",
-        "NoiseCancelling": "No"
+        "noiseCancelling": "No"
     } ,
     {
         "description": "Poweful sound & unique enjoyment!",
@@ -283,10 +283,10 @@
             "Headphone"
         ],
         "originalPrice": 1700,
-        "imageUrl": "",
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160899074721815",
         "rating": 4.3,
         "brand": "Sony",
-        "NoiseCancelling": "No"
+        "noiseCancelling": "No"
     }
 
 
@@ -301,10 +301,10 @@
             "Earphone"
         ],
         "originalPrice": 800,
-        "imageUrl": "",
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160899074721916",
         "rating": 4.7,
         "brand": "Apple",
-        "NoiseCancelling": "No"
+        "noiseCancelling": "No"
     }
 
 
@@ -318,10 +318,10 @@
             "Earphone"
         ],
         "originalPrice": 600,
-        "imageUrl": "",
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160899074722117",
         "rating": 4.3,
         "brand": "Sony",
-        "NoiseCancelling": "No"
+        "noiseCancelling": "No"
     } ,
     {
         "description": "Poweful sound & unique enjoyment!",
@@ -332,9 +332,9 @@
             "Earphone"
         ],
         "originalPrice": 400,
-        "imageUrl": "",
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160899074722318",
         "rating": 4.1,
         "brand": "Philips",
-        "NoiseCancelling": "No"
+        "noiseCancelling": "No"
     }
 ] 
