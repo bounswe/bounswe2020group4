@@ -53,32 +53,37 @@ module.exports.getProducts = async (params) => {
 
     if(!!params.sortingFactor){
       try{
-        products = products.sort((product1, product2) => (params.sortingType =="descending" ? -1 : 1)*(product1[params.sortingFactor]-product2[params.sortingFactor]));
+        if(typeof(products[0][params.sortingFactor]) == Number){
+          products = products.sort((product1, product2) => (params.sortingType =="descending" ? -1 : 1)*(product1[params.sortingFactor]-product2[params.sortingFactor]));
+        }else  {
+          products = products.sort((product1, product2) => (params.sortingType =="descending" ? -1 : 1)*(('' +product1[params.sortingFactor]).localeCompare(product2[params.sortingFactor])));
+        }
       } catch{
         console.log("Check your sorting factor") // No need to return this value. I put it here for debugging.
       }
     }
 
+    
     if (!!params.subcategory) {
-      products = products.filter(function (product) {
+      products = products.productInfos.filter(function (product) {
         return product.category.indexOf(params.subcategory) > -1
       })
     }
 
     if (!!params.color) {
-      products = products.filter(function (product) {
+      products = products.productInfos.filter(function (product) {
         return product.colors.indexOf(params.color) > -1
       })
     }
 
     if (!!params.size) {
-      products = products.filter(function (product) {
+      products = products.productInfos.filter(function (product) {
         return product.sizes.indexOf(params.size) > -1
       })
     }
 
     if (!!params.brand) {
-      products = products.filter(function (product) {
+      products = products.productInfos.filter(function (product) {
         return product.brand.indexOf(params.brand) > -1
       })
     }
