@@ -10,6 +10,8 @@ import com.cmpe352group4.buyo.base.ConnectionManager
 import com.cmpe352group4.buyo.util.livedata.InitialLiveData
 import com.cmpe352group4.buyo.vo.BaseResponse
 import com.cmpe352group4.buyo.vo.Cart
+import com.cmpe352group4.buyo.vo.CheckoutRequest
+import com.cmpe352group4.buyo.vo.CheckoutResponse
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -26,6 +28,15 @@ class CartRepository @Inject constructor(
                 return InitialLiveData.create(data.data)
             }
             override fun createCall(): LiveData<ApiResponse<BaseResponse<Cart>>> = api.fetchCartInfo(userId)
+        }.asLiveData()
+    }
+
+    fun checkout(checkoutRequest: CheckoutRequest): LiveData<Resource<CheckoutResponse>> {
+        return object : NetworkServiceWrapper<CheckoutResponse, BaseResponse<CheckoutResponse>>(appExecutors,connectionManager){
+            override fun loadFromApi(data: BaseResponse<CheckoutResponse>): LiveData<CheckoutResponse> {
+                return InitialLiveData.create(data.data)
+            }
+            override fun createCall(): LiveData<ApiResponse<BaseResponse<CheckoutResponse>>> = api.checkout(checkoutRequest.customerId, checkoutRequest.creditCard, checkoutRequest.address)
         }.asLiveData()
     }
 
