@@ -143,6 +143,7 @@ module.exports.signup = async (params) => {
       user = await Customer.create({
         email: params.email,
         password: params.password,
+        name: params.name,
       });
     } else {
       user = await Vendor.create({
@@ -152,6 +153,7 @@ module.exports.signup = async (params) => {
         latitude: params.latitude,
         website: params.website,
         company: params.company,
+        name: params.name,
       });
     }
 
