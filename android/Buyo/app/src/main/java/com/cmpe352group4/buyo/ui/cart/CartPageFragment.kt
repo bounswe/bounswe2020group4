@@ -1,6 +1,7 @@
 package com.cmpe352group4.buyo.ui.cart
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,8 +21,7 @@ import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.util.extensions.visible
 import com.cmpe352group4.buyo.viewmodel.CartViewModel
-import com.cmpe352group4.buyo.vo.CartProduct
-import com.cmpe352group4.buyo.vo.Vendor
+import com.cmpe352group4.buyo.vo.*
 import com.cmpe352group4.buyo.widgets.navigation_bar.NavigationBar
 import kotlinx.android.synthetic.main.fragment_cart.*
 import javax.inject.Inject
@@ -42,35 +42,38 @@ class CartPageFragment : BaseFragment() {
     companion object {
         fun newInstance() = CartPageFragment()
     }
-
+    var finalCartProducts = mutableListOf<CartProduct>()
     val dummyCartProduct = mutableListOf(
         CartProduct(name = "Erkek Bebek Bugs Bunny Desenli Takim 2'li",
-            id = 1,
-            color = "Red",
+            id = "1",
             imageUrl = "https://img-lcwaikiki.mncdn.com/mnresize/230/-/pim/productimages/20202/4692240/l_20202-0weg94z1-g4y_a.jpg",
             rating = 2.15,
             price = 64.99,
             originalPrice = 74.99,
             brand = "Watsons",
-            vendor = Vendor(id = 12, name = "Pablos", rating = 2.43),
-            size = null,
-            stockValue = null,
-            category = null,
-            quantity = 1
+            vendor = Vendor(id = "12", name = "Pablos", rating = 2.43),
+            productInfo = listOf(
+                ProductInfo(attributes = listOf(
+                    Attribute(att_name = "color", att_value = "red"), Attribute(att_name = "size", att_value = "L")
+                ), quantity = 2),
+                ProductInfo(attributes = listOf(
+                    Attribute(att_name = "color", att_value = "blue"), Attribute(att_name = "size", att_value = "M")
+                ), quantity = 4)
+            )
         ),
         CartProduct(name = "Slim Fit Jogger Esofman Alti",
-            id = 2,
-            color = "Blue",
+            id = "2",
             imageUrl = "https://img-lcwaikiki.mncdn.com/mnresize/230/-/productimages/20192/1/3891903/l_20192-9wr187z8-mgl_a.jpg",
             rating = 1.01,
             price = 35.00,
             originalPrice = 70.00,
             brand = "Koton",
-            vendor = Vendor(id = 12, name = "AyseTeyze", rating = 3.21),
-            size = "L",
-            stockValue = null,
-            category = null,
-            quantity = 1
+            vendor = Vendor(id = "12", name = "AyseTeyze", rating = 3.21),
+            productInfo = listOf(
+                ProductInfo(attributes = listOf(
+                    Attribute(att_name = "color", att_value = "red"), Attribute(att_name = "size", att_value = "L")
+                ), quantity = 1)
+            )
         )
     )
 
@@ -100,7 +103,18 @@ class CartPageFragment : BaseFragment() {
             tv_discount_dollar.text = "45 $"
             tv_final_price.text = "Total: 119.99 $"
 
-            cartAdapter.submitList(dummyCartProduct)
+            dummyCartProduct.forEach { product ->
+                if(product.productInfo.size > 1 ){
+                    product.productInfo.forEach {
+                        var newProduct = product.copy(productInfo = listOf(it))
+                        finalCartProducts.add(newProduct)
+                    }
+                }else{
+                    finalCartProducts.add(product)
+                }
+            }
+            Log.i("cart", finalCartProducts.toString())
+            cartAdapter.submitList(finalCartProducts)
         }
 
         initializeAdapter()
@@ -119,7 +133,18 @@ class CartPageFragment : BaseFragment() {
             tv_discount_dollar.text = "45 $"
             tv_final_price.text = "Total: 119.99 $"
 
-            cartAdapter.submitList(dummyCartProduct)
+            dummyCartProduct.forEach { product ->
+                if(product.productInfo.size > 1 ){
+                    product.productInfo.forEach {
+                        var newProduct = product.copy(productInfo = listOf(it))
+                        finalCartProducts.add(newProduct)
+                    }
+                }else{
+                    finalCartProducts.add(product)
+                }
+            }
+            Log.i("cart", finalCartProducts.toString())
+            cartAdapter.submitList(finalCartProducts)
         }
     }
 
@@ -181,11 +206,23 @@ class CartPageFragment : BaseFragment() {
                     clEmptyCart.visible = false
                     clNonEmptyCart.visible = true
 
+
+                    it.data.products?.forEach { product ->
+                        if(product.productInfo.size > 1 ){
+                            product.productInfo.forEach {
+                                var newProduct = product.copy(productInfo = listOf(it))
+                                finalCartProducts.add(newProduct)
+                            }
+                        }else{
+                            finalCartProducts.add(product)
+                        }
+                    }
+
                     tv_product_price_dollar.text = (it.data.totalOriginalPrice.toString() + "$")
                     tv_discount_dollar.text = ((it.data.totalPrice?.minus(it.data.totalOriginalPrice)).toString() + "$")
                     tv_final_price.text = (it.data.totalPrice.toString() + "$")
 
-                    cartAdapter.submitList(it.data.products as MutableList<CartProduct>)
+                    cartAdapter.submitList(finalCartProducts)
                 }
 
                 dispatchLoading()
