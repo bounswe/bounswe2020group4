@@ -233,7 +233,7 @@ module.exports.getProducts = async (params) => {
           rating: vendor.rating,
         };
         product.id = product._id.toString();
-        console.log("PRODUCT INFORS:",product.productInfos);
+        
         if(product.productInfos.length > 0){
 
           product.productInfos.forEach(function eachKey(property) { 
@@ -255,7 +255,7 @@ module.exports.getProducts = async (params) => {
       })
     );
 
-    return {products,filterCriterias};
+    return {productList:products,filterCriterias};
   } catch (error) {
     console.log(error);
     return error;
