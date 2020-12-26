@@ -8,7 +8,6 @@ import com.cmpe352group4.buyo.api.Resource
 import com.cmpe352group4.buyo.datamanager.repositories.ProfileRepository
 import com.cmpe352group4.buyo.util.livedata.AbsentLiveData
 import com.cmpe352group4.buyo.vo.CustomerInformationResult
-import com.cmpe352group4.buyo.vo.LoginSignupRequest
 import com.cmpe352group4.buyo.vo.LoginRequestCustomer
 import com.cmpe352group4.buyo.vo.SignupRequestCustomer
 import com.cmpe352group4.buyo.vo.LoginRequestVendor

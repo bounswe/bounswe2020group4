@@ -48,7 +48,6 @@ class ProfileRepository @Inject constructor(
         }.asLiveData()
     }
 
-}
     fun loginVendor(userType: String, email: String, password: String): LiveData<Resource<LoginSingupResponse>> {
         return object : NetworkServiceWrapper<LoginSingupResponse, BaseResponse<LoginSingupResponse>>(appExecutors,connectionManager){
             override fun loadFromApi(data: BaseResponse<LoginSingupResponse>): LiveData<LoginSingupResponse> {
@@ -68,5 +67,6 @@ class ProfileRepository @Inject constructor(
                 api.signup_vendor(userType, email, password, latitude, longitude, website, company)
         }.asLiveData()
     }
+
 }
 

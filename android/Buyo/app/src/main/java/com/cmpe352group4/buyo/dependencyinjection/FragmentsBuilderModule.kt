@@ -22,7 +22,6 @@ import com.cmpe352group4.buyo.ui.profilePage.AccountInfoFragment
 import com.cmpe352group4.buyo.ui.profilePage.AddressInfoFragment
 import com.cmpe352group4.buyo.ui.profilePage.ChangePasswordFragment
 import com.cmpe352group4.buyo.ui.profilePage.ProfilePageFragment
-import com.cmpe352group4.buyo.ui.wishList.WishListFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

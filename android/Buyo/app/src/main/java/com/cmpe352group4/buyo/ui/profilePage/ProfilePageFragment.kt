@@ -8,6 +8,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
+import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
+import com.cmpe352group4.buyo.ui.orderpage.OrderPageFragment
 import kotlinx.android.synthetic.main.fragment_profile_page.*
 import javax.inject.Inject
 
@@ -15,6 +17,9 @@ class ProfilePageFragment: BaseFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    @Inject
+    lateinit var sharedPref: SharedPref
 
     //profileViewModel
     companion object {
@@ -34,25 +39,36 @@ class ProfilePageFragment: BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        tv_profile_page_account_info.setOnClickListener() {
+        tv_profile_page_account_info.setOnClickListener {
             navigationManager?.onReplace(
                 AccountInfoFragment.newInstance(),
                 TransactionType.Replace, true
             )
         }
 
-        tv_profile_page_address_info.setOnClickListener() {
+        tv_profile_page_address_info.setOnClickListener {
             navigationManager?.onReplace(
                 AddressInfoFragment.newInstance(),
                 TransactionType.Replace, true
             )
         }
 
-        tv_profile_page_change_password.setOnClickListener() {
+        tv_profile_page_orders.setOnClickListener {
+            navigationManager?.onReplace(
+                OrderPageFragment.newInstance(),
+                TransactionType.Replace, true
+            )
+        }
+
+        tv_profile_page_change_password.setOnClickListener {
             navigationManager?.onReplace(
                 ChangePasswordFragment.newInstance(),
                 TransactionType.Replace, true
             )
+        }
+
+        tv_profile_page_logout.setOnClickListener {
+            // it will be implemented later
         }
 
     }

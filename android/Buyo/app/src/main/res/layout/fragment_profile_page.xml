@@ -76,13 +76,13 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_profile_page_orders" />
 
     <TextView
-        android:id="@+id/tv_profile_page_exit"
+        android:id="@+id/tv_profile_page_logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:text="Exit"
+        android:text="Logout"
         android:textColor="@color/black"
         android:textSize="30sp"
         android:clickable="true"
