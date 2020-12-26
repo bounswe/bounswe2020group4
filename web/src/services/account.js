@@ -5,15 +5,25 @@ const baseUrl = 'http://3.138.113.101:8080/'
 const getProfileInfo = async (userType, id) => {
 	let response
 	try{
-		response = await axios.post(`${baseUrl}account?id=${id}userType=${userType}`)
+		response = await axios.get(`${baseUrl}account?id=${id}&userType=${userType}`)
 	} catch(err){
 		console.log(err)
 		return null
 	}
 
+	let info = {
+		'email': '',
+		'phone': '',
+		'firstName': '',
+		'lastName': '',
+		'gender': 'choose'
+	}
+
 	if (userType == 'customer'){
 		if (response.data.status.code == 200){
-			return response.data.data.result
+			//TODO: add more field when ready
+			info.email = response.data.data.result.email
+			return info
 		} else {
 			return null
 		}

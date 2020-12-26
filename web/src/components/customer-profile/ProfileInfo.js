@@ -61,15 +61,22 @@ const ProfileInfo = (props) => {
 
 		const getProfileInfo = async () => {
 			const profileInfo = await accountService.getProfileInfo('customer', props.customerId)
-			console.log(profileInfo)
+			console.log(!profileInfo)
 			if (!profileInfo){
+				//Dummy data
 				setFirstName('Eylul')
 				setLastName('Yalcinkaya')
 				setEmail('eylul@hotmail.com')
 				setPhone('05305005050')
 				setGender('Female')
+			} else {
+				setFirstName(profileInfo.firstName)
+				setLastName(profileInfo.lastName)
+				setEmail(profileInfo.email)
+				setPhone(profileInfo.phone)
+				setGender(profileInfo.gender)
 			}
-			//TODO: Use backend data when endpoint is ready
+			//TODO: error handling
 		}
 
 		getProfileInfo()
