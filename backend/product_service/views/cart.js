@@ -2,7 +2,6 @@ const Product = require("../models/product").Product;
 const Vendor = require("../models/vendor").Vendor;
 const CartProduct = require("../models/cart_products").CartProduct;
 const ObjectId = require("mongoose").Types.ObjectId;
-
 function updateProductInfos(productInfoList, paramProductInfo) {
   let isProductInfoFound = false;
   productInfoList.forEach((dbProductInfo, index) => {
@@ -32,7 +31,6 @@ function updateProductInfos(productInfoList, paramProductInfo) {
     productInfoList.push(paramProductInfo);
   }
 }
-
 function deleteFromProductInfos(productInfoList, updatedProductInfoList, paramProductInfo) {
   productInfoList.forEach((dbProductInfo) => {
     isCorrectProductInfo = true;
@@ -62,7 +60,6 @@ module.exports.updateCart = async (params) => {
     const paramProductId = params.productId;
     const paramProductInfo = JSON.parse(params.productInfo);
     const carts = await CartProduct.find({});
-    
     // Delete the product from the cart
     if (!paramProductInfo.quantity) {
       let cart_product = await CartProduct.findOne({
