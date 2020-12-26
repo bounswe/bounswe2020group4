@@ -1,23 +1,56 @@
 [
     {
         "description": "Engineered for long-lasting performance. Comfortable confidence.",
-        "name": "Lenovo Thinkpad 381W0003QUS" ,
+        "name": "Lenovo Thinkpad 381W0003QUS",
         "price": 3800,
         "category": [
             "Electronics",
             "Computers"
         ],
         "originalPrice": 4000,
-        "imageUrl":  "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089907471520",
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089907471520",
         "rating": 4.2,
-        "screenSize": ["14 Inch"],
-        "RAM": "8 GB",
         "brand": "Lenovo",
-        "diskSize": ["256 GB","512 GB"]
+        "productInfos": [
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "14 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "8 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "256 GB"
+                    }
+                ],
+                "stockValue": 96
+            },
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "14 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "8 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "512 GB"
+                    }
+                ],
+                "stockValue": 82
+            }
+        ]
     },
     {
         "description": "Engineered for long-lasting performance. Comfortable confidence.",
-        "name": "Asus Zenbook" ,
+        "name": "Asus Zenbook",
         "price": 4000,
         "category": [
             "Electronics",
@@ -26,14 +59,47 @@
         "originalPrice": 4100,
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089907471881",
         "rating": 4.2,
-        "screenSize": ["14 Inch"],
-        "RAM": "16 GB",
         "brand": "Asus",
-        "diskSize": ["512 GB","1024 GB"]
+        "productInfos": [
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "14 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "16 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "512 GB"
+                    }
+                ],
+                "stockValue": 71
+            },
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "14 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "16 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "1024 GB"
+                    }
+                ],
+                "stockValue": 6
+            }
+        ]
     },
     {
         "description": "Engineered for long-lasting performance. Comfortable confidence.",
-        "name": "ASUS X540UA CORE" ,
+        "name": "ASUS X540UA CORE",
         "price": 4000,
         "category": [
             "Electronics",
@@ -42,14 +108,47 @@
         "originalPrice": 4300,
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089907471912",
         "rating": 4.2,
-        "screenSize": ["15 Inch"],
-        "RAM": "8 GB",
         "brand": "Asus",
-        "diskSize": ["512 GB","1024 GB"]
+        "productInfos": [
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "15 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "8 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "512 GB"
+                    }
+                ],
+                "stockValue": 96
+            },
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "15 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "8 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "1024 GB"
+                    }
+                ],
+                "stockValue": 71
+            }
+        ]
     },
     {
         "description": "Engineered for long-lasting performance. Comfortable confidence.",
-        "name": "ASUS D509DA" ,
+        "name": "ASUS D509DA",
         "price": 4000,
         "category": [
             "Electronics",
@@ -58,16 +157,81 @@
         "originalPrice": 4300,
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089907471983",
         "rating": 4.2,
-        "screenSize": ["15 Inch"],
-        "RAM": ["8 GB","16 GB"],
         "brand": "Asus",
-        "diskSize": ["512 GB","1024 GB"]
+        "productInfos": [
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "15 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "8 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "512 GB"
+                    }
+                ],
+                "stockValue": 6
+            },
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "15 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "8 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "1024 GB"
+                    }
+                ],
+                "stockValue": 68
+            },
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "15 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "16 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "512 GB"
+                    }
+                ],
+                "stockValue": 32
+            },
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "15 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "16 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "1024 GB"
+                    }
+                ],
+                "stockValue": 55
+            }
+        ]
     },
-
-    
     {
         "description": "Engineered for long-lasting performance. Comfortable confidence.",
-        "name": "Macbook Air" ,
+        "name": "Macbook Air",
         "price": 6000,
         "category": [
             "Electronics",
@@ -76,14 +240,81 @@
         "originalPrice": 6200,
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089907472004",
         "rating": 4.6,
-        "screenSize": ["13 Inch"],
-        "RAM": ["8 GB","16 GB"],
         "brand": "Macbook",
-        "diskSize": ["256 GB","512 GB"]
+        "productInfos": [
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "13 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "8 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "256 GB"
+                    }
+                ],
+                "stockValue": 93
+            },
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "13 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "8 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "512 GB"
+                    }
+                ],
+                "stockValue": 2
+            },
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "13 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "16 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "256 GB"
+                    }
+                ],
+                "stockValue": 45
+            },
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "13 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "16 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "512 GB"
+                    }
+                ],
+                "stockValue": 4
+            }
+        ]
     },
     {
         "description": "Engineered for long-lasting performance. Comfortable confidence.",
-        "name": "Macbook Pro" ,
+        "name": "Macbook Pro",
         "price": 6000,
         "category": [
             "Electronics",
@@ -92,14 +323,81 @@
         "originalPrice": 6200,
         "imageUrl": "",
         "rating": 4.8,
-        "screenSize": ["13 Inch"],
-        "RAM": ["8 GB","16 GB"],
         "brand": "Macbook",
-        "diskSize": ["256 GB","512 GB"]
+        "productInfos": [
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "13 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "8 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "256 GB"
+                    }
+                ],
+                "stockValue": 53
+            },
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "13 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "8 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "512 GB"
+                    }
+                ],
+                "stockValue": 29
+            },
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "13 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "16 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "256 GB"
+                    }
+                ],
+                "stockValue": 92
+            },
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "13 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "16 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "512 GB"
+                    }
+                ],
+                "stockValue": 46
+            }
+        ]
     },
     {
         "description": "Engineered for long-lasting performance. Comfortable confidence.",
-        "name": "HP Pavilion Intel Pentium" ,
+        "name": "HP Pavilion Intel Pentium",
         "price": 3800,
         "category": [
             "Electronics",
@@ -108,14 +406,166 @@
         "originalPrice": 4500,
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089907472025",
         "rating": 3.8,
-        "screenSize": ["15 Inch"],
-        "RAM": ["4 GB","8 GB","16 GB"],
         "brand": "HP",
-        "diskSize": ["256 GB","512 GB","1024 GB"]
+        "productInfos": [
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "15 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "4 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "256 GB"
+                    }
+                ],
+                "stockValue": 36
+            },
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "15 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "4 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "512 GB"
+                    }
+                ],
+                "stockValue": 28
+            },
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "15 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "4 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "1024 GB"
+                    }
+                ],
+                "stockValue": 26
+            },
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "15 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "8 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "256 GB"
+                    }
+                ],
+                "stockValue": 33
+            },
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "15 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "8 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "512 GB"
+                    }
+                ],
+                "stockValue": 74
+            },
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "15 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "8 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "1024 GB"
+                    }
+                ],
+                "stockValue": 96
+            },
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "15 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "16 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "256 GB"
+                    }
+                ],
+                "stockValue": 43
+            },
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "15 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "16 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "512 GB"
+                    }
+                ],
+                "stockValue": 100
+            },
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "15 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "16 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "1024 GB"
+                    }
+                ],
+                "stockValue": 5
+            }
+        ]
     },
     {
         "description": "Engineered for long-lasting performance. Comfortable confidence.",
-        "name": "HP Stream Laptop" ,
+        "name": "HP Stream Laptop",
         "price": 3800,
         "category": [
             "Electronics",
@@ -123,17 +573,167 @@
         ],
         "originalPrice": 4100,
         "imageUrl": "",
-        "rating": 3.0,
-        "screenSize": ["13 Inch"],
-        "RAM": ["4 GB","8 GB","16 GB"],
+        "rating": 3,
         "brand": "HP",
-        "diskSize": ["256 GB","512 GB","1024 GB"]
-    }
-
-    ,
+        "productInfos": [
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "13 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "4 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "256 GB"
+                    }
+                ],
+                "stockValue": 61
+            },
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "13 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "4 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "512 GB"
+                    }
+                ],
+                "stockValue": 77
+            },
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "13 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "4 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "1024 GB"
+                    }
+                ],
+                "stockValue": 10
+            },
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "13 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "8 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "256 GB"
+                    }
+                ],
+                "stockValue": 26
+            },
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "13 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "8 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "512 GB"
+                    }
+                ],
+                "stockValue": 75
+            },
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "13 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "8 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "1024 GB"
+                    }
+                ],
+                "stockValue": 29
+            },
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "13 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "16 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "256 GB"
+                    }
+                ],
+                "stockValue": 98
+            },
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "13 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "16 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "512 GB"
+                    }
+                ],
+                "stockValue": 88
+            },
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "13 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "16 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "1024 GB"
+                    }
+                ],
+                "stockValue": 58
+            }
+        ]
+    },
     {
         "description": "Uncover the Ultimate Design. Beauty Beyond the Visual",
-        "name": "Samsung S8" ,
+        "name": "Samsung S8",
         "price": 2800,
         "category": [
             "Electronics",
@@ -141,16 +741,48 @@
         ],
         "originalPrice": 3000,
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089907472046",
-        "rating": 4.0,
-        "screenSize": ["5.5 Inch"],
-        "RAM": ["4 GB"],
+        "rating": 4,
         "brand": "Samsung",
-        "diskSize": ["64 GB","128 GB"]
-    }
-    ,
+        "productInfos": [
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "5.5 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "4 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "64 GB"
+                    }
+                ],
+                "stockValue": 21
+            },
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "5.5 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "4 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "128 GB"
+                    }
+                ],
+                "stockValue": 18
+            }
+        ]
+    },
     {
         "description": "Uncover the Ultimate Design. Beauty Beyond the Visual",
-        "name": "Samsung S9" ,
+        "name": "Samsung S9",
         "price": 4000,
         "category": [
             "Electronics",
@@ -159,15 +791,47 @@
         "originalPrice": 4200,
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089907472057",
         "rating": 4.4,
-        "screenSize": ["5.5 Inch"],
-        "RAM": ["8 GB"],
         "brand": "Samsung",
-        "diskSize": ["64 GB","128 GB"]
-    }
-    ,
+        "productInfos": [
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "5.5 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "8 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "64 GB"
+                    }
+                ],
+                "stockValue": 54
+            },
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "5.5 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "8 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "128 GB"
+                    }
+                ],
+                "stockValue": 74
+            }
+        ]
+    },
     {
         "description": "Uncover the Ultimate Design. Beauty Beyond the Visual",
-        "name": "Samsung S10" ,
+        "name": "Samsung S10",
         "price": 4500,
         "category": [
             "Electronics",
@@ -176,14 +840,47 @@
         "originalPrice": 5000,
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089907472078",
         "rating": 4.4,
-        "screenSize": ["6 Inch"],
-        "RAM": ["8 GB"],
         "brand": "Samsung",
-        "diskSize": ["64 GB","128 GB"]
-    } ,
+        "productInfos": [
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "6 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "8 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "64 GB"
+                    }
+                ],
+                "stockValue": 95
+            },
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "6 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "8 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "128 GB"
+                    }
+                ],
+                "stockValue": 95
+            }
+        ]
+    },
     {
         "description": "Uncover the Ultimate Design. Beauty Beyond the Visual",
-        "name": "Samsung S7" ,
+        "name": "Samsung S7",
         "price": 4500,
         "category": [
             "Electronics",
@@ -192,14 +889,47 @@
         "originalPrice": 5000,
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089907472099",
         "rating": 3.5,
-        "screenSize": ["5 Inch"],
-        "RAM": ["4 GB"],
         "brand": "Samsung",
-        "diskSize": ["64 GB","128 GB"]
+        "productInfos": [
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "5 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "4 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "64 GB"
+                    }
+                ],
+                "stockValue": 47
+            },
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "5 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "4 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "128 GB"
+                    }
+                ],
+                "stockValue": 94
+            }
+        ]
     },
     {
         "description": "Uncover the Ultimate Design. Beauty Beyond the Visual",
-        "name": "Iphone 8" ,
+        "name": "Iphone 8",
         "price": 4700,
         "category": [
             "Electronics",
@@ -208,14 +938,47 @@
         "originalPrice": 5000,
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160899074721010",
         "rating": 4.8,
-        "screenSize": ["5 Inch"],
-        "RAM": ["8 GB"],
         "brand": "Apple",
-        "diskSize": ["64 GB","128 GB"]
+        "productInfos": [
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "5 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "8 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "64 GB"
+                    }
+                ],
+                "stockValue": 39
+            },
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "5 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "8 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "128 GB"
+                    }
+                ],
+                "stockValue": 23
+            }
+        ]
     },
     {
         "description": "Uncover the Ultimate Design. Beauty Beyond the Visual",
-        "name": "Iphone 6" ,
+        "name": "Iphone 6",
         "price": 5200,
         "category": [
             "Electronics",
@@ -223,16 +986,48 @@
         ],
         "originalPrice": 5500,
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160899074721211",
-        "rating": 4.0,
-        "screenSize": ["5 Inch"],
-        "RAM": ["4 GB"],
+        "rating": 4,
         "brand": "Apple",
-        "diskSize": ["64 GB","128 GB"]
+        "productInfos": [
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "5 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "4 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "64 GB"
+                    }
+                ],
+                "stockValue": 42
+            },
+            {
+                "attributes": [
+                    {
+                        "name": "screenSize",
+                        "value": "5 Inch"
+                    },
+                    {
+                        "name": "RAM",
+                        "value": "4 GB"
+                    },
+                    {
+                        "name": "diskSize",
+                        "value": "128 GB"
+                    }
+                ],
+                "stockValue": 45
+            }
+        ]
     },
-
     {
         "description": "Poweful sound & unique enjoyment!",
-        "name": "Marshall Major III " ,
+        "name": "Marshall Major III ",
         "price": 2000,
         "category": [
             "Electronics",
@@ -242,11 +1037,21 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160899074721312",
         "brand": "Marshall",
         "rating": 4.5,
-        "noiseCancelling": "Yes"
+        "productInfos": [
+            {
+                "attributes": [
+                    {
+                        "name": "noiseCancelling",
+                        "value": "Yes"
+                    }
+                ],
+                "stockValue": 41
+            }
+        ]
     },
     {
         "description": "Poweful sound & unique enjoyment!",
-        "name": "Marshall Headphones M-ACCS-00152" ,
+        "name": "Marshall Headphones M-ACCS-00152",
         "price": 1500,
         "category": [
             "Electronics",
@@ -256,13 +1061,21 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160899074721513",
         "rating": 4.3,
         "brand": "Marshall",
-        "noiseCancelling": "No"
-    }
-
-    ,
+        "productInfos": [
+            {
+                "attributes": [
+                    {
+                        "name": "noiseCancelling",
+                        "value": "No"
+                    }
+                ],
+                "stockValue": 83
+            }
+        ]
+    },
     {
         "description": "Poweful sound & unique enjoyment!",
-        "name": "Sennheiser Headphones SS44" ,
+        "name": "Sennheiser Headphones SS44",
         "price": 1200,
         "category": [
             "Electronics",
@@ -272,11 +1085,21 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160899074721614",
         "rating": 4.3,
         "brand": "Sennheiser",
-        "noiseCancelling": "No"
-    } ,
+        "productInfos": [
+            {
+                "attributes": [
+                    {
+                        "name": "noiseCancelling",
+                        "value": "No"
+                    }
+                ],
+                "stockValue": 39
+            }
+        ]
+    },
     {
         "description": "Poweful sound & unique enjoyment!",
-        "name": "Sony Headphones XC-II" ,
+        "name": "Sony Headphones XC-II",
         "price": 1500,
         "category": [
             "Electronics",
@@ -286,15 +1109,21 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160899074721815",
         "rating": 4.3,
         "brand": "Sony",
-        "noiseCancelling": "No"
-    }
-
-
-
-    ,
+        "productInfos": [
+            {
+                "attributes": [
+                    {
+                        "name": "noiseCancelling",
+                        "value": "No"
+                    }
+                ],
+                "stockValue": 52
+            }
+        ]
+    },
     {
         "description": "Poweful sound & unique enjoyment!",
-        "name": "Apple Earbuds II" ,
+        "name": "Apple Earbuds II",
         "price": 750,
         "category": [
             "Electronics",
@@ -304,14 +1133,21 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160899074721916",
         "rating": 4.7,
         "brand": "Apple",
-        "noiseCancelling": "No"
-    }
-
-
-    ,
+        "productInfos": [
+            {
+                "attributes": [
+                    {
+                        "name": "noiseCancelling",
+                        "value": "No"
+                    }
+                ],
+                "stockValue": 89
+            }
+        ]
+    },
     {
         "description": "Poweful sound & unique enjoyment!",
-        "name": "Sony Earphone XS-II" ,
+        "name": "Sony Earphone XS-II",
         "price": 400,
         "category": [
             "Electronics",
@@ -321,11 +1157,21 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160899074722117",
         "rating": 4.3,
         "brand": "Sony",
-        "noiseCancelling": "No"
-    } ,
+        "productInfos": [
+            {
+                "attributes": [
+                    {
+                        "name": "noiseCancelling",
+                        "value": "No"
+                    }
+                ],
+                "stockValue": 38
+            }
+        ]
+    },
     {
         "description": "Poweful sound & unique enjoyment!",
-        "name": "Philips Earphone P-I" ,
+        "name": "Philips Earphone P-I",
         "price": 400,
         "category": [
             "Electronics",
@@ -335,6 +1181,16 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160899074722318",
         "rating": 4.1,
         "brand": "Philips",
-        "noiseCancelling": "No"
+        "productInfos": [
+            {
+                "attributes": [
+                    {
+                        "name": "noiseCancelling",
+                        "value": "No"
+                    }
+                ],
+                "stockValue": 31
+            }
+        ]
     }
-] 
+]
