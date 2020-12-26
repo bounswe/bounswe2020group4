@@ -128,9 +128,9 @@ class HomepageFragment : BaseFragment() {
 
         // Discount RV
 
-        discountViewModel.onFetchSearchResultbyKeyword( "dress")
+        discountViewModel.onFetchSearchResultbyCategory( "[\"Women Clothing\"]")
 
-        discountViewModel.searchResult.observe(viewLifecycleOwner, Observer {
+        discountViewModel.categoryResult.observe(viewLifecycleOwner, Observer {
 
             if (it.status == Status.SUCCESS && it.data != null){
 
