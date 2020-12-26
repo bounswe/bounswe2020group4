@@ -1,6 +1,6 @@
 [
     {
-        "description": "You'll enjoy powerful performance for all types of everyday tasks. Whether you're working from your home office, a student who needs a lightweight laptop for school, or just need a great entry-level Windows computer for entertainment, video chats, and other day-to-day uses, this practical notebook is engineered for long-lasting performance.",
+        "description": "Engineered for long-lasting performance. Comfortable confidence.",
         "name": "Lenovo Thinkpad 381W0003QUS" ,
         "price": 3800,
         "category": [
@@ -16,7 +16,7 @@
         "diskSize": ["256 GB","512 GB"]
     },
     {
-        "description": "You'll enjoy powerful performance for all types of everyday tasks. Whether you're working from your home office, a student who needs a lightweight laptop for school, or just need a great entry-level Windows computer for entertainment, video chats, and other day-to-day uses, this practical notebook is engineered for long-lasting performance.",
+        "description": "Engineered for long-lasting performance. Comfortable confidence.",
         "name": "Asus Zenbook" ,
         "price": 4000,
         "category": [
@@ -32,7 +32,7 @@
         "diskSize": ["512 GB","1024 GB"]
     },
     {
-        "description": "You'll enjoy powerful performance for all types of everyday tasks. Whether you're working from your home office, a student who needs a lightweight laptop for school, or just need a great entry-level Windows computer for entertainment, video chats, and other day-to-day uses, this practical notebook is engineered for long-lasting performance.",
+        "description": "Engineered for long-lasting performance. Comfortable confidence.",
         "name": "ASUS X540UA CORE" ,
         "price": 4000,
         "category": [
@@ -48,24 +48,7 @@
         "diskSize": ["512 GB","1024 GB"]
     },
     {
-        "description": "You'll enjoy powerful performance for all types of everyday tasks. Whether you're working from your home office, a student who needs a lightweight laptop for school, or just need a great entry-level Windows computer for entertainment, video chats, and other day-to-day uses, this practical notebook is engineered for long-lasting performance.",
-        "name": "ASUS X540UA CORE" ,
-        "price": 4000,
-        "category": [
-            "Electronics",
-            "Computers"
-        ],
-        "originalPrice": 4300,
-        "imageUrl": "",
-        "rating": 4.2,
-        "screenSize": "15 Inch",
-        "RAM": ["8 GB","16 GB"],
-        "brand": "Asus",
-        "diskSize": ["512 GB","1024 GB"]
-    },
-
-    {
-        "description": "You'll enjoy powerful performance for all types of everyday tasks. Whether you're working from your home office, a student who needs a lightweight laptop for school, or just need a great entry-level Windows computer for entertainment, video chats, and other day-to-day uses, this practical notebook is engineered for long-lasting performance.",
+        "description": "Engineered for long-lasting performance. Comfortable confidence.",
         "name": "ASUS D509DA" ,
         "price": 4000,
         "category": [
@@ -81,37 +64,85 @@
         "diskSize": ["512 GB","1024 GB"]
     },
 
+    
     {
-        "description": "You'll enjoy powerful performance for all types of everyday tasks. Whether you're working from your home office, a student who needs a lightweight laptop for school, or just need a great entry-level Windows computer for entertainment, video chats, and other day-to-day uses, this practical notebook is engineered for long-lasting performance.",
-        "name": "ASUS D509DA" ,
-        "price": 4000,
+        "description": "Engineered for long-lasting performance. Comfortable confidence.",
+        "name": "Macbook Air" ,
+        "price": 6000,
         "category": [
             "Electronics",
             "Computers"
         ],
-        "originalPrice": 4300,
+        "originalPrice": 6200,
         "imageUrl": "",
-        "rating": 4.2,
-        "screenSize": "15 Inch",
+        "rating": 4.6,
+        "screenSize": "13 Inch",
         "RAM": ["8 GB","16 GB"],
-        "brand": "Asus",
-        "diskSize": ["512 GB","1024 GB"]
+        "brand": "Macbook",
+        "diskSize": ["256 GB","512 GB"]
     },
-
     {
-        "description": "You'll enjoy powerful performance for all types of everyday tasks. Whether you're working from your home office, a student who needs a lightweight laptop for school, or just need a great entry-level Windows computer for entertainment, video chats, and other day-to-day uses, this practical notebook is engineered for long-lasting performance.",
-        "name": "ASUS D509DA" ,
-        "price": 4000,
+        "description": "Engineered for long-lasting performance. Comfortable confidence.",
+        "name": "Macbook Pro" ,
+        "price": 6000,
         "category": [
             "Electronics",
             "Computers"
         ],
-        "originalPrice": 4300,
+        "originalPrice": 6200,
         "imageUrl": "",
-        "rating": 4.2,
-        "screenSize": "15 Inch",
+        "rating": 4.8,
+        "screenSize": "13 Inch",
         "RAM": ["8 GB","16 GB"],
-        "brand": "Asus",
-        "diskSize": ["512 GB","1024 GB"]
+        "brand": "Macbook",
+        "diskSize": ["256 GB","512 GB"]
+    },
+    {
+        "description": "Engineered for long-lasting performance. Comfortable confidence.",
+        "name": "HP Pavilion Intel Pentium" ,
+        "price": 3800,
+        "category": [
+            "Electronics",
+            "Computers"
+        ],
+        "originalPrice": 4500,
+        "imageUrl": "",
+        "rating": 3.8,
+        "screenSize": "15 Inch",
+        "RAM": ["4 GB","8 GB","16 GB"],
+        "brand": "HP",
+        "diskSize": ["256 GB","512 GB","1024 GB"]
+    },
+    {
+        "description": "Engineered for long-lasting performance. Comfortable confidence.",
+        "name": "HP Pavilion Intel Pentium" ,
+        "price": 3800,
+        "category": [
+            "Electronics",
+            "Computers"
+        ],
+        "originalPrice": 4500,
+        "imageUrl": "",
+        "rating": 4.0,
+        "screenSize": "15 Inch",
+        "RAM": ["4 GB","8 GB","16 GB"],
+        "brand": "HP",
+        "diskSize": ["256 GB","512 GB","1024 GB"]
+    },
+    {
+        "description": "Engineered for long-lasting performance. Comfortable confidence.",
+        "name": "HP Stream Laptop" ,
+        "price": 3800,
+        "category": [
+            "Electronics",
+            "Computers"
+        ],
+        "originalPrice": 4500,
+        "imageUrl": "",
+        "rating": 3.0,
+        "screenSize": "13 Inch",
+        "RAM": ["4 GB","8 GB","16 GB"],
+        "brand": "HP",
+        "diskSize": ["256 GB","512 GB","1024 GB"]
     }
 ] 
