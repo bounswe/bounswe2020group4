@@ -69,4 +69,11 @@ interface Api {
         @Query("customerId") customerId: String
     ): LiveData<ApiResponse<BaseResponse<Cart>>>
 
+    @POST("order")
+    fun checkout(
+        @Query("customerId") customerId: String,
+        @Query("creditCard") creditCard: CreditCard,
+        @Query("address") address: Address
+        ): LiveData<ApiResponse<BaseResponse<CheckoutResponse>>>
+
 }
