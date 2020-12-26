@@ -1,37 +1,25 @@
 package com.cmpe352group4.buyo.ui.productList
 
 import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cmpe352group4.buyo.R
-import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
-import com.cmpe352group4.buyo.util.extensions.visible
-import com.cmpe352group4.buyo.viewmodel.WishListViewModel
-import com.cmpe352group4.buyo.vo.LikeResponse
 import kotlinx.android.synthetic.main.item_product_list_recycler_view.view.*
 import com.cmpe352group4.buyo.vo.Product
-import kotlinx.android.synthetic.main.fragment_product_detail_content.*
-import kotlinx.android.synthetic.main.fragment_product_detail_content.view.*
-import kotlinx.android.synthetic.main.fragment_wish_list.*
-import javax.inject.Inject
 
 
 class ProductListAdapter(
     var Products: MutableList<Product>,
-    val sharedPref : SharedPref,
+    val sharedPref: SharedPref,
     val clickCallback: (Product) -> Unit,
     val likeCallback: (Product, View) -> Unit,
-    val toastCallback: (String) -> Unit
+    val toastCallback: (String) -> Unit,
+    val addCartCallback: (String) -> Unit,
+    val removeCartCallback: () -> Unit?
 ) : RecyclerView.Adapter<ProductListAdapter.ProductListViewHolder>(){
 
     var WishListProducts: List<Product>? = null
@@ -116,11 +104,15 @@ class ProductListAdapter(
                     if (it.iv_productListRecyclerView_Cart.tag == R.drawable.ic_add2cart){
                         it.iv_productListRecyclerView_Cart.setImageResource(R.drawable.ic_remove_from_cart)
                         it.iv_productListRecyclerView_Cart.tag = R.drawable.ic_remove_from_cart
+                        addCartCallback.invoke(modal.id)
                     }
                     else if (it.iv_productListRecyclerView_Cart.tag == R.drawable.ic_remove_from_cart){
                         it.iv_productListRecyclerView_Cart.setImageResource(R.drawable.ic_add2cart)
                         it.iv_productListRecyclerView_Cart.tag = R.drawable.ic_add2cart
+                        removeCartCallback.invoke()
                     }
+
+
                 }
             }
 

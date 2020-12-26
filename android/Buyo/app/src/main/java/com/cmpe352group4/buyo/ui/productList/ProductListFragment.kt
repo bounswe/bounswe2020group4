@@ -6,7 +6,6 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -20,20 +19,15 @@ import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
+import com.cmpe352group4.buyo.ui.cart.CartPageFragment
+import com.cmpe352group4.buyo.ui.productDetail.AddCartFragment
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
-import com.cmpe352group4.buyo.viewmodel.CategoryViewModel
-import com.cmpe352group4.buyo.viewmodel.ProductViewModel
 import com.cmpe352group4.buyo.viewmodel.SearchViewModel
 import com.cmpe352group4.buyo.viewmodel.WishListViewModel
 import com.cmpe352group4.buyo.vo.LikeResponse
 import kotlinx.android.synthetic.main.fragment_product_list.*
 import com.cmpe352group4.buyo.vo.Product
-import com.cmpe352group4.buyo.vo.Vendor
-import kotlinx.android.synthetic.main.fragment_categories.*
-import kotlinx.android.synthetic.main.fragment_product_detail_content.*
-import kotlinx.android.synthetic.main.item_product_list_recycler_view.*
 import kotlinx.android.synthetic.main.item_product_list_recycler_view.view.*
-import java.util.ArrayList
 import javax.inject.Inject
 
 
@@ -117,8 +111,18 @@ class ProductListFragment : BaseFragment(){
                 myToast.setGravity(Gravity.BOTTOM, 0, 200)
                 myToast.show()
 
+            },{ productID ->
+                navigationManager?.onReplace(
+                    AddCartFragment.newInstance(productID),
+                    TransactionType.Replace, true
+                )
             }
-        )
+        ) {
+            navigationManager?.onReplace(
+                CartPageFragment.newInstance(),
+                TransactionType.Replace, true
+            )
+        }
     }
 
     override fun onCreateView(
