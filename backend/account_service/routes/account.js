@@ -44,9 +44,12 @@ module.exports.initialize = (app) => {
    */
   app.post("/account/address", async (request, response) => {
     const result = await account.addAddress(request.query);
-    if (result) {
+    if (result=="Please change your address title.") {
+      response.respond(400, result);
+    } else if(result){
       response.respond(200, "OK");
-    } else {
+    }
+    else {
       response.respond(404, "Account not found");
     }
   });
@@ -56,9 +59,12 @@ module.exports.initialize = (app) => {
    */
   app.patch("/account/address", async (request, response) => {
     const result = await account.updateAddress(request.query);
-    if (result) {
+    if (result=="Address not found.") {
+      response.respond(400, result);
+    } else if(result){
       response.respond(200, "OK");
-    } else {
+    }
+    else {
       response.respond(404, "Account not found");
     }
   });
@@ -67,10 +73,12 @@ module.exports.initialize = (app) => {
    * of the account with that address title.
    */
   app.delete("/account/address", async (request, response) => {
-    const result = await account.deleteAddress(request.query);
-    if (result) {
+    if (result=="Address not found.") {
+      response.respond(400, result);
+    } else if(result){
       response.respond(200, "OK");
-    } else {
+    }
+    else {
       response.respond(404, "Account not found");
     }
   });
