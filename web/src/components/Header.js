@@ -88,6 +88,22 @@ const Header = ({ isLoggedIn }) => {
 		)
 	}
 
+	const renderLoggedInProfileMenu = () => {
+		return (
+			<div className='profile-menu list-group-item text-center position-absolute'>
+				<div className='list-item'>
+					<Link to='/customerprofile' className='profile-menu-text'>Profile</Link>
+				</div>
+				<div className='list-item'>
+					<Link to='/orders' className='profile-menu-text'>Orders</Link>
+				</div>
+				<div className='list-item'>
+					<Link to='/customerAddresses' className='profile-menu-text'>Addresses</Link>
+				</div>
+			</div>
+		)
+	}
+
 	const onSearchArgsChange = (e) => {
 		if(e.target.value) {
 			setBlankSearched(false)
@@ -120,7 +136,7 @@ const Header = ({ isLoggedIn }) => {
 					<div className='header-right-icon-container'>
 						<img className='header-right-icon vertical-align-middle cursor-pointer' onClick={() => setProfileMenuOpen(!profileMenuOpen)} src={ProfileIcon} alt='profile'/>
 						{profileMenuOpen
-							? (isLoggedIn ? null : renderNotLoggedInProfileMenu())
+							? (isLoggedIn ? renderLoggedInProfileMenu() : renderNotLoggedInProfileMenu())
 							: null
 						}
 					</div>
@@ -130,7 +146,9 @@ const Header = ({ isLoggedIn }) => {
 						</Link>
 					</div>
 					<div className='header-right-icon-container'>
-						<img className='header-right-icon vertical-align-middle' src={CartIcon} alt='cart icon'/>
+						<Link to='/cart'>
+							<img className='header-right-icon vertical-align-middle' src={CartIcon} alt='cart icon'/>
+						</Link>
 					</div>
 				</div>
 			</div>

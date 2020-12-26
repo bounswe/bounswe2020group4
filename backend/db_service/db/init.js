@@ -13,7 +13,7 @@ module.exports.initializeMockDB = async () => {
 
   const clothingProducts = JSON.parse(fs.readFileSync("./mock-product-data/clothing.json"));
   const cosmeticProducts = JSON.parse(fs.readFileSync("./mock-product-data/cosmetic.json"));
-  const electronicProducts = JSON.parse(fs.readFileSync("./mock-product-data/electronic.json"));
+  const electronicProducts = JSON.parse(fs.readFileSync("./mock-product-data/electronics.json"));
   let vendors = JSON.parse(fs.readFileSync("./mock-product-data/vendors.json"));
 
   const res = await Vendor.collection.insertMany(vendors);

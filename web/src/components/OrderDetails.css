@@ -33,24 +33,22 @@
 .order-page-button {
   text-align: center;
   padding: 10px;
-  box-shadow: 5px 10px;
   font-size: 20px;
-  background-color: var(--surface);
+  background-color: var(--red-tertiary);
+  color: white;
   border: solid;
   border-radius: 10px;
-  color: #ec4a3b;
   margin-bottom: 10%;
 }
 
 .add-comment-button {
   text-align: center;
   padding: 10px;
-  box-shadow: 5px 10px;
   font-size: 15px;
-  background-color: var(--surface);
+  background-color: var(--red-tertiary);
+  color: white;
   border: solid;
   border-radius: 10px;
-  color: #ec4a3b;
   margin-left: 10%;
   height: 50%;
 }
@@ -58,4 +56,8 @@
 .address-container {
   width: 100%;
   font-size: 20px;
+}
+
+.dialog-rating {
+  display: flex;
 }

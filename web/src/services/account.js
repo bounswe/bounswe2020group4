@@ -2,6 +2,71 @@ import axios from 'axios'
 
 const baseUrl = 'http://3.138.113.101:8080/'
 
+const getProfileInfo = async (userType, id) => {
+	let response
+	try{
+		response = await axios.post(`${baseUrl}account?id=${id}userType=${userType}`)
+	} catch(err){
+		console.log(err)
+		return null
+	}
+
+	if (userType == 'customer'){
+		if (response.data.status.code == 200){
+			return response.data.data.result
+		} else {
+			return null
+		}
+		//TODO: error handling
+	} else {
+		if (response.data.status.code == 200){
+			return response.data.data.result
+		} else {
+			return null
+		}
+	}
+}
+
+const updateProfileInfo = async (userType, id, profileInfo) => {
+
+	const {firstName, lastName, email, phone, gender} = profileInfo
+	let response
+	//TODO: Add backend call when it's ready
+	/* 
+	try{
+		response = await axios.post(`${baseUrl}account?id=${id}userType=${userType}`)
+	} catch(err){
+		console.log(err)
+		return null
+	}
+	*/
+	if (userType == 'customer'){
+		return null
+	} else {
+		return null
+	}
+}
+
+const updatePassword = async (userType, id, passwordInfo) => {
+
+	const {oldPassword, newPassword} = passwordInfo
+	let response
+	//TODO: Add backend call when it's ready
+	/* 
+	try{
+		response = await axios.post(`${baseUrl}account?id=${id}userType=${userType}`)
+	} catch(err){
+		console.log(err)
+		return null
+	}
+	*/
+	if (userType == 'customer'){
+		return null
+	} else {
+		return null
+	}
+}
+
 const login = async (loginInput) => {
 
 	const { email, password } = loginInput
@@ -36,4 +101,4 @@ const signUp = async (signUpInput) => {
 
 }
 
-export default { login, signUp }
+export default { login, signUp, getProfileInfo, updateProfileInfo, updatePassword }

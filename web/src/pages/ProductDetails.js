@@ -16,10 +16,12 @@ const ProductDetails = () => {
 	const id = useParams().id
 
 	useEffect(() => {
-		productService.getProduct(id)
-			.then(p => {
-				setProduct(p)
-			})
+		const getProduct = async () => {
+			const p = await productService.getProduct(id)
+			setProduct(p)
+		}
+
+		getProduct()
 	}, [id])
 
 	if(product === null)
