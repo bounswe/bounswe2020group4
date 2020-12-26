@@ -5,8 +5,8 @@ import java.util.*
 
 data class Order (
     var orderID : String,
-    var orderDate: String?,   //YYYY-MM-DD
-    var deliverDate: String?, //YYYY-MM-DD
+    var orderDate: String?,   //DD.MM.YYYY
+    var deliverDate: String?, //DD.MM.YYYY
     var isDelivered: Boolean,
     var product: Product, // vendor info will come from the product object
     var address: String   // Just the address text

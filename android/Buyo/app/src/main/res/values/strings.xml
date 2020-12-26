@@ -300,6 +300,7 @@
     <string name="please_select_your_location">Please select your location!</string>
     <string name="back">Back</string>
     <string name="i_understand">I understand</string>
-    <string name="your_orders">Your Orders</string>
+    <string name="your_orders">My Orders</string>
+    <string name="add_comment">Add Comment</string>
 
 </resources>

@@ -16,6 +16,7 @@ import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.EmptyFragment
 import com.cmpe352group4.buyo.ui.LegalDocFragment
+import com.cmpe352group4.buyo.ui.orderpage.OrderPageFragment
 import com.cmpe352group4.buyo.util.extensions.makeLinks
 import com.cmpe352group4.buyo.viewmodel.ProfileViewModel
 import com.cmpe352group4.buyo.vo.LoginRequestCustomer
@@ -166,7 +167,7 @@ class LoginFragment : BaseFragment() {
 
                             // TODO Go to profile page here
                             navigationManager?.onReplace(
-                                EmptyFragment.newInstance(),
+                                OrderPageFragment.newInstance(),
                                 TransactionType.Replace, false
                             )
 
