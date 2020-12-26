@@ -33,14 +33,32 @@ interface Api {
     fun fetchProductsbyCategory(@Query("categories") categoryList: String) : LiveData<ApiResponse<BaseResponse<ProductList>>>
 
     @POST("signup")
-    fun signup(
+    fun signup_customer(
         @Query("userType") userType: String,
         @Query("email") email: String,
         @Query("password") password: String
     ): LiveData<ApiResponse<BaseResponse<LoginSingupResponse>>>
 
     @POST("login")
-    fun login(
+    fun login_customer(
+        @Query("userType") userType: String,
+        @Query("email") email: String,
+        @Query("password") password: String
+    ): LiveData<ApiResponse<BaseResponse<LoginSingupResponse>>>
+
+    @POST("signup")
+    fun signup_vendor(
+        @Query("userType") userType: String,
+        @Query("email") email: String,
+        @Query("password") password: String,
+        @Query("longitude") longitude: String,
+        @Query("latitude") latitude: String,
+        @Query("website") website: String,
+        @Query("company") company: String
+    ): LiveData<ApiResponse<BaseResponse<LoginSingupResponse>>>
+
+    @POST("login")
+    fun login_vendor(
         @Query("userType") userType: String,
         @Query("email") email: String,
         @Query("password") password: String

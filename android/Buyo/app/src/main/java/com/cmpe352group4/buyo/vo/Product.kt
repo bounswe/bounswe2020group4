@@ -13,7 +13,8 @@ data class Product(
     var price: Double,
     var originalPrice: Double,
     var brand: String,
-    var stockValue: Map<String, Int>,
+    var productInfos: List<ProductInfo>,
     var vendor: Vendor,
-    var description: String
+    var description: String,
+    var stockValue: Map<String, Int>
 ): Serializable

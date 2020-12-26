@@ -8,6 +8,7 @@ import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.ui.productList.ProductListFragment
 import kotlinx.android.synthetic.main.fragment_legal_doc.*
+import kotlinx.android.synthetic.main.fragment_maps.*
 
 class LegalDocFragment: BaseFragment() {
     companion object {
@@ -36,6 +37,13 @@ class LegalDocFragment: BaseFragment() {
             legal_text.text = getString(R.string.privacy_policy_string)
         } else if (docType == "termsOfService") {
             legal_text.text = getString(R.string.terms_of_service_string)
+        }
+        okButtonListener()
+    }
+
+    private fun okButtonListener() {
+        docs_ok_button.setOnClickListener {
+            activity?.onBackPressed()
         }
     }
 

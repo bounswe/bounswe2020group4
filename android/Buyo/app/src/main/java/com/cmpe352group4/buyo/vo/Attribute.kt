@@ -6,3 +6,4 @@ data class Attribute(
     var att_name: String,
     var att_value: String
 ): Serializable
+

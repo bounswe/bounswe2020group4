@@ -18,11 +18,22 @@
     </androidx.fragment.app.FragmentContainerView>
 
     <Button
+        android:id="@+id/map_back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@color/buyo_darkCandyAppleRed"
+        android:text="@string/back"
+        android:textColor="@color/buyo_white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
         android:id="@+id/location_select"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
-        android:background="@color/medium_orange"
+        android:background="@color/safety_orange"
         android:textColor="@color/buyo_white"
         android:text="@string/select_string"
         android:enabled="false"

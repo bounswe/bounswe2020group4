@@ -20,22 +20,42 @@ class ProfileRepository @Inject constructor(
     private val connectionManager: ConnectionManager
 ){
 
-    fun loginUser(userType: String, email: String, password: String): LiveData<Resource<LoginSingupResponse>> {
+    fun loginCustomer(userType: String, email: String, password: String): LiveData<Resource<LoginSingupResponse>> {
         return object : NetworkServiceWrapper<LoginSingupResponse, BaseResponse<LoginSingupResponse>>(appExecutors,connectionManager){
             override fun loadFromApi(data: BaseResponse<LoginSingupResponse>): LiveData<LoginSingupResponse> {
                 return InitialLiveData.create(data.data)
             }
-            override fun createCall(): LiveData<ApiResponse<BaseResponse<LoginSingupResponse>>> = api.login(userType, email, password)
+            override fun createCall(): LiveData<ApiResponse<BaseResponse<LoginSingupResponse>>> = api.login_customer(userType, email, password)
         }.asLiveData()
     }
 
-    fun singupUser(userType: String, email: String, password: String): LiveData<Resource<LoginSingupResponse>> {
+    fun singupCustomer(userType: String, email: String, password: String): LiveData<Resource<LoginSingupResponse>> {
         return object : NetworkServiceWrapper<LoginSingupResponse, BaseResponse<LoginSingupResponse>>(appExecutors,connectionManager){
             override fun loadFromApi(data: BaseResponse<LoginSingupResponse>): LiveData<LoginSingupResponse> {
                 return InitialLiveData.create(data.data)
             }
-            override fun createCall(): LiveData<ApiResponse<BaseResponse<LoginSingupResponse>>> = api.signup(userType, email, password)
+            override fun createCall(): LiveData<ApiResponse<BaseResponse<LoginSingupResponse>>> = api.signup_customer(userType, email, password)
         }.asLiveData()
     }
 
+    fun loginVendor(userType: String, email: String, password: String): LiveData<Resource<LoginSingupResponse>> {
+        return object : NetworkServiceWrapper<LoginSingupResponse, BaseResponse<LoginSingupResponse>>(appExecutors,connectionManager){
+            override fun loadFromApi(data: BaseResponse<LoginSingupResponse>): LiveData<LoginSingupResponse> {
+                return InitialLiveData.create(data.data)
+            }
+            override fun createCall(): LiveData<ApiResponse<BaseResponse<LoginSingupResponse>>> = api.login_vendor(userType, email, password)
+        }.asLiveData()
+    }
+
+    fun singupVendor(userType: String, email: String, password: String, latitude: String,
+                     longitude: String, website: String, company: String): LiveData<Resource<LoginSingupResponse>> {
+        return object : NetworkServiceWrapper<LoginSingupResponse, BaseResponse<LoginSingupResponse>>(appExecutors,connectionManager){
+            override fun loadFromApi(data: BaseResponse<LoginSingupResponse>): LiveData<LoginSingupResponse> {
+                return InitialLiveData.create(data.data)
+            }
+            override fun createCall(): LiveData<ApiResponse<BaseResponse<LoginSingupResponse>>> =
+                api.signup_vendor(userType, email, password, latitude, longitude, website, company)
+        }.asLiveData()
+    }
 }
+
