@@ -46,6 +46,21 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_profile_page_account_info" />
 
     <TextView
+        android:id="@+id/tv_profile_page_orders"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="My Orders"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_profile_page_address_info" />
+
+    <TextView
         android:id="@+id/tv_profile_page_change_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -58,7 +73,7 @@
         android:clickable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_profile_page_address_info" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_profile_page_orders" />
 
     <TextView
         android:id="@+id/tv_profile_page_exit"
