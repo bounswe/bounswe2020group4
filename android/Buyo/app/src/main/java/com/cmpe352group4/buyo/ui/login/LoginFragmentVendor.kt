@@ -21,8 +21,10 @@ import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.LegalDocFragment
 import com.cmpe352group4.buyo.ui.googlemap.MapsFragment
 import com.cmpe352group4.buyo.ui.profilePage.ProfilePageFragment
+import com.cmpe352group4.buyo.util.extensions.makeLinks
 import com.cmpe352group4.buyo.viewmodel.ProfileViewModel
-import com.cmpe352group4.buyo.vo.LoginSignupRequest
+import com.cmpe352group4.buyo.vo.SignupRequestVendor
+import com.cmpe352group4.buyo.vo.LoginRequestVendor
 import kotlinx.android.synthetic.main.fragment_login_vendor.*
 import javax.inject.Inject
 
@@ -30,35 +32,9 @@ import javax.inject.Inject
 // TODO Reset password functionality
 // TODO Sign up e-mail verification
 
-
-// https://stackoverflow.com/a/45727769
-fun TextView.makeLinks(vararg links: Pair<String, View.OnClickListener>) {
-    val spannableString = SpannableString(this.text)
-    for (link in links) {
-        val clickableSpan = object : ClickableSpan() {
-
-            override fun updateDrawState(textPaint: TextPaint) {
-                // use this to change the link color
-                textPaint.color = textPaint.linkColor
-                // toggle below value to enable/disable
-                // the underline shown below the clickable text
-                textPaint.isUnderlineText = true
-            }
-
-            override fun onClick(view: View) {
-                Selection.setSelection((view as TextView).text as Spannable, 0)
-                view.invalidate()
-                link.second.onClick(view)
-            }
-        }
-        val startIndexOfLink = this.text.toString().indexOf(link.first)
-        spannableString.setSpan(clickableSpan, startIndexOfLink, startIndexOfLink + link.first.length,
-            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-    }
-    this.movementMethod = LinkMovementMethod.getInstance()
-    this.setText(spannableString, TextView.BufferType.SPANNABLE)
-}
-
+// Vendor must not use an e-mail domain if its domain is in the list below.
+val badDomainList : List<String> = listOf<String>("gmail", "windowslive", "hotmail", "outlook",
+                                                    "yahoo", "msn", "aol", "yandex")
 
 class LoginFragmentVendor : BaseFragment() {
 
@@ -160,7 +136,7 @@ class LoginFragmentVendor : BaseFragment() {
             var websiteDomain : String = websiteList[websiteList.lastIndex].split(".")[0]
             var emailList : List<String> = companyEmail.split("@")
             var emailDomain : String = emailList[emailList.lastIndex].split(".")[0]
-            companyEmailMatch = websiteDomain == emailDomain
+            companyEmailMatch = (websiteDomain == emailDomain) && (emailDomain !in badDomainList)
         }
 
         if (vendor_reenter_password.visibility == View.VISIBLE) {
@@ -185,7 +161,8 @@ class LoginFragmentVendor : BaseFragment() {
                 } else if (!passwordSame) {
                     toastText = "Given passwords are not the same"
                 } else if (!companyEmailMatch) {
-                    toastText = "Your e-mail and the company website must have the same domain name"
+                    toastText = "You should use your company e-mail which has the same domain" +
+                            " with your company website"
                 }
 
                 val myToast = Toast.makeText(
@@ -232,15 +209,14 @@ class LoginFragmentVendor : BaseFragment() {
             if (check) {
                 if (vendor_login_signup_button.isEnabled && !vendor_signup_switch.isChecked) {
 
-                    // TODO Fix backend call format
-                    profileViewModel.onLogin(
-                        LoginSignupRequest(
+                    profileViewModel.onLoginVendor(
+                        LoginRequestVendor(
                             userType = "vendor",
                             email = vendor_username.text.toString(),
                             password = vendor_password.text.toString()
                         )
                     )
-                    profileViewModel.login.observe(viewLifecycleOwner, Observer {
+                    profileViewModel.loginVendor.observe(viewLifecycleOwner, Observer {
                         if (it.status == Status.SUCCESS && it.data != null) {
                             sharedPref.saveUserId(it.data.userId)
                             dispatchLoading()
@@ -256,7 +232,7 @@ class LoginFragmentVendor : BaseFragment() {
                             dispatchLoading()
                             val myToast = Toast.makeText(
                                 context,
-                                "Create an account if you don't have one",
+                                "Given e-mail or password is wrong",
                                 Toast.LENGTH_SHORT
                             )
                             myToast.setGravity(Gravity.BOTTOM, 0, 200)
@@ -269,15 +245,18 @@ class LoginFragmentVendor : BaseFragment() {
                     val lat = sharedPref.getVendorLat()
                     val lon = sharedPref.getVendorLon()
                     if (vendor_remember_me.isChecked && lat != "" && lon != "") {
-                        // TODO Fix backend call format (lat, lon are also available)
-                        profileViewModel.onSingup(
-                            LoginSignupRequest(
+                        profileViewModel.onSingupVendor(
+                            SignupRequestVendor(
                                 userType = "vendor",
                                 email = vendor_username.text.toString(),
-                                password = vendor_password.text.toString()
+                                password = vendor_password.text.toString(),
+                                longitude = lon!!,
+                                latitude = lat!!,
+                                website = vendor_company_website.text.toString(),
+                                company = vendor_company_name.text.toString()
                             )
                         )
-                        profileViewModel.singup.observe(viewLifecycleOwner, Observer {
+                        profileViewModel.singupVendor.observe(viewLifecycleOwner, Observer {
                             if (it.status == Status.SUCCESS && it.data != null) {
                                 dispatchLoading()
                                 val myToast =

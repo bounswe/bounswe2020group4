@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_addCartFilterHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Features"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/rv_addCartFilters"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_addCartFilters"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_addCartAmountHeader"
+        app:layout_constraintTop_toBottomOf="@+id/tv_addCartFilterHeader"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/tv_addCartAmountHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="Amount"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/sb_addCartAmountBar"
+        app:layout_constraintEnd_toStartOf="@+id/tv_addCartCurrentAmount"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rv_addCartFilters" />
+
+    <TextView
+        android:id="@+id/tv_addCartCurrentAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textColor="@color/buyo_fireEngineRed"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_addCartAmountHeader"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tv_addCartAmountHeader"
+        app:layout_constraintTop_toTopOf="@+id/tv_addCartAmountHeader" />
+
+    <SeekBar
+        android:id="@+id/sb_addCartAmountBar"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:max="10"
+        android:min="1"
+        android:progress="3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_addCart"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_addCartAmountHeader" />
+
+    <Button
+        android:id="@+id/btn_addCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@color/buyo_fireEngineRed"
+        android:minHeight="10dp"
+        android:text="Add to Cart"
+        android:textColor="@color/buyo_white"
+        app:layout_constraintBottom_toBottomOf="@+id/sb_addCartAmountBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/sb_addCartAmountBar"
+        app:layout_constraintTop_toTopOf="@+id/sb_addCartAmountBar" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

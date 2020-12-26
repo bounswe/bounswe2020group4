@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_productList_filter_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Filter"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/rv_productList_filter_sort"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="8dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_productList_filter_sort"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_productList_sort_header"
+        app:layout_constraintTop_toBottomOf="@+id/tv_productList_filter_header"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/tv_productList_sort_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="Sort"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/sp_ProductList_sort_factor"
+        app:layout_constraintTop_toBottomOf="@+id/rv_productList_filter_sort"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <Spinner
+        android:id="@+id/sp_ProductList_sort_factor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@color/buyo_antiqueWhite"
+        android:entries="@array/sp_dummy_values"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/btn_search_filter_sort"
+        app:layout_constraintEnd_toStartOf="@+id/sp_ProductList_Sort_Type"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_productList_sort_header" />
+
+    <Spinner
+        android:id="@+id/sp_ProductList_Sort_Type"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@color/buyo_antiqueWhite"
+        android:entries="@array/sp_sort_type"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@+id/sp_ProductList_sort_factor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/sp_ProductList_sort_factor"
+        app:layout_constraintTop_toTopOf="@+id/sp_ProductList_sort_factor" />
+
+    <Button
+        android:id="@+id/btn_search_filter_sort"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@color/buyo_fireEngineRed"
+        android:minHeight="30dp"
+        android:text="Apply"
+        android:textColor="@color/buyo_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sp_ProductList_sort_factor" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

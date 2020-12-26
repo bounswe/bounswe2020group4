@@ -127,6 +127,21 @@
         <item>Category Specific</item>
     </string-array>
 
+    <!-- Dummy Attribute Values -->
+    <string-array name="sp_dummy_values">
+        <item>Value1</item>
+        <item>Value2</item>
+        <item>Value3</item>
+        <item>Value4</item>
+        <item>Value5</item>
+    </string-array>
+
+    <!-- Sort Type -->
+    <string-array name="sp_sort_type">
+        <item>Ascending</item>
+        <item>Descending</item>
+    </string-array>
+
     <!--  Cart Page - Checkout Page   -->
     <string name="empty_cart"> You do not have any product in your cart</string>
     <string name="gotoshop"> Let\'s shop</string>
@@ -300,10 +315,14 @@
 "them less protective of customer information collected in the past without the consent of affected"
 "customers."
     </string>
-    <string name="terms_of_service_string" >
+    <string name="terms_of_service_string">
         "Very Long Legal Document That Nobody Will Read"
     </string>
     <string name="company_name">Company Name</string>
     <string name="please_select_your_location">Please select your location!</string>
+    <string name="back">Back</string>
+    <string name="i_understand">I understand</string>
+    <string name="your_orders">My Orders</string>
+    <string name="add_comment">Add Comment</string>
 
 </resources>

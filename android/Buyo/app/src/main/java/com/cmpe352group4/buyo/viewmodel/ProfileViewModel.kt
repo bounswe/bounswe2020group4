@@ -9,6 +9,10 @@ import com.cmpe352group4.buyo.datamanager.repositories.ProfileRepository
 import com.cmpe352group4.buyo.util.livedata.AbsentLiveData
 import com.cmpe352group4.buyo.vo.CustomerInformationResult
 import com.cmpe352group4.buyo.vo.LoginSignupRequest
+import com.cmpe352group4.buyo.vo.LoginRequestCustomer
+import com.cmpe352group4.buyo.vo.SignupRequestCustomer
+import com.cmpe352group4.buyo.vo.LoginRequestVendor
+import com.cmpe352group4.buyo.vo.SignupRequestVendor
 import com.cmpe352group4.buyo.vo.LoginSingupResponse
 import com.cmpe352group4.buyo.vo.UserInformationRequest
 import javax.inject.Inject
@@ -18,10 +22,11 @@ class ProfileViewModel @Inject constructor(
     val repository: ProfileRepository
 ) : ViewModel() {
 
-
-    private val _loginRequest = MutableLiveData<LoginSignupRequest>()
-    private val _singupRequest = MutableLiveData<LoginSignupRequest>()
     private val _userInformationRequest = MutableLiveData<UserInformationRequest>()
+    private val _loginRequestCustomer = MutableLiveData<LoginRequestCustomer>()
+    private val _loginRequestVendor = MutableLiveData<LoginRequestVendor>()
+    private val _singupRequestCustomer = MutableLiveData<SignupRequestCustomer>()
+    private val _singupRequestVendor = MutableLiveData<SignupRequestVendor>()
 
     val userInformation: LiveData<Resource<CustomerInformationResult>> =
         Transformations.switchMap(_userInformationRequest) { it ->
@@ -31,28 +36,53 @@ class ProfileViewModel @Inject constructor(
                 repository.getProfileInfo(it.id, it.userType)
         }
 
-    val login: LiveData<Resource<LoginSingupResponse>> =
-        Transformations.switchMap(_loginRequest) { it ->
+    val loginCustomer: LiveData<Resource<LoginSingupResponse>> =
+        Transformations.switchMap(_loginRequestCustomer) { it ->
             if (it == null)
                 AbsentLiveData.create()
             else
-                repository.loginUser(it.userType, it.email, it.password)
+                repository.loginCustomer(it.userType, it.email, it.password)
         }
 
-    val singup: LiveData<Resource<LoginSingupResponse>> =
-        Transformations.switchMap(_singupRequest) { it ->
+    val singupCustomer: LiveData<Resource<LoginSingupResponse>> =
+        Transformations.switchMap(_singupRequestCustomer) { it ->
             if (it == null)
                 AbsentLiveData.create()
             else
-                repository.singupUser(it.userType, it.email, it.password)
+                repository.singupCustomer(it.userType, it.email, it.password)
         }
 
-    fun onLogin(login: LoginSignupRequest) {
-        _loginRequest.value = login
+    val loginVendor: LiveData<Resource<LoginSingupResponse>> =
+        Transformations.switchMap(_loginRequestVendor) { it ->
+            if (it == null)
+                AbsentLiveData.create()
+            else
+                repository.loginVendor(it.userType, it.email, it.password)
+        }
+
+    val singupVendor: LiveData<Resource<LoginSingupResponse>> =
+        Transformations.switchMap(_singupRequestVendor) { it ->
+            if (it == null)
+                AbsentLiveData.create()
+            else
+                repository.singupVendor(it.userType, it.email, it.password, it.longitude,
+                                        it.latitude, it.website, it.company)
+        }
+
+    fun onLoginCustomer(login: LoginRequestCustomer) {
+        _loginRequestCustomer.value = login
     }
 
-    fun onSingup(signUp: LoginSignupRequest) {
-        _singupRequest.value = signUp
+    fun onSingupCustomer(signUp: SignupRequestCustomer) {
+        _singupRequestCustomer.value = signUp
+    }
+
+    fun onLoginVendor(login: LoginRequestVendor) {
+        _loginRequestVendor.value = login
+    }
+
+    fun onSingupVendor(signUp: SignupRequestVendor) {
+        _singupRequestVendor.value = signUp
     }
 
     fun onFetchProfileInfo(update: UserInformationRequest) {

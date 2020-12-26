@@ -6,7 +6,6 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -20,20 +19,15 @@ import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
+import com.cmpe352group4.buyo.ui.cart.CartPageFragment
+import com.cmpe352group4.buyo.ui.productDetail.AddCartFragment
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
-import com.cmpe352group4.buyo.viewmodel.CategoryViewModel
-import com.cmpe352group4.buyo.viewmodel.ProductViewModel
 import com.cmpe352group4.buyo.viewmodel.SearchViewModel
 import com.cmpe352group4.buyo.viewmodel.WishListViewModel
 import com.cmpe352group4.buyo.vo.LikeResponse
 import kotlinx.android.synthetic.main.fragment_product_list.*
 import com.cmpe352group4.buyo.vo.Product
-import com.cmpe352group4.buyo.vo.Vendor
-import kotlinx.android.synthetic.main.fragment_categories.*
-import kotlinx.android.synthetic.main.fragment_product_detail_content.*
-import kotlinx.android.synthetic.main.item_product_list_recycler_view.*
 import kotlinx.android.synthetic.main.item_product_list_recycler_view.view.*
-import java.util.ArrayList
 import javax.inject.Inject
 
 
@@ -58,10 +52,12 @@ class ProductListFragment : BaseFragment(){
     companion object {
         private const val KEYWORD = "search_keyword"
         private const val CATEGORY_PATH = "category_path"
-        fun newInstance(keyword: String? = "", path: String? = "") = ProductListFragment().apply {
+        private const val OPTIONS = "query"
+        fun newInstance(keyword: String? = "", path: String? = "", options: String? = "") = ProductListFragment().apply {
             arguments = Bundle().apply {
                 putString(CATEGORY_PATH, path)
                 putString(KEYWORD, keyword)
+                putString(OPTIONS, options)
             }
         }
     }
@@ -115,8 +111,18 @@ class ProductListFragment : BaseFragment(){
                 myToast.setGravity(Gravity.BOTTOM, 0, 200)
                 myToast.show()
 
+            },{ productID ->
+                navigationManager?.onReplace(
+                    AddCartFragment.newInstance(productID),
+                    TransactionType.Replace, true
+                )
             }
-        )
+        ) {
+            navigationManager?.onReplace(
+                CartPageFragment.newInstance(),
+                TransactionType.Replace, true
+            )
+        }
     }
 
     override fun onCreateView(
@@ -131,9 +137,11 @@ class ProductListFragment : BaseFragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val keyword = arguments?.getString(KEYWORD) ?: "empty"
+        val keyword = arguments?.getString(KEYWORD) ?: ""
 
-        val category = arguments?.getString(CATEGORY_PATH) ?: "empty"
+        val category = arguments?.getString(CATEGORY_PATH) ?: ""
+
+        val option_query = arguments?.getString(OPTIONS) ?: ""
 
         var fetchedProducts: List<Product>? = null
 
@@ -151,97 +159,115 @@ class ProductListFragment : BaseFragment(){
             }
 
             query_string = query_string.dropLast(1) + "]"
-            
-            productListViewModel.onFetchSearchResultbyCategory(query_string)
 
-            productListViewModel.categoryResult.observe(viewLifecycleOwner, Observer {
-                if (it.status == Status.SUCCESS && it.data != null){
-                    Log.v("Products of the keyword", it.data.products.toString())
+            if (option_query == "") { // Do not apply filter or sort
 
-                    tv_productListCategoryName.text = categoryList.joinToString(separator = "/")
+                productListViewModel.onFetchSearchResultbyCategory(query_string)
 
-                    fetchedProducts = it.data.products
+                productListViewModel.categoryResult.observe(viewLifecycleOwner, Observer {
+                    if (it.status == Status.SUCCESS && it.data != null) {
+                        Log.v("Products of the keyword", it.data.products.toString())
+
+                        tv_productListCategoryName.text = categoryList.joinToString(separator = "/")
+
+                        fetchedProducts = it.data.products
 
 
-                    if(sharedPref.getUserId().isNullOrEmpty()){
-                        Log.i("ProductList", "Guest User")
-                        productListAdapter.submitList(fetchedProducts as MutableList<Product>)
-                    }else{
-                        Log.i("Liked", "Sending Request")
-                        wishListViewModel.onFetchWishListProducts(sharedPref.getUserId() ?: "")
+                        if (sharedPref.getUserId().isNullOrEmpty()) {
+                            Log.i("ProductList", "Guest User")
+                            productListAdapter.submitList(fetchedProducts as MutableList<Product>)
+                        } else {
+                            Log.i("Liked", "Sending Request")
+                            wishListViewModel.onFetchWishListProducts(sharedPref.getUserId() ?: "")
 
-                        wishListViewModel.wishListProducts.observe(viewLifecycleOwner, Observer {
-                            if (it.status == Status.SUCCESS && it.data != null) {
+                            wishListViewModel.wishListProducts.observe(
+                                viewLifecycleOwner,
+                                Observer {
+                                    if (it.status == Status.SUCCESS && it.data != null) {
 
-                                productListAdapter.WishListProducts = it.data.products as MutableList<Product>
+                                        productListAdapter.WishListProducts =
+                                            it.data.products as MutableList<Product>
 
-                                productListAdapter.submitList(fetchedProducts as MutableList<Product>)
+                                        productListAdapter.submitList(fetchedProducts as MutableList<Product>)
 
-                                dispatchLoading()
-                            } else if (it.status == Status.ERROR) {
-                                dispatchLoading()
-                            } else if (it.status == Status.LOADING) {
-                                showLoading()
-                            }
-                        })
+                                        dispatchLoading()
+                                    } else if (it.status == Status.ERROR) {
+                                        dispatchLoading()
+                                    } else if (it.status == Status.LOADING) {
+                                        showLoading()
+                                    }
+                                })
 
+                        }
+
+
+
+                        dispatchLoading()
+                    } else if (it.status == Status.ERROR) {
+                        dispatchLoading()
+                    } else if (it.status == Status.LOADING) {
+                        showLoading()
                     }
+                })
+            }
+            else if (query_string != ""){ // Apply filter and sort
 
-
-
-                    dispatchLoading()
-                } else if (it.status == Status.ERROR){
-                    dispatchLoading()
-                }else if (it.status == Status.LOADING){
-                    showLoading()
-                }
-            })
+            }
 
 
         }else if(category == ""){ // Keyword call
-            productListViewModel.onFetchSearchResultbyKeyword(keyword)
 
-            productListViewModel.searchResult.observe(viewLifecycleOwner, Observer {
+            if (option_query == "") { // Do not apply filter or sort
+                productListViewModel.onFetchSearchResultbyKeyword(keyword)
 
-                if (it.status == Status.SUCCESS && it.data != null){
-                    Log.v("Products of the keyword", it.data.products.toString())
+                productListViewModel.searchResult.observe(viewLifecycleOwner, Observer {
 
-                    tv_productListCategoryName.text = keyword
+                    if (it.status == Status.SUCCESS && it.data != null) {
+                        Log.v("Products of the keyword", it.data.products.toString())
 
-                    fetchedProducts = it.data.products
+                        tv_productListCategoryName.text = keyword
+
+                        fetchedProducts = it.data.products
 
 
-                    if(sharedPref.getUserId().isNullOrEmpty()){
-                        Log.i("ProductList", "Guest User")
-                        productListAdapter.submitList(fetchedProducts as MutableList<Product>)
-                    }else{
-                        Log.i("Liked", "Sending Request")
-                        wishListViewModel.onFetchWishListProducts(sharedPref.getUserId() ?: "")
+                        if (sharedPref.getUserId().isNullOrEmpty()) {
+                            Log.i("ProductList", "Guest User")
+                            productListAdapter.submitList(fetchedProducts as MutableList<Product>)
+                        } else {
+                            Log.i("Liked", "Sending Request")
+                            wishListViewModel.onFetchWishListProducts(sharedPref.getUserId() ?: "")
 
-                        wishListViewModel.wishListProducts.observe(viewLifecycleOwner, Observer {
-                            if (it.status == Status.SUCCESS && it.data != null) {
+                            wishListViewModel.wishListProducts.observe(
+                                viewLifecycleOwner,
+                                Observer {
+                                    if (it.status == Status.SUCCESS && it.data != null) {
 
-                                productListAdapter.WishListProducts = it.data.products as MutableList<Product>
+                                        productListAdapter.WishListProducts =
+                                            it.data.products as MutableList<Product>
 
-                                productListAdapter.submitList(fetchedProducts as MutableList<Product>)
+                                        productListAdapter.submitList(fetchedProducts as MutableList<Product>)
 
-                                dispatchLoading()
-                            } else if (it.status == Status.ERROR) {
-                                dispatchLoading()
-                            } else if (it.status == Status.LOADING) {
-                                showLoading()
-                            }
-                        })
+                                        dispatchLoading()
+                                    } else if (it.status == Status.ERROR) {
+                                        dispatchLoading()
+                                    } else if (it.status == Status.LOADING) {
+                                        showLoading()
+                                    }
+                                })
 
+                        }
+
+                        dispatchLoading()
+                    } else if (it.status == Status.ERROR) {
+                        dispatchLoading()
+                    } else if (it.status == Status.LOADING) {
+                        showLoading()
                     }
+                })
+            }
+            else if (option_query != ""){ // Apply filter or sort
 
-                    dispatchLoading()
-                } else if (it.status == Status.ERROR){
-                    dispatchLoading()
-                }else if (it.status == Status.LOADING){
-                    showLoading()
-                }
-            })
+            }
 
 
         }
@@ -288,99 +314,16 @@ class ProductListFragment : BaseFragment(){
 
         rv_ProductList.layoutManager = LinearLayoutManager(this.context)
 
+        // FILTER SORT
 
-        // ORDER SPINNER
-
-        sp_ProductListSort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                adapterView: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                if (adapterView?.getItemAtPosition(position).toString() == "Name") {
-                    var prodList = productListAdapter.Products
-                    prodList.sortBy { product -> product.name }
-                    productListAdapter.notifyDataSetChanged()
-                } else if (adapterView?.getItemAtPosition(position).toString() == "Price (Lowest)") {
-                    var prodList = productListAdapter.Products
-                    prodList.sortBy { product -> product.price }
-                    productListAdapter.notifyDataSetChanged()
-                } else if (adapterView?.getItemAtPosition(position).toString() == "Rating") {
-                    var prodList = productListAdapter.Products
-                    prodList.sortBy { product -> product.rating }
-                    productListAdapter.notifyDataSetChanged()
-                } else if (adapterView?.getItemAtPosition(position).toString() == "Date (Latest)") {
-
-                } else if (adapterView?.getItemAtPosition(position).toString() == "Date (Latest)") {
-                    Toast.makeText(
-                        context,
-                        adapterView?.getItemAtPosition(position).toString(),
-                        Toast.LENGTH_LONG
-                    ).show()
-                } else if (adapterView?.getItemAtPosition(position).toString() == "Date (Latest)") {
-                    Toast.makeText(
-                        context,
-                        adapterView?.getItemAtPosition(position).toString(),
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            }
-
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
-            }
+        btn_ProductListSort.setOnClickListener {
+            navigationManager?.onReplace(
+                ListSortFilterFragment(),
+                TransactionType.Replace, true
+            )
         }
 
-        // FILTER SPINNER
 
-        sp_ProductListFilter.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                adapterView: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                if (adapterView?.getItemAtPosition(position).toString() == "Category") {
-                    Toast.makeText(
-                        context,
-                        adapterView?.getItemAtPosition(position).toString(),
-                        Toast.LENGTH_LONG
-                    ).show()
-                } else if (adapterView?.getItemAtPosition(position).toString() == "Category") {
-                    Toast.makeText(
-                        context,
-                        adapterView?.getItemAtPosition(position).toString(),
-                        Toast.LENGTH_LONG
-                    ).show()
-                } else if (adapterView?.getItemAtPosition(position).toString() == "Vendor") {
-                    Toast.makeText(
-                        context,
-                        adapterView?.getItemAtPosition(position).toString(),
-                        Toast.LENGTH_LONG
-                    ).show()
-                } else if (adapterView?.getItemAtPosition(position).toString() == "Price Range") {
-                    Toast.makeText(
-                        context,
-                        adapterView?.getItemAtPosition(position).toString(),
-                        Toast.LENGTH_LONG
-                    ).show()
-                } else if (adapterView?.getItemAtPosition(position)
-                        .toString() == "Category Specific"
-                ) {
-                    Toast.makeText(
-                        context,
-                        adapterView?.getItemAtPosition(position).toString(),
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
-            }
-        }
 
     }
 

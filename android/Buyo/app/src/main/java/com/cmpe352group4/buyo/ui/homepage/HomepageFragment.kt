@@ -66,7 +66,6 @@ class HomepageFragment : BaseFragment() {
         }
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -101,14 +100,15 @@ class HomepageFragment : BaseFragment() {
             }
         })
 
+        // TODO A view model should be implemented, that contains both recommended and discounted
+        // TODO products. Using multiple viewmodels in a fragment causes bugs, i guess.
 
         // Recommendation RV
-        recommendedViewModel.onFetchSearchResultbyKeyword("dress")
+        recommendedViewModel.onFetchSearchResultbyKeyword("d")
 
         recommendedViewModel.searchResult.observe(viewLifecycleOwner, Observer {
 
             if (it.status == Status.SUCCESS && it.data != null){
-                Log.v("Products of the Recomm", it.data.products.toString())
 
                 recommendedProductListAdapter.submitList(it.data.products as MutableList<Product>)
 
@@ -120,9 +120,6 @@ class HomepageFragment : BaseFragment() {
             }
         })
 
-
-
-
         recommendationsRecyclerView.adapter = recommendedProductListAdapter
         recommendationsRecyclerView.layoutManager = LinearLayoutManager(
             this.context,
@@ -131,12 +128,11 @@ class HomepageFragment : BaseFragment() {
 
         // Discount RV
 
-        discountViewModel.onFetchSearchResultbyCategory( "[\"Men\",\"Pyjamas\"]")
+        discountViewModel.onFetchSearchResultbyCategory( "[\"Women Clothing\"]")
 
         discountViewModel.categoryResult.observe(viewLifecycleOwner, Observer {
 
             if (it.status == Status.SUCCESS && it.data != null){
-                Log.v("Products of the discnt", it.data.products.toString())
 
                 discountProductListAdapter.submitList(it.data.products as MutableList<Product>)
 

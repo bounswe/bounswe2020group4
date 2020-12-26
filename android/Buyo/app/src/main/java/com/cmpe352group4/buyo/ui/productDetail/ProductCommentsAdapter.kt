@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.vo.Comment
+import kotlinx.android.synthetic.main.item_product_comments_recycler_view.view.*
 
 class ProductCommentsAdapter(
     var Comments: MutableList<Comment>
@@ -34,8 +35,12 @@ class ProductCommentsAdapter(
     inner class ProductCommentsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(modal: Comment) {
-
             // Update the view elements here
+
+
+            itemView.btn_productCommentsRecyclerView_report.setOnClickListener {
+
+            }
 
         }
 
