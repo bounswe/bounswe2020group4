@@ -1,4 +1,4 @@
-package com.cmpe352group4.buyo.ui.productList
+package com.cmpe352group4.buyo.ui.productDetail
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,24 +7,24 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.cmpe352group4.buyo.R
+import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.vo.ParsedAttribute
-import com.cmpe352group4.buyo.vo.Product
 import kotlinx.android.synthetic.main.item_product_list_filter_sort_recycler_view.view.*
 
-class ListFilterAdapter (
+class AddCartAdapter(
     var Attributes : MutableList<ParsedAttribute>,
-    val attributesCallback : (String, String) -> Unit
+    val sharedPref : SharedPref,
+    val selectFeatureCallback : (String, String) -> Unit
 
-) : RecyclerView.Adapter<ListFilterAdapter.ListFilterViewHolder>() {
+    ): RecyclerView.Adapter<AddCartAdapter.AddCartViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ListFilterAdapter.ListFilterViewHolder {
+    ): AddCartAdapter.AddCartViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_product_list_filter_sort_recycler_view, parent, false)
-        return ListFilterViewHolder(view)
-    }
+        return AddCartViewHolder(view)    }
 
-    override fun onBindViewHolder(holder: ListFilterAdapter.ListFilterViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: AddCartAdapter.AddCartViewHolder, position: Int) {
         holder.bind(Attributes[position])
     }
 
@@ -38,7 +38,7 @@ class ListFilterAdapter (
         notifyDataSetChanged()
     }
 
-    inner class ListFilterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class AddCartViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(modal: ParsedAttribute) {
             itemView.tv_ProductList_Filter_Sort_name.text = modal.att_name
 
@@ -54,8 +54,7 @@ class ListFilterAdapter (
 
             itemView.sp_ProductList_Filter_Sort_value.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    adapterView?.getItemAtPosition(position).toString()
-
+                    selectFeatureCallback(modal.att_name, adapterView?.getItemAtPosition(position).toString())
                 }
 
                 override fun onNothingSelected(p0: AdapterView<*>?) {

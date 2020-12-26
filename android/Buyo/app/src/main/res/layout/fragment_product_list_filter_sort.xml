@@ -11,11 +11,11 @@
         android:layout_height="wrap_content"
         android:text="Filter"
         android:textAlignment="center"
-        android:textStyle="bold"
         android:textSize="24sp"
-        android:layout_marginTop="16dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/rv_productList_filter_sort"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="8dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_productList_filter_sort"
@@ -30,25 +30,24 @@
         android:id="@+id/tv_productList_sort_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:text="Sort"
         android:textAlignment="center"
-        android:textStyle="bold"
         android:textSize="24sp"
-        android:layout_margin="16dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/sp_ProductList_sort_factor"
         app:layout_constraintTop_toBottomOf="@+id/rv_productList_filter_sort"
-        tools:layout_editor_absoluteX="-16dp" />
+        tools:layout_editor_absoluteX="16dp" />
 
     <Spinner
         android:id="@+id/sp_ProductList_sort_factor"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@color/buyo_antiqueWhite"
         android:entries="@array/sp_dummy_values"
         android:textAlignment="center"
-        android:layout_margin="16dp"
-        android:layout_marginBottom="24dp"
-        android:background="@color/buyo_antiqueWhite"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btn_search_filter_sort"
         app:layout_constraintEnd_toStartOf="@+id/sp_ProductList_Sort_Type"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,14 +57,29 @@
         android:id="@+id/sp_ProductList_Sort_Type"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:entries="@array/sp_sort_type"
-        android:textAlignment="center"
         android:layout_margin="16dp"
         android:background="@color/buyo_antiqueWhite"
+        android:entries="@array/sp_sort_type"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="@+id/sp_ProductList_sort_factor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/sp_ProductList_sort_factor"
         app:layout_constraintTop_toTopOf="@+id/sp_ProductList_sort_factor" />
+
+    <Button
+        android:id="@+id/btn_search_filter_sort"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@color/buyo_fireEngineRed"
+        android:minHeight="30dp"
+        android:text="Apply"
+        android:textColor="@color/buyo_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sp_ProductList_sort_factor" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

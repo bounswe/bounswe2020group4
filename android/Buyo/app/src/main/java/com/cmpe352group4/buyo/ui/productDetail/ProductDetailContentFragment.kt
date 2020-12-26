@@ -189,7 +189,11 @@ class ProductDetailContentFragment : BaseFragment() {
             if(sharedPref.getUserId().isNullOrEmpty()){
                 Toast.makeText(context, "You need to login first", Toast.LENGTH_LONG).show()
             }else{
-                Toast.makeText(context, "Added to your cart!", Toast.LENGTH_LONG).show()
+                //Toast.makeText(context, "Added to your cart!", Toast.LENGTH_LONG).show()
+                navigationManager?.onReplace(
+                    AddCartFragment.newInstance(productId),
+                    TransactionType.Replace, true
+                )
             }
         }
         btnProductDetailComments.setOnClickListener {
