@@ -41,7 +41,7 @@ module.exports.checkoutOrder = async (params) => {
                   });
                   if (isCorrectProductInfo) {
                     // if product is not available in stock
-                    if (productInfo.quantity < cartProductInfo.quantity) {
+                    if (productInfo.stockValue < cartProductInfo.quantity) {
                       unavailableProducts.push({
                         id: product._id,
                         name: product.name,
@@ -56,7 +56,7 @@ module.exports.checkoutOrder = async (params) => {
                           rating: vendor.rating,
                         },
                         attributes: productInfo.attributes,
-                        availableStock: productInfo.quantity,
+                        availableStock: productInfo.stockValue,
                       });
                     } else {
                       // it is available in stock, so it will be included as ordered.
@@ -77,7 +77,7 @@ module.exports.checkoutOrder = async (params) => {
                         quantity: cartProductInfo.quantity,
                       });
                       // update the quantity
-                      productInfo.quantity -= cartProductInfo.quantity;
+                      productInfo.stockValue -= cartProductInfo.quantity;
                       // add the ordered product to db
                       await OrderedProduct.create({
                         orderId: randId,
