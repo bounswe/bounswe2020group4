@@ -181,19 +181,23 @@ module.exports.getOrders = async (params) => {
 };
 module.exports.updateOrderStatus = async (params) => {
   try {
-    if (params.status && params.id) {
-      let orderedProducts = await OrderedProduct.find({ id: ObjectId(params.id) });
-      orderedProducts = await Promise.all(
-        orderedProducts.map(async (product) => {
-          product.status = params.status;
-          await product.save();
-          return product;
-        })
-      );
-      return true;
-    } else {
-      return false;
-    }
+	if (!(params.userType && params.status && params.orderId && params.userId)) {
+		return false;
+	}
+	let orderedProducts = ""
+	if (params.userType === "customer") {
+		orderedProducts = await OrderedProduct.find({ id: ObjectId(params.orderId), customerId: ObjectId(params.userId) });
+	} else {
+		orderedProducts = await OrderedProduct.find({ id: ObjectId(params.orderId), vendorId: ObjectId(params.userId) });
+	}
+	orderedProducts = await Promise.all(
+		orderedProducts.map(async (product) => {
+			product.status = params.status;
+			await product.save();
+			return product;
+		})
+	);
+	return true;
   } catch (error) {
     console.log(error);
     return error;
