@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './ProductPurchase.css'
 
-const ProductPurchase = ({price, sizes, colors, stockValue}) => {
+const ProductPurchase = ({price, originalPrice, sizes, colors, stockValue}) => {
 	const [size, setSize] = useState(sizes ? sizes[0] : null)
 	const [color, setColor] = useState(colors ? colors[0] : null)
 	const [amount, setAmount] = useState(1)
@@ -24,6 +24,10 @@ const ProductPurchase = ({price, sizes, colors, stockValue}) => {
 				setAmount(e.target.value)
 			}
 		}
+	}
+
+	const handleAddToCart = () => {
+		//TODO
 	}
 
 	return(
@@ -49,10 +53,14 @@ const ProductPurchase = ({price, sizes, colors, stockValue}) => {
 				</div>
 			</div>
 			<div className='product-add-to-cart-container'>
+				{originalPrice && originalPrice !== price &&
+				<div className='product-price'>
+					<s>{originalPrice} &#8378;</s>
+				</div>}
 				<div className='product-price'>
 					{price} &#8378;
 				</div>
-				<button>Add to Cart</button>
+				<button onClick={handleAddToCart}>Add to Cart</button>
 			</div>
 		</div>
 	)

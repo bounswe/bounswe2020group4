@@ -15,12 +15,22 @@ import './OrderDetails.css'
 
 const ProductOrder = ({imgUrl, name, brand, price, isDelivered}) => {
 	const [open, setOpen] = useState(false)
+	const [rating, setRating] = useState(null)
+
 	const handleClickOpen = () => {
 		setOpen(true)
 	}
 	const handleClose = () => {
 		setOpen(false)
+		setRating(null)
 	}
+	const handleGiveFeedback = () => {
+		setOpen(false)
+	}
+	const handleRatingChange = (e) => {
+		setRating(e.target.value)
+	}
+
 	return(
 		<div className="product-order">
 			<img className="product-image" src={imgUrl || DefaultProductImage} alt='product'/>
@@ -38,10 +48,12 @@ const ProductOrder = ({imgUrl, name, brand, price, isDelivered}) => {
 						<DialogContentText>
               Rate this product: &nbsp;
 						</DialogContentText>
-						<RatingStar readOnly={false} precision={1} />
+						<RatingStar rating={rating} readOnly={false} precision={1} onChange={handleRatingChange} showLabel={false}/>
 					</div>
 					<DialogContentText>
-            Add your comments on this product. Please describe your shopping experience, product quality etc.
+						{(rating === null || rating == 3) && 'Add your comments on this product. Please describe your shopping experience, product quality etc.'}
+						{rating >= 4 && 'We are glad that you liked this product! Please share with us your comments to inform everyone.'}
+						{rating && rating < 3 && 'We are sorry that your expectations are not met :( Describe your experience by adding a comment so that we can improve ourselves for the next time.'}
 					</DialogContentText>
 					<TextField
 						margin="dense"
@@ -56,8 +68,8 @@ const ProductOrder = ({imgUrl, name, brand, price, isDelivered}) => {
 					<Button onClick={handleClose} color="primary">
             Cancel
 					</Button>
-					<Button onClick={handleClose} color="primary">
-            Add Comment
+					<Button onClick={handleGiveFeedback} color="primary">
+            Give Feedback
 					</Button>
 				</DialogActions>
 			</Dialog>

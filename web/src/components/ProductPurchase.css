@@ -23,7 +23,7 @@
 }
 
 .product-price {
-  font-size: 36px;
+  font-size: 30px;
   color: #a90011;
   position: relative;
 }
@@ -44,12 +44,11 @@
 .product-add-to-cart-container button {
   text-align: center;
   padding: 10px;
-  box-shadow: 5px 10px;
-  font-size: 24px;
-  background-color: var(--surface);
+  font-size: 20px;
+  background-color: var(--red-tertiary);
+  color: white;
   border: solid;
   border-radius: 10px;
-  color: #ec4a3b;
 }
 
 .width-machine {
