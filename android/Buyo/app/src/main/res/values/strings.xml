@@ -300,5 +300,6 @@
     <string name="please_select_your_location">Please select your location!</string>
     <string name="back">Back</string>
     <string name="i_understand">I understand</string>
+    <string name="your_orders">Your Orders</string>
 
 </resources>
