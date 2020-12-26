@@ -32,6 +32,14 @@ services:
     links:
       - mongo
 
+  checkout-service:
+    container_name: checkout-service
+    build: ./checkout_service
+    ports:
+      - "5005:9876"
+    links:
+      - mongo
+
   vendor-service:
     container_name: vendor-service
     build: ./vendor_service
@@ -55,6 +63,7 @@ services:
       - db-service
       - interaction-service
       - account-service
+      - checkout-service
       - vendor-service
     ports:
       - "8080:8080"
