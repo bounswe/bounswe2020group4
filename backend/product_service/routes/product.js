@@ -37,8 +37,12 @@ module.exports.initialize = (app) => {
   
   app.post("/cart", async (request, response) => {
     const result = await cart.updateCart(request.query);
-
-    response.respond(200, "OK");
+    
+    if (result) {
+      response.respond(200, "OK");
+    } else {
+      response.respond(400, "Missing arguments.")
+    }
   });
 
   app.get("/cart", async (request, response) => {
