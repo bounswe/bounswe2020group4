@@ -7,11 +7,14 @@ import androidx.lifecycle.ViewModel
 import com.cmpe352group4.buyo.api.Resource
 import com.cmpe352group4.buyo.datamanager.repositories.ProfileRepository
 import com.cmpe352group4.buyo.util.livedata.AbsentLiveData
+import com.cmpe352group4.buyo.vo.CustomerInformationResult
+import com.cmpe352group4.buyo.vo.LoginSignupRequest
 import com.cmpe352group4.buyo.vo.LoginRequestCustomer
 import com.cmpe352group4.buyo.vo.SignupRequestCustomer
 import com.cmpe352group4.buyo.vo.LoginRequestVendor
 import com.cmpe352group4.buyo.vo.SignupRequestVendor
 import com.cmpe352group4.buyo.vo.LoginSingupResponse
+import com.cmpe352group4.buyo.vo.UserInformationRequest
 import javax.inject.Inject
 
 
@@ -19,12 +22,19 @@ class ProfileViewModel @Inject constructor(
     val repository: ProfileRepository
 ) : ViewModel() {
 
-
+    private val _userInformationRequest = MutableLiveData<UserInformationRequest>()
     private val _loginRequestCustomer = MutableLiveData<LoginRequestCustomer>()
     private val _loginRequestVendor = MutableLiveData<LoginRequestVendor>()
     private val _singupRequestCustomer = MutableLiveData<SignupRequestCustomer>()
     private val _singupRequestVendor = MutableLiveData<SignupRequestVendor>()
 
+    val userInformation: LiveData<Resource<CustomerInformationResult>> =
+        Transformations.switchMap(_userInformationRequest) { it ->
+            if (it == null)
+                AbsentLiveData.create()
+            else
+                repository.getProfileInfo(it.id, it.userType)
+        }
 
     val loginCustomer: LiveData<Resource<LoginSingupResponse>> =
         Transformations.switchMap(_loginRequestCustomer) { it ->
@@ -73,6 +83,10 @@ class ProfileViewModel @Inject constructor(
 
     fun onSingupVendor(signUp: SignupRequestVendor) {
         _singupRequestVendor.value = signUp
+    }
+
+    fun onFetchProfileInfo(update: UserInformationRequest) {
+        _userInformationRequest.value = update
     }
 
 }

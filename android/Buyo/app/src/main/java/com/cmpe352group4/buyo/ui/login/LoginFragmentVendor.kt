@@ -18,9 +18,9 @@ import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
-import com.cmpe352group4.buyo.ui.EmptyFragment
 import com.cmpe352group4.buyo.ui.LegalDocFragment
 import com.cmpe352group4.buyo.ui.googlemap.MapsFragment
+import com.cmpe352group4.buyo.ui.profilePage.ProfilePageFragment
 import com.cmpe352group4.buyo.util.extensions.makeLinks
 import com.cmpe352group4.buyo.viewmodel.ProfileViewModel
 import com.cmpe352group4.buyo.vo.SignupRequestVendor
@@ -221,11 +221,12 @@ class LoginFragmentVendor : BaseFragment() {
                             sharedPref.saveUserId(it.data.userId)
                             dispatchLoading()
 
-                            // TODO Go to profile page here
-                            navigationManager?.onReplace(
-                                EmptyFragment.newInstance(),
-                                TransactionType.Replace, false
-                            )
+                        // TODO Go to profile page here
+                        navigationManager?.onReplace(
+                            ProfilePageFragment.newInstance(),
+                            //VendorProfilePageFragment.newInstance(),
+                            TransactionType.Replace, false
+                        )
 
                         } else if (it.status == Status.ERROR) {
                             dispatchLoading()

@@ -9,6 +9,7 @@ import com.cmpe352group4.buyo.base.AppExecutors
 import com.cmpe352group4.buyo.base.ConnectionManager
 import com.cmpe352group4.buyo.util.livedata.InitialLiveData
 import com.cmpe352group4.buyo.vo.BaseResponse
+import com.cmpe352group4.buyo.vo.CustomerInformationResult
 import com.cmpe352group4.buyo.vo.LoginSingupResponse
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -38,6 +39,16 @@ class ProfileRepository @Inject constructor(
         }.asLiveData()
     }
 
+    fun getProfileInfo(customerId: String, userType: String): LiveData<Resource<CustomerInformationResult>> {
+        return object : NetworkServiceWrapper<CustomerInformationResult,BaseResponse<CustomerInformationResult>>(appExecutors,connectionManager){
+            override fun loadFromApi(data: BaseResponse<CustomerInformationResult>): LiveData<CustomerInformationResult> {
+                return InitialLiveData.create(data.data)
+            }
+            override fun createCall(): LiveData<ApiResponse<BaseResponse<CustomerInformationResult>>> = api.fetchAccountInformation(customerId, userType)
+        }.asLiveData()
+    }
+
+}
     fun loginVendor(userType: String, email: String, password: String): LiveData<Resource<LoginSingupResponse>> {
         return object : NetworkServiceWrapper<LoginSingupResponse, BaseResponse<LoginSingupResponse>>(appExecutors,connectionManager){
             override fun loadFromApi(data: BaseResponse<LoginSingupResponse>): LiveData<LoginSingupResponse> {

@@ -23,7 +23,6 @@ import com.cmpe352group4.buyo.util.extensions.visible
 import com.cmpe352group4.buyo.viewmodel.WishListViewModel
 import com.cmpe352group4.buyo.vo.LikeResponse
 import com.cmpe352group4.buyo.vo.Product
-import com.cmpe352group4.buyo.widgets.navigation_bar.NavigationBar
 import kotlinx.android.synthetic.main.fragment_wish_list.*
 import javax.inject.Inject
 
@@ -49,7 +48,6 @@ class WishListFragment: BaseFragment() {
         WishListAdapter(mutableListOf(),
             { productID ->
                 wishListViewModel.onPostWhislistUpdate(LikeResponse( sharedPref.getUserId() ?: "", productID))
-                Log.v("berkay", "delete")
             },
             { productID ->
                 navigationManager?.onReplace(
@@ -111,7 +109,7 @@ class WishListFragment: BaseFragment() {
 
 
         loginButton.setOnClickListener {
-            (activity as MainActivity).changeActiveTab(NavigationBar.PROFILE_INDEX)
+            (activity as MainActivity).onItemSelected(4)
         }
 
         btnOrderWishList.setOnClickListener{
