@@ -23,8 +23,6 @@ val dummyOrders = mutableListOf(
         isDelivered=true,
         product=Product(
             category = listOf("A","B"),
-            sizes = listOf("A","B"),
-            colors = listOf("Blue", "Gray"),
             name = "LCW Kid Pyjama",
             id = "P00001",
             imageUrl = "https://img-lcwaikiki.mncdn.com/mnresize/230/-/pim/productimages/20202/4692240/l_20202-0weg94z1-g4y_a.jpg",
@@ -32,17 +30,17 @@ val dummyOrders = mutableListOf(
             price = 45.0,
             originalPrice = 50.0,
             brand = "LCW",
-            stockValue = mapOf("S" to 4, "M" to 6,  "L" to 10),
             vendor = Vendor(id = "12", name = "KOTON", rating = 3.21),
             description = "Very nice kid pyjama",
             productInfos = listOf(
                 ProductInfo(attributes = listOf(
                     Attribute(att_name = "color", att_value = "red"), Attribute(att_name = "size", att_value = "L")
-                ), quantity = 2),
+                ), stockValue = 2),
                 ProductInfo(attributes = listOf(
                     Attribute(att_name = "color", att_value = "blue"), Attribute(att_name = "size", att_value = "M")
-                ), quantity = 4)
-            )
+                ), stockValue = 4)
+            ),
+            materials = null
         ),
         address="Rumelihisarı Mah. 19 Sok. No:14/4 Sarıyer/Istanbul"
     ),
@@ -53,8 +51,6 @@ val dummyOrders = mutableListOf(
         isDelivered=false,
         product=Product(
             category = listOf("A","B"),
-            sizes = listOf("A","B"),
-            colors = listOf("Blue", "Gray"),
             name = "LCW Men Sweatshirt 0",
             id = "P00002",
             imageUrl = "https://img-lcwaikiki.mncdn.com/mnresize/230/-/productimages/20192/1/3891903/l_20192-9wr187z8-mgl_a.jpg",
@@ -62,17 +58,17 @@ val dummyOrders = mutableListOf(
             price = 60.0,
             originalPrice = 70.0,
             brand = "LCW",
-            stockValue = mapOf("S" to 4, "M" to 6,  "L" to 10),
             vendor = Vendor(id = "12", name = "AyseTeyze", rating = 3.21),
             description = "Very nice sweatshirt",
             productInfos = listOf(
                 ProductInfo(attributes = listOf(
                     Attribute(att_name = "color", att_value = "red"), Attribute(att_name = "size", att_value = "L")
-                ), quantity = 2),
+                ), stockValue = 2),
                 ProductInfo(attributes = listOf(
                     Attribute(att_name = "color", att_value = "blue"), Attribute(att_name = "size", att_value = "M")
-                ), quantity = 4)
-            )
+                ), stockValue = 4)
+            ),
+            materials = null
         ),
         address="Rumelihisarı Mah. 19 Sok. No:14/4 Sarıyer/Istanbul"
     ),
@@ -83,8 +79,6 @@ val dummyOrders = mutableListOf(
         isDelivered=true,
         product=Product(
             category = listOf("A","B"),
-            sizes = listOf("A","B"),
-            colors = listOf("Blue", "Gray"),
             name = "LCW Men Sweatshirt 1",
             id = "P00002",
             imageUrl = "https://img-lcwaikiki.mncdn.com/mnresize/230/-/productimages/20192/1/3891903/l_20192-9wr187z8-mgl_a.jpg",
@@ -92,17 +86,17 @@ val dummyOrders = mutableListOf(
             price = 60.0,
             originalPrice = 70.0,
             brand = "LCW",
-            stockValue = mapOf("S" to 4, "M" to 6,  "L" to 10),
             vendor = Vendor(id = "12", name = "DeFacto", rating = 3.21),
             description = "Very nice sweatshirt",
             productInfos = listOf(
                 ProductInfo(attributes = listOf(
                     Attribute(att_name = "color", att_value = "red"), Attribute(att_name = "size", att_value = "L")
-                ), quantity = 2),
+                ), stockValue = 2),
                 ProductInfo(attributes = listOf(
                     Attribute(att_name = "color", att_value = "blue"), Attribute(att_name = "size", att_value = "M")
-                ), quantity = 4)
-            )
+                ), stockValue = 4)
+            ),
+            materials = null
         ),
         address="Rumelihisarı Mah. 19 Sok. No:14/4 Sarıyer/Istanbul"
     ),
@@ -113,8 +107,6 @@ val dummyOrders = mutableListOf(
         isDelivered=false,
         product=Product(
             category = listOf("A","B"),
-            sizes = listOf("A","B"),
-            colors = listOf("Blue", "Gray"),
             name = "LCW Men Sweatshirt 2",
             id = "P00002",
             imageUrl = "https://img-lcwaikiki.mncdn.com/mnresize/230/-/productimages/20192/1/3891903/l_20192-9wr187z8-mgl_a.jpg",
@@ -122,17 +114,17 @@ val dummyOrders = mutableListOf(
             price = 60.0,
             originalPrice = 70.0,
             brand = "LCW",
-            stockValue = mapOf("S" to 4, "M" to 6,  "L" to 10),
             vendor = Vendor(id = "12", name = "LCW", rating = 3.21),
             description = "Very nice sweatshirt",
             productInfos = listOf(
                 ProductInfo(attributes = listOf(
                     Attribute(att_name = "color", att_value = "red"), Attribute(att_name = "size", att_value = "L")
-                ), quantity = 2),
+                ), stockValue = 2),
                 ProductInfo(attributes = listOf(
                     Attribute(att_name = "color", att_value = "blue"), Attribute(att_name = "size", att_value = "M")
-                ), quantity = 4)
-            )
+                ), stockValue = 4)
+            ),
+            materials = null
         ),
         address="Rumelihisarı Mah. 19 Sok. No:14/4 Sarıyer/Istanbul"
     ),
@@ -143,8 +135,6 @@ val dummyOrders = mutableListOf(
         isDelivered=true,
         product=Product(
             category = listOf("A","B"),
-            sizes = listOf("A","B"),
-            colors = listOf("Blue", "Gray"),
             name = "LCW Men Sweatshirt 3",
             id = "P00002",
             imageUrl = "https://img-lcwaikiki.mncdn.com/mnresize/230/-/productimages/20192/1/3891903/l_20192-9wr187z8-mgl_a.jpg",
@@ -152,17 +142,17 @@ val dummyOrders = mutableListOf(
             price = 60.0,
             originalPrice = 70.0,
             brand = "LCW",
-            stockValue = mapOf("S" to 4, "M" to 6,  "L" to 10),
             vendor = Vendor(id = "12", name = "H&M", rating = 3.21),
             description = "Very nice sweatshirt",
             productInfos = listOf(
                 ProductInfo(attributes = listOf(
                     Attribute(att_name = "color", att_value = "red"), Attribute(att_name = "size", att_value = "L")
-                ), quantity = 2),
+                ), stockValue = 2),
                 ProductInfo(attributes = listOf(
                     Attribute(att_name = "color", att_value = "blue"), Attribute(att_name = "size", att_value = "M")
-                ), quantity = 4)
-            )
+                ), stockValue = 4)
+            ),
+            materials = null
         ),
         address="Rumelihisarı Mah. 19 Sok. No:14/4 Sarıyer/Istanbul"
     )

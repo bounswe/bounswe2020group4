@@ -7,8 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.cmpe352group4.buyo.api.Resource
 import com.cmpe352group4.buyo.datamanager.repositories.SearchRepository
 import com.cmpe352group4.buyo.util.livedata.AbsentLiveData
-import com.cmpe352group4.buyo.vo.Product
-import com.cmpe352group4.buyo.vo.ProductList
+import com.cmpe352group4.buyo.vo.ProductResponse
 import javax.inject.Inject
 
 
@@ -20,7 +19,7 @@ class SearchViewModel @Inject constructor(
 
     private val _categoryList = MutableLiveData<String>()
 
-    val searchResult: LiveData<Resource<ProductList>> =
+    val searchResult: LiveData<Resource<ProductResponse>> =
         Transformations.switchMap(_keyword) { keyword ->
             if ( keyword == null)
                 AbsentLiveData.create()
@@ -28,7 +27,7 @@ class SearchViewModel @Inject constructor(
                 repository.getProductsbyKeyword(keyword)
         }
 
-    val categoryResult: LiveData<Resource<ProductList>> =
+    val categoryResult: LiveData<Resource<ProductResponse>> =
         Transformations.switchMap(_categoryList) { categoryList ->
             if ( categoryList == null)
                 AbsentLiveData.create()

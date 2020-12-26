@@ -27,10 +27,10 @@ interface Api {
     ): LiveData<ApiResponse<BaseResponsePostRequest>>
 
     @GET("products")
-    fun fetchSearchResult(@Query("search") searchKeyword: String) : LiveData<ApiResponse<BaseResponse<ProductList>>>
+    fun fetchSearchResult(@Query("search") searchKeyword: String) : LiveData<ApiResponse<BaseResponse<ProductResponse>>>
 
     @GET("products")
-    fun fetchProductsbyCategory(@Query("categories") categoryList: String) : LiveData<ApiResponse<BaseResponse<ProductList>>>
+    fun fetchProductsbyCategory(@Query("categories") categoryList: String) : LiveData<ApiResponse<BaseResponse<ProductResponse>>>
 
     @POST("signup")
     fun signup_customer(

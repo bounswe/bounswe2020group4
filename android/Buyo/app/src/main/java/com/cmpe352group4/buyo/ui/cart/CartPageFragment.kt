@@ -55,10 +55,10 @@ class CartPageFragment : BaseFragment() {
             productInfo = listOf(
                 ProductInfo(attributes = listOf(
                     Attribute(att_name = "color", att_value = "red"), Attribute(att_name = "size", att_value = "L")
-                ), quantity = 2),
+                ), stockValue = 2),
                 ProductInfo(attributes = listOf(
                     Attribute(att_name = "color", att_value = "blue"), Attribute(att_name = "size", att_value = "M")
-                ), quantity = 4)
+                ), stockValue = 4)
             )
         ),
         CartProduct(name = "Slim Fit Jogger Esofman Alti",
@@ -72,7 +72,7 @@ class CartPageFragment : BaseFragment() {
             productInfo = listOf(
                 ProductInfo(attributes = listOf(
                     Attribute(att_name = "color", att_value = "red"), Attribute(att_name = "size", att_value = "L")
-                ), quantity = 1)
+                ), stockValue = 1)
             )
         )
     )

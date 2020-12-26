@@ -110,7 +110,7 @@ class HomepageFragment : BaseFragment() {
 
             if (it.status == Status.SUCCESS && it.data != null){
 
-                recommendedProductListAdapter.submitList(it.data.products as MutableList<Product>)
+                recommendedProductListAdapter.submitList(it.data.products.productList as MutableList<Product>)
 
                 dispatchLoading()
             } else if (it.status == Status.ERROR){
@@ -134,7 +134,7 @@ class HomepageFragment : BaseFragment() {
 
             if (it.status == Status.SUCCESS && it.data != null){
 
-                discountProductListAdapter.submitList(it.data.products as MutableList<Product>)
+                discountProductListAdapter.submitList(it.data.products.productList as MutableList<Product>)
 
                 dispatchLoading()
             } else if (it.status == Status.ERROR){

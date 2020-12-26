@@ -78,7 +78,7 @@ class ProductDetailContentFragment : BaseFragment() {
         // GET LIKED PRODUCTS IF A USER LOGGED IN
 
         if(sharedPref.getUserId().isNullOrEmpty()){
-            Log.i("ProductList", "Guest User")
+            Log.i("ProductResponse", "Guest User")
             prod_ids = emptyList()
 
         }else {
@@ -251,13 +251,13 @@ class ProductDetailContentFragment : BaseFragment() {
 
             var stockStatusColor = ""
 
-            for (color in product!!.stockValue){
-                stockStatusColor += color.key + " (" + color.value.toString() + ")\n"
-            }
-
-            tvProductDetailInfoColors.text = "Available colors: (stocks) \n" + stockStatusColor
-
-            tvProductDetailInfoSizes.text = "Available sizes: (stocks) \n in progress..."
+//            for (color in product!!.stockValue){
+//                stockStatusColor += color.key + " (" + color.value.toString() + ")\n"
+//            }
+//
+//            tvProductDetailInfoColors.text = "Available colors: (stocks) \n" + stockStatusColor
+//
+//            tvProductDetailInfoSizes.text = "Available sizes: (stocks) \n in progress..."
 
             tvProductDetailPrice.text = product!!.price.toString() + " TL"
             rbProductDetailRating.rating = product!!.rating.toFloat()

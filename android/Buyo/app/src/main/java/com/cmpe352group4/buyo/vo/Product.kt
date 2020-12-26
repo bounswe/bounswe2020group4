@@ -4,11 +4,9 @@ import android.os.Parcelable
 import java.io.Serializable
 
 data class Product(
-    var category: List<String>,
-    var sizes: List<String>,
-    var colors: List<String>?,
-    var name: String,
     var id: String,
+    var category: List<String>,
+    var name: String,
     var imageUrl: String,
     var rating: Double,
     var price: Double,
@@ -17,5 +15,5 @@ data class Product(
     var productInfos: List<ProductInfo>,
     var vendor: Vendor,
     var description: String,
-    var stockValue: Map<String, Int>
+    var materials: List<String>?
 ): Serializable

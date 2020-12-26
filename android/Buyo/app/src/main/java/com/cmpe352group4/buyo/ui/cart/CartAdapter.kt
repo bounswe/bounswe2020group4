@@ -44,8 +44,8 @@ class CartAdapter (
             var vendorInfo = "Vendor: " + modal.vendor.name + "   Rate: " + modal.vendor.rating
             var productName = "Product: " + modal.name
             var productInfo = "Brand: " + modal.brand + "\n"
-            var productQuantity = "Quantity: " + modal.productInfo[0].quantity
-            var productPrice = "Price: " + (modal.price * modal.productInfo[0].quantity) + "$"
+            var productQuantity = "Quantity: " + modal.productInfo[0].stockValue
+            var productPrice = "Price: " + (modal.price * modal.productInfo[0].stockValue) + "$"
             var i = 0
             modal.productInfo[0].attributes.forEach {
                 productInfo += if(i++ ==  modal.productInfo[0].attributes.size - 1){

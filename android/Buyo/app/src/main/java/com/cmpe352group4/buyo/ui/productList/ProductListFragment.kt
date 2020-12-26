@@ -170,11 +170,11 @@ class ProductListFragment : BaseFragment(){
 
                         tv_productListCategoryName.text = categoryList.joinToString(separator = "/")
 
-                        fetchedProducts = it.data.products
+                        fetchedProducts = it.data.products.productList
 
 
                         if (sharedPref.getUserId().isNullOrEmpty()) {
-                            Log.i("ProductList", "Guest User")
+                            Log.i("ProductResponse", "Guest User")
                             productListAdapter.submitList(fetchedProducts as MutableList<Product>)
                         } else {
                             Log.i("Liked", "Sending Request")
@@ -227,11 +227,11 @@ class ProductListFragment : BaseFragment(){
 
                         tv_productListCategoryName.text = keyword
 
-                        fetchedProducts = it.data.products
+                        fetchedProducts = it.data.products.productList
 
 
                         if (sharedPref.getUserId().isNullOrEmpty()) {
-                            Log.i("ProductList", "Guest User")
+                            Log.i("ProductResponse", "Guest User")
                             productListAdapter.submitList(fetchedProducts as MutableList<Product>)
                         } else {
                             Log.i("Liked", "Sending Request")

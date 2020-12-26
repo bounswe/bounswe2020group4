@@ -4,5 +4,5 @@ import java.io.Serializable
 
 data class ProductInfo(
     var attributes: List<Attribute>,
-    var quantity: Int
+    var stockValue: Int
 ): Serializable
