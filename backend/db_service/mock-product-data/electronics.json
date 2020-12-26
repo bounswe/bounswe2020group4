@@ -10,7 +10,7 @@
         "originalPrice": 4000,
         "imageUrl": "",
         "rating": 4.2,
-        "screenSize": "14 Inch",
+        "screenSize": ["14 Inch"],
         "RAM": "8 GB",
         "brand": "Lenovo",
         "diskSize": ["256 GB","512 GB"]
@@ -26,7 +26,7 @@
         "originalPrice": 4100,
         "imageUrl": "",
         "rating": 4.2,
-        "screenSize": "14 Inch",
+        "screenSize": ["14 Inch"],
         "RAM": "16 GB",
         "brand": "Asus",
         "diskSize": ["512 GB","1024 GB"]
@@ -42,7 +42,7 @@
         "originalPrice": 4300,
         "imageUrl": "",
         "rating": 4.2,
-        "screenSize": "15 Inch",
+        "screenSize": ["15 Inch"],
         "RAM": "8 GB",
         "brand": "Asus",
         "diskSize": ["512 GB","1024 GB"]
@@ -58,7 +58,7 @@
         "originalPrice": 4300,
         "imageUrl": "",
         "rating": 4.2,
-        "screenSize": "15 Inch",
+        "screenSize": ["15 Inch"],
         "RAM": ["8 GB","16 GB"],
         "brand": "Asus",
         "diskSize": ["512 GB","1024 GB"]
@@ -76,7 +76,7 @@
         "originalPrice": 6200,
         "imageUrl": "",
         "rating": 4.6,
-        "screenSize": "13 Inch",
+        "screenSize": ["13 Inch"],
         "RAM": ["8 GB","16 GB"],
         "brand": "Macbook",
         "diskSize": ["256 GB","512 GB"]
@@ -92,7 +92,7 @@
         "originalPrice": 6200,
         "imageUrl": "",
         "rating": 4.8,
-        "screenSize": "13 Inch",
+        "screenSize": ["13 Inch"],
         "RAM": ["8 GB","16 GB"],
         "brand": "Macbook",
         "diskSize": ["256 GB","512 GB"]
@@ -108,23 +108,7 @@
         "originalPrice": 4500,
         "imageUrl": "",
         "rating": 3.8,
-        "screenSize": "15 Inch",
-        "RAM": ["4 GB","8 GB","16 GB"],
-        "brand": "HP",
-        "diskSize": ["256 GB","512 GB","1024 GB"]
-    },
-    {
-        "description": "Engineered for long-lasting performance. Comfortable confidence.",
-        "name": "HP Pavilion Intel Pentium" ,
-        "price": 3800,
-        "category": [
-            "Electronics",
-            "Computers"
-        ],
-        "originalPrice": 4500,
-        "imageUrl": "",
-        "rating": 4.0,
-        "screenSize": "15 Inch",
+        "screenSize": ["15 Inch"],
         "RAM": ["4 GB","8 GB","16 GB"],
         "brand": "HP",
         "diskSize": ["256 GB","512 GB","1024 GB"]
@@ -137,12 +121,220 @@
             "Electronics",
             "Computers"
         ],
-        "originalPrice": 4500,
+        "originalPrice": 4100,
         "imageUrl": "",
         "rating": 3.0,
-        "screenSize": "13 Inch",
+        "screenSize": ["13 Inch"],
         "RAM": ["4 GB","8 GB","16 GB"],
         "brand": "HP",
         "diskSize": ["256 GB","512 GB","1024 GB"]
+    }
+
+    ,
+    {
+        "description": "Uncover the Ultimate Design. Beauty Beyond the Visual",
+        "name": "Samsung S8" ,
+        "price": 2800,
+        "category": [
+            "Electronics",
+            "Phones"
+        ],
+        "originalPrice": 3000,
+        "imageUrl": "",
+        "rating": 4.0,
+        "screenSize": ["5.5 Inch"],
+        "RAM": ["4 GB"],
+        "brand": "Samsung",
+        "diskSize": ["64 GB","128 GB"]
+    }
+    ,
+    {
+        "description": "Uncover the Ultimate Design. Beauty Beyond the Visual",
+        "name": "Samsung S9" ,
+        "price": 4000,
+        "category": [
+            "Electronics",
+            "Phones"
+        ],
+        "originalPrice": 4200,
+        "imageUrl": "",
+        "rating": 4.4,
+        "screenSize": ["5.5 Inch"],
+        "RAM": ["8 GB"],
+        "brand": "Samsung",
+        "diskSize": ["64 GB","128 GB"]
+    }
+    ,
+    {
+        "description": "Uncover the Ultimate Design. Beauty Beyond the Visual",
+        "name": "Samsung S10" ,
+        "price": 4500,
+        "category": [
+            "Electronics",
+            "Phones"
+        ],
+        "originalPrice": 5000,
+        "imageUrl": "",
+        "rating": 4.4,
+        "screenSize": ["6 Inch"],
+        "RAM": ["8 GB"],
+        "brand": "Samsung",
+        "diskSize": ["64 GB","128 GB"]
+    } ,
+    {
+        "description": "Uncover the Ultimate Design. Beauty Beyond the Visual",
+        "name": "Samsung S7" ,
+        "price": 4500,
+        "category": [
+            "Electronics",
+            "Phones"
+        ],
+        "originalPrice": 5000,
+        "imageUrl": "",
+        "rating": 3.5,
+        "screenSize": ["5 Inch"],
+        "RAM": ["4 GB"],
+        "brand": "Samsung",
+        "diskSize": ["64 GB","128 GB"]
+    },
+    {
+        "description": "Uncover the Ultimate Design. Beauty Beyond the Visual",
+        "name": "Iphone 8" ,
+        "price": 4700,
+        "category": [
+            "Electronics",
+            "Phones"
+        ],
+        "originalPrice": 5000,
+        "imageUrl": "",
+        "rating": 4.8,
+        "screenSize": ["5 Inch"],
+        "RAM": ["8 GB"],
+        "brand": "Apple",
+        "diskSize": ["64 GB","128 GB"]
+    },
+    {
+        "description": "Uncover the Ultimate Design. Beauty Beyond the Visual",
+        "name": "Iphone 6" ,
+        "price": 5200,
+        "category": [
+            "Electronics",
+            "Phones"
+        ],
+        "originalPrice": 5500,
+        "imageUrl": "",
+        "rating": 4.0,
+        "screenSize": ["5 Inch"],
+        "RAM": ["4 GB"],
+        "brand": "Apple",
+        "diskSize": ["64 GB","128 GB"]
+    },
+
+    {
+        "description": "Poweful sound & unique enjoyment!",
+        "name": "Marshall Major III " ,
+        "price": 2000,
+        "category": [
+            "Electronics",
+            "Headphone"
+        ],
+        "originalPrice": 2000,
+        "imageUrl": "",
+        "brand": "Marshall",
+        "rating": 4.5,
+        "NoiseCancelling": "Yes"
+    },
+    {
+        "description": "Poweful sound & unique enjoyment!",
+        "name": "Marshall Headphones M-ACCS-00152" ,
+        "price": 1500,
+        "category": [
+            "Electronics",
+            "Headphone"
+        ],
+        "originalPrice": 1700,
+        "imageUrl": "",
+        "rating": 4.3,
+        "brand": "Marshall",
+        "NoiseCancelling": "No"
+    }
+
+    ,
+    {
+        "description": "Poweful sound & unique enjoyment!",
+        "name": "Sennheiser Headphones SS44" ,
+        "price": 1200,
+        "category": [
+            "Electronics",
+            "Headphone"
+        ],
+        "originalPrice": 1500,
+        "imageUrl": "",
+        "rating": 4.3,
+        "brand": "Sennheiser",
+        "NoiseCancelling": "No"
+    } ,
+    {
+        "description": "Poweful sound & unique enjoyment!",
+        "name": "Sony Headphones XC-II" ,
+        "price": 1500,
+        "category": [
+            "Electronics",
+            "Headphone"
+        ],
+        "originalPrice": 1700,
+        "imageUrl": "",
+        "rating": 4.3,
+        "brand": "Sony",
+        "NoiseCancelling": "No"
+    }
+
+
+
+    ,
+    {
+        "description": "Poweful sound & unique enjoyment!",
+        "name": "Apple Earbuds II" ,
+        "price": 750,
+        "category": [
+            "Electronics",
+            "Earphone"
+        ],
+        "originalPrice": 800,
+        "imageUrl": "",
+        "rating": 4.7,
+        "brand": "Apple",
+        "NoiseCancelling": "No"
+    }
+
+
+    ,
+    {
+        "description": "Poweful sound & unique enjoyment!",
+        "name": "Sony Earphone XS-II" ,
+        "price": 400,
+        "category": [
+            "Electronics",
+            "Earphone"
+        ],
+        "originalPrice": 600,
+        "imageUrl": "",
+        "rating": 4.3,
+        "brand": "Sony",
+        "NoiseCancelling": "No"
+    } ,
+    {
+        "description": "Poweful sound & unique enjoyment!",
+        "name": "Philips Earphone P-I" ,
+        "price": 400,
+        "category": [
+            "Electronics",
+            "Earphone"
+        ],
+        "originalPrice": 400,
+        "imageUrl": "",
+        "rating": 4.1,
+        "brand": "Philips",
+        "NoiseCancelling": "No"
     }
 ] 
