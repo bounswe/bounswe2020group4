@@ -34,7 +34,15 @@ val dummyOrders = mutableListOf(
             brand = "LCW",
             stockValue = mapOf("S" to 4, "M" to 6,  "L" to 10),
             vendor = Vendor(id = "12", name = "KOTON", rating = 3.21),
-            description = "Very nice kid pyjama"
+            description = "Very nice kid pyjama",
+            productInfos = listOf(
+                ProductInfo(attributes = listOf(
+                    Attribute(att_name = "color", att_value = "red"), Attribute(att_name = "size", att_value = "L")
+                ), quantity = 2),
+                ProductInfo(attributes = listOf(
+                    Attribute(att_name = "color", att_value = "blue"), Attribute(att_name = "size", att_value = "M")
+                ), quantity = 4)
+            )
         ),
         address="Rumelihisarı Mah. 19 Sok. No:14/4 Sarıyer/Istanbul"
     ),
@@ -56,7 +64,15 @@ val dummyOrders = mutableListOf(
             brand = "LCW",
             stockValue = mapOf("S" to 4, "M" to 6,  "L" to 10),
             vendor = Vendor(id = "12", name = "AyseTeyze", rating = 3.21),
-            description = "Very nice sweatshirt"
+            description = "Very nice sweatshirt",
+            productInfos = listOf(
+                ProductInfo(attributes = listOf(
+                    Attribute(att_name = "color", att_value = "red"), Attribute(att_name = "size", att_value = "L")
+                ), quantity = 2),
+                ProductInfo(attributes = listOf(
+                    Attribute(att_name = "color", att_value = "blue"), Attribute(att_name = "size", att_value = "M")
+                ), quantity = 4)
+            )
         ),
         address="Rumelihisarı Mah. 19 Sok. No:14/4 Sarıyer/Istanbul"
     ),
@@ -78,7 +94,15 @@ val dummyOrders = mutableListOf(
             brand = "LCW",
             stockValue = mapOf("S" to 4, "M" to 6,  "L" to 10),
             vendor = Vendor(id = "12", name = "DeFacto", rating = 3.21),
-            description = "Very nice sweatshirt"
+            description = "Very nice sweatshirt",
+            productInfos = listOf(
+                ProductInfo(attributes = listOf(
+                    Attribute(att_name = "color", att_value = "red"), Attribute(att_name = "size", att_value = "L")
+                ), quantity = 2),
+                ProductInfo(attributes = listOf(
+                    Attribute(att_name = "color", att_value = "blue"), Attribute(att_name = "size", att_value = "M")
+                ), quantity = 4)
+            )
         ),
         address="Rumelihisarı Mah. 19 Sok. No:14/4 Sarıyer/Istanbul"
     ),
@@ -100,7 +124,15 @@ val dummyOrders = mutableListOf(
             brand = "LCW",
             stockValue = mapOf("S" to 4, "M" to 6,  "L" to 10),
             vendor = Vendor(id = "12", name = "LCW", rating = 3.21),
-            description = "Very nice sweatshirt"
+            description = "Very nice sweatshirt",
+            productInfos = listOf(
+                ProductInfo(attributes = listOf(
+                    Attribute(att_name = "color", att_value = "red"), Attribute(att_name = "size", att_value = "L")
+                ), quantity = 2),
+                ProductInfo(attributes = listOf(
+                    Attribute(att_name = "color", att_value = "blue"), Attribute(att_name = "size", att_value = "M")
+                ), quantity = 4)
+            )
         ),
         address="Rumelihisarı Mah. 19 Sok. No:14/4 Sarıyer/Istanbul"
     ),
@@ -122,7 +154,15 @@ val dummyOrders = mutableListOf(
             brand = "LCW",
             stockValue = mapOf("S" to 4, "M" to 6,  "L" to 10),
             vendor = Vendor(id = "12", name = "H&M", rating = 3.21),
-            description = "Very nice sweatshirt"
+            description = "Very nice sweatshirt",
+            productInfos = listOf(
+                ProductInfo(attributes = listOf(
+                    Attribute(att_name = "color", att_value = "red"), Attribute(att_name = "size", att_value = "L")
+                ), quantity = 2),
+                ProductInfo(attributes = listOf(
+                    Attribute(att_name = "color", att_value = "blue"), Attribute(att_name = "size", att_value = "M")
+                ), quantity = 4)
+            )
         ),
         address="Rumelihisarı Mah. 19 Sok. No:14/4 Sarıyer/Istanbul"
     )
