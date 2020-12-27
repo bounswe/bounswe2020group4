@@ -7,10 +7,10 @@
 }
 
 .checkout-button{
-    background: #EC4A3B;
+    background: #EC4A3B !important;
     border: none;
 }
 
 .header{
-    background-color: #fce1c0;
+    background-color: #fce1c0 !important;
 }

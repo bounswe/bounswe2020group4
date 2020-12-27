@@ -33,7 +33,7 @@ const UpdatePassword = (props) => {
 		}
 		if(!newPassword1){
 			alert('Enter your new password')
-			return
+			return 
 		}
 
 		if(newPassword1 !== newPassword2){
@@ -44,13 +44,13 @@ const UpdatePassword = (props) => {
 				'newPassword': newPassword1
 			}
 			const passwordUpdated = await accountService.updatePassword('customer', props.customerId, passwordInfo)
-			console.log(passwordUpdated)
-			if(!passwordUpdated){
+			if(!passwordUpdated | passwordUpdated != 200){
+				alert('Something went wrong, please try again')
+				return
+			} else {
 				alert('You have successfully changed your password.')
-				//FIXME: history.push('/customerinfo') does nothing
 				history.push('/customerprofile')
 			}
-			//TODO: Use backend data when endpoint is ready
 		}
 	}
 
@@ -93,7 +93,7 @@ const UpdatePassword = (props) => {
 					</div>
 
 					<div className='text-right'>
-						<button type='submit' className='btn btn-danger' onSubmit={handleClick} onClick={handleClick}>Update your password</button>
+						<button type='button' className='btn btn-danger' onClick={handleClick}>Update your password</button>
 					</div>
 
 				</form>
