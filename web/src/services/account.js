@@ -55,7 +55,7 @@ const getProfileInfo = async (userType, id) => {
 			if(typeof fields?.phoneNumber != undefined)
 				info.phone = fields.phoneNumber
 
-			if(typeof fields?.name != undefined){
+			if(typeof fields?.name !== 'undefined'){
 				if(fields?.name.split(' ')[0] !== 'undefined')
 					info.firstName = fields.name.substring(0, fields.name.lastIndexOf(' '))
 				if(fields?.name.split(' ')[1] !== 'undefined')
