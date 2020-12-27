@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { connect } from 'react-redux'
+
 
 import OrderDetails from '../components/OrderDetails'
 
@@ -10,6 +12,8 @@ import { makeStyles } from '@material-ui/core/styles'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+
+import orderService from '../services/orders'
 
 import './Orders.css'
 
@@ -40,9 +44,15 @@ const TabPanel = (props) => {
 }
 
 
-const Orders = () => {
+const Orders = ({isLoggedIn, userId}) => {
 	const [value, setValue] = useState(0)
 	const [expanded, setExpanded] = useState(false)
+	const [orders, setOrders] = useState([])
+
+	useEffect(async () => {
+		const orders = await orderService.getOrders(userId, 'customer')
+		setOrders(orders)
+	}, [])
 
 	const classes = useStyles()
 
@@ -105,4 +115,12 @@ const Orders = () => {
 	)
 }
 
-export default Orders
+const mapStateToProps = (state) => {
+	return {
+		isLoggedIn: state.signIn.isLoggedIn,
+		userId: state.signIn.userId
+	}
+}
+
+
+export default connect(mapStateToProps)(Orders)

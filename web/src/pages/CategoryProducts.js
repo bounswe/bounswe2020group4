@@ -12,9 +12,10 @@ import productService from '../services/products'
 import 'bootstrap/dist/js/bootstrap.bundle'
 import './CategoryProducts.css'
 
-const FilterCheckBox = ({label, handleFilterCheckbox}) => {
+const FilterCheckBox = ({label, checked, handleFilterCheckbox}) => {
 	return(
 		<FormControlLabel
+			checked={checked}
 			value="end"
 			control={<Checkbox onChange={handleFilterCheckbox} color="primary" />}
 			label={'  ' + label}
@@ -69,6 +70,9 @@ const CategoryProducts = () => {
 		if(e.target.checked) {
 			//TODO
 		}
+		else {
+			//TODO
+		}
 	}
 
 	return(
@@ -103,7 +107,7 @@ const CategoryProducts = () => {
 					{filterCriterias.map(f => (
 						<div key={f.name} className='filter-container'>
 							<h2>{f.displayName}</h2>
-							{f.possibleValues.map(v => <FilterCheckBox key={v} label={v} />)}
+							{f.possibleValues.map(v => <FilterCheckBox key={v} checked={params[f.name] && params[f.name] === v} label={v} />)}
 						</div>
 					))}
 				</div>
