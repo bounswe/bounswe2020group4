@@ -12,7 +12,7 @@ const ProfileInfo = (props) => {
 	const [lastName, setLastName] = useState('')
 	const [email, setEmail] = useState('')
 	const [phone, setPhone] = useState('')
-	const [gender, setGender] = useState('choose')
+	const [gender, setGender] = useState('')
 
 	const handleFirstNameChange = function(e) {
 		setFirstName(e.target.value)
@@ -44,12 +44,15 @@ const ProfileInfo = (props) => {
 			'gender': gender
 		}
 
+		console.log(profileInfo)
 		const updateProfile = await accountService.updateProfileInfo('customer', props.customerId, profileInfo)
-		if(!updateProfile){
-			history.push('/customerprofile')
+		if (!updateProfile){
+			alert('Something went wrong, please try again.')
+			return
 		}
-		//TODO: Use backend data when endpoint is ready
-
+		alert('Your profile information has been successfully changed.')
+		history.push('/customerprofile')
+		return
 	}
 
 	useEffect(() => {
@@ -61,22 +64,17 @@ const ProfileInfo = (props) => {
 
 		const getProfileInfo = async () => {
 			const profileInfo = await accountService.getProfileInfo('customer', props.customerId)
-			console.log(!profileInfo)
-			if (!profileInfo){
-				//Dummy data
-				setFirstName('Eylul')
-				setLastName('Yalcinkaya')
-				setEmail('eylul@hotmail.com')
-				setPhone('05305005050')
-				setGender('Female')
-			} else {
-				setFirstName(profileInfo.firstName)
-				setLastName(profileInfo.lastName)
-				setEmail(profileInfo.email)
-				setPhone(profileInfo.phone)
-				setGender(profileInfo.gender)
+			
+			if(!profileInfo){
+				alert('Something went wrong, please refresh this page.')
+				return
 			}
-			//TODO: error handling
+			setFirstName(profileInfo.firstName)
+			setLastName(profileInfo.lastName)
+			setEmail(profileInfo.email)
+			setPhone(profileInfo.phone)
+			setGender(profileInfo.gender)
+
 		}
 
 		getProfileInfo()
@@ -134,7 +132,7 @@ const ProfileInfo = (props) => {
 							</div>
 							<div className='col'>
 								<select className="form-select form-select-lg p-1 mb-1" value={gender} onChange={handleGenderChange}>
-									<option value="choose" disabled hidden>Choose</option>
+									<option value="">Choose</option>
 									<option value="female">Female</option>
 									<option value="male">Male</option>
 									<option value="other">Other</option>
@@ -144,7 +142,7 @@ const ProfileInfo = (props) => {
 						</div>
 					</div>
 					<div className='text-right'>
-						<button type='submit' className='btn btn-danger' onSubmit={handleClick}>Update your profile</button>
+						<button type='button' className='btn btn-danger' onClick={handleClick}>Update your profile</button>
 					</div>
 
 				</form>

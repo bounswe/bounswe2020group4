@@ -34,6 +34,7 @@ const getProfileInfo = async (userType, id) => {
 	let response
 	try{
 		response = await axios.get(`${baseUrl}account?id=${id}&userType=${userType}`)
+		console.log(response.data.data.result)
 	} catch(err){
 		console.log(err)
 		return null
@@ -44,18 +45,33 @@ const getProfileInfo = async (userType, id) => {
 		'phone': '',
 		'firstName': '',
 		'lastName': '',
-		'gender': 'choose'
+		'gender': ''
 	}
 
 	if (userType == 'customer'){
 		if (response.data.status.code == 200){
-			//TODO: add more field when ready
-			info.email = response.data.data.result.email
+			const fields = response.data.data.result
+			info.email = fields?.email
+
+			if(typeof fields?.phoneNumber != undefined)
+				info.phone = fields.phoneNumber
+
+			if(typeof fields?.name != undefined){
+				if(fields?.name.split(' ')[0] !== 'undefined')
+					info.firstName = fields.name.substring(0, fields.name.lastIndexOf(' '))
+				if(fields?.name.split(' ')[1] !== 'undefined')
+					info.lastName = fields.name.split(' ')[fields.name.split(' ').length - 1]
+			}
+			
+			if(typeof fields?.gender != undefined)
+				info.gender = fields.gender
+			console.log(info)
 			return info
 		} else {
 			return null
 		}
-		//TODO: error handling
+
+	// TODO: vendor get profile info
 	} else {
 		if (response.data.status.code == 200){
 			return response.data.data.result
@@ -69,18 +85,16 @@ const updateProfileInfo = async (userType, id, profileInfo) => {
 
 	const {firstName, lastName, email, phone, gender} = profileInfo
 	let response
-	//TODO: Add backend call when it's ready
-	/* 
 	try{
-		response = await axios.post(`${baseUrl}account?id=${id}userType=${userType}`)
+		response = await axios.post(`${baseUrl}account?id=${id}&userType=${userType}&email=${email}&name=${firstName}&surname=${lastName}&phoneNumber=${phone}&gender=${gender}`)
 	} catch(err){
 		console.log(err)
 		return null
 	}
-	*/
 	if (userType == 'customer'){
-		return null
+		return response.data.status.code
 	} else {
+		//TODO: vendor update profile info
 		return null
 	}
 }
