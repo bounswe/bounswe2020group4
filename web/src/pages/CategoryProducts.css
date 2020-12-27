@@ -42,6 +42,9 @@
   color: white;
 }
 
+.dropdown.show.type {
+  margin-right: 10px;
+}
 
 .sort-container {
   display: flex;

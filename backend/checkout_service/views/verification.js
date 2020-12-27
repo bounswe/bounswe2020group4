@@ -1,18 +1,22 @@
+const Moment = require('moment');
+
 module.exports.checkCreditCard = async (params) => {
     try {
       const creditCard = params.creditCard;
-      const creditCardNumber = creditCard.number;
+      const creditCardNumber = String(creditCard.number);
       const expirationMonth = creditCard.expirationMonth;
       const expirationYear = creditCard.expirationYear;
-      const cvc = creditCard.cvc;
+      const cvc = String(creditCard.cvc);
+      
       let d = new Date();
-      if (d.getFullYear() < parseInt("20" + expirationYear)) {
+      
+      if (d.getFullYear() > parseInt("20" + expirationYear)) {
         return {
           success: false,
           msg: "The card is expired.",
         };
       }
-      if (d.getFullYear() === parseInt("20" + expirationYear) && d.getMonth() < parseInt(expirationMonth)) {
+      if (d.getFullYear() === parseInt("20" + expirationYear) && d.getMonth() > parseInt(expirationMonth)) {
         return {
           success: false,
           msg: "The card is expired.",
@@ -24,6 +28,13 @@ module.exports.checkCreditCard = async (params) => {
           msg: "The credit card format is invalid.",
         };
       }
+      if (!(/\d/.test(creditCardNumber))) {
+        return {
+          success: false,
+          msg: "Credit card number contains alphanumeric.",
+        };
+      }
+      
       if (cvc.length !== 3) {
         return {
           success: false,
@@ -35,6 +46,7 @@ module.exports.checkCreditCard = async (params) => {
         msg: "Success!",
       };
     } catch (error) {
+      console.log(error);
       return error;
     }
   };

@@ -80,6 +80,65 @@ module.exports.getProducts = async (params) => {
       products = await Product.find({ name: { $regex: params.search, $options: "i" } });
     }
 
+    var filterCriterias = [];
+    var filteringConfig = {
+      screenSize: "Screen Size",
+      RAM: "RAM",
+      diskSize: "Disk Size",
+      noiseCancelling: "Noise Cancelling",
+      aroma: "Aroma",
+      size: "Size",
+      color: "Color",
+    };
+    /*
+     * Important Note: I can do it this operation in thhe function that we set product Id.
+     * However when I create filtering creterias at the other part, it shows only filtered category.
+     * For instance if user filter RAM as 4 GB, we wont be able to see other RAM values.
+     * Thats why I create filtering part here.
+     */
+    products.forEach(function (product) {
+      if (product.productInfos.length > 0) {
+        product.productInfos.forEach(function (property) {
+          property["attributes"].forEach(function (attribute) {
+            if (filterCriterias.length === 0) {
+              filterCriterias.push({
+                name: attribute.name,
+                displayName: filteringConfig[attribute.name],
+                possibleValues: [attribute.value],
+              });
+            } else {
+              var nameCheckerObject = filterCriterias.filter(function (currentCriteria) {
+                return currentCriteria.name === attribute.name;
+              });
+
+              if (nameCheckerObject.length > 0) {
+                var currentCriteria;
+                filterCriterias.forEach(function (criteria) {
+                  if (criteria.name === attribute.name) {
+                    currentCriteria = criteria;
+                  }
+                });
+
+                var valueChecker = currentCriteria["possibleValues"].some(function (currentValue) {
+                  return attribute.value === currentValue;
+                });
+
+                if (!valueChecker) {
+                  currentCriteria["possibleValues"].push(attribute.value);
+                }
+              } else {
+                filterCriterias.push({
+                  name: attribute.name,
+                  displayName: filteringConfig[attribute.name],
+                  possibleValues: [attribute.value],
+                });
+              }
+            }
+          });
+        });
+      }
+    });
+
     if (!!params.sortingFactor) {
       try {
         if (typeof products[0][params.sortingFactor] == Number) {
@@ -238,7 +297,6 @@ module.exports.getProducts = async (params) => {
       });
     }
 
-    var filterCriterias = [];
     products = await Promise.all(
       products.map(async (product) => {
         product = product.toJSON();
@@ -250,16 +308,6 @@ module.exports.getProducts = async (params) => {
           rating: vendor.rating,
         };
         product.id = product._id.toString();
-
-        if (product.productInfos.length > 0) {
-          product.productInfos.forEach(function (property) {
-            property["attributes"].forEach(function (attribute) {
-              if (filterCriterias.indexOf(attribute.name) === -1) {
-                filterCriterias.push(attribute.name);
-              }
-            });
-          });
-        }
 
         delete product._id;
         delete product.vendorId;

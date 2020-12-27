@@ -15,20 +15,20 @@ const CheckoutSidebar = ({ setIsContractChecked, isContractChecked }) => {
 				<h4>Summary</h4>
 				<div className='d-flex justify-content-between mb-1'>
 					<div>Product Total</div>
-					<div className='font-weight-light'>209,99TL</div>
+					<div className='font-weight-light'>209,99₺</div>
 				</div>
 				<div className='d-flex justify-content-between mb-1'>
 					<div>Cargo Total</div>
-					<div className='font-weight-light'>69,98TL</div>
+					<div className='font-weight-light'>69,98₺</div>
 				</div>
 				<div className='d-flex justify-content-between'>
 					<div>Discount</div>
-					<div className='font-weight-light red-text'>-209,99TL</div>
+					<div className='font-weight-light red-text'>-29,99₺</div>
 				</div>
 				<hr/>
 				<div className='d-flex justify-content-between'>
 					<div>Total</div>
-					<div className='font-weight-bold red-text'>69,98TL</div>
+					<div className='font-weight-bold red-text'>249,98₺</div>
 				</div>
 			</div>
 		</div>

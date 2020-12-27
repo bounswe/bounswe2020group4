@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Router, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import history from './util/history'
@@ -25,8 +25,12 @@ import './App.css'
 
 const App = ({ showHeader }) => {
 
+	useEffect(() => {
+		document.title = 'BUYO'
+	}, [])
+
 	return (
-		<div className='page-container'>
+		<div className='page-container pb-5'>
 			<Router history={history}>
 				<div>
 					{showHeader ? <Header /> : null}
