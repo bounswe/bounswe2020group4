@@ -1,4 +1,6 @@
 import axios from 'axios'
+import queryString from 'query-string'
+
 
 
 const baseUrl = 'http://3.138.113.101:8080'
@@ -20,4 +22,16 @@ const getCategoryProducts = async (path) => {
 	return response.data.data.products
 }
 
-export default { getProduct, getCategoryProducts, searchProducts }
+const getProducts = async (params) => {
+	if(params.categories) {
+		params.categories = '[' + params.categories.split(',').map(s => '"' + s + '"').toString() + ']'
+	}
+
+	const queryUrl = `${baseUrl}/products?` + queryString.stringify(params)
+	console.log(queryUrl)
+
+	const response = await axios.get(queryUrl)
+	return response.data.data.products
+}
+
+export default { getProduct, getCategoryProducts, searchProducts, getProducts }

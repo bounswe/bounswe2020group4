@@ -1,3 +1,7 @@
+html {
+    background-color: white;
+}
+
 body {
     --red-main: #D11D27;
     --red-secondary: #A90011;

@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 
 import DefaultProductImage from '../images/default-product-detail-image.png'
 import ProductInfo from '../components/ProductInfo'
+import ProductDescription from '../components/ProductDescription'
 import ProductPurchase from '../components/ProductPurchase'
 import Comments from '../components/Comments'
 
@@ -45,7 +46,8 @@ const ProductDetails = () => {
 					<ProductPurchase price={product.price}/>
 				</div>
 			</div>
-			<Comments />
+			<ProductDescription description={product.description} />
+			<Comments comments={product.comments} />
 		</div>
 	)
 }
