@@ -24,7 +24,8 @@ const CartProduct = (props) => {
 		if(response != 200){
 			alert('Something went wrong, try again.')
 		}else{
-			history.push('/cart')
+			history.go(0)
+			return
 		}
 	}
 
@@ -34,34 +35,37 @@ const CartProduct = (props) => {
 				<div className="card-header">
 					Vendor: {props.vendorName}
 				</div>
-				<Row>
-					<Col>
+				<div className='row'>
+					<div className='col'>
+					<div className='container-fluid p-0 card-img-container'>
 						<Link to={`/product/${props.productId}`} >
-							<Card.Img className="cart-img" src={props.imgUrl}></Card.Img>
+							<img className="card-img" src={props.imgUrl}></img>
 						</Link>
-					</Col>
-					<Col className="align-self-center text-center">
+					</div>
+					</div>
+				
+					<Col className="align-self-center">
 						<Card.Body >
-							<Row><Card.Title>{props.name}</Card.Title></Row>
-							<Row><Card.Title>{props.brand}</Card.Title></Row>
+							<Row><Card.Title className='product-name'>{props.name}</Card.Title></Row>
+							<Row><Card.Title className='product-brand'>{props.brand}</Card.Title></Row>
 							{ props.attributes.map(attr =>
-								<Row key={attr.name}><Card.Text>{attr.value}</Card.Text></Row>
+								<Row key={attr.name}><Card.Text className='product-attr'>{attr.value}</Card.Text></Row>
 								) } 
 						</Card.Body>
 					</Col>
 					<Col className="align-self-center text-center">
 						<Card.Body >
-							<Card.Title>Quantity:</Card.Title>
-							<Card.Title>{props.amount}</Card.Title>
+							<Card.Title className='product-quantity'>Quantity</Card.Title>
+							<Card.Title >{props.amount}</Card.Title>
 						</Card.Body>
 					</Col>
 					<Col className="align-self-center text-center">
 						<Card.Body >
 							{props.originalPrice==props.price ? 
-							<Card.Title>Price: {props.originalPrice}</Card.Title> : 
+							<Card.Title>{props.originalPrice}</Card.Title> : 
 							<div>
 							<Card.Title style={{textDecorationLine: 'line-through'}}>{props.originalPrice}</Card.Title>
-							<Card.Title>{props.price}</Card.Title>
+							<Card.Title className='product-discount'>{props.price}</Card.Title>
 							</div>
 							}
 							
@@ -72,7 +76,8 @@ const CartProduct = (props) => {
 							<DeleteIcon/>
 						</IconButton>
 					</Col>
-				</Row>
+			
+				</div>
 			</div>
 		</div>
 	)

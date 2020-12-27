@@ -64,7 +64,7 @@ const Cart = (props) => {
 			<Container fluid>
 				<Row>
 					<Col>
-						{products.map((p) =>
+						{products.length != 0 ? products.map((p) =>
 							<Container key={p} className="cart-product">
 								<CartProduct 
 								name={p.name} 
@@ -77,14 +77,22 @@ const Cart = (props) => {
 								attributes={p.attributes} 
 								amount={p.quantity}/>
 							</Container>
-						)}
+						) :
+						<div className='container p-5'>
+							<p>Your cart is empty.</p>
+						</div>}
 					</Col>
 					<Col sm={2} className="align-self-center text-center">
 						<Container className="cart-total">
 							<Card >
 								<Card.Header className="header">Cart Total</Card.Header>
-								<Card.Body style={{textDecorationLine: 'line-through'}}>{totalPrice}</Card.Body>
-								<Card.Body>{discountedPrice}</Card.Body>
+								{totalPrice==discountedPrice ? 
+									<Card.Body>{discountedPrice}</Card.Body>: 
+									<div>
+									<Card.Body style={{textDecorationLine: 'line-through'}}>{totalPrice}</Card.Body>
+									<Card.Body>{discountedPrice}</Card.Body>
+									</div>
+								}
 								<Button className="checkout-button" onClick={redirectToCheckout}>Checkout</Button>
 							</Card>
 						</Container>
