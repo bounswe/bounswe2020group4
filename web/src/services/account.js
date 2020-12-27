@@ -46,24 +46,24 @@ const getProfileInfo = async (userType, id) => {
 		'lastName': '',
 		'gender': ''
 	}
-
 	if (userType == 'customer'){
 		if (response.data.status.code == 200){
 			const fields = response.data.data.result
 			info.email = fields?.email
 
-			if(typeof fields?.phoneNumber != undefined)
+			if(typeof fields?.phoneNumber !== 'undefined' & fields?.phoneNumber !== 'undefined')
 				info.phone = fields.phoneNumber
 
-			if(typeof fields?.name !== 'undefined'){
-				if(fields?.name.split(' ')[0] !== 'undefined')
+			if(typeof fields?.name !== 'undefined'  ){
+				if(fields?.name.split(' ')[0] !== 'undefined' | fields?.name.split(' ')[0] !== 'undefined')
 					info.firstName = fields.name.substring(0, fields.name.lastIndexOf(' '))
-				if(fields?.name.split(' ')[1] !== 'undefined')
+				if(fields?.name.split(' ')[1] !== 'undefined' | fields?.name.split(' ')[1] !== 'undefined')
 					info.lastName = fields.name.split(' ')[fields.name.split(' ').length - 1]
 			}
 			
-			if(typeof fields?.gender != undefined)
+			if(typeof fields?.gender != 'undefined' | fields?.gender !== 'undefined' )
 				info.gender = fields.gender
+
 			return info
 		} else {
 			return null

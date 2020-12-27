@@ -50,7 +50,7 @@ const ProfileInfo = (props) => {
 			return
 		}
 		alert('Your profile information has been successfully changed.')
-		history.push('/customerprofile')
+		history.go(0)
 		return
 	}
 
