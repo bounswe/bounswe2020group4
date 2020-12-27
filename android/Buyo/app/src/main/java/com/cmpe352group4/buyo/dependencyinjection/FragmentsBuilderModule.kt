@@ -10,18 +10,14 @@ import com.cmpe352group4.buyo.ui.homepage.HomepageFragment
 import com.cmpe352group4.buyo.ui.login.LoginFragment
 import com.cmpe352group4.buyo.ui.login.LoginFragmentVendor
 import com.cmpe352group4.buyo.ui.navigationtabs.*
-import com.cmpe352group4.buyo.ui.productDetail.AddCartFragment
 import com.cmpe352group4.buyo.ui.orderpage.OrderPageFragment
-import com.cmpe352group4.buyo.ui.wishList.WishListFragment
-import com.cmpe352group4.buyo.ui.productList.ProductListFragment
+import com.cmpe352group4.buyo.ui.productDetail.AddCartFragment
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailCommentsFragment
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
 import com.cmpe352group4.buyo.ui.productList.ListSortFilterFragment
-import com.cmpe352group4.buyo.ui.profile.AddUpdateAddressFragment
-import com.cmpe352group4.buyo.ui.profilePage.AccountInfoFragment
-import com.cmpe352group4.buyo.ui.profilePage.AddressInfoFragment
-import com.cmpe352group4.buyo.ui.profilePage.ChangePasswordFragment
-import com.cmpe352group4.buyo.ui.profilePage.ProfilePageFragment
+import com.cmpe352group4.buyo.ui.productList.ProductListFragment
+import com.cmpe352group4.buyo.ui.profilePage.*
+import com.cmpe352group4.buyo.ui.wishList.WishListFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

@@ -24,7 +24,7 @@ class AccountInfoFragment: BaseFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val accountInfoViewModel: ProfileViewModel by viewModels {
+    private val profileViewModel: ProfileViewModel by viewModels {
         viewModelFactory
     }
 
@@ -45,9 +45,9 @@ class AccountInfoFragment: BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val infoReq = UserInformationRequest(sharedPref.getUserId()?: "", "customer")
-        accountInfoViewModel.onFetchProfileInfo(infoReq)
+        profileViewModel.onFetchProfileInfo(infoReq)
 
-        accountInfoViewModel.userInformation.observe(viewLifecycleOwner, Observer {
+        profileViewModel.userInformation.observe(viewLifecycleOwner, Observer {
             if (it.status == Status.SUCCESS && it.data != null){
 
                 ed_user_name.setText(it.data.result.name)

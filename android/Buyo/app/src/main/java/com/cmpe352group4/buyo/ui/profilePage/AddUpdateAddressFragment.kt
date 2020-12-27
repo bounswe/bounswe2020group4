@@ -1,4 +1,4 @@
-package com.cmpe352group4.buyo.ui.profile
+package com.cmpe352group4.buyo.ui.profilePage
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.base.BaseFragment
-import com.cmpe352group4.buyo.vo.Address
 import kotlinx.android.synthetic.main.fragment_add_update_address.*
 
 
 class AddUpdateAddressFragment: BaseFragment() {
     companion object {
-        fun newInstance() = AddUpdateAddressFragment()
+        fun newInstance() =
+            AddUpdateAddressFragment()
     }
     override fun onCreateView(
         inflater: LayoutInflater,

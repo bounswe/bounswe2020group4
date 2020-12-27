@@ -27,7 +27,7 @@ class ChangePasswordFragment: BaseFragment() {
         fun newInstance() = ChangePasswordFragment()
     }
 
-    private val changePasswordViewModel: ProfileViewModel by viewModels {
+    private val profileViewModel: ProfileViewModel by viewModels {
         viewModelFactory
     }
 
@@ -46,7 +46,7 @@ class ChangePasswordFragment: BaseFragment() {
         var userInfo : CustomerInformation? = null
 
         val infoReq = UserInformationRequest(sharedPref.getUserId()?: "", "customer")
-        changePasswordViewModel.onFetchProfileInfo(infoReq)
+        profileViewModel.onFetchProfileInfo(infoReq)
 
         btn_change_password.setOnClickListener { TODO() }
 

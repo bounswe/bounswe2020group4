@@ -12,10 +12,8 @@ import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
-import com.cmpe352group4.buyo.ui.profile.AddUpdateAddressFragment
+import com.cmpe352group4.buyo.ui.profilePage.AddUpdateAddressFragment
 import com.cmpe352group4.buyo.viewmodel.CartViewModel
-import com.cmpe352group4.buyo.vo.CheckoutRequest
-import com.cmpe352group4.buyo.vo.CreditCard
 import kotlinx.android.synthetic.main.fragment_checkout.*
 import javax.inject.Inject
 
