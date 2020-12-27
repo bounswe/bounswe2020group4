@@ -6,13 +6,11 @@ const getCart = async (id) => {
 	let response
 	try{
 		response = await axios.get(`${baseUrl}cart?customerId=${id}`)
-		console.log(response)
 	} catch (err) {
 		return null
 	}
 
 	if(response.data.status.code == 200){
-		console.log(response.data.data.products)
 		return response.data.data.products
 	} else {
 		return null
@@ -20,4 +18,15 @@ const getCart = async (id) => {
 
 }
 
-export default {getCart}
+const removeFromCart = async (customerId, productId, productInfo) => {
+	let response
+	try{
+		response = await axios.post(`${baseUrl}cart?customerId=${customerId}&productId=${productId}&productInfo=${JSON.stringify(productInfo)}`)
+	} catch (err) {
+		return null
+	}
+	return response.data.status.code
+
+}
+
+export default {getCart, removeFromCart}

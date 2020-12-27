@@ -34,7 +34,6 @@ const Cart = (props) => {
 
 		const getCart = async () => {
 			const cart = await cartService.getCart(props.customerId)
-			console.log(cart)
 			setProducts(cart.products)
 			setTotalPrice(cart.totalPrice)
 			setDiscountedPrice(cart.discountedPrice)
