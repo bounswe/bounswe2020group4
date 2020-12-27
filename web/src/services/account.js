@@ -5,15 +5,25 @@ const baseUrl = 'http://3.138.113.101:8080/'
 const getProfileInfo = async (userType, id) => {
 	let response
 	try{
-		response = await axios.post(`${baseUrl}account?id=${id}userType=${userType}`)
+		response = await axios.get(`${baseUrl}account?id=${id}&userType=${userType}`)
 	} catch(err){
 		console.log(err)
 		return null
 	}
 
+	let info = {
+		'email': '',
+		'phone': '',
+		'firstName': '',
+		'lastName': '',
+		'gender': 'choose'
+	}
+
 	if (userType == 'customer'){
 		if (response.data.status.code == 200){
-			return response.data.data.result
+			//TODO: add more field when ready
+			info.email = response.data.data.result.email
+			return info
 		} else {
 			return null
 		}
@@ -83,6 +93,44 @@ const login = async (loginInput) => {
 	return null
 }
 
+const vendorLogin = async (loginInput) => {
+
+	const { email, password } = loginInput
+	let response
+	try{
+		response = await axios.post(`${baseUrl}login?userType=vendor&email=${email}&password=${password}`)
+	} catch (err) {
+		return null
+	}
+	if (response.data.status.code == 200) {
+		return response.data.data.userId
+	}
+
+	return null
+}
+
+const vendorSignUp = async (signUpInput) => {
+
+	const {name, email, password, lng, lat, website, company} = signUpInput
+	let response
+	try{
+		//TODO: add name when endpoint is changed
+		response = await axios.post(`${baseUrl}signup?userType=vendor&email=${email}&password=${password}&longitude=${lng}&latitude=${lat}&website=${website}&company=${company}`)
+	} catch {
+		return null
+	}
+	if (response.data.status.code == 200){
+		if(typeof response.data.data.userId != 'undefined'){
+			return response.data.data.userId
+		} else {
+			return -1
+		}
+	} else {
+		return null
+	}
+
+}
+
 const signUp = async (signUpInput) => {
 
 	const { email, password } = signUpInput
@@ -101,4 +149,4 @@ const signUp = async (signUpInput) => {
 
 }
 
-export default { login, signUp, getProfileInfo, updateProfileInfo, updatePassword }
+export default { login, signUp, getProfileInfo, updateProfileInfo, updatePassword, vendorLogin, vendorSignUp }
