@@ -1,6 +1,34 @@
 import axios from 'axios'
 
-const baseUrl = 'http://3.138.113.101:8080/'
+const baseUrl = 'http://3.138.113.101:8080/' 
+
+const updateAddress = async (userId, address) => {
+	const params = {
+		id: userId, 
+		address: address
+	}
+	try{
+		const response = await axios.patch(`${baseUrl}account/address`, params)
+		return response.status.code
+	} catch(err) {
+		console.error(err)
+		return null
+	}
+}
+
+const addNewAddress = async (userId, address) => {
+	const params = {
+		id: userId, 
+		address: address
+	}
+	try{
+		const response = await axios.post(`${baseUrl}account/address`, params)
+		return response.status.code
+	} catch(err) {
+		console.error(err)
+		return null
+	}
+}
 
 const getProfileInfo = async (userType, id) => {
 	let response
@@ -149,4 +177,4 @@ const signUp = async (signUpInput) => {
 
 }
 
-export default { login, signUp, getProfileInfo, updateProfileInfo, updatePassword, vendorLogin, vendorSignUp }
+export default { login, signUp, getProfileInfo, updateProfileInfo, updatePassword, vendorLogin, vendorSignUp, addNewAddress, updateAddress }
