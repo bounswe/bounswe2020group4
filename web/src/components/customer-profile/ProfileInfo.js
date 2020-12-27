@@ -44,7 +44,6 @@ const ProfileInfo = (props) => {
 			'gender': gender
 		}
 
-		console.log(profileInfo)
 		const updateProfile = await accountService.updateProfileInfo('customer', props.customerId, profileInfo)
 		if (!updateProfile){
 			alert('Something went wrong, please try again.')

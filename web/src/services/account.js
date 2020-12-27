@@ -34,7 +34,6 @@ const getProfileInfo = async (userType, id) => {
 	let response
 	try{
 		response = await axios.get(`${baseUrl}account?id=${id}&userType=${userType}`)
-		console.log(response.data.data.result)
 	} catch(err){
 		console.log(err)
 		return null
@@ -65,7 +64,6 @@ const getProfileInfo = async (userType, id) => {
 			
 			if(typeof fields?.gender != undefined)
 				info.gender = fields.gender
-			console.log(info)
 			return info
 		} else {
 			return null
@@ -103,20 +101,15 @@ const updatePassword = async (userType, id, passwordInfo) => {
 
 	const {oldPassword, newPassword} = passwordInfo
 	let response
-	//TODO: Add backend call when it's ready
-	/* 
+	//TODO: Add oldPassword to backend call when ready
 	try{
-		response = await axios.post(`${baseUrl}account?id=${id}userType=${userType}`)
+		response = await axios.post(`${baseUrl}account-change-password?id=${id}&userType=${userType}&password=${newPassword}`)
 	} catch(err){
 		console.log(err)
 		return null
 	}
-	*/
-	if (userType == 'customer'){
-		return null
-	} else {
-		return null
-	}
+	
+	return response.data.status.code
 }
 
 const login = async (loginInput) => {
