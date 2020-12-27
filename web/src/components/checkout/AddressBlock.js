@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
 import AddNewAddressPopup from './AddNewAddressPopup'
+import Account from '../../services/account'
 import PlusIcon from '../../images/white-plus-icon.png'
 import EditIcon from '../../images/edit-icon.png'
 
@@ -7,9 +9,61 @@ import './AddressBlock.css'
 
 
 
-const AddressBlock = ({ addresses, selectAddress, selectedAddress, onCheckout, title }) => {
+const AddressBlock = ({ selectAddress, selectedAddress, onCheckout, title, userType, userId }) => {
 	const [isAddressPopupOpen, setIsAddressPopupOpen] = useState(false)
 	const [editingAddress, setEditingAddress] = useState({})
+	const [addresses, setAddresses] = useState([
+		{
+			title: 'EV',
+			receivingName: 'Meric',
+			receivingSurname: 'Ungor',
+			receivingPhone: '0531 932 8388',
+			address: 'Etiler Mah, Ucaksavarn Sit',
+			province: 'Besiktas',
+			city: 'Istanbul',
+			street: 'Ihsan Hilmi Alantar sokak'
+		},
+		{
+			title: 'Ucaksavar',
+			receivingName: 'Merko',
+			receivingSurname: 'Ungor',
+			receivingPhone: '0531 932 8388',
+			address: 'Etiler Mah, Ucaksavarn Sit',
+			province: 'Besiktas',
+			city: 'Istanbul',
+			street: 'Ihsan Hilmi Alantar sokak'
+		},
+		{
+			title: 'Ucaksavar',
+			receivingName: 'Meric',
+			receivingSurname: 'Ungor',
+			receivingPhone: '0531 932 8388',
+			address: 'Etiler Mah, Ucaksavarn Sit',
+			province: 'Besiktas',
+			city: 'Istanbul',
+			street: 'Ihsan Hilmi Alantar sokak'
+		},
+		{
+			title: 'Ucaksavar',
+			receivingName: 'Meric',
+			receivingSurname: 'Ungor',
+			receivingPhone: '0531 932 8388',
+			address: 'Etiler Mah, Ucaksavarn Sit',
+			province: 'Besiktas',
+			city: 'Istanbul',
+			street: 'Ihsan Hilmi Alantar sokak'
+		},
+		{
+			title: 'Ucaksavar',
+			receivingName: 'Meric',
+			receivingSurname: 'Ungor',
+			receivingPhone: '0531 932 8388',
+			address: 'Etiler Mah, Ucaksavarn Sit',
+			province: 'Besiktas',
+			city: 'Istanbul',
+			street: 'Ihsan Hilmi Alantar sokak'
+		}
+	])
 
 	useEffect(() => {
 		//Clear the editing address when the popup closes
@@ -73,4 +127,8 @@ const AddressBlock = ({ addresses, selectAddress, selectedAddress, onCheckout, t
 	)
 }
 
-export default AddressBlock
+const mapStateToProps = (state) => {
+	return { userType: state.signIn.userType, userId: state.signIn.userId }
+}
+
+export default connect(mapStateToProps)(AddressBlock)

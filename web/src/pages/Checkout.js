@@ -7,32 +7,9 @@ import CheckoutSidebar from '../components/checkout/CheckoutSidebar'
 
 import './Checkout.css'
 
-const AddressDummyData = [
-	{
-		title: 'EV',
-		receivingName: 'Meric',
-		receivingSurname: 'Ungor',
-		receivingPhone: '0531 932 8388',
-		address: 'Etiler Mah, Ucaksavarn Sit',
-		province: 'Besiktas',
-		city: 'Istanbul'
-	},
-	{
-		title: 'Ucaksavar',
-		receivingName: 'Meric',
-		receivingSurname: 'Ungor',
-		receivingPhone: '0531 932 8388',
-		address: 'Etiler Mah, Ucaksavarn Sit',
-		province: 'Besiktas',
-		city: 'Istanbul'
-	}
-]
-
-
-
 const Checkout = ({ isLoggedIn }) => {
 	const [isContractChecked, setIsContractChecked] = useState(false)
-	const [selectedAddress, selectAddress]= useState(AddressDummyData[0])
+	const [selectedAddress, selectAddress]= useState({})
 
 	useEffect(() => {
 		//Check if the user is logged in before proceeding to checkout
@@ -48,7 +25,7 @@ const Checkout = ({ isLoggedIn }) => {
 				<div className='row'>
 					<div className='col-sm-8'>
 						<div className='address-block-container'>
-							<CheckoutAddressBlock title='Shipping Address' onCheckout addresses={AddressDummyData} selectAddress={selectAddress} selectedAddress={selectedAddress}/>
+							<CheckoutAddressBlock title='Shipping Address' onCheckout selectAddress={selectAddress} selectedAddress={selectedAddress}/>
 						</div>
 						<div className='payment-info-container'>
 							<PaymentInfoBlock />
