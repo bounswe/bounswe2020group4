@@ -114,8 +114,7 @@ const vendorSignUp = async (signUpInput) => {
 	const {name, email, password, lng, lat, website, company} = signUpInput
 	let response
 	try{
-		//TODO: add name when endpoint is changed
-		response = await axios.post(`${baseUrl}signup?userType=vendor&email=${email}&password=${password}&longitude=${lng}&latitude=${lat}&website=${website}&company=${company}`)
+		response = await axios.post(`${baseUrl}signup?userType=vendor&email=${email}&password=${password}&longitude=${lng}&latitude=${lat}&website=${website}&company=${company}&name=${name}`)
 	} catch {
 		return null
 	}
