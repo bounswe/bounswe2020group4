@@ -80,49 +80,54 @@ module.exports.getProducts = async (params) => {
       products = await Product.find({ name: { $regex: params.search, $options: "i" } });
     }
 
-    if(!!params.sortingFactor){
-      try{
-        if(typeof(products[0][params.sortingFactor]) == Number){
-          products = products.sort((product1, product2) => (params.sortingType =="descending" ? -1 : 1)*(product1[params.sortingFactor]-product2[params.sortingFactor]));
-        }else  {
-          products = products.sort((product1, product2) => (params.sortingType =="descending" ? -1 : 1)*(('' +product1[params.sortingFactor]).localeCompare(product2[params.sortingFactor])));
+    if (!!params.sortingFactor) {
+      try {
+        if (typeof products[0][params.sortingFactor] == Number) {
+          products = products.sort(
+            (product1, product2) =>
+              (params.sortingType == "descending" ? -1 : 1) *
+              (product1[params.sortingFactor] - product2[params.sortingFactor])
+          );
+        } else {
+          products = products.sort(
+            (product1, product2) =>
+              (params.sortingType == "descending" ? -1 : 1) *
+              ("" + product1[params.sortingFactor]).localeCompare(product2[params.sortingFactor])
+          );
         }
-      } catch{
-        console.log("Check your sorting factor") // No need to return this value. I put it here for debugging.
+      } catch {
+        console.log("Check your sorting factor"); // No need to return this value. I put it here for debugging.
       }
     }
 
-    
     if (!!params.subcategory) {
       products = products.filter(function (product) {
-        return product.category.indexOf(params.subcategory) > -1
-      })
+        return product.category.indexOf(params.subcategory) > -1;
+      });
     }
 
     if (!!params.brand) {
       products = products.filter(function (product) {
-        return product.brand.indexOf(params.brand) > -1
-      })
+        return product.brand.indexOf(params.brand) > -1;
+      });
     }
-
-   
 
     if (!!params.color) {
       products = products.filter(function (product) {
         var checker = false;
 
         try {
-          checker = product["productInfos"].some(function(attributes) {             
-            return attributes["attributes"].some(function(attribute) {  
-              return attribute.name === "color" && attribute.value === params.color 
+          checker = product["productInfos"].some(function (attributes) {
+            return attributes["attributes"].some(function (attribute) {
+              return attribute.name === "color" && attribute.value === params.color;
             });
           });
         } catch (error) {
           checker = false;
-          console.log(error)
+          console.log(error);
         }
-          return checker;       
-      })
+        return checker;
+      });
     }
 
     if (!!params.size) {
@@ -130,116 +135,108 @@ module.exports.getProducts = async (params) => {
         var checker = false;
 
         try {
-          checker = product["productInfos"].some(function(attributes) {             
-            return attributes["attributes"].some(function(attribute) {  
-              return attribute.name === "size" && attribute.value === params.size 
+          checker = product["productInfos"].some(function (attributes) {
+            return attributes["attributes"].some(function (attribute) {
+              return attribute.name === "size" && attribute.value === params.size;
             });
           });
         } catch (error) {
           checker = false;
-          console.log(error)
+          console.log(error);
         }
-          return checker;       
-      })
+        return checker;
+      });
     }
-
 
     if (!!params.screenSize) {
       products = products.filter(function (product) {
         var checker = false;
 
         try {
-          checker = product["productInfos"].some(function(attributes) {             
-            return attributes["attributes"].some(function(attribute) {  
-              return attribute.name === "screenSize" && attribute.value === params.screenSize 
+          checker = product["productInfos"].some(function (attributes) {
+            return attributes["attributes"].some(function (attribute) {
+              return attribute.name === "screenSize" && attribute.value === params.screenSize;
             });
           });
         } catch (error) {
           checker = false;
-          console.log(error)
+          console.log(error);
         }
-          return checker;       
-      })
+        return checker;
+      });
     }
-
-
 
     if (!!params.aroma) {
       products = products.filter(function (product) {
         var checker = false;
 
         try {
-          checker = product["productInfos"].some(function(attributes) {             
-            return attributes["attributes"].some(function(attribute) {  
-              return attribute.name === "aroma" && attribute.value === params.aroma 
+          checker = product["productInfos"].some(function (attributes) {
+            return attributes["attributes"].some(function (attribute) {
+              return attribute.name === "aroma" && attribute.value === params.aroma;
             });
           });
         } catch (error) {
           checker = false;
-          console.log(error)
+          console.log(error);
         }
-          return checker;       
-      })
+        return checker;
+      });
     }
-
-
 
     if (!!params.RAM) {
       products = products.filter(function (product) {
         var checker = false;
 
         try {
-          checker = product["productInfos"].some(function(attributes) {             
-            return attributes["attributes"].some(function(attribute) {  
-              return attribute.name === "RAM" && attribute.value === params.RAM 
+          checker = product["productInfos"].some(function (attributes) {
+            return attributes["attributes"].some(function (attribute) {
+              return attribute.name === "RAM" && attribute.value === params.RAM;
             });
           });
         } catch (error) {
           checker = false;
-          console.log(error)
+          console.log(error);
         }
-          return checker;       
-      })
+        return checker;
+      });
     }
-
 
     if (!!params.diskSize) {
       products = products.filter(function (product) {
         var checker = false;
 
         try {
-          checker = product["productInfos"].some(function(attributes) {             
-            return attributes["attributes"].some(function(attribute) {  
-              return attribute.name === "diskSize" && attribute.value === params.diskSize 
+          checker = product["productInfos"].some(function (attributes) {
+            return attributes["attributes"].some(function (attribute) {
+              return attribute.name === "diskSize" && attribute.value === params.diskSize;
             });
           });
         } catch (error) {
           checker = false;
-          console.log(error)
+          console.log(error);
         }
-          return checker;       
-      })
+        return checker;
+      });
     }
-
 
     if (!!params.noiseCancelling) {
       products = products.filter(function (product) {
         var checker = false;
 
         try {
-          checker = product["productInfos"].some(function(attributes) {             
-            return attributes["attributes"].some(function(attribute) {  
-              return attribute.name === "noiseCancelling" && attribute.value === params.noiseCancelling 
+          checker = product["productInfos"].some(function (attributes) {
+            return attributes["attributes"].some(function (attribute) {
+              return attribute.name === "noiseCancelling" && attribute.value === params.noiseCancelling;
             });
           });
         } catch (error) {
           checker = false;
-          console.log(error)
+          console.log(error);
         }
-          return checker;       
-      })
+        return checker;
+      });
     }
-
 
     var filterCriterias = [];
     products = await Promise.all(
@@ -253,21 +250,17 @@ module.exports.getProducts = async (params) => {
           rating: vendor.rating,
         };
         product.id = product._id.toString();
-        
-        if(product.productInfos.length > 0){
 
-          product.productInfos.forEach(function(property) { 
-            
-            property["attributes"].forEach(function(attribute) { 
-              if(filterCriterias.indexOf(attribute.name) === -1){
-                filterCriterias.push(attribute.name)
-              }          
+        if (product.productInfos.length > 0) {
+          product.productInfos.forEach(function (property) {
+            property["attributes"].forEach(function (attribute) {
+              if (filterCriterias.indexOf(attribute.name) === -1) {
+                filterCriterias.push(attribute.name);
+              }
             });
-            
-            
           });
         }
-        
+
         delete product._id;
         delete product.vendorId;
 
@@ -275,7 +268,7 @@ module.exports.getProducts = async (params) => {
       })
     );
 
-    return {productList:products,filterCriterias};
+    return { productList: products, filterCriterias };
   } catch (error) {
     console.log(error);
     return error;
@@ -309,6 +302,7 @@ module.exports.getProduct = async (params) => {
 
           return {
             id: comment._id.toString(),
+            rating: comment.rating,
             text: comment.text,
             owner: {
               username: user.name,

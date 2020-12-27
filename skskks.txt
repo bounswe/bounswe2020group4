@@ -1,0 +1,24 @@
+Meeting notes
+
+Agenda:
+bknd
+- Address to documentation 
+- Update profile to documentation
+- Update get profile doc
+- name surname tek field halinde donulucek vendor customerda 2 field gelicek
+- phone number update profile
+- Credit card verification
+- Orderda delivered tarihi gosterilebilir
+- Rate commente eklenebilir
+
+features to show
+- cart
+- checkout
+- search
+- product list
+- vendor signin/signup
+- filter/sort
+- profile info, change password
+- address
+- orders
+

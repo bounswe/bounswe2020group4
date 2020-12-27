@@ -20,10 +20,10 @@ module.exports.initialize = (app) => {
   app.post("/comment", async (request, response) => {
     const result = await comment.add(request.query);
 
-    if (result.id) {
+    if (result.success) {
       response.respond(200, "OK", { commentId: result.id });
     } else {
-      response.respond(500, "Invalid request");
+      response.respond(500, result.message);
     }
   });
 
