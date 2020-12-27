@@ -87,7 +87,6 @@ const ProductPurchase = ({productId, price, originalPrice, productInfos, isLogge
 			for(key of Object.keys(values)) {
 				addToCartInfo.attributes.push({'name': key, 'value': values[key]})
 			}
-			console.log(addToCartInfo)
 			cartService.addProductToCart(customerId, productId, addToCartInfo)
 			setAmount(1)
 		}

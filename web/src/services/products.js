@@ -23,7 +23,7 @@ const getProducts = async (params) => {
 	console.log(queryUrl)
 
 	const response = await axios.get(queryUrl)
-	return response.data.data.products.productList
+	return response.data.data.products
 }
 
 export default { getProduct, searchProducts, getProducts }

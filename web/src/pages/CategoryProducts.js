@@ -12,11 +12,11 @@ import productService from '../services/products'
 import 'bootstrap/dist/js/bootstrap.bundle'
 import './CategoryProducts.css'
 
-const FilterCheckBox = ({label}) => {
+const FilterCheckBox = ({label, handleFilterCheckbox}) => {
 	return(
 		<FormControlLabel
 			value="end"
-			control={<Checkbox color="primary" />}
+			control={<Checkbox onChange={handleFilterCheckbox} color="primary" />}
 			label={'  ' + label}
 			labelPlacement="end"
 		/>
@@ -38,13 +38,15 @@ const CategoryProducts = () => {
 	const [sortText, setSortText] = useState(params.sortingFactor)
 	const [sortTypeText, setSortTypeText] = useState(params.sortingType)
 	const [products, setProducts] = useState([])
+	const [filterCriterias, setFilterCriterias] = useState([])
 	const [newURL, setNewURL] = useState('/')
 
 	useEffect(() => {
 		const getProducts = async () => {
 			if(params.categories || params.search) {
-				const products = await productService.getProducts(params)
-				setProducts(products)
+				const response = await productService.getProducts(params)
+				setProducts(response.productList)
+				setFilterCriterias(response.filterCriterias)
 			} else {
 				history.push('/')
 			}
@@ -62,6 +64,11 @@ const CategoryProducts = () => {
 		setSortTypeText(e.target.text)
 		params.sortingType = e.target.text.toLowerCase()
 		setNewURL('/products?' + queryString.stringify(params))
+	}
+	const handleFilterCheckbox = (e, filterName, filterValue) => {
+		if(e.target.checked) {
+			//TODO
+		}
 	}
 
 	return(
@@ -93,20 +100,12 @@ const CategoryProducts = () => {
 			</div>
 			<div className='products-container'>
 				<div className='filters'>
-					<h2>Brand</h2>
-					<FilterCheckBox label="LCW" />
-					<FilterCheckBox label="Koton" />
-					<FilterCheckBox label="Adidas" />
-					<h2>Size</h2>
-					<FilterCheckBox label="XS"/>
-					<FilterCheckBox label="S"/>
-					<FilterCheckBox label="M"/>
-					<FilterCheckBox label="L"/>
-					<FilterCheckBox label="XL"/>
-					<h2>Color</h2>
-					<FilterCheckBox label="Blue"/>
-					<FilterCheckBox label="Black"/>
-					<FilterCheckBox label="White"/>
+					{filterCriterias.map(f => (
+						<div key={f.name} className='filter-container'>
+							<h2>{f.displayName}</h2>
+							{f.possibleValues.map(v => <FilterCheckBox key={v} label={v} />)}
+						</div>
+					))}
 				</div>
 				<div className='product-cards'>
 					{products.map(p =>
