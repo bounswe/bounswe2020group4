@@ -23,14 +23,33 @@ const generatePossibleAttVals = (productInfos) => {
 
 const generateInitialAttVals = (possibleValues) => {
 	const keys = Object.keys(possibleValues)
-	let result = []
+	let result = {}
 	let key
 	for(key of keys) {
-		const dict = {}
-		dict[key] = possibleValues[key][0]
-		result.push(dict)
+		result[key] = possibleValues[key][0]
 	}
 	return result
+}
+
+const getStockValue = (productInfos, values) => {
+	let stockElem
+	const attrCount = Object.keys(values).length
+	let count = 0
+	for(stockElem of productInfos) {
+		let attribute
+		for(attribute of stockElem.attributes) {
+			if(values[attribute.name] !== attribute.value) {
+				count = 0
+				break
+			} else {
+				count++
+			}
+			if(count === attrCount) {
+				return stockElem.stockValue
+			}
+		}
+	}
+	return 0
 }
 
 const ProductPurchase = ({price, originalPrice, productInfos}) => {
@@ -41,21 +60,18 @@ const ProductPurchase = ({price, originalPrice, productInfos}) => {
 	const [amount, setAmount] = useState(1)
 
 	const handleValueChange = (e, opt) => {
-		const d = {}
-		d[opt] = e.target.value
-		setValues(values.map(v => v[opt] ? d : v))
+		const valuesCopy = {...values}
+		valuesCopy[opt] = e.target.value
+		setValues(valuesCopy)
 		setAmount(1)
 	}
 
 	const handleAmountChange = (e) => {
-		/*if(sizes) {
-			if(e.target.value < amount) {
-				setAmount(e.target.value)
-			}
-			if(amount < stockValue[size + '-' + color]) {
-				setAmount(e.target.value)
-			}
-		}*/
+		if(e.target.value < amount) {
+			setAmount(e.target.value)
+		} else if(amount < getStockValue(productInfos, values)) {
+			setAmount(e.target.value)
+		}
 	}
 
 	const handleAddToCart = () => {
@@ -92,19 +108,3 @@ const ProductPurchase = ({price, originalPrice, productInfos}) => {
 }
 
 export default ProductPurchase
-/*
-{sizes &&
-				<form>
-					<label className='product-purchase-label'>Choose size:</label>
-					<select onChange={handleSizeChange} value={size}>
-						{sizes.map(s => <option key={s} value={s}>{s}</option>)}
-					</select>
-				</form>}
-				{colors &&
-				<form>
-					<label className='product-purchase-label'>Choose color:</label>
-					<select onChange={handleColorChange} value={color}>
-						{colors.map(c => <option key={c} value={c}>{c}</option>)}
-					</select>
-				</form>}
-				*/
