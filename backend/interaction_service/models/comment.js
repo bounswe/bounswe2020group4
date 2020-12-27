@@ -9,6 +9,7 @@ module.exports.Comment = mongoose.model(
   new mongoose.Schema({
     userId: mongoose.Schema.Types.ObjectId,
     productId: mongoose.Schema.Types.ObjectId,
+    rating: Number,
     text: String,
   }),
   "comments"
