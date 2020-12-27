@@ -1,4 +1,7 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
+
+import cartService from '../services/cart'
 import './ProductPurchase.css'
 
 const generatePossibleAttVals = (productInfos) => {
@@ -52,7 +55,7 @@ const getStockValue = (productInfos, values) => {
 	return 0
 }
 
-const ProductPurchase = ({price, originalPrice, productInfos}) => {
+const ProductPurchase = ({productId, price, originalPrice, productInfos, isLoggedIn, customerId }) => {
 	const possibleValues = generatePossibleAttVals(productInfos)
 	const initialValues = generateInitialAttVals(possibleValues)
 
@@ -74,8 +77,20 @@ const ProductPurchase = ({price, originalPrice, productInfos}) => {
 		}
 	}
 
-	const handleAddToCart = () => {
-		//TODO
+	const handleAddToCart = async () => {
+		if(isLoggedIn) {
+			const addToCartInfo = {
+				'attributes': [],
+				'quantity': amount
+			}
+			let key
+			for(key of Object.keys(values)) {
+				addToCartInfo.attributes.push({'name': key, 'value': values[key]})
+			}
+			console.log(addToCartInfo)
+			cartService.addProductToCart(customerId, productId, addToCartInfo)
+			setAmount(1)
+		}
 	}
 
 	return(
@@ -107,4 +122,11 @@ const ProductPurchase = ({price, originalPrice, productInfos}) => {
 	)
 }
 
-export default ProductPurchase
+const mapStateToProps = (state) => {
+	return {
+		isLoggedIn: state.signIn.isLoggedIn,
+		customerId: state.signIn.userId
+	}
+}
+
+export default connect(mapStateToProps)(ProductPurchase)
