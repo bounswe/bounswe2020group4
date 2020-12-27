@@ -44,7 +44,6 @@ const ProductOrder = ({imgUrl, name, brand, price, isDelivered}) => {
             Add your comments on this product. Please describe your shopping experience, product quality etc.
 					</DialogContentText>
 					<TextField
-						autoFocus
 						margin="dense"
 						id="name"
 						label="Comment"
