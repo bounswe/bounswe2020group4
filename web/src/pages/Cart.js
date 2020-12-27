@@ -12,6 +12,7 @@ import './Cart.css'
 import './Checkout.css'
 import cartService from '../services/cart'
 import CartProduct from '../components/CartProduct'
+import accountService from '../services/account.js'
 
 const Cart = (props) => {
 
@@ -19,10 +20,24 @@ const Cart = (props) => {
 	const [totalPrice, setTotalPrice] = useState()
 	const [discountedPrice, setDiscountedPrice] = useState()
 
-	const redirectToCheckout = function(e) {
+	const redirectToCheckout = async function(e) {
 		e.preventDefault()
-		//TODO: profile info check
+
+		const profileInfo = await accountService.getProfileInfo('customer', props.customerId)
+			
+		if(!profileInfo){
+			alert('Something went wrong, please refresh this page.')
+			return
+		}
+
+		if(!profileInfo.firstName | !profileInfo.lastName | !profileInfo.phone){
+			alert('You have to fill in your name, surname and phone number before proceeding to checkout, you will be redirected to your profile page.')
+			history.push('/customerprofile')
+			return
+		}
+
 		history.push('/checkout')
+		return
 	}
 
 	useEffect(() => {
