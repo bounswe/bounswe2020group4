@@ -131,6 +131,7 @@ module.exports.getAccountInfo = async (params) => {
  * id: String,
  * userType: String,
  * name: String,
+ * surname: String,
  * email: String,
  * rating: Number,
  * address: String,
@@ -145,14 +146,19 @@ module.exports.updateAccountInfo = async (params) => {
     const collection = params.userType === "customer" ? Customer : Vendor;
     const account = await collection.findOne({ _id: ObjectId(params.id) });
     if (account && params.userType === "customer") {
-      ["name", "surname", "email", "rating", "gender"].forEach((field) => {
+      ["name", "email", "gender", "phoneNumber"].forEach((field) => {
         if (params[field]) {
+          if (field !== "name"){
           account[field] = params[field];
+          }
+          else{
+            account["name"] = params["name"] + " " + params["surname"];
+          }
         }
       });
       await account.save();
     } else if (account && params.userType === "vendor") {
-      ["name", "surname", "email", "longitude", "latitude", "website", "company"].forEach((field) => {
+      ["name", "email", "longitude", "latitude", "website", "company"].forEach((field) => {
         if (params[field]) {
           account[field] = params[field];
         }
