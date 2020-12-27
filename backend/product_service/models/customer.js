@@ -13,6 +13,7 @@ module.exports.Customer = mongoose.model(
     address: [String],
     password: String,
     gender: String,
+    phoneNumber: String
   }),
   "customer"
 );
