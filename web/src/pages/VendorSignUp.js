@@ -11,7 +11,7 @@ import GoogleMaps from '../components/GoogleMaps'
 import { setLoginState } from '../redux/actions'
 import { Link } from 'react-router-dom'
 
-
+import accountService from '../services/account'
 
 const VendorSignUp = ({hideHeader, showHeader, setLoginState}) => {
 
@@ -55,18 +55,41 @@ const VendorSignUp = ({hideHeader, showHeader, setLoginState}) => {
 	const handleClick = async function(e) {
 
 		e.preventDefault()
-		if(!email | !password){
-			alert('Enter your credentials')
-		} else if (!checked){
-			alert('Agree to terms and conditions')
-		} else if(!name | !website | !companyName){
-			alert('Enter required information')
-		} else {
-			setLoginState({userId: 1, userType: 'vendor'})
-			history.goBack()
+		if(!email | !password | !name | !website | !companyName){
+			alert('Fill in all fields')
+			return
 		}
 
+		if (!checked){
+			alert('Agree to terms and conditions')
+			return
+		} 
 
+		if (!selectedCoord){
+			alert('Choose your business location on the map')
+			return
+		}
+
+		console.log(selectedCoord['lat'])
+		const signUpInfo = {
+			'name': name, 
+			'email': email, 
+			'password': password,
+			'lng': selectedCoord.lng, 
+			'lat': selectedCoord.lat, 
+			'website': website, 
+			'company': companyName
+		}
+		const userId = await accountService.vendorSignUp(signUpInfo)
+		console.log(userId)
+		if(userId == -1){
+			alert('This user already exists, use a different email')
+		} else if (userId == null){
+			alert('Something went wrong, try again')
+		} else {
+			setLoginState({ userId: userId, userType: 'customer'})
+			history.goBack()
+		}
 	}
 
 	const redirectToSignin = function(e) {

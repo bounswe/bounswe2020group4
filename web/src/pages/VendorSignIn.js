@@ -10,6 +10,8 @@ import history from '../util/history'
 import { setLoginState } from '../redux/actions'
 import { Link } from 'react-router-dom'
 
+import accountService from '../services/account'
+
 const VendorSignIn = ({hideHeader, showHeader, setLoginState}) => {
 
 	useEffect(() => {
@@ -33,8 +35,15 @@ const VendorSignIn = ({hideHeader, showHeader, setLoginState}) => {
 		if(email == '' | password == ''){
 			alert('Enter your credentials')
 		} else {
-			setLoginState({userId: 1, userType: 'vendor'})
-			history.goBack()
+			const userId = await accountService.vendorLogin({ 'email': email, 'password': password})
+			console.log(userId)
+			if (userId == null){
+				alert('Wrong credentials')
+			} else {
+				setLoginState({ userId: userId, userType: 'customer'})
+				//TODO: redirect to vendor's profile page
+				history.push('/')
+			}
 		}
 	}
 
