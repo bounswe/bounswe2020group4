@@ -374,6 +374,61 @@ module.exports.getProduct = async (params) => {
       delete product.vendorId;
     }
 
+    var filterCriterias = [];
+    var filteringConfig = {
+      screenSize: "Screen Size",
+      RAM: "RAM",
+      diskSize: "Disk Size",
+      noiseCancelling: "Noise Cancelling",
+      aroma: "Aroma",
+      size: "Size",
+      color: "Color",
+    };
+
+
+    if (product.productInfos.length > 0) {
+      product.productInfos.forEach(function (property) {
+        property["attributes"].forEach(function (attribute) {
+          if (filterCriterias.length === 0) {
+            filterCriterias.push({
+              name: attribute.name,
+              displayName: filteringConfig[attribute.name],
+              possibleValues: [attribute.value],
+            });
+          } else {
+            var nameCheckerObject = filterCriterias.filter(function (currentCriteria) {
+              return currentCriteria.name === attribute.name;
+            });
+
+            if (nameCheckerObject.length > 0) {
+              var currentCriteria;
+              filterCriterias.forEach(function (criteria) {
+                if (criteria.name === attribute.name) {
+                  currentCriteria = criteria;
+                }
+              });
+
+              var valueChecker = currentCriteria["possibleValues"].some(function (currentValue) {
+                return attribute.value === currentValue;
+              });
+
+              if (!valueChecker) {
+                currentCriteria["possibleValues"].push(attribute.value);
+              }
+            } else {
+              filterCriterias.push({
+                name: attribute.name,
+                displayName: filteringConfig[attribute.name],
+                possibleValues: [attribute.value],
+              });
+            }
+          }
+        });
+      });
+    }
+
+    product.filterCriterias = filterCriterias
+
     return product;
   } catch (error) {
     console.log(error);
