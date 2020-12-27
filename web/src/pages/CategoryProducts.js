@@ -5,7 +5,6 @@ import history from '../util/history'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
 
-
 import ProductCard from '../components/ProductCard'
 import productService from '../services/products'
 
@@ -66,12 +65,14 @@ const CategoryProducts = () => {
 		params.sortingType = e.target.text.toLowerCase()
 		setNewURL('/products?' + queryString.stringify(params))
 	}
-	const handleFilterCheckbox = (e, filterName, filterValue) => {
+	const handleFilterCheckbox = async (e, filterName, filterValue) => {
 		if(e.target.checked) {
-			//TODO
-		}
-		else {
-			//TODO
+			//TODO how to handle when more than one filter is chosen for a field?
+			params[filterName] = filterValue
+			history.push('/products?' + queryString.stringify(params))
+			setNewURL('/products?' + queryString.stringify(params))
+		} else {
+			//TODO how to handle when more than one filter is chosen for a field?
 		}
 	}
 
@@ -107,7 +108,10 @@ const CategoryProducts = () => {
 					{filterCriterias.map(f => (
 						<div key={f.name} className='filter-container'>
 							<h2>{f.displayName}</h2>
-							{f.possibleValues.map(v => <FilterCheckBox key={v} checked={params[f.name] && params[f.name] === v} label={v} />)}
+							{f.possibleValues.map(v => <FilterCheckBox key={v}
+								handleFilterCheckbox={(e) => handleFilterCheckbox(e, f.name, v)}
+								checked={(params[f.name] && params[f.name] === v) || false}
+								label={v} />)}
 						</div>
 					))}
 				</div>
