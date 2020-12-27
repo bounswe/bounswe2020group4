@@ -48,10 +48,15 @@ const Orders = ({isLoggedIn, userId}) => {
 	const [value, setValue] = useState(0)
 	const [expanded, setExpanded] = useState(false)
 	const [orders, setOrders] = useState([])
-
+	console.log(orders)
 	useEffect(async () => {
 		const orders = await orderService.getOrders(userId, 'customer')
-		setOrders(orders)
+		let ordersList = []
+		let key
+		for(key of orders) {
+			ordersList.push({id: key, data: orders[key]})
+		}
+		setOrders(ordersList)
 	}, [])
 
 	const classes = useStyles()
@@ -92,6 +97,24 @@ const Orders = ({isLoggedIn, userId}) => {
 						<OrderDetails />
 					</AccordionDetails>
 				</Accordion>
+				{orders.map(o => (
+					<Accordion key={o.id} expanded={expanded === o.id} onChange={handleExpand(o.id)}>
+						<AccordionSummary
+							expandIcon={<ExpandMoreIcon />}
+							aria-controls={o.id + 'bh-content'}
+							id={o.id + 'bh-header'}
+						>
+							<div className="order-heading">
+								<div>Order No: {o.id}</div>
+								<div>Date: {o.data.date}</div>
+								<div>Shipping: {o.data.shippingPrice + '₺'}</div>
+							</div>
+						</AccordionSummary>
+						<AccordionDetails>
+							<OrderDetails products={o.data.products}/>
+						</AccordionDetails>
+					</Accordion>
+				))}
 			</TabPanel>
 			<TabPanel value={value} index={1}>
 				<Accordion expanded={expanded === 'panel2'} onChange={handleExpand('panel2')}>

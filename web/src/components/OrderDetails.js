@@ -78,20 +78,19 @@ const ProductOrder = ({imgUrl, name, brand, price, isDelivered}) => {
 }
 
 
-const OrderDetails = ({isDelivered}) => {
+const OrderDetails = ({isDelivered, address, products}) => {
 	return(
 		<div className="order-details-container">
 			<div className="order-details-top">
 				<div>
-					<ProductOrder name="kazak" brand="mavi" price="200 tl" isDelivered={isDelivered}/>
-					<ProductOrder name="çorap" brand="lcw" price="10 tl" isDelivered={isDelivered}/>
+					{products.map(p => <ProductOrder key={p.orderedProductId} name={p.name} brand={p.brand} price={p.price + '₺'} imgUrl={p.imageUrl} isDelivered={p.status !== 'Pending'}/>)}
 				</div>
 				<div className="order-button-container">
 					{!isDelivered ? <button className="order-page-button">Cancel Order</button> : null}
 					{isDelivered && <button className="order-page-button" >Return Order</button>}
 				</div>
 			</div>
-			<div className="address-container"> Address: Rumeli Hisarı, Hisar Üstü Nispetiye Cd No:7, 34342 Sarıyer/İstanbul
+			<div className="address-container"> Address: {address}
 			</div>
 		</div>
 	)
