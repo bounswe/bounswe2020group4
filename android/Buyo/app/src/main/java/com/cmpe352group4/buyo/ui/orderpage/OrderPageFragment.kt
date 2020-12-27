@@ -34,13 +34,15 @@ val dummyOrders = mutableListOf(
             description = "Very nice kid pyjama",
             productInfos = listOf(
                 ProductInfo(attributes = listOf(
-                    Attribute(att_name = "color", att_value = "red"), Attribute(att_name = "size", att_value = "L")
+                    Attribute(name = "color", value = "red"), Attribute(name = "size", value = "L")
                 ), stockValue = 2),
                 ProductInfo(attributes = listOf(
-                    Attribute(att_name = "color", att_value = "blue"), Attribute(att_name = "size", att_value = "M")
+                    Attribute(name = "color", value = "blue"), Attribute(name = "size", value = "M")
                 ), stockValue = 4)
             ),
-            materials = null
+            materials = null,
+            comments = null,
+            filterCriterias = null
         ),
         address="Rumelihisarı Mah. 19 Sok. No:14/4 Sarıyer/Istanbul"
     ),
@@ -62,13 +64,16 @@ val dummyOrders = mutableListOf(
             description = "Very nice sweatshirt",
             productInfos = listOf(
                 ProductInfo(attributes = listOf(
-                    Attribute(att_name = "color", att_value = "red"), Attribute(att_name = "size", att_value = "L")
+                    Attribute(name = "color", value = "red"), Attribute(name = "size", value = "L")
                 ), stockValue = 2),
                 ProductInfo(attributes = listOf(
-                    Attribute(att_name = "color", att_value = "blue"), Attribute(att_name = "size", att_value = "M")
+                    Attribute(name = "color", value = "blue"), Attribute(name = "size", value = "M")
                 ), stockValue = 4)
             ),
-            materials = null
+            materials = null,
+            comments = null,
+            filterCriterias = null
+
         ),
         address="Rumelihisarı Mah. 19 Sok. No:14/4 Sarıyer/Istanbul"
     ),
@@ -90,13 +95,15 @@ val dummyOrders = mutableListOf(
             description = "Very nice sweatshirt",
             productInfos = listOf(
                 ProductInfo(attributes = listOf(
-                    Attribute(att_name = "color", att_value = "red"), Attribute(att_name = "size", att_value = "L")
+                    Attribute(name = "color", value = "red"), Attribute(name = "size", value = "L")
                 ), stockValue = 2),
                 ProductInfo(attributes = listOf(
-                    Attribute(att_name = "color", att_value = "blue"), Attribute(att_name = "size", att_value = "M")
+                    Attribute(name = "color", value = "blue"), Attribute(name = "size", value = "M")
                 ), stockValue = 4)
             ),
-            materials = null
+            materials = null,
+            comments = null,
+            filterCriterias = null
         ),
         address="Rumelihisarı Mah. 19 Sok. No:14/4 Sarıyer/Istanbul"
     ),
@@ -118,13 +125,15 @@ val dummyOrders = mutableListOf(
             description = "Very nice sweatshirt",
             productInfos = listOf(
                 ProductInfo(attributes = listOf(
-                    Attribute(att_name = "color", att_value = "red"), Attribute(att_name = "size", att_value = "L")
+                    Attribute(name = "color", value = "red"), Attribute(name = "size", value = "L")
                 ), stockValue = 2),
                 ProductInfo(attributes = listOf(
-                    Attribute(att_name = "color", att_value = "blue"), Attribute(att_name = "size", att_value = "M")
+                    Attribute(name = "color", value = "blue"), Attribute(name = "size", value = "M")
                 ), stockValue = 4)
             ),
-            materials = null
+            materials = null,
+            comments = null,
+            filterCriterias = null
         ),
         address="Rumelihisarı Mah. 19 Sok. No:14/4 Sarıyer/Istanbul"
     ),
@@ -146,13 +155,15 @@ val dummyOrders = mutableListOf(
             description = "Very nice sweatshirt",
             productInfos = listOf(
                 ProductInfo(attributes = listOf(
-                    Attribute(att_name = "color", att_value = "red"), Attribute(att_name = "size", att_value = "L")
+                    Attribute(name = "color", value = "red"), Attribute(name = "size", value = "L")
                 ), stockValue = 2),
                 ProductInfo(attributes = listOf(
-                    Attribute(att_name = "color", att_value = "blue"), Attribute(att_name = "size", att_value = "M")
+                    Attribute(name = "color", value = "blue"), Attribute(name = "size", value = "M")
                 ), stockValue = 4)
             ),
-            materials = null
+            materials = null,
+            comments = null,
+            filterCriterias = null
         ),
         address="Rumelihisarı Mah. 19 Sok. No:14/4 Sarıyer/Istanbul"
     )

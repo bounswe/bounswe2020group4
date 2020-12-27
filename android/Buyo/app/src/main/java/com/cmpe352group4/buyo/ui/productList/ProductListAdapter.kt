@@ -18,8 +18,8 @@ class ProductListAdapter(
     val clickCallback: (Product) -> Unit,
     val likeCallback: (Product, View) -> Unit,
     val toastCallback: (String) -> Unit,
-    val addCartCallback: (String) -> Unit,
-    val removeCartCallback: () -> Unit?
+    val addCartCallback: (Product) -> Unit,
+    val removeCartCallback: (Product) -> Unit?
 ) : RecyclerView.Adapter<ProductListAdapter.ProductListViewHolder>(){
 
     var WishListProducts: List<Product>? = null
@@ -104,12 +104,12 @@ class ProductListAdapter(
                     if (it.iv_productListRecyclerView_Cart.tag == R.drawable.ic_add2cart){
                         it.iv_productListRecyclerView_Cart.setImageResource(R.drawable.ic_remove_from_cart)
                         it.iv_productListRecyclerView_Cart.tag = R.drawable.ic_remove_from_cart
-                        addCartCallback.invoke(modal.id)
+                        addCartCallback.invoke(modal)
                     }
                     else if (it.iv_productListRecyclerView_Cart.tag == R.drawable.ic_remove_from_cart){
                         it.iv_productListRecyclerView_Cart.setImageResource(R.drawable.ic_add2cart)
                         it.iv_productListRecyclerView_Cart.tag = R.drawable.ic_add2cart
-                        removeCartCallback.invoke()
+                        removeCartCallback.invoke(modal)
                     }
 
 

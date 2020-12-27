@@ -37,6 +37,15 @@ class ProductCommentsAdapter(
         fun bind(modal: Comment) {
             // Update the view elements here
 
+            itemView.tv_productCommentsRecyclerView_user.text = modal.owner.username
+            itemView.tv_productCommentsRecyclerView_rating.text = modal.rating
+            itemView.tv_productCommentsRecyclerView_text.text = modal.text
+
+            if (modal.id == "-1"){
+                itemView.btn_productCommentsRecyclerView_report.isEnabled = false
+            }
+
+            itemView.btn_productCommentsRecyclerView_report.isEnabled = false
 
             itemView.btn_productCommentsRecyclerView_report.setOnClickListener {
 

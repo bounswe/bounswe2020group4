@@ -1,6 +1,5 @@
 package com.cmpe352group4.buyo.vo
 
-import android.os.Parcelable
 import java.io.Serializable
 
 data class Product(
@@ -15,5 +14,7 @@ data class Product(
     var productInfos: List<ProductInfo>,
     var vendor: Vendor,
     var description: String,
-    var materials: List<String>?
+    var materials: List<String>?,
+    var comments : List<Comment>?,
+    var filterCriterias: List<FilterCriterias>?
 ): Serializable

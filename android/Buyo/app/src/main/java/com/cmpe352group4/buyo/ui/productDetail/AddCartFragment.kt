@@ -2,11 +2,9 @@ package com.cmpe352group4.buyo.ui.productDetail
 
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SeekBar
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
@@ -18,24 +16,23 @@ import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
-import com.cmpe352group4.buyo.viewmodel.ProductViewModel
-import com.cmpe352group4.buyo.vo.ParsedAttribute
-import com.cmpe352group4.buyo.vo.Product
+import com.cmpe352group4.buyo.viewmodel.CartViewModel
+import com.cmpe352group4.buyo.vo.*
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_add_cart.*
-import kotlinx.android.synthetic.main.fragment_product_list_filter_sort.*
 import javax.inject.Inject
 
-class AddCartFragment: BaseFragment() {
+class AddCartFragment : BaseFragment() {
 
     @Inject
     lateinit var sharedPref: SharedPref
 
 
     companion object {
-        private const val PRODUCT_ID = "product_id"
-        fun newInstance(productID: String) = AddCartFragment().apply {
+        private const val PRODUCT = "product_obj"
+        fun newInstance(product: Product?) = AddCartFragment().apply {
             arguments = Bundle().apply {
-                putString(PRODUCT_ID, productID)
+                putSerializable(PRODUCT, product)
             }
         }
     }
@@ -43,18 +40,24 @@ class AddCartFragment: BaseFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val productViewModel: ProductViewModel by viewModels {
+    private val cartViewModel: CartViewModel by viewModels {
         viewModelFactory
     }
+    val gson = Gson()
 
-    private var order_details : MutableMap<String, String> = mutableMapOf()
+    private var order_details: MutableMap<String, String> = mutableMapOf()
 
     private val AddCartAdapter by lazy {
-        AddCartAdapter(mutableListOf(), sharedPref
+        AddCartAdapter(
+            mutableListOf(), sharedPref
         ) { featureName, featureValue ->
             order_details[featureName] = featureValue
+            Log.v("AddCartFragment", order_details.toString())
+            updateMax()
         }
     }
+
+    var productInfos : List<ProductInfo>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -67,12 +70,6 @@ class AddCartFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        var productId = arguments?.getString(PRODUCT_ID) ?: ""
-
-        var product : Product? = null
-
-        var parsed_attributes : MutableList<ParsedAttribute> = mutableListOf()
 
         // RECYCLER VIEW
 
@@ -93,100 +90,92 @@ class AddCartFragment: BaseFragment() {
         rv_addCartFilters.layoutManager = LinearLayoutManager(this.context)
 
 
+        val product: Product = arguments?.getSerializable(PRODUCT) as Product
 
-        productViewModel.onFetchProductById(productId)
+        productInfos = product.productInfos
 
-        productViewModel.productDetail.observe(viewLifecycleOwner, Observer {
-            Log.d("LikedProdStParse", "$it.status")
-            if (it.status == Status.SUCCESS && it.data != null){
+        Log.v("AddCartFragment", product.toString())
 
-                product = it.data.result
+        AddCartAdapter.submitList(product.filterCriterias as MutableList<FilterCriterias>)
 
-                parsed_attributes = extract_features(product!!)
+        Log.v("AddCartFragment", order_details.toString())
 
-                if(parsed_attributes.size != 0){
-                    AddCartAdapter.Attributes = parsed_attributes
+        btn_addCart.setOnClickListener {
+
+            if(et_addCartAmount.text.toString() == ""){
+                Toast.makeText(context, "Please enter a number as amount!", Toast.LENGTH_SHORT).show()
+            }else{
+                val current_amount = et_addCartAmount.text.toString().toInt()
+
+                if (current_amount > updateMax()){
+                    Toast.makeText(context, "Sorry, we don't have that much product :(", Toast.LENGTH_SHORT).show()
+                }else{
+                    val att_list = mutableListOf<Attribute>()
+
+                    for (att in order_details) {
+                        att_list.add(Attribute(name = att.key, value = att.value))
+                    }
+                    Log.v("AddCartFragment", att_list.toString())
+                    Log.v("AddCartFragment", current_amount.toString())
+                    Log.v("AddCartFragmentUser", sharedPref.getUserId() ?: "")
+                    Log.v("AddCartFragmentProd", product.id)
+                    Log.v("AddCartFragmentJSON", gson.toJson(AddCartInfo(att_list, current_amount)))
 
 
-                    // AMOUNT
+                    cartViewModel.onAdd(AddCartRequest(customerId = sharedPref.getUserId() ?: "", productId = product.id, productInfo = gson.toJson(AddCartInfo(att_list, current_amount))))
 
-                    var amount : Int
+                    cartViewModel.addCartResponse.observe(viewLifecycleOwner, Observer {
+                        if (it.status == Status.SUCCESS && it.data != null) {
 
-                    sb_addCartAmountBar.max = 100
+                            Toast.makeText(context, "${product.name} successfully added to your cart!", Toast.LENGTH_SHORT).show()
 
-
-                    sb_addCartAmountBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
-                        override fun onProgressChanged(seek: SeekBar?, progress: Int, fromUser: Boolean) {
-                            tv_addCartCurrentAmount.text = progress.toString()
+                            dispatchLoading()
+                        } else if (it.status == Status.ERROR) {
+                            dispatchLoading()
+                        } else if (it.status == Status.LOADING) {
+                            showLoading()
                         }
-
-                        override fun onStartTrackingTouch(seek: SeekBar?) {
-                            if (seek != null) {
-                                tv_addCartCurrentAmount.text = seek.progress.toString()
-                            }
-                        }
-
-                        override fun onStopTrackingTouch(seek: SeekBar?) {
-                            if (seek != null) {
-                                tv_addCartCurrentAmount.text = seek.progress.toString()
-                                amount = seek.progress
-                            }
-                        }
-
                     })
 
-
-                    // SEND Backend Request Here Using order_details and amount
-
-                    btn_addCart.setOnClickListener {
-
-                        if (order_details.size == rv_addCartFilters.adapter!!.itemCount){
-                            // Send Request here
-                            activity?.onBackPressed()
-
-                            val myToast = Toast.makeText(
-                                context,
-                                "${productId} successfully added to your cart !",
-                                Toast.LENGTH_SHORT
-                            )
-                            myToast.setGravity(Gravity.BOTTOM, 0, 200)
-                            myToast.show()
-                        }
-                    }
                 }
-
-                dispatchLoading()
-            } else if (it.status == Status.ERROR){
-                dispatchLoading()
-            }else if (it.status == Status.LOADING){
-                showLoading()
             }
 
-        })
+
+
+        }
 
     }
 
-    fun extract_features(product: Product): MutableList<ParsedAttribute> {
-        var dummy_parsed_attribute1 = ParsedAttribute(
-            att_name = "RAM", att_value = listOf(
-                "16gb",
-                "8gb",
-                "4gb"
-            )
-        )
-        var dummy_parsed_attribute2 = ParsedAttribute(
-            att_name = "COLOR", att_value = listOf(
-                "RED",
-                "GREEN",
-                "BLUE"
-            )
-        )
+    fun updateMax(): Int {
 
+        var att_list = mutableListOf<Attribute>()
 
-        var dummy_attributes = mutableListOf<ParsedAttribute>(
-            dummy_parsed_attribute1,
-            dummy_parsed_attribute2
-        )
-        return dummy_attributes
+        for (att in order_details) {
+            att_list.add(Attribute(name = att.key, value = att.value))
+        }
+
+        var order_names = att_list.map { it.name }.sorted()
+        var order_values = att_list.map { it.value }.sorted()
+
+        //Log.v("AddCartFragment", order_names.toString())
+        //Log.v("AddCartFragment", order_values.toString())
+
+        if (productInfos != null){
+            for (prod_info in productInfos!!){
+                val current_prod_info_atts= prod_info.attributes
+
+                var current_names = current_prod_info_atts.map { it.name }.sorted()
+                var current_values = current_prod_info_atts.map { it.value }.sorted()
+
+                if (current_names == order_names &&  current_values ==  order_values){
+                    //Log.v("AddCartFragment", "There is a match: ${prod_info.stockValue}")
+                    tv_addCartMaxAmount.text = "Max: ${prod_info.stockValue}"
+                    return prod_info.stockValue
+                }
+
+            }
+        }
+        return 0
     }
+
 }

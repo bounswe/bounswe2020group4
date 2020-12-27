@@ -54,10 +54,10 @@ class CartPageFragment : BaseFragment() {
             vendor = Vendor(id = "12", name = "Pablos", rating = 2.43),
             productInfo = listOf(
                 ProductInfo(attributes = listOf(
-                    Attribute(att_name = "color", att_value = "red"), Attribute(att_name = "size", att_value = "L")
+                    Attribute(name = "color", value = "red"), Attribute(name = "size", value = "L")
                 ), stockValue = 2),
                 ProductInfo(attributes = listOf(
-                    Attribute(att_name = "color", att_value = "blue"), Attribute(att_name = "size", att_value = "M")
+                    Attribute(name = "color", value = "blue"), Attribute(name = "size", value = "M")
                 ), stockValue = 4)
             )
         ),
@@ -71,7 +71,7 @@ class CartPageFragment : BaseFragment() {
             vendor = Vendor(id = "12", name = "AyseTeyze", rating = 3.21),
             productInfo = listOf(
                 ProductInfo(attributes = listOf(
-                    Attribute(att_name = "color", att_value = "red"), Attribute(att_name = "size", att_value = "L")
+                    Attribute(name = "color", value = "red"), Attribute(name = "size", value = "L")
                 ), stockValue = 1)
             )
         )

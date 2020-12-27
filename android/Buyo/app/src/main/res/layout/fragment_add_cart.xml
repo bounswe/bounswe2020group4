@@ -15,7 +15,9 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/rv_addCartFilters"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread"
+        tools:layout_editor_absoluteX="8dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_addCartFilters"
@@ -35,58 +37,55 @@
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/sb_addCartAmountBar"
-        app:layout_constraintEnd_toStartOf="@+id/tv_addCartCurrentAmount"
+        app:layout_constraintBottom_toTopOf="@+id/et_addCartAmount"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rv_addCartFilters" />
 
-    <TextView
-        android:id="@+id/tv_addCartCurrentAmount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="1"
-        android:textColor="@color/buyo_fireEngineRed"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_margin="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_addCartAmountHeader"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/tv_addCartAmountHeader"
-        app:layout_constraintTop_toTopOf="@+id/tv_addCartAmountHeader" />
-
-    <SeekBar
-        android:id="@+id/sb_addCartAmountBar"
-        style="@style/Widget.AppCompat.SeekBar.Discrete"
+    <Button
+        android:id="@+id/btn_addCart"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:max="10"
-        android:min="1"
-        android:progress="3"
+        android:layout_margin="8dp"
+        android:background="@color/buyo_fireEngineRed"
+        android:minHeight="20dp"
+        android:text="Add to Cart"
+        android:textColor="@color/buyo_white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_addCart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_addCartAmount" />
+
+    <EditText
+        android:id="@+id/et_addCartAmount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+
+        android:inputType="numberDecimal"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_addCart"
+        app:layout_constraintEnd_toStartOf="@+id/tv_addCartMaxAmount"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_addCartAmountHeader" />
 
-    <Button
-        android:id="@+id/btn_addCart"
+    <TextView
+        android:id="@+id/tv_addCartMaxAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:background="@color/buyo_fireEngineRed"
-        android:minHeight="10dp"
-        android:text="Add to Cart"
-        android:textColor="@color/buyo_white"
-        app:layout_constraintBottom_toBottomOf="@+id/sb_addCartAmountBar"
+        android:layout_margin="16dp"
+        android:text="Max: 1"
+        android:textColor="@color/buyo_fireEngineRed"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/et_addCartAmount"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/sb_addCartAmountBar"
-        app:layout_constraintTop_toTopOf="@+id/sb_addCartAmountBar" />
-
-
+        app:layout_constraintStart_toEndOf="@+id/et_addCartAmount"
+        app:layout_constraintTop_toTopOf="@+id/et_addCartAmount" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

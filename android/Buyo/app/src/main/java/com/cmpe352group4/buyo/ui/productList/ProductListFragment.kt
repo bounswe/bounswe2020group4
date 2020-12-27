@@ -22,6 +22,7 @@ import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.cart.CartPageFragment
 import com.cmpe352group4.buyo.ui.productDetail.AddCartFragment
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
+import com.cmpe352group4.buyo.viewmodel.ProductViewModel
 import com.cmpe352group4.buyo.viewmodel.SearchViewModel
 import com.cmpe352group4.buyo.viewmodel.WishListViewModel
 import com.cmpe352group4.buyo.vo.LikeResponse
@@ -39,6 +40,10 @@ class ProductListFragment : BaseFragment(){
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val productViewModel: ProductViewModel by viewModels {
+        viewModelFactory
+    }
 
     private val productListViewModel: SearchViewModel by viewModels {
         viewModelFactory
@@ -111,11 +116,29 @@ class ProductListFragment : BaseFragment(){
                 myToast.setGravity(Gravity.BOTTOM, 0, 200)
                 myToast.show()
 
-            },{ productID ->
-                navigationManager?.onReplace(
-                    AddCartFragment.newInstance(productID),
-                    TransactionType.Replace, true
-                )
+            },{ product ->
+
+                productViewModel.onFetchProductById(product.id)
+                productViewModel.productDetail.observe(viewLifecycleOwner, Observer {
+                    Log.d("LikedProdStParse", "$it.status")
+                    if (it.status == Status.SUCCESS && it.data != null){
+
+                        var prod = it.data.result
+
+
+                        navigationManager?.onReplace(
+                            AddCartFragment.newInstance(prod),
+                            TransactionType.Replace, true
+                        )
+                        dispatchLoading()
+                    } else if (it.status == Status.ERROR){
+                        dispatchLoading()
+                    }else if (it.status == Status.LOADING){
+                        showLoading()
+                    }
+
+                })
+
             }
         ) {
             navigationManager?.onReplace(
@@ -327,6 +350,14 @@ class ProductListFragment : BaseFragment(){
 
     }
 
+    override fun onResume() {
+        super.onResume()
 
+        if(sharedPref.getUserId().isNullOrEmpty()){
 
+        }else{
+            wishListViewModel.onFetchWishListProducts(sharedPref.getUserId() ?: "")
+
+        }
+    }
 }

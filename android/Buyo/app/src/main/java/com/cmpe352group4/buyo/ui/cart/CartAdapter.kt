@@ -49,9 +49,9 @@ class CartAdapter (
             var i = 0
             modal.productInfo[0].attributes.forEach {
                 productInfo += if(i++ ==  modal.productInfo[0].attributes.size - 1){
-                    it.att_name + ": " + it.att_value
+                    it.name + ": " + it.value
                 }else{
-                    it.att_name + ": " + it.att_value + "\n"
+                    it.name + ": " + it.value + "\n"
                 }
             }
 

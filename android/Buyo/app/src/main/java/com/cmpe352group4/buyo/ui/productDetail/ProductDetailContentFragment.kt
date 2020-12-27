@@ -17,9 +17,12 @@ import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.viewmodel.ProductViewModel
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
+import com.cmpe352group4.buyo.ui.cart.CartPageFragment
+import com.cmpe352group4.buyo.viewmodel.CartViewModel
 import com.cmpe352group4.buyo.viewmodel.WishListViewModel
 import com.cmpe352group4.buyo.vo.LikeResponse
 import com.cmpe352group4.buyo.vo.Product
+import kotlinx.android.synthetic.main.fragment_add_cart.*
 import kotlinx.android.synthetic.main.fragment_product_detail_content.*
 import javax.inject.Inject
 
@@ -35,8 +38,11 @@ class ProductDetailContentFragment : BaseFragment() {
         viewModelFactory
     }
 
-
     private val wishListViewModel: WishListViewModel by viewModels {
+        viewModelFactory
+    }
+
+    private val cartViewModel: CartViewModel by viewModels {
         viewModelFactory
     }
 
@@ -63,14 +69,16 @@ class ProductDetailContentFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         var productId = arguments?.getString(PRODUCT_ID) ?: ""
 
         var WishListProducts: List<Product>?
 
-        var prod_ids : List<String>? = null
+        var wishlist_prod_ids : List<String>? = null
+
+        //var cart_prod_ids : List<String>? = null
 
         var product : Product? = null
-
 
         iv_ProductDetailFav.tag = R.drawable.ic_product_disliked
 
@@ -79,7 +87,7 @@ class ProductDetailContentFragment : BaseFragment() {
 
         if(sharedPref.getUserId().isNullOrEmpty()){
             Log.i("ProductResponse", "Guest User")
-            prod_ids = emptyList()
+            wishlist_prod_ids = emptyList()
 
         }else {
             wishListViewModel.onFetchWishListProducts(sharedPref.getUserId() ?: "")
@@ -90,11 +98,11 @@ class ProductDetailContentFragment : BaseFragment() {
 
                     WishListProducts = it.data.products as MutableList<Product>
 
-                    prod_ids = WishListProducts?.map{it.id}
+                    wishlist_prod_ids = WishListProducts?.map{it.id}
 
-                    Log.d("LikedProdFetch", "$prod_ids")
+                    Log.d("LikedProdFetch", "$wishlist_prod_ids")
 
-                    parse(prod_ids, product)
+                    parse(wishlist_prod_ids, product)
 
                     dispatchLoading()
                 } else if (it.status == Status.ERROR) {
@@ -103,6 +111,35 @@ class ProductDetailContentFragment : BaseFragment() {
                     showLoading()
                 }
             })
+
+            /*
+            cartViewModel.onFetchCartInfo(sharedPref.getUserId() ?: "")
+
+            cartViewModel.cartInfo.observe(viewLifecycleOwner, Observer {
+                Log.i("CartProducts", "Fetching")
+                if (it.status == Status.SUCCESS && it.data != null) {
+                    Log.i("CartProducts", "Success")
+                    cartProducts = it.data.products as MutableList<Product>
+
+                    cart_prod_ids = cartProducts?.map{it.id}
+
+                    parse(wishlist_prod_ids, product)
+
+                    dispatchLoading()
+                } else if (it.status == Status.ERROR) {
+                    Log.i("CartProducts", "Error")
+                    Log.i("CartProducts", it.message.toString())
+                    Log.i("CartProductsUser", sharedPref.getUserId().toString())
+                    Log.i("CartProductsProd", productId)
+                    dispatchLoading()
+                } else if (it.status == Status.LOADING) {
+                    showLoading()
+                }
+            })
+            */
+
+
+
         }
 
 
@@ -115,7 +152,7 @@ class ProductDetailContentFragment : BaseFragment() {
 
                 product = it.data.result
 
-                parse(prod_ids, product)
+                parse(wishlist_prod_ids, product)
                 dispatchLoading()
             } else if (it.status == Status.ERROR){
                 dispatchLoading()
@@ -178,7 +215,7 @@ class ProductDetailContentFragment : BaseFragment() {
             }
         }
 
-        // ADD CART AND OTHER BUTTONS
+        // ADD CART
 
         btnProductDetailCart.setOnClickListener {
             if(sharedPref.getUserId().isNullOrEmpty()){
@@ -186,23 +223,31 @@ class ProductDetailContentFragment : BaseFragment() {
             }else{
                 //Toast.makeText(context, "Added to your cart!", Toast.LENGTH_LONG).show()
                 navigationManager?.onReplace(
-                    AddCartFragment.newInstance(productId),
+                    AddCartFragment.newInstance(product),
                     TransactionType.Replace, true
                 )
             }
         }
+
+        // COMMENT
+
         btnProductDetailComments.setOnClickListener {
             navigationManager?.onReplace(
                 ProductDetailCommentsFragment.newInstance(productId),
                 TransactionType.Replace, true
             )
         }
+
+        // BACK
         btnProductDetailBack.setOnClickListener {
             activity?.onBackPressed()
         }
 
-        Log.d("LikedProdEnd", "$prod_ids")
-        parse(prod_ids, product)
+        Log.d("LikedProdEnd", "$wishlist_prod_ids")
+        parse(wishlist_prod_ids, product)
+
+        Log.i("CartProductsUser", sharedPref.getUserId().toString())
+        Log.i("CartProductsProd", productId)
     }
 
     override fun onResume() {
@@ -217,12 +262,12 @@ class ProductDetailContentFragment : BaseFragment() {
 
     }
 
-    fun parse(prod_ids: List<String>?, product : Product? ){
-        if (prod_ids != null && product != null){
-            Log.d("LikedProdParse", "$prod_ids")
+    fun parse(wishlist_prod_ids: List<String>?, product : Product?){
+        if (wishlist_prod_ids != null && product != null ){
+            Log.d("LikedProdParse", "$wishlist_prod_ids")
 
-            if(prod_ids != null){
-                if(prod_ids!!.contains(product!!.id)){
+            if(wishlist_prod_ids != null){
+                if(wishlist_prod_ids!!.contains(product!!.id)){
                     if (iv_ProductDetailFav.tag == R.drawable.ic_product_disliked){
                         iv_ProductDetailFav.setImageResource(R.drawable.ic_product_liked)
                         iv_ProductDetailFav.tag = R.drawable.ic_product_liked
@@ -234,7 +279,6 @@ class ProductDetailContentFragment : BaseFragment() {
                     }
                 }
             }
-
 
             tvProductDetailName.text = product!!.name
             tvProductDetailVendor.text = product!!.name
@@ -251,13 +295,22 @@ class ProductDetailContentFragment : BaseFragment() {
 
             var stockStatusColor = ""
 
-//            for (color in product!!.stockValue){
-//                stockStatusColor += color.key + " (" + color.value.toString() + ")\n"
-//            }
-//
-//            tvProductDetailInfoColors.text = "Available colors: (stocks) \n" + stockStatusColor
-//
-//            tvProductDetailInfoSizes.text = "Available sizes: (stocks) \n in progress..."
+            for (attributes in product.productInfos ){
+                for (attribute in attributes.attributes){
+                    stockStatusColor +=  attribute.name.toUpperCase() + ":" + attribute.value.toUpperCase() + " & "
+                }
+
+                stockStatusColor = stockStatusColor.dropLast(2)
+
+                stockStatusColor += " (" + attributes.stockValue + ")\n"
+
+            }
+
+            tvProductDetailInfoColors.text = "Available options: (stocks) \n" + stockStatusColor
+
+            tvProductDetailInfoSizes.text = product.description
+
+
 
             tvProductDetailPrice.text = product!!.price.toString() + " TL"
             rbProductDetailRating.rating = product!!.rating.toFloat()
