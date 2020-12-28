@@ -13,8 +13,8 @@ const Homepage = () => {
 	//This is just used to populate best sellers with dummy data
 	useEffect(async () => {
 		const response = await searchProducts('Men')
-		setBestSellers(response.productList.slice(0, 10))
-		setRecommendations(response.productList.slice(11, 20))
+		setBestSellers(response.slice(0, 10))
+		setRecommendations(response.slice(11, 20))
 	}, [])
 
 
