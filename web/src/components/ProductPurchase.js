@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
+import TextField from '@material-ui/core/TextField'
 
 import cartService from '../services/cart'
 import './ProductPurchase.css'
@@ -103,7 +104,7 @@ const ProductPurchase = ({productId, price, originalPrice, productInfos, isLogge
 						</select>
 					</form>)}
 				<div className='product-purchase-amount'>
-					<label className='product-purchase-label'>Amount:</label>
+					<label className='product-purchase-label'>Quantity:</label>
 					<input type="number" min="1" onChange={handleAmountChange} value={amount}/>
 				</div>
 			</div>
@@ -129,3 +130,5 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(ProductPurchase)
+
+//
