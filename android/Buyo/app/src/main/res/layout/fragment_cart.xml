@@ -135,7 +135,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Product Total:"
-                    android:textSize="12sp"
                     android:textColor="@color/grey"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -144,8 +143,7 @@
                     android:id="@+id/tv_product_price_dollar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="50.99 $"
-                    android:textSize="12sp"
+                    tools:text="50.99 ₺"
                     android:textColor="@color/grey"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tv_product_price"/>
@@ -155,7 +153,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Discount:"
-                    android:textSize="12sp"
                     android:textColor="@color/grey"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_product_price" />
@@ -164,8 +161,7 @@
                     android:id="@+id/tv_discount_dollar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="50.99 $"
-                    android:textSize="12sp"
+                    tools:text="50.99 ₺"
                     android:textColor="@color/grey"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tv_discount"/>
@@ -175,7 +171,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Cargo:"
-                    android:textSize="12sp"
                     android:textColor="@color/grey"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_discount"
@@ -186,8 +181,7 @@
                     android:id="@+id/tv_cargo_price_dollar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="20 $"
-                    android:textSize="12sp"
+                    android:text="20 ₺"
                     android:textColor="@color/grey"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tv_cargo_price" />
@@ -211,7 +205,7 @@
                     android:id="@+id/tv_final_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="Total: 120.5 $"
+                    tools:text="Total: 120.5 ₺"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:textColor="@color/black"

@@ -151,7 +151,9 @@
     <string name="prompt_name">Name</string>
     <string name="prompt_surname">Surname</string>
     <string name="prompt_phone">Phone</string>
+    <string name="prompt_province">Province</string>
     <string name="prompt_city">City</string>
+    <string name="prompt_street">Street</string>
     <string name="prompt_addressTitle">Address Title</string>
     <string name="prompt_address">Address</string>
     <string name="privacy_policy_string">
