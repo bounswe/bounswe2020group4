@@ -4,5 +4,5 @@ import java.io.Serializable
 
 data class ProductList(
     val productList : List<Product>,
-    val filterCriterias: List<String>?
+    val filterCriterias: List<FilterCriterias>?
 ): Serializable

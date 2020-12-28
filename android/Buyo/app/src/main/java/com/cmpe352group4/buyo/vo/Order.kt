@@ -1,7 +1,6 @@
 package com.cmpe352group4.buyo.vo
 
 import java.io.Serializable
-import java.util.*
 
 // data -> MapOf<String, Order>,  string is the order no
 

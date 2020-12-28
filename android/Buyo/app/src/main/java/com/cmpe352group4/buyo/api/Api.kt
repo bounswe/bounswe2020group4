@@ -2,9 +2,7 @@ package com.cmpe352group4.buyo.api
 
 import androidx.lifecycle.LiveData
 import com.cmpe352group4.buyo.vo.*
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface Api {
 
@@ -27,10 +25,16 @@ interface Api {
     ): LiveData<ApiResponse<BaseResponsePostRequest>>
 
     @GET("products")
-    fun fetchSearchResult(@Query("search") searchKeyword: String) : LiveData<ApiResponse<BaseResponse<ProductResponse>>>
+    fun fetchSearchResult(
+        @Query("search") searchKeyword: String,
+        @QueryMap options: Map<String, String>?
+    ) : LiveData<ApiResponse<BaseResponse<ProductResponse>>>
 
     @GET("products")
-    fun fetchProductsbyCategory(@Query("categories") categoryList: String) : LiveData<ApiResponse<BaseResponse<ProductResponse>>>
+    fun fetchProductsbyCategory(
+        @Query("categories") categoryList: String,
+        @QueryMap options: Map<String, String>?
+    ) : LiveData<ApiResponse<BaseResponse<ProductResponse>>>
 
     @POST("signup")
     fun signup_customer(
@@ -81,6 +85,20 @@ interface Api {
         @Query("creditCard") creditCard: CreditCard,
         @Query("address") address: Address
         ): LiveData<ApiResponse<BaseResponse<CheckoutResponse>>>
+
+    @POST("cart")
+    fun add2cart(
+        @Query("customerId") customerId : String,
+        @Query("productId") productId : String,
+        @Query("productInfo") productInfo : String
+    ): LiveData<ApiResponse<BaseResponsePostRequest>>
+
+    @POST("cart")
+    fun removeFromCart(
+        @Query("customerId") customerId : String,
+        @Query("productId") productId : String,
+        @Query("productInfo") productInfo : String
+    ): LiveData<ApiResponse<BaseResponsePostRequest>>
 
     @POST("account-change-password")
     fun changePassword(

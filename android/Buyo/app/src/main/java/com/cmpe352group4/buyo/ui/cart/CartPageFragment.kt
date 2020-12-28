@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -22,6 +21,7 @@ import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.util.extensions.visible
 import com.cmpe352group4.buyo.viewmodel.CartViewModel
 import com.cmpe352group4.buyo.vo.*
+import com.cmpe352group4.buyo.vo.Attribute
 import com.cmpe352group4.buyo.widgets.navigation_bar.NavigationBar
 import kotlinx.android.synthetic.main.fragment_cart.*
 import javax.inject.Inject
@@ -54,10 +54,10 @@ class CartPageFragment : BaseFragment() {
             vendor = Vendor(id = "12", name = "Pablos", rating = 2.43),
             productInfo = listOf(
                 ProductInfo(attributes = listOf(
-                    Attribute(att_name = "color", att_value = "red"), Attribute(att_name = "size", att_value = "L")
+                    Attribute(name = "color", value = "red"), Attribute(name = "size", value = "L")
                 ), stockValue = 2),
                 ProductInfo(attributes = listOf(
-                    Attribute(att_name = "color", att_value = "blue"), Attribute(att_name = "size", att_value = "M")
+                    Attribute(name = "color", value = "blue"), Attribute(name = "size", value = "M")
                 ), stockValue = 4)
             )
         ),
@@ -71,7 +71,7 @@ class CartPageFragment : BaseFragment() {
             vendor = Vendor(id = "12", name = "AyseTeyze", rating = 3.21),
             productInfo = listOf(
                 ProductInfo(attributes = listOf(
-                    Attribute(att_name = "color", att_value = "red"), Attribute(att_name = "size", att_value = "L")
+                    Attribute(name = "color", value = "red"), Attribute(name = "size", value = "L")
                 ), stockValue = 1)
             )
         )
