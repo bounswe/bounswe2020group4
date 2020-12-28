@@ -7,13 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.cmpe352group4.buyo.api.Resource
 import com.cmpe352group4.buyo.datamanager.repositories.ProfileRepository
 import com.cmpe352group4.buyo.util.livedata.AbsentLiveData
-import com.cmpe352group4.buyo.vo.CustomerInformationResult
-import com.cmpe352group4.buyo.vo.LoginRequestCustomer
-import com.cmpe352group4.buyo.vo.SignupRequestCustomer
-import com.cmpe352group4.buyo.vo.LoginRequestVendor
-import com.cmpe352group4.buyo.vo.SignupRequestVendor
-import com.cmpe352group4.buyo.vo.LoginSingupResponse
-import com.cmpe352group4.buyo.vo.UserInformationRequest
+import com.cmpe352group4.buyo.vo.*
 import javax.inject.Inject
 
 
@@ -26,6 +20,7 @@ class ProfileViewModel @Inject constructor(
     private val _loginRequestVendor = MutableLiveData<LoginRequestVendor>()
     private val _singupRequestCustomer = MutableLiveData<SignupRequestCustomer>()
     private val _singupRequestVendor = MutableLiveData<SignupRequestVendor>()
+    private val _addAddress = MutableLiveData<AddAddressRequest>()
 
     val userInformation: LiveData<Resource<CustomerInformationResult>> =
         Transformations.switchMap(_userInformationRequest) { it ->
@@ -68,6 +63,14 @@ class ProfileViewModel @Inject constructor(
                                         it.latitude, it.website, it.company)
         }
 
+    val addAddress: LiveData<Resource<BaseResponsePostRequest>> =
+        Transformations.switchMap(_addAddress) { it ->
+            if (it == null )
+                AbsentLiveData.create()
+            else
+                repository.addAddress(it)
+        }
+
     fun onLoginCustomer(login: LoginRequestCustomer) {
         _loginRequestCustomer.value = login
     }
@@ -88,4 +91,7 @@ class ProfileViewModel @Inject constructor(
         _userInformationRequest.value = update
     }
 
+    fun addAddress(addAddressRequest: AddAddressRequest) {
+        _addAddress.value = addAddressRequest
+    }
 }
