@@ -14,7 +14,8 @@ import com.cmpe352group4.buyo.ui.EmptyFragment
 import com.cmpe352group4.buyo.vo.*
 import kotlinx.android.synthetic.main.fragment_order_page.*
 
-
+// data -> MapOf<String, Order>,  string is the order no
+/*
 val dummyOrders = mutableListOf(
     Order(
         orderID="S000001",
@@ -157,6 +158,7 @@ val dummyOrders = mutableListOf(
         address="Rumelihisarı Mah. 19 Sok. No:14/4 Sarıyer/Istanbul"
     )
 )
+*/
 
 class OrderPageFragment : BaseFragment() {
 
@@ -182,7 +184,7 @@ class OrderPageFragment : BaseFragment() {
             { order ->
                 val myToast = Toast.makeText(
                     context,
-                    "Send message to " + order.product.vendor.name,
+                    "Send message to " + order.vendor.name,
                     Toast.LENGTH_SHORT
                 )
                 myToast.setGravity(Gravity.BOTTOM, 0, 200)
@@ -193,10 +195,10 @@ class OrderPageFragment : BaseFragment() {
                 )
             },
             { order ->
-                if (order.isDelivered) {
+                if (order.status != "Pending") {
                     val myToast = Toast.makeText(
                         context,
-                        "Comment on " + order.product.name,
+                        "Comment on " + order.name,
                         Toast.LENGTH_SHORT
                     )
                     myToast.setGravity(Gravity.BOTTOM, 0, 200)
@@ -208,7 +210,7 @@ class OrderPageFragment : BaseFragment() {
                 } else {
                     val myToast = Toast.makeText(
                         context,
-                        "Cancel " + order.product.name,
+                        "Cancel " + order.name,
                         Toast.LENGTH_SHORT
                     )
                     myToast.setGravity(Gravity.BOTTOM, 0, 200)
@@ -238,7 +240,7 @@ class OrderPageFragment : BaseFragment() {
             this.context,
             LinearLayoutManager.VERTICAL, false
         )
-        orderAdapter.submitList(dummyOrders)
+        //orderAdapter.submitList(dummyOrders)
 
     }
 }
