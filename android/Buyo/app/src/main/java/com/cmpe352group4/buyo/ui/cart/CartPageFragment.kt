@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -23,6 +22,7 @@ import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.util.extensions.visible
 import com.cmpe352group4.buyo.viewmodel.CartViewModel
 import com.cmpe352group4.buyo.vo.*
+import com.cmpe352group4.buyo.vo.Attribute
 import com.cmpe352group4.buyo.widgets.navigation_bar.NavigationBar
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_cart.*

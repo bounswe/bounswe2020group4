@@ -17,9 +17,7 @@ import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.viewmodel.ProductViewModel
 import com.cmpe352group4.buyo.vo.Comment
 import com.cmpe352group4.buyo.vo.CommentOwner
-import com.cmpe352group4.buyo.vo.Product
 import kotlinx.android.synthetic.main.fragment_product_detail_comments.*
-import kotlinx.android.synthetic.main.fragment_product_list.*
 import javax.inject.Inject
 
 class ProductDetailCommentsFragment : BaseFragment() {

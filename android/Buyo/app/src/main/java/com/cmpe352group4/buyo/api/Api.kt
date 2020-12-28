@@ -2,10 +2,7 @@ package com.cmpe352group4.buyo.api
 
 import androidx.lifecycle.LiveData
 import com.cmpe352group4.buyo.vo.*
-import retrofit2.http.DELETE
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface Api {
 
@@ -28,10 +25,16 @@ interface Api {
     ): LiveData<ApiResponse<BaseResponsePostRequest>>
 
     @GET("products")
-    fun fetchSearchResult(@Query("search") searchKeyword: String) : LiveData<ApiResponse<BaseResponse<ProductResponse>>>
+    fun fetchSearchResult(
+        @Query("search") searchKeyword: String,
+        @QueryMap options: Map<String, String>?
+    ) : LiveData<ApiResponse<BaseResponse<ProductResponse>>>
 
     @GET("products")
-    fun fetchProductsbyCategory(@Query("categories") categoryList: String) : LiveData<ApiResponse<BaseResponse<ProductResponse>>>
+    fun fetchProductsbyCategory(
+        @Query("categories") categoryList: String,
+        @QueryMap options: Map<String, String>?
+    ) : LiveData<ApiResponse<BaseResponse<ProductResponse>>>
 
     @POST("signup")
     fun signup_customer(
@@ -103,5 +106,17 @@ interface Api {
         @Query("address") address : String
     ): LiveData<ApiResponse<BaseResponsePostRequest>>
 
+    @POST("account-change-password")
+    fun changePassword(
+        @Query("id") customerId: String,
+        @Query("userType") userType: String,
+        @Query("password") password: String
+    ): LiveData<ApiResponse<BaseResponsePostRequest>>
+
+    @GET("order")
+    fun fetchOrders(
+        @Query("id") userId: String,
+        @Query("userType") userType: String
+    ): LiveData<ApiResponse<BaseResponse<Map<String, Order>>>>
 
 }

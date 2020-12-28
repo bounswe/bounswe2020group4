@@ -6,17 +6,17 @@ import com.cmpe352group4.buyo.R
 import androidx.recyclerview.widget.RecyclerView
 import com.cmpe352group4.buyo.util.extensions.inflate
 import com.cmpe352group4.buyo.util.extensions.loadFromURL
-import com.cmpe352group4.buyo.vo.Order
+import com.cmpe352group4.buyo.vo.OrderProductRV
 import kotlinx.android.synthetic.main.item_cart.view.iv_productPhoto
 import kotlinx.android.synthetic.main.item_cart.view.tv_productName
 import kotlinx.android.synthetic.main.item_cart.view.tv_vendor
 import kotlinx.android.synthetic.main.item_orders.view.*
 
 class OrderAdapter (
-    private val paidOrderList: MutableList<Order>,
-    val clickCallback: (Order) -> Unit,
-    val firstButtonCallback: (Order) -> Unit,
-    val secondButtonCallback: (Order) -> Unit
+    private val paidOrderList: MutableList<OrderProductRV>,
+    val clickCallback: (OrderProductRV) -> Unit,
+    val firstButtonCallback: (OrderProductRV) -> Unit,
+    val secondButtonCallback: (OrderProductRV) -> Unit
 ): RecyclerView.Adapter<OrderAdapter.ViewHolder>() {
 
 
@@ -32,7 +32,7 @@ class OrderAdapter (
         holder.bind(paidOrderList[position])
     }
 
-    fun submitList(list: MutableList<Order>) {
+    fun submitList(list: MutableList<OrderProductRV>) {
         this.paidOrderList.clear()
         this.paidOrderList.addAll(list)
         notifyDataSetChanged()
@@ -40,29 +40,31 @@ class OrderAdapter (
 
     inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bind(modal: Order) {
+        fun bind(modal: OrderProductRV) {
 
-            var vendorName = "Vendor: " + modal.product.vendor.name
+            var vendorName = "Vendor: " + modal.vendor.name
             var orderNo = "Order No: " + modal.orderID
-            var productName = modal.product.name
-            var price = "$" + modal.product.price.toString()
+            var productName = modal.name
+            var price = (modal.price*modal.quantity).toString() + "₺" + " - " + "Amount: " +
+                                                                    modal.quantity.toString()
             var address = modal.address
-            var isDelivered = modal.isDelivered
+            var isDelivered = modal.status
+            var attributes = modal.attributes
 
             itemView.tv_vendor.text = vendorName
             itemView.tv_order_no.text = orderNo
-            itemView.iv_productPhoto.loadFromURL(modal.product.imageUrl)
+            itemView.iv_productPhoto.loadFromURL(modal.imageUrl)
             itemView.tv_productName.text = productName
             itemView.tv_addressInfo.text = address
             itemView.tv_price.text = price
 
-            if (!isDelivered) {
-                var date = "Order Date: " + modal.orderDate
+            if (isDelivered=="Pending") {
+                var date = "Order Date: " + modal.orderDate.split("T")[0]
                 itemView.tv_date.text = date
                 itemView.tv_header.setBackgroundColor(Color.parseColor("#E53C38")) // light red
                 itemView.tv_status.text = "Status: Not Delivered"
             } else {
-                var date = "Delivery Date: " + modal.orderDate
+                var date = "Order Date: " + modal.orderDate.split("T")[0]
                 itemView.tv_date.text = date
                 itemView.tv_header.setBackgroundColor(Color.parseColor("#a4c639")) // light green
                 itemView.btn_cancel_order.text = "Add Comment"
@@ -73,6 +75,21 @@ class OrderAdapter (
             itemView.setOnClickListener { clickCallback.invoke(modal) }
             itemView.btn_message_vendor.setOnClickListener { firstButtonCallback.invoke(modal) }
             itemView.btn_cancel_order.setOnClickListener { secondButtonCallback.invoke(modal) }
+            itemView.dropdown_detail.setOnClickListener{
+                if (itemView.dropdown_detail.text.toString() == "v") {
+                    itemView.product_detail.visibility = View.VISIBLE
+                    itemView.dropdown_detail.text = "ᴧ"
+                    itemView.product_detail.text = ""
+                    for (attr in attributes){
+                        itemView.product_detail.text = itemView.product_detail.text.toString() +
+                                attr.name + ": " + attr.value + "\n"
+                    }
+                    itemView.product_detail.text = itemView.product_detail.text.toString().dropLast(1)
+                } else {
+                    itemView.product_detail.visibility = View.GONE
+                    itemView.dropdown_detail.text = "v"
+                }
+            }
         }
     }
 }

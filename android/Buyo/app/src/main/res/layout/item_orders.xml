@@ -96,7 +96,7 @@
         android:id="@+id/tv_price"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:text="99.99 TL"
+        tools:text="99.99 ₺ - Amount: 1"
         android:textColor="@color/black"
         android:textStyle="bold"
         android:textSize="15sp"
@@ -145,6 +145,32 @@
         app:layout_constraintStart_toStartOf="@+id/btn_message_vendor"
         app:layout_constraintTop_toBottomOf="@+id/btn_message_vendor" />
 
+    <TextView
+        android:id="@+id/product_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:visibility="gone"
+        android:textSize="12sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="18dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_addressInfo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/dropdown_detail"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:text="v"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_margin="@dimen/minimum_margin"
+        app:layout_constraintTop_toBottomOf="@id/product_detail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <View
         android:id="@+id/seperator"
         android:layout_width="match_parent"
@@ -152,6 +178,6 @@
         android:background="@color/light_orange"
         android:layout_margin="@dimen/medium_margin"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_productPhoto"/>
+        app:layout_constraintTop_toBottomOf="@id/dropdown_detail"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

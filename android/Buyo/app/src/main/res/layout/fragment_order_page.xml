@@ -8,6 +8,17 @@
     tools:context=".ui.orderpage.OrderPageFragment"
     android:background="@color/buyo_white">
 
+    <Button
+        android:id="@+id/orderpage_back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@color/buyo_darkCandyAppleRed"
+        android:text="@string/back"
+        android:textColor="@color/buyo_white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/logoImageView"
         android:layout_width="0dp"

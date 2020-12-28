@@ -15,14 +15,10 @@ import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
-import com.cmpe352group4.buyo.ui.productList.ProductListAdapter
 import com.cmpe352group4.buyo.ui.productList.ProductListFragment
-import com.cmpe352group4.buyo.viewmodel.ProductViewModel
 import com.cmpe352group4.buyo.viewmodel.SearchViewModel
 import com.cmpe352group4.buyo.vo.Product
-import com.cmpe352group4.buyo.vo.Vendor
 import kotlinx.android.synthetic.main.fragment_homepage.*
-import kotlinx.android.synthetic.main.fragment_product_list.*
 import javax.inject.Inject
 
 class HomepageFragment : BaseFragment() {
@@ -104,12 +100,11 @@ class HomepageFragment : BaseFragment() {
         // TODO products. Using multiple viewmodels in a fragment causes bugs, i guess.
 
         // Recommendation RV
-        recommendedViewModel.onFetchSearchResultbyKeyword("d")
+        recommendedViewModel.onFetchSearchResultbyKeyword("d", emptyMap<String, String>())
 
         recommendedViewModel.searchResult.observe(viewLifecycleOwner, Observer {
 
             if (it.status == Status.SUCCESS && it.data != null){
-
                 recommendedProductListAdapter.submitList(it.data.products.productList as MutableList<Product>)
 
                 dispatchLoading()
@@ -128,7 +123,7 @@ class HomepageFragment : BaseFragment() {
 
         // Discount RV
 
-        discountViewModel.onFetchSearchResultbyCategory( "[\"Women Clothing\"]")
+        discountViewModel.onFetchSearchResultbyCategory( "[\"Women Clothing\"]", emptyMap())
 
         discountViewModel.categoryResult.observe(viewLifecycleOwner, Observer {
 

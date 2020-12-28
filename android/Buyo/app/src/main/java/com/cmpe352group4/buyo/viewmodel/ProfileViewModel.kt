@@ -21,6 +21,15 @@ class ProfileViewModel @Inject constructor(
     private val _singupRequestCustomer = MutableLiveData<SignupRequestCustomer>()
     private val _singupRequestVendor = MutableLiveData<SignupRequestVendor>()
     private val _addAddress = MutableLiveData<AddAddressRequest>()
+    private val _changePasswordRequest = MutableLiveData<ChangePasswordRequest>()
+
+    val changePassword: LiveData<Resource<BaseResponsePostRequest>> =
+        Transformations.switchMap(_changePasswordRequest) {it ->
+            if (it == null)
+                AbsentLiveData.create()
+            else
+                repository.changePassword(it.id, it.userType, it.password)
+        }
 
     val userInformation: LiveData<Resource<CustomerInformationResult>> =
         Transformations.switchMap(_userInformationRequest) { it ->
@@ -94,4 +103,10 @@ class ProfileViewModel @Inject constructor(
     fun addAddress(addAddressRequest: AddAddressRequest) {
         _addAddress.value = addAddressRequest
     }
+
+    fun changePassword(update: ChangePasswordRequest) {
+        _changePasswordRequest.value = update
+    }
+
+
 }
