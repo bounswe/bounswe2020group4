@@ -16,6 +16,7 @@ import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.EmptyFragment
+import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
 import com.cmpe352group4.buyo.viewmodel.OrderViewModel
 import com.cmpe352group4.buyo.viewmodel.SearchViewModel
 import com.cmpe352group4.buyo.vo.*
@@ -187,15 +188,8 @@ class OrderPageFragment : BaseFragment() {
     private val orderAdapter by lazy {
         OrderAdapter(mutableListOf(),
             { order ->
-                val myToast = Toast.makeText(
-                    context,
-                    "Order ID: "+order.orderID+" clicked",
-                    Toast.LENGTH_SHORT
-                )
-                myToast.setGravity(Gravity.BOTTOM, 0, 200)
-                myToast.show()
                 navigationManager?.onReplace(
-                    EmptyFragment.newInstance(),
+                    ProductDetailContentFragment.newInstance(order.productId),
                     TransactionType.Replace, true
                 )
             },

@@ -45,7 +45,8 @@ class OrderAdapter (
             var vendorName = "Vendor: " + modal.vendor.name
             var orderNo = "Order No: " + modal.orderID
             var productName = modal.name
-            var price = "$" + modal.price.toString()
+            var price = (modal.price*modal.quantity).toString() + "₺" + " - " + "Amount: " +
+                                                                    modal.quantity.toString()
             var address = modal.address
             var isDelivered = modal.status
 

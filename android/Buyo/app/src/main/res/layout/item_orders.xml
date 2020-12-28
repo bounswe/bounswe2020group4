@@ -96,7 +96,7 @@
         android:id="@+id/tv_price"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:text="99.99 TL"
+        tools:text="99.99 ₺ - Amount: 1"
         android:textColor="@color/black"
         android:textStyle="bold"
         android:textSize="15sp"
