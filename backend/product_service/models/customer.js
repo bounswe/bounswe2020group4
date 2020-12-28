@@ -9,10 +9,11 @@ module.exports.Customer = mongoose.model(
   new mongoose.Schema({
     name: String,
     email: String,
-    id: Number,
     rating: Number,
-    address: String,
+    address: [String],
     password: String,
+    gender: String,
+    phoneNumber: String
   }),
   "customer"
 );

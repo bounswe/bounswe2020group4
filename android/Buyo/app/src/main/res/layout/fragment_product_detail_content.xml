@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.productDetail.ProductDetailContentFragment">
+
+
+    <Button
+        android:id="@+id/btnProductDetailBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@color/buyo_darkCandyAppleRed"
+        android:text="Back"
+        android:textColor="@color/buyo_white"
+        app:layout_constraintBottom_toBottomOf="@+id/btnProductDetailComments"
+        app:layout_constraintEnd_toStartOf="@+id/btnProductDetailComments"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnProductDetailComments" />
+
+    <Button
+        android:id="@+id/btnProductDetailComments"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@color/buyo_darkCandyAppleRed"
+        android:text="Comments"
+        android:textColor="@color/buyo_white"
+        app:layout_constraintBottom_toTopOf="@+id/svProductDetailContent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnProductDetailBack"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/svProductDetailContent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnProductDetailCart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnProductDetailComments">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivProductDetailImage"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_launcher_background"
+                app:layout_constraintBottom_toTopOf="@+id/tvProductDetailName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvProductDetailName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="ProductName"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/rbProductDetailRating"
+                app:layout_constraintEnd_toStartOf="@+id/tvProductDetailVendor"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivProductDetailImage" />
+
+            <TextView
+                android:id="@+id/tvProductDetailVendor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Vendor"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tvProductDetailName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tvProductDetailName"
+                app:layout_constraintTop_toTopOf="@+id/tvProductDetailName" />
+
+            <ToggleButton
+                android:id="@+id/tbProductDetailFav"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/buyo_Cinnabar"
+                android:textColor="@color/buyo_antiqueWhite"
+                android:textOff="Like"
+                android:textOn="Dislike"
+                app:layout_constraintBottom_toBottomOf="@+id/rbProductDetailRating"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/rbProductDetailRating"
+                app:layout_constraintTop_toTopOf="@+id/rbProductDetailRating" />
+
+            <RatingBar
+                android:id="@+id/rbProductDetailRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:isIndicator="true"
+                app:layout_constraintBottom_toTopOf="@+id/tvProductDetailInfo"
+                app:layout_constraintEnd_toStartOf="@+id/tbProductDetailFav"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvProductDetailName" />
+
+            <TextView
+                android:id="@+id/tvProductDetailInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/buyo_antiqueWhite"
+                android:text="@string/tv_product_detail_content_info"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rbProductDetailRating" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/tvProductDetailPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="Price"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/btnProductDetailCart"
+        app:layout_constraintEnd_toStartOf="@+id/btnProductDetailCart"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnProductDetailCart" />
+
+    <Button
+        android:id="@+id/btnProductDetailCart"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/buyo_fireEngineRed"
+        android:text="Add to cart!"
+        android:layout_margin="8dp"
+        android:textColor="@color/buyo_antiqueWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvProductDetailPrice"
+        app:layout_constraintTop_toBottomOf="@+id/svProductDetailContent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

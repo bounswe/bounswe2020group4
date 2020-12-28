@@ -1,10 +1,11 @@
 const product = require("../views/product");
 const wishlist = require("../views/wishlist");
-const account = require("../views/account");
-const db = require("../db/product");
+const cart = require("../views/cart");
 
-// Initialize the routes.
 module.exports.initialize = (app) => {
+  /**
+   * Returns the whole categories present in the app.
+   */
   app.get("/categories", async (request, response) => {
     const categories = await product.getProductCategories();
 
@@ -13,6 +14,9 @@ module.exports.initialize = (app) => {
     });
   });
 
+  /**
+   * Gets products with some filter(category, search, attribute etc.)
+   */
   app.get("/products", async (request, response) => {
     const products = await product.getProducts(request.query);
     response.respond(200, "OK", {
@@ -20,6 +24,9 @@ module.exports.initialize = (app) => {
     });
   });
 
+  /**
+   * Returns product with given id.
+   */
   app.get("/product", async (request, response) => {
     const result = await product.getProduct(request.query);
     if (result) {
@@ -30,37 +37,45 @@ module.exports.initialize = (app) => {
       response.respond(404, "Product not found");
     }
   });
-  
-  app.post("/like", async (request, response) => {
-    const result = await wishlist.like(request.query);
 
-    response.respond(200, "OK");
-  });
-
+  /**
+   * Get wishlist of the user with given id
+   */
   app.get("/wishlist", async (request, response) => {
     const products = await wishlist.getWishlist(request.query.customerId);
 
     response.respond(200, "OK", { products });
   });
-
-  app.post("/login", async (request, response) => {
-    const result = await account.login(request.query);
+  
+  app.post("/cart", async (request, response) => {
+    const result = await cart.updateCart(request.query);
+    
     if (result) {
-      response.respond(200, "OK", { userId: result });
+      response.respond(200, "OK");
     } else {
-      response.respond(404, "User not found");
+      response.respond(400, "Missing arguments.")
     }
   });
 
-  app.post("/signup", async (request, response) => {
-    await account.signup(request.query);
+  app.get("/cart", async (request, response) => {
+    const products = await cart.getCartProducts(request.query);
+    if (products == false) {
+      response.respond(404, "User not found");
+    }
 
-    response.respond(200, "OK");
+    response.respond(200, "OK", {
+      products,
+    });
   });
 
-  app.post("/db/init", async (request, response) => {
-    await db.initializeMockDB();
-
-    response.respond(200, "OK");
+  app.delete("/cart", async (request, response) => {
+    const success = await cart.emptyCart(request.query);
+    
+    if (success) {
+      response.respond(200, "OK");
+    } else {
+      response.respond(400, "Missing arguments");
+    }
   });
+
 };
