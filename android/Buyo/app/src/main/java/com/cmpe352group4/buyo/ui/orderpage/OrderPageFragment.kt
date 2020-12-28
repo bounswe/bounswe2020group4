@@ -20,154 +20,11 @@ import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
 import com.cmpe352group4.buyo.viewmodel.OrderViewModel
 import com.cmpe352group4.buyo.viewmodel.SearchViewModel
 import com.cmpe352group4.buyo.vo.*
+import kotlinx.android.synthetic.main.fragment_maps.*
 import kotlinx.android.synthetic.main.fragment_order_page.*
 import javax.inject.Inject
 
 // data -> MapOf<String, Order>,  string is the order no
-/*
-val dummyOrders = mutableListOf(
-    Order(
-        orderID="S000001",
-        orderDate="01.09.2020",
-        deliverDate="05.09.2020",
-        isDelivered=true,
-        product=Product(
-            category = listOf("A","B"),
-            name = "LCW Kid Pyjama",
-            id = "P00001",
-            imageUrl = "https://img-lcwaikiki.mncdn.com/mnresize/230/-/pim/productimages/20202/4692240/l_20202-0weg94z1-g4y_a.jpg",
-            rating = 5.0,
-            price = 45.0,
-            originalPrice = 50.0,
-            brand = "LCW",
-            vendor = Vendor(id = "12", name = "KOTON", rating = 3.21),
-            description = "Very nice kid pyjama",
-            productInfos = listOf(
-                ProductInfo(attributes = listOf(
-                    Attribute(att_name = "color", att_value = "red"), Attribute(att_name = "size", att_value = "L")
-                ), stockValue = 2),
-                ProductInfo(attributes = listOf(
-                    Attribute(att_name = "color", att_value = "blue"), Attribute(att_name = "size", att_value = "M")
-                ), stockValue = 4)
-            ),
-            materials = null
-        ),
-        address="Rumelihisarı Mah. 19 Sok. No:14/4 Sarıyer/Istanbul"
-    ),
-    Order(
-        orderID="S000002",
-        orderDate="04.09.2020",
-        deliverDate=null,
-        isDelivered=false,
-        product=Product(
-            category = listOf("A","B"),
-            name = "LCW Men Sweatshirt 0",
-            id = "P00002",
-            imageUrl = "https://img-lcwaikiki.mncdn.com/mnresize/230/-/productimages/20192/1/3891903/l_20192-9wr187z8-mgl_a.jpg",
-            rating = 5.0,
-            price = 60.0,
-            originalPrice = 70.0,
-            brand = "LCW",
-            vendor = Vendor(id = "12", name = "AyseTeyze", rating = 3.21),
-            description = "Very nice sweatshirt",
-            productInfos = listOf(
-                ProductInfo(attributes = listOf(
-                    Attribute(att_name = "color", att_value = "red"), Attribute(att_name = "size", att_value = "L")
-                ), stockValue = 2),
-                ProductInfo(attributes = listOf(
-                    Attribute(att_name = "color", att_value = "blue"), Attribute(att_name = "size", att_value = "M")
-                ), stockValue = 4)
-            ),
-            materials = null
-        ),
-        address="Rumelihisarı Mah. 19 Sok. No:14/4 Sarıyer/Istanbul"
-    ),
-    Order(
-        orderID="S000003",
-        orderDate="04.09.2020",
-        deliverDate="05.10.2020",
-        isDelivered=true,
-        product=Product(
-            category = listOf("A","B"),
-            name = "LCW Men Sweatshirt 1",
-            id = "P00002",
-            imageUrl = "https://img-lcwaikiki.mncdn.com/mnresize/230/-/productimages/20192/1/3891903/l_20192-9wr187z8-mgl_a.jpg",
-            rating = 5.0,
-            price = 60.0,
-            originalPrice = 70.0,
-            brand = "LCW",
-            vendor = Vendor(id = "12", name = "DeFacto", rating = 3.21),
-            description = "Very nice sweatshirt",
-            productInfos = listOf(
-                ProductInfo(attributes = listOf(
-                    Attribute(att_name = "color", att_value = "red"), Attribute(att_name = "size", att_value = "L")
-                ), stockValue = 2),
-                ProductInfo(attributes = listOf(
-                    Attribute(att_name = "color", att_value = "blue"), Attribute(att_name = "size", att_value = "M")
-                ), stockValue = 4)
-            ),
-            materials = null
-        ),
-        address="Rumelihisarı Mah. 19 Sok. No:14/4 Sarıyer/Istanbul"
-    ),
-    Order(
-        orderID="S000004",
-        orderDate="04.09.2020",
-        deliverDate=null,
-        isDelivered=false,
-        product=Product(
-            category = listOf("A","B"),
-            name = "LCW Men Sweatshirt 2",
-            id = "P00002",
-            imageUrl = "https://img-lcwaikiki.mncdn.com/mnresize/230/-/productimages/20192/1/3891903/l_20192-9wr187z8-mgl_a.jpg",
-            rating = 5.0,
-            price = 60.0,
-            originalPrice = 70.0,
-            brand = "LCW",
-            vendor = Vendor(id = "12", name = "LCW", rating = 3.21),
-            description = "Very nice sweatshirt",
-            productInfos = listOf(
-                ProductInfo(attributes = listOf(
-                    Attribute(att_name = "color", att_value = "red"), Attribute(att_name = "size", att_value = "L")
-                ), stockValue = 2),
-                ProductInfo(attributes = listOf(
-                    Attribute(att_name = "color", att_value = "blue"), Attribute(att_name = "size", att_value = "M")
-                ), stockValue = 4)
-            ),
-            materials = null
-        ),
-        address="Rumelihisarı Mah. 19 Sok. No:14/4 Sarıyer/Istanbul"
-    ),
-    Order(
-        orderID="S000005",
-        orderDate="04.09.2020",
-        deliverDate="09.10.2020",
-        isDelivered=true,
-        product=Product(
-            category = listOf("A","B"),
-            name = "LCW Men Sweatshirt 3",
-            id = "P00002",
-            imageUrl = "https://img-lcwaikiki.mncdn.com/mnresize/230/-/productimages/20192/1/3891903/l_20192-9wr187z8-mgl_a.jpg",
-            rating = 5.0,
-            price = 60.0,
-            originalPrice = 70.0,
-            brand = "LCW",
-            vendor = Vendor(id = "12", name = "H&M", rating = 3.21),
-            description = "Very nice sweatshirt",
-            productInfos = listOf(
-                ProductInfo(attributes = listOf(
-                    Attribute(att_name = "color", att_value = "red"), Attribute(att_name = "size", att_value = "L")
-                ), stockValue = 2),
-                ProductInfo(attributes = listOf(
-                    Attribute(att_name = "color", att_value = "blue"), Attribute(att_name = "size", att_value = "M")
-                ), stockValue = 4)
-            ),
-            materials = null
-        ),
-        address="Rumelihisarı Mah. 19 Sok. No:14/4 Sarıyer/Istanbul"
-    )
-)
-*/
 
 class OrderPageFragment : BaseFragment() {
 
@@ -253,9 +110,16 @@ class OrderPageFragment : BaseFragment() {
             LinearLayoutManager.VERTICAL, false
         )
 
+        backButtonListener()
         observeOrderData()
         if (!sharedPref.getUserId().isNullOrEmpty()) {
             ordersViewModel.onFetchOrders(sharedPref.getUserId()!!)
+        }
+    }
+
+    private fun backButtonListener() {
+        orderpage_back_button.setOnClickListener {
+            activity?.onBackPressed()
         }
     }
 
