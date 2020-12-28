@@ -82,4 +82,10 @@ interface Api {
         @Query("address") address: Address
         ): LiveData<ApiResponse<BaseResponse<CheckoutResponse>>>
 
+    @POST("account-change-password")
+    fun changePassword(
+        @Query("id") customerId: String,
+        @Query("userType") userType: String,
+        @Query("password") password: String
+    ): LiveData<ApiResponse<BaseResponsePostRequest>>
 }

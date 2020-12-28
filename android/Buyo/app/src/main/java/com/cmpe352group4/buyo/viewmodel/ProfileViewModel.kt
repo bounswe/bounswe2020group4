@@ -7,13 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.cmpe352group4.buyo.api.Resource
 import com.cmpe352group4.buyo.datamanager.repositories.ProfileRepository
 import com.cmpe352group4.buyo.util.livedata.AbsentLiveData
-import com.cmpe352group4.buyo.vo.CustomerInformationResult
-import com.cmpe352group4.buyo.vo.LoginRequestCustomer
-import com.cmpe352group4.buyo.vo.SignupRequestCustomer
-import com.cmpe352group4.buyo.vo.LoginRequestVendor
-import com.cmpe352group4.buyo.vo.SignupRequestVendor
-import com.cmpe352group4.buyo.vo.LoginSingupResponse
-import com.cmpe352group4.buyo.vo.UserInformationRequest
+import com.cmpe352group4.buyo.vo.*
 import javax.inject.Inject
 
 
@@ -26,6 +20,15 @@ class ProfileViewModel @Inject constructor(
     private val _loginRequestVendor = MutableLiveData<LoginRequestVendor>()
     private val _singupRequestCustomer = MutableLiveData<SignupRequestCustomer>()
     private val _singupRequestVendor = MutableLiveData<SignupRequestVendor>()
+    private val _changePasswordRequest = MutableLiveData<ChangePasswordRequest>()
+
+    val changePassword: LiveData<Resource<BaseResponsePostRequest>> =
+        Transformations.switchMap(_changePasswordRequest) {it ->
+            if (it == null)
+                AbsentLiveData.create()
+            else
+                repository.changePassword(it.id, it.userType, it.password)
+        }
 
     val userInformation: LiveData<Resource<CustomerInformationResult>> =
         Transformations.switchMap(_userInformationRequest) { it ->
@@ -86,6 +89,10 @@ class ProfileViewModel @Inject constructor(
 
     fun onFetchProfileInfo(update: UserInformationRequest) {
         _userInformationRequest.value = update
+    }
+
+    fun changePassword(update: ChangePasswordRequest) {
+        _changePasswordRequest.value = update
     }
 
 }

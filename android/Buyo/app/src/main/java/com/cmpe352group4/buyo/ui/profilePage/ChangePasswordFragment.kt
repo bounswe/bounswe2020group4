@@ -16,6 +16,7 @@ import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.viewmodel.ProfileViewModel
+import com.cmpe352group4.buyo.vo.ChangePasswordRequest
 import com.cmpe352group4.buyo.vo.UserInformationRequest
 import kotlinx.android.synthetic.main.fragment_change_password.*
 import javax.inject.Inject
@@ -84,7 +85,42 @@ class ChangePasswordFragment: BaseFragment() {
                     if (it.status == Status.SUCCESS && it.data != null){
 
                         if (ed_previous_password.text?.toString() ?: "" == it.data.result.password){
-                            TODO()
+                            profileViewModel.changePassword(
+                                ChangePasswordRequest(
+                                    id = sharedPref.getUserId()?:"",
+                                    userType = "customer",
+                                    password = ed_new_password.text.toString()
+                                )
+                            )
+
+                            profileViewModel.changePassword.observe(viewLifecycleOwner, Observer {
+                                if (it.status == Status.SUCCESS && it.data != null) {
+
+                                    var toastText : String = "Password successfully changed"
+                                    val myToast = Toast.makeText(
+                                        context,
+                                        toastText,
+                                        Toast.LENGTH_SHORT
+                                    )
+                                    myToast.setGravity(Gravity.CENTER, 0, 200)
+                                    myToast.show()
+
+                                    dispatchLoading()
+                                } else if (it.status == Status.ERROR) {
+                                    dispatchLoading()
+                                } else if (it.status == Status.LOADING) {
+                                    showLoading()
+                                }
+                            })
+                        } else {
+                            var toastText : String = "Previous password is not correct"
+                            val myToast = Toast.makeText(
+                                context,
+                                toastText,
+                                Toast.LENGTH_SHORT
+                            )
+                            myToast.setGravity(Gravity.CENTER, 0, 200)
+                            myToast.show()
                         }
 
                         dispatchLoading()
@@ -139,7 +175,7 @@ class ChangePasswordFragment: BaseFragment() {
                     toastText,
                     Toast.LENGTH_SHORT
                 )
-                myToast.setGravity(Gravity.BOTTOM, 0, 200)
+                myToast.setGravity(Gravity.CENTER, 0, 200)
                 myToast.show()
                 return false
             }

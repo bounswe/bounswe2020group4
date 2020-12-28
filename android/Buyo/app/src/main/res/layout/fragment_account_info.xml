@@ -84,6 +84,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:text="@string/user_email"
         android:textColor="@color/black"
         android:textSize="20sp"
@@ -129,6 +130,30 @@
         app:layout_constraintStart_toEndOf="@+id/tv_user_surname"
         app:layout_constraintTop_toTopOf="@+id/tv_user_phone" />
 
+    <TextView
+        android:id="@+id/tv_user_gender"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Gender"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ed_user_phone" />
+
+    <Spinner
+        android:id="@+id/sp_user_gender"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:entries="@array/genders"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_user_gender"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_user_surname"
+        app:layout_constraintTop_toTopOf="@+id/tv_user_gender" />
+
     <Button
         android:id="@+id/btn_user_account_info_save"
         android:layout_width="match_parent"
@@ -140,7 +165,7 @@
         android:text="Save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ed_user_phone" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_user_gender" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
