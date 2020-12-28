@@ -10,7 +10,7 @@ data class Order (
     var shippingPrice: Double,
     var date: String,           //2020-12-28T08:08:37.507Z (order date)
     //var deliverDate: String?, //DD.MM.YYYY
-    var product: List<OrderProduct>, // vendor info will come from the product object
+    var products: List<OrderProduct>, // vendor info will come from the product object
     var address: String   // Just the address text
 ):Serializable
 
@@ -25,7 +25,7 @@ data class OrderProduct (
     var brand: String,
     var vendor: Vendor,
     var quantity: Int,
-    var attributes: Attribute,
+    var attributes: List<Attribute>,
     var status: String
 ): Serializable
 
