@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import { connect } from 'react-redux'
 
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
@@ -9,13 +10,17 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import RatingStar from './RatingStar'
 
+import commentService from '../services/comments'
+
 import DefaultProductImage from '../images/default-product-detail-image.png'
 
 import './OrderDetails.css'
 
-const ProductOrder = ({productId, imgUrl, name, brand, price, isDelivered, vendor, quantity, attributes, status}) => {
+const ProductOrder = ({userId, productId, imgUrl, name, brand, price, isDelivered, isPending, vendor, quantity, attributes, status}) => {
 	const [open, setOpen] = useState(false)
 	const [rating, setRating] = useState(null)
+	const [comment, setComment] = useState('')
+
 
 	const handleClickOpen = () => {
 		setOpen(true)
@@ -23,9 +28,13 @@ const ProductOrder = ({productId, imgUrl, name, brand, price, isDelivered, vendo
 	const handleClose = () => {
 		setOpen(false)
 		setRating(null)
+		setComment('')
 	}
-	const handleGiveFeedback = () => {
+	const handleGiveFeedback = async () => {
+		await commentService.giveFeedback(productId, userId, comment, rating)
 		setOpen(false)
+		setRating(null)
+		setComment('')
 	}
 	const handleRatingChange = (e) => {
 		setRating(e.target.value)
@@ -45,12 +54,13 @@ const ProductOrder = ({productId, imgUrl, name, brand, price, isDelivered, vendo
 			</div>
 			<div className="product-order-info">
 				Status: {status}
+				{isPending && <button className="add-comment-button">Cancel Order</button>}
+				{isDelivered && <button className="add-comment-button" onClick={handleClickOpen}>Give Feedback</button>}
 			</div>
 			<div className="product-order-info">
 				<div>Vendor: {vendor}</div>
 				<button className="add-comment-button">Message Vendor</button>
 			</div>
-			{isDelivered && <button className="add-comment-button" onClick={handleClickOpen}>Give Feedback</button>}
 			<Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
 				<DialogTitle id="form-dialog-title">Give Feedback</DialogTitle>
 				<DialogContent>
@@ -88,12 +98,16 @@ const ProductOrder = ({productId, imgUrl, name, brand, price, isDelivered, vendo
 }
 
 
-const OrderDetails = ({address, products}) => {
+const OrderDetails = ({address, products, isLoggedIn, userId}) => {
+	if(!isLoggedIn) {
+		return <div>Please log in!</div>
+	}
+
 	return(
 		<div className="order-details-container">
 			<div className="order-details-top">
 				<div>
-					{products && products.map(p => <ProductOrder productId={p.productId} status={p.status} attributes={p.attributes} quantity={p.quantity} vendor={p.vendor.name} key={p.orderedProductId} name={p.name} brand={p.brand} price={p.price + '₺'} imgUrl={p.imageUrl} isDelivered={p.status !== 'Pending'}/>)}
+					{products && products.map(p => <ProductOrder userId={userId} productId={p.productId} status={p.status} attributes={p.attributes} quantity={p.quantity} vendor={p.vendor.name} key={p.orderedProductId} name={p.name} brand={p.brand} price={p.price + '₺'} imgUrl={p.imageUrl} isPending={p.status === 'Pending'} isDelivered={p.status === 'Delivered'}/>)}
 				</div>
 			</div>
 			<div className="address-container"> Address: {address}</div>
@@ -101,4 +115,12 @@ const OrderDetails = ({address, products}) => {
 	)
 }
 
-export default OrderDetails
+const mapStateToProps = (state) => {
+	return {
+		isLoggedIn: state.signIn.isLoggedIn,
+		userId: state.signIn.userId
+	}
+}
+
+
+export default connect(mapStateToProps)(OrderDetails)
