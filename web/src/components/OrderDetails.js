@@ -39,6 +39,9 @@ const ProductOrder = ({userId, productId, imgUrl, name, brand, price, isDelivere
 	const handleRatingChange = (e) => {
 		setRating(e.target.value)
 	}
+	const handleCommentChange = (e) => {
+		setComment(e.target.value)
+	}
 
 	return(
 		<div className="product-order">
@@ -76,6 +79,7 @@ const ProductOrder = ({userId, productId, imgUrl, name, brand, price, isDelivere
 						{rating && rating < 3 && 'We are sorry that your expectations are not met :( Describe your experience by adding a comment so that we can improve ourselves for the next time.'}
 					</DialogContentText>
 					<TextField
+						onChange={handleCommentChange}
 						margin="dense"
 						id="name"
 						label="Comment"
@@ -107,7 +111,7 @@ const OrderDetails = ({address, products, isLoggedIn, userId}) => {
 		<div className="order-details-container">
 			<div className="order-details-top">
 				<div>
-					{products && products.map(p => <ProductOrder userId={userId} productId={p.productId} status={p.status} attributes={p.attributes} quantity={p.quantity} vendor={p.vendor.name} key={p.orderedProductId} name={p.name} brand={p.brand} price={p.price + '₺'} imgUrl={p.imageUrl} isPending={p.status === 'Pending'} isDelivered={p.status === 'Delivered'}/>)}
+					{products && products.map(p => <ProductOrder userId={userId} productId={p.productId} status={p.status} attributes={p.attributes} quantity={p.quantity} vendor={p.vendor.name} key={p.orderedProductId} name={p.name} brand={p.brand} price={p.price + '₺'} imgUrl={p.imageUrl} isPending={p.status === 'Pending'} isDelivered={p.status.startsWith('Delivered')}/>)}
 				</div>
 			</div>
 			<div className="address-container"> Address: {address}</div>
