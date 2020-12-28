@@ -39,7 +39,7 @@ class ProductAdapter(
         fun bind(modal: Product) {
 
             itemView.tv_squareProductItemName.text = modal.name
-            itemView.tv_squareProductItemPrice.text = modal.price.toString() + " TL"
+            itemView.tv_squareProductItemPrice.text = modal.price.toString() + " ₺"
             Glide.with(itemView.context)
                 .load(modal.imageUrl).centerCrop()
                 .into(itemView.iv_squareProductImage)

@@ -6,7 +6,7 @@ data class CustomerInformation (
     var name: String?,
     var surname: String?,
     var email: String?,
-    var phone: String?,
+    var phoneNumber: String?,
     var id: Int?,
     var password: String?,
     var gender: String?

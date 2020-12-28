@@ -44,6 +44,11 @@ abstract class ViewModelModule {
     abstract fun bindCartViewModel(viewModel: CartViewModel): ViewModel
 
     @Binds
+    @IntoMap
+    @ViewModelKey(OrderViewModel::class)
+    abstract fun bindOrderViewModel(viewModel: OrderViewModel): ViewModel
+
+    @Binds
     abstract fun bindViewModelFactory(factory: ApplicationViewModelFactory): ViewModelProvider.Factory
 
 }
