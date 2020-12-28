@@ -26,11 +26,19 @@
         <item>Accessories</item>
     </string-array>
 
+    <string-array name="genders">
+        <item></item>
+        <item>Female</item>
+        <item>Male</item>
+        <item>Other</item>
+        <item>No Info</item>
+    </string-array>
+
     <string name="change_password">Change Password</string>
     <string name="account_info">Account Info</string>
     <string name="user_name">Name</string>
     <string name="user_email">Email</string>
-    <string name="user_phone">Phone Number</string>
+    <string name="user_phone">Phone</string>
     <string name="user_update_password">Update Password</string>
     <string name="user_address">Addresses</string>
     <string name="logo">BUYO Logo</string>

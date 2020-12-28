@@ -4,6 +4,29 @@
     android:layout_width="match_parent"
     android:layout_height="140dp">
 
+    <Button
+        android:id="@+id/btn_delete_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@color/buyo_darkCandyAppleRed"
+        android:text="Delete"
+        android:textColor="@color/buyo_white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_update_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@color/buyo_antiqueWhite"
+        android:text="Update"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/btn_delete_address"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/tv_address_title"
         android:layout_width="wrap_content"

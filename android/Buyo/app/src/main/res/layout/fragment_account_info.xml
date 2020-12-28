@@ -19,24 +19,24 @@
         android:id="@+id/tv_Account_Info"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:gravity="center"
         android:text="@string/account_info"
         android:textColor="@color/black"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_back_account_info"
-        app:layout_constraintTop_toBottomOf="@+id/btnProductDetailBack" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_back_account_info" />
 
     <TextView
         android:id="@+id/tv_user_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="@string/user_name"
         android:textColor="@color/black"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_Account_Info" />
 
@@ -44,23 +44,25 @@
         android:id="@+id/ed_user_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
+        android:text="Berkay"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_user_name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_user_name"
+        app:layout_constraintStart_toEndOf="@+id/tv_user_surname"
         app:layout_constraintTop_toTopOf="@+id/tv_user_name" />
 
     <TextView
         android:id="@+id/tv_user_surname"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="Surname"
         android:textColor="@color/black"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ed_user_name" />
 
@@ -68,6 +70,8 @@
         android:id="@+id/ed_user_surname"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Alkan"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_user_surname"
@@ -79,10 +83,12 @@
         android:id="@+id/tv_user_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:text="@string/user_email"
         android:textColor="@color/black"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ed_user_surname" />
 
@@ -90,23 +96,24 @@
         android:id="@+id/ed_user_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_user_email"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_user_email"
+        app:layout_constraintStart_toEndOf="@+id/tv_user_surname"
         app:layout_constraintTop_toTopOf="@+id/tv_user_email" />
 
     <TextView
         android:id="@+id/tv_user_phone"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="@string/user_phone"
         android:textColor="@color/black"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ed_user_email" />
 
@@ -114,13 +121,38 @@
         android:id="@+id/ed_user_phone"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
+        android:text="05551235689"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_user_phone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_user_phone"
+        app:layout_constraintStart_toEndOf="@+id/tv_user_surname"
         app:layout_constraintTop_toTopOf="@+id/tv_user_phone" />
+
+    <TextView
+        android:id="@+id/tv_user_gender"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Gender"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ed_user_phone" />
+
+    <Spinner
+        android:id="@+id/sp_user_gender"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:entries="@array/genders"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_user_gender"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_user_surname"
+        app:layout_constraintTop_toTopOf="@+id/tv_user_gender" />
 
     <Button
         android:id="@+id/btn_user_account_info_save"
@@ -130,10 +162,10 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:background="@color/ligth_green"
-        android:text="Change"
+        android:text="Save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ed_user_phone" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_user_gender" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,7 +24,7 @@ class AccountInfoFragment: BaseFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val accountInfoViewModel: ProfileViewModel by viewModels {
+    private val profileViewModel: ProfileViewModel by viewModels {
         viewModelFactory
     }
 
@@ -45,15 +45,20 @@ class AccountInfoFragment: BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val infoReq = UserInformationRequest(sharedPref.getUserId()?: "", "customer")
-        accountInfoViewModel.onFetchProfileInfo(infoReq)
+        profileViewModel.onFetchProfileInfo(infoReq)
 
-        accountInfoViewModel.userInformation.observe(viewLifecycleOwner, Observer {
+        profileViewModel.userInformation.observe(viewLifecycleOwner, Observer {
             if (it.status == Status.SUCCESS && it.data != null){
 
-                ed_user_name.setText(it.data.result.name)
-                ed_user_surname.setText(it.data.result.surname)
+                val nameSurname = it.data.result.name?.split(" ")
+
+                ed_user_name.setText(nameSurname?.get(0))
+                ed_user_surname.setText(nameSurname?.get(1))
                 ed_user_email.text = it.data.result.email
-                ed_user_phone.setText(it.data.result.phone)
+                ed_user_phone.setText(it.data.result.phoneNumber)
+
+                val arr = arrayOf("", "female", "male", "other", "no info")
+                sp_user_gender.setSelection(arr.indexOf((it.data.result.gender)?.toLowerCase()))
 
                 dispatchLoading()
             } else if (it.status == Status.ERROR){

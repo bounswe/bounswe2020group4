@@ -30,7 +30,7 @@ class AddressInfoFragment: BaseFragment() {
     @Inject
     lateinit var sharedPref: SharedPref
 
-    private val addressViewModel: ProfileViewModel by viewModels {
+    private val profileViewModel: ProfileViewModel by viewModels {
         viewModelFactory
     }
 
@@ -60,9 +60,9 @@ class AddressInfoFragment: BaseFragment() {
         var addresses : MutableList<Address>? = null
 
         val infoReq = UserInformationRequest(sharedPref.getUserId()?: "", "customer")
-        addressViewModel.onFetchProfileInfo(infoReq)
+        profileViewModel.onFetchProfileInfo(infoReq)
 
-        addressViewModel.userInformation.observe(viewLifecycleOwner, Observer {
+        profileViewModel.userInformation.observe(viewLifecycleOwner, Observer {
             if (it.status == Status.SUCCESS && it.data != null){
 
                 if (it.data.result.address.isNullOrEmpty()) {
