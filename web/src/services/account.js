@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'http://3.138.113.101:8080/' 
+const baseUrl = 'http://3.138.113.101:8080/'
 
 const updateAddress = async (userId, address) => {
 	const params = {

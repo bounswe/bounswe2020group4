@@ -1,11 +1,17 @@
 import axios from 'axios'
 
-const baseUrl = 'http://3.138.113.101:8080/' 
+const baseUrl = 'http://3.138.113.101:8080/cart'
+
+const addProductToCart = async (customerId, productId, productInfo) => {
+	const response = await axios.post(
+		`${baseUrl}?customerId=${customerId}&productId=${productId}&productInfo=${JSON.stringify(productInfo)}`)
+	return response
+}
 
 const getCart = async (id) => {
 	let response
 	try{
-		response = await axios.get(`${baseUrl}cart?customerId=${id}`)
+		response = await axios.get(`${baseUrl}?customerId=${id}`)
 	} catch (err) {
 		return null
 	}
@@ -21,7 +27,7 @@ const getCart = async (id) => {
 const removeFromCart = async (customerId, productId, productInfo) => {
 	let response
 	try{
-		response = await axios.post(`${baseUrl}cart?customerId=${customerId}&productId=${productId}&productInfo=${JSON.stringify(productInfo)}`)
+		response = await axios.post(`${baseUrl}?customerId=${customerId}&productId=${productId}&productInfo=${JSON.stringify(productInfo)}`)
 	} catch (err) {
 		return null
 	}
@@ -29,4 +35,4 @@ const removeFromCart = async (customerId, productId, productInfo) => {
 
 }
 
-export default {getCart, removeFromCart}
+export default {getCart, removeFromCart, addProductToCart}

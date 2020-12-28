@@ -13,14 +13,18 @@
   padding: 2rem 3rem 2rem 3rem;
 }
 
+.filter-container {
+  display: flex;
+  flex-direction: column;
+}
+
 .filters {
   background-color: var(--beige);
   margin-right: 30px;
-  width: 30%;
-  height: 700px;
   padding: 10px;
   padding-left: 20px;
   border-radius: 20px;
+  width: 10%;
 }
 
 .filters h2 {
@@ -35,11 +39,6 @@
 
 .product-card-container {
   margin: 10px 10px;
-}
-
-.btn.btn-secondary.dropdown-toggle {
-  background-color: var(--red-tertiary);
-  color: white;
 }
 
 .dropdown.show.type {

@@ -1,25 +1,17 @@
 import axios from 'axios'
 import queryString from 'query-string'
 
-
-
 const baseUrl = 'http://3.138.113.101:8080'
 
 
 export const searchProducts = async (searchTerm) => {
 	const response = await axios.get(`${baseUrl}/products?search=${searchTerm}`)
-	return response.data.data.products
+	return response.data.data.products.productList
 }
 
 const getProduct = async (id) => {
 	const response = await axios.get(`${baseUrl}/product?id=${id}`)
 	return response.data.data.result
-}
-
-const getCategoryProducts = async (path) => {
-	const pathArray = path.split(',').map(s => '"' + s + '"')
-	const response = await axios.get(`${baseUrl}/products?categories=[${pathArray}]`)
-	return response.data.data.products
 }
 
 const getProducts = async (params) => {
@@ -34,4 +26,4 @@ const getProducts = async (params) => {
 	return response.data.data.products
 }
 
-export default { getProduct, getCategoryProducts, searchProducts, getProducts }
+export default { getProduct, searchProducts, getProducts }
