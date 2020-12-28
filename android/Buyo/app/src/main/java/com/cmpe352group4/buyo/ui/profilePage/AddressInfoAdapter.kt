@@ -39,7 +39,7 @@ class AddressInfoAdapter(
             //This part will be changed after back end side modification
             //itemView.tv_address_name.text = modal.name + " " + modal.surname
             //itemView.tv_address_phone.text = modal.phone
-            itemView.tv_address_name.text = "Bilge Demir"
+            itemView.tv_address_name.text = "Lila Demir"
             itemView.tv_address_phone.text = "05052149009"
 
             itemView.tv_address_title.text = modal.addressTitle
