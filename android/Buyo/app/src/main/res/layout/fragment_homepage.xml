@@ -74,25 +74,19 @@
                 android:layout_margin="8dp"
                 android:contentDescription="@string/banner"
                 android:src="@mipmap/banner_sample_2"
-                app:layout_constraintBottom_toTopOf="@+id/bannerImageView3"
+                app:layout_constraintBottom_toTopOf="@+id/tv_recommendedTitle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/bannerImageView1" />
 
-            <ImageView
-                android:id="@+id/bannerImageView3"
-                android:scaleType="fitXY"
-                android:layout_width="0dp"
-                android:layout_height="90dp"
-                android:layout_margin="8dp"
-                android:contentDescription="@string/banner"
-                android:src="@mipmap/banner_sample_3"
-                app:layout_constraintBottom_toTopOf="@+id/recommendationsRecyclerView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bannerImageView2" />
+            <View
+                android:id="@+id/seperator"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/buyo_fireEngineRed"
+                android:layout_margin="@dimen/medium_margin"
+                app:layout_constraintTop_toBottomOf="@id/bannerImageView2"/>
 
             <TextView
                 android:id="@+id/tv_recommendedTitle"
@@ -105,7 +99,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.07"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bannerImageView3" />
+                app:layout_constraintTop_toBottomOf="@+id/seperator" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recommendationsRecyclerView"
@@ -119,6 +113,14 @@
 
             </androidx.recyclerview.widget.RecyclerView>
 
+            <View
+                android:id="@+id/seperator2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/buyo_fireEngineRed"
+                android:layout_margin="@dimen/medium_margin"
+                app:layout_constraintTop_toBottomOf="@id/recommendationsRecyclerView"/>
+
             <TextView
                 android:id="@+id/tv_discountTitle"
                 android:layout_width="wrap_content"
@@ -130,7 +132,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.07"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recommendationsRecyclerView" />
+                app:layout_constraintTop_toBottomOf="@+id/seperator2" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/discountRecyclerView"
