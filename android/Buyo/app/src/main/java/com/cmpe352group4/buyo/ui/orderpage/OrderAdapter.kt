@@ -49,6 +49,7 @@ class OrderAdapter (
                                                                     modal.quantity.toString()
             var address = modal.address
             var isDelivered = modal.status
+            var attributes = modal.attributes
 
             itemView.tv_vendor.text = vendorName
             itemView.tv_order_no.text = orderNo
@@ -74,6 +75,21 @@ class OrderAdapter (
             itemView.setOnClickListener { clickCallback.invoke(modal) }
             itemView.btn_message_vendor.setOnClickListener { firstButtonCallback.invoke(modal) }
             itemView.btn_cancel_order.setOnClickListener { secondButtonCallback.invoke(modal) }
+            itemView.dropdown_detail.setOnClickListener{
+                if (itemView.dropdown_detail.text.toString() == "v") {
+                    itemView.product_detail.visibility = View.VISIBLE
+                    itemView.dropdown_detail.text = "ᴧ"
+                    itemView.product_detail.text = ""
+                    for (attr in attributes){
+                        itemView.product_detail.text = itemView.product_detail.text.toString() +
+                                attr.name + ": " + attr.value + "\n"
+                    }
+                    itemView.product_detail.text = itemView.product_detail.text.toString().dropLast(1)
+                } else {
+                    itemView.product_detail.visibility = View.GONE
+                    itemView.dropdown_detail.text = "v"
+                }
+            }
         }
     }
 }

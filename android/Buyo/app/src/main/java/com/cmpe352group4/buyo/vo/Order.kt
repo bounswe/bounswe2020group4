@@ -25,7 +25,7 @@ data class OrderProduct (
     var brand: String,
     var vendor: Vendor,
     var quantity: Int,
-    var attributes: List<Attribute>,
+    var attributes: List<OrderAttribute>,
     var status: String
 ): Serializable
 
@@ -40,7 +40,11 @@ data class OrderProductRV (
     var price: Double,
     var vendor: Vendor,
     var quantity: Int,
+    var attributes: List<OrderAttribute>,
     var status: String
 ): Serializable
 
-
+data class OrderAttribute (
+    var name: String,
+    var value: String
+): Serializable

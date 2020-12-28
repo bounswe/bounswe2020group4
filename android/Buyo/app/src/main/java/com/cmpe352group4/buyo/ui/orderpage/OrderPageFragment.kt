@@ -276,7 +276,7 @@ class OrderPageFragment : BaseFragment() {
                         val orderRV =
                             OrderProductRV(order_id, order.address, order.date, product.productId,
                                 product.name, product.imageUrl, product.price, product.vendor,
-                                product.quantity, product.status)
+                                product.quantity, product.attributes, product.status)
                         ordersListRV.add(orderRV)
                     }
                 }
