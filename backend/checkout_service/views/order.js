@@ -5,6 +5,7 @@ const Vendor = require("../models/vendor").Vendor;
 const ObjectId = require("mongoose").Types.ObjectId;
 const { checkCreditCard } = require("./verification");
 const Moment = require("moment");
+// TODO(eridincu): UNAVAILABLE PRODUCTS BEHAVIOUR
 module.exports.checkoutOrder = async (params) => {
   try {
     if (!checkCreditCard(JSON.parse(params.creditCard))) {
@@ -164,7 +165,7 @@ module.exports.getOrders = async (params) => {
         if (Moment(orderDate).add(5, "days").toDate() < new Date()) {
           orderedProduct.status = "Approved";
         } else if (Moment(orderDate).add(3, "days").toDate() < new Date()) {
-          orderedProduct.status = "Delivered";
+          orderedProduct.status = "Delivered at " + Moment(orderDate).add(3, "days").toDate().toString();
         } else if (Moment(orderDate).add(1, "days").toDate() < new Date()) {
           orderedProduct.status = "Shipped";
         }
