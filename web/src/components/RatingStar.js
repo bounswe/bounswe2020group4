@@ -17,14 +17,14 @@ const RatingStar = ({ rating, readOnly=true, precision=0.1, onChange=null, showL
 	return(
 		<div className='rating-container'>
 			<StyledRating className='rating-star'
-				value={Number(rating)}
+				value={Number(rating).toFixed(1)}
 				max={5}
 				precision={precision}
 				readOnly={readOnly}
 				onChange={onChange}
 				name="rating"/>
 			<div className='rating-label'>
-				{showLabel && rating}
+				{showLabel && parseFloat(Number(rating).toFixed(1))}
 			</div>
 		</div>
 	)

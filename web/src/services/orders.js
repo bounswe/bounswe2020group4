@@ -12,4 +12,14 @@ const getOrders = async (userId, userType='customer') => {
 	}
 }
 
-export default { getOrders }
+const checkoutOrder = async (customerId, paymentInfo, address) => {
+	try {
+		const response = await axios.post(`${baseUrl}?customerId=${customerId}&creditCard={"name":"${paymentInfo.name}","number":"${paymentInfo.no}","expirationMonth":${paymentInfo.month},"expirationYear":${paymentInfo.year},"cvc":${paymentInfo.cvv}}&address=ADDLATER`)
+		return response.data.data
+	} catch(err) {
+		console.error(err)
+		return false
+	}
+}
+
+export default { getOrders, checkoutOrder }
