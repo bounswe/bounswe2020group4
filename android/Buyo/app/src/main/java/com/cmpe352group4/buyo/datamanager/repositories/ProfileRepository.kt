@@ -8,6 +8,7 @@ import com.cmpe352group4.buyo.api.Resource
 import com.cmpe352group4.buyo.base.AppExecutors
 import com.cmpe352group4.buyo.base.ConnectionManager
 import com.cmpe352group4.buyo.util.livedata.InitialLiveData
+import com.cmpe352group4.buyo.vo.*
 import com.cmpe352group4.buyo.vo.BaseResponse
 import com.cmpe352group4.buyo.vo.BaseResponsePostRequest
 import com.cmpe352group4.buyo.vo.CustomerInformationResult
@@ -77,5 +78,15 @@ class ProfileRepository @Inject constructor(
             override fun createCall(): LiveData<ApiResponse<BaseResponsePostRequest>> = api.changePassword(id, userType, password)
         }.asLiveData()
     }
+  
+    fun addAddress(addAddressRequest: AddAddressRequest): LiveData<Resource<BaseResponsePostRequest>> {
+        return object : NetworkServiceWrapper<BaseResponsePostRequest, BaseResponsePostRequest>(appExecutors,connectionManager){
+            override fun loadFromApi(data: BaseResponsePostRequest): LiveData<BaseResponsePostRequest> {
+                return InitialLiveData.create(data)
+            }
+            override fun createCall(): LiveData<ApiResponse<BaseResponsePostRequest>> = api.addAddress(addAddressRequest.id, addAddressRequest.address)
+        }.asLiveData()
+    }
+
 }
 

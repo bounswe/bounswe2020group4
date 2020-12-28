@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.base.BaseFragment
@@ -14,6 +15,10 @@ import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.profilePage.AddUpdateAddressFragment
 import com.cmpe352group4.buyo.viewmodel.CartViewModel
+import com.cmpe352group4.buyo.viewmodel.ProfileViewModel
+import com.cmpe352group4.buyo.vo.CheckoutRequest
+import com.cmpe352group4.buyo.vo.CreditCard
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_checkout.*
 import javax.inject.Inject
 
@@ -27,9 +32,14 @@ class CheckoutPageFragment : BaseFragment() {
         viewModelFactory
     }
 
+    private val profileViewModel: ProfileViewModel by activityViewModels {
+        viewModelFactory
+    }
+
     @Inject
     lateinit var sharedPref: SharedPref
 
+    private val gson = Gson()
 
     companion object {
         fun newInstance() = CheckoutPageFragment()
@@ -50,7 +60,7 @@ class CheckoutPageFragment : BaseFragment() {
         setListeners()
 
 
-        // tv_final_price.text = cartViewModel.cartInfo.value?.data?.totalPrice?.plus(20).toString()
+        tv_final_price.text = ("Total: " + cartViewModel.cartInfo.value?.data?.products?.discountedPrice?.plus(20).toString() + "₺")
 
 
     }
@@ -69,20 +79,25 @@ class CheckoutPageFragment : BaseFragment() {
 
         btnCheckout.setOnClickListener {
             if(checkFields()){
-//                // Send request to backend
-//                cartViewModel.onCheckout(CheckoutRequest(
+                // Send request to backend
+//                cartViewModel.onCheckout(
+//                    CheckoutRequest(
 //                    customerId = sharedPref.getUserId()?: "",
-//                    creditCard = CreditCard(
+//                    creditCard = gson.toJson(CreditCard(
 //                        name = et_card_name.text.toString(),
-//                        number = et_card_number.text.toString().replace(" ", "").toInt()),
+//                        number = et_card_number.text.toString().replace(" ", "").toInt(),
 //                        expirationMonth = et_card_exp_month.text.toString().toInt(),
-//
-//
-//                    ))
+//                        expirationYear = et_card_exp_year.text.toString().toInt(),
+//                        cvc = et_card_cvv.text.toString().toInt()
+//                        )),
+//                        address = gson.toJson(profileViewModel.selectedAddress)
+//                    )
+//                )
             }
         }
 
     }
+
 
     private fun checkFields() : Boolean {
 
@@ -100,7 +115,7 @@ class CheckoutPageFragment : BaseFragment() {
             toastText = "Please, enter valid credit card number!"
         } else if (creditCardExpMonth.isNullOrEmpty() || creditCardExpMonth.length > 2) {
             toastText = "Please, enter valid expiration month!"
-        } else if (creditCardExpYear.isNullOrEmpty() || creditCardExpYear.length != 2 || creditCardExpYear.length != 4) {
+        } else if (creditCardExpYear.isNullOrEmpty() || !(creditCardExpYear.length == 2 || creditCardExpYear.length == 4)) {
             toastText = "Please, enter valid expiration year!"
         } else if (creditCardCvv.isNullOrEmpty() || creditCardCvv.length != 3) {
             toastText = "Please, enter valid CVV!"

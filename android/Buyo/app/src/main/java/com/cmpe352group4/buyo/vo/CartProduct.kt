@@ -10,7 +10,8 @@ data class CartProduct(
     var price: Double,
     var originalPrice: Double,
     var brand: String,
-    var productInfo: List<ProductInfo>,
+    var attributes: List<Attribute>,
+    var quantity: Int,
     var vendor: Vendor
 ): Serializable
 

@@ -82,8 +82,8 @@ interface Api {
     @POST("order")
     fun checkout(
         @Query("customerId") customerId: String,
-        @Query("creditCard") creditCard: CreditCard,
-        @Query("address") address: Address
+        @Query("creditCard") creditCard: String,
+        @Query("address") address: String
         ): LiveData<ApiResponse<BaseResponse<CheckoutResponse>>>
 
     @POST("cart")
@@ -98,6 +98,12 @@ interface Api {
         @Query("customerId") customerId : String,
         @Query("productId") productId : String,
         @Query("productInfo") productInfo : String
+    ): LiveData<ApiResponse<BaseResponsePostRequest>>
+
+    @POST("account/address")
+    fun addAddress(
+        @Query("id") id : String,
+        @Query("address") address : String
     ): LiveData<ApiResponse<BaseResponsePostRequest>>
 
     @POST("account-change-password")
