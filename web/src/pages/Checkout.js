@@ -4,18 +4,22 @@ import history from '../util/history'
 import CheckoutAddressBlock from '../components/checkout/AddressBlock'
 import PaymentInfoBlock from '../components/checkout/PaymentInfoBlock'
 import CheckoutSidebar from '../components/checkout/CheckoutSidebar'
+import cartService from '../services/cart'
 
 import './Checkout.css'
 
-const Checkout = ({ isLoggedIn }) => {
+const Checkout = ({ isLoggedIn, customerId }) => {
 	const [isContractChecked, setIsContractChecked] = useState(false)
 	const [selectedAddress, selectAddress]= useState({})
+	const [priceInfo, setPriceInfo] = useState({})
 
-	useEffect(() => {
+	useEffect( async () => {
 		//Check if the user is logged in before proceeding to checkout
 		if(!isLoggedIn) {
 			history.push('/signin')
 		}
+		const products = await cartService.getCart(customerId)
+		setPriceInfo({ totalPrice: products.totalPrice, discountedPrice: products.discountedPrice })
 	}, [])
 
 	const onPaymentAttempt = (cardName, cardMonth, cardYear, cardNo, cardCVV) => {
@@ -45,7 +49,7 @@ const Checkout = ({ isLoggedIn }) => {
 						</div>
 					</div>
 					<div className='col-sm-4'>
-						<CheckoutSidebar setIsContractChecked={setIsContractChecked} isContractChecked={isContractChecked}/>
+						<CheckoutSidebar setIsContractChecked={setIsContractChecked} isContractChecked={isContractChecked} priceInfo={priceInfo}/>
 					</div>
 				</div>
 			</div>
@@ -54,7 +58,10 @@ const Checkout = ({ isLoggedIn }) => {
 }
 
 const mapStateToProps = (state) => {
-	return { isLoggedIn: state.signIn.isLoggedIn }
+	return {
+		isLoggedIn: state.signIn.isLoggedIn,
+		customerId: state.signIn.userId,
+	}
 }
 
 export default connect(mapStateToProps)(Checkout)
