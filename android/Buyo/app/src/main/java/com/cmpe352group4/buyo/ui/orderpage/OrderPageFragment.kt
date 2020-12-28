@@ -12,6 +12,8 @@ import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.ui.EmptyFragment
 import com.cmpe352group4.buyo.vo.*
+import com.cmpe352group4.buyo.vo.Attribute
+import com.cmpe352group4.buyo.vo.Product
 import kotlinx.android.synthetic.main.fragment_order_page.*
 
 
@@ -21,7 +23,7 @@ val dummyOrders = mutableListOf(
         orderDate="01.09.2020",
         deliverDate="05.09.2020",
         isDelivered=true,
-        product=Product(
+        product= Product(
             category = listOf("A","B"),
             name = "LCW Kid Pyjama",
             id = "P00001",
@@ -51,7 +53,7 @@ val dummyOrders = mutableListOf(
         orderDate="04.09.2020",
         deliverDate=null,
         isDelivered=false,
-        product=Product(
+        product= Product(
             category = listOf("A","B"),
             name = "LCW Men Sweatshirt 0",
             id = "P00002",
@@ -82,7 +84,7 @@ val dummyOrders = mutableListOf(
         orderDate="04.09.2020",
         deliverDate="05.10.2020",
         isDelivered=true,
-        product=Product(
+        product= Product(
             category = listOf("A","B"),
             name = "LCW Men Sweatshirt 1",
             id = "P00002",
@@ -112,7 +114,7 @@ val dummyOrders = mutableListOf(
         orderDate="04.09.2020",
         deliverDate=null,
         isDelivered=false,
-        product=Product(
+        product= Product(
             category = listOf("A","B"),
             name = "LCW Men Sweatshirt 2",
             id = "P00002",
@@ -142,7 +144,7 @@ val dummyOrders = mutableListOf(
         orderDate="04.09.2020",
         deliverDate="09.10.2020",
         isDelivered=true,
-        product=Product(
+        product= Product(
             category = listOf("A","B"),
             name = "LCW Men Sweatshirt 3",
             id = "P00002",

@@ -20,21 +20,21 @@ class SearchRepository @Inject constructor(
     private val connectionManager: ConnectionManager
 ){
 
-    fun getProductsbyKeyword(keyword:String): LiveData<Resource<ProductResponse>> {
+    fun getProductsbyKeyword(keyword:String, options: Map<String, String>?): LiveData<Resource<ProductResponse>> {
         return object : NetworkServiceWrapper<ProductResponse, BaseResponse<ProductResponse>>(appExecutors,connectionManager){
             override fun loadFromApi(data: BaseResponse<ProductResponse>): LiveData<ProductResponse> {
                 return InitialLiveData.create(data.data)
             }
-            override fun createCall(): LiveData<ApiResponse<BaseResponse<ProductResponse>>> = api.fetchSearchResult(keyword)
+            override fun createCall(): LiveData<ApiResponse<BaseResponse<ProductResponse>>> = api.fetchSearchResult(keyword, options)
         }.asLiveData()
     }
 
-    fun getProductsbyCategory(categoryList: String) : LiveData<Resource<ProductResponse>> {
+    fun getProductsbyCategory(categoryList: String, options: Map<String, String>?) : LiveData<Resource<ProductResponse>> {
         return object : NetworkServiceWrapper<ProductResponse, BaseResponse<ProductResponse>>(appExecutors,connectionManager){
             override fun loadFromApi(data: BaseResponse<ProductResponse>): LiveData<ProductResponse> {
                 return InitialLiveData.create(data.data)
             }
-            override fun createCall(): LiveData<ApiResponse<BaseResponse<ProductResponse>>> = api.fetchProductsbyCategory(categoryList)
+            override fun createCall(): LiveData<ApiResponse<BaseResponse<ProductResponse>>> = api.fetchProductsbyCategory(categoryList, options)
         }.asLiveData()
     }
 

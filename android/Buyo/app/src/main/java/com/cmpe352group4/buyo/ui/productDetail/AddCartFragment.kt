@@ -18,6 +18,8 @@ import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.viewmodel.CartViewModel
 import com.cmpe352group4.buyo.vo.*
+import com.cmpe352group4.buyo.vo.Attribute
+import com.cmpe352group4.buyo.vo.Product
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_add_cart.*
 import javax.inject.Inject

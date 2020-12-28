@@ -17,12 +17,10 @@ import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.viewmodel.ProductViewModel
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
-import com.cmpe352group4.buyo.ui.cart.CartPageFragment
 import com.cmpe352group4.buyo.viewmodel.CartViewModel
 import com.cmpe352group4.buyo.viewmodel.WishListViewModel
 import com.cmpe352group4.buyo.vo.LikeResponse
 import com.cmpe352group4.buyo.vo.Product
-import kotlinx.android.synthetic.main.fragment_add_cart.*
 import kotlinx.android.synthetic.main.fragment_product_detail_content.*
 import javax.inject.Inject
 

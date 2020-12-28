@@ -8,7 +8,6 @@ import com.bumptech.glide.Glide
 import com.cmpe352group4.buyo.R
 import kotlinx.android.synthetic.main.square_product_item.view.*
 import com.cmpe352group4.buyo.vo.Product
-import kotlinx.android.synthetic.main.item_product_list_recycler_view.view.*
 
 class ProductAdapter(
     var Products: MutableList<Product>,

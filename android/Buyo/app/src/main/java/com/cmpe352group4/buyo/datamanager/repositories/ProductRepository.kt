@@ -9,7 +9,6 @@ import com.cmpe352group4.buyo.base.AppExecutors
 import com.cmpe352group4.buyo.base.ConnectionManager
 import com.cmpe352group4.buyo.util.livedata.InitialLiveData
 import com.cmpe352group4.buyo.vo.BaseResponse
-import com.cmpe352group4.buyo.vo.Product
 import com.cmpe352group4.buyo.vo.ProductResult
 //import com.cmpe352group4.buyo.vo.ProductResponse
 import javax.inject.Inject

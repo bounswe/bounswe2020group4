@@ -1,5 +1,9 @@
 package com.cmpe352group4.buyo.vo
 
+import com.cmpe352group4.buyo.vo.Comment
+import com.cmpe352group4.buyo.vo.FilterCriterias
+import com.cmpe352group4.buyo.vo.ProductInfo
+import com.cmpe352group4.buyo.vo.Vendor
 import java.io.Serializable
 
 data class Product(

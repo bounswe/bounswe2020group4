@@ -7,13 +7,12 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.cmpe352group4.buyo.R
-import com.cmpe352group4.buyo.vo.ParsedAttribute
-import com.cmpe352group4.buyo.vo.Product
+import com.cmpe352group4.buyo.vo.FilterCriterias
 import kotlinx.android.synthetic.main.item_product_list_filter_sort_recycler_view.view.*
 
 class ListFilterAdapter (
-    var Attributes : MutableList<ParsedAttribute>,
-    val attributesCallback : (String, String) -> Unit
+    var Criterias : MutableList<FilterCriterias>,
+    val selectFeatureCallback : (String, String) -> Unit
 
 ) : RecyclerView.Adapter<ListFilterAdapter.ListFilterViewHolder>() {
     override fun onCreateViewHolder(
@@ -25,25 +24,26 @@ class ListFilterAdapter (
     }
 
     override fun onBindViewHolder(holder: ListFilterAdapter.ListFilterViewHolder, position: Int) {
-        holder.bind(Attributes[position])
+        holder.bind(Criterias[position])
     }
 
     override fun getItemCount(): Int {
-        return Attributes.size
+        return Criterias.size
     }
 
-    fun submitList(list: MutableList<ParsedAttribute>) {
-        this.Attributes.clear()
-        this.Attributes.addAll(list)
+    fun submitList(list: MutableList<FilterCriterias>) {
+        this.Criterias.clear()
+        this.Criterias.addAll(list)
         notifyDataSetChanged()
     }
 
     inner class ListFilterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(modal: ParsedAttribute) {
-            itemView.tv_ProductList_Filter_Sort_name.text = modal.att_name
+        fun bind(modal: FilterCriterias) {
+            itemView.tv_ProductList_Filter_Sort_name.text = modal.displayName
 
+            var filterValues = modal.possibleValues as MutableList
 
-            var filterValues = modal.att_value
+            filterValues.add(0, "-")
 
             val spinnerAdapter = ArrayAdapter(itemView.context, android.R.layout.simple_spinner_item, filterValues)
 
@@ -54,12 +54,11 @@ class ListFilterAdapter (
 
             itemView.sp_ProductList_Filter_Sort_value.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    adapterView?.getItemAtPosition(position).toString()
-
+                    selectFeatureCallback(modal.name, adapterView?.getItemAtPosition(position).toString())
                 }
 
-                override fun onNothingSelected(p0: AdapterView<*>?) {
-                    TODO("Not yet implemented")
+                override fun onNothingSelected(adapterView: AdapterView<*>?) {
+                    selectFeatureCallback(modal.name, adapterView?.getItemAtPosition(0).toString())
                 }
 
             }
