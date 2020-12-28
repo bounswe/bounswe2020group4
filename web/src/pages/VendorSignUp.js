@@ -15,6 +15,7 @@ import accountService from '../services/account'
 
 const VendorSignUp = ({hideHeader, showHeader, setLoginState}) => {
 
+
 	useEffect(() => {
 		hideHeader()
 		return () => showHeader()
@@ -69,19 +70,16 @@ const VendorSignUp = ({hideHeader, showHeader, setLoginState}) => {
 			alert('Choose your business location on the map')
 			return
 		}
-
-		console.log(selectedCoord['lat'])
 		const signUpInfo = {
 			'name': name, 
 			'email': email, 
 			'password': password,
-			'lng': selectedCoord.lng, 
-			'lat': selectedCoord.lat, 
+			'lng': selectedCoord.lng(), 
+			'lat': selectedCoord.lat(), 
 			'website': website, 
 			'company': companyName
 		}
 		const userId = await accountService.vendorSignUp(signUpInfo)
-		console.log(userId)
 		if(userId == -1){
 			alert('This user already exists, use a different email')
 		} else if (userId == null){
