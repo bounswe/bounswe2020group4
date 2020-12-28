@@ -141,7 +141,12 @@ module.exports.getProducts = async (params) => {
 
     if (!!params.sortingFactor) {
       try {
-        if (typeof products[0][params.sortingFactor] == Number) {
+        console.log("Sorting factor : ", products[0][params.sortingFactor])
+        console.log("Type of sorting factor 1",typeof products[0][params.sortingFactor])
+        console.log("Type of sorting factor 2",typeof(products[0][params.sortingFactor]))
+
+
+        if (typeof(products[0][params.sortingFactor]) == "number") {
           products = products.sort(
             (product1, product2) =>
               (params.sortingType == "descending" ? -1 : 1) *
