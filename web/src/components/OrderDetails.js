@@ -56,13 +56,13 @@ const ProductOrder = ({userId, productId, imgUrl, name, brand, price, isDelivere
 				<div>Quantity: {quantity}</div>
 			</div>
 			<div className="product-order-info">
-				Status: {status}
-				{isPending && <button className="add-comment-button">Cancel Order</button>}
-				{isDelivered && <button className="add-comment-button" onClick={handleClickOpen}>Give Feedback</button>}
+				<div>Vendor: {vendor}</div>
+				<div>Status: {status}</div>
 			</div>
 			<div className="product-order-info">
-				<div>Vendor: {vendor}</div>
 				<button className="add-comment-button">Message Vendor</button>
+				{isPending && <button className="add-comment-button">Cancel Order</button>}
+				{isDelivered && <button className="add-comment-button" onClick={handleClickOpen}>Give Feedback</button>}
 			</div>
 			<Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
 				<DialogTitle id="form-dialog-title">Give Feedback</DialogTitle>
