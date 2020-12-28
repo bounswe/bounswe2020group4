@@ -1,6 +1,11 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import TextField from '@material-ui/core/TextField'
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+const Alert = (props) => {
+	return <MuiAlert elevation={6} variant="filled" {...props} />
+}
+
 
 import cartService from '../services/cart'
 import './ProductPurchase.css'
@@ -62,6 +67,8 @@ const ProductPurchase = ({productId, price, originalPrice, productInfos, isLogge
 
 	const [values, setValues] = useState(initialValues)
 	const [amount, setAmount] = useState(1)
+	const [open, setOpen] = useState(false)
+
 
 	const handleValueChange = (e, opt) => {
 		const valuesCopy = {...values}
@@ -90,7 +97,14 @@ const ProductPurchase = ({productId, price, originalPrice, productInfos, isLogge
 			}
 			cartService.addProductToCart(customerId, productId, addToCartInfo)
 			setAmount(1)
+			setOpen(true)
 		}
+	}
+	const handleClose = (event, reason) => {
+		if (reason === 'clickaway') {
+			return
+		}
+		setOpen(false)
 	}
 
 	return(
@@ -117,6 +131,11 @@ const ProductPurchase = ({productId, price, originalPrice, productInfos, isLogge
 					{price} &#8378;
 				</div>
 				<button onClick={handleAddToCart}>Add to Cart</button>
+				<Snackbar open={open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+					<Alert onClose={handleClose} severity="success">
+						You added this product to your cart!
+					</Alert>
+				</Snackbar>
 			</div>
 		</div>
 	)
