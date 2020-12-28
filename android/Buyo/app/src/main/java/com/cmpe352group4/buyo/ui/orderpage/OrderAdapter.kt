@@ -57,12 +57,12 @@ class OrderAdapter (
             itemView.tv_price.text = price
 
             if (isDelivered=="Pending") {
-                var date = "Order Date: " + modal.orderDate
+                var date = "Order Date: " + modal.orderDate.split("T")[0]
                 itemView.tv_date.text = date
                 itemView.tv_header.setBackgroundColor(Color.parseColor("#E53C38")) // light red
                 itemView.tv_status.text = "Status: Not Delivered"
             } else {
-                var date = "Order Date: " + modal.orderDate
+                var date = "Order Date: " + modal.orderDate.split("T")[0]
                 itemView.tv_date.text = date
                 itemView.tv_header.setBackgroundColor(Color.parseColor("#a4c639")) // light green
                 itemView.btn_cancel_order.text = "Add Comment"
