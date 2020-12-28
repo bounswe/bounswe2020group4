@@ -82,4 +82,10 @@ interface Api {
         @Query("address") address: Address
         ): LiveData<ApiResponse<BaseResponse<CheckoutResponse>>>
 
+    @GET("order")
+    fun fetchOrders(
+        @Query("id") userId: String,
+        @Query("userType") userType: String
+    ): LiveData<ApiResponse<BaseResponse<Map<String, Order>>>>
+
 }
