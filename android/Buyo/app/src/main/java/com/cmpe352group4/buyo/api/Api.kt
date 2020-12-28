@@ -88,4 +88,11 @@ interface Api {
         @Query("userType") userType: String,
         @Query("password") password: String
     ): LiveData<ApiResponse<BaseResponsePostRequest>>
+
+    @GET("order")
+    fun fetchOrders(
+        @Query("id") userId: String,
+        @Query("userType") userType: String
+    ): LiveData<ApiResponse<BaseResponse<Map<String, Order>>>>
+
 }
