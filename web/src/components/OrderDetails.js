@@ -13,7 +13,7 @@ import DefaultProductImage from '../images/default-product-detail-image.png'
 
 import './OrderDetails.css'
 
-const ProductOrder = ({imgUrl, name, brand, price, isDelivered}) => {
+const ProductOrder = ({productId, imgUrl, name, brand, price, isDelivered, vendor, quantity, attributes, status}) => {
 	const [open, setOpen] = useState(false)
 	const [rating, setRating] = useState(null)
 
@@ -33,14 +33,24 @@ const ProductOrder = ({imgUrl, name, brand, price, isDelivered}) => {
 
 	return(
 		<div className="product-order">
-			<img className="product-image" src={imgUrl || DefaultProductImage} alt='product'/>
+			<a className="product-image-container" href={`/product/${productId}`}><img className="product-image" src={imgUrl || DefaultProductImage} alt='product'/></a>
 			<div className="product-order-info">
 				<div>{name}</div>
 				<div>{brand}</div>
 				<div>{price}</div>
 			</div>
+			<div className="product-order-info">
+				{attributes.map(a => <div key={a.name}>{a.value}</div>)}
+				<div>Quantity: {quantity}</div>
+			</div>
+			<div className="product-order-info">
+				Status: {status}
+			</div>
+			<div className="product-order-info">
+				<div>Vendor: {vendor}</div>
+				<button className="add-comment-button">Message Vendor</button>
+			</div>
 			{isDelivered && <button className="add-comment-button" onClick={handleClickOpen}>Give Feedback</button>}
-			<button className="add-comment-button">Message Vendor</button>
 			<Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
 				<DialogTitle id="form-dialog-title">Give Feedback</DialogTitle>
 				<DialogContent>
@@ -78,20 +88,15 @@ const ProductOrder = ({imgUrl, name, brand, price, isDelivered}) => {
 }
 
 
-const OrderDetails = ({isDelivered, address, products}) => {
+const OrderDetails = ({address, products}) => {
 	return(
 		<div className="order-details-container">
 			<div className="order-details-top">
 				<div>
-					{products.map(p => <ProductOrder key={p.orderedProductId} name={p.name} brand={p.brand} price={p.price + '₺'} imgUrl={p.imageUrl} isDelivered={p.status !== 'Pending'}/>)}
-				</div>
-				<div className="order-button-container">
-					{!isDelivered ? <button className="order-page-button">Cancel Order</button> : null}
-					{isDelivered && <button className="order-page-button" >Return Order</button>}
+					{products && products.map(p => <ProductOrder productId={p.productId} status={p.status} attributes={p.attributes} quantity={p.quantity} vendor={p.vendor.name} key={p.orderedProductId} name={p.name} brand={p.brand} price={p.price + '₺'} imgUrl={p.imageUrl} isDelivered={p.status !== 'Pending'}/>)}
 				</div>
 			</div>
-			<div className="address-container"> Address: {address}
-			</div>
+			<div className="address-container"> Address: {address}</div>
 		</div>
 	)
 }
