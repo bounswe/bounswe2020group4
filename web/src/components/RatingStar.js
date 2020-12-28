@@ -13,16 +13,18 @@ const StyledRating = withStyles({
 	},
 })(Rating)
 
-const RatingStar = ({ rating, readOnly=true, precision=0.1 }) => {
+const RatingStar = ({ rating, readOnly=true, precision=0.1, onChange=null, showLabel=true }) => {
 	return(
 		<div className='rating-container'>
 			<StyledRating className='rating-star'
-				defaultValue={Number(rating)}
+				value={Number(rating)}
 				max={5}
 				precision={precision}
-				readOnly={readOnly} />
+				readOnly={readOnly}
+				onChange={onChange}
+				name="rating"/>
 			<div className='rating-label'>
-				{rating}
+				{showLabel && rating}
 			</div>
 		</div>
 	)

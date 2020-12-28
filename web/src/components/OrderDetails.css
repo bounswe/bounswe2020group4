@@ -1,18 +1,24 @@
 .product-order{
   display: flex;
+  justify-content: space-between;
+  width: 100%;
   margin: 1%;
 }
 
 .product-order-info {
   display: flex;
   flex-direction: column;
-  margin-left: 10%;
+  width: 15%;
   font-size: 18px;
 }
 
 .product-image {
-  height: 100px;
-  width: auto;
+  height: auto;
+  width: 100%;
+}
+
+.product-image-container {
+  width: 15%;
 }
 
 .order-details-container {
@@ -23,6 +29,7 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+  flex-direction: column;
 }
 
 .order-button-container {
@@ -49,8 +56,7 @@
   color: white;
   border: solid;
   border-radius: 10px;
-  margin-left: 10%;
-  height: 50%;
+
 }
 
 .address-container {
