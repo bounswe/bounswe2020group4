@@ -30,6 +30,9 @@ const Header = ({ isLoggedIn }) => {
 		if(selectedPath){
 			setSelectedPath('')
 		}
+		if(profileMenuOpen){
+			setProfileMenuOpen(false)
+		}
 	}
 
 	useEffect(() => {

@@ -8,7 +8,7 @@ const CheckoutSidebar = ({ setIsContractChecked, isContractChecked }) => {
 			<div className='contract-container position-relative d-flex border p-2 rounded-sm mb-4'>
 				<input type='checkbox' className='contract-checkbox' checked={isContractChecked} onClick={() => setIsContractChecked(!isContractChecked)}/>
 				<div className='contract-text'>
-                    Ön Bilgilendirme Koşulları'nı ve Mesafeli Satış Sözleşmesi'ni okudum, onaylıyorum.
+                    I have read and accepted the Preliminary Information Form and the Distance Sales Contract
 				</div>
 			</div>
 			<div className='purchase-information p-4 border rounded-sm'>

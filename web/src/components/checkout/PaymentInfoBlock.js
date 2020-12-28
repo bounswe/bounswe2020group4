@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Valid from 'card-validator'
 
-const PaymentInfoBlock = () => {
+const PaymentInfoBlock = ({ onPaymentAttempt }) => {
 	const [errors, setErrors] = useState({
 		isNameValid: true, isMonthValid: true, isYearValid: true, isNumberValid: true, isCVVValid: true
 	})
@@ -15,7 +15,7 @@ const PaymentInfoBlock = () => {
 		const isCVVValid = Valid.cvv(e.target[4].value).isPotentiallyValid
 
 		if(isNumberValid && isNameValid && isMonthValid && isYearValid && isCVVValid) {
-			//Submit Form
+			onPaymentAttempt(e.target[0].value, e.target[1].value, e.target[2].value, e.target[3].value, e.target[4].value)
 		} else {
 			setErrors({ isNameValid, isMonthValid, isYearValid, isNumberValid, isCVVValid })
 		}
@@ -46,7 +46,7 @@ const PaymentInfoBlock = () => {
 							<input type='text' className={`form-control ${errors.isNumberValid ? '' : 'border border-danger'}`} id='cardNo'></input>
 						</div>
 						<div className='form-group col-3'>
-							<label htmlFor='ccv'>CCV</label>
+							<label htmlFor='ccv'>CVV</label>
 							<input type='text' className={`form-control ${errors.isCVVValid ? '' : 'border border-danger'}`} id='ccv'></input>
 						</div>
 					</div>
