@@ -65,7 +65,7 @@ class AddressInfoFragment: BaseFragment() {
         profileViewModel.userInformation.observe(viewLifecycleOwner, Observer {
             if (it.status == Status.SUCCESS && it.data != null){
 
-                if (it.data.result.address.isNullOrEmpty()) {
+                if (!it.data.result.address.isNullOrEmpty()) {
                     addressInfoAdapter.submitList(it.data.result.address as MutableList<Address>)
                 }
 

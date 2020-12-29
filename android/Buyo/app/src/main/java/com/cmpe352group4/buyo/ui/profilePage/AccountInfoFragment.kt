@@ -1,6 +1,7 @@
 package com.cmpe352group4.buyo.ui.profilePage
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.viewmodel.ProfileViewModel
+import com.cmpe352group4.buyo.vo.AccountInfoRequest
 import com.cmpe352group4.buyo.vo.UserInformationRequest
 import kotlinx.android.synthetic.main.fragment_account_info.*
 import javax.inject.Inject
@@ -44,21 +46,24 @@ class AccountInfoFragment: BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val backendGenders = arrayOf("", "female", "male", "other", "noInfo")
+        val genders = arrayOf("", "Female", "Male", "Other", "No Info")
+
         val infoReq = UserInformationRequest(sharedPref.getUserId()?: "", "customer")
         profileViewModel.onFetchProfileInfo(infoReq)
 
         profileViewModel.userInformation.observe(viewLifecycleOwner, Observer {
             if (it.status == Status.SUCCESS && it.data != null){
 
+                //This parts will be changed after back end side modification
                 val nameSurname = it.data.result.name?.split(" ")
-
                 ed_user_name.setText(nameSurname?.get(0))
                 ed_user_surname.setText(nameSurname?.get(1))
+
                 ed_user_email.text = it.data.result.email
                 ed_user_phone.setText(it.data.result.phoneNumber)
 
-                val arr = arrayOf("", "female", "male", "other", "no info")
-                sp_user_gender.setSelection(arr.indexOf((it.data.result.gender)?.toLowerCase()))
+                sp_user_gender.setSelection(backendGenders.indexOf((it.data.result.gender)?.toLowerCase()))
 
                 dispatchLoading()
             } else if (it.status == Status.ERROR){
@@ -69,7 +74,28 @@ class AccountInfoFragment: BaseFragment() {
         })
 
         btn_user_account_info_save.setOnClickListener {
-            TODO()
+            profileViewModel.saveAccountInfo(
+                AccountInfoRequest(
+                    id = sharedPref.getUserId()?:"",
+                    userType = "customer",
+                    name = ed_user_name.text.toString(),
+                    surname = ed_user_surname.text.toString(),
+                    email = ed_user_email.text.toString(),
+                    phoneNumber = ed_user_phone.text.toString(),
+                    gender = backendGenders.get(genders.indexOf(sp_user_gender.selectedItem.toString()))
+                )
+            )
+
+            profileViewModel.saveAccountInfo.observe(viewLifecycleOwner, Observer {
+                if (it.status == Status.SUCCESS && it.data != null) {
+                    Log.v("Account info", "saved")
+                    dispatchLoading()
+                } else if (it.status == Status.ERROR) {
+                    dispatchLoading()
+                } else if (it.status == Status.LOADING) {
+                    showLoading()
+                }
+            })
         }
 
         btn_back_account_info.setOnClickListener {
