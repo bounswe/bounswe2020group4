@@ -94,7 +94,8 @@ const Orders = ({isLoggedIn, userId}) => {
 							</div>
 						</AccordionSummary>
 						<AccordionDetails>
-							<OrderDetails products={o.data.products} address={o.data.address}/>
+							{/* <OrderDetails products={o.data.products} address={o.data.address}/> */}
+							<OrderDetails products={o.data.products} address="Etiler Mahallesi Muharipler sokak Sakarya Apartman no:4 Beşiktaş/Istanbul"/>
 						</AccordionDetails>
 					</Accordion>
 				))}
