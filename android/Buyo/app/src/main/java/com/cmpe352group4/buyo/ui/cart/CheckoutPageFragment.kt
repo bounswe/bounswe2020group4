@@ -5,17 +5,23 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.cmpe352group4.buyo.R
+import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.profilePage.AddUpdateAddressFragment
+import com.cmpe352group4.buyo.ui.profilePage.AddressInfoFragment
 import com.cmpe352group4.buyo.viewmodel.CartViewModel
 import com.cmpe352group4.buyo.viewmodel.ProfileViewModel
+import com.cmpe352group4.buyo.vo.Address
 import com.cmpe352group4.buyo.vo.CheckoutRequest
 import com.cmpe352group4.buyo.vo.CreditCard
 import com.google.gson.Gson
@@ -40,7 +46,7 @@ class CheckoutPageFragment : BaseFragment() {
     lateinit var sharedPref: SharedPref
 
     private val gson = Gson()
-
+    private var selectedAddress = ""
     companion object {
         fun newInstance() = CheckoutPageFragment()
     }
@@ -58,11 +64,15 @@ class CheckoutPageFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setListeners()
-
+        observeData()
+        getProfileInfoandAddress()
 
         tv_final_price.text = ("Total: " + cartViewModel.cartInfo.value?.data?.products?.discountedPrice?.plus(20).toString() + "₺")
+    }
 
-
+    override fun onResume() {
+        super.onResume()
+        getProfileInfoandAddress()
     }
 
     private fun setListeners() {
@@ -72,7 +82,7 @@ class CheckoutPageFragment : BaseFragment() {
 
         tv_add_or_choose.setOnClickListener {
             navigationManager?.onReplace(
-                AddUpdateAddressFragment.newInstance(),
+                AddressInfoFragment.newInstance(),
                 TransactionType.Replace, true
             )
         }
@@ -80,24 +90,74 @@ class CheckoutPageFragment : BaseFragment() {
         btnCheckout.setOnClickListener {
             if(checkFields()){
                 // Send request to backend
-//                cartViewModel.onCheckout(
-//                    CheckoutRequest(
-//                    customerId = sharedPref.getUserId()?: "",
-//                    creditCard = gson.toJson(CreditCard(
-//                        name = et_card_name.text.toString(),
-//                        number = et_card_number.text.toString().replace(" ", "").toInt(),
-//                        expirationMonth = et_card_exp_month.text.toString().toInt(),
-//                        expirationYear = et_card_exp_year.text.toString().toInt(),
-//                        cvc = et_card_cvv.text.toString().toInt()
-//                        )),
-//                        address = gson.toJson(profileViewModel.selectedAddress)
-//                    )
-//                )
+                cartViewModel.onCheckout(
+                    CheckoutRequest(
+                    customerId = sharedPref.getUserId()?: "",
+                    creditCard = gson.toJson(CreditCard(
+                        name = et_card_name.text.toString(),
+                        number = et_card_number.text.toString().replace(" ", ""),
+                        expirationMonth = et_card_exp_month.text.toString(),
+                        expirationYear = et_card_exp_year.text.toString(),
+                        cvc = et_card_cvv.text.toString()
+                        )),
+                        address = selectedAddress
+                    )
+                )
+            }
+        }
+        // gson.toJson(profileViewModel.selectedAddress)
+    }
+
+    private fun observeData() {
+        cartViewModel.checkoutResponse.observe(viewLifecycleOwner, Observer {
+            if (it.status == Status.SUCCESS && it.data != null) {
+                Toast.makeText(context, "AAAAA", Toast.LENGTH_SHORT).show()
+
+                dispatchLoading()
+            } else if (it.status == Status.ERROR) {
+                dispatchLoading()
+            } else if (it.status == Status.LOADING) {
+                showLoading()
+            }
+        })
+    }
+
+    private fun getProfileInfoandAddress() {
+        var addresses = mutableListOf<String>()
+        if(profileViewModel.userInformation.value?.data?.result?.address?.isEmpty() != false){
+            Toast.makeText(context, "You need to add an address before order something", Toast.LENGTH_SHORT).show()
+        }else{
+            var addresses = mutableListOf<String>()
+            profileViewModel.userInformation.value?.data?.result?.address?.forEach {
+                var showedAddress = it.addressTitle + " (" + it.street + "/" + it.city + "/" + it.province + ")"
+                addresses.add(showedAddress)
+            }
+            val spinnerAdapter = context?.let {
+                ArrayAdapter(
+                    it,
+                    android.R.layout.simple_spinner_item,
+                    addresses
+                )
+            }
+
+            spinnerAdapter?.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+            sp_address.adapter = spinnerAdapter
+            spinnerAdapter?.notifyDataSetChanged()
+
+            sp_address.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    selectedAddress = adapterView?.getItemAtPosition(position).toString()
+                }
+
+                override fun onNothingSelected(adapterView: AdapterView<*>?) {
+                    selectedAddress = adapterView?.getItemAtPosition(0).toString()
+                }
+
             }
         }
 
     }
-
 
     private fun checkFields() : Boolean {
 
@@ -108,8 +168,12 @@ class CheckoutPageFragment : BaseFragment() {
         val creditCardCvv = et_card_cvv.text
         var toastText = ""
 
-
-        if (creditCardName.isNullOrEmpty()) {
+        if(profileViewModel.userInformation.value?.data?.result?.name?.isEmpty() != false) {
+            toastText = "Please, fill your profile information"
+        }
+        if(selectedAddress.isNullOrEmpty()){
+            toastText = "Please, add an address"
+        } else if(creditCardName.isNullOrEmpty()) {
             toastText = "Please, enter 'Name on Card Field'!"
         } else if (creditCardNo.isNullOrEmpty()|| (creditCardNo.toString().replace(" ", "")).length < 16) {
             toastText = "Please, enter valid credit card number!"
@@ -123,9 +187,6 @@ class CheckoutPageFragment : BaseFragment() {
             toastText = "Please, confirm 'Distant Sales Agreement And Pre-Information Form'!"
         }
 
-        if(tv_chosen_address.text.isNullOrEmpty()){
-            toastText = "Upps something went wrong please try again!"
-        }
         return if(toastText.isEmpty()){
             true
         }else{

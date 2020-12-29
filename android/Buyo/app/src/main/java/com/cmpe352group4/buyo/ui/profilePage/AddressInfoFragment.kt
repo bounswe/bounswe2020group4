@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
+import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.viewmodel.ProfileViewModel
 import com.cmpe352group4.buyo.vo.Address
@@ -30,7 +32,7 @@ class AddressInfoFragment: BaseFragment() {
     @Inject
     lateinit var sharedPref: SharedPref
 
-    private val profileViewModel: ProfileViewModel by viewModels {
+    private val profileViewModel: ProfileViewModel by activityViewModels {
         viewModelFactory
     }
 
@@ -65,7 +67,7 @@ class AddressInfoFragment: BaseFragment() {
         profileViewModel.userInformation.observe(viewLifecycleOwner, Observer {
             if (it.status == Status.SUCCESS && it.data != null){
 
-                if (it.data.result.address.isNullOrEmpty()) {
+                if (!it.data.result.address.isNullOrEmpty()) {
                     addressInfoAdapter.submitList(it.data.result.address as MutableList<Address>)
                 }
 
@@ -86,6 +88,13 @@ class AddressInfoFragment: BaseFragment() {
 
         btn_back_address_info.setOnClickListener {
             activity?.onBackPressed()
+        }
+
+        btn_add_address.setOnClickListener {
+            navigationManager?.onReplace(
+                AddUpdateAddressFragment.newInstance(),
+                TransactionType.Replace, true
+            )
         }
     }
 
