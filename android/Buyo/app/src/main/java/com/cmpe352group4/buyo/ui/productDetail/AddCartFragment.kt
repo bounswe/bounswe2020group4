@@ -22,6 +22,8 @@ import com.cmpe352group4.buyo.vo.Attribute
 import com.cmpe352group4.buyo.vo.Product
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_add_cart.*
+import kotlinx.android.synthetic.main.fragment_add_cart.orderpage_back_button
+import kotlinx.android.synthetic.main.fragment_order_page.*
 import javax.inject.Inject
 
 class AddCartFragment : BaseFragment() {
@@ -72,6 +74,8 @@ class AddCartFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        backButtonListener()
 
         // RECYCLER VIEW
 
@@ -146,6 +150,12 @@ class AddCartFragment : BaseFragment() {
 
         }
 
+    }
+
+    private fun backButtonListener() {
+        orderpage_back_button.setOnClickListener {
+            activity?.onBackPressed()
+        }
     }
 
     fun updateMax(): Int {
