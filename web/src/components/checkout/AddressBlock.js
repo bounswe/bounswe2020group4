@@ -14,9 +14,9 @@ const AddressBlock = ({ selectAddress, selectedAddress, onCheckout, title, userT
 	const [editingAddress, setEditingAddress] = useState({})
 	const [addresses, setAddresses] = useState([
 		{
-			title: 'EV',
-			receivingName: 'Meric',
-			receivingSurname: 'Ungor',
+			title: 'Home',
+			receivingName: 'Battal',
+			receivingSurname: 'Lattab',
 			receivingPhone: '0531 932 8388',
 			address: 'Etiler Mah, Ucaksavarn Sit',
 			province: 'Besiktas',
@@ -24,41 +24,11 @@ const AddressBlock = ({ selectAddress, selectedAddress, onCheckout, title, userT
 			street: 'Ihsan Hilmi Alantar sokak'
 		},
 		{
-			title: 'Ucaksavar',
-			receivingName: 'Merko',
-			receivingSurname: 'Ungor',
-			receivingPhone: '0531 932 8388',
-			address: 'Etiler Mah, Ucaksavarn Sit',
-			province: 'Besiktas',
-			city: 'Istanbul',
-			street: 'Ihsan Hilmi Alantar sokak'
-		},
-		{
-			title: 'Ucaksavar',
-			receivingName: 'Meric',
-			receivingSurname: 'Ungor',
-			receivingPhone: '0531 932 8388',
-			address: 'Etiler Mah, Ucaksavarn Sit',
-			province: 'Besiktas',
-			city: 'Istanbul',
-			street: 'Ihsan Hilmi Alantar sokak'
-		},
-		{
-			title: 'Ucaksavar',
-			receivingName: 'Meric',
-			receivingSurname: 'Ungor',
-			receivingPhone: '0531 932 8388',
-			address: 'Etiler Mah, Ucaksavarn Sit',
-			province: 'Besiktas',
-			city: 'Istanbul',
-			street: 'Ihsan Hilmi Alantar sokak'
-		},
-		{
-			title: 'Ucaksavar',
-			receivingName: 'Meric',
-			receivingSurname: 'Ungor',
-			receivingPhone: '0531 932 8388',
-			address: 'Etiler Mah, Ucaksavarn Sit',
+			title: 'Work',
+			receivingName: 'Hakim',
+			receivingSurname: 'Gazi',
+			receivingPhone: '0532 323 4589',
+			address: 'Konaklar Mahallesi Ihsan Hilmi Alantar Sokak',
 			province: 'Besiktas',
 			city: 'Istanbul',
 			street: 'Ihsan Hilmi Alantar sokak'
