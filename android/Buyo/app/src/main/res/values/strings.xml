@@ -155,6 +155,10 @@
     <string name="gotoshop"> Let\'s shop</string>
     <string name="checkout"> Checkout</string>
 
+    <string-array name="sp_dummy_address">
+        <item>You need to add an address</item>
+    </string-array>
+
     <!--  Address Page   -->
     <string name="prompt_name">Name</string>
     <string name="prompt_surname">Surname</string>

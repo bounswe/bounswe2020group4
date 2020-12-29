@@ -57,19 +57,20 @@
             android:layout_height="1dp"
             android:background="@color/grey"
             app:layout_constraintTop_toBottomOf="@+id/tv_shipping_title"
-            app:layout_constraintBottom_toTopOf="@id/tv_chosen_address"
+            app:layout_constraintBottom_toTopOf="@id/sp_address"
             android:layout_marginVertical="@dimen/medium_margin"/>
 
-        <TextView
-            android:id="@+id/tv_chosen_address"
-            android:layout_width="wrap_content"
+        <Spinner
+            android:id="@+id/sp_address"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Home (Rumelihisarı Mah/Sarıyer/Istanbul)"
-            android:textSize="16sp"
-            android:textStyle="bold"
+            android:layout_margin="8sp"
+            android:background="@color/buyo_antiqueWhite"
+            android:entries="@array/sp_dummy_address"
+            android:textAlignment="center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
