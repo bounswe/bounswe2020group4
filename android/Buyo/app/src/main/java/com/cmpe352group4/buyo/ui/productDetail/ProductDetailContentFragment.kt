@@ -310,7 +310,7 @@ class ProductDetailContentFragment : BaseFragment() {
 
 
 
-            tvProductDetailPrice.text = product!!.price.toString() + " TL"
+            tvProductDetailPrice.text = product!!.price.toString() + " ₺"
             rbProductDetailRating.rating = product!!.rating.toFloat()
             Glide.with(this)
                 .load(product!!.imageUrl).centerCrop()

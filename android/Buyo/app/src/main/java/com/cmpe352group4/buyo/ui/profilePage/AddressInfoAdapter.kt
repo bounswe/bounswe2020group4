@@ -46,10 +46,10 @@ class AddressInfoAdapter(
             itemView.tv_address_text.text = modal.address
             itemView.tv_address_city.text = modal.province + ", " + modal.city
             itemView.btn_update_address.setOnClickListener {
-                TODO()
+
             }
             itemView.btn_delete_address.setOnClickListener {
-                TODO()
+
             }
 
         }

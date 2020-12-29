@@ -55,7 +55,7 @@ class ProductListAdapter(
             itemView.tv_productListRecyclerView_Info.text = "Brand: " + modal.brand + " / Vendor: " + modal.vendor.name + " / Vendor Rating : " + modal.vendor.rating.toString()
             itemView.tv_productListRecyclerView_Name.text = modal.name
             itemView.tv_productListRecyclerView_Rate.text = "Rating: " + modal.rating.toString()
-            itemView.tv_productListRecyclerView_Price.text = modal.price.toString() + " TL"
+            itemView.tv_productListRecyclerView_Price.text = modal.price.toString() + " ₺"
             Glide.with(itemView.context)
                 .load(modal.imageUrl).centerCrop()
                 .into(itemView.iv_productListRecyclerView_Image)

@@ -111,7 +111,7 @@ class CheckoutPageFragment : BaseFragment() {
     private fun observeData() {
         cartViewModel.checkoutResponse.observe(viewLifecycleOwner, Observer {
             if (it.status == Status.SUCCESS && it.data != null) {
-                Toast.makeText(context, "AAAAA", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "You successfully order your cart!", Toast.LENGTH_SHORT).show()
 
                 dispatchLoading()
             } else if (it.status == Status.ERROR) {

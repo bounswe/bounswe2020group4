@@ -88,6 +88,7 @@ class AccountInfoFragment: BaseFragment() {
 
             profileViewModel.saveAccountInfo.observe(viewLifecycleOwner, Observer {
                 if (it.status == Status.SUCCESS && it.data != null) {
+                    profileViewModel.onFetchProfileInfo(infoReq) // TODO LATER
                     Log.v("Account info", "saved")
                     dispatchLoading()
                 } else if (it.status == Status.ERROR) {

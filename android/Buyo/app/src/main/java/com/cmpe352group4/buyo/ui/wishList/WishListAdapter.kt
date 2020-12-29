@@ -42,7 +42,7 @@ class WishListAdapter (
 
             itemView.tvWishListRecyclerView_Name.text = modal.name
             itemView.tvWishListRecyclerView_Rate.text = modal.rating.toString()
-            itemView.tvWishListRecyclerView_Price.text = modal.price.toString()
+            itemView.tvWishListRecyclerView_Price.text = (modal.price.toString() + " ₺")
             Glide.with(itemView.context)
                 .load(modal.imageUrl).centerCrop()
                 .into(itemView.ivWishListRecyclerView_Image)

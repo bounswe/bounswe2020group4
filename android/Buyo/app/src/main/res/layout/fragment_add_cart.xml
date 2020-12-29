@@ -60,7 +60,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:background="@color/buyo_fireEngineRed"
-        android:minHeight="20dp"
         android:text="Add to Cart"
         android:textColor="@color/buyo_white"
         app:layout_constraintBottom_toBottomOf="parent"
