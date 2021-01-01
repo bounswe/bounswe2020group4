@@ -16,6 +16,10 @@ express.response.respond = function (code, message, data) {
   });
 };
 
+express.request.extractParams = function () {
+  return Object.keys(this.body).length ? this.body : this.query;
+};
+
 app.listen(process.env.PORT); // Listen requests from the port.
 app.use(bodyParser.json());
 app.use(cors());

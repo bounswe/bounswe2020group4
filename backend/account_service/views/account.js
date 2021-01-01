@@ -17,19 +17,26 @@ const { ErrorMessage } = require("../constants/error");
  */
 module.exports.addAddress = async (params) => {
   try {
+    if (!params.id || !params.address) {
+      return { success: false, message: ErrorMessage.MISSING_PARAMETER };
+    }
+
     params.address = JSON.parse(params.address);
     const account = await Customer.findOne({ _id: ObjectId(params.id) });
     if (account) {
       if (account.address.some((addr) => addr.addressTitle === params.address.addressTitle)) {
-        return "Please change your address title.";
+        return { success: false, message: ErrorMessage.ADDRESS_ALREADY_EXISTS };
       }
       account.address.push(params.address);
       await account.save();
+
+      return { success: true, address: account.address };
     }
-    return account.address;
+
+    return { success: false, message: ErrorMessage.USER_NOT_FOUND };
   } catch (error) {
     console.log(error);
-    return error;
+    return { success: false, message: error.message || error };
   }
 };
 /**
@@ -46,6 +53,10 @@ module.exports.addAddress = async (params) => {
  */
 module.exports.updateAddress = async (params) => {
   try {
+    if (!params.id || !params.address) {
+      return { success: false, message: ErrorMessage.MISSING_PARAMETER };
+    }
+
     const account = await Customer.findOne({ _id: ObjectId(params.id) });
     params.address = JSON.parse(params.address);
     if (account) {
@@ -56,11 +67,13 @@ module.exports.updateAddress = async (params) => {
       }
       account.address.push(params.address);
       await account.save();
-      return account.address;
+      return { success: true, address: account.address };
     }
+
+    return { success: false, message: ErrorMessage.USER_NOT_FOUND };
   } catch (error) {
     console.log(error);
-    return error;
+    return { success: false, message: error.message || error };
   }
 };
 /**
@@ -77,6 +90,10 @@ module.exports.updateAddress = async (params) => {
  */
 module.exports.deleteAddress = async (params) => {
   try {
+    if (!params.id || !params.address) {
+      return { success: false, message: ErrorMessage.MISSING_PARAMETER };
+    }
+
     const account = await Customer.findOne({ _id: ObjectId(params.id) });
     params.address = JSON.parse(params.address);
     if (account) {
@@ -86,11 +103,14 @@ module.exports.deleteAddress = async (params) => {
         account.address = account.address.filter((addr) => addr.addressTitle !== params.address.addressTitle);
       }
       await account.save();
-      return account.address;
+
+      return { success: true, address: account.address };
     }
+
+    return { success: false, message: ErrorMessage.USER_NOT_FOUND };
   } catch (error) {
     console.log(error);
-    return error;
+    return { success: false, message: error.message || error };
   }
 };
 /**
@@ -114,16 +134,26 @@ module.exports.deleteAddress = async (params) => {
  */
 module.exports.getAccountInfo = async (params) => {
   try {
-    let account;
+    if (!params.id || !params.userType) {
+      return { success: false, message: ErrorMessage.MISSING_PARAMETER };
+    }
+
     const collection = params.userType === "customer" ? Customer : Vendor;
-    account = await collection.findOne({ _id: ObjectId(params.id) });
+    let account = await collection.findOne({ _id: ObjectId(params.id) });
+
+    if (!account) {
+      return { success: false, message: ErrorMessage.USER_NOT_FOUND };
+    }
+
     account = account.toJSON();
+
     delete account._id;
     delete account.__v;
-    return account;
+
+    return { success: true, account };
   } catch (error) {
     console.log(error);
-    return error;
+    return { success: false, message: error.message || error };
   }
 };
 /**
@@ -145,6 +175,10 @@ module.exports.getAccountInfo = async (params) => {
  */
 module.exports.updateAccountInfo = async (params) => {
   try {
+    if (!params.id || !params.userType) {
+      return { success: false, message: ErrorMessage.MISSING_PARAMETER };
+    }
+
     const collection = params.userType === "customer" ? Customer : Vendor;
     const account = await collection.findOne({ _id: ObjectId(params.id) });
     if (account && params.userType === "customer") {
@@ -166,10 +200,15 @@ module.exports.updateAccountInfo = async (params) => {
       });
       await account.save();
     }
-    return !!account;
+
+    if (account) {
+      return { success: true };
+    }
+
+    return { success: false, message: ErrorMessage.USER_NOT_FOUND };
   } catch (error) {
     console.log(error);
-    return error;
+    return { success: false, message: error.message || error };
   }
 };
 /**
@@ -186,16 +225,21 @@ module.exports.updateAccountInfo = async (params) => {
  */
 module.exports.changePassword = async (params) => {
   try {
+    if (!params.id || !params.userType) {
+      return { success: false, message: ErrorMessage.MISSING_PARAMETER };
+    }
     const collection = params.userType === "customer" ? Customer : Vendor;
     const account = await collection.findOne({ _id: ObjectId(params.id) });
     if (account) {
       account.password = params.password;
       await account.save();
+
+      return { success: true };
     }
-    return !!account;
+    return { success: false, message: ErrorMessage.USER_NOT_FOUND };
   } catch (error) {
     console.log(error);
-    return error;
+    return { success: false, message: error.message || error };
   }
 };
 /**
