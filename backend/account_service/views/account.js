@@ -1,6 +1,8 @@
 const Customer = require("../models/customer").Customer;
 const Vendor = require("../models/vendor").Vendor;
 const ObjectId = require("mongoose").Types.ObjectId;
+const { ErrorMessage } = require("../constants/error");
+
 /**
  * Adds a new address to a customer user.
  *
@@ -148,10 +150,9 @@ module.exports.updateAccountInfo = async (params) => {
     if (account && params.userType === "customer") {
       ["name", "email", "gender", "phoneNumber"].forEach((field) => {
         if (params[field]) {
-          if (field !== "name"){
-          account[field] = params[field];
-          }
-          else{
+          if (field !== "name") {
+            account[field] = params[field];
+          } else {
             account["name"] = params["name"] + " " + params["surname"];
           }
         }
@@ -209,18 +210,20 @@ module.exports.changePassword = async (params) => {
  */
 module.exports.login = async (params) => {
   try {
+    if (!params.email || !params.password || !params.userType) {
+      return { success: false, message: ErrorMessage.MISSING_PARAMETER };
+    }
     const collection = params.userType === "customer" ? Customer : Vendor;
     const user = await collection.findOne({
       email: params.email,
       password: params.password,
     });
     if (user) {
-      return user._id.toString();
+      return { success: true, userId: user._id.toString() };
     }
-    return false;
+    return { success: false, message: ErrorMessage.USER_NOT_FOUND };
   } catch (error) {
-    console.log(error);
-    return error;
+    return { success: false, message: error.message || error };
   }
 };
 /**
@@ -238,12 +241,15 @@ module.exports.login = async (params) => {
  */
 module.exports.signup = async (params) => {
   try {
+    if (!params.email || !params.password || !params.userType) {
+      return { success: false, message: ErrorMessage.MISSING_PARAMETER };
+    }
     const collection = params.userType === "customer" ? Customer : Vendor;
     let userLog = await collection.findOne({ email: params.email });
     if (userLog) {
-      return "This email has been already used";
+      return { success: false, message: ErrorMessage.EMAIL_HAS_BEEN_USED };
     }
-    var user;
+    let user;
     if (params.userType === "customer") {
       user = await Customer.create({
         email: params.email,
@@ -262,11 +268,12 @@ module.exports.signup = async (params) => {
       });
     }
     if (user) {
-      return user._id.toString();
+      return { success: true, userId: user._id.toString() };
     }
-    return false;
+
+    return { success: false, message: ErrorMessage.COULD_NOT_CREATE_USER };
   } catch (error) {
     console.log(error);
-    return error;
+    return { success: false, message: error.message || error };
   }
 };
