@@ -14,7 +14,7 @@ module.exports.initialize = (app) => {
 
   app.post("/file", async (request, response) => {
     const urls = await file.upload(request.files);
-    console.log(urls);
+
     response.respond(200, "OK", { urls });
   });
 };
