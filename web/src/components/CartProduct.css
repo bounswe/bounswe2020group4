@@ -1,5 +1,42 @@
 
+.card-header{
+    background-color: var(--beige) !important;
+    font-weight: 500;
+    color: var(--red);
+}
 
-.header{
-    background-color: #fce1c0;
+.card-img-container{
+    object-fit: cover !important;
+    width: 100%;
+    height: 100%;
+}
+
+.card-img{
+    object-fit: cover !important;
+    width: 100%;
+    height: 100%;
+}
+
+.product-name{
+    color: var(--red-secondary) !important;
+    font-weight: 500 !important;
+}
+
+.product-brand{
+    font-weight: 300 !important;
+    font-size: large !important;
+}
+
+.product-attr{
+    font-weight: 500 !important;
+    font-size: small !important;
+}
+
+.product-discount{
+    color: var(--red) !important;
+}
+
+.product-quantity{
+    font-weight: 300 !important;
+    font-size: large !important;
 }
