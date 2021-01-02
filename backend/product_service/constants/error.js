@@ -3,7 +3,7 @@ module.exports.ErrorMessage = {
   COULD_NOT_CREATE_USER: "User couldn't be created",
   MISSING_PARAMETER: "Missing parameter, see documentation for details",
   ADDRESS_ALREADY_EXISTS: "Address with the title already exists",
-  USER_NOT_FOUND: "User not found=",
+  USER_NOT_FOUND: "User not found",
 };
 
 module.exports.ErrorCode = (message) => {
