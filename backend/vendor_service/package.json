@@ -19,7 +19,7 @@
   },
   "scripts": {
     "start": "node index.js",
-    "test": "mocha ./tests/* --timeout 50000"
+    "test": "mocha -r dotenv/config ./tests/* --timeout 50000 --exit"
   },
   "author": "CMPE 451 Spring 2020 - Group 4",
   "license": "ISC"
