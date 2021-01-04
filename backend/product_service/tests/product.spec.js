@@ -23,7 +23,6 @@ describe("# Account view tests", async function () {
     it("should get products correctly", async () => {
       const result = await Product.getProducts();
 
-      console.log(result)
 
       chai.expect(result.success).to.be.true;
       chai.expect(result).to.be.instanceof(Array);
@@ -44,7 +43,6 @@ describe("# Account view tests", async function () {
   describe("function: getProductCategories", () => {
     it("should get categories correctly", async () => {
       const result = await Product.getProductCategories();
-      console.log(result)
 
       chai.expect(result.success).to.be.true;
       chai.expect(result).to.be.instanceof(Array);
@@ -53,7 +51,6 @@ describe("# Account view tests", async function () {
 
     it("should fail with empty array", async () => {
       const result = await  await Product.getProductCategories();
-      console.log(result)
 
       chai.expect(result.success).to.be.false;
       chai.expect(result).to.be.instanceof(Array);
