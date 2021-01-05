@@ -46,10 +46,18 @@ describe("# Comment view tests", async function () {
     });
 
 
-    it("should return false", async () => {
+    it("should return false with product not found error", async () => {
       const result = await comment.add({
         customerId: customerId,
         productId: "best product",
+      });
+      chai.expect(result.success).to.be.false;
+    });
+
+    it("should return false with customer not found error", async () => {
+      const result = await comment.add({
+        customerId: "customer",
+        productId: productId,
       });
       chai.expect(result.success).to.be.false;
     });
