@@ -4,6 +4,7 @@ const chai = require("chai"),
   Customer = require("../models/customer").Customer,
   Product = require("../models/product").Product,
   Comment = require("../models/comment").Comment,
+  account = require("../../account_service/views/account"),
   comment = require("../views/comment"),
   { ErrorMessage } = require("../constants/error");
 
@@ -15,10 +16,25 @@ describe("# Comment view tests", async function () {
   before("Create test user", async () => {
     await db.initialize();
   });
-
-  let customerId = await Customer.findOne();
+  let customerId;
   let productId = await Product.findOne(); 
   let commentId;
+  describe("function: signup", () => {
+    it("should perform a successful customer signup", async () => {
+      const result = await account.signup({
+        name: "Bob Dylan",
+        email: "bobdylan@buyo.com",
+        password: 1234,
+        userType: "customer",
+      });
+
+      chai.expect(result.success).to.be.true;
+      chai.expect(result).has.property("userId");
+      chai.expect(result.userId).to.be.a("string");
+
+      customerId = result.userId;
+    });
+
 
   describe("function: comment", () => {
     it("should perform a successful comment to a product", async () => {
