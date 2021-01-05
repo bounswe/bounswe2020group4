@@ -8,9 +8,12 @@ module.exports.initialize = (app) => {
    * from that user.
    */
   app.post("/like", async (request, response) => {
-    await like.like(request.query);
-
+    const result = await like.like(request.query);
+    if(result.success){
     response.respond(200, "OK");
+    } else {
+      response.respond(404, result.message);
+    }
   });
 
   /**
@@ -31,8 +34,13 @@ module.exports.initialize = (app) => {
    * Gets comment id and deletes that comment.
    */
   app.delete("/comment", async (request, response) => {
-    await comment.delete(request.query);
-
+    const result = await comment.delete(request.query);
+    if(result.success){
     response.respond(200, "OK");
+    }
+    else {
+      response.respond(404, result.message);
+
+    }
   });
 };

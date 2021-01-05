@@ -2,6 +2,7 @@ const Comment = require("../models/comment").Comment;
 const Product = require("../models/product").Product;
 const Vendor = require("../models/vendor").Vendor;
 const ObjectId = require("mongoose").Types.ObjectId;
+const { ErrorMessage } = require("../constants/error");
 
 /**
  * Adds comment to given product, from given customer, with given text.
@@ -9,19 +10,22 @@ const ObjectId = require("mongoose").Types.ObjectId;
  * @param {
  *  userId: String,
  *  productId: String,
- *  text: String
+ *  comment: String
  * } params
  *
  * @returns {commentId | error}
  */
 module.exports.add = async (params) => {
   try {
+    if (!params.productId || !params.userId || !params.comment) {
+      return { success: false, message: ErrorMessage.MISSING_PARAMETER };
+    }
     const product = await Product.findById(ObjectId(params.productId));
 
     if (!product) {
       return {
         success: false,
-        message: "Product not found.",
+        message: ErrorMessage.PRODUCT_NOT_FOUND,
       };
     }
 
@@ -67,7 +71,8 @@ module.exports.add = async (params) => {
 module.exports.delete = async (params) => {
   try {
     await Comment.deleteOne({ _id: ObjectId(params.id) });
+    return {success: true};
   } catch (error) {
-    return error;
+    return { success: false, message: error.message || error };
   }
 };
