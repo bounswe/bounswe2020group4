@@ -8,8 +8,7 @@ import com.cmpe352group4.buyo.api.Resource
 import com.cmpe352group4.buyo.base.AppExecutors
 import com.cmpe352group4.buyo.base.ConnectionManager
 import com.cmpe352group4.buyo.util.livedata.InitialLiveData
-import com.cmpe352group4.buyo.vo.BaseResponse
-import com.cmpe352group4.buyo.vo.LoginSingupResponse
+import com.cmpe352group4.buyo.vo.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -20,22 +19,80 @@ class ProfileRepository @Inject constructor(
     private val connectionManager: ConnectionManager
 ){
 
-    fun loginUser(userType: String, email: String, password: String): LiveData<Resource<LoginSingupResponse>> {
+    fun loginCustomer(userType: String, email: String, password: String): LiveData<Resource<LoginSingupResponse>> {
         return object : NetworkServiceWrapper<LoginSingupResponse, BaseResponse<LoginSingupResponse>>(appExecutors,connectionManager){
             override fun loadFromApi(data: BaseResponse<LoginSingupResponse>): LiveData<LoginSingupResponse> {
                 return InitialLiveData.create(data.data)
             }
-            override fun createCall(): LiveData<ApiResponse<BaseResponse<LoginSingupResponse>>> = api.login(userType, email, password)
+            override fun createCall(): LiveData<ApiResponse<BaseResponse<LoginSingupResponse>>> = api.login_customer(userType, email, password)
         }.asLiveData()
     }
 
-    fun singupUser(userType: String, email: String, password: String): LiveData<Resource<LoginSingupResponse>> {
+    fun singupCustomer(userType: String, email: String, password: String): LiveData<Resource<LoginSingupResponse>> {
         return object : NetworkServiceWrapper<LoginSingupResponse, BaseResponse<LoginSingupResponse>>(appExecutors,connectionManager){
             override fun loadFromApi(data: BaseResponse<LoginSingupResponse>): LiveData<LoginSingupResponse> {
                 return InitialLiveData.create(data.data)
             }
-            override fun createCall(): LiveData<ApiResponse<BaseResponse<LoginSingupResponse>>> = api.signup(userType, email, password)
+            override fun createCall(): LiveData<ApiResponse<BaseResponse<LoginSingupResponse>>> = api.signup_customer(userType, email, password)
         }.asLiveData()
     }
 
+    fun getProfileInfo(customerId: String, userType: String): LiveData<Resource<CustomerInformationResult>> {
+        return object : NetworkServiceWrapper<CustomerInformationResult,BaseResponse<CustomerInformationResult>>(appExecutors,connectionManager){
+            override fun loadFromApi(data: BaseResponse<CustomerInformationResult>): LiveData<CustomerInformationResult> {
+                return InitialLiveData.create(data.data)
+            }
+            override fun createCall(): LiveData<ApiResponse<BaseResponse<CustomerInformationResult>>> = api.fetchAccountInformation(customerId, userType)
+        }.asLiveData()
+    }
+
+    fun loginVendor(userType: String, email: String, password: String): LiveData<Resource<LoginSingupResponse>> {
+        return object : NetworkServiceWrapper<LoginSingupResponse, BaseResponse<LoginSingupResponse>>(appExecutors,connectionManager){
+            override fun loadFromApi(data: BaseResponse<LoginSingupResponse>): LiveData<LoginSingupResponse> {
+                return InitialLiveData.create(data.data)
+            }
+            override fun createCall(): LiveData<ApiResponse<BaseResponse<LoginSingupResponse>>> = api.login_vendor(userType, email, password)
+        }.asLiveData()
+    }
+
+    fun singupVendor(userType: String, email: String, password: String, latitude: String,
+                     longitude: String, website: String, company: String): LiveData<Resource<LoginSingupResponse>> {
+        return object : NetworkServiceWrapper<LoginSingupResponse, BaseResponse<LoginSingupResponse>>(appExecutors,connectionManager){
+            override fun loadFromApi(data: BaseResponse<LoginSingupResponse>): LiveData<LoginSingupResponse> {
+                return InitialLiveData.create(data.data)
+            }
+            override fun createCall(): LiveData<ApiResponse<BaseResponse<LoginSingupResponse>>> =
+                api.signup_vendor(userType, email, password, latitude, longitude, website, company)
+        }.asLiveData()
+    }
+
+    fun changePassword(id: String, userType: String, password: String): LiveData<Resource<BaseResponsePostRequest>> {
+        return object : NetworkServiceWrapper<BaseResponsePostRequest, BaseResponsePostRequest>(appExecutors,connectionManager){
+            override fun loadFromApi(data: BaseResponsePostRequest): LiveData<BaseResponsePostRequest> {
+                return InitialLiveData.create(data)
+            }
+            override fun createCall(): LiveData<ApiResponse<BaseResponsePostRequest>> = api.changePassword(id, userType, password)
+        }.asLiveData()
+    }
+  
+    fun addAddress(addAddressRequest: AddAddressRequest): LiveData<Resource<BaseResponsePostRequest>> {
+        return object : NetworkServiceWrapper<BaseResponsePostRequest, BaseResponsePostRequest>(appExecutors,connectionManager){
+            override fun loadFromApi(data: BaseResponsePostRequest): LiveData<BaseResponsePostRequest> {
+                return InitialLiveData.create(data)
+            }
+            override fun createCall(): LiveData<ApiResponse<BaseResponsePostRequest>> = api.addAddress(addAddressRequest.id, addAddressRequest.address)
+        }.asLiveData()
+    }
+
+    fun saveAccountInfo(id: String, userType: String, name: String, surname: String, email: String,
+                        phoneNumber: String, gender: String): LiveData<Resource<BaseResponsePostRequest>> {
+        return object : NetworkServiceWrapper<BaseResponsePostRequest, BaseResponsePostRequest>(appExecutors,connectionManager){
+            override fun loadFromApi(data: BaseResponsePostRequest): LiveData<BaseResponsePostRequest> {
+                return InitialLiveData.create(data)
+            }
+            override fun createCall(): LiveData<ApiResponse<BaseResponsePostRequest>> =
+                api.saveAccountInfo(id, userType, name, surname, email, phoneNumber, gender)
+        }.asLiveData()
+    }
 }
+

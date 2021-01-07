@@ -1,4 +1,4 @@
-package com.cmpe352group4.buyo.ui.categoriesPage
+package com.cmpe352group4.buyo.ui.categories
 
 import android.view.View
 import android.view.ViewGroup

@@ -77,6 +77,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ivProductDetailImage" />
 
+            <RatingBar
+                android:id="@+id/rbProductDetailRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:isIndicator="true"
+                app:layout_constraintBottom_toTopOf="@+id/tvProductDetailInfoCampaign"
+                app:layout_constraintEnd_toStartOf="@+id/iv_ProductDetailFav"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvProductDetailName" />
+
             <TextView
                 android:id="@+id/tvProductDetailVendor"
                 android:layout_width="0dp"
@@ -91,45 +103,84 @@
                 app:layout_constraintStart_toEndOf="@+id/tvProductDetailName"
                 app:layout_constraintTop_toTopOf="@+id/tvProductDetailName" />
 
-            <ToggleButton
-                android:id="@+id/tbProductDetailFav"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/tvProductDetailInfoCampaign"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/buyo_Cinnabar"
-                android:textColor="@color/buyo_antiqueWhite"
-                android:textOff="Like"
-                android:textOn="Dislike"
+                android:background="@color/buyo_white"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@string/tv_product_detail_content_info"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/tvProductDetailInfoBrand"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rbProductDetailRating" />
+
+            <TextView
+                android:id="@+id/tvProductDetailInfoBrand"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/buyo_white"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@string/tv_product_detail_content_info"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="8sp"
+                app:layout_constraintBottom_toTopOf="@+id/tvProductDetailInfoColors"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvProductDetailInfoCampaign" />
+
+            <TextView
+                android:id="@+id/tvProductDetailInfoColors"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/buyo_white"
+                android:ellipsize="end"
+                android:text="@string/tv_product_detail_content_info"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginTop="8sp"
+                app:layout_constraintBottom_toTopOf="@+id/tvProductDetailInfoSizes"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvProductDetailInfoBrand" />
+
+            <TextView
+                android:id="@+id/tvProductDetailInfoSizes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/buyo_white"
+                android:ellipsize="end"
+                android:text="@string/tv_product_detail_content_info"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginTop="8sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvProductDetailInfoColors" />
+
+            <ImageView
+                android:id="@+id/iv_ProductDetailFav"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_product_disliked"
+                android:layout_marginTop="8sp"
+                android:layout_marginBottom="8sp"
                 app:layout_constraintBottom_toBottomOf="@+id/rbProductDetailRating"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/rbProductDetailRating"
                 app:layout_constraintTop_toTopOf="@+id/rbProductDetailRating" />
 
-            <RatingBar
-                android:id="@+id/rbProductDetailRating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:isIndicator="true"
-                app:layout_constraintBottom_toTopOf="@+id/tvProductDetailInfo"
-                app:layout_constraintEnd_toStartOf="@+id/tbProductDetailFav"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvProductDetailName" />
-
-            <TextView
-                android:id="@+id/tvProductDetailInfo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/buyo_antiqueWhite"
-                android:text="@string/tv_product_detail_content_info"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rbProductDetailRating" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

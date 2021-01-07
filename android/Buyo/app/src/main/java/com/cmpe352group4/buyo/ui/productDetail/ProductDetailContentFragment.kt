@@ -2,10 +2,10 @@ package com.cmpe352group4.buyo.ui.productDetail
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -17,10 +17,10 @@ import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.viewmodel.ProductViewModel
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
+import com.cmpe352group4.buyo.viewmodel.CartViewModel
 import com.cmpe352group4.buyo.viewmodel.WishListViewModel
 import com.cmpe352group4.buyo.vo.LikeResponse
 import com.cmpe352group4.buyo.vo.Product
-import kotlinx.android.synthetic.main.fragment_product_detail_comments.*
 import kotlinx.android.synthetic.main.fragment_product_detail_content.*
 import javax.inject.Inject
 
@@ -36,20 +36,23 @@ class ProductDetailContentFragment : BaseFragment() {
         viewModelFactory
     }
 
-    private var isToggleChangedByUser = true
-
     private val wishListViewModel: WishListViewModel by viewModels {
+        viewModelFactory
+    }
+
+    private val cartViewModel: CartViewModel by viewModels {
         viewModelFactory
     }
 
     companion object {
         private const val PRODUCT_ID = "product_id"
-        fun newInstance(productID: Int) = ProductDetailContentFragment().apply {
+        fun newInstance(productID: String) = ProductDetailContentFragment().apply {
             arguments = Bundle().apply {
-                putInt(PRODUCT_ID, productID)
+                putString(PRODUCT_ID, productID)
             }
         }
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,30 +67,40 @@ class ProductDetailContentFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var productId = arguments?.getInt(PRODUCT_ID) ?: -1
 
+        var productId = arguments?.getString(PRODUCT_ID) ?: ""
 
-        // Backend request
+        var WishListProducts: List<Product>?
 
-        var WishListProducts: List<Product>? = null
+        var wishlist_prod_ids : List<String>? = null
 
-        var prod_ids : List<Int>? = null
+        //var cart_prod_ids : List<String>? = null
+
+        var product : Product? = null
+
+        iv_ProductDetailFav.tag = R.drawable.ic_product_disliked
 
 
         // GET LIKED PRODUCTS IF A USER LOGGED IN
 
         if(sharedPref.getUserId().isNullOrEmpty()){
-            Log.i("ProductList", "Guest User")
+            Log.i("ProductResponse", "Guest User")
+            wishlist_prod_ids = emptyList()
 
         }else {
-            wishListViewModel.onFetchWishListProducts(sharedPref.getUserId()?.toInt() ?: -1)
+            wishListViewModel.onFetchWishListProducts(sharedPref.getUserId() ?: "")
 
             wishListViewModel.wishListProducts.observe(viewLifecycleOwner, Observer {
+                Log.d("LikedProdStFetch", "$it.status")
                 if (it.status == Status.SUCCESS && it.data != null) {
 
                     WishListProducts = it.data.products as MutableList<Product>
 
-                    prod_ids = WishListProducts?.map{it.id}
+                    wishlist_prod_ids = WishListProducts?.map{it.id}
+
+                    Log.d("LikedProdFetch", "$wishlist_prod_ids")
+
+                    parse(wishlist_prod_ids, product)
 
                     dispatchLoading()
                 } else if (it.status == Status.ERROR) {
@@ -96,46 +109,48 @@ class ProductDetailContentFragment : BaseFragment() {
                     showLoading()
                 }
             })
+
+            /*
+            cartViewModel.onFetchCartInfo(sharedPref.getUserId() ?: "")
+
+            cartViewModel.cartInfo.observe(viewLifecycleOwner, Observer {
+                Log.i("CartProducts", "Fetching")
+                if (it.status == Status.SUCCESS && it.data != null) {
+                    Log.i("CartProducts", "Success")
+                    cartProducts = it.data.products as MutableList<Product>
+
+                    cart_prod_ids = cartProducts?.map{it.id}
+
+                    parse(wishlist_prod_ids, product)
+
+                    dispatchLoading()
+                } else if (it.status == Status.ERROR) {
+                    Log.i("CartProducts", "Error")
+                    Log.i("CartProducts", it.message.toString())
+                    Log.i("CartProductsUser", sharedPref.getUserId().toString())
+                    Log.i("CartProductsProd", productId)
+                    dispatchLoading()
+                } else if (it.status == Status.LOADING) {
+                    showLoading()
+                }
+            })
+            */
+
+
+
         }
 
 
-        // PARSE PRODUCT
+        // GET PRODUCT RESULT
 
         productViewModel.onFetchProductById(productId)
         productViewModel.productDetail.observe(viewLifecycleOwner, Observer {
+            Log.d("LikedProdStParse", "$it.status")
             if (it.status == Status.SUCCESS && it.data != null){
 
-                if(prod_ids != null){
-                    if(prod_ids!!.contains(it.data.result.id)){
-                        if (!tbProductDetailFav.isChecked){
-                            isToggleChangedByUser = false
-                            tbProductDetailFav.toggle()
-                        }
-                    } else{
-                        if (tbProductDetailFav.isChecked){
-                            isToggleChangedByUser = false
-                            tbProductDetailFav.toggle()
-                        }
-                    }
-                }
+                product = it.data.result
 
-
-                tvProductDetailName.text = it.data.result.name
-                tvProductDetailVendor.text = it.data.result.vendor.name
-                tvProductDetailInfo.text = "Brand: " + it.data.result.brand + "\n" +
-                        "Vendor Rating: " + it.data.result.vendor.rating.toString() + "\n" +
-                        "Category: " + it.data.result.category.toString() + "\n" +
-                        "Available sizes: " + it.data.result.sizes + "\n" +
-                        "Available colors: " + it.data.result.colors.toString() + "\n" +
-                        "Rating: " + it.data.result.rating + "\n" +
-                        "Original Price: " + it.data.result.originalPrice.toString() + "\n" +
-                        "Current Price: " + it.data.result.price.toString() + "\n"
-                tvProductDetailPrice.text = it.data.result.price.toString() + " TL"
-                rbProductDetailRating.rating = it.data.result.rating.toFloat()
-                Glide.with(this)
-                    .load(it.data.result.imageUrl).centerCrop()
-                    .into(ivProductDetailImage)
-
+                parse(wishlist_prod_ids, product)
                 dispatchLoading()
             } else if (it.status == Status.ERROR){
                 dispatchLoading()
@@ -145,86 +160,163 @@ class ProductDetailContentFragment : BaseFragment() {
 
         })
 
+
         //LIKING / UNLIKING
-        tbProductDetailFav.setOnCheckedChangeListener { favButton, isChecked ->
-            if (!isToggleChangedByUser) {
-                isToggleChangedByUser = true
+
+        iv_ProductDetailFav.setOnClickListener {
+            if (sharedPref.getUserId().isNullOrEmpty()) {
+                val myToast = Toast.makeText(
+                    context,
+                    "You need to Login first!",
+                    Toast.LENGTH_SHORT
+                )
+                myToast.setGravity(Gravity.BOTTOM, 0, 200)
+                myToast.show()
             } else {
-                if (sharedPref.getUserId().isNullOrEmpty()) {
-                    Toast.makeText(context, "You need to login first", Toast.LENGTH_LONG).show()
-                    isToggleChangedByUser = false
-                    favButton.toggle()
-                } else {
-                    if (isChecked) {
-                        wishListViewModel.onPostWhislistUpdate(
-                            LikeResponse(
-                                sharedPref.getUserId()?.toInt() ?: -1, productId
-                            )
-                        )
+                if (iv_ProductDetailFav.tag == R.drawable.ic_product_disliked) {
+                    wishListViewModel.onPostWhislistUpdate(LikeResponse(sharedPref.getUserId() ?: "", productId))
 
-                        wishListViewModel.statusUnlike.observe(viewLifecycleOwner, Observer {
-                            if (it.status == Status.SUCCESS && it.data != null) {
+                    wishListViewModel.statusUnlike.observe(viewLifecycleOwner, Observer {
+                        if (it.status == Status.SUCCESS && it.data != null) {
 
-                                /*Toast.makeText(
-                                    context,
-                                    "Product is added to your wishlist!",
-                                    Toast.LENGTH_SHORT
-                                ).show()*/
+                            iv_ProductDetailFav.setImageResource(R.drawable.ic_product_liked)
+                            iv_ProductDetailFav.tag = R.drawable.ic_product_liked
 
-                                dispatchLoading()
-                            } else if (it.status == Status.ERROR) {
-                                dispatchLoading()
-                            } else if (it.status == Status.LOADING) {
-                                showLoading()
-                            }
-                        })
+                            dispatchLoading()
+                        } else if (it.status == Status.ERROR) {
+                            dispatchLoading()
+                        } else if (it.status == Status.LOADING) {
+                            showLoading()
+                        }
+                    })
 
-                    } else {
-                        wishListViewModel.onPostWhislistUpdate(
-                            LikeResponse(
-                                sharedPref.getUserId()?.toInt() ?: -1, productId
-                            )
-                        )
+                } else if (iv_ProductDetailFav.tag == R.drawable.ic_product_liked) {
 
-                        wishListViewModel.statusUnlike.observe(viewLifecycleOwner, Observer {
-                            if (it.status == Status.SUCCESS && it.data != null) {
 
-                                /*Toast.makeText(
-                                    context,
-                                    "Product is removed from your wishlist!",
-                                    Toast.LENGTH_SHORT
-                                ).show()*/
+                    wishListViewModel.onPostWhislistUpdate(LikeResponse(sharedPref.getUserId() ?: "", productId))
 
-                                dispatchLoading()
-                            } else if (it.status == Status.ERROR) {
-                                dispatchLoading()
-                            } else if (it.status == Status.LOADING) {
-                                showLoading()
-                            }
-                        })
-                    }
+                    wishListViewModel.statusUnlike.observe(viewLifecycleOwner, Observer {
+                        if (it.status == Status.SUCCESS && it.data != null) {
+
+                            iv_ProductDetailFav.setImageResource(R.drawable.ic_product_disliked)
+                            iv_ProductDetailFav.tag = R.drawable.ic_product_disliked
+
+                            dispatchLoading()
+                        } else if (it.status == Status.ERROR) {
+                            dispatchLoading()
+                        } else if (it.status == Status.LOADING) {
+                            showLoading()
+                        }
+                    })
+
                 }
             }
         }
 
-
-        // ADD CART AND OTHER BUTTONS
+        // ADD CART
 
         btnProductDetailCart.setOnClickListener {
             if(sharedPref.getUserId().isNullOrEmpty()){
                 Toast.makeText(context, "You need to login first", Toast.LENGTH_LONG).show()
             }else{
-                Toast.makeText(context, "Added to your cart!", Toast.LENGTH_LONG).show()
+                //Toast.makeText(context, "Added to your cart!", Toast.LENGTH_LONG).show()
+                navigationManager?.onReplace(
+                    AddCartFragment.newInstance(product),
+                    TransactionType.Replace, true
+                )
             }
         }
+
+        // COMMENT
+
         btnProductDetailComments.setOnClickListener {
             navigationManager?.onReplace(
-                ProductDetailCommentsFragment.newInstance(),
+                ProductDetailCommentsFragment.newInstance(productId),
                 TransactionType.Replace, true
             )
         }
+
+        // BACK
         btnProductDetailBack.setOnClickListener {
             activity?.onBackPressed()
         }
+
+        Log.d("LikedProdEnd", "$wishlist_prod_ids")
+        parse(wishlist_prod_ids, product)
+
+        Log.i("CartProductsUser", sharedPref.getUserId().toString())
+        Log.i("CartProductsProd", productId)
     }
+
+    override fun onResume() {
+        super.onResume()
+
+        if(sharedPref.getUserId().isNullOrEmpty()){
+
+        }else{
+            wishListViewModel.onFetchWishListProducts(sharedPref.getUserId() ?: "")
+
+        }
+
+    }
+
+    fun parse(wishlist_prod_ids: List<String>?, product : Product?){
+        if (wishlist_prod_ids != null && product != null ){
+            Log.d("LikedProdParse", "$wishlist_prod_ids")
+
+            if(wishlist_prod_ids != null){
+                if(wishlist_prod_ids!!.contains(product!!.id)){
+                    if (iv_ProductDetailFav.tag == R.drawable.ic_product_disliked){
+                        iv_ProductDetailFav.setImageResource(R.drawable.ic_product_liked)
+                        iv_ProductDetailFav.tag = R.drawable.ic_product_liked
+                    }
+                } else{
+                    if (iv_ProductDetailFav.tag == R.drawable.ic_product_liked){
+                        iv_ProductDetailFav.setImageResource(R.drawable.ic_product_disliked)
+                        iv_ProductDetailFav.tag = R.drawable.ic_product_disliked
+                    }
+                }
+            }
+
+            tvProductDetailName.text = product!!.name
+            tvProductDetailVendor.text = product!!.name
+
+            if (product!!.price != product!!.originalPrice) {
+                tvProductDetailInfoCampaign.text = "DISCOUNT: Buy this product for " + product!!.price + " instead of " + product!!.originalPrice + "."
+            }
+            else{
+                tvProductDetailInfoCampaign.visibility = View.INVISIBLE
+            }
+
+            tvProductDetailInfoBrand.text = "Brand: " + product!!.brand
+
+
+            var stockStatusColor = ""
+
+            for (attributes in product.productInfos ){
+                for (attribute in attributes.attributes){
+                    stockStatusColor +=  attribute.name.toUpperCase() + ":" + attribute.value.toUpperCase() + " & "
+                }
+
+                stockStatusColor = stockStatusColor.dropLast(2)
+
+                stockStatusColor += " (" + attributes.stockValue + ")\n"
+
+            }
+
+            tvProductDetailInfoColors.text = "Available options: (stocks) \n" + stockStatusColor
+
+            tvProductDetailInfoSizes.text = product.description
+
+
+
+            tvProductDetailPrice.text = product!!.price.toString() + " ₺"
+            rbProductDetailRating.rating = product!!.rating.toFloat()
+            Glide.with(this)
+                .load(product!!.imageUrl).centerCrop()
+                .into(ivProductDetailImage)
+        }
+
+    }
+
 }

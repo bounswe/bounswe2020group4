@@ -21,7 +21,7 @@ class WishListViewModel @Inject constructor(
     @Inject
     lateinit var sharedPref: SharedPref
 
-    private val _wishListProduct = MutableLiveData<Int>()
+    private val _wishListProduct = MutableLiveData<String>()
 
     private val _whislistAddRemove= MutableLiveData<LikeResponse>()
 
@@ -41,7 +41,7 @@ class WishListViewModel @Inject constructor(
                 repository.unlikeProduct(it.custID, it.prodID)
         }
 
-    fun onFetchWishListProducts(customerId: Int) {
+    fun onFetchWishListProducts(customerId: String) {
         _wishListProduct.value = customerId
     }
 
