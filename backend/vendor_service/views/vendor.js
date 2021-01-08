@@ -47,9 +47,6 @@ module.exports.getProducts = async (params) => {
     }else{
       products = await Product.find();
     }
-    console.log('************')
-    console.log(products)
-    console.log('************')
 
     var filterCriterias = [];
     var filteringConfig = {
