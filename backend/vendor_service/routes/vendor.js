@@ -1,4 +1,6 @@
 const file = require("../views/file");
+const vendor = require("../views/vendor");
+
 
 module.exports.initialize = (app) => {
   app.post("/vendor/products", async (request, response) => {
@@ -20,7 +22,11 @@ module.exports.initialize = (app) => {
 
 
   app.get("/vendor/products", async (request, response) => {
-    const result = await product.getProducts(request.body.products);
+
+    console.log("***------*****")
+    console.log(request.query)
+    console.log("***------*****")
+    const result = await vendor.getProducts(request.query);
     if (result) {
       response.respond(200, "OK", {
         result,

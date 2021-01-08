@@ -1,12 +1,15 @@
 const Product = require("../models/product").Product;
 const ObjectId = require("mongoose").Types.ObjectId;
 
+const Vendor = require("../models/vendor").Vendor;
+
+
 module.exports.addProducts = async (products) => {
   try {
     const dbProducts = [];
 
     products.forEach((product) => {
-      const product = new Product({
+      const newProduct = new Product({
         name: product.name,
         imageUrl: product.imageUrl,
         category: product.category,
@@ -20,7 +23,7 @@ module.exports.addProducts = async (products) => {
         vendorId: ObjectId(product.vendorId),
       });
 
-      dbProducts.push(product);
+      dbProducts.push(newProduct);
     });
 
     await Promise.all(dbProducts.map(async (dbProduct) => await dbProduct.save()));
@@ -41,7 +44,12 @@ module.exports.getProducts = async (params) => {
       products = await Product.find({ category: { $all: JSON.parse(params.categories) } });
     } else if (params.search) {
       products = await Product.find({ name: { $regex: params.search, $options: "i" } });
+    }else{
+      products = await Product.find();
     }
+    console.log('************')
+    console.log(products)
+    console.log('************')
 
     var filterCriterias = [];
     var filteringConfig = {
@@ -59,48 +67,51 @@ module.exports.getProducts = async (params) => {
      * For instance if user filter RAM as 4 GB, we wont be able to see other RAM values.
      * Thats why I create filtering part here.
      */
-    products.forEach(function (product) {
-      if (product.productInfos.length > 0) {
-        product.productInfos.forEach(function (property) {
-          property["attributes"].forEach(function (attribute) {
-            if (filterCriterias.length === 0) {
-              filterCriterias.push({
-                name: attribute.name,
-                displayName: filteringConfig[attribute.name],
-                possibleValues: [attribute.value],
-              });
-            } else {
-              var nameCheckerObject = filterCriterias.filter(function (currentCriteria) {
-                return currentCriteria.name === attribute.name;
-              });
 
-              if (nameCheckerObject.length > 0) {
-                var currentCriteria;
-                filterCriterias.forEach(function (criteria) {
-                  if (criteria.name === attribute.name) {
-                    currentCriteria = criteria;
-                  }
-                });
-
-                var valueChecker = currentCriteria["possibleValues"].some(function (currentValue) {
-                  return attribute.value === currentValue;
-                });
-
-                if (!valueChecker) {
-                  currentCriteria["possibleValues"].push(attribute.value);
-                }
-              } else {
+   
+      
+      products.forEach(function (product) {
+        if ((product.productInfos || []).length > 0) {
+          product.productInfos.forEach(function (property) {
+            property["attributes"].forEach(function (attribute) {
+              if (filterCriterias.length === 0) {
                 filterCriterias.push({
                   name: attribute.name,
                   displayName: filteringConfig[attribute.name],
                   possibleValues: [attribute.value],
                 });
+              } else {
+                var nameCheckerObject = filterCriterias.filter(function (currentCriteria) {
+                  return currentCriteria.name === attribute.name;
+                });
+
+                if (nameCheckerObject.length > 0) {
+                  var currentCriteria;
+                  filterCriterias.forEach(function (criteria) {
+                    if (criteria.name === attribute.name) {
+                      currentCriteria = criteria;
+                    }
+                  });
+
+                  var valueChecker = currentCriteria["possibleValues"].some(function (currentValue) {
+                    return attribute.value === currentValue;
+                  });
+
+                  if (!valueChecker) {
+                    currentCriteria["possibleValues"].push(attribute.value);
+                  }
+                } else {
+                  filterCriterias.push({
+                    name: attribute.name,
+                    displayName: filteringConfig[attribute.name],
+                    possibleValues: [attribute.value],
+                  });
+                }
               }
-            }
+            });
           });
-        });
-      }
-    });
+        }
+      });
 
     if (!!params.sortingFactor) {
       try {
@@ -278,6 +289,11 @@ module.exports.getProducts = async (params) => {
         return product;
       })
     );
+
+
+    if(params.vendorName){
+      products = products.filter(product => product.vendor.name == params.vendorName)
+    }
 
     return { productList: products, filterCriterias };
   } catch (error) {

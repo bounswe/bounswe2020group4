@@ -82,10 +82,6 @@ module.exports.getProducts = async (params) => {
     }
 
 
-    if(params.vendorName){
-      products = products.filter(product => product.vendor.name == params.vendorName)
-    }
-
     var filterCriterias = [];
     var filteringConfig = {
       screenSize: "Screen Size",
@@ -321,6 +317,12 @@ module.exports.getProducts = async (params) => {
         return product;
       })
     );
+
+
+
+    if(params.vendorName){
+      products = products.filter(product => product.vendor.name == params.vendorName)
+    }
 
     return { productList: products, filterCriterias };
   } catch (error) {
