@@ -74,10 +74,16 @@ module.exports.getProducts = async (params) => {
   try {
     let products;
 
+
     if (params.categories) {
       products = await Product.find({ category: { $all: JSON.parse(params.categories) } });
     } else if (params.search) {
       products = await Product.find({ name: { $regex: params.search, $options: "i" } });
+    }
+
+
+    if(params.vendorName){
+      products = products.filter(product => product.vendor.name == params.vendorName)
     }
 
     var filterCriterias = [];
