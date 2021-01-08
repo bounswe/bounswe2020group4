@@ -24,8 +24,8 @@ module.exports.like = async (params) => {
       await Like.create({ customerId: ObjectId(params.customerId), productId: ObjectId(params.productId) });
     }
 
-    return true;
+    return { success: true};
   } catch (error) {
-    return error;
+    return { success: false, message: error.message || error };
   }
 };
