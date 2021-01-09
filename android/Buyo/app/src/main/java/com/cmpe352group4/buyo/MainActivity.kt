@@ -58,6 +58,7 @@ class MainActivity : BaseActivity(), NavigationBarOnClickListener {
         initNavigationBar()
         connectionManager.setActivity(this)
         sharedPref.saveUserId("")
+        sharedPref.saveUserType("")
         sharedPref.saveVendorLat("")
         sharedPref.saveVendorLon("")
     }

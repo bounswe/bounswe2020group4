@@ -7,6 +7,7 @@ import javax.inject.Singleton
 
 //private const val TOKEN = "Token"
 private const val USER_ID = "user_id"
+private const val USER_TYPE = "user_type"
 private const val LOC_LAT = "loc_lat"
 private const val LOC_LON = "loc_lon"
 private const val LOC_ADDRESS = "loc_address"
@@ -29,6 +30,13 @@ class SharedPref @Inject constructor(
     override fun saveUserId(id: String) {
         val editor = sharedPref.edit()
         editor.putString(USER_ID, id).apply()
+    }
+
+    override fun getUserType(): String? = sharedPref.getString(USER_TYPE, null)
+
+    override fun saveUserType(type: String) {
+        val editor = sharedPref.edit()
+        editor.putString(USER_TYPE, type).apply()
     }
 
     override fun getUserId(): String? = sharedPref.getString(USER_ID, null)

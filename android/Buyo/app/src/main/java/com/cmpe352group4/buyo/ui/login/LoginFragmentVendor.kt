@@ -220,9 +220,9 @@ class LoginFragmentVendor : BaseFragment() {
                     profileViewModel.loginVendor.observe(viewLifecycleOwner, Observer {
                         if (it.status == Status.SUCCESS && it.data != null) {
                             sharedPref.saveUserId(it.data.userId)
+                            sharedPref.saveUserType("vendor")
                             dispatchLoading()
 
-                        // TODO Go to profile page here
                         navigationManager?.onReplace(
                             ProfilePageFragment.newInstance(),
                             //VendorProfilePageFragment.newInstance(),
