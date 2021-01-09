@@ -1,5 +1,6 @@
 const file = require("../views/file");
 const vendor = require("../views/vendor");
+const { ErrorCode } = require("../constants/error");
 
 
 module.exports.initialize = (app) => {
@@ -23,12 +24,21 @@ module.exports.initialize = (app) => {
 
   app.get("/vendor/products", async (request, response) => {
     const result = await vendor.getProducts(request.query);
-    if (result) {
+
+    console.log("***********")
+    console.log("***********")
+    console.log("***********")
+    console.log(result)
+    if ( !!result.success ) {
+      response.respond(ErrorCode(result.message), result.message);
+    }
+    else if (!!result.productList) {
       response.respond(200, "OK", {
         result,
       });
-    } else {
-      response.respond(404, "Product not found");
+    } 
+    else {
+      response.respond(ErrorCode(result.message), result.message);
     }
   });
 

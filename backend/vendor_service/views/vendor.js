@@ -2,6 +2,8 @@ const Product = require("../models/product").Product;
 const ObjectId = require("mongoose").Types.ObjectId;
 
 const Vendor = require("../models/vendor").Vendor;
+const { ErrorMessage } = require("../constants/error");
+
 
 
 module.exports.addProducts = async (products) => {
@@ -39,6 +41,10 @@ module.exports.addProducts = async (products) => {
 module.exports.getProducts = async (params) => {
   try {
     let products;
+
+    if (!params.vendorName) {
+      return { success: false, message: ErrorMessage.MISSING_PARAMETER };
+    }
 
     if (params.categories) {
       products = await Product.find({ category: { $all: JSON.parse(params.categories) } });
@@ -290,7 +296,14 @@ module.exports.getProducts = async (params) => {
 
     if(params.vendorName){
       products = products.filter(product => product.vendor.name == params.vendorName)
+
+
+      if(products.length == 0){
+        return { success: false, message: ErrorMessage.VENDOR_NOT_FOUND };
+
+      }
     }
+    
 
     return { productList: products, filterCriterias };
   } catch (error) {
