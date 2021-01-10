@@ -2,6 +2,7 @@ const Customer = require("../models/customer").Customer;
 const Vendor = require("../models/vendor").Vendor;
 const ObjectId = require("mongoose").Types.ObjectId;
 const { ErrorMessage } = require("../constants/error");
+const nodemailer = require('nodemailer');
 
 /**
  * Adds a new address to a customer user.
@@ -270,6 +271,35 @@ module.exports.login = async (params) => {
     return { success: false, message: error.message || error };
   }
 };
+
+function sendVerificationMail(userEmail){
+
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'buyo@gmail.com',
+      pass: 'buyo123'
+    }
+  });
+  
+  var mailOptions = {
+    from: 'buyo@gmail.com',
+    to: userEmail,
+    subject: 'Sending Email using Node.js',
+    text: 'That was easy!'
+  };
+  
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+
+
+
+}
 /**
  * Performs signup for vendor or customer.
  * @param {
@@ -299,6 +329,7 @@ module.exports.signup = async (params) => {
         email: params.email,
         password: params.password,
         name: params.name,
+        isVerified: false
       });
     } else {
       user = await Vendor.create({
@@ -309,9 +340,11 @@ module.exports.signup = async (params) => {
         website: params.website,
         company: params.company,
         name: params.name,
+        isVerified: false
       });
     }
     if (user) {
+      sendVerificationMail(params.email);
       return { success: true, userId: user._id.toString() };
     }
 
