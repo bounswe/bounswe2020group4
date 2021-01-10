@@ -17,9 +17,7 @@
         android:textColor="@color/buyo_white"
         app:layout_constraintBottom_toTopOf="@+id/tv_productCommentsReport_user"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" /><![CDATA[" />
-
-    ]]>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_productCommentsReport_user"
