@@ -21,6 +21,7 @@ import com.cmpe352group4.buyo.viewmodel.CartViewModel
 import com.cmpe352group4.buyo.viewmodel.WishListViewModel
 import com.cmpe352group4.buyo.vo.LikeResponse
 import com.cmpe352group4.buyo.vo.Product
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_product_detail_content.*
 import javax.inject.Inject
 
@@ -53,6 +54,7 @@ class ProductDetailContentFragment : BaseFragment() {
         }
     }
 
+    val gson = Gson()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -239,6 +241,14 @@ class ProductDetailContentFragment : BaseFragment() {
         // BACK
         btnProductDetailBack.setOnClickListener {
             activity?.onBackPressed()
+        }
+
+        // Report
+        btnProductDetailReport.setOnClickListener {
+            navigationManager?.onReplace(
+                ProductCommentReportFragment.newInstance(comment = "", product = gson.toJson(product)),
+                TransactionType.Replace, true
+            )
         }
 
         Log.d("LikedProdEnd", "$wishlist_prod_ids")
