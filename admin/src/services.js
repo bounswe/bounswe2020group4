@@ -244,3 +244,71 @@ export const removeProduct = async (productId) => {
 export const banVendor = async (vendorId) => {
     return true
 }
+
+
+export const getReportedComments = async () => {
+    const mockData = [
+        {
+            reportId: 'aksjndkajxowiedla', 
+            reportMessage: "This comment includes profanity and hate speech. Delete it immediately. What kind of organization is this Jesus christ cmon man!",
+            comment: {
+                "id": "5fe8af602e7b430019d8004c",
+                "rating": 4.23,
+                "text": "niceee",
+                "owner": {
+                    "username": "Koray Cetin",
+                    "email": "koray@gmail.com"
+                }
+            }
+        },
+        {
+            reportId: 'aksjndkaj191xowiedla', 
+            reportMessage: "This comment includes profanity and hate speech. Delete it immediately. What kind of organization is this Jesus christ cmon man!",
+            comment: {
+                "id": "5fe8af602e7b430019d8004c",
+                "rating": 4.23,
+                "text": "niceee alright alright alright. This sweater makes bank robberies really easy. Would recommend it to every thief.",
+                "owner": {
+                    "username": "Koray Cetin",
+                    "email": "koray@gmail.com"
+                }
+            }
+        },
+        {
+            reportId: 'aksjndkajx11owiedla', 
+            reportMessage: "This guy wrote game of thrones spoilers as a comment",
+            comment: {
+                "id": "5fe8af602e7b430019d8004c",
+                "rating": 4.23,
+                "text": "Ned stark dies at the end of season 1. Nearly all of the starks die at the red wedding episode.",
+                "owner": {
+                    "username": "Koray Cetin",
+                    "email": "koray@gmail.com"
+                }
+            }
+        },
+        {
+            reportId: 'aksjndka1jxowiedla', 
+            reportMessage: "No explanations necessary",
+            comment: {
+                "id": "5fe8af602e7b430019d8004c",
+                "rating": 4.23,
+                "text": "Interstellar was only ok.",
+                "owner": {
+                    "username": "Koray Cetin",
+                    "email": "koray@gmail.com"
+                }
+            }
+        }
+    ]
+
+    return mockData
+}
+
+export const removeComment = async (commentId) => {
+    return true
+}
+
+export const banUser = async (userId) => {
+    return true
+}

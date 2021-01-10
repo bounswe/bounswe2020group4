@@ -21,7 +21,7 @@ const ReportedProductCard = ({ report, fetchReports }) => {
             console.log("Product Removed and reports fetched again")
             fetchReports()
         } else {
-            alert("Something went wrong while removing user")
+            alert("Something went wrong while removing product")
         }
     }
 
