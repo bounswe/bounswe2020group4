@@ -27,6 +27,19 @@ module.exports.initialize = (app) => {
       response.respond(ErrorCode(result.message), result.message);
     }
   });
+    /**
+   * Gets user id, user type, and some fields, verifies the account
+   * with that id.
+   */
+  app.get("/account/verify", async (request, response) => {
+    const result = await account.verifyAccount(request.extractParams());
+
+    if (result.success) {
+      response.respond(200, "OK");
+    } else {
+      response.respond(ErrorCode(result.message), result.message);
+    }
+  });
   /**
    * Gets user id, user type, and new password, then changes the password
    * of the account with that id.

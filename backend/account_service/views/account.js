@@ -243,6 +243,40 @@ module.exports.changePassword = async (params) => {
     return { success: false, message: error.message || error };
   }
 };
+
+/**
+ * Gets the account id and updates changes the password of the account of that id
+ *
+ * @param {
+  * id: String,
+  * userType: String,
+  * password: String
+  * } params
+  * @return {
+  *  Boolean: Account exists
+  * }
+  */
+ module.exports.verifyAccount = async (params) => {
+   try {
+     if (!params.id || !params.userType) {
+       return { success: false, message: ErrorMessage.MISSING_PARAMETER };
+     }
+     const collection = params.userType === "customer" ? Customer : Vendor;
+     const account = await collection.findOne({ _id: ObjectId(params.id) });
+     if (account) {
+       account.isVerified = true;
+       await account.save();
+ 
+       return { success: true };
+     }
+     return { success: false, message: ErrorMessage.USER_NOT_FOUND };
+   } catch (error) {
+     console.log(error);
+     return { success: false, message: error.message || error };
+   }
+ };
+
+
 /**
  * Performs login for vendor or customer.
  * @param {
@@ -272,21 +306,23 @@ module.exports.login = async (params) => {
   }
 };
 
-function sendVerificationMail(userEmail){
+function sendVerificationMail(userEmail, userType, userId){
 
   var transporter = nodemailer.createTransport({
-    service: 'gmail',
+    service: 'Gmail',
     auth: {
-      user: 'buyo@gmail.com',
-      pass: 'buyo123'
+      user: 'buyoboun@gmail.com',
+      pass: 'buyo1234'
     }
   });
-  
+  //html: '<p>Click <a href="http://localhost:3000/sessions/recover/' + recovery_token + '">here</a> to reset your password</p>'
+  //var verifyLink = 'http://localhost:8080/account/verify?userType=' + userType + '&id= ' + userId;
   var mailOptions = {
-    from: 'buyo@gmail.com',
+    from: '"Bu Yo" <buyoboun@gmail.com>',
     to: userEmail,
-    subject: 'Sending Email using Node.js',
-    text: 'That was easy!'
+    subject: 'Your BUYO verification e-mail',
+    //text: 'Click this link for verifying your account!',
+    html: '<p>Click <a href ="http://localhost:8080/account/verify?userType=' + userType + '&id=' + userId + '"> here </a> to verify your BUYO account.</p>'
   };
   
   transporter.sendMail(mailOptions, function(error, info){
@@ -344,7 +380,7 @@ module.exports.signup = async (params) => {
       });
     }
     if (user) {
-      sendVerificationMail(params.email);
+      sendVerificationMail(params.email, params.userType, user._id.toString());
       return { success: true, userId: user._id.toString() };
     }
 
