@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
+import Snackbar from '@material-ui/core/Snackbar'
+import MuiAlert from '@material-ui/lab/Alert'
 const Alert = (props) => {
 	return <MuiAlert elevation={6} variant="filled" {...props} />
 }
 
 
-import cartService from '../services/cart'
+import cartService from '../../services/cart'
 import './ProductPurchase.css'
 
 const generatePossibleAttVals = (productInfos) => {

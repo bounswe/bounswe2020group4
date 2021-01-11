@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 import DefaultProductImage from '../images/default-product-detail-image.png'
-import ProductInfo from '../components/ProductInfo'
-import ProductDescription from '../components/ProductDescription'
-import ProductPurchase from '../components/ProductPurchase'
-import Comments from '../components/Comments'
+import ProductInfo from '../components/product/ProductInfo'
+import ProductDescription from '../components/product/ProductDescription'
+import ProductPurchase from '../components/product/ProductPurchase'
+import Comments from '../components/product/Comments'
 
 import productService from '../services/products'
 
