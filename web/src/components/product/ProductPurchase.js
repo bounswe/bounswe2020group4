@@ -20,8 +20,7 @@ const generatePossibleAttVals = (productInfos) => {
 				if(!possibleValues[attribute.name].includes(attribute.value)) {
 					possibleValues[attribute.name].push(attribute.value)
 				}
-			}
-			else {
+			} else {
 				possibleValues[attribute.name] = [attribute.value]
 			}
 		}
@@ -67,8 +66,8 @@ const ProductPurchase = ({productId, price, originalPrice, productInfos, isLogge
 
 	const [values, setValues] = useState(initialValues)
 	const [amount, setAmount] = useState(1)
-	const [open, setOpen] = useState(false)
-
+	const [openSuccess, setSuccessOpen] = useState(false)
+	const [openError, setErrorOpen] = useState(false)
 
 	const handleValueChange = (e, opt) => {
 		const valuesCopy = {...values}
@@ -97,15 +96,19 @@ const ProductPurchase = ({productId, price, originalPrice, productInfos, isLogge
 			}
 			cartService.addProductToCart(customerId, productId, addToCartInfo)
 			setAmount(1)
-			setOpen(true)
+			setSuccessOpen(true)
+		} else {
+			setErrorOpen(true)
 		}
 	}
 	const handleClose = (event, reason) => {
 		if (reason === 'clickaway') {
 			return
 		}
-		setOpen(false)
+		setSuccessOpen(false)
+		setErrorOpen(false)
 	}
+
 
 	return(
 		<div className='product-purchase-container'>
@@ -131,9 +134,14 @@ const ProductPurchase = ({productId, price, originalPrice, productInfos, isLogge
 					{price} &#8378;
 				</div>
 				<button onClick={handleAddToCart}>Add to Cart</button>
-				<Snackbar open={open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+				<Snackbar open={openSuccess} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
 					<Alert onClose={handleClose} severity="success">
 						You added this product to your cart!
+					</Alert>
+				</Snackbar>
+				<Snackbar open={openError} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+					<Alert onClose={handleClose} severity="error">
+						Please sign in to add this product to your cart!
 					</Alert>
 				</Snackbar>
 			</div>
@@ -149,5 +157,3 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(ProductPurchase)
-
-//
