@@ -18,7 +18,9 @@
   <script src="node_modules/socket.io/client-dist/socket.io.js"></script>
   <script>
     var socket = io.connect('http://localhost:5003');
-    socket.emit('discover', {id: '5ff37169542dbb00123390fd', userType: 'customer'}, (a) => { console.log(a)})
+    socket.emit('discover', {id: '5ff37169542dbb00123390fd', userType: 'customer'}, (response) => { console.log(response)});
+    socket.emit('message', {id: '5ff37169542dbb00123390fd', userType: 'customer', withId: '5ff37169542dbb00123390fd', withType: 'admin', 'message': 'Test message'}
+    , (response) => { console.log(response)})
   </script>
   <body>
     <ul id="messages"></ul>
