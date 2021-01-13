@@ -20,6 +20,7 @@ import CustomerProfile from './pages/CustomerProfile'
 import Orders from './pages/Orders'
 import CustomerAddresses from './pages/CustomerAddresses'
 import Messages from './pages/Messages'
+import VendorProducts from './pages/VendorProducts'
 
 //Styling
 import './App.css'
@@ -50,8 +51,9 @@ const App = ({ showHeader, showVendorHeader }) => {
 					<Route path="/orders" exact component={Orders}/>
 					<Route path="/customerprofile" exact component={CustomerProfile}/>
 					<Route path="/messages" exact component={Messages}/>
-          <Route path="/customeraddresses" exact component={CustomerAddresses}/>
-         </div>
+          			<Route path="/customeraddresses" exact component={CustomerAddresses}/>
+					<Route path="/vendorproducts" exact component={VendorProducts}/>
+         		</div>
        </Router>
      </div>
     )
