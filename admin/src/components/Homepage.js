@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import history from '../util/history'
+import Header from './Header'
 
 const Homepage = ({ location }) => {
 
@@ -11,7 +12,7 @@ const Homepage = ({ location }) => {
 
     return (
         <div>
-            Homepage!
+            <Header />
         </div>
     )
 }

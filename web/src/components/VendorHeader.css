@@ -1,0 +1,15 @@
+.vendor-header-container {
+    background-color: var(--beige);
+}
+
+.vendor-header-category {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 20px;
+    background-color: var(--red-tertiary);
+    color: white
+}
+
+.header-icon {
+    width: 150px;
+}
