@@ -25,10 +25,6 @@ module.exports.initialize = (app) => {
   app.get("/vendor/products", async (request, response) => {
     const result = await vendor.getProducts(request.query);
 
-    console.log("***********")
-    console.log("***********")
-    console.log("***********")
-    console.log(result)
     if ( !!result.success ) {
       response.respond(ErrorCode(result.message), result.message);
     }
