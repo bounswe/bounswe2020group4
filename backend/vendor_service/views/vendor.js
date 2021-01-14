@@ -6,6 +6,35 @@ const { ErrorMessage } = require("../constants/error");
 
 
 
+module.exports.updateProduct = async (product_id,parameter) => {
+
+  console.log("***************")
+  console.log("TRY IS CALLED")
+  try {
+
+    console.log("***************")
+    console.log("INSIDE IS CALLED")
+    Product.findByIdAndUpdate(product_id, parameter, 
+    function (err, docs) { 
+      if (err){ 
+        console.log(err) 
+      } 
+      else{ 
+        console.log("Updated User : ", docs); 
+      } 
+    });
+
+    return 200;
+  } catch (error) {
+
+
+    console.log("***************")
+    console.log("ERROR IS CALLED")
+    console.log(error);
+    return error;
+  }
+};
+
 module.exports.addProducts = async (products) => {
   try {
     const dbProducts = [];

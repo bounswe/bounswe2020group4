@@ -22,8 +22,11 @@ module.exports.initialize = (app) => {
   });
 
 
-  app.get("/vendor/products", async (request, response) => {
-    const result = await vendor.getProducts(request.query);
+  app.patch("/vendor/products/:id", async (request, response) => {
+    var productId = request.params.id
+    var changeParameters = request.body;
+
+    const result = await vendor.updateProduct(productId,changeParameters);
 
     if ( !!result.success ) {
       response.respond(ErrorCode(result.message), result.message);
