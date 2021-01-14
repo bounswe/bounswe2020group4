@@ -57,7 +57,7 @@ const Header = ({ isLoggedIn }) => {
 
 			return (
 				<div className='category-container col py-2' key={category.name}>
-					<div className='category text-center' onClick={handleClick}>{category.name}</div>
+					<div className='category text-center cursor-pointer' onClick={handleClick}>{category.name}</div>
 					<div className='subcategory-container text-center position-absolute container-fluid list-group mt-2' style={thisPathSelected ? {} : {maxHeight: '0', overflow: 'hidden'}}>{renderSubcategories(category.subcategories)}</div>
 				</div>
 			)
@@ -74,7 +74,7 @@ const Header = ({ isLoggedIn }) => {
 
 	const renderSubcategories = (subcategories) => {
 		return subcategories.map((subc) => {
-			return <div className='list-group-item text-center' key={subc.name} onClick={() => handleSubcategoryClick(subc)}>{subc.name}</div>
+			return <div className='list-group-item text-center cursor-pointer' key={subc.name} onClick={() => handleSubcategoryClick(subc)}>{subc.name}</div>
 		})
 	}
 
