@@ -5,6 +5,7 @@ import history from './util/history'
 
 //Pages
 import Header from './components/Header'
+import VendorHeader from './components/VendorHeader'
 import ProductDetails from './pages/ProductDetails'
 import Homepage from './pages/Homepage'
 import Wishlist from './pages/Wishlist'
@@ -18,12 +19,13 @@ import VendorSignIn from './pages/VendorSignIn'
 import CustomerProfile from './pages/CustomerProfile'
 import Orders from './pages/Orders'
 import CustomerAddresses from './pages/CustomerAddresses'
+import Messages from './pages/Messages'
 
 //Styling
 import './App.css'
 
 
-const App = ({ showHeader }) => {
+const App = ({ showHeader, showVendorHeader }) => {
 
 	useEffect(() => {
 		document.title = 'BUYO'
@@ -34,6 +36,7 @@ const App = ({ showHeader }) => {
 			<Router history={history}>
 				<div>
 					{showHeader ? <Header /> : null}
+					{showVendorHeader ? <VendorHeader /> : null}
 					<Route path="/" exact component={Homepage}/>
 					<Route path="/signin" exact component={SignIn} />
 					<Route path="/signup" exact component={SignUp} />
@@ -46,6 +49,7 @@ const App = ({ showHeader }) => {
 					<Route path="/products" exact component={CategoryProducts}/>
 					<Route path="/orders" exact component={Orders}/>
 					<Route path="/customerprofile" exact component={CustomerProfile}/>
+					<Route path="/messages" exact component={Messages}/>
           <Route path="/customeraddresses" exact component={CustomerAddresses}/>
          </div>
        </Router>
@@ -55,7 +59,7 @@ const App = ({ showHeader }) => {
 }
 
 const mapStateToProps = state => {
-	return { showHeader: state.header.showHeader }
+	return { showHeader: state.header.showHeader, showVendorHeader: state.header.showVendorHeader }
 }
 
 export default connect(mapStateToProps, {})(App)
