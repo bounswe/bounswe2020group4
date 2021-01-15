@@ -38,12 +38,14 @@ const Header = ({ isLoggedIn, setLogoutState }) => {
 
 	useEffect(() => {
 		let unmounted = false
-		getCategories().then((response) => {
-			if (!unmounted) {
+		const getCats = async () => {
+			const response = await getCategories()
+			if(!unmounted) {
 				setCategories(response)
 			}
-		})
-		return () => {unmounted = true}
+		}
+		getCats()
+		return () => unmounted = true
 	}, [])
 
 	const renderCategories = () => {
