@@ -1,6 +1,7 @@
 package com.cmpe352group4.buyo.ui.vendor
 
 import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -40,16 +41,39 @@ class AddProductAdapter(
     inner class AddProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         fun bind(modal : ParsedAttribute){
 
-            /*
-            val att_name = itemView.et_vendorAddProductAttributeName.text.toString()
+            itemView.et_vendorAddProductAttributeName.addTextChangedListener(object : TextWatcher{
+                override fun beforeTextChanged(text: CharSequence?, start: Int, count: Int, after: Int) {
+                    Log.v("VendorAddProductAdapter", "beforeTextChanged: $text")
+                }
 
-            val att_options = itemView.et_vendorAddProductAttributeOptions.text.toString()
+                override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
+                    Log.v("VendorAddProductAdapter", "onTextChanged: $text")
+                    modal.att_name = text.toString()
+                }
 
-            val myParsedAttribute = ParsedAttribute(att_name = att_name, att_value = att_options.split("-").toList())
+                override fun afterTextChanged(editable: Editable?) {
+                    Log.v("VendorAddProductAdapter", "afterTextChanged: "+editable.toString())
+                }
 
-            callbackAddAttribute.invoke(myParsedAttribute)
-            */
+            })
 
+            itemView.et_vendorAddProductAttributeOptions.isEnabled = modal.att_name != ""
+
+            itemView.et_vendorAddProductAttributeOptions.addTextChangedListener(object : TextWatcher{
+                override fun beforeTextChanged(text: CharSequence?, start: Int, count: Int, after: Int) {
+                    Log.v("VendorAddProductAdapter", "beforeTextChanged: $text")
+                }
+
+                override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
+                    Log.v("VendorAddProductAdapter", "onTextChanged: $text")
+                    modal.att_value = text.toString().split("-")
+                    callbackAddAttribute.invoke(modal)
+                }
+
+                override fun afterTextChanged(editable: Editable?) {
+                    Log.v("VendorAddProductAdapter", "afterTextChanged: "+editable.toString())
+                }
+            })
 
         }
 

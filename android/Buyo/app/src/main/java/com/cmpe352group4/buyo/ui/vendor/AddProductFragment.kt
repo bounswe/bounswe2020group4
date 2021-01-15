@@ -4,20 +4,22 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.base.BaseFragment
+import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.vo.ParsedAttribute
 import com.cmpe352group4.buyo.vo.Product
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.fragment_product_detail_comments.*
 import kotlinx.android.synthetic.main.fragment_vendor_add_product.*
+import kotlinx.android.synthetic.main.fragment_vendor_add_stock_value.*
 
 class AddProductFragment : BaseFragment() {
 
@@ -32,11 +34,13 @@ class AddProductFragment : BaseFragment() {
         }
     }
 
+    var attributes : MutableMap<String, List<String>> = mutableMapOf()
+
     private val addProductAdapter by lazy {
         AddProductAdapter(
             mutableListOf()
         ){
-
+            attributes[it.att_name] = it.att_value
         }
     }
 
@@ -128,7 +132,64 @@ class AddProductFragment : BaseFragment() {
             Log.e("VendorAddProduct", "UnknownMode")
         }
 
+        btn_vendorAddProduct_Next.setOnClickListener {
+
+            var all_options : MutableList<Set<String>> = mutableListOf()
+
+            var att_names : MutableList<String> = mutableListOf()
+            for ((att_name, att_list ) in attributes){
+                all_options.add(att_list.toSet())
+                att_names.add(att_name)
+            }
+
+            var combinations: Set<List<*>> = mutableSetOf()
+            if (all_options.size >= 3){
+                combinations = cartesianProduct(all_options[0],all_options[1], *all_options.subList(2, all_options.size).toTypedArray())
+            }
+            else if (all_options.size == 2){
+                combinations = cartesianProduct(all_options[0],all_options[1])
+            }
+            else if (all_options.size == 1){
+                var one_att : MutableList<List<String>> = mutableListOf()
+                for ((_, att_list ) in attributes){
+                    for (att in att_list){
+                        one_att.add(listOf(att))
+                    }
+                }
+                combinations = one_att.toSet()
+            }
+
+            var new_combinations = combinations.toList()
+
+            if (all_options.size == 0){
+                val myToast = Toast.makeText(
+                    context,
+                    "Please enter the empty attribute fields.",
+                    Toast.LENGTH_SHORT
+                )
+                myToast.setGravity(Gravity.BOTTOM, 0, 200)
+                myToast.show()
+            }else {
+                navigationManager?.onReplace(
+                    AddStockValuesFragment.newInstance(gson.toJson(new_combinations)),
+                    TransactionType.Replace, true
+                )
+            }
+        }
+
+        btn_vendorAddProduct_Back.setOnClickListener {
+            activity?.onBackPressed()
+        }
+
 
     }
+
+
+    fun cartesianProduct(a: Set<*>, b: Set<*>, vararg sets: Set<*>): Set<List<*>> =
+        (setOf(a, b).plus(sets))
+            .fold(listOf(listOf<Any?>())) { acc, set ->
+                acc.flatMap { list -> set.map { element -> list + element } }
+            }
+            .toSet()
 
 }
