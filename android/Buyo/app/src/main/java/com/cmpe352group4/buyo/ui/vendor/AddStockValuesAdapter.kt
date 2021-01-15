@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.item_vendor_add_stock_value.view.*
 
 class AddStockValuesAdapter(
     var Combinations: MutableList<List<String>>,
-    val callbackAddStockValues : (String) -> Unit
+    val callbackAddStockValues : (String, Int) -> Unit
 ) : RecyclerView.Adapter<AddStockValuesAdapter.AddStockValuesViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddStockValuesViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_vendor_add_stock_value, parent, false)
@@ -40,12 +40,7 @@ class AddStockValuesAdapter(
     inner class AddStockValuesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         fun bind(modal : List<String>){
 
-            var stockName = ""
-            for (option in modal){
-                stockName += option + "-"
-            }
-            stockName = stockName.dropLast(1)
-
+            var stockName = modal.joinToString("-")
 
             itemView.tv_vendorAddStockValue.text = stockName
 
@@ -56,10 +51,12 @@ class AddStockValuesAdapter(
 
                 override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
                     Log.v("VendorAddStockValuesAdp", "onTextChanged: $text")
+                    callbackAddStockValues.invoke(stockName, text.toString().toInt())
                 }
 
                 override fun afterTextChanged(editable: Editable?) {
                     Log.v("VendorAddStockValuesAdp", "afterTextChanged: "+editable.toString())
+                    callbackAddStockValues.invoke(stockName, editable.toString().toInt())
                 }
             })
 

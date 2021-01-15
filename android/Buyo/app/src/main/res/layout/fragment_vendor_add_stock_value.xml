@@ -13,7 +13,7 @@
         android:background="@color/buyo_darkCandyAppleRed"
         android:text="Back"
         android:textColor="@color/buyo_white"
-        app:layout_constraintEnd_toStartOf="@+id/btn_vendorAddProduct_Complete"
+        app:layout_constraintEnd_toStartOf="@+id/btn_vendorAddProductStock_Complete"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,7 +29,7 @@
         app:layout_constraintBottom_toTopOf="@+id/rv_vendorAddStockValue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btn_vendorAddProduct_Back"
+        app:layout_constraintStart_toEndOf="@+id/btn_vendorAddProductStock_Back"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -38,5 +38,8 @@
         android:layout_height="0dp"
         android:layout_margin="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_vendorAddProduct_Complete" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_vendorAddProductStock_Complete" />
 </androidx.constraintlayout.widget.ConstraintLayout>

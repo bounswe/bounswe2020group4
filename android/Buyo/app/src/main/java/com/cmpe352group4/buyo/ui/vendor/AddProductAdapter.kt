@@ -44,20 +44,22 @@ class AddProductAdapter(
             itemView.et_vendorAddProductAttributeName.addTextChangedListener(object : TextWatcher{
                 override fun beforeTextChanged(text: CharSequence?, start: Int, count: Int, after: Int) {
                     Log.v("VendorAddProductAdapter", "beforeTextChanged: $text")
+                    itemView.et_vendorAddProductAttributeOptions.isEnabled = modal.att_name != ""
                 }
 
                 override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
                     Log.v("VendorAddProductAdapter", "onTextChanged: $text")
                     modal.att_name = text.toString()
+                    itemView.et_vendorAddProductAttributeOptions.isEnabled = modal.att_name != ""
                 }
 
                 override fun afterTextChanged(editable: Editable?) {
                     Log.v("VendorAddProductAdapter", "afterTextChanged: "+editable.toString())
+                    itemView.et_vendorAddProductAttributeOptions.isEnabled = modal.att_name != ""
                 }
 
             })
 
-            itemView.et_vendorAddProductAttributeOptions.isEnabled = modal.att_name != ""
 
             itemView.et_vendorAddProductAttributeOptions.addTextChangedListener(object : TextWatcher{
                 override fun beforeTextChanged(text: CharSequence?, start: Int, count: Int, after: Int) {
