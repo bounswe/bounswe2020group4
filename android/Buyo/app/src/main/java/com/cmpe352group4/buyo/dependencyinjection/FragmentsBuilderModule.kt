@@ -7,6 +7,7 @@ import com.cmpe352group4.buyo.ui.cart.CheckoutPageFragment
 import com.cmpe352group4.buyo.ui.categories.CategoriesPageFragment
 import com.cmpe352group4.buyo.ui.googlemap.MapsFragment
 import com.cmpe352group4.buyo.ui.homepage.HomepageFragment
+import com.cmpe352group4.buyo.ui.image_utils.ImageUploadFragment
 import com.cmpe352group4.buyo.ui.login.LoginFragment
 import com.cmpe352group4.buyo.ui.login.LoginFragmentVendor
 import com.cmpe352group4.buyo.ui.navigationtabs.*
@@ -106,5 +107,8 @@ abstract class FragmentsBuilderModule {
     
     @ContributesAndroidInjector
     abstract  fun contributeOrderPageFragment(): OrderPageFragment
+
+    @ContributesAndroidInjector
+    abstract  fun contributeImageUploadFragment(): ImageUploadFragment
 
 }
