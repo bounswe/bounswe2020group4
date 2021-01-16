@@ -14,7 +14,7 @@ import SearchIcon from '../images/search-icon.png'
 //Styling
 import './Header.css'
 
-const Header = ({ isLoggedIn, setLogoutState }) => {
+const Header = ({ isLoggedIn, userType, setLogoutState }) => {
 	const [profileMenuOpen, setProfileMenuOpen] = useState(false)
 	const [selectedPath, setSelectedPath] = useState('')
 	const [categories, setCategories] = useState([])
@@ -94,9 +94,9 @@ const Header = ({ isLoggedIn, setLogoutState }) => {
 		)
 	}
 
-	const renderLoggedInProfileMenu = () => {
+	const renderCustomerMenu = () => {
 		return (
-			<div className='profile-menu list-group-item text-center position-absolute'>
+			<React.Fragment>
 				<div className='list-item'>
 					<Link to='/customerprofile' className='profile-menu-text'>Profile</Link>
 				</div>
@@ -106,6 +106,27 @@ const Header = ({ isLoggedIn, setLogoutState }) => {
 				<div className='list-item'>
 					<Link to='/customerAddresses' className='profile-menu-text'>Addresses</Link>
 				</div>
+			</React.Fragment>
+		)
+	}
+
+	const renderVendorMenu = () => {
+		return (
+			<React.Fragment>
+				<div className='list-item'>
+					<Link to='/vendorprofile' className='profile-menu-text'>Profile</Link>
+				</div>
+				<div className='list-item'>
+					<Link to='/vendororders' className='profile-menu-text'>Orders</Link>
+				</div>
+			</React.Fragment>
+		)
+	}
+
+	const renderLoggedInProfileMenu = () => {
+		return (
+			<div className='profile-menu list-group-item text-center position-absolute'>
+				{userType == 'customer' ? renderCustomerMenu() : renderVendorMenu() }
 				<div className='list-item'>
 					<span className='profile-menu-text cursor-pointer' onClick={signOut}>Sign Out</span>
 				</div>
@@ -176,7 +197,10 @@ const Header = ({ isLoggedIn, setLogoutState }) => {
 }
 
 const mapStatetoProps = (state) => {
-	return { isLoggedIn: state.signIn.isLoggedIn }
+	return {
+		isLoggedIn: state.signIn.isLoggedIn,
+		userType: state.signIn.userType,
+	}
 }
 
 export default connect(mapStatetoProps, {setLogoutState})(Header)

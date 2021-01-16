@@ -16,6 +16,8 @@ import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import VendorSignUp from './pages/VendorSignUp'
 import VendorSignIn from './pages/VendorSignIn'
+import VendorProfile from './pages/VendorProfile'
+import VendorOrders from './pages/VendorOrders'
 import CustomerProfile from './pages/CustomerProfile'
 import Orders from './pages/Orders'
 import CustomerAddresses from './pages/CustomerAddresses'
@@ -45,6 +47,8 @@ const App = ({ showHeader, showVendorHeader }) => {
 					<Route path="/cart" exact component={Cart}/>
 					<Route path="/vendorsignup" exact component={VendorSignUp}/>
 					<Route path="/vendorsignin" exact component={VendorSignIn}/>
+					<Route path="/vendorprofile" exact component={VendorProfile}/>
+					<Route path="/vendororders" exact component={VendorOrders}/>
 					<Route path="/checkout" exact component={Checkout} />
 					<Route path="/products" exact component={CategoryProducts}/>
 					<Route path="/orders" exact component={Orders}/>

@@ -1,0 +1,16 @@
+.container-main {
+    border-width:3px !important;
+    background-color: var(--beige);
+}
+
+.form-container {
+    width: 100%;
+}
+
+.form-column{
+    width: 100%;
+}
+
+.text-container{
+    color: var(--red-secondary);
+}

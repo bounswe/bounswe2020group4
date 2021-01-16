@@ -1,0 +1,13 @@
+.tabpanel-content {
+    padding: 2rem 3rem 2rem 3rem;
+    width: 70%;
+    margin-left: 15%;
+  }
+  
+  .order-heading {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 20px;
+  }
+  
