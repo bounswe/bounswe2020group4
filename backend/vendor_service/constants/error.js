@@ -5,6 +5,7 @@ const ErrorMessage = {
   ADDRESS_ALREADY_EXISTS: "Address with the title already exists",
   USER_NOT_FOUND: "User not found",
   PRODUCT_NOT_FOUND: "Product not found",
+  VENDOR_NOT_FOUND: "Vendor not found",
 };
 
 module.exports.ErrorCode = (message) => {
@@ -15,7 +16,7 @@ module.exports.ErrorCode = (message) => {
   ErrorCodes[ErrorMessage.MISSING_PARAMETER] = 400;
   ErrorCodes[ErrorMessage.USER_NOT_FOUND] = 404;
   ErrorCodes[ErrorMessage.PRODUCT_NOT_FOUND] = 404;
+  ErrorCodes[ErrorMessage.VENDOR_NOT_FOUND] = 404;
 
   return ErrorCodes[message] || 500;
 };
-module.exports.ErrorMessage = ErrorMessage;
