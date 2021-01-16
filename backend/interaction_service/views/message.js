@@ -18,69 +18,73 @@ const { ErrorMessage } = require("../constants/error");
  * @returns {messages: [] | error}
  */
 module.exports.getMessages = async (params) => {
-  if (!params.id || !params.userType || !params.withId || !params.withType) {
-    return { success: false, message: ErrorMessage.MISSING_PARAMETER };
-  }
+  try {
+    if (!params.id || !params.userType || !params.withId || !params.withType) {
+      return { success: false, message: ErrorMessage.MISSING_PARAMETER };
+    }
 
-  let messages = await Message.find({
-    $or: [
-      {
-        userId: ObjectId(params.id),
-        userType: params.userType,
-        withId: ObjectId(params.withId),
-        withType: params.withType,
-      },
-      {
-        userId: ObjectId(params.withId),
-        userType: params.withType,
-        withId: ObjectId(params.id),
-        withType: params.withType,
-      },
-    ],
-  }).sort({
-    date: "descending",
-  });
-  const UserModel = {
-    customer: Customer,
-    vendor: Vendor,
-    admin: Admin,
-  };
-  const users = {};
-  [users[params.id], users[params.withId]] = await Promise.all([
-    UserModel[params.userType].findById(ObjectId(params.id)),
-    UserModel[params.withType].findById(ObjectId(params.withId)),
-  ]);
-
-  if (!users[params.withId] || !users[params.id]) {
-    return { success: false, message: ErrorMessage.USER_NOT_FOUND };
-  }
-
-  messages = messages.map((message) => message.toJSON());
-  Object.keys(users).forEach((userId) => {
-    const user = users[userId].toJSON();
-
-    users[userId] = {
-      id: userId,
-      name: [user.name, user.surname].join(" ").trim(),
-      userType: userId === params.userId ? params.userType : params.withType,
+    let messages = await Message.find({
+      $or: [
+        {
+          userId: ObjectId(params.id),
+          userType: params.userType,
+          withId: ObjectId(params.withId),
+          withType: params.withType,
+        },
+        {
+          userId: ObjectId(params.withId),
+          userType: params.withType,
+          withId: ObjectId(params.id),
+          withType: params.withType,
+        },
+      ],
+    }).sort({
+      date: "descending",
+    });
+    const UserModel = {
+      customer: Customer,
+      vendor: Vendor,
+      admin: Admin,
     };
-  });
-  messages.map((message) => {
-    message.id = message._id;
-    message.user = users[message.userId.toString()];
+    const users = {};
+    [users[params.id], users[params.withId]] = await Promise.all([
+      UserModel[params.userType].findById(ObjectId(params.id)),
+      UserModel[params.withType].findById(ObjectId(params.withId)),
+    ]);
 
-    delete message.userId;
-    delete message.userType;
-    delete message.__v;
-    delete message._id;
-    delete message.withId;
-    delete message.withType;
-  });
+    if (!users[params.withId] || !users[params.id]) {
+      return { success: false, message: ErrorMessage.USER_NOT_FOUND };
+    }
 
-  return {
-    success: true,
-    messages: messages,
-  };
+    messages = messages.map((message) => message.toJSON());
+    Object.keys(users).forEach((userId) => {
+      const user = users[userId].toJSON();
+
+      users[userId] = {
+        id: userId,
+        name: [user.name, user.surname].join(" ").trim(),
+        userType: userId === params.userId ? params.userType : params.withType,
+      };
+    });
+    messages.map((message) => {
+      message.id = message._id;
+      message.user = users[message.userId.toString()];
+
+      delete message.userId;
+      delete message.userType;
+      delete message.__v;
+      delete message._id;
+      delete message.withId;
+      delete message.withType;
+    });
+
+    return {
+      success: true,
+      messages: messages,
+    };
+  } catch (error) {
+    return { success: false, message: error.message || error };
+  }
 };
 
 /**
