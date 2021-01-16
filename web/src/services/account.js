@@ -98,7 +98,7 @@ const updateProfileInfo = async (userType, id, profileInfo) => {
 			response = await axios.post(`${baseUrl}account?id=${id}&userType=${userType}&email=${email}&name=${firstName}&surname=${lastName}&phoneNumber=${phone}&gender=${gender}`)
 		} else {
 			const {firstName, lastName, company, website, coords} = profileInfo
-			response = await axios.post(`${baseUrl}account?id=${id}&userType=${userType}&name=${firstName} ${lastName}&company=${company}&website=${website}&longitude=${coords.lng()}&latitude=${coords.lat()}`)
+			response = await axios.post(`${baseUrl}account?id=${id}&userType=${userType}&name=${firstName} ${lastName}&company=${company}&website=${website}&longitude=${coords.lng}&latitude=${coords.lat}`)
 		}
 	} catch (err) {
 		console.log(err)

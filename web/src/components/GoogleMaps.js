@@ -4,22 +4,30 @@ import MapMarker from '../images/map-marker.png'
 
 import './GoogleMaps.css'
 
-const GoogleMaps = ({ selectedCoord, setSelectedCoord }) => {
+const GoogleMaps = ({ selectedCoord, setSelectedCoord, useDefaultCenter }) => {
 	const [coord, setCoord] = useState()
 
 	useEffect(() => {
 		navigator.geolocation.getCurrentPosition((pos) => {
-			setCoord({ lat: pos.coords.latitude, lng: pos.coords.longitude})
+			if (useDefaultCenter) {
+				setCoord({ lat: pos.coords.latitude, lng: pos.coords.longitude})
+			}
 		})
 	}, [])
 
+	useEffect(() => {
+		if (!useDefaultCenter && selectedCoord && !coord) {
+			setCoord({ lat: parseFloat(selectedCoord.lat), lng: parseFloat(selectedCoord.lng) })
+		}
+	}, [selectedCoord?.lat, selectedCoord?.lng])
+
 	const handleApiLoaded = (map) => {
 		map.addListener('click', (e) => {
-			setSelectedCoord(e.latLng)
-			map.panTo(e.latLng)
+			const latLng = { lat: e.latLng.lat(), lng: e.latLng.lng() }
+			setSelectedCoord(latLng)
+			map.panTo(latLng)
 		})
 	}
-
 
 	return (
 		<div className={ coord ? 'google-maps-container cursor-pointer' : null }>

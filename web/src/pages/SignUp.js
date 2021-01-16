@@ -49,7 +49,7 @@ const SignUp = ({hideHeader, showHeader, setLoginState}) => {
 				alert('Something went wrong, try again')
 			} else {
 				setLoginState({ userId: userId, userType: 'customer'})
-				history.goBack()
+				history.push('/')
 			}
 		}
 	}
