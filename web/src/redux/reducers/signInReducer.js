@@ -1,4 +1,4 @@
-import { SET_LOGIN_STATE } from '../actions/types'
+import { SET_LOGIN_STATE, SET_LOGOUT_STATE } from '../actions/types'
 
 const INITIAL_STATE = {
 	isLoggedIn: false,
@@ -14,6 +14,11 @@ export default (state = INITIAL_STATE, action) => {
 			...action.payload,
 			isLoggedIn: true,
 		}
+	case SET_LOGOUT_STATE: {
+		return {
+			isLoggedIn: false,
+		}
+	}
 	default:
 		return state
 	}

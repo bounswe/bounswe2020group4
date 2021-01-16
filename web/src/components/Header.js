@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getCategories } from '../services/category'
 import history from '../util/history'
+import { setLogoutState } from '../redux/actions'
 
 import Icon from '../images/buyo-icon.png'
 import ProfileIcon from '../images/profile-icon.png'
@@ -13,12 +14,7 @@ import SearchIcon from '../images/search-icon.png'
 //Styling
 import './Header.css'
 
-//Berke Crash Course
-
-
-
-
-const Header = ({ isLoggedIn }) => {
+const Header = ({ isLoggedIn, setLogoutState }) => {
 	const [profileMenuOpen, setProfileMenuOpen] = useState(false)
 	const [selectedPath, setSelectedPath] = useState('')
 	const [categories, setCategories] = useState([])
@@ -40,9 +36,16 @@ const Header = ({ isLoggedIn }) => {
 		return () => document.removeEventListener('click', handleDocumentClick)
 	})
 
-	useEffect(async () => {
-		const response = await getCategories()
-		setCategories(response)
+	useEffect(() => {
+		let unmounted = false
+		const getCats = async () => {
+			const response = await getCategories()
+			if(!unmounted) {
+				setCategories(response)
+			}
+		}
+		getCats()
+		return () => unmounted = true
 	}, [])
 
 	const renderCategories = () => {
@@ -103,8 +106,16 @@ const Header = ({ isLoggedIn }) => {
 				<div className='list-item'>
 					<Link to='/customerAddresses' className='profile-menu-text'>Addresses</Link>
 				</div>
+				<div className='list-item'>
+					<span className='profile-menu-text cursor-pointer' onClick={signOut}>Sign Out</span>
+				</div>
 			</div>
 		)
+	}
+
+	const signOut = () => {
+		setLogoutState()
+		history.push('/')
 	}
 
 	const onSearchArgsChange = (e) => {
@@ -168,4 +179,4 @@ const mapStatetoProps = (state) => {
 	return { isLoggedIn: state.signIn.isLoggedIn }
 }
 
-export default connect(mapStatetoProps, {})(Header)
+export default connect(mapStatetoProps, {setLogoutState})(Header)
