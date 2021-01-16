@@ -9,21 +9,49 @@ const { ErrorMessage } = require("../constants/error");
 module.exports.updateProduct = async (product_id,parameter) => {
 
   console.log("***************")
-  console.log("TRY IS CALLED")
+  console.log("UPDATA FUNC")
   try {
 
     console.log("***************")
-    console.log("INSIDE IS CALLED")
-    Product.findByIdAndUpdate(product_id, parameter, 
-    function (err, docs) { 
-      if (err){ 
-        console.log(err) 
-      } 
-      else{ 
-        console.log("Updated User : ", docs); 
-      } 
-    });
+    console.log("TRY")
+    var innerParameteer = parameter;
+    if(!!parameter.attributes){
+      product = await Product.findOne({ _id: ObjectId(product_id) });
+      
+      console.log("***** PRODUCT ****" , product)
+      console.log(product.productInfos)
+      product = product.toJSON()
 
+      var productAttributes = []
+      product.productInfos.forEach(function(item){
+        if(JSON.stringify(item.attributes) == JSON.stringify(parameter.attributes)){
+          
+          productAttributes.push(parameter)
+        }else{
+          productAttributes.push(item)
+        }
+
+      })
+
+      innerParameteer = {productInfos: productAttributes};
+
+    }
+
+
+    console.log("**** INNER PARAMETER ****", innerParameteer)
+
+      
+      Product.findByIdAndUpdate(product_id, innerParameteer, 
+        function (err, docs) { 
+          if (err){ 
+            console.log(err) 
+          } 
+          else{ 
+            console.log("Updated User : ", docs); 
+          } 
+        });
+        
+      
     return 200;
   } catch (error) {
 
