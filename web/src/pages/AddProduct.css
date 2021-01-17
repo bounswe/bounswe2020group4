@@ -1,0 +1,9 @@
+.container-main {
+    border-width:3px !important;
+    background-color: var(--beige);
+}
+
+.header-info{
+	color: var(--red-secondary);
+	line-height: 2;	
+}
