@@ -223,7 +223,7 @@
                     android:id="@+id/tiet_vendorAddProduct_AttNum"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="Product Num Att"
+                    android:hint="Product Number of Attributes"
                     android:inputType="numberDecimal"
                     android:maxLines="1"
                     android:singleLine="true"

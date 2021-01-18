@@ -233,6 +233,7 @@ class AddProductFragment : BaseFragment() {
             val productJSON = arguments?.getString(PRODUCT) ?: ""
 
             val product = gson.fromJson(productJSON, Product::class.java)
+            Log.v("EditProduct", product.toString())
 
             tv_vendorAddProductCategoryName.text = product.category.joinToString("->")
 
@@ -248,7 +249,11 @@ class AddProductFragment : BaseFragment() {
 
             tiet_vendorAddProduct_AttNum.setText(product.filterCriterias?.size.toString())
 
-            val parsedList = mutableListOf<ParsedAttribute>()
+            var default_atts = product.filterCriterias?.size
+
+            var parsedList = mutableListOf<ParsedAttribute>()
+
+            Log.v("EditProduct", product.filterCriterias.toString())
 
             for (criteria in product.filterCriterias!!){
                 parsedList.add(ParsedAttribute(att_name = criteria.name, att_value = criteria.possibleValues))
@@ -261,35 +266,98 @@ class AddProductFragment : BaseFragment() {
                 }
 
                 override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
+
                     try {
                         var attNum = text.toString().toInt()
 
-                        for (i in 1..attNum){
-                            parsedList.add(ParsedAttribute(att_name = "", att_value = mutableListOf()))
+                        if (default_atts != null) {
+                            if (default_atts < attNum) {
+                                Log.v("AddProductxDefaultAtts", default_atts.toString())
+                                Log.v("AddProductxNewAtts", attNum.toString())
+                                parsedList = mutableListOf<ParsedAttribute>()
+                                for (criteria in product.filterCriterias!!){
+                                    parsedList.add(ParsedAttribute(att_name = criteria.name, att_value = criteria.possibleValues))
+                                }
+                                var diff = attNum - default_atts
+
+                                for (i in 1..diff) {
+                                    parsedList.add(
+                                        ParsedAttribute(
+                                            att_name = "",
+                                            att_value = mutableListOf()
+                                        )
+                                    )
+                                }
+                                Log.v("AddProductxParsedList", parsedList.toString())
+                                addProductAdapter.submitList(parsedList)
+                            }
+                            else if (default_atts > attNum){
+                                Log.v("AddProductxDefaultAtts", default_atts.toString())
+                                Log.v("AddProductxNewAtts", attNum.toString())
+
+                                var diff = default_atts - attNum
+
+                                parsedList = parsedList.subList(0, attNum)
+
+                                Log.v("AddProductxParsedList", parsedList.toString())
+                                addProductAdapter.submitList(parsedList)
+                            }
+                            else if (default_atts ==  attNum){
+                                parsedList = mutableListOf<ParsedAttribute>()
+                                for (criteria in product.filterCriterias!!){
+                                    parsedList.add(ParsedAttribute(att_name = criteria.name, att_value = criteria.possibleValues))
+                                }
+                                addProductAdapter.submitList(parsedList)
+                            }
                         }
-
-                        addProductAdapter.submitList(parsedList)
-
 
                     }catch (e: Exception){
 
                     }
+
+
                 }
 
                 override fun afterTextChanged(editable: Editable?) {
+                    /*
                     try {
                         var attNum = editable.toString().toInt()
 
-                        for (i in 1..attNum){
-                            parsedList.add(ParsedAttribute(att_name = "", att_value = mutableListOf()))
+                        if (default_atts != null) {
+                            if (default_atts < attNum) {
+
+                                for (i in (default_atts)?.rangeTo(attNum)!!) {
+                                    parsedList.add(
+                                        ParsedAttribute(
+                                            att_name = "",
+                                            att_value = mutableListOf()
+                                        )
+                                    )
+                                }
+
+                                addProductAdapter.submitList(parsedList)
+                            }
+                            else if (default_atts > attNum){
+                                for (i in 1..(attNum)) {
+                                    parsedList.add(
+                                        ParsedAttribute(
+                                            att_name = "",
+                                            att_value = mutableListOf()
+                                        )
+                                    )
+                                }
+
+                                addProductAdapter.submitList(parsedList)
+                            }
                         }
-
-                        addProductAdapter.submitList(parsedList)
-
 
                     }catch (e: Exception){
 
                     }
+
+                     */
+
+
                 }
 
             })
@@ -301,6 +369,19 @@ class AddProductFragment : BaseFragment() {
         }
 
         btn_vendorAddProduct_Next.setOnClickListener {
+
+
+            var current_attributes : MutableMap<String, List<String>> = mutableMapOf()
+
+            for ( (key, value) in attributes){
+                if (addProductAdapter.getList().contains(key)){
+                    current_attributes[key] = value
+                }
+            }
+
+            attributes = current_attributes
+
+            Log.v("AddProductxAttribute", attributes.toString())
 
             var all_options : MutableList<Set<String>> = mutableListOf()
 

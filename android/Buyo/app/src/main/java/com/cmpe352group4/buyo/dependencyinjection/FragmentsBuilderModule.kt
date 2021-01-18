@@ -21,6 +21,7 @@ import com.cmpe352group4.buyo.ui.profilePage.*
 import com.cmpe352group4.buyo.ui.vendor.AddProductCategoryFragment
 import com.cmpe352group4.buyo.ui.vendor.AddStockValuesFragment
 import com.cmpe352group4.buyo.ui.vendor.AddProductFragment
+import com.cmpe352group4.buyo.ui.vendor.VendorProductListFragment
 import com.cmpe352group4.buyo.ui.wishList.WishListFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -122,5 +123,8 @@ abstract class FragmentsBuilderModule {
 
     @ContributesAndroidInjector
     abstract fun contributeAddProductCategoryFragment(): AddProductCategoryFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeVendorProductListFragment(): VendorProductListFragment
 
 }

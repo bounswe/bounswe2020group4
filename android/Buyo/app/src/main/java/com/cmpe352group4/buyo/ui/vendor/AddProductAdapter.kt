@@ -38,24 +38,32 @@ class AddProductAdapter(
         Log.v("VendorAddProduct", this.Attributes.toString())
     }
 
+    fun getList(): List<String> {
+        return this.Attributes.map{it.att_name}
+    }
+
     inner class AddProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         fun bind(modal : ParsedAttribute){
+
+            if (modal.att_name != ""){
+                itemView.et_vendorAddProductAttributeName.setText(modal.att_name)
+                itemView.et_vendorAddProductAttributeOptions.setText(modal.att_value.joinToString("-"))
+                callbackAddAttribute.invoke(modal)
+            }
+
 
             itemView.et_vendorAddProductAttributeName.addTextChangedListener(object : TextWatcher{
                 override fun beforeTextChanged(text: CharSequence?, start: Int, count: Int, after: Int) {
                     Log.v("VendorAddProductAdapter", "beforeTextChanged: $text")
-                    itemView.et_vendorAddProductAttributeOptions.isEnabled = modal.att_name != ""
                 }
 
                 override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
                     Log.v("VendorAddProductAdapter", "onTextChanged: $text")
                     modal.att_name = text.toString()
-                    itemView.et_vendorAddProductAttributeOptions.isEnabled = modal.att_name != ""
                 }
 
                 override fun afterTextChanged(editable: Editable?) {
                     Log.v("VendorAddProductAdapter", "afterTextChanged: "+editable.toString())
-                    itemView.et_vendorAddProductAttributeOptions.isEnabled = modal.att_name != ""
                 }
 
             })
@@ -69,7 +77,9 @@ class AddProductAdapter(
                 override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
                     Log.v("VendorAddProductAdapter", "onTextChanged: $text")
                     modal.att_value = text.toString().split("-")
-                    callbackAddAttribute.invoke(modal)
+                    if (modal.att_name != ""){
+                        callbackAddAttribute.invoke(modal)
+                    }
                 }
 
                 override fun afterTextChanged(editable: Editable?) {
