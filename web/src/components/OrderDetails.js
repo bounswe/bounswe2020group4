@@ -11,12 +11,13 @@ import Button from '@material-ui/core/Button'
 import RatingStar from './RatingStar'
 
 import commentService from '../services/comments'
+import orderService from '../services/orders'
 
 import DefaultProductImage from '../images/default-product-detail-image.png'
 
 import './OrderDetails.css'
 
-const ProductOrder = ({userId, productId, imgUrl, name, brand, price, isDelivered, isPending, vendor, quantity, attributes, status}) => {
+const ProductOrder = ({orderId, userId, userType, productId, imgUrl, name, brand, price, isDelivered, isPending, vendor, quantity, attributes, status}) => {
 	const [open, setOpen] = useState(false)
 	const [rating, setRating] = useState(null)
 	const [comment, setComment] = useState('')
@@ -43,6 +44,35 @@ const ProductOrder = ({userId, productId, imgUrl, name, brand, price, isDelivere
 		setComment(e.target.value)
 	}
 
+	const handleCancelOrder = async (e) => {
+		const response = await orderService.updateOrderStatus(userType, userId, 'Canceled', orderId)
+		if (response == 200) {
+			setOpen(false)
+			alert('Order is successfully canceled.')
+			history.go(0)
+		} else {
+			alert('Something went wrong. Please try again later.')
+		}
+	}
+
+	const customerProductButtons = () => {
+		return (
+			<div className="product-order-info">
+				<button className="add-comment-button">Message Vendor</button>
+				{isPending && <button className="add-comment-button">Cancel Order</button>}
+				{isDelivered && <button className="add-comment-button" onClick={handleClickOpen}>Give Feedback</button>}
+			</div>
+		)
+	}
+
+	const vendorProductButtons = () => {
+		return (
+			<div className="product-order-info">
+				{isPending && <button className="add-comment-button" onClick={handleCancelOrder}>Cancel Order</button>}
+			</div>
+		)
+	}
+
 	return(
 		<div className="product-order">
 			<a className="product-image-container" href={`/product/${productId}`}><img className="product-image" src={imgUrl || DefaultProductImage} alt='product'/></a>
@@ -59,11 +89,7 @@ const ProductOrder = ({userId, productId, imgUrl, name, brand, price, isDelivere
 				<div>Vendor: {vendor}</div>
 				<div>Status: {status}</div>
 			</div>
-			<div className="product-order-info">
-				<button className="add-comment-button">Message Vendor</button>
-				{isPending && <button className="add-comment-button">Cancel Order</button>}
-				{isDelivered && <button className="add-comment-button" onClick={handleClickOpen}>Give Feedback</button>}
-			</div>
+			{userType == 'customer' ? customerProductButtons() : vendorProductButtons()}
 			<Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
 				<DialogTitle id="form-dialog-title">Give Feedback</DialogTitle>
 				<DialogContent>
@@ -102,7 +128,7 @@ const ProductOrder = ({userId, productId, imgUrl, name, brand, price, isDelivere
 }
 
 
-const OrderDetails = ({address, products, isLoggedIn, userId}) => {
+const OrderDetails = ({orderId, address, products, isLoggedIn, userId, userType}) => {
 	if(!isLoggedIn) {
 		return <div>Please log in!</div>
 	}
@@ -111,7 +137,7 @@ const OrderDetails = ({address, products, isLoggedIn, userId}) => {
 		<div className="order-details-container">
 			<div className="order-details-top">
 				<div>
-					{products && products.map(p => <ProductOrder userId={userId} productId={p.productId} status={p.status} attributes={p.attributes} quantity={p.quantity} vendor={p.vendor.name} key={p.orderedProductId} name={p.name} brand={p.brand} price={p.price + '₺'} imgUrl={p.imageUrl} isPending={p.status === 'Pending'} isDelivered={p.status.startsWith('Delivered')}/>)}
+					{products && products.map(p => <ProductOrder orderId={orderId} userId={userId} userType={userType} productId={p.productId} status={p.status} attributes={p.attributes} quantity={p.quantity} vendor={p.vendor.name} key={p.orderedProductId} name={p.name} brand={p.brand} price={p.price + '₺'} imgUrl={p.imageUrl} isPending={p.status === 'Pending'} isDelivered={p.status.startsWith('Delivered')}/>)}
 				</div>
 			</div>
 			<div className="address-container"> Address: {address}</div>
@@ -122,7 +148,8 @@ const OrderDetails = ({address, products, isLoggedIn, userId}) => {
 const mapStateToProps = (state) => {
 	return {
 		isLoggedIn: state.signIn.isLoggedIn,
-		userId: state.signIn.userId
+		userId: state.signIn.userId,
+		userType: state.signIn.userType,
 	}
 }
 
