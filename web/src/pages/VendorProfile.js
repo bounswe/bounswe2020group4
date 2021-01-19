@@ -1,9 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
+import { hideHeader, showHeader, showVendorHeader, hideVendorHeader } from '../redux/actions'
 
 import VendorProfileInfo from '../components/vendor-profile/VendorProfileInfo'
 import UpdatePassword from '../components/customer-profile/UpdatePassword'
 
-const VendorProfile = () => {
+const VendorProfile = (props) => {
+
+	useEffect(() => {
+		props.hideHeader()
+		props.showVendorHeader()
+		return () => props.showHeader()
+	}, [])
 
 	return (
 		<div>
@@ -23,4 +31,4 @@ const VendorProfile = () => {
 
 }
 
-export default VendorProfile
+export default connect(null, {showHeader, hideHeader, showVendorHeader, hideVendorHeader})(VendorProfile)
