@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
 /**
- * Schema of a Like object in the database, like documents resides
- * in 'likes' collection.
+ * Schema of a Notification object in the database, notification documents resides
+ * in 'notifications' collection.
  */
 module.exports.Notification = mongoose.model(
   "Notification",
