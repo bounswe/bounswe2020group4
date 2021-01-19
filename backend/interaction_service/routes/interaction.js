@@ -69,4 +69,17 @@ module.exports.initialize = (app) => {
       response.respond(ErrorCode(result.message), result.message);
     }
   });
+
+  /**
+   * Gets notifications between two users
+   */
+  app.get("/notifications", async (request, response) => {
+    const result = await notification.getNotifications(request.query);
+
+    if (result.success) {
+      response.respond(200, "OK", { notifications: result.response });
+    } else {
+      response.respond(ErrorCode(result.message), result.message);
+    }
+  });
 };
