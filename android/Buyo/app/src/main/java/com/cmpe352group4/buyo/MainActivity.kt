@@ -16,6 +16,7 @@ import com.cmpe352group4.buyo.base.fragment_ops.NavigationManager
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.navigationtabs.*
 import com.cmpe352group4.buyo.util.GeneralUtil
+import com.cmpe352group4.buyo.widgets.navigation_bar.NavigationBar
 import com.cmpe352group4.buyo.widgets.navigation_bar.NavigationBarOnClickListener
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -57,6 +58,8 @@ class MainActivity : BaseActivity(), NavigationBarOnClickListener {
         initNavigationBar()
         connectionManager.setActivity(this)
         sharedPref.saveUserId("")
+        sharedPref.saveVendorLat("")
+        sharedPref.saveVendorLon("")
     }
 
     override fun onItemSelected(position: Int) {
@@ -82,6 +85,13 @@ class MainActivity : BaseActivity(), NavigationBarOnClickListener {
         WishlistTabContainer.newInstance(), CartTabContainer.newInstance(),
         ProfileTabContainer.newInstance()
     )
+
+    fun changeActiveTab(position: Int) {
+        navigationBar.changeActiveTab(position)
+        if (position != NavigationBar.FULL_SCREEN_INDEX) {
+            navManager.dispatchFullScreenNavigation()
+        }
+    }
 
     private val exitRunnable = Runnable {
         finishAffinity()

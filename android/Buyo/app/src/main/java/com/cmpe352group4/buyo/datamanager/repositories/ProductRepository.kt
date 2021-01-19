@@ -9,9 +9,8 @@ import com.cmpe352group4.buyo.base.AppExecutors
 import com.cmpe352group4.buyo.base.ConnectionManager
 import com.cmpe352group4.buyo.util.livedata.InitialLiveData
 import com.cmpe352group4.buyo.vo.BaseResponse
-import com.cmpe352group4.buyo.vo.Product
 import com.cmpe352group4.buyo.vo.ProductResult
-//import com.cmpe352group4.buyo.vo.ProductList
+//import com.cmpe352group4.buyo.vo.ProductResponse
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -22,7 +21,7 @@ class ProductRepository @Inject constructor(
     private val connectionManager: ConnectionManager
 ){
 
-    fun getProductById(productId:Int): LiveData<Resource<ProductResult>> {
+    fun getProductById(productId:String): LiveData<Resource<ProductResult>> {
         return object : NetworkServiceWrapper<ProductResult,BaseResponse<ProductResult>>(appExecutors,connectionManager){
             override fun loadFromApi(data: BaseResponse<ProductResult>): LiveData<ProductResult> {
                 return InitialLiveData.create(data.data)
@@ -32,12 +31,12 @@ class ProductRepository @Inject constructor(
     }
 
 
-    //fun getProductListbyKeyword(keyword:String): LiveData<Resource<ProductList>> {
-    //    return object : NetworkServiceWrapper<ProductList,ProductList>(appExecutors,connectionManager){
-    //        override fun loadFromApi(data: ProductList): LiveData<ProductList> {
+    //fun getProductListbyKeyword(keyword:String): LiveData<Resource<ProductResponse>> {
+    //    return object : NetworkServiceWrapper<ProductResponse,ProductResponse>(appExecutors,connectionManager){
+    //        override fun loadFromApi(data: ProductResponse): LiveData<ProductResponse> {
     //            return InitialLiveData.create(data)
     //        }
-    //        override fun createCall(): LiveData<ApiResponse<ProductList>> = api.fetchProductSearch(keyword)
+    //        override fun createCall(): LiveData<ApiResponse<ProductResponse>> = api.fetchProductSearch(keyword)
     //    }.asLiveData()
     //}
 }

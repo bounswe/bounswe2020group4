@@ -1,0 +1,23 @@
+.pc-img-container{
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.pc-info{
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.pc-name{
+	line-height: 1.5;
+	min-height: auto;
+}
+
+.pc-info-bottom{
+	width: 100%;
+}
+
+.btn{
+	margin-left: auto !important;
+	margin-right: auto !important;
+}

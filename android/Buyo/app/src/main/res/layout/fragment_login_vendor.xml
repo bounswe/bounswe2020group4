@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/vendor_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/buyo_antiqueWhite">
+
+    <EditText
+        android:id="@+id/vendor_username"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="24dp"
+        android:autofillHints=""
+        android:hint="@string/company_e_mail"
+        android:inputType="textEmailAddress"
+        android:selectAllOnFocus="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/vendor_password"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:autofillHints=""
+        android:hint="@string/prompt_password"
+        android:inputType="textPassword"
+        android:selectAllOnFocus="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vendor_username" />
+
+    <EditText
+        android:id="@+id/vendor_reenter_password"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:autofillHints=""
+        android:hint="@string/reprompt_password"
+        android:inputType="textPassword"
+        android:selectAllOnFocus="true"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vendor_password" />
+
+    <EditText
+        android:id="@+id/vendor_company_website"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:autofillHints=""
+        android:hint="@string/company_website"
+        android:imeOptions="actionDone"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vendor_reenter_password" />
+
+    <EditText
+        android:id="@+id/vendor_name_surname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:autofillHints=""
+        android:hint="@string/name_surname"
+        android:imeOptions="actionDone"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vendor_company_website" />
+
+    <EditText
+        android:id="@+id/vendor_company_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:autofillHints=""
+        android:hint="@string/company_name"
+        android:imeOptions="actionDone"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vendor_name_surname" />
+
+    <Button
+        android:id="@+id/vendor_choose_location"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/google_blue"
+        android:text="@string/choose_location"
+        android:textAllCaps="false"
+        android:textColor="@color/buyo_white"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@id/given_address"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vendor_company_name" />
+
+    <TextView
+        android:id="@+id/given_address"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/please_select_your_location"
+        android:textColorHighlight="@color/buyo_fireEngineRed"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/vendor_company_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/vendor_choose_location"
+        app:layout_constraintBottom_toTopOf="@+id/vendor_remember_me"  />
+
+    <CheckBox
+        android:id="@+id/vendor_remember_me"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/remember_me"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/given_address" />
+
+    <Button
+        android:id="@+id/vendor_login_signup_button"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="48dp"
+        android:background="@color/medium_orange"
+        android:text="@string/action_login"
+        android:textColor="@color/buyo_white"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vendor_remember_me" />
+
+    <Button
+        android:id="@+id/vendor_reset_password"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:background="@color/grey"
+        android:text="@string/reset_password"
+        android:textColor="@color/buyo_white"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vendor_login_signup_button" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/vendor_signup_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/sign_up_switch"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/vendor_switch_to_customer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vendor_reset_password"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/vendor_switch_to_customer"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/grey"
+        android:text="@string/i_am_a_customer"
+        android:textAllCaps="false"
+        android:textColor="@color/buyo_white"
+        app:layout_constraintBottom_toTopOf="@+id/legal_documents_vendor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/legal_documents_vendor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/privacy_policy_terms_of_service"
+        android:textColorHighlight="@color/buyo_fireEngineRed"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

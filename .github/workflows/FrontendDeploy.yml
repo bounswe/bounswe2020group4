@@ -37,7 +37,7 @@ jobs:
         script_stop: true
         script: | 
           sudo rm -rf ~/app || true
-          sudo docker rm -f $(sudo docker ps -a -q)
+          sudo docker rm -f $(sudo docker ps -a -q) || true
           sudo docker system prune –af || true
           mkdir ~/app
     

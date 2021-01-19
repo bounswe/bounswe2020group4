@@ -15,14 +15,10 @@ import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
-import com.cmpe352group4.buyo.ui.productList.ProductListAdapter
 import com.cmpe352group4.buyo.ui.productList.ProductListFragment
-import com.cmpe352group4.buyo.viewmodel.ProductViewModel
 import com.cmpe352group4.buyo.viewmodel.SearchViewModel
 import com.cmpe352group4.buyo.vo.Product
-import com.cmpe352group4.buyo.vo.Vendor
 import kotlinx.android.synthetic.main.fragment_homepage.*
-import kotlinx.android.synthetic.main.fragment_product_list.*
 import javax.inject.Inject
 
 class HomepageFragment : BaseFragment() {
@@ -66,7 +62,6 @@ class HomepageFragment : BaseFragment() {
         }
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -101,16 +96,16 @@ class HomepageFragment : BaseFragment() {
             }
         })
 
+        // TODO A view model should be implemented, that contains both recommended and discounted
+        // TODO products. Using multiple viewmodels in a fragment causes bugs, i guess.
 
         // Recommendation RV
-        recommendedViewModel.onFetchSearchResultbyKeyword("bebek")
+        recommendedViewModel.onFetchSearchResultbyKeyword("d", emptyMap<String, String>())
 
         recommendedViewModel.searchResult.observe(viewLifecycleOwner, Observer {
 
             if (it.status == Status.SUCCESS && it.data != null){
-                Log.v("Products of the Recomm", it.data.products.toString())
-
-                recommendedProductListAdapter.submitList(it.data.products as MutableList<Product>)
+                recommendedProductListAdapter.submitList(it.data.products.productList as MutableList<Product>)
 
                 dispatchLoading()
             } else if (it.status == Status.ERROR){
@@ -120,9 +115,6 @@ class HomepageFragment : BaseFragment() {
             }
         })
 
-
-
-
         recommendationsRecyclerView.adapter = recommendedProductListAdapter
         recommendationsRecyclerView.layoutManager = LinearLayoutManager(
             this.context,
@@ -131,14 +123,13 @@ class HomepageFragment : BaseFragment() {
 
         // Discount RV
 
-        discountViewModel.onFetchSearchResultbyCategory( "[\"Erkek\"]")
+        discountViewModel.onFetchSearchResultbyCategory( "[\"Women Clothing\"]", emptyMap())
 
         discountViewModel.categoryResult.observe(viewLifecycleOwner, Observer {
 
             if (it.status == Status.SUCCESS && it.data != null){
-                Log.v("Products of the discnt", it.data.products.toString())
 
-                discountProductListAdapter.submitList(it.data.products as MutableList<Product>)
+                discountProductListAdapter.submitList(it.data.products.productList as MutableList<Product>)
 
                 dispatchLoading()
             } else if (it.status == Status.ERROR){

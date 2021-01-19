@@ -1,4 +1,7 @@
 const file = require("../views/file");
+const vendor = require("../views/vendor");
+const { ErrorCode } = require("../constants/error");
+
 
 module.exports.initialize = (app) => {
   app.post("/vendor/products", async (request, response) => {
@@ -17,4 +20,22 @@ module.exports.initialize = (app) => {
 
     response.respond(200, "OK", { urls });
   });
+
+
+  app.get("/vendor/products", async (request, response) => {
+    const result = await vendor.getProducts(request.query);
+
+    if ( !!result.success ) {
+      response.respond(ErrorCode(result.message), result.message);
+    }
+    else if (!!result.productList) {
+      response.respond(200, "OK", {
+        result,
+      });
+    } 
+    else {
+      response.respond(ErrorCode(result.message), result.message);
+    }
+  });
+
 };

@@ -21,7 +21,7 @@ class WishListRepository @Inject constructor(
     private val connectionManager: ConnectionManager
 ){
 
-    fun getWishListProducts(customerId: Int): LiveData<Resource<WishListProducts>> {
+    fun getWishListProducts(customerId: String): LiveData<Resource<WishListProducts>> {
         return object : NetworkServiceWrapper<WishListProducts, BaseResponse<WishListProducts>>(appExecutors,connectionManager){
             override fun loadFromApi(data: BaseResponse<WishListProducts>): LiveData<WishListProducts> {
                 return InitialLiveData.create(data.data)
@@ -30,7 +30,7 @@ class WishListRepository @Inject constructor(
         }.asLiveData()
     }
 
-    fun unlikeProduct(customerId: Int, productId: Int): LiveData<Resource<BaseResponsePostRequest>> {
+    fun unlikeProduct(customerId: String, productId: String): LiveData<Resource<BaseResponsePostRequest>> {
         return object : NetworkServiceWrapper<BaseResponsePostRequest, BaseResponsePostRequest>(appExecutors,connectionManager){
             override fun loadFromApi(data: BaseResponsePostRequest): LiveData<BaseResponsePostRequest> {
                 return InitialLiveData.create(data)

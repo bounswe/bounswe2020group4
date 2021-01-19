@@ -31,6 +31,7 @@ services:
       - "5003:9876"
     links:
       - mongo
+      - redis
 
   checkout-service:
     container_name: checkout-service
@@ -67,3 +68,9 @@ services:
       - vendor-service
     ports:
       - "8080:8080"
+
+  redis:
+    image: redis
+    container_name: cache
+    expose:
+      - 6379

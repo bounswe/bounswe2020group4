@@ -2,10 +2,10 @@ package com.cmpe352group4.buyo.ui.productList
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -19,19 +19,17 @@ import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
+import com.cmpe352group4.buyo.ui.cart.CartPageFragment
+import com.cmpe352group4.buyo.ui.productDetail.AddCartFragment
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
-import com.cmpe352group4.buyo.viewmodel.CategoryViewModel
 import com.cmpe352group4.buyo.viewmodel.ProductViewModel
 import com.cmpe352group4.buyo.viewmodel.SearchViewModel
 import com.cmpe352group4.buyo.viewmodel.WishListViewModel
+import com.cmpe352group4.buyo.vo.LikeResponse
 import kotlinx.android.synthetic.main.fragment_product_list.*
 import com.cmpe352group4.buyo.vo.Product
-import com.cmpe352group4.buyo.vo.Vendor
-import kotlinx.android.synthetic.main.fragment_categories.*
-import kotlinx.android.synthetic.main.fragment_product_detail_content.*
-import kotlinx.android.synthetic.main.item_product_list_recycler_view.*
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.item_product_list_recycler_view.view.*
-import java.util.ArrayList
 import javax.inject.Inject
 
 
@@ -43,6 +41,10 @@ class ProductListFragment : BaseFragment(){
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val productViewModel: ProductViewModel by viewModels {
+        viewModelFactory
+    }
 
     private val productListViewModel: SearchViewModel by viewModels {
         viewModelFactory
@@ -56,22 +58,98 @@ class ProductListFragment : BaseFragment(){
     companion object {
         private const val KEYWORD = "search_keyword"
         private const val CATEGORY_PATH = "category_path"
-        fun newInstance(keyword: String? = "", path: String? = "") = ProductListFragment().apply {
+        private const val OPTIONS = "query"
+        fun newInstance(keyword: String? = "", path: String? = "", options: String? = "") = ProductListFragment().apply {
             arguments = Bundle().apply {
                 putString(CATEGORY_PATH, path)
                 putString(KEYWORD, keyword)
+                putString(OPTIONS, options)
             }
         }
     }
 
     private val productListAdapter by lazy {
-        ProductListAdapter(mutableListOf(), wishListViewModel, viewLifecycleOwner, sharedPref) { product ->
+        ProductListAdapter(mutableListOf(), sharedPref,
+            { product ->
+                navigationManager?.onReplace(
+                    ProductDetailContentFragment.newInstance(product.id),
+                    TransactionType.Replace, true
+                )
+            },
+            { product, itemView ->
+                if (sharedPref.getUserId().isNullOrEmpty()) {
+                    Log.v("ListRV","Guest User")
+                    val myToast = Toast.makeText(
+                        context,
+                        "You need to Login first!",
+                        Toast.LENGTH_SHORT
+                    )
+                    myToast.setGravity(Gravity.BOTTOM, 0, 200)
+                    myToast.show()
+                } else {
+                    wishListViewModel.onPostWhislistUpdate(LikeResponse(sharedPref.getUserId() ?: "", product.id))
+
+                    wishListViewModel.statusUnlike.observe(viewLifecycleOwner, Observer{
+                        if (it.status == Status.SUCCESS && it.data != null) {
+
+                            dispatchLoading()
+                        } else if (it.status == Status.ERROR) {
+                            dispatchLoading()
+                        } else if (it.status == Status.LOADING) {
+                            showLoading()
+                        }
+                    })
+                    if (itemView.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_disliked) {
+                        itemView.iv_productListRecyclerView_Fav.setImageResource(R.drawable.ic_product_liked)
+                        itemView.iv_productListRecyclerView_Fav.tag = R.drawable.ic_product_liked
+                    }
+                    else if (itemView.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_liked) {
+                        itemView.iv_productListRecyclerView_Fav.setImageResource(R.drawable.ic_product_disliked)
+                        itemView.iv_productListRecyclerView_Fav.tag = R.drawable.ic_product_disliked
+                    }
+                }
+            },{ toastText ->
+                val myToast = Toast.makeText(
+                    context,
+                    toastText,
+                    Toast.LENGTH_SHORT
+                )
+                myToast.setGravity(Gravity.BOTTOM, 0, 200)
+                myToast.show()
+
+            },{ product ->
+
+                productViewModel.onFetchProductById(product.id)
+                productViewModel.productDetail.observe(viewLifecycleOwner, Observer {
+                    Log.d("LikedProdStParse", "$it.status")
+                    if (it.status == Status.SUCCESS && it.data != null){
+
+                        var prod = it.data.result
+
+
+                        navigationManager?.onReplace(
+                            AddCartFragment.newInstance(prod),
+                            TransactionType.Replace, true
+                        )
+                        dispatchLoading()
+                    } else if (it.status == Status.ERROR){
+                        dispatchLoading()
+                    }else if (it.status == Status.LOADING){
+                        showLoading()
+                    }
+
+                })
+
+            }
+        ) {
             navigationManager?.onReplace(
-                ProductDetailContentFragment.newInstance(product.id),
+                CartPageFragment.newInstance(),
                 TransactionType.Replace, true
             )
         }
     }
+
+    val gson = Gson()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -85,9 +163,13 @@ class ProductListFragment : BaseFragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val keyword = arguments?.getString(KEYWORD) ?: "empty"
+        val keyword = arguments?.getString(KEYWORD) ?: ""
 
-        val category = arguments?.getString(CATEGORY_PATH) ?: "empty"
+        val category = arguments?.getString(CATEGORY_PATH) ?: ""
+
+        val option_query = arguments?.getString(OPTIONS) ?: ""
+
+        var fetchedProducts: List<Product>? = null
 
 
         // SEARCH API CALL
@@ -95,8 +177,6 @@ class ProductListFragment : BaseFragment(){
         if (keyword == ""){ // Category call
 
             val categoryList = category.split(",").toList()
-
-            //Log.v("ProductList C", categoryList.toString())
 
             var query_string = "["
 
@@ -106,109 +186,222 @@ class ProductListFragment : BaseFragment(){
 
             query_string = query_string.dropLast(1) + "]"
 
-            //Log.v("ProductList S", query_string)
+            if (option_query == "") { // Do not apply filter or sort
+                Log.v("ProductListQuery", query_string+option_query)
+                productListViewModel.onFetchSearchResultbyCategory(query_string, emptyMap())
 
-            productListViewModel.onFetchSearchResultbyCategory(query_string)
+                productListViewModel.categoryResult.observe(viewLifecycleOwner, Observer {
+                    if (it.status == Status.SUCCESS && it.data != null) {
+                        Log.v("ProductListResult", it.data.products.toString())
 
-            productListViewModel.categoryResult.observe(viewLifecycleOwner, Observer {
-                if (it.status == Status.SUCCESS && it.data != null){
-                    Log.v("Products of the keyword", it.data.products.toString())
+                        tv_productListCategoryName.text = categoryList.joinToString(separator = "/")
 
-                    tv_productListCategoryName.text = categoryList.joinToString(separator = "/")
+                        fetchedProducts = it.data.products.productList
 
 
-                    if(sharedPref.getUserId().isNullOrEmpty()){
-                        Log.i("ProductList", "Guest User")
+                        if (sharedPref.getUserId().isNullOrEmpty()) {
+                            Log.i("ProductResponse", "Guest User")
+                            productListAdapter.submitList(fetchedProducts as MutableList<Product>)
+                        } else {
+                            Log.i("ProductListLike", "Sending Request")
+                            wishListViewModel.onFetchWishListProducts(sharedPref.getUserId() ?: "")
 
-                    }else{
-                        Log.i("Liked", "Sending Request")
-                        wishListViewModel.onFetchWishListProducts(sharedPref.getUserId()?.toInt() ?: -1)
+                            wishListViewModel.wishListProducts.observe(
+                                viewLifecycleOwner,
+                                Observer {
+                                    if (it.status == Status.SUCCESS && it.data != null) {
 
-                        wishListViewModel.wishListProducts.observe(viewLifecycleOwner, Observer {
-                            if (it.status == Status.SUCCESS && it.data != null) {
+                                        productListAdapter.WishListProducts =
+                                            it.data.products as MutableList<Product>
 
-                                Log.i("Liked", (it.data.products as MutableList<Product>).toString() )
-                                productListAdapter.WishListProducts = it.data.products as MutableList<Product>
-                                Log.i("Liked", productListAdapter.WishListProducts.toString())
-                                dispatchLoading()
-                            } else if (it.status == Status.ERROR) {
-                                dispatchLoading()
-                            } else if (it.status == Status.LOADING) {
-                                showLoading()
-                            }
-                        })
+                                        productListAdapter.submitList(fetchedProducts as MutableList<Product>)
 
+                                        dispatchLoading()
+                                    } else if (it.status == Status.ERROR) {
+                                        dispatchLoading()
+                                    } else if (it.status == Status.LOADING) {
+                                        showLoading()
+                                    }
+                                })
+
+                        }
+
+
+
+                        dispatchLoading()
+                    } else if (it.status == Status.ERROR) {
+                        dispatchLoading()
+                    } else if (it.status == Status.LOADING) {
+                        showLoading()
                     }
+                })
+            }
+            else if (option_query != ""){ // Apply filter and sort
+                Log.v("ProductListQuery", query_string+option_query)
+                productListViewModel.onFetchSearchResultbyCategory(query_string, gson.fromJson(option_query,Map::class.java) as Map<String, String>?)
 
-                    productListAdapter.submitList(it.data.products as MutableList<Product>)
+                productListViewModel.categoryResult.observe(viewLifecycleOwner, Observer {
+                    if (it.status == Status.SUCCESS && it.data != null) {
+                        Log.v("ProductListResult", it.data.products.toString())
 
-                    dispatchLoading()
-                } else if (it.status == Status.ERROR){
-                    dispatchLoading()
-                }else if (it.status == Status.LOADING){
-                    showLoading()
-                }
-            })
+                        tv_productListCategoryName.text = categoryList.joinToString(separator = "/")
+
+                        fetchedProducts = it.data.products.productList
+
+
+                        if (sharedPref.getUserId().isNullOrEmpty()) {
+                            Log.i("ProductResponse", "Guest User")
+                            productListAdapter.submitList(fetchedProducts as MutableList<Product>)
+                        } else {
+                            Log.i("ProductListLike", "Sending Request")
+                            wishListViewModel.onFetchWishListProducts(sharedPref.getUserId() ?: "")
+
+                            wishListViewModel.wishListProducts.observe(
+                                viewLifecycleOwner,
+                                Observer {
+                                    if (it.status == Status.SUCCESS && it.data != null) {
+
+                                        productListAdapter.WishListProducts =
+                                            it.data.products as MutableList<Product>
+
+                                        productListAdapter.submitList(fetchedProducts as MutableList<Product>)
+
+                                        dispatchLoading()
+                                    } else if (it.status == Status.ERROR) {
+                                        dispatchLoading()
+                                    } else if (it.status == Status.LOADING) {
+                                        showLoading()
+                                    }
+                                })
+
+                        }
+
+
+
+                        dispatchLoading()
+                    } else if (it.status == Status.ERROR) {
+                        dispatchLoading()
+                    } else if (it.status == Status.LOADING) {
+                        showLoading()
+                    }
+                })
+
+
+            }
 
 
         }else if(category == ""){ // Keyword call
-            productListViewModel.onFetchSearchResultbyKeyword(keyword)
 
-            productListViewModel.searchResult.observe(viewLifecycleOwner, Observer {
+            if (option_query == "") { // Do not apply filter or sort
+                Log.v("ProductListQuery", keyword)
+                productListViewModel.onFetchSearchResultbyKeyword(keyword, emptyMap<String, String>())
 
-                if (it.status == Status.SUCCESS && it.data != null){
-                    Log.v("Products of the keyword", it.data.products.toString())
+                productListViewModel.searchResult.observe(viewLifecycleOwner, Observer {
 
-                    tv_productListCategoryName.text = keyword
+                    if (it.status == Status.SUCCESS && it.data != null) {
+                        Log.v("ProductListResult", it.data.products.toString())
+
+                        tv_productListCategoryName.text = keyword
+
+                        fetchedProducts = it.data.products.productList
 
 
-                    if(sharedPref.getUserId().isNullOrEmpty()){
-                        Log.i("ProductList", "Guest User")
+                        if (sharedPref.getUserId().isNullOrEmpty()) {
+                            Log.i("ProductResponse", "Guest User")
+                            productListAdapter.submitList(fetchedProducts as MutableList<Product>)
+                        } else {
+                            Log.i("ProductListLike", "Sending Request")
+                            wishListViewModel.onFetchWishListProducts(sharedPref.getUserId() ?: "")
 
-                    }else{
-                        Log.i("Liked", "Sending Request")
-                        wishListViewModel.onFetchWishListProducts(sharedPref.getUserId()?.toInt() ?: -1)
+                            wishListViewModel.wishListProducts.observe(
+                                viewLifecycleOwner,
+                                Observer {
+                                    if (it.status == Status.SUCCESS && it.data != null) {
 
-                        wishListViewModel.wishListProducts.observe(viewLifecycleOwner, Observer {
-                            if (it.status == Status.SUCCESS && it.data != null) {
+                                        productListAdapter.WishListProducts =
+                                            it.data.products as MutableList<Product>
 
-                                productListAdapter.WishListProducts = it.data.products as MutableList<Product>
-                                dispatchLoading()
-                            } else if (it.status == Status.ERROR) {
-                                dispatchLoading()
-                            } else if (it.status == Status.LOADING) {
-                                showLoading()
-                            }
-                        })
+                                        productListAdapter.submitList(fetchedProducts as MutableList<Product>)
 
+                                        dispatchLoading()
+                                    } else if (it.status == Status.ERROR) {
+                                        dispatchLoading()
+                                    } else if (it.status == Status.LOADING) {
+                                        showLoading()
+                                    }
+                                })
+
+                        }
+
+                        dispatchLoading()
+                    } else if (it.status == Status.ERROR) {
+                        dispatchLoading()
+                    } else if (it.status == Status.LOADING) {
+                        showLoading()
                     }
+                })
+            }
+            else if (option_query != ""){ // Apply filter or sort
 
-                    productListAdapter.submitList(it.data.products as MutableList<Product>)
+                Log.v("ProductListQuery", keyword+option_query)
 
-                    dispatchLoading()
-                } else if (it.status == Status.ERROR){
-                    dispatchLoading()
-                }else if (it.status == Status.LOADING){
-                    showLoading()
-                }
-            })
+                productListViewModel.onFetchSearchResultbyKeyword(keyword, gson.fromJson(option_query,Map::class.java) as Map<String, String>?)
 
 
-        }else{
-            Log.i("ProductList", "Product list page got neither keyword nor category.")
-            Log.i("ProductListK" , keyword)
+                productListViewModel.searchResult.observe(viewLifecycleOwner, Observer {
 
-            Log.i("ProductListC" , category)
+                    if (it.status == Status.SUCCESS && it.data != null) {
+                        Log.v("ProductListResult", it.data.products.toString())
+
+                        tv_productListCategoryName.text = keyword
+
+                        fetchedProducts = it.data.products.productList
+
+
+                        if (sharedPref.getUserId().isNullOrEmpty()) {
+                            Log.i("ProductResponse", "Guest User")
+                            productListAdapter.submitList(fetchedProducts as MutableList<Product>)
+                        } else {
+                            Log.i("ProductListLike", "Sending Request")
+                            wishListViewModel.onFetchWishListProducts(sharedPref.getUserId() ?: "")
+
+                            wishListViewModel.wishListProducts.observe(
+                                viewLifecycleOwner,
+                                Observer {
+                                    if (it.status == Status.SUCCESS && it.data != null) {
+
+                                        productListAdapter.WishListProducts =
+                                            it.data.products as MutableList<Product>
+
+                                        productListAdapter.submitList(fetchedProducts as MutableList<Product>)
+
+                                        dispatchLoading()
+                                    } else if (it.status == Status.ERROR) {
+                                        dispatchLoading()
+                                    } else if (it.status == Status.LOADING) {
+                                        showLoading()
+                                    }
+                                })
+
+                        }
+
+                        dispatchLoading()
+                    } else if (it.status == Status.ERROR) {
+                        dispatchLoading()
+                    } else if (it.status == Status.LOADING) {
+                        showLoading()
+                    }
+                })
+            }
+
+
         }
-
-
 
         // BACK BUTTON
 
         btnProductListBack.setOnClickListener {
             activity?.onBackPressed()
         }
-
 
         // SEARCH BAR
 
@@ -218,7 +411,7 @@ class ProductListFragment : BaseFragment(){
                     return false
                 } else {
                     navigationManager?.onReplace(
-                        ProductListFragment.newInstance(keyword = keyword),
+                        newInstance(keyword = keyword),
                         TransactionType.Replace, true
                     )
                     return true
@@ -231,8 +424,6 @@ class ProductListFragment : BaseFragment(){
         })
 
 
-
-
         // RECYCLER VIEW
 
         val decorator = DividerItemDecoration(rv_ProductList.context, LinearLayoutManager.VERTICAL)
@@ -243,100 +434,27 @@ class ProductListFragment : BaseFragment(){
 
         rv_ProductList.layoutManager = LinearLayoutManager(this.context)
 
+        // FILTER SORT
 
-        // ORDER SPINNER
-
-        sp_ProductListSort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                adapterView: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                if (adapterView?.getItemAtPosition(position).toString() == "Name") {
-                    var prodList = productListAdapter.Products
-                    prodList.sortBy { product -> product.name }
-                    productListAdapter.notifyDataSetChanged()
-                } else if (adapterView?.getItemAtPosition(position).toString() == "Price (Lowest)") {
-                    var prodList = productListAdapter.Products
-                    prodList.sortBy { product -> product.price }
-                    productListAdapter.notifyDataSetChanged()
-                } else if (adapterView?.getItemAtPosition(position).toString() == "Rating") {
-                    var prodList = productListAdapter.Products
-                    prodList.sortBy { product -> product.rating }
-                    productListAdapter.notifyDataSetChanged()
-                } else if (adapterView?.getItemAtPosition(position).toString() == "Date (Latest)") {
-
-                } else if (adapterView?.getItemAtPosition(position).toString() == "Date (Latest)") {
-                    Toast.makeText(
-                        context,
-                        adapterView?.getItemAtPosition(position).toString(),
-                        Toast.LENGTH_LONG
-                    ).show()
-                } else if (adapterView?.getItemAtPosition(position).toString() == "Date (Latest)") {
-                    Toast.makeText(
-                        context,
-                        adapterView?.getItemAtPosition(position).toString(),
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            }
-
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
-            }
+        btn_ProductListSort.setOnClickListener {
+            navigationManager?.onReplace(
+                ListSortFilterFragment.newInstance(keyword=keyword, path=category),
+                TransactionType.Replace, true
+            )
         }
 
-        // FILTER SPINNER
 
-        sp_ProductListFilter.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                adapterView: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                if (adapterView?.getItemAtPosition(position).toString() == "Category") {
-                    Toast.makeText(
-                        context,
-                        adapterView?.getItemAtPosition(position).toString(),
-                        Toast.LENGTH_LONG
-                    ).show()
-                } else if (adapterView?.getItemAtPosition(position).toString() == "Category") {
-                    Toast.makeText(
-                        context,
-                        adapterView?.getItemAtPosition(position).toString(),
-                        Toast.LENGTH_LONG
-                    ).show()
-                } else if (adapterView?.getItemAtPosition(position).toString() == "Vendor") {
-                    Toast.makeText(
-                        context,
-                        adapterView?.getItemAtPosition(position).toString(),
-                        Toast.LENGTH_LONG
-                    ).show()
-                } else if (adapterView?.getItemAtPosition(position).toString() == "Price Range") {
-                    Toast.makeText(
-                        context,
-                        adapterView?.getItemAtPosition(position).toString(),
-                        Toast.LENGTH_LONG
-                    ).show()
-                } else if (adapterView?.getItemAtPosition(position)
-                        .toString() == "Category Specific"
-                ) {
-                    Toast.makeText(
-                        context,
-                        adapterView?.getItemAtPosition(position).toString(),
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
-            }
-        }
 
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        if(sharedPref.getUserId().isNullOrEmpty()){
+
+        }else{
+            wishListViewModel.onFetchWishListProducts(sharedPref.getUserId() ?: "")
+
+        }
+    }
 }

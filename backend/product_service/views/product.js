@@ -74,11 +74,13 @@ module.exports.getProducts = async (params) => {
   try {
     let products;
 
+
     if (params.categories) {
       products = await Product.find({ category: { $all: JSON.parse(params.categories) } });
     } else if (params.search) {
       products = await Product.find({ name: { $regex: params.search, $options: "i" } });
     }
+
 
     var filterCriterias = [];
     var filteringConfig = {
@@ -141,7 +143,7 @@ module.exports.getProducts = async (params) => {
 
     if (!!params.sortingFactor) {
       try {
-        if (typeof products[0][params.sortingFactor] == Number) {
+        if (typeof(products[0][params.sortingFactor]) == "number") {
           products = products.sort(
             (product1, product2) =>
               (params.sortingType == "descending" ? -1 : 1) *
@@ -315,6 +317,12 @@ module.exports.getProducts = async (params) => {
         return product;
       })
     );
+
+
+
+    if(params.vendorName){
+      products = products.filter(product => product.vendor.name == params.vendorName)
+    }
 
     return { productList: products, filterCriterias };
   } catch (error) {

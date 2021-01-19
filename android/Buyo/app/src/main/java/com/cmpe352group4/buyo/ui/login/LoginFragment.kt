@@ -1,15 +1,12 @@
 package com.cmpe352group4.buyo.ui.login
 
-import android.graphics.Color
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -18,11 +15,20 @@ import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
-import com.cmpe352group4.buyo.ui.EmptyFragment
+import com.cmpe352group4.buyo.ui.LegalDocFragment
+import com.cmpe352group4.buyo.ui.profilePage.ProfilePageFragment
+import com.cmpe352group4.buyo.ui.orderpage.OrderPageFragment
+import com.cmpe352group4.buyo.util.extensions.makeLinks
 import com.cmpe352group4.buyo.viewmodel.ProfileViewModel
-import com.cmpe352group4.buyo.vo.LoginSignupRequest
+import com.cmpe352group4.buyo.vo.LoginRequestCustomer
+import com.cmpe352group4.buyo.vo.SignupRequestCustomer
 import kotlinx.android.synthetic.main.fragment_login.*
 import javax.inject.Inject
+
+// TODO Reset password functionality
+// TODO Google sign up, login functionality
+// TODO Sign up e-mail verification
+
 
 class LoginFragment : BaseFragment() {
 
@@ -32,13 +38,9 @@ class LoginFragment : BaseFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val profileViewModel: ProfileViewModel by viewModels {
+    private val profileViewModel: ProfileViewModel by activityViewModels {
         viewModelFactory
     }
-
-    private var userNameCountBool: Boolean = false
-    private var passwordCountBool: Boolean = false
-    private var boolLoginButton: Boolean = false
 
     companion object {
         fun newInstance() = LoginFragment()
@@ -55,146 +57,205 @@ class LoginFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        addOnTextWatcher()
-        loginButton()
-        signUpButton()
+        loginSignUpButton()
+        signUpSwitch()
+        userTypeSwitchListener()
+        legalDocLinkSet()
     }
 
-    private fun addOnTextWatcher() {
-        username.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-            }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-
-                userNameCountBool = p0?.length ?: 0 >= 6
-                if (userNameCountBool && passwordCountBool) {
-                    context?.run {
-                        btn_login.setBackgroundColor(ContextCompat.getColor(this, R.color.ligth_green))
-                        btn_singUp.setBackgroundColor(ContextCompat.getColor(this, R.color.ligth_green))
-                    }
-                    boolLoginButton = true
-                } else {
-                    context?.run {
-                        btn_login.setBackgroundColor(ContextCompat.getColor(this, R.color.grey))
-                        btn_singUp.setBackgroundColor(ContextCompat.getColor(this, R.color.grey))
-                    }
-                    boolLoginButton = false
-                }
-
-            }
-        })
-
-        password.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-            }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                passwordCountBool = p0?.length ?: 0 >= 6
-
-                if (userNameCountBool && passwordCountBool) {
-                    context?.run {
-                        btn_login.setBackgroundColor(ContextCompat.getColor(this, R.color.ligth_green))
-                        btn_singUp.setBackgroundColor(ContextCompat.getColor(this, R.color.ligth_green))
-                    }
-                    boolLoginButton = true
-                } else {
-                    context?.run {
-                        btn_login.setBackgroundColor(ContextCompat.getColor(this, R.color.grey))
-                        btn_singUp.setBackgroundColor(ContextCompat.getColor(this, R.color.grey))
-                    }
-                    boolLoginButton = false
-                }
-            }
-        })
-    }
-
-    private fun loginButton(){
-        btn_login.setOnClickListener {
-            if(boolLoginButton){
-                profileViewModel.onLogin(
-                    LoginSignupRequest(
-                        userType = "customer",
-                        email = username.text.toString(),
-                        password = password.text.toString()
-                    )
+    private fun legalDocLinkSet() {
+        legal_documents_customer.makeLinks(
+            Pair("Terms of Service", View.OnClickListener {
+                navigationManager?.onReplace(
+                    LegalDocFragment.newInstance("termsOfService"),
+                    TransactionType.Replace, true
                 )
-                profileViewModel.login.observe(viewLifecycleOwner, Observer {
-                    if (it.status == Status.SUCCESS && it.data != null) {
+            }),
+            Pair("Privacy Policy", View.OnClickListener {
+                navigationManager?.onReplace(
+                    LegalDocFragment.newInstance("privacyPolicy"),
+                    TransactionType.Replace, true
+                )
+            }))
+    }
 
-                        sharedPref.saveUserId(it.data.userId)
+    private fun checkCredentials(): Boolean {
 
-                        dispatchLoading()
+        val customerEmail: String = customer_username.text?.toString() ?: ""
+        val password1: String = customer_password.text?.toString() ?: ""
+        val password2: String = customer_reenter_password.text?.toString() ?: ""
 
-//                        val myToast = Toast.makeText(context,"You succesfully logged in",Toast.LENGTH_SHORT)
-//                        myToast.setGravity(Gravity.LEFT,200,200)
-//                        myToast.show()
-                        navigationManager?.onReplace(
-                            EmptyFragment.newInstance(),
-                            TransactionType.Replace, true
-                        )
-                    } else if (it.status == Status.ERROR) {
-                        dispatchLoading()
-                        val myToast = Toast.makeText(context,it.message,Toast.LENGTH_SHORT)
-                        myToast.setGravity(Gravity.LEFT,200,200)
-                        myToast.show()
-                    } else if (it.status == Status.LOADING) {
-                        showLoading()
-                    }
-                })
-            }else{
-                val myToast = Toast.makeText(context,"enter your username and password please",Toast.LENGTH_SHORT)
-                myToast.setGravity(Gravity.LEFT,200,200)
+        var isValidEmail: Boolean = false
+        var isValidPassword: Boolean = false
+        var passwordSame: Boolean = false
+
+        // Validity Checks
+        isValidEmail = android.util.Patterns.EMAIL_ADDRESS.matcher(customerEmail).matches()
+        isValidPassword = password1.length >= 6
+
+        // Other Checks
+        passwordSame = password1 == password2
+
+        if (customer_reenter_password.visibility == View.VISIBLE) {
+            // Sign up checks
+            if (isValidEmail && isValidPassword && passwordSame ) {
+                return true
+            } else {
+
+                var toastText : String = ""
+
+                if (!isValidEmail){
+                    toastText = "Please check your e-mail"
+                } else if (!isValidPassword) {
+                    toastText = "Your password cannot be shorter than 6 characters"
+                } else if (!passwordSame) {
+                    toastText = "Given passwords are not the same"
+                }
+
+                val myToast = Toast.makeText(
+                    context,
+                    toastText,
+                    Toast.LENGTH_SHORT
+                )
+                myToast.setGravity(Gravity.BOTTOM, 0, 200)
                 myToast.show()
+                return false
+            }
+
+        } else {
+            // Login checks
+            if (isValidEmail && isValidPassword) {
+                return true
+            } else {
+                if (!isValidEmail) {
+                    val myToast = Toast.makeText(
+                        context,
+                        "Please check your e-mail",
+                        Toast.LENGTH_SHORT
+                    )
+                    myToast.setGravity(Gravity.BOTTOM, 0, 200)
+                    myToast.show()
+                } else {
+                    val myToast = Toast.makeText(
+                        context,
+                        "Your password cannot be shorter than 6 characters",
+                        Toast.LENGTH_SHORT
+                    )
+                    myToast.setGravity(Gravity.BOTTOM, 0, 200)
+                    myToast.show()
+                }
+                return false
             }
         }
     }
 
-    private fun signUpButton(){
-        btn_singUp.setOnClickListener {
-            if(boolLoginButton){
-                profileViewModel.onSingup(
-                    LoginSignupRequest(
-                        userType = "customer",
-                        email = username.text.toString(),
-                        password = password.text.toString()
+    private fun loginSignUpButton(){
+        customer_login_signup_button.setOnClickListener {
+            val check : Boolean = checkCredentials()
+            if (check) {
+                if (customer_login_signup_button.isEnabled && !customer_signup_switch.isChecked) {
+                    profileViewModel.onLoginCustomer(
+                        LoginRequestCustomer(
+                            userType = "customer",
+                            email = customer_username.text.toString(),
+                            password = customer_password.text.toString()
+                        )
                     )
-                )
-                profileViewModel.singup.observe(viewLifecycleOwner, Observer {
-                    if (it.status == Status.SUCCESS && it.data != null) {
+                    profileViewModel.loginCustomer.observe(viewLifecycleOwner, Observer {
+                        if (it.status == Status.SUCCESS && it.data != null) {
+                            sharedPref.saveUserId(it.data.userId)
+                            dispatchLoading()
 
-                        //sharedPref.saveUserId(it.data.userId)
+                            // TODO Go to profile page here
+                            navigationManager?.onReplace(
+                                ProfilePageFragment.newInstance(),
+                                TransactionType.Replace, false
+                            )
 
-                        dispatchLoading()
+                        } else if (it.status == Status.ERROR) {
+                            dispatchLoading()
+                            val myToast = Toast.makeText(
+                                context,
+                                "Given e-mail or password is wrong",
+                                Toast.LENGTH_SHORT
+                            )
+                            myToast.setGravity(Gravity.BOTTOM, 0, 200)
+                            myToast.show()
+                        } else if (it.status == Status.LOADING) {
+                            showLoading()
+                        }
+                    })
+                } else if (customer_login_signup_button.isEnabled && customer_signup_switch.isChecked) {
+                    if (customer_remember_me.isChecked) {
+                        profileViewModel.onSingupCustomer(
+                            SignupRequestCustomer(
+                                userType = "customer",
+                                email = customer_username.text.toString(),
+                                password = customer_password.text.toString()
+                            )
+                        )
+                        profileViewModel.singupCustomer.observe(viewLifecycleOwner, Observer {
+                            if (it.status == Status.SUCCESS && it.data != null) {
+                                dispatchLoading()
+                                val myToast =
+                                    Toast.makeText(context, "You can login now", Toast.LENGTH_SHORT)
+                                myToast.setGravity(Gravity.BOTTOM, 0, 200)
+                                myToast.show()
+                                customer_signup_switch.isChecked = false
 
-                        val myToast = Toast.makeText(context,"You succesfully signed up",Toast.LENGTH_SHORT)
-//                        myToast.setGravity(Gravity.LEFT,200,200)
+                            } else if (it.status == Status.ERROR) {
+                                dispatchLoading()
+                                val myToast = Toast.makeText(
+                                    context,
+                                    "An error occurred during sign up!",
+                                    Toast.LENGTH_SHORT
+                                )
+                                myToast.setGravity(Gravity.BOTTOM, 0, 200)
+                                myToast.show()
+                            } else if (it.status == Status.LOADING) {
+                                showLoading()
+                            }
+                        })
+                    } else {
+                        val myToast = Toast.makeText(
+                            context,
+                            "Please read and accept KVKK",
+                            Toast.LENGTH_SHORT
+                        )
+                        myToast.setGravity(Gravity.BOTTOM, 0, 200)
                         myToast.show()
-                        //navigationManager?.onReplace(
-                        //    EmptyFragment.newInstance(),
-                        //    TransactionType.Replace, true
-                        //)
-                    } else if (it.status == Status.ERROR) {
-                        dispatchLoading()
-                        val myToast = Toast.makeText(context,it.message,Toast.LENGTH_SHORT)
-                        myToast.setGravity(Gravity.LEFT,200,200)
-                        myToast.show()
-                    } else if (it.status == Status.LOADING) {
-                        showLoading()
                     }
-                })
-            }else{
-                val myToast = Toast.makeText(context,"enter your username and password please",Toast.LENGTH_SHORT)
-                myToast.setGravity(Gravity.LEFT,200,200)
-                myToast.show()
+                }
             }
+        }
+    }
+
+    private fun signUpSwitch() {
+        customer_signup_switch.setOnCheckedChangeListener { _, isChecked ->
+            if (!isChecked){
+                customer_login_signup_button.text = getString(R.string.action_login)
+                customer_google_login_signup.text = getString(R.string.google_login)
+                customer_signup_switch.text = getString(R.string.sign_up_switch)
+                customer_remember_me.text = getString(R.string.remember_me)
+                customer_reset_password.visibility = View.VISIBLE
+                customer_reenter_password.visibility = View.GONE
+            } else {
+                customer_login_signup_button.text = getString(R.string.action_sign_up)
+                customer_google_login_signup.text = getString(R.string.google_signup)
+                customer_signup_switch.text = getString(R.string.login_switch)
+                customer_remember_me.text = getString(R.string.kvkk_accept)
+                customer_reset_password.visibility = View.GONE
+                customer_reenter_password.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    private fun userTypeSwitchListener() {
+        customer_switch_to_vendor.setOnClickListener {
+            navigationManager?.onReplace(
+                LoginFragmentVendor.newInstance(),
+                TransactionType.Replace, false
+            )
         }
     }
 }

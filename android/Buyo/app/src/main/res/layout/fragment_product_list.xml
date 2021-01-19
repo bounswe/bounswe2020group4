@@ -44,65 +44,31 @@
             android:id="@+id/tv_productListCategoryName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_marginTop="16dp"
             android:text="Loading... Please Wait."
             android:textSize="24sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/sp_ProductListSort"
+            app:layout_constraintBottom_toTopOf="@+id/btn_ProductListSort"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sv_productListSearchBar" />
 
-        <TextView
-            android:id="@+id/tv_productListOrder"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sort"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/sp_ProductListSort"
-            app:layout_constraintEnd_toStartOf="@+id/tv_productListFilter"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_productListCategoryName" />
-
-        <Spinner
-            android:id="@+id/sp_ProductListSort"
-            android:layout_width="0dp"
+        <Button
+            android:id="@+id/btn_ProductListSort"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:background="@color/buyo_antiqueWhite"
-            android:entries="@array/sp_productList_order"
+            android:background="@color/buyo_fireEngineRed"
+            android:text="Filter / Sort"
+            android:textSize="14sp"
+            android:minHeight="25dp"
+            android:textColor="@color/buyo_white"
             app:layout_constraintBottom_toTopOf="@+id/rv_ProductList"
-            app:layout_constraintEnd_toStartOf="@+id/sp_ProductListFilter"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_productListCategoryName" />
-
-        <TextView
-            android:id="@+id/tv_productListFilter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Filter"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/sp_ProductListFilter"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/tv_productListOrder"
-            app:layout_constraintTop_toBottomOf="@+id/tv_productListCategoryName" />
-
-        <Spinner
-            android:id="@+id/sp_ProductListFilter"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:background="@color/buyo_antiqueWhite"
-            android:entries="@array/sp_productList_filter"
-            app:layout_constraintBottom_toBottomOf="@+id/sp_ProductListSort"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/sp_ProductListSort"
-            app:layout_constraintTop_toTopOf="@+id/sp_ProductListSort" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_ProductList"
@@ -113,7 +79,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sp_ProductListSort" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_ProductListSort" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

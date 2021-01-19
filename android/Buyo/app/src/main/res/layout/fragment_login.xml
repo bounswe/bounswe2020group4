@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
+    android:id="@+id/customer_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/buyo_antiqueWhite">
 
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/customer_username"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -23,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/customer_password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -31,97 +32,113 @@
         android:layout_marginEnd="24dp"
         android:autofillHints=""
         android:hint="@string/prompt_password"
-        android:imeActionLabel="@string/action_sign_in_short"
-        android:imeOptions="actionDone"
         android:inputType="textPassword"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
+        app:layout_constraintTop_toBottomOf="@+id/customer_username" />
 
-    <Button
-        android:id="@+id/btn_login"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/customer_reenter_password"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="64dp"
-        android:background="@color/grey"
-        android:text="@string/action_login"
-        android:textColor="@color/buyo_white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/guideline"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintTop_toBottomOf="@+id/password"
-        app:layout_constraintVertical_bias="0.37" />
-
-    <Button
-        android:id="@+id/btn_singUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="64dp"
         android:layout_marginStart="24dp"
-        android:background="@color/grey"
-        android:text="@string/action_sing_up"
-        android:textColor="@color/buyo_white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toEndOf="@id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/password"
-        app:layout_constraintVertical_bias="0.37" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="177dp"
-        android:layout_height="102dp"
-        android:contentDescription="@string/logo"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:autofillHints=""
+        android:hint="@string/reprompt_password"
+        android:inputType="textPassword"
+        android:imeOptions="actionDone"
+        android:selectAllOnFocus="true"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
-        app:layout_constraintVertical_bias="0.71000004"
-        app:srcCompat="@mipmap/logo" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="195dp"
-        android:layout_height="43dp"
-        android:text="Google Login"
-        android:layout_marginTop="@dimen/medium_margin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_login" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="140dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/darker_gray"
-        android:text="Reset Password"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/customer_password" />
 
     <CheckBox
-        android:id="@+id/checkBox_rememberMe"
+        android:id="@+id/customer_remember_me"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/remember_me"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toBottomOf="@+id/customer_reenter_password" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
+    <Button
+        android:id="@+id/customer_login_signup_button"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="48dp"
+        android:background="@color/medium_orange"
+        android:text="@string/action_login"
+        android:textColor="@color/buyo_white"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customer_remember_me" />
+
+    <Button
+        android:id="@+id/customer_google_login_signup"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:background="@color/medium_orange"
+        android:text="@string/google_login"
+        android:textColor="@color/buyo_white"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customer_login_signup_button" />
+
+    <Button
+        android:id="@+id/customer_reset_password"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:background="@color/grey"
+        android:text="@string/reset_password"
+        android:textColor="@color/buyo_white"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customer_google_login_signup" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/customer_signup_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
+        android:layout_marginTop="15dp"
+        android:text="@string/sign_up_switch"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/customer_switch_to_vendor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customer_reset_password"
+        app:layout_constraintVertical_bias="0.0"/>
 
+
+    <Button
+        android:id="@+id/customer_switch_to_vendor"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
+        android:text="@string/i_am_a_vendor"
+        android:layout_marginBottom="16dp"
+        android:background="@color/grey"
+        android:textColor="@color/buyo_white"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toTopOf="@+id/legal_documents_customer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/legal_documents_customer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/privacy_policy_terms_of_service"
+        android:textColorHighlight="@color/buyo_fireEngineRed"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
