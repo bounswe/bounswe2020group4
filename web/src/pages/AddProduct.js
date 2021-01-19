@@ -20,13 +20,13 @@ const AddProduct= (props) => {
 	const [possibleValues, setPossibleValues] = useState({})
 	const [rerender, setRerender] = useState(false)
 	const [possibleValuesEntered, setPossibleValuesEntered] = useState(false)
-	const [values, setValues] = useState({})
 	const [productInfos, setProductInfos] = useState([])
+	const [stockEntered, setStockEntered] = useState(false)
 
 
 	useEffect(() => {
 		
-		//TODO: uncomment this
+		//TODO: uncomment this later
 		//if(!props.isLoggedIn | props.userType != 'vendor') {
 		//	history.push('/vendorsignin')
 		//	return
@@ -115,26 +115,30 @@ const AddProduct= (props) => {
 	}
 
 	const handlePossibleValuesButton = function() {
+		var comb_length = 1
 		for(var value in possibleValues){
 			if(possibleValues[value].length == 0){
 				alert('You have to enter possible values for every criteria.')
 				return
 			}
+			comb_length *= possibleValues[value].length
 		}
-		var results = getCombinations(possibleValues, 0, [], {});
-		console.log(results)
 		setPossibleValuesEntered(true)
+		setProductInfos(Array(comb_length))
 	}
 
-	const handleValueChange = function(e, attr){
-		values[attr] = e.target.value
-		setValues(values)
-	}
-
-	const handleAddButton = function(){
-		productInfos.push(values)
+	const handleValueChange = function(e, comb, index){
+		comb['stockValue'] = e.target.value
+		productInfos.splice(index,1,comb)
 		setProductInfos(productInfos)
-		setRerender(!rerender)
+	}
+
+	const handleStockButton = function(len){
+		if(productInfos.includes(undefined)){
+			alert('Enter stock information for all combinations.')
+		} else{
+			setStockEntered(true)
+		}
 	}
 
 	function getCombinations(options, optionIndex, results, current) {
@@ -152,6 +156,40 @@ const AddProduct= (props) => {
 			}
 		}
 		return results;
+	}
+
+	function getListOfValues(dictionary){
+		return Object.keys(dictionary).map(function(key){
+			return dictionary[key];
+		});
+	}
+
+	function renderCombinations(){
+		var results = getCombinations(possibleValues, 0, [], {});
+		return(
+			<div>
+				{results.map((result) => 
+					<div className='row mb-2' key={result}>
+						{getListOfValues(result).map((comb) =>
+							<div key={comb} className='col'>
+								{comb}
+							</div>	
+						)}
+						<div className='col-1'>
+							<input type='number' min='0' className='form-control form-control-md text-left' id={results.indexOf(result)} onChange={(e) => handleValueChange(e, result, results.indexOf(result))}/>
+							{results.indexOf(result)}
+							{JSON.stringify(result)}
+						</div>
+					</div>
+				)}
+				<div className='row'>
+					<div className='col'></div>
+					<div className='col-3 align-self-end text-right mb-6'>
+						<button className="btn btn-danger next-button" onClick={(e) => handleStockButton(results.length)}>Next</button>
+					</div>
+				</div>
+			</div>	
+		)
 	}
 
 	return (
@@ -267,37 +305,28 @@ const AddProduct= (props) => {
 			{possibleValuesEntered ?
 				<div className='container-fluid mt-3 p-3 container-main rounded'>
 					<p className='h3 header-info'>4. Enter stock information</p>
+					<div className='row'>
 					{attributes.map((attr) =>
-						<div key={attr.text}>
-							<div className='form-group'>
-								<div className='row'>
-									<div className='col-3'>
-										<label htmlFor={attr.text+'stock'}>{attr.text}</label>
-									</div>
-									<div className='col'>
-										<input type='text' className='form-control form-control-md text-left' id={attr.text+'stock'} onChange={(e) => handleValueChange(e, attr.text)}/>
-									</div>
-								</div>
-							</div>
+						<div className='col' key={attr.text}>
+							<p className='h5 header-info'>{attr.text}</p>
 						</div>
 					)}
-					<div className='form-group'>
-								<div className='row'>
-									<div className='col-3'>
-										<label htmlFor='stock'>Stock</label>
-									</div>
-									<div className='col'>
-										<input type='number' className='form-control form-control-md text-left' id='stock' onChange={(e) => handleValueChange(e, 'stock')}/>
-									</div>
-								</div>
-							</div>
-					<div className='row'>
-						<div className='col'></div>
-						<div className='col-3 align-self-end text-right mb-6'>
-							<button className="btn btn-danger next-button" onClick={handleAddButton}>Add</button>
+					<div className='col-1'>
+							<p className='h5 header-info'>Stock</p>
 						</div>
 					</div>
+					{renderCombinations()}
 				</div>
+					:
+				null
+			}
+			{stockEntered ?
+			<div className='container-fluid mt-3 p-3 container-main rounded'>
+				<p className='h3 header-info'>5. Upload an image of your product</p>
+						<div className="form-group">
+							<input type="file" className="form-control-file" id="image"/>
+						</div>
+			</div>
 					:
 				null
 			}
