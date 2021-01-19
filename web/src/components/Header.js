@@ -14,7 +14,7 @@ import SearchIcon from '../images/search-icon.png'
 //Styling
 import './Header.css'
 
-const Header = ({ isLoggedIn, userType, setLogoutState }) => {
+const Header = ({ isLoggedIn, setLogoutState }) => {
 	const [profileMenuOpen, setProfileMenuOpen] = useState(false)
 	const [selectedPath, setSelectedPath] = useState('')
 	const [categories, setCategories] = useState([])
@@ -94,9 +94,9 @@ const Header = ({ isLoggedIn, userType, setLogoutState }) => {
 		)
 	}
 
-	const renderCustomerMenu = () => {
+	const renderLoggedInProfileMenu = () => {
 		return (
-			<React.Fragment>
+			<div className='profile-menu list-group-item text-center position-absolute'>
 				<div className='list-item'>
 					<Link to='/customerprofile' className='profile-menu-text'>Profile</Link>
 				</div>
@@ -106,27 +106,6 @@ const Header = ({ isLoggedIn, userType, setLogoutState }) => {
 				<div className='list-item'>
 					<Link to='/customerAddresses' className='profile-menu-text'>Addresses</Link>
 				</div>
-			</React.Fragment>
-		)
-	}
-
-	const renderVendorMenu = () => {
-		return (
-			<React.Fragment>
-				<div className='list-item'>
-					<Link to='/vendorprofile' className='profile-menu-text'>Profile</Link>
-				</div>
-				<div className='list-item'>
-					<Link to='/vendororders' className='profile-menu-text'>Orders</Link>
-				</div>
-			</React.Fragment>
-		)
-	}
-
-	const renderLoggedInProfileMenu = () => {
-		return (
-			<div className='profile-menu list-group-item text-center position-absolute'>
-				{userType == 'customer' ? renderCustomerMenu() : renderVendorMenu() }
 				<div className='list-item'>
 					<span className='profile-menu-text cursor-pointer' onClick={signOut}>Sign Out</span>
 				</div>
@@ -197,10 +176,7 @@ const Header = ({ isLoggedIn, userType, setLogoutState }) => {
 }
 
 const mapStatetoProps = (state) => {
-	return {
-		isLoggedIn: state.signIn.isLoggedIn,
-		userType: state.signIn.userType,
-	}
+	return { isLoggedIn: state.signIn.isLoggedIn }
 }
 
 export default connect(mapStatetoProps, {setLogoutState})(Header)
