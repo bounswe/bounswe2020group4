@@ -15,14 +15,8 @@ express.response.respond = function (code, message, data) {
   });
 };
 
-express.request.error = function () {
-  return {
-    url: this.url,
-    params: this.params,
-    query: this.query,
-    body: this.body,
-    headers: this.headers,
-  };
+express.request.extractParams = function () {
+  return Object.keys(this.body).length ? this.body : this.query;
 };
 
 app.listen(process.env.PORT); // Listen requests from the port.

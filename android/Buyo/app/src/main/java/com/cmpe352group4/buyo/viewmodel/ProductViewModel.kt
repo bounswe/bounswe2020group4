@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.cmpe352group4.buyo.api.Resource
 import com.cmpe352group4.buyo.datamanager.repositories.ProductRepository
 import com.cmpe352group4.buyo.util.livedata.AbsentLiveData
-//import com.cmpe352group4.buyo.vo.ProductList
+//import com.cmpe352group4.buyo.vo.ProductResponse
 import com.cmpe352group4.buyo.vo.ProductResult
 import javax.inject.Inject
 
@@ -17,7 +17,7 @@ class ProductViewModel @Inject constructor(
 
     // Things we need to conduct a request
 
-    private val _productId =  MutableLiveData<Int>()
+    private val _productId =  MutableLiveData<String>()
 
     //private val _searchKeyword = MutableLiveData<String>()
 
@@ -30,7 +30,7 @@ class ProductViewModel @Inject constructor(
                 repository.getProductById(Id)
         }
 
-    //val productList: LiveData<Resource<ProductList>> =
+    //val productList: LiveData<Resource<ProductResponse>> =
     //    Transformations.switchMap(_searchKeyword) { keyword ->
     //        if (keyword == null)
     //            AbsentLiveData.create()
@@ -41,7 +41,7 @@ class ProductViewModel @Inject constructor(
 
     // Triggers to make a http request
 
-    fun onFetchProductById(productId: Int) {
+    fun onFetchProductById(productId: String) {
         _productId.value = productId
     }
 

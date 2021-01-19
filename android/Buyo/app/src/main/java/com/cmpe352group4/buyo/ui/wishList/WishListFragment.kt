@@ -23,6 +23,7 @@ import com.cmpe352group4.buyo.util.extensions.visible
 import com.cmpe352group4.buyo.viewmodel.WishListViewModel
 import com.cmpe352group4.buyo.vo.LikeResponse
 import com.cmpe352group4.buyo.vo.Product
+import com.cmpe352group4.buyo.widgets.navigation_bar.NavigationBar
 import kotlinx.android.synthetic.main.fragment_wish_list.*
 import javax.inject.Inject
 
@@ -47,8 +48,7 @@ class WishListFragment: BaseFragment() {
     private val wishListAdapter by lazy {
         WishListAdapter(mutableListOf(),
             { productID ->
-                wishListViewModel.onPostWhislistUpdate(LikeResponse( sharedPref.getUserId()?.toInt() ?: -1, productID))
-                Log.v("berkay", "delete")
+                wishListViewModel.onPostWhislistUpdate(LikeResponse( sharedPref.getUserId() ?: "", productID))
             },
             { productID ->
                 navigationManager?.onReplace(
@@ -79,7 +79,7 @@ class WishListFragment: BaseFragment() {
         }else{
             cl_nonlogin.visible = false
             cl_wishlist.visible = true
-            wishListViewModel.onFetchWishListProducts(sharedPref.getUserId()?.toInt() ?: -1)
+            wishListViewModel.onFetchWishListProducts(sharedPref.getUserId() ?: "")
         }
 
         wishListViewModel.wishListProducts.observe(viewLifecycleOwner, Observer {
@@ -110,7 +110,7 @@ class WishListFragment: BaseFragment() {
 
 
         loginButton.setOnClickListener {
-            (activity as MainActivity).onItemSelected(4)
+            (activity as MainActivity).changeActiveTab(NavigationBar.PROFILE_INDEX)
         }
 
         btnOrderWishList.setOnClickListener{
@@ -159,7 +159,7 @@ class WishListFragment: BaseFragment() {
         }else{
             cl_nonlogin.visible = false
             cl_wishlist.visible = true
-            wishListViewModel.onFetchWishListProducts(sharedPref.getUserId()?.toInt() ?: -1)
+            wishListViewModel.onFetchWishListProducts(sharedPref.getUserId() ?: "")
         }
     }
 

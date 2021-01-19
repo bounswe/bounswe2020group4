@@ -40,7 +40,7 @@ const VendorSignIn = ({hideHeader, showHeader, setLoginState}) => {
 			if (userId == null){
 				alert('Wrong credentials')
 			} else {
-				setLoginState({ userId: userId, userType: 'customer'})
+				setLoginState({ userId: userId, userType: 'vendor'})
 				//TODO: redirect to vendor's profile page
 				history.push('/')
 			}

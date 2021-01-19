@@ -1,17 +1,17 @@
 const account = require("../views/account");
+const { ErrorCode } = require("../constants/error");
 // Initialize the routes.
 module.exports.initialize = (app) => {
   /**
    * Gets user id and user type and responds with user's account info.
    */
   app.get("/account", async (request, response) => {
-    const result = await account.getAccountInfo(request.query);
-    if (result) {
-      response.respond(200, "OK", {
-        result,
-      });
+    const result = await account.getAccountInfo(request.extractParams());
+
+    if (result.success) {
+      response.respond(200, "OK", { result: result.account });
     } else {
-      response.respond(404, "Account not found");
+      response.respond(ErrorCode(result.message), result.message);
     }
   });
   /**
@@ -19,11 +19,12 @@ module.exports.initialize = (app) => {
    * with that id.
    */
   app.post("/account", async (request, response) => {
-    const result = await account.updateAccountInfo(request.query);
-    if (result) {
+    const result = await account.updateAccountInfo(request.extractParams());
+
+    if (result.success) {
       response.respond(200, "OK");
     } else {
-      response.respond(404, "Account not found");
+      response.respond(ErrorCode(result.message), result.message);
     }
   });
   /**
@@ -31,11 +32,11 @@ module.exports.initialize = (app) => {
    * of the account with that id.
    */
   app.post("/account-change-password", async (request, response) => {
-    const result = await account.changePassword(request.query);
-    if (result) {
+    const result = await account.changePassword(request.extractParams());
+    if (result.success) {
       response.respond(200, "OK");
     } else {
-      response.respond(404, "Account not found");
+      response.respond(ErrorCode(result.message), result.message);
     }
   });
   /**
@@ -43,14 +44,12 @@ module.exports.initialize = (app) => {
    * of the account with that id.
    */
   app.post("/account/address", async (request, response) => {
-    const result = await account.addAddress(request.query);
-    if (result=="Please change your address title.") {
-      response.respond(400, result);
-    } else if(result){
-      response.respond(200, "OK");
-    }
-    else {
-      response.respond(404, "Account not found");
+    const result = await account.addAddress(request.extractParams());
+
+    if (result.success) {
+      response.respond(200, "OK", result.address);
+    } else {
+      response.respond(ErrorCode(result.message), result.message);
     }
   });
   /**
@@ -58,14 +57,12 @@ module.exports.initialize = (app) => {
    * of the account with that address title.
    */
   app.patch("/account/address", async (request, response) => {
-    const result = await account.updateAddress(request.query);
-    if (result=="Address not found.") {
-      response.respond(400, result);
-    } else if(result){
-      response.respond(200, "OK");
-    }
-    else {
-      response.respond(404, "Account not found");
+    const result = await account.updateAddress(request.extractParams());
+
+    if (result.success) {
+      response.respond(200, "OK", result.address);
+    } else {
+      response.respond(ErrorCode(result.message), result.message);
     }
   });
   /**
@@ -73,24 +70,24 @@ module.exports.initialize = (app) => {
    * of the account with that address title.
    */
   app.delete("/account/address", async (request, response) => {
-    if (result=="Address not found.") {
-      response.respond(400, result);
-    } else if(result){
-      response.respond(200, "OK");
-    }
-    else {
-      response.respond(404, "Account not found");
+    const result = await account.deleteAddress(request.extractParams());
+
+    if (result.success) {
+      response.respond(200, "OK", { address: result.address });
+    } else {
+      response.respond(ErrorCode(result.message), result.message);
     }
   });
   /**
    * Gets email, password, user type and responds with status.
    */
   app.post("/login", async (request, response) => {
-    const result = await account.login(request.query);
-    if (result) {
-      response.respond(200, "OK", { userId: result });
+    const result = await account.login(request.extractParams());
+
+    if (result.success) {
+      response.respond(200, "OK", { userId: result.userId });
     } else {
-      response.respond(404, "User not found");
+      response.respond(ErrorCode(result.message), result.message);
     }
   });
   /**
@@ -99,11 +96,12 @@ module.exports.initialize = (app) => {
    * Responds with status
    */
   app.post("/signup", async (request, response) => {
-    const result = await account.signup(request.query);
-    let data = { userId: result };
-    if (result == "This email has been already used") {
-      data = { info: result };
+    const result = await account.signup(request.extractParams());
+
+    if (result.success) {
+      response.respond(200, "OK", { userId: result.userId });
+    } else {
+      response.respond(ErrorCode(result.message), result.message);
     }
-    response.respond(200, "OK", data);
   });
 };
