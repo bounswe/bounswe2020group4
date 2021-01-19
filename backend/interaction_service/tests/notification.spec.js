@@ -72,7 +72,7 @@ describe("# Notification view tests", async function () {
 
       chai.expect(result.success).to.be.true;
 
-      const response = result.data.notifications;
+      const response = result.response;
       chai.expect(response["@context"]).to.equal("https://www.w3.org/ns/activitystreams");
       chai.expect(response.summary).to.equal("BUYO Notifications");
       chai.expect(response.type).to.equal("Collection");
