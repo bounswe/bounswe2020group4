@@ -85,7 +85,7 @@ const VendorSignUp = ({hideHeader, showHeader, setLoginState}) => {
 		} else if (userId == null){
 			alert('Something went wrong, try again')
 		} else {
-			setLoginState({ userId: userId, userType: 'customer'})
+			setLoginState({ userId: userId, userType: 'vendor'})
 			history.goBack()
 		}
 	}
