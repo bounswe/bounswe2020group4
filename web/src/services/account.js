@@ -132,7 +132,7 @@ const login = async (loginInput) => {
 		return null
 	}
 	if (response.data.status.code == 200) {
-		return response.data.data.userId
+		return response.data.data
 	}
 
 	return null
@@ -148,7 +148,7 @@ const vendorLogin = async (loginInput) => {
 		return null
 	}
 	if (response.data.status.code == 200) {
-		return response.data.data.userId
+		return response.data.data
 	}
 
 	return null

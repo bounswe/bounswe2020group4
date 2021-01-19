@@ -35,12 +35,13 @@ const VendorSignIn = ({hideHeader, showHeader, setLoginState}) => {
 		if(email == '' | password == ''){
 			alert('Enter your credentials')
 		} else {
-			const userId = await accountService.vendorLogin({ 'email': email, 'password': password})
-			console.log(userId)
-			if (userId == null){
+			const response = await accountService.vendorLogin({ 'email': email, 'password': password})
+			if (!response?.userId){
 				alert('Wrong credentials')
+			} else if (response.banned) {
+				alert('Your account has been suspended. Please check your e-mail for further information.')
 			} else {
-				setLoginState({ userId: userId, userType: 'vendor'})
+				setLoginState({ userId: response.userId, userType: 'vendor'})
 				history.push('/vendorprofile')
 			}
 		}

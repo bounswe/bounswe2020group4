@@ -37,11 +37,13 @@ const SignIn = ({hideHeader, showHeader, setLoginState}) => {
 		if(email == '' | password == ''){
 			alert('Enter your credentials')
 		} else {
-			const userId = await accountService.login({ 'email': email, 'password': password})
-			if (userId == null){
+			const response = await accountService.login({ 'email': email, 'password': password})
+			if (!response?.userId){
 				alert('Wrong credentials')
+			} else if (response.banned) {
+				alert('Your account has been suspended. Please check your e-mail for further information.')
 			} else {
-				setLoginState({ userId: userId, userType: 'customer'})
+				setLoginState({ userId: response.userId, userType: 'customer'})
 				history.push('/')
 			}
 		}
