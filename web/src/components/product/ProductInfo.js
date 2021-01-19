@@ -1,9 +1,9 @@
 import React from 'react'
 
-import WishlistButton from '../components/WishlistButton'
-import RatingStar from '../components/RatingStar'
+import WishlistButton from './WishlistButton'
+import RatingStar from '../RatingStar'
 
-import FreeShippingImage from '../images/free-shipping.png'
+import FreeShippingImage from '../../images/free-shipping.png'
 
 import './ProductInfo.css'
 
@@ -27,6 +27,7 @@ const ProductInfo = ({ productId, name, brand, price, rating, vendor, vendorRati
 				<div className='company-detail-container'>
 					<div>Seller: {vendor}</div>
 					<RatingStar rating={vendorRating}/>
+					<button className="report-product-button">Report Product</button>
 				</div>
 			</div>
 		</div>
