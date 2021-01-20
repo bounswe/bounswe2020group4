@@ -43,6 +43,22 @@ data class OrderProductRV (
     var status: String
 ): Serializable
 
+data class OrderProductVendorRV (
+    var orderID: String,
+    var customerID: String,
+    var address: String,
+    var orderDate: String,
+
+    var productId: String,
+    var name: String,
+    var imageUrl: String,
+    var price: Double,
+    var vendor: Vendor,
+    var quantity: Int,
+    var attributes: List<OrderAttribute>,
+    var status: String
+): Serializable
+
 data class OrderAttribute (
     var name: String,
     var value: String

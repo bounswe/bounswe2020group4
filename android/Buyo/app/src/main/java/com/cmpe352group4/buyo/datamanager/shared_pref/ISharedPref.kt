@@ -17,4 +17,6 @@ interface ISharedPref {
     fun getVendorLat(): String?
     fun getVendorLon(): String?
     fun getVendorAddress(): String?
+    fun getUserType(): String?
+    fun saveUserType(type: String)
 }
