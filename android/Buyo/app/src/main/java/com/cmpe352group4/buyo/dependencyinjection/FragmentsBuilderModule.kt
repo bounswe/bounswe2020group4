@@ -18,6 +18,9 @@ import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
 import com.cmpe352group4.buyo.ui.productList.ListSortFilterFragment
 import com.cmpe352group4.buyo.ui.productList.ProductListFragment
 import com.cmpe352group4.buyo.ui.profilePage.*
+import com.cmpe352group4.buyo.ui.vendorProfilePage.VendorAccountInfoFragment
+import com.cmpe352group4.buyo.ui.vendorProfilePage.VendorChangePasswordFragment
+import com.cmpe352group4.buyo.ui.vendorProfilePage.VendorProfilePageFragment
 import com.cmpe352group4.buyo.ui.wishList.WishListFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -91,10 +94,19 @@ abstract class FragmentsBuilderModule {
     abstract  fun contributeProfilePageFragment(): ProfilePageFragment
 
     @ContributesAndroidInjector
+    abstract  fun contributeVendorProfilePageFragment(): VendorProfilePageFragment
+
+    @ContributesAndroidInjector
     abstract  fun contributeChangePasswordFragment(): ChangePasswordFragment
 
     @ContributesAndroidInjector
+    abstract  fun contributeVendorChangePasswordFragment(): VendorChangePasswordFragment
+
+    @ContributesAndroidInjector
     abstract  fun contributeAccountInfoFragment(): AccountInfoFragment
+
+    @ContributesAndroidInjector
+    abstract  fun contributeVendorAccountInfoFragment(): VendorAccountInfoFragment
 
     @ContributesAndroidInjector
     abstract  fun contributeAddressInfoFragment(): AddressInfoFragment

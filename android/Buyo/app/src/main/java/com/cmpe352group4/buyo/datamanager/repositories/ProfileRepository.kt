@@ -46,6 +46,15 @@ class ProfileRepository @Inject constructor(
         }.asLiveData()
     }
 
+    fun getVendorProfileInfo(customerId: String, userType: String): LiveData<Resource<VendorInformationResult>> {
+        return object : NetworkServiceWrapper<VendorInformationResult,BaseResponse<VendorInformationResult>>(appExecutors,connectionManager){
+            override fun loadFromApi(data: BaseResponse<VendorInformationResult>): LiveData<VendorInformationResult> {
+                return InitialLiveData.create(data.data)
+            }
+            override fun createCall(): LiveData<ApiResponse<BaseResponse<VendorInformationResult>>> = api.fetchVendorAccountInformation(customerId, userType)
+        }.asLiveData()
+    }
+
     fun loginVendor(userType: String, email: String, password: String): LiveData<Resource<LoginSingupResponse>> {
         return object : NetworkServiceWrapper<LoginSingupResponse, BaseResponse<LoginSingupResponse>>(appExecutors,connectionManager){
             override fun loadFromApi(data: BaseResponse<LoginSingupResponse>): LiveData<LoginSingupResponse> {
@@ -92,6 +101,17 @@ class ProfileRepository @Inject constructor(
             }
             override fun createCall(): LiveData<ApiResponse<BaseResponsePostRequest>> =
                 api.saveAccountInfo(id, userType, name, surname, email, phoneNumber, gender)
+        }.asLiveData()
+    }
+
+    fun saveVendorAccountInfo(id: String, userType: String, email: String, longitude: String, latitude: String,
+                        website: String, company: String): LiveData<Resource<BaseResponsePostRequest>> {
+        return object : NetworkServiceWrapper<BaseResponsePostRequest, BaseResponsePostRequest>(appExecutors,connectionManager){
+            override fun loadFromApi(data: BaseResponsePostRequest): LiveData<BaseResponsePostRequest> {
+                return InitialLiveData.create(data)
+            }
+            override fun createCall(): LiveData<ApiResponse<BaseResponsePostRequest>> =
+                api.saveVendorAccountInfo(id, userType, email, longitude, latitude, website, company)
         }.asLiveData()
     }
 }

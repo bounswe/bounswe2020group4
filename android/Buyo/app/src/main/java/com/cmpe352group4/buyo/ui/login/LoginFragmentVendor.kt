@@ -1,17 +1,12 @@
 package com.cmpe352group4.buyo.ui.login
 
 import android.os.Bundle
-import android.text.*
-import android.text.method.LinkMovementMethod
-import android.text.style.ClickableSpan
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.cmpe352group4.buyo.R
@@ -21,11 +16,11 @@ import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.LegalDocFragment
 import com.cmpe352group4.buyo.ui.googlemap.MapsFragment
-import com.cmpe352group4.buyo.ui.profilePage.ProfilePageFragment
+import com.cmpe352group4.buyo.ui.vendorProfilePage.VendorProfilePageFragment
 import com.cmpe352group4.buyo.util.extensions.makeLinks
 import com.cmpe352group4.buyo.viewmodel.ProfileViewModel
-import com.cmpe352group4.buyo.vo.SignupRequestVendor
 import com.cmpe352group4.buyo.vo.LoginRequestVendor
+import com.cmpe352group4.buyo.vo.SignupRequestVendor
 import kotlinx.android.synthetic.main.fragment_login_vendor.*
 import javax.inject.Inject
 
@@ -224,8 +219,7 @@ class LoginFragmentVendor : BaseFragment() {
                             dispatchLoading()
 
                         navigationManager?.onReplace(
-                            ProfilePageFragment.newInstance(),
-                            //VendorProfilePageFragment.newInstance(),
+                            VendorProfilePageFragment.newInstance(),
                             TransactionType.Replace, false
                         )
 
