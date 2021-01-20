@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -61,7 +60,7 @@ class AddressInfoFragment: BaseFragment() {
         var userInfo : CustomerInformation? = null
         var addresses : MutableList<Address>? = null
 
-        val infoReq = UserInformationRequest(sharedPref.getUserId()?: "", "customer")
+        val infoReq = UserInformationRequest(sharedPref.getUserId()?: "", sharedPref.getUserType()?:"")
         profileViewModel.onFetchProfileInfo(infoReq)
 
         profileViewModel.userInformation.observe(viewLifecycleOwner, Observer {

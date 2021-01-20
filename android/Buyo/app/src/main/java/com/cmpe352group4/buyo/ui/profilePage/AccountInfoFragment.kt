@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.cmpe352group4.buyo.R
@@ -50,7 +49,7 @@ class AccountInfoFragment: BaseFragment() {
         val backendGenders = arrayOf("", "female", "male", "other", "noInfo")
         val genders = arrayOf("", "Female", "Male", "Other", "No Info")
 
-        val infoReq = UserInformationRequest(sharedPref.getUserId()?: "", "customer")
+        val infoReq = UserInformationRequest(sharedPref.getUserId()?: "", sharedPref.getUserType()?:"")
         profileViewModel.onFetchProfileInfo(infoReq)
 
         profileViewModel.userInformation.observe(viewLifecycleOwner, Observer {
@@ -78,7 +77,7 @@ class AccountInfoFragment: BaseFragment() {
             profileViewModel.saveAccountInfo(
                 AccountInfoRequest(
                     id = sharedPref.getUserId()?:"",
-                    userType = "customer",
+                    userType = sharedPref.getUserType()?:"",
                     name = ed_user_name.text.toString(),
                     surname = ed_user_surname.text.toString(),
                     email = ed_user_email.text.toString(),

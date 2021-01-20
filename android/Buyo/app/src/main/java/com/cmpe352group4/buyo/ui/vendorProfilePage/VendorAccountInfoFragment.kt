@@ -46,7 +46,7 @@ class VendorAccountInfoFragment: BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val infoReq = UserInformationRequest(sharedPref.getUserId()?: "", "vendor")
+        val infoReq = UserInformationRequest(sharedPref.getUserId()?: "", sharedPref.getUserType()?:"")
         profileViewModel.onFetchVendorProfileInfo(infoReq)
 
         profileViewModel.vendorInformation.observe(viewLifecycleOwner, Observer {
@@ -67,7 +67,7 @@ class VendorAccountInfoFragment: BaseFragment() {
             profileViewModel.saveVendorAccountInfo(
                 VendorAccountInfoRequest(
                     id = sharedPref.getUserId()?:"",
-                    userType = "vendor",
+                    userType = sharedPref.getUserType()?:"",
                     email = ed_vendor_user_email.text.toString(),
                     longitude = sharedPref.getVendorLon()?:"",
                     latitude = sharedPref.getVendorLat()?:"",

@@ -78,7 +78,7 @@ class VendorChangePasswordFragment: BaseFragment() {
         btn_change_password.setOnClickListener {
             val check : Boolean = checkCredentials()
             if(check) {
-                val infoReq = UserInformationRequest(sharedPref.getUserId()?: "", "vendor")
+                val infoReq = UserInformationRequest(sharedPref.getUserId()?: "", sharedPref.getUserType()?:"")
                 profileViewModel.onFetchVendorProfileInfo(infoReq)
 
                 profileViewModel.vendorInformation.observe(viewLifecycleOwner, Observer {
@@ -88,7 +88,7 @@ class VendorChangePasswordFragment: BaseFragment() {
                             profileViewModel.changePassword(
                                 ChangePasswordRequest(
                                     id = sharedPref.getUserId()?:"",
-                                    userType = "vendor",
+                                    userType = sharedPref.getUserType()?:"",
                                     password = ed_new_password.text.toString()
                                 )
                             )
