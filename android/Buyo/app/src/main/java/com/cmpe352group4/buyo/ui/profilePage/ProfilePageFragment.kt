@@ -9,6 +9,7 @@ import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
+import com.cmpe352group4.buyo.ui.login.LoginFragment
 import com.cmpe352group4.buyo.ui.orderpage.OrderPageFragment
 import kotlinx.android.synthetic.main.fragment_profile_page.*
 import javax.inject.Inject
@@ -68,7 +69,13 @@ class ProfilePageFragment: BaseFragment() {
         }
 
         tv_profile_page_logout.setOnClickListener {
-            // it will be implemented later
+            sharedPref.saveUserId("")
+            sharedPref.saveUserType("")
+            sharedPref.saveVendorAddress("")
+            navigationManager?.onReplace(
+                LoginFragment.newInstance(),
+                TransactionType.Replace, true
+            )
         }
 
     }
