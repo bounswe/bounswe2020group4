@@ -6,6 +6,47 @@ const { ErrorMessage } = require("../constants/error");
 
 
 
+module.exports.updateProduct = async (product_id,parameter) => {
+  try {
+    var innerParameter = parameter;
+    if(!!parameter.attributes){
+      product = await Product.findOne({ _id: ObjectId(product_id) });
+      product = product.toJSON()
+
+      var productAttributes = []
+      product.productInfos.forEach(function(item){
+        if(JSON.stringify(item.attributes) == JSON.stringify(parameter.attributes)){      
+          productAttributes.push(parameter)
+        }else{
+          productAttributes.push(item)
+        }
+
+      })
+
+      innerParameter = {"productInfos": productAttributes};
+    }
+
+    checker = Product.findByIdAndUpdate(product_id, innerParameter, 
+        function (err, docs) { 
+          if (err){ 
+            console.log(err) 
+          } 
+          else{ 
+            return true
+          } 
+        });
+        
+      if(checker){
+        product = await Product.findOne({ _id: ObjectId(product_id) });
+        return product
+      }
+    
+  } catch (error) {
+    console.log(error);
+    return "CHECK_UPDATE_PARAMETERS";
+  }
+};
+
 module.exports.addProducts = async (products) => {
   try {
     const dbProducts = [];

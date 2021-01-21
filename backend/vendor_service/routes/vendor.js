@@ -22,13 +22,13 @@ module.exports.initialize = (app) => {
   });
 
 
-  app.get("/vendor/products", async (request, response) => {
-    const result = await vendor.getProducts(request.query);
+  app.patch("/vendor/products/:id", async (request, response) => {
+    var productId = request.params.id
+    var changeParameters = request.body;
 
-    if ( !!result.success ) {
-      response.respond(ErrorCode(result.message), result.message);
-    }
-    else if (!!result.productList) {
+    const result = await vendor.updateProduct(productId,changeParameters);
+
+    if (!!result.name) {
       response.respond(200, "OK", {
         result,
       });
