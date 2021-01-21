@@ -4,9 +4,10 @@ module.exports.ErrorMessage = {
   MISSING_PARAMETER: "Missing parameter, see documentation for details",
   ADDRESS_ALREADY_EXISTS: "Address with the title already exists",
   USER_NOT_FOUND: "User not found",
+  CHECK_UPDATE_PARAMETERS:"Check your update parameters"
 };
 
-module.exports.ErrorCode = (message) => {
+module.exports.ErrorCode = (message) =>W {
   const ErrorCodes = {
     EMAIL_HAS_BEEN_USED: 400,
     COULD_NOT_CREATE_USER: 400,

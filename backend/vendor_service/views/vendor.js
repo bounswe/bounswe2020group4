@@ -7,25 +7,15 @@ const { ErrorMessage } = require("../constants/error");
 
 
 module.exports.updateProduct = async (product_id,parameter) => {
-
-  console.log("***************")
-  console.log("UPDATA FUNC")
   try {
-
-    console.log("***************")
-    console.log("TRY")
-    var innerParameteer = parameter;
+    var innerParameter = parameter;
     if(!!parameter.attributes){
       product = await Product.findOne({ _id: ObjectId(product_id) });
-      
-      console.log("***** PRODUCT ****" , product)
-      console.log(product.productInfos)
       product = product.toJSON()
 
       var productAttributes = []
       product.productInfos.forEach(function(item){
-        if(JSON.stringify(item.attributes) == JSON.stringify(parameter.attributes)){
-          
+        if(JSON.stringify(item.attributes) == JSON.stringify(parameter.attributes)){      
           productAttributes.push(parameter)
         }else{
           productAttributes.push(item)
@@ -33,33 +23,27 @@ module.exports.updateProduct = async (product_id,parameter) => {
 
       })
 
-      innerParameteer = {productInfos: productAttributes};
-
+      innerParameter = {"productInfos": productAttributes};
     }
 
-
-    console.log("**** INNER PARAMETER ****", innerParameteer)
-
-      
-      Product.findByIdAndUpdate(product_id, innerParameteer, 
+    checker = Product.findByIdAndUpdate(product_id, innerParameter, 
         function (err, docs) { 
           if (err){ 
             console.log(err) 
           } 
           else{ 
-            console.log("Updated User : ", docs); 
+            return true
           } 
         });
         
-      
-    return 200;
+      if(checker){
+        product = await Product.findOne({ _id: ObjectId(product_id) });
+        return product
+      }
+    
   } catch (error) {
-
-
-    console.log("***************")
-    console.log("ERROR IS CALLED")
     console.log(error);
-    return error;
+    return "CHECK_UPDATE_PARAMETERS";
   }
 };
 

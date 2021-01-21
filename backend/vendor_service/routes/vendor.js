@@ -28,16 +28,13 @@ module.exports.initialize = (app) => {
 
     const result = await vendor.updateProduct(productId,changeParameters);
 
-    if ( !!result.success ) {
-      response.respond(ErrorCode(result.message), result.message);
-    }
-    else if (!!result.productList) {
+    if (!!result.name) {
       response.respond(200, "OK", {
         result,
       });
     } 
     else {
-      response.respond(ErrorCode(result.message), result.message);
+      response.respond(200, 300);
     }
   });
 
