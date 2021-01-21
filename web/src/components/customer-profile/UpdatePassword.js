@@ -43,13 +43,16 @@ const UpdatePassword = (props) => {
 				'oldPassword': oldPassword,
 				'newPassword': newPassword1
 			}
-			const passwordUpdated = await accountService.updatePassword('customer', props.customerId, passwordInfo)
+			const passwordUpdated = await accountService.updatePassword(props.userType, props.userId, passwordInfo)
 			if(!passwordUpdated | passwordUpdated != 200){
 				alert('Something went wrong, please try again')
-				return
 			} else {
 				alert('You have successfully changed your password.')
-				history.push('/customerprofile')
+				if (props.userType == 'customer') {
+					history.push('/customerprofile')
+				} else {
+					history.push('/vendorprofile')
+				}
 			}
 		}
 	}
@@ -105,7 +108,7 @@ const UpdatePassword = (props) => {
 const mapStateToProps = (state) => {
 	return {
 		isLoggedIn: state.signIn.isLoggedIn,
-		customerId: state.signIn.userId,
+		userId: state.signIn.userId,
 		userType: state.signIn.userType
 	}
 }

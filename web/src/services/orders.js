@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const baseUrl = 'http://3.138.113.101:8080/order'
 
-const getOrders = async (userId, userType='customer') => {
+const getOrders = async (userId, userType) => {
 	try {
 		const response = await axios.get(`${baseUrl}?id=${userId}&userType=${userType}`)
 		console.log(response)
@@ -22,4 +22,14 @@ const checkoutOrder = async (customerId, paymentInfo, address) => {
 	}
 }
 
-export default { getOrders, checkoutOrder }
+const updateOrderStatus = async (userType, userId, status, orderId) => {
+	try {
+		const response = await axios.patch(`${baseUrl}?userType=${userType}&userId=${userId}&status=${status}&orderId=${orderId}`)
+		return response.data.status.code
+	} catch(err) {
+		console.error(err)
+		return null
+	}
+}
+
+export default { getOrders, checkoutOrder, updateOrderStatus }

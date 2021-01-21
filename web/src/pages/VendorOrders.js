@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
+import { hideHeader, showHeader, showVendorHeader, hideVendorHeader } from '../redux/actions'
 
+import './VendorOrders.css'
 
 import OrderDetails from '../components/OrderDetails'
+import orderService from '../services/orders'
 
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import Accordion from '@material-ui/core/Accordion'
 import { makeStyles } from '@material-ui/core/styles'
-
 import AccordionDetails from '@material-ui/core/AccordionDetails'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-
-import orderService from '../services/orders'
-
-import './Orders.css'
 
 const useStyles = makeStyles(() => ({
 	indicator: {
@@ -25,7 +23,6 @@ const useStyles = makeStyles(() => ({
 
 const TabPanel = (props) => {
 	const { children, value, index, ...other } = props
-
 	return (
 		<div
 			role="tabpanel"
@@ -43,20 +40,33 @@ const TabPanel = (props) => {
 	)
 }
 
-
-const Orders = ({isLoggedIn, userId}) => {
+const VendorOrders = ({showHeader, hideHeader, showVendorHeader, isLoggedIn, userId}) => {
 	const [value, setValue] = useState(0)
 	const [expanded, setExpanded] = useState(false)
 	const [orders, setOrders] = useState([])
+	const [totalEarnings, setTotalEarnings] = useState(0)
 
 	useEffect(async () => {
-		const orders = await orderService.getOrders(userId, 'customer')
+		const orders = await orderService.getOrders(userId, 'vendor')
 		let ordersList = []
 		let key
-		for(key of Object.keys(orders)) {
-			ordersList.push({id: key, data: orders[key]})
+		let sumOfDeliveredPrices = 0
+		if (orders) {
+			for(key of Object.keys(orders)) {
+				ordersList.push({id: key, data: orders[key]})
+				if (orders[key].products) {
+					orders[key].products.forEach(product => {
+						if (product.status == 'Delivered') sumOfDeliveredPrices += product.price;
+					});
+				}
+			}
+			setOrders(ordersList)
+			setTotalEarnings(sumOfDeliveredPrices)
 		}
-		setOrders(ordersList)
+
+		hideHeader()
+		showVendorHeader()
+		return () => showHeader()
 	}, [])
 
 	const classes = useStyles()
@@ -80,7 +90,7 @@ const Orders = ({isLoggedIn, userId}) => {
 				<Tab label="Orders" id="tab-1"/>
 			</Tabs>
 			<TabPanel value={value} index={0}>
-				{orders && orders.map(o => (
+				{orders?.length ? orders.map(o => (
 					<Accordion key={o.id} expanded={expanded === o.id} onChange={handleExpand(o.id)}>
 						<AccordionSummary
 							expandIcon={<ExpandMoreIcon />}
@@ -98,7 +108,8 @@ const Orders = ({isLoggedIn, userId}) => {
 							<OrderDetails orderId={o.id} products={o.data.products} address="Etiler Mahallesi Muharipler sokak Sakarya Apartman no:4 Beşiktaş/Istanbul"/>
 						</AccordionDetails>
 					</Accordion>
-				))}
+				)) : <div className='no-orders'>There is nothing here.</div>}
+				<div className='total-earnings'>Total Earnings: {totalEarnings.toFixed(2)}₺</div>
 			</TabPanel>
 		</div>
 	)
@@ -111,5 +122,4 @@ const mapStateToProps = (state) => {
 	}
 }
 
-
-export default connect(mapStateToProps)(Orders)
+export default connect(mapStateToProps, {showHeader, hideHeader, showVendorHeader, hideVendorHeader})(VendorOrders)

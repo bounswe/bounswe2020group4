@@ -13,3 +13,7 @@
 .header-icon {
     width: 150px;
 }
+
+.sign-out-button:hover {
+    color: black;
+}
