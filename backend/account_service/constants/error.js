@@ -7,7 +7,7 @@ module.exports.ErrorMessage = {
   CHECK_UPDATE_PARAMETERS:"Check your update parameters"
 };
 
-module.exports.ErrorCode = (message) =>W {
+module.exports.ErrorCode = (message) =>{
   const ErrorCodes = {
     EMAIL_HAS_BEEN_USED: 400,
     COULD_NOT_CREATE_USER: 400,

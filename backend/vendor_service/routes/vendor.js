@@ -34,7 +34,7 @@ module.exports.initialize = (app) => {
       });
     } 
     else {
-      response.respond(200, 300);
+      response.respond(ErrorCode(result.message), result.message);
     }
   });
 
