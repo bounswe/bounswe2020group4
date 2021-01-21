@@ -1,5 +1,7 @@
 const like = require("../views/like");
 const comment = require("../views/comment");
+const message = require("../views/message");
+const { ErrorCode } = require("../constants/error");
 
 // Initializes the endpoints.
 module.exports.initialize = (app) => {
@@ -9,8 +11,8 @@ module.exports.initialize = (app) => {
    */
   app.post("/like", async (request, response) => {
     const result = await like.like(request.query);
-    if(result.success){
-    response.respond(200, "OK");
+    if (result.success) {
+      response.respond(200, "OK");
     } else {
       response.respond(404, result.message);
     }
@@ -35,12 +37,36 @@ module.exports.initialize = (app) => {
    */
   app.delete("/comment", async (request, response) => {
     const result = await comment.delete(request.query);
-    if(result.success){
-    response.respond(200, "OK");
-    }
-    else {
+    if (result.success) {
+      response.respond(200, "OK");
+    } else {
       response.respond(404, result.message);
+    }
+  });
 
+  /**
+   * Gets all last messages of a user with other users.s
+   */
+  app.get("/messages/last", async (request, response) => {
+    const result = await message.getLastMessages(request.query);
+
+    if (result.success) {
+      response.respond(200, "OK", { lastMessages: result.messages });
+    } else {
+      response.respond(ErrorCode(result.message), result.message);
+    }
+  });
+
+  /**
+   * Gets messages between two users
+   */
+  app.get("/messages", async (request, response) => {
+    const result = await message.getMessages(request.query);
+
+    if (result.success) {
+      response.respond(200, "OK", { messages: result.messages });
+    } else {
+      response.respond(ErrorCode(result.message), result.message);
     }
   });
 };

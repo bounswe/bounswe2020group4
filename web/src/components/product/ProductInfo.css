@@ -33,6 +33,7 @@
   position: absolute;
   bottom: 2%;
   right: 2%;
+  text-align: center;
 }
 
 .shipping-container {
@@ -40,4 +41,17 @@
   margin-top: 5%;
   left: 1%;
   bottom: 0%;
+}
+
+.report-product-button {
+  text-align: center;
+  padding: 10px;
+  font-size: 20px;
+  background-color: var(--red-tertiary);
+  color: white;
+  border: solid;
+  border-radius: 10px;
+  white-space: nowrap;
+  width: fit-content;
+  height: fit-content;
 }

@@ -73,6 +73,9 @@ const CategoryProducts = () => {
 			setNewURL('/products?' + queryString.stringify(params))
 		} else {
 			//TODO how to handle when more than one filter is chosen for a field?
+			delete params[filterName]
+			history.push('/products?' + queryString.stringify(params))
+			setNewURL('/products?' + queryString.stringify(params))
 		}
 	}
 

@@ -4,8 +4,8 @@ import { Rating } from '@material-ui/lab'
 import { withStyles } from '@material-ui/core/styles'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 
-import history from '../util/history'
-import wishlistService from '../services/wishlist'
+import history from '../../util/history'
+import wishlistService from '../../services/wishlist'
 
 const StyledRating = withStyles({
 	iconFilled: {
@@ -21,6 +21,9 @@ const WishlistButton = (props) => {
 
 	useEffect(() => {
 		const isInWishlist = async () => {
+			if(!props.isLoggedIn) {
+				return
+			}
 			const result = await wishlistService.isInWishlist(props.customerId,
 				props.productId)
 			if(result) {
@@ -31,15 +34,6 @@ const WishlistButton = (props) => {
 		isInWishlist()
 	}, [props.customerId, props.productId])
 
-	useEffect(() => {
-		wishlistService
-			.isInWishlist(props.customerId, props.productId)
-			.then( result => {
-				if(result) {
-					setIsLiked(1)
-				}
-			})
-	}, [props.customerId, props.productId])
 
 	const handleAddtoWishlist = (event, value) => {
 		event.preventDefault()

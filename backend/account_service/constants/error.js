@@ -1,4 +1,4 @@
-module.exports.ErrorMessage = {
+const ErrorMessage = {
   EMAIL_HAS_BEEN_USED: "This email has been already used",
   COULD_NOT_CREATE_USER: "User couldn't be created",
   MISSING_PARAMETER: "Missing parameter, see documentation for details",
@@ -13,7 +13,19 @@ module.exports.ErrorCode = (message) =>{
     COULD_NOT_CREATE_USER: 400,
     MISSING_PARAMETER: 400,
     USER_NOT_FOUND: 404,
-  };
+
+  PRODUCT_NOT_FOUND: "Product not found",
+};
+
+module.exports.ErrorCode = (message) => {
+  const ErrorCodes = {};
+
+  ErrorCodes[ErrorMessage.EMAIL_HAS_BEEN_USED] = 400;
+  ErrorCodes[ErrorMessage.COULD_NOT_CREATE_USER] = 400;
+  ErrorCodes[ErrorMessage.MISSING_PARAMETER] = 400;
+  ErrorCodes[ErrorMessage.USER_NOT_FOUND] = 404;
+  ErrorCodes[ErrorMessage.PRODUCT_NOT_FOUND] = 404;
 
   return ErrorCodes[message] || 500;
 };
+module.exports.ErrorMessage = ErrorMessage;
