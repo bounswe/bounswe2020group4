@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/btn_vendorAddProduct_Back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@color/buyo_darkCandyAppleRed"
+        android:text="Back"
+        android:textColor="@color/buyo_white"
+        app:layout_constraintBottom_toTopOf="@+id/sv_vendorAddProduct"
+        app:layout_constraintEnd_toStartOf="@+id/btn_vendorAddProduct_Next"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_vendorAddProduct_Next"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@color/buyo_darkCandyAppleRed"
+        android:text="Done"
+        android:textColor="@color/buyo_white"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_vendorAddProduct_Back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_vendorAddProduct_Back"
+        app:layout_constraintTop_toTopOf="@+id/btn_vendorAddProduct_Back" />
+
+    <ScrollView
+        android:id="@+id/sv_vendorAddProduct"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_vendorAddProduct_Back">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp">
+
+            <TextView
+                android:id="@+id/tv_vendorAddProductCategoryName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Category"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toTopOf="@+id/btn_vendorAddProduct_Image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/btn_vendorAddProduct_Image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/buyo_Cinnabar"
+                android:text="Select Image"
+                android:textColor="@color/buyo_white"
+                app:layout_constraintBottom_toTopOf="@+id/til_vendorAddProduct_Name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_vendorAddProductCategoryName" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_vendorAddProduct_Name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:hintTextColor="#9D9D9D"
+                app:layout_constraintBottom_toTopOf="@+id/til_vendorAddProduct_desc"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_vendorAddProduct_Image"
+                app:layout_constraintVertical_weight="1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tiet_vendorAddProduct_Name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Product Name"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColorHint="#ff000000"
+                    android:textSize="15sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_vendorAddProduct_desc"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                app:hintTextColor="#9D9D9D"
+                app:layout_constraintBottom_toTopOf="@+id/til_vendorAddProduct_Price"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_vendorAddProduct_Name"
+                app:layout_constraintVertical_chainStyle="spread"
+                app:layout_constraintVertical_weight="1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tiet_vendorAddProduct_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Product Description"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColorHint="#ff000000"
+                    android:textSize="15sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_vendorAddProduct_Price"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                app:hintTextColor="#9D9D9D"
+                app:layout_constraintBottom_toTopOf="@+id/til_vendorAddProduct_oriPrice"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_vendorAddProduct_desc"
+                app:layout_constraintVertical_chainStyle="spread"
+                app:layout_constraintVertical_weight="1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tiet_vendorAddProduct_Price"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Product Price"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColorHint="#ff000000"
+                    android:textSize="15sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_vendorAddProduct_oriPrice"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                app:hintTextColor="#9D9D9D"
+                app:layout_constraintBottom_toTopOf="@+id/til_vendorAddProduct_Brand"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_vendorAddProduct_Price"
+                app:layout_constraintVertical_chainStyle="spread"
+                app:layout_constraintVertical_weight="1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tiet_vendorAddProduct_oriPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Product Original Price"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColorHint="#ff000000"
+                    android:textSize="15sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_vendorAddProduct_Brand"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:hintTextColor="#9D9D9D"
+                app:layout_constraintBottom_toTopOf="@+id/til_vendorAddProduct_AttNum"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_vendorAddProduct_oriPrice"
+                app:layout_constraintVertical_chainStyle="spread"
+                app:layout_constraintVertical_weight="1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tiet_vendorAddProduct_Brand"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Product Brand"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColorHint="#ff000000"
+                    android:textSize="15sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_vendorAddProduct_AttNum"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:hintTextColor="#9D9D9D"
+                app:layout_constraintBottom_toTopOf="@+id/rv_vendorAddProductAttributes"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_vendorAddProduct_Brand"
+                app:layout_constraintVertical_chainStyle="spread"
+                app:layout_constraintVertical_weight="1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tiet_vendorAddProduct_AttNum"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Product Number of Attributes"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColorHint="#ff000000"
+                    android:textSize="15sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_vendorAddProductAttributes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_vendorAddProduct_AttNum" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

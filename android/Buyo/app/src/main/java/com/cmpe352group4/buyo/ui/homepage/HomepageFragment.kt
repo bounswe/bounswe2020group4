@@ -16,6 +16,9 @@ import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
 import com.cmpe352group4.buyo.ui.productList.ProductListFragment
+import com.cmpe352group4.buyo.ui.vendor.AddProductCategoryFragment
+import com.cmpe352group4.buyo.ui.vendor.AddProductFragment
+import com.cmpe352group4.buyo.ui.vendor.VendorProductListFragment
 import com.cmpe352group4.buyo.viewmodel.SearchViewModel
 import com.cmpe352group4.buyo.vo.Product
 import kotlinx.android.synthetic.main.fragment_homepage.*
@@ -145,5 +148,20 @@ class HomepageFragment : BaseFragment() {
             this.context,
             LinearLayoutManager.HORIZONTAL, false
         )
+
+
+        bannerImageView1.setOnClickListener {
+            navigationManager?.onReplace(
+                AddProductCategoryFragment.newInstance(),
+                TransactionType.Replace, true
+            )
+        }
+
+        bannerImageView2.setOnClickListener {
+            navigationManager?.onReplace(
+                VendorProductListFragment.newInstance(),
+                TransactionType.Replace, true
+            )
+        }
     }
 }
