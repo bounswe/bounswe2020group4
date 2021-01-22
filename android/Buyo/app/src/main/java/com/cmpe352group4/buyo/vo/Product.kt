@@ -15,7 +15,7 @@ data class Product(
     var price: Double,
     var originalPrice: Double,
     var brand: String,
-    var productInfos: MutableList<ProductInfo>,
+    var productInfos: List<ProductInfo>,
     var vendor: Vendor,
     var description: String,
     var materials: List<String>?,

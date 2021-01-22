@@ -7,10 +7,8 @@ import androidx.lifecycle.ViewModel
 import com.cmpe352group4.buyo.api.Resource
 import com.cmpe352group4.buyo.datamanager.repositories.ProductRepository
 import com.cmpe352group4.buyo.util.livedata.AbsentLiveData
-import com.cmpe352group4.buyo.vo.BaseResponsePostRequest
 //import com.cmpe352group4.buyo.vo.ProductResponse
 import com.cmpe352group4.buyo.vo.ProductResult
-import com.cmpe352group4.buyo.vo.ReportRequest
 import javax.inject.Inject
 
 class ProductViewModel @Inject constructor(
@@ -21,10 +19,6 @@ class ProductViewModel @Inject constructor(
 
     private val _productId =  MutableLiveData<String>()
 
-    private val _commentReport = MutableLiveData<ReportRequest>()
-
-    private val _productReport = MutableLiveData<ReportRequest>()
-
     //private val _searchKeyword = MutableLiveData<String>()
 
     // Things we get as a response
@@ -34,22 +28,6 @@ class ProductViewModel @Inject constructor(
                 AbsentLiveData.create()
             else
                 repository.getProductById(Id)
-        }
-
-    val reportComment: LiveData<Resource<BaseResponsePostRequest>> =
-        Transformations.switchMap(_commentReport) { it
-            if (it == null)
-                AbsentLiveData.create()
-            else
-                repository.reportComment(it.id, it.message)
-        }
-
-    val reportProduct: LiveData<Resource<BaseResponsePostRequest>> =
-        Transformations.switchMap(_productReport) { it
-            if (it == null)
-                AbsentLiveData.create()
-            else
-                repository.reportComment(it.id, it.message)
         }
 
     //val productList: LiveData<Resource<ProductResponse>> =
@@ -65,14 +43,6 @@ class ProductViewModel @Inject constructor(
 
     fun onFetchProductById(productId: String) {
         _productId.value = productId
-    }
-
-    fun onReportComment(reportRequest: ReportRequest){
-        _commentReport.value = reportRequest
-    }
-
-    fun onReportProduct(reportRequest: ReportRequest){
-        _productReport.value = reportRequest
     }
 
     //fun onFetchProductListbyKeyword(keyword: String) {
