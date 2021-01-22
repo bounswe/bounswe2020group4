@@ -1,4 +1,6 @@
-package com.cmpe352group4.buyo.ui.orderpage
+package com.cmpe352group4.buyo.ui.notification
+
+import com.cmpe352group4.buyo.ui.orderpage.OrderAdapter
 
 import android.os.Bundle
 import android.view.Gravity
@@ -16,17 +18,15 @@ import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.EmptyFragment
+import com.cmpe352group4.buyo.ui.orderpage.OrderPageFragmentVendor
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
-import com.cmpe352group4.buyo.viewmodel.OrderViewModel
-import com.cmpe352group4.buyo.viewmodel.SearchViewModel
 import com.cmpe352group4.buyo.vo.*
+import kotlinx.android.synthetic.main.fragment_notification.*
 import kotlinx.android.synthetic.main.fragment_order_page.*
-import kotlinx.android.synthetic.main.fragment_order_page.orderpage_back_button
-import kotlinx.android.synthetic.main.fragment_order_page_vendor.*
 import javax.inject.Inject
 
 
-class OrderPageFragmentVendor : BaseFragment() {
+class NotificationFragment : BaseFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -34,63 +34,31 @@ class OrderPageFragmentVendor : BaseFragment() {
     @Inject
     lateinit var sharedPref: SharedPref
 
-    private val ordersViewModel: OrderViewModel by viewModels {
+    /*
+    private val notificationViewModel: NotificationViewModel by viewModels {
         viewModelFactory
     }
+    */
 
     companion object {
-        fun newInstance() = OrderPageFragmentVendor()
+        fun newInstance() = NotificationFragment()
     }
 
-    private val orderAdapter by lazy {
-        OrderAdapter(mutableListOf(),
-            { order ->
+    private val notificationAdapter by lazy {
+        NotificationAdapter(mutableListOf()
+        ) { notification:NotificationRV ->
+            if (notification.targetProductID != null) {
                 navigationManager?.onReplace(
-                    ProductDetailContentFragment.newInstance(order.productId),
+                    ProductDetailContentFragment.newInstance(notification.targetProductID!!),
                     TransactionType.Replace, true
                 )
-            },
-            { order ->
-                val myToast = Toast.makeText(
-                    context,
-                    "Approve " + order.orderID,
-                    Toast.LENGTH_SHORT
-                )
-                myToast.setGravity(Gravity.BOTTOM, 0, 200)
-                myToast.show()
+            } else if (sharedPref.getUserType() == "vendor") {
                 navigationManager?.onReplace(
-                    EmptyFragment.newInstance(),
+                    OrderPageFragmentVendor.newInstance(),
                     TransactionType.Replace, true
                 )
-            },
-            { order ->
-                if (order.status != "Pending") {
-                    val myToast = Toast.makeText(
-                        context,
-                        "Comment on " + order.name,
-                        Toast.LENGTH_SHORT
-                    )
-                    myToast.setGravity(Gravity.BOTTOM, 0, 200)
-                    myToast.show()
-                    navigationManager?.onReplace(
-                        EmptyFragment.newInstance(),
-                        TransactionType.Replace, true
-                    )
-                } else {
-                    val myToast = Toast.makeText(
-                        context,
-                        "Cancel " + order.name,
-                        Toast.LENGTH_SHORT
-                    )
-                    myToast.setGravity(Gravity.BOTTOM, 0, 200)
-                    myToast.show()
-                    navigationManager?.onReplace(
-                        EmptyFragment.newInstance(),
-                        TransactionType.Replace, true
-                    )
-                }
             }
-        )
+        }
     }
 
     override fun onCreateView(
@@ -99,39 +67,57 @@ class OrderPageFragmentVendor : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        return inflater.inflate(R.layout.fragment_order_page_vendor, container, false)
+        return inflater.inflate(R.layout.fragment_notification, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        rv_order_items.adapter = orderAdapter
-        rv_order_items.layoutManager = LinearLayoutManager(
+        rv_notifications.adapter = notificationAdapter
+        rv_notifications.layoutManager = LinearLayoutManager(
             this.context,
             LinearLayoutManager.VERTICAL, false
         )
 
         backButtonListener()
-        observeOrderData()
+        dummyFillRV()
+        /*
+        observeNotification()
         if (!sharedPref.getUserId().isNullOrEmpty()) {
-            ordersViewModel.onFetchOrders(sharedPref.getUserId()!!)
+            notificationViewModel.onFetchOrders(sharedPref.getUserId()!!)
         }
+        */
     }
 
     private fun backButtonListener() {
-        orderpage_back_button.setOnClickListener {
+        notification_back_button.setOnClickListener {
             activity?.onBackPressed()
         }
     }
 
     override fun onResume() {
         super.onResume()
+        /*
         if (!sharedPref.getUserId().isNullOrEmpty()) {
-            ordersViewModel.onFetchOrders(sharedPref.getUserId()!!)
+            notificationViewModel.onFetchOrders(sharedPref.getUserId()!!)
         }
+        */
     }
 
-    private fun observeOrderData () {
-        ordersViewModel.orderMap.observe(viewLifecycleOwner, Observer {
+
+    private fun dummyFillRV(){
+        val list = mutableListOf<NotificationRV>(
+            NotificationRV("Summary 1", "Cancel Order", "2020-12-28T08:08:37.507Z", null),
+            NotificationRV("Summary 2", "Cancel Order", "2020-12-28T08:08:38.507Z", null)
+        )
+
+
+        notificationAdapter.submitList(list)
+    }
+
+    /*
+    private fun observeNotification () {
+        This observe function is for the order fragment. It needs to be changed.
+        notificationViewModel.orderMap.observe(viewLifecycleOwner, Observer {
 
             if (it.status == Status.SUCCESS && it.data != null) {
                 val ordersListRV = mutableListOf<OrderProductRV>()
@@ -155,4 +141,5 @@ class OrderPageFragmentVendor : BaseFragment() {
             }
         })
     }
+    */
 }
