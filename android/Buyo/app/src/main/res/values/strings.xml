@@ -338,5 +338,6 @@
     <string name="i_understand">I understand</string>
     <string name="your_orders">My Orders</string>
     <string name="add_comment">Add Comment</string>
+    <string name="notifications">Notifications</string>
 
 </resources>

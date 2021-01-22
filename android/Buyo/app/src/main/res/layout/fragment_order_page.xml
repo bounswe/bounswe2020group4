@@ -37,6 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/your_orders"
+        android:textColor="@color/black"
         android:textStyle="bold"
         android:textSize="20sp"
         android:layout_margin="@dimen/medium_margin"

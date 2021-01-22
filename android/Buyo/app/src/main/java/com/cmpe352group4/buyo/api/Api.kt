@@ -82,6 +82,12 @@ interface Api {
         @Query("userType") userType: String
     ): LiveData<ApiResponse<BaseResponse<CustomerInformationResult>>>
 
+    @GET("account")
+    fun fetchVendorAccountInformation(
+        @Query("id") userId: String,
+        @Query("userType") userType: String
+    ): LiveData<ApiResponse<BaseResponse<VendorInformationResult>>>
+
     @POST("order")
     fun checkout(
         @Query("customerId") customerId: String,
@@ -132,5 +138,28 @@ interface Api {
         @Query("phoneNumber") phoneNumber: String,
         @Query("gender") gender: String
     ): LiveData<ApiResponse<BaseResponsePostRequest>>
+
+    @POST("account")
+    fun saveVendorAccountInfo(
+        @Query("id") id: String,
+        @Query("userType") userType: String,
+        @Query("email") email: String,
+        @Query("longitude") name: String,
+        @Query("latitude") surname: String,
+        @Query("website") phoneNumber: String,
+        @Query("company") gender: String
+    ): LiveData<ApiResponse<BaseResponsePostRequest>>
+
+    @POST("report_comment")
+    fun reportComment(
+        @Query("commentId") commentID : String,
+        @Query("message") message : String
+    ):LiveData<ApiResponse<BaseResponsePostRequest>>
+
+    @POST("report_product")
+    fun reportProduct(
+        @Query("productId") commentID : String,
+        @Query("message") message : String
+    ):LiveData<ApiResponse<BaseResponsePostRequest>>
 
 }

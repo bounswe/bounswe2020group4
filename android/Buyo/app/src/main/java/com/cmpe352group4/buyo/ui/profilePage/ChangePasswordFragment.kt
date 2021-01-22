@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.cmpe352group4.buyo.R
@@ -79,7 +78,7 @@ class ChangePasswordFragment: BaseFragment() {
         btn_change_password.setOnClickListener {
             val check : Boolean = checkCredentials()
             if(check) {
-                val infoReq = UserInformationRequest(sharedPref.getUserId()?: "", "customer")
+                val infoReq = UserInformationRequest(sharedPref.getUserId()?: "", sharedPref.getUserType()?:"")
                 profileViewModel.onFetchProfileInfo(infoReq)
 
                 profileViewModel.userInformation.observe(viewLifecycleOwner, Observer {
@@ -89,7 +88,7 @@ class ChangePasswordFragment: BaseFragment() {
                             profileViewModel.changePassword(
                                 ChangePasswordRequest(
                                     id = sharedPref.getUserId()?:"",
-                                    userType = "customer",
+                                    userType = sharedPref.getUserType()?:"",
                                     password = ed_new_password.text.toString()
                                 )
                             )
