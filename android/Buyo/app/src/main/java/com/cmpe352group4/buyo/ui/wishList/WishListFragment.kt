@@ -73,14 +73,25 @@ class WishListFragment: BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if(sharedPref.getUserId().isNullOrEmpty()){
+        if(sharedPref.getUserType().equals("vendor")){
+            tv_nonlogin.text = "You need to login as a customer."
+            loginButton.text = "Profile Page"
             cl_nonlogin.visible = true
             cl_wishlist.visible = false
         }else{
-            cl_nonlogin.visible = false
-            cl_wishlist.visible = true
-            wishListViewModel.onFetchWishListProducts(sharedPref.getUserId() ?: "")
+            tv_nonlogin.text = "You need to login first"
+            loginButton.text = "Login Page"
+            if(sharedPref.getUserId().isNullOrEmpty()){
+                cl_nonlogin.visible = true
+                cl_wishlist.visible = false
+            }else{
+                cl_nonlogin.visible = false
+                cl_wishlist.visible = true
+                wishListViewModel.onFetchWishListProducts(sharedPref.getUserId() ?: "")
+            }
         }
+
+
 
         wishListViewModel.wishListProducts.observe(viewLifecycleOwner, Observer {
             if (it.status == Status.SUCCESS && it.data != null) {
@@ -153,13 +164,22 @@ class WishListFragment: BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        if(sharedPref.getUserId().isNullOrEmpty()){
+        if(sharedPref.getUserType().equals("vendor")){
+            tv_nonlogin.text = "You need to login as a customer."
+            loginButton.text = "Profile Page"
             cl_nonlogin.visible = true
             cl_wishlist.visible = false
         }else{
-            cl_nonlogin.visible = false
-            cl_wishlist.visible = true
-            wishListViewModel.onFetchWishListProducts(sharedPref.getUserId() ?: "")
+            tv_nonlogin.text = "You need to login first"
+            loginButton.text = "Login Page"
+            if(sharedPref.getUserId().isNullOrEmpty()){
+                cl_nonlogin.visible = true
+                cl_wishlist.visible = false
+            }else{
+                cl_nonlogin.visible = false
+                cl_wishlist.visible = true
+                wishListViewModel.onFetchWishListProducts(sharedPref.getUserId() ?: "")
+            }
         }
     }
 

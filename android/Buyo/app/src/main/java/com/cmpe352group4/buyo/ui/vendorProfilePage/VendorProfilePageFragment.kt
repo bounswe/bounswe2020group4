@@ -10,6 +10,11 @@ import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.login.LoginFragmentVendor
+import com.cmpe352group4.buyo.ui.notification.NotificationFragment
+import com.cmpe352group4.buyo.ui.orderpage.OrderPageFragmentVendor
+import com.cmpe352group4.buyo.ui.vendor.AddProductCategoryFragment
+import com.cmpe352group4.buyo.ui.vendor.AddProductFragment
+import com.cmpe352group4.buyo.ui.vendor.VendorProductListFragment
 import kotlinx.android.synthetic.main.fragment_vendor_profile_page.*
 import javax.inject.Inject
 
@@ -39,9 +44,41 @@ class VendorProfilePageFragment: BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        tv_vendor_profile_add_product.setOnClickListener {
+            navigationManager?.onReplace(
+                AddProductCategoryFragment.newInstance(),
+                TransactionType.Replace, true
+            )
+        }
+
+        tv_vendor_profile_page_messages.setOnClickListener {
+            // Later
+        }
+
+        tv_vendor_my_products.setOnClickListener {
+            navigationManager?.onReplace(
+                VendorProductListFragment.newInstance(),
+                TransactionType.Replace, true
+            )
+        }
+
+        tv_vendor_profile_my_orders.setOnClickListener {
+            navigationManager?.onReplace(
+                OrderPageFragmentVendor.newInstance(),
+                TransactionType.Replace, true
+            )
+        }
+
         tv_vendor_profile_page_account_info.setOnClickListener {
             navigationManager?.onReplace(
                 VendorAccountInfoFragment.newInstance(),
+                TransactionType.Replace, true
+            )
+        }
+
+        tv_vendor_profile_page_notification.setOnClickListener {
+            navigationManager?.onReplace(
+                NotificationFragment.newInstance(),
                 TransactionType.Replace, true
             )
         }

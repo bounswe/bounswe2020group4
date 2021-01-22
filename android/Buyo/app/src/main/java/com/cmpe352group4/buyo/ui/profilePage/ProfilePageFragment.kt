@@ -10,6 +10,7 @@ import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.login.LoginFragment
+import com.cmpe352group4.buyo.ui.notification.NotificationFragment
 import com.cmpe352group4.buyo.ui.orderpage.OrderPageFragment
 import kotlinx.android.synthetic.main.fragment_profile_page.*
 import javax.inject.Inject
@@ -57,6 +58,17 @@ class ProfilePageFragment: BaseFragment() {
         tv_profile_page_orders.setOnClickListener {
             navigationManager?.onReplace(
                 OrderPageFragment.newInstance(),
+                TransactionType.Replace, true
+            )
+        }
+
+        tv_profile_page_messages.setOnClickListener {
+            // To do
+        }
+
+        tv_profile_page_notification.setOnClickListener {
+            navigationManager?.onReplace(
+                NotificationFragment.newInstance(),
                 TransactionType.Replace, true
             )
         }

@@ -77,7 +77,6 @@ class AddProductCategoryFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if(pathIndex.isEmpty()){
-            btn_vendorAddProductCategories_Back.visible = false
 
             categoryViewModel.onFetchCategories(true)
 
@@ -113,7 +112,9 @@ class AddProductCategoryFragment : BaseFragment() {
         rv_vendorAddProductCategories.adapter = categoryAdapter
 
         btn_vendorAddProductCategories_Back.setOnClickListener {
-            pathIndex.removeAt(pathIndex.size - 1)
+            if(pathIndex.isNotEmpty()){
+                pathIndex.removeAt(pathIndex.size - 1)
+            }
             activity?.onBackPressed()
         }
 

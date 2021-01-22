@@ -32,7 +32,7 @@ class SharedPref @Inject constructor(
         editor.putString(USER_ID, id).apply()
     }
 
-    override fun getUserType(): String? = sharedPref.getString(USER_TYPE, null)
+    override fun getUserType(): String? = sharedPref.getString(USER_TYPE, "")
 
     override fun saveUserType(type: String) {
         val editor = sharedPref.edit()

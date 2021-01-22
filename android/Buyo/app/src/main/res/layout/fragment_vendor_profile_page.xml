@@ -31,6 +31,81 @@
         app:layout_constraintTop_toBottomOf="@+id/logoImageView" />
 
     <TextView
+        android:id="@+id/tv_vendor_profile_add_product"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="Add Product"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vendor_profile_page_account_info" />
+
+    <TextView
+        android:id="@+id/tv_vendor_my_products"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="My Products"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vendor_profile_add_product" />
+
+    <TextView
+        android:id="@+id/tv_vendor_profile_my_orders"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="My Orders"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vendor_my_products" />
+
+    <TextView
+        android:id="@+id/tv_vendor_profile_page_messages"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="My Messages"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vendor_profile_my_orders" />
+
+    <TextView
+        android:id="@+id/tv_vendor_profile_page_notification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="Notification"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vendor_profile_page_messages" />
+
+    <TextView
         android:id="@+id/tv_vendor_profile_page_change_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,7 +118,7 @@
         android:clickable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_vendor_profile_page_account_info" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_vendor_profile_page_notification" />
 
     <TextView
         android:id="@+id/tv_vendor_profile_page_logout"

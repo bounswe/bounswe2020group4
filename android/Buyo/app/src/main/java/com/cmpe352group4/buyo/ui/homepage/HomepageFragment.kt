@@ -149,19 +149,5 @@ class HomepageFragment : BaseFragment() {
             LinearLayoutManager.HORIZONTAL, false
         )
 
-
-        bannerImageView1.setOnClickListener {
-            navigationManager?.onReplace(
-                AddProductCategoryFragment.newInstance(),
-                TransactionType.Replace, true
-            )
-        }
-
-        bannerImageView2.setOnClickListener {
-            navigationManager?.onReplace(
-                VendorProductListFragment.newInstance(),
-                TransactionType.Replace, true
-            )
-        }
     }
 }

@@ -22,7 +22,7 @@ class HomeTabContainer : StackOwnerFragment(), INavigationManager, Injectable {
     @Inject
     lateinit var navManager: NavigationManager
     private val initialFragment by lazy {
-        NotificationFragment.newInstance()
+        HomepageFragment.newInstance()
     }
 
     override fun onCreateView(
