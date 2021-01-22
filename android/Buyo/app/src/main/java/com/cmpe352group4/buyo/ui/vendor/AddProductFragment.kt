@@ -1,5 +1,8 @@
 package com.cmpe352group4.buyo.ui.vendor
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -23,8 +26,11 @@ import com.cmpe352group4.buyo.vo.Vendor
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_vendor_add_product.*
 import kotlinx.android.synthetic.main.fragment_vendor_add_stock_value.*
+import java.io.IOException
 
 class AddProductFragment : BaseFragment() {
+
+    private var imageData: ByteArray? = null
 
     companion object {
         private const val MODE = "add_or_edit_mode"
@@ -451,9 +457,36 @@ class AddProductFragment : BaseFragment() {
             activity?.onBackPressed()
         }
 
+        btn_vendorAddProduct_Image.setOnClickListener {
+            launchGallery()
+        }
 
     }
 
+    private fun launchGallery() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, 999)
+    }
+
+    @Throws(IOException::class)
+    private fun createImageData(uri: Uri) {
+        val inputStream = context?.contentResolver?.openInputStream(uri)
+        inputStream?.buffered()?.use {
+            imageData = it.readBytes()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK && requestCode == 999) {
+            val uri = data?.data
+            if (uri != null) {
+//                uploaded_image.setImageURI(uri)
+                createImageData(uri)
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
 
     fun cartesianProduct(a: Set<*>, b: Set<*>, vararg sets: Set<*>): Set<List<*>> =
         (setOf(a, b).plus(sets))

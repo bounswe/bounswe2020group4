@@ -35,7 +35,7 @@ class ImageUploadFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        return inflater.inflate(R.layout.fragment_image_upload, container, false)
+        return inflater.inflate(R.layout.fragment_login, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,15 +51,14 @@ class ImageUploadFragment : BaseFragment() {
             launchGallery()
         }
     }
+    private fun uploadImage() {
+        return
+    }
 
     private fun launchGallery() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
         startActivityForResult(intent, 999)
-    }
-
-    private fun uploadImage() {
-        return
     }
 
     @Throws(IOException::class)
