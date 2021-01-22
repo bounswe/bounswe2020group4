@@ -11,6 +11,8 @@ private const val USER_TYPE = "user_type"
 private const val LOC_LAT = "loc_lat"
 private const val LOC_LON = "loc_lon"
 private const val LOC_ADDRESS = "loc_address"
+private const val REMEMBER_ME = "remember_me"
+private const val VERIFIED = "verified"
 
 @Singleton
 class SharedPref @Inject constructor(
@@ -56,4 +58,19 @@ class SharedPref @Inject constructor(
     override fun getVendorLat(): String? = sharedPref.getString(LOC_LAT, null)
     override fun getVendorLon(): String? = sharedPref.getString(LOC_LON, null)
     override fun getVendorAddress(): String? = sharedPref.getString(LOC_ADDRESS, null)
+
+    override fun saveRememberMe(boolean: Boolean) {
+        val editor = sharedPref.edit()
+        editor.putBoolean(REMEMBER_ME, boolean).apply()
+    }
+
+    override fun getRememberMe(): Boolean = sharedPref.getBoolean(REMEMBER_ME, false)
+
+    override fun saveVerified(boolean: Boolean) {
+        val editor = sharedPref.edit()
+        editor.putBoolean(VERIFIED, boolean).apply()
+    }
+
+    override fun getVerified(): Boolean = sharedPref.getBoolean(VERIFIED, false)
+
 }

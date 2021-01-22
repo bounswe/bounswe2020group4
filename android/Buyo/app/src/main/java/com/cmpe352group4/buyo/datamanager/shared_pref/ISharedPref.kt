@@ -19,4 +19,8 @@ interface ISharedPref {
     fun getVendorAddress(): String?
     fun getUserType(): String?
     fun saveUserType(type: String)
+    fun getRememberMe(): Boolean
+    fun saveRememberMe(boolean: Boolean)
+    fun getVerified(): Boolean
+    fun saveVerified(boolean: Boolean)
 }

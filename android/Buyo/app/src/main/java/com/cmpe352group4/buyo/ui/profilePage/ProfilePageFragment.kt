@@ -84,6 +84,7 @@ class ProfilePageFragment: BaseFragment() {
             sharedPref.saveUserId("")
             sharedPref.saveUserType("")
             sharedPref.saveVendorAddress("")
+            sharedPref.saveRememberMe(false)
             navigationManager?.onReplace(
                 LoginFragment.newInstance(),
                 TransactionType.Replace, true

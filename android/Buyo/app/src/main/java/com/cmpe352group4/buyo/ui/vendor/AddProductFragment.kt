@@ -481,7 +481,7 @@ class AddProductFragment : BaseFragment() {
         if (resultCode == Activity.RESULT_OK && requestCode == 999) {
             val uri = data?.data
             if (uri != null) {
-//                uploaded_image.setImageURI(uri)
+                uploaded_image.setImageURI(uri)
                 createImageData(uri)
             }
         }

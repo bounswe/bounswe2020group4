@@ -96,6 +96,7 @@ class VendorProfilePageFragment: BaseFragment() {
             sharedPref.saveVendorAddress("")
             sharedPref.saveVendorLat("")
             sharedPref.saveVendorLon("")
+            sharedPref.saveRememberMe(false)
             navigationManager?.onReplace(
                 LoginFragmentVendor.newInstance(),
                 TransactionType.Replace, true

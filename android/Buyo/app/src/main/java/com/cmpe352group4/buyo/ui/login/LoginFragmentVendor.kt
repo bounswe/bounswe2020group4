@@ -216,6 +216,8 @@ class LoginFragmentVendor : BaseFragment() {
                         if (it.status == Status.SUCCESS && it.data != null) {
                             sharedPref.saveUserId(it.data.userId)
                             sharedPref.saveUserType("vendor")
+                            sharedPref.saveRememberMe(vendor_remember_me.isChecked)
+
                             dispatchLoading()
 
                         navigationManager?.onReplace(

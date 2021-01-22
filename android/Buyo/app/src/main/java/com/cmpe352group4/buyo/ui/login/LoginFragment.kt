@@ -18,6 +18,7 @@ import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.LegalDocFragment
 import com.cmpe352group4.buyo.ui.profilePage.ProfilePageFragment
 import com.cmpe352group4.buyo.ui.orderpage.OrderPageFragment
+import com.cmpe352group4.buyo.ui.vendorProfilePage.VendorProfilePageFragment
 import com.cmpe352group4.buyo.util.extensions.makeLinks
 import com.cmpe352group4.buyo.viewmodel.ProfileViewModel
 import com.cmpe352group4.buyo.vo.LoginRequestCustomer
@@ -57,10 +58,26 @@ class LoginFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loginSignUpButton()
-        signUpSwitch()
-        userTypeSwitchListener()
-        legalDocLinkSet()
+        if(sharedPref.getRememberMe() && !sharedPref.getUserId().isNullOrEmpty()){
+            if(sharedPref.getUserType().equals("customer")){
+                navigationManager?.onReplace(
+                    ProfilePageFragment.newInstance(),
+                    TransactionType.Replace, false
+                )
+            }else{
+                navigationManager?.onReplace(
+                    VendorProfilePageFragment.newInstance(),
+                    TransactionType.Replace, false
+                )
+            }
+
+        }else{
+            loginSignUpButton()
+            signUpSwitch()
+            userTypeSwitchListener()
+            legalDocLinkSet()
+        }
+
     }
 
     private fun legalDocLinkSet() {
@@ -165,6 +182,7 @@ class LoginFragment : BaseFragment() {
                         if (it.status == Status.SUCCESS && it.data != null) {
                             sharedPref.saveUserId(it.data.userId)
                             sharedPref.saveUserType("customer")
+                            sharedPref.saveRememberMe(customer_remember_me.isChecked)
                             dispatchLoading()
 
                             navigationManager?.onReplace(
