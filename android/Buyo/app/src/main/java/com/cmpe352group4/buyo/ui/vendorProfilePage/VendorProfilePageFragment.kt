@@ -1,4 +1,4 @@
-package com.cmpe352group4.buyo.ui.profilePage
+package com.cmpe352group4.buyo.ui.vendorProfilePage
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,12 +9,11 @@ import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
-import com.cmpe352group4.buyo.ui.login.LoginFragment
-import com.cmpe352group4.buyo.ui.orderpage.OrderPageFragment
-import kotlinx.android.synthetic.main.fragment_profile_page.*
+import com.cmpe352group4.buyo.ui.login.LoginFragmentVendor
+import kotlinx.android.synthetic.main.fragment_vendor_profile_page.*
 import javax.inject.Inject
 
-class ProfilePageFragment: BaseFragment() {
+class VendorProfilePageFragment: BaseFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -24,7 +23,7 @@ class ProfilePageFragment: BaseFragment() {
 
     //profileViewModel
     companion object {
-        fun newInstance() = ProfilePageFragment()
+        fun newInstance() = VendorProfilePageFragment()
     }
 
     override fun onCreateView(
@@ -34,52 +33,36 @@ class ProfilePageFragment: BaseFragment() {
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
 
-        return inflater.inflate(R.layout.fragment_profile_page, container, false)
+        return inflater.inflate(R.layout.fragment_vendor_profile_page, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        tv_profile_page_account_info.setOnClickListener {
+        tv_vendor_profile_page_account_info.setOnClickListener {
             navigationManager?.onReplace(
-                AccountInfoFragment.newInstance(),
+                VendorAccountInfoFragment.newInstance(),
                 TransactionType.Replace, true
             )
         }
 
-        tv_profile_page_address_info.setOnClickListener {
+        tv_vendor_profile_page_change_password.setOnClickListener {
             navigationManager?.onReplace(
-                AddressInfoFragment.newInstance(),
+                VendorChangePasswordFragment.newInstance(),
                 TransactionType.Replace, true
             )
         }
 
-        tv_profile_page_orders.setOnClickListener {
-            navigationManager?.onReplace(
-                OrderPageFragment.newInstance(),
-                TransactionType.Replace, true
-            )
-        }
-
-        tv_profile_page_change_password.setOnClickListener {
-            navigationManager?.onReplace(
-                ChangePasswordFragment.newInstance(),
-                TransactionType.Replace, true
-            )
-        }
-
-        tv_profile_page_logout.setOnClickListener {
+        tv_vendor_profile_page_logout.setOnClickListener {
             sharedPref.saveUserId("")
             sharedPref.saveUserType("")
             sharedPref.saveVendorAddress("")
+            sharedPref.saveVendorLat("")
+            sharedPref.saveVendorLon("")
             navigationManager?.onReplace(
-                LoginFragment.newInstance(),
+                LoginFragmentVendor.newInstance(),
                 TransactionType.Replace, true
             )
         }
-
     }
-
-
-
 }

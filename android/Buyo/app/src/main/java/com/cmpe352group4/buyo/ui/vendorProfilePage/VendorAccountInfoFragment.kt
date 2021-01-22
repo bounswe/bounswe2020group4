@@ -1,4 +1,4 @@
-package com.cmpe352group4.buyo.ui.profilePage
+package com.cmpe352group4.buyo.ui.vendorProfilePage
 
 import android.os.Bundle
 import android.util.Log
@@ -13,12 +13,12 @@ import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.viewmodel.ProfileViewModel
-import com.cmpe352group4.buyo.vo.AccountInfoRequest
 import com.cmpe352group4.buyo.vo.UserInformationRequest
-import kotlinx.android.synthetic.main.fragment_account_info.*
+import com.cmpe352group4.buyo.vo.VendorAccountInfoRequest
+import kotlinx.android.synthetic.main.fragment_vendor_account_info.*
 import javax.inject.Inject
 
-class AccountInfoFragment: BaseFragment() {
+class VendorAccountInfoFragment: BaseFragment() {
 
     @Inject
     lateinit var sharedPref: SharedPref
@@ -31,7 +31,7 @@ class AccountInfoFragment: BaseFragment() {
     }
 
     companion object {
-        fun newInstance() = AccountInfoFragment()
+        fun newInstance() = VendorAccountInfoFragment()
     }
 
     override fun onCreateView(
@@ -40,32 +40,22 @@ class AccountInfoFragment: BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        return inflater.inflate(R.layout.fragment_account_info, container, false)
+        return inflater.inflate(R.layout.fragment_vendor_account_info, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val backendGenders = arrayOf("", "female", "male", "other", "noInfo")
-        val genders = arrayOf("", "Female", "Male", "Other", "No Info")
-
         val infoReq = UserInformationRequest(sharedPref.getUserId()?: "", sharedPref.getUserType()?:"")
-        profileViewModel.onFetchProfileInfo(infoReq)
+        profileViewModel.onFetchVendorProfileInfo(infoReq)
 
-        profileViewModel.userInformation.observe(viewLifecycleOwner, Observer {
+        profileViewModel.vendorInformation.observe(viewLifecycleOwner, Observer {
             if (it.status == Status.SUCCESS && it.data != null){
 
-                //This parts will be changed after back end side modification
-                val nameSurname = it.data.result.name?.split(" ")
-                ed_user_name.setText(nameSurname?.get(0))
-                ed_user_surname.setText(nameSurname?.get(1))
+                ed_vendor_user_email.text = it.data.result.email
+                ed_vendor_company.setText(it.data.result.company)
+                ed_vendor_website.setText(it.data.result.website)
 
-                ed_user_email.text = it.data.result.email
-                ed_user_phone.setText(it.data.result.phoneNumber)
-
-                sp_user_gender.setSelection(backendGenders.indexOf((it.data.result.gender)?.toLowerCase()))
-
-                dispatchLoading()
             } else if (it.status == Status.ERROR){
                 dispatchLoading()
             }else if (it.status == Status.LOADING){
@@ -73,23 +63,23 @@ class AccountInfoFragment: BaseFragment() {
             }
         })
 
-        btn_user_account_info_save.setOnClickListener {
-            profileViewModel.saveAccountInfo(
-                AccountInfoRequest(
+        btn_vendor_account_info_save.setOnClickListener {
+            profileViewModel.saveVendorAccountInfo(
+                VendorAccountInfoRequest(
                     id = sharedPref.getUserId()?:"",
                     userType = sharedPref.getUserType()?:"",
-                    name = ed_user_name.text.toString(),
-                    surname = ed_user_surname.text.toString(),
-                    email = ed_user_email.text.toString(),
-                    phoneNumber = ed_user_phone.text.toString(),
-                    gender = backendGenders.get(genders.indexOf(sp_user_gender.selectedItem.toString()))
+                    email = ed_vendor_user_email.text.toString(),
+                    longitude = sharedPref.getVendorLon()?:"",
+                    latitude = sharedPref.getVendorLat()?:"",
+                    website = ed_vendor_website.text.toString(),
+                    company = ed_vendor_company.text.toString()
                 )
             )
 
-            profileViewModel.saveAccountInfo.observe(viewLifecycleOwner, Observer {
+            profileViewModel.saveVendorAccountInfo.observe(viewLifecycleOwner, Observer {
                 if (it.status == Status.SUCCESS && it.data != null) {
-                    profileViewModel.onFetchProfileInfo(infoReq) // TODO LATER
-                    Log.v("Account info", "saved")
+                    profileViewModel.onFetchVendorProfileInfo(infoReq)
+                    Log.v("Vendor account info", "saved")
                     dispatchLoading()
                 } else if (it.status == Status.ERROR) {
                     dispatchLoading()
@@ -99,9 +89,9 @@ class AccountInfoFragment: BaseFragment() {
             })
         }
 
-        btn_back_account_info.setOnClickListener {
+        btn_back_vendor_account_info.setOnClickListener{
             activity?.onBackPressed()
         }
-    }
 
+    }
 }

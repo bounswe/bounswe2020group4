@@ -1,4 +1,4 @@
-package com.cmpe352group4.buyo.ui.profilePage
+package com.cmpe352group4.buyo.ui.vendorProfilePage
 
 import android.os.Bundle
 import android.text.Editable
@@ -21,7 +21,7 @@ import com.cmpe352group4.buyo.vo.UserInformationRequest
 import kotlinx.android.synthetic.main.fragment_change_password.*
 import javax.inject.Inject
 
-class ChangePasswordFragment: BaseFragment() {
+class VendorChangePasswordFragment: BaseFragment() {
 
     @Inject
     lateinit var sharedPref: SharedPref
@@ -30,7 +30,7 @@ class ChangePasswordFragment: BaseFragment() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     companion object {
-        fun newInstance() = ChangePasswordFragment()
+        fun newInstance() = VendorChangePasswordFragment()
     }
 
     private val profileViewModel: ProfileViewModel by activityViewModels {
@@ -79,9 +79,9 @@ class ChangePasswordFragment: BaseFragment() {
             val check : Boolean = checkCredentials()
             if(check) {
                 val infoReq = UserInformationRequest(sharedPref.getUserId()?: "", sharedPref.getUserType()?:"")
-                profileViewModel.onFetchProfileInfo(infoReq)
+                profileViewModel.onFetchVendorProfileInfo(infoReq)
 
-                profileViewModel.userInformation.observe(viewLifecycleOwner, Observer {
+                profileViewModel.vendorInformation.observe(viewLifecycleOwner, Observer {
                     if (it.status == Status.SUCCESS && it.data != null){
 
                         if (ed_previous_password.text?.toString() ?: "" == it.data.result.password){

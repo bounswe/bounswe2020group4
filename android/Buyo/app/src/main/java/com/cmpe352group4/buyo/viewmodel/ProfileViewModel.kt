@@ -23,6 +23,7 @@ class ProfileViewModel @Inject constructor(
     private val _addAddress = MutableLiveData<AddAddressRequest>()
     private val _changePasswordRequest = MutableLiveData<ChangePasswordRequest>()
     private val _saveAccountInfo = MutableLiveData<AccountInfoRequest>()
+    private val _saveVendorAccountInfo = MutableLiveData<VendorAccountInfoRequest>()
 
     val saveAccountInfo: LiveData<Resource<BaseResponsePostRequest>> =
         Transformations.switchMap(_saveAccountInfo) {it ->
@@ -30,6 +31,14 @@ class ProfileViewModel @Inject constructor(
                 AbsentLiveData.create()
             else
                 repository.saveAccountInfo(it.id, it.userType, it.name, it.surname, it.email, it.phoneNumber, it.gender)
+        }
+
+    val saveVendorAccountInfo: LiveData<Resource<BaseResponsePostRequest>> =
+        Transformations.switchMap(_saveVendorAccountInfo) {it ->
+            if (it == null)
+                AbsentLiveData.create()
+            else
+                repository.saveVendorAccountInfo(it.id, it.userType, it.email, it.longitude, it.latitude, it.website, it.company)
         }
 
     val changePassword: LiveData<Resource<BaseResponsePostRequest>> =
@@ -46,6 +55,14 @@ class ProfileViewModel @Inject constructor(
                 AbsentLiveData.create()
             else
                 repository.getProfileInfo(it.id, it.userType)
+        }
+
+    val vendorInformation: LiveData<Resource<VendorInformationResult>> =
+        Transformations.switchMap(_userInformationRequest) { it ->
+            if (it == null)
+                AbsentLiveData.create()
+            else
+                repository.getVendorProfileInfo(it.id, it.userType)
         }
 
     val loginCustomer: LiveData<Resource<LoginSingupResponse>> =
@@ -109,6 +126,10 @@ class ProfileViewModel @Inject constructor(
         _userInformationRequest.value = update
     }
 
+    fun onFetchVendorProfileInfo(update: UserInformationRequest){
+        _userInformationRequest.value = update
+    }
+
     fun addAddress(addAddressRequest: AddAddressRequest) {
         _addAddress.value = addAddressRequest
     }
@@ -121,4 +142,7 @@ class ProfileViewModel @Inject constructor(
         _saveAccountInfo.value = update
     }
 
+    fun saveVendorAccountInfo(update: VendorAccountInfoRequest) {
+        _saveVendorAccountInfo.value = update
+    }
 }
