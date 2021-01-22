@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/minimum_margin">
+
+    <FrameLayout
+        android:id="@+id/tv_header"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/buyo_Cinnabar"
+
+        tools:layout_editor_absoluteY="5dp">
+        <TextView
+            android:id="@+id/tv_customer_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/buyo_white"
+            android:textStyle="bold"
+            android:layout_gravity="start"
+            android:paddingLeft="10dp"
+            tools:text="Customer ID: 123123"/>
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/buyo_white"
+            android:textStyle="bold"
+            android:paddingRight="10dp"
+            android:layout_gravity="end"
+            tools:text="Status: Pending"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/tv_order_info"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_header"
+        tools:layout_editor_absoluteY="5dp">
+
+        <TextView
+            android:id="@+id/tv_order_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Order No: 123123" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Order Date: 01.09.2020" />
+    </FrameLayout>
+
+
+    <ImageView
+        android:id="@+id/iv_productPhoto"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        tools:src="@drawable/ic_launcher_background"
+        app:layout_constraintTop_toBottomOf="@id/tv_order_info"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingEnd="@dimen/default_margin"
+        android:layout_marginTop="@dimen/minimum_margin"/>
+
+    <TextView
+        android:id="@+id/tv_productName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="LCW Kazak Erkek"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="@id/iv_productPhoto"
+        app:layout_constraintStart_toEndOf="@id/iv_productPhoto"
+        app:layout_constraintEnd_toStartOf="@id/btn_message_vendor"
+        android:layout_marginEnd="@dimen/minimum_margin"
+        />
+
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="99.99 ₺ - Amount: 1"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@id/tv_productName"
+        app:layout_constraintStart_toEndOf="@id/iv_productPhoto"
+        android:layout_marginTop="@dimen/minimum_margin"
+        />
+
+    <TextView
+        android:id="@+id/tv_addressInfo"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        tools:text="Rumelihisarı Mah. 108/2 Sok. No 14 34000 Beşiktaş/Istanbul"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@id/tv_price"
+        app:layout_constraintStart_toEndOf="@id/iv_productPhoto"
+        android:layout_marginTop="@dimen/minimum_margin"
+        />
+
+    <Button
+        android:id="@+id/btn_message_vendor"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:text="Approve"
+        android:textSize="12sp"
+        android:textAllCaps="false"
+        android:textColor="@color/buyo_white"
+        android:background="@color/ligth_green"
+        app:layout_constraintTop_toTopOf="@id/iv_productPhoto"
+        app:layout_constraintBottom_toTopOf="@id/btn_cancel_order"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/medium_margin"
+        />
+
+    <Button
+        android:id="@+id/btn_cancel_order"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:background="@color/buyo_Cinnabar"
+        android:text="Reject"
+        android:textColor="@color/buyo_white"
+        android:textAllCaps="false"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_productPhoto"
+        app:layout_constraintEnd_toEndOf="@+id/btn_message_vendor"
+        app:layout_constraintStart_toStartOf="@+id/btn_message_vendor"
+        app:layout_constraintTop_toBottomOf="@+id/btn_message_vendor" />
+
+    <TextView
+        android:id="@+id/product_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:visibility="gone"
+        android:textSize="12sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="18dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_addressInfo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/dropdown_detail"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:text="v"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_margin="@dimen/minimum_margin"
+        app:layout_constraintTop_toBottomOf="@id/product_detail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <View
+        android:id="@+id/seperator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/light_orange"
+        android:layout_margin="@dimen/medium_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dropdown_detail"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
