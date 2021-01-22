@@ -5,18 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.cmpe352group4.buyo.R
-import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.vo.Comment
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.item_product_comments_recycler_view.view.*
-import java.io.Serializable
 
 class ProductCommentsAdapter(
-    var Comments: MutableList<Comment>,
-    val callbackReportComment: (String) ->  Unit
+    var Comments: MutableList<Comment>
 ): RecyclerView.Adapter<ProductCommentsAdapter.ProductCommentsViewHolder>(){
-
-    val gson = Gson()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductCommentsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_product_comments_recycler_view, parent, false)
@@ -49,15 +43,12 @@ class ProductCommentsAdapter(
 
             if (modal.id == "-1"){
                 itemView.btn_productCommentsRecyclerView_report.isEnabled = false
-                itemView.btn_productCommentsRecyclerView_report.visibility = View.INVISIBLE
-            }
-            else {
-                itemView.btn_productCommentsRecyclerView_report.isEnabled = true
-                itemView.btn_productCommentsRecyclerView_report.visibility = View.VISIBLE
             }
 
+            itemView.btn_productCommentsRecyclerView_report.isEnabled = false
+
             itemView.btn_productCommentsRecyclerView_report.setOnClickListener {
-                callbackReportComment(gson.toJson(modal))
+
             }
 
         }
