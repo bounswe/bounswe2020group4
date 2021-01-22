@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Vendor = require("../models/productInfos").productInfos;
 
 /**
  * Schema of a Vendor object in the database, vendor documents resides
@@ -13,7 +14,12 @@ module.exports.Product = mongoose.model(
     rating: Number,
     price: Number,
     originalPrice: Number,
-    productInfos: [Object],
+    productInfos: [
+      {
+        attributes: [{name:String , value:String}],
+        stockValue : Number
+      }
+    ],
     brand: String,
     vendorId: mongoose.Schema.Types.ObjectId,
   }),

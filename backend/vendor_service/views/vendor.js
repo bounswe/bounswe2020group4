@@ -52,24 +52,35 @@ module.exports.addProducts = async (products) => {
     const dbProducts = [];
 
     products.forEach((product) => {
+
+
+    console.log("************************")
+    console.log("************************")
+    console.log(product.productInfos)
+    console.log("************************")
+    console.log("************************")
       const newProduct = new Product({
         name: product.name,
         imageUrl: product.imageUrl,
         category: product.category,
-        numberOfRatings: 0,
+        description: product.description,
+        rating: product.rating,
         price: product.price,
         originalPrice: product.originalPrice || product.price,
-        stockValue: product.stockValue,
         brand: product.brand,
-        sizes: product.sizes,
-        colors: product.colors,
+        productInfos: product.productInfos,
         vendorId: ObjectId(product.vendorId),
       });
 
       dbProducts.push(newProduct);
     });
 
+    console.log("************************")
+    console.log("************************")
     await Promise.all(dbProducts.map(async (dbProduct) => await dbProduct.save()));
+
+    console.log("************************")
+    console.log("************************")
 
     return dbProducts.map((dbProduct) => dbProduct._id.toString());
   } catch (error) {

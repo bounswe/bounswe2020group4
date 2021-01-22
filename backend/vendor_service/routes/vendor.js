@@ -5,7 +5,7 @@ const { ErrorCode } = require("../constants/error");
 
 module.exports.initialize = (app) => {
   app.post("/vendor/products", async (request, response) => {
-    const result = await product.addProducts(request.body.products);
+    const result = await vendor.addProducts(request.body.products);
     if (result) {
       response.respond(200, "OK", {
         result,
@@ -29,6 +29,24 @@ module.exports.initialize = (app) => {
     const result = await vendor.updateProduct(productId,changeParameters);
 
     if (!!result.name) {
+      response.respond(200, "OK", {
+        result,
+      });
+    } 
+    else {
+      response.respond(ErrorCode(result.message), result.message);
+    }
+  });
+
+
+
+  app.get("/vendor/products", async (request, response) => {
+    const result = await vendor.getProducts(request.query);
+
+    if ( !!result.success ) {
+      response.respond(ErrorCode(result.message), result.message);
+    }
+    else if (!!result.productList) {
       response.respond(200, "OK", {
         result,
       });
