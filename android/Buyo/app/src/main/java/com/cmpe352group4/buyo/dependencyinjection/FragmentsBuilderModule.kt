@@ -10,9 +10,11 @@ import com.cmpe352group4.buyo.ui.homepage.HomepageFragment
 import com.cmpe352group4.buyo.ui.login.LoginFragment
 import com.cmpe352group4.buyo.ui.login.LoginFragmentVendor
 import com.cmpe352group4.buyo.ui.navigationtabs.*
+import com.cmpe352group4.buyo.ui.notification.NotificationFragment
 import com.cmpe352group4.buyo.ui.orderpage.OrderPageFragment
 import com.cmpe352group4.buyo.ui.orderpage.OrderPageFragmentVendor
 import com.cmpe352group4.buyo.ui.productDetail.AddCartFragment
+import com.cmpe352group4.buyo.ui.productDetail.ProductCommentReportFragment
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailCommentsFragment
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
 import com.cmpe352group4.buyo.ui.productList.ListSortFilterFragment
@@ -21,6 +23,10 @@ import com.cmpe352group4.buyo.ui.profilePage.*
 import com.cmpe352group4.buyo.ui.vendorProfilePage.VendorAccountInfoFragment
 import com.cmpe352group4.buyo.ui.vendorProfilePage.VendorChangePasswordFragment
 import com.cmpe352group4.buyo.ui.vendorProfilePage.VendorProfilePageFragment
+import com.cmpe352group4.buyo.ui.vendor.AddProductCategoryFragment
+import com.cmpe352group4.buyo.ui.vendor.AddStockValuesFragment
+import com.cmpe352group4.buyo.ui.vendor.AddProductFragment
+import com.cmpe352group4.buyo.ui.vendor.VendorProductListFragment
 import com.cmpe352group4.buyo.ui.wishList.WishListFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -121,5 +127,23 @@ abstract class FragmentsBuilderModule {
     abstract  fun contributeOrderPageFragment(): OrderPageFragment
 
     @ContributesAndroidInjector
+    abstract  fun contributeProductCommentReportFragment(): ProductCommentReportFragment
+
+    @ContributesAndroidInjector
+    abstract  fun contributeAddProductFragment(): AddProductFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeAddStockValuesFragment(): AddStockValuesFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeAddProductCategoryFragment(): AddProductCategoryFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeVendorProductListFragment(): VendorProductListFragment
+
+    @ContributesAndroidInjector
     abstract  fun contributeOrderPageFragmentVendor(): OrderPageFragmentVendor
+
+    @ContributesAndroidInjector
+    abstract  fun contributeNotificationFragment(): NotificationFragment
 }
