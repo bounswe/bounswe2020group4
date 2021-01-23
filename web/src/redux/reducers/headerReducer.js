@@ -1,7 +1,9 @@
-import { SHOW_HEADER, HIDE_HEADER } from '../actions/types'
+import { showVendorHeader } from '../actions'
+import { SHOW_HEADER, HIDE_HEADER, SHOW_VENDOR_HEADER, HIDE_VENDOR_HEADER } from '../actions/types'
 
 const INITIAL_STATE = {
-	showHeader: true
+	showHeader: true,
+	showVendorHeader: false
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -10,6 +12,10 @@ export default (state = INITIAL_STATE, action) => {
 		return { ...state, showHeader: true }
 	case HIDE_HEADER:
 		return { ...state, showHeader: false }
+	case SHOW_VENDOR_HEADER:
+		return { ...state, showVendorHeader: true}
+	case HIDE_VENDOR_HEADER:
+		return { ...state, showVendorHeader: false}
 	default:
 		return state
 	}

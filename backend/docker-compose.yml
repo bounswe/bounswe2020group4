@@ -31,6 +31,7 @@ services:
       - "5003:9876"
     links:
       - mongo
+      - redis
 
   checkout-service:
     container_name: checkout-service
@@ -45,6 +46,14 @@ services:
     build: ./vendor_service
     ports:
       - "5004:9876"
+    links:
+      - mongo
+
+  admin-service:
+    container_name: admin-service
+    build: ./admin_service
+    ports:
+      - "5006:9876"
     links:
       - mongo
 
@@ -65,5 +74,12 @@ services:
       - account-service
       - checkout-service
       - vendor-service
+      - admin-service
     ports:
       - "8080:8080"
+
+  redis:
+    image: redis
+    container_name: cache
+    expose:
+      - 6379

@@ -129,4 +129,17 @@ module.exports.initialize = (app) => {
       response.respond(ErrorCode(result.message), result.message);
     }
   });
+  /**
+   * For customers only: gets email, google token and the name of the user.
+   * Respons with status and user id.
+   */
+  app.post("/google-signin", async (request, response) => {
+    const result = await account.signInByGoogle(request.extractParams());
+
+    if (result.success) {
+      response.respond(200, "OK", { userId: result.userId });
+    } else {
+      response.respond(ErrorCode(result.message), result.message);
+    }
+  });
 };
