@@ -8,7 +8,7 @@ import DefaultProductImage from '../images/default-product-image.png'
 import './ProductCard.css'
 import '../pages/VendorProducts.css'
 
-const VendorProductCard = ({ name, price, imgUrl, productId, brand}) => {
+const VendorProductCard = ({ name, originalPrice, price, imgUrl, productId, brand}) => {
 	return (
 		<div className='pc-container container-fluid justify-content-center'>
 			<Link to={`/product/${productId}`} >
@@ -30,7 +30,14 @@ const VendorProductCard = ({ name, price, imgUrl, productId, brand}) => {
 				</div>
 				<div className='row'>
 					<div className='pc-info-bottom'>
-						<div className='pc-price col'>{price}₺</div>
+						{originalPrice==price ? 
+							<div className='pc-price col'>{originalPrice}₺</div>
+						: 
+							<div>
+								<div className='pc-price col' style={{textDecorationLine: 'line-through'}}>{originalPrice}₺</div>
+								<div className='pc-price col'>{price}₺</div>
+							</div>
+						}
 						<div className='col text-center'>
 							<button type='button' className='btn btn-light'>Delete</button>
 						</div>
