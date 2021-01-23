@@ -169,7 +169,9 @@ module.exports.getOrders = async (params) => {
             name: vendor.name,
             rating: vendor.rating,
           };
-          sum += tempOrderedProduct.price;
+          if (orderedProduct.status !== "Cancelled" && orderedProduct.status !== "Returned") {
+            sum += tempOrderedProduct.price;
+          }
         } else {
           const customer = await Customer.findById(orderedProduct.customerId);
           tempOrderedProduct.customer = {
