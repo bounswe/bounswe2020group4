@@ -193,4 +193,17 @@ const signUp = async (signUpInput) => {
 
 }
 
-export default { login, signUp, getProfileInfo, updateProfileInfo, updatePassword, vendorLogin, vendorSignUp, addNewAddress, updateAddress }
+//Sends google id_token and email to backend and gets our own userId as response
+const googleSignIn = async (id_token, email) => {
+	// const response = await axios.post(`${baseUrl}google-signin?token=${id_token}&email=${email}`)
+	// if (response.data.status.code === 200) {
+	// 	return response.data.data
+	// }
+	// return null
+	return {
+		id: '1noasnd1092daoksd1093ndojsd109dn',
+		banned: false
+	}
+}
+
+export default { login, signUp, getProfileInfo, updateProfileInfo, updatePassword, vendorLogin, vendorSignUp, addNewAddress, updateAddress, googleSignIn }
