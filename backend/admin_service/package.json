@@ -1,0 +1,24 @@
+{
+  "name": "admin-service",
+  "version": "1.0.0",
+  "description": "Admin Service",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "1.19.0",
+    "dotenv": "8.2.0",
+    "express": "4.17.1",
+    "mongoose": "5.10.14",
+    "cors": "2.8.5"
+  },
+  "devDependencies": {
+    "mocha": "7.1.2",
+    "chai": "4.2.0",
+    "supertest": "4.0.2"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "mocha -r dotenv/config ./tests/* --timeout 50000 --exit"
+  },
+  "author": "CMPE 451 Spring 2020 - Group 4",
+  "license": "ISC"
+}
