@@ -1,1 +1,307 @@
-[{"description":"Quality liquid soap. 99.9% antibacterial.","name":"Clean Liquid Soap","price":200.65,"category":["Cosmetics","Liquid Soap"],"originalPrice":49.9,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089789244670","rating":3.6,"aromas":["Rose","Vanilla","Strawberry"],"brand":"Clean","productInfos":"[{\"attributes\":[{\"name\":\"aroma\",\"value\":\"Rose\"}],\"stockValue\":7},{\"attributes\":[{\"name\":\"aroma\",\"value\":\"Vanilla\"}],\"stockValue\":47},{\"attributes\":[{\"name\":\"aroma\",\"value\":\"Strawberry\"}],\"stockValue\":45}]"},{"description":"Makeup kit. Shine like a pearl.","name":"Maybelline Makeup Kit","price":229.29,"category":["Cosmetics","Women","Makeup"],"originalPrice":469.67,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089789245061","rating":3.78,"brand":"Maybelline","productInfos":"[{\"attributes\":[{\"name\":\"color\",\"value\":\"Red\"}],\"stockValue\":23}]"},{"description":"Best soap in 78 countries.","name":"Solid Soap","price":7.9,"category":["Cosmetics","Soap"],"originalPrice":14.9,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089789245102","rating":4.86,"brand":"Haci Sakir","productInfos":"[{\"attributes\":[{\"name\":\"color\",\"value\":\"White\"}],\"stockValue\":45}]"},{"description":"Best cream for handcare. Norwegian fishmen use this.","name":"Handcare Cream","price":110.99,"category":["Cosmetics","Skincare","Cream"],"originalPrice":150.99,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089789245143","rating":"4.25","aromas":["Vanilla","Strawberry"],"brand":"Neutrogena","productInfos":"[{\"attributes\":[{\"name\":\"aroma\",\"value\":\"Vanilla\"}],\"stockValue\":25},{\"attributes\":[{\"name\":\"aroma\",\"value\":\"Strawberry\"}],\"stockValue\":47}]"},{"description":"Best lipstick ever.","name":"Women Nice Lipstick","price":110.99,"category":["Cosmetics","Women","Makeup"],"originalPrice":140.99,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089789245214","rating":"4.42","brand":"Loreal Paris","productInfos":"[{\"attributes\":[{\"name\":\"color\",\"value\":\"Red\"}],\"stockValue\":5},{\"attributes\":[{\"name\":\"color\",\"value\":\"Maroon\"}],\"stockValue\":74},{\"attributes\":[{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":40}]"},{"description":"Best perfume in the world.","name":"Hermes Men Perfume","price":600.99,"category":["Cosmetics","Men","Perfume"],"originalPrice":799.99,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089789245245","rating":"4.80","brand":"Hermes","productInfos":"[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":30},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":43},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":86}]"},{"description":"Nobody can resist this perfume's charm.","name":"Chanel Women Perfume","price":789.99,"category":["Cosmetics","Women","Perfume"],"originalPrice":989.99,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089789245286","rating":"4.70","brand":"Chanel","productInfos":"[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":84},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":35},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":25}]"},{"description":"Permanent lipstick, permanent beauty.","name":"Women Lipstick","price":70.99,"category":["Cosmetics","Women","Makeup"],"originalPrice":100.99,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089789245317","rating":"3.59","brand":"Flormar","productInfos":"[{\"attributes\":[{\"name\":\"color\",\"value\":\"Red\"}],\"stockValue\":73},{\"attributes\":[{\"name\":\"color\",\"value\":\"Maroon\"}],\"stockValue\":89},{\"attributes\":[{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":82}]"},{"description":"100% olive oil soap.","name":"Olive oil soap","price":19.99,"category":["Cosmetics","Soap"],"originalPrice":25.99,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089789245368","rating":3.97,"brand":"Duru","productInfos":"[{\"attributes\":[{\"name\":\"color\",\"value\":\"White\"}],\"stockValue\":85},{\"attributes\":[{\"name\":\"color\",\"value\":\"Green\"}],\"stockValue\":37}]"},{"description":"Face cream for tender skins.","name":"Face skin care cream","price":89.99,"category":["Cosmetics","Skincare","Cream"],"originalPrice":119.99,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/16089789245449","rating":"4.37","brand":"Neutrogena","productInfos":"[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":19},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":86},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":21}]"},{"description":"100% Olive Oil shower gel.","name":"Olive oil shower gel","price":12.99,"category":["Cosmetics","Skincare","Shower Gel"],"originalPrice":12.99,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160897892454910","rating":"4.63","brand":"Palmolive","productInfos":"[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":18},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":53},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":60}]"},{"description":"Your skin will shine.","name":"Pinky skincare kit.","price":112.99,"category":["Cosmetics","Skincare","Cream"],"originalPrice":142.99,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160897892455211","rating":"4.00","brand":"Pinky","productInfos":"[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":11},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":53},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":26}]"},{"description":"Smell like a bunch of flowers.","name":"Flower Perfume","price":226.99,"category":["Cosmetics","Women","Perfume"],"originalPrice":326.99,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160897892455412","rating":"4.00","brand":"Zara","productInfos":"[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":23},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":70},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":24}]"},{"description":"Best skin cream produced ever.","name":"Kiehl's skincare kit","price":229.99,"category":["Cosmetics","Skincare","Cream"],"originalPrice":339.99,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160897892455713","rating":"4.03","brand":"Kiehl's","productInfos":"[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":85},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":8},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":34}]"},{"description":"Best anti-aging kit.","name":"Monat anti-aging kit.","price":214.99,"category":["Cosmetics","Skincare","Cream"],"originalPrice":254.99,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160897892456014","rating":"4.46","brand":"Monat","productInfos":"[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":9},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":49},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":85}]"},{"description":"Smells like teen spirit.","name":"Fresh perfume","price":139.99,"category":["Cosmetics","Men","Perfume"],"originalPrice":169.99,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160897892456315","rating":"4.50","brand":"Invictus","productInfos":"[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":12},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":20},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":35}]"},{"description":"Best soap for coronavirus.","name":"Liquid Soap","price":15.99,"category":["Cosmetics","Soap"],"originalPrice":15.99,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160897892456816","rating":"3.89","brand":"Activex","productInfos":"[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"},{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":46},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"},{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":97},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"},{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":57}]"},{"description":"Best cream for your hand.","name":"Hand Cream","price":69.99,"category":["Cosmetics","Skincare","Cream"],"originalPrice":119.99,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160897892457317","rating":"3.22","brand":"Pact","productInfos":"[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":26},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":96},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":68}]"},{"description":"Best serum for your skin.","name":"Skin serum","price":49.99,"category":["Cosmetics","Skincare","Serum"],"originalPrice":59.99,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160897892457718","rating":"2.94","brand":"Loreal","productInfos":"[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":96},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":54},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":50}]"},{"description":"You will get rid of all your blackheads.","name":"Ordinary blackheads cream","price":229.99,"category":["Cosmetics","Skincare","Cream"],"originalPrice":329.99,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160897892458119","rating":"4.99","brand":"Ordinary","productInfos":"[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":75},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":61},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":34}]"}]
+[
+    {
+        "description": "Quality liquid soap. 99.9% antibacterial.",
+        "name": "Clean Liquid Soap",
+        "price": 200.65,
+        "category": [
+            "Cosmetics",
+            "Liquid Soap"
+        ],
+        "originalPrice": 49.9,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089789244670",
+        "rating": 3.6,
+        "aromas": [
+            "Rose",
+            "Vanilla",
+            "Strawberry"
+        ],
+        "brand": "Clean",
+        "productInfos": "[{\"attributes\":[{\"name\":\"aroma\",\"value\":\"Rose\"}],\"stockValue\":7},{\"attributes\":[{\"name\":\"aroma\",\"value\":\"Vanilla\"}],\"stockValue\":47},{\"attributes\":[{\"name\":\"aroma\",\"value\":\"Strawberry\"}],\"stockValue\":45}]"
+    },
+    {
+        "description": "Makeup kit. Shine like a pearl.",
+        "name": "Maybelline Makeup Kit",
+        "price": 229.29,
+        "category": [
+            "Cosmetics",
+            "Women",
+            "Makeup"
+        ],
+        "originalPrice": 469.67,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089789245061",
+        "rating": 3.78,
+        "brand": "Maybelline",
+        "productInfos": "[{\"attributes\":[{\"name\":\"color\",\"value\":\"Red\"}],\"stockValue\":23}]"
+    },
+    {
+        "description": "Best soap in 78 countries.",
+        "name": "Solid Soap",
+        "price": 7.9,
+        "category": [
+            "Cosmetics",
+            "Soap"
+        ],
+        "originalPrice": 14.9,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089789245102",
+        "rating": 4.86,
+        "brand": "Haci Sakir",
+        "productInfos": "[{\"attributes\":[{\"name\":\"color\",\"value\":\"White\"}],\"stockValue\":45}]"
+    },
+    {
+        "description": "Best cream for handcare. Norwegian fishmen use this.",
+        "name": "Handcare Cream",
+        "price": 110.99,
+        "category": [
+            "Cosmetics",
+            "Skincare",
+            "Cream"
+        ],
+        "originalPrice": 150.99,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089789245143",
+        "rating": "4.25",
+        "aromas": [
+            "Vanilla",
+            "Strawberry"
+        ],
+        "brand": "Neutrogena",
+        "productInfos": "[{\"attributes\":[{\"name\":\"aroma\",\"value\":\"Vanilla\"}],\"stockValue\":25},{\"attributes\":[{\"name\":\"aroma\",\"value\":\"Strawberry\"}],\"stockValue\":47}]"
+    },
+    {
+        "description": "Best lipstick ever.",
+        "name": "Women Nice Lipstick",
+        "price": 110.99,
+        "category": [
+            "Cosmetics",
+            "Women",
+            "Makeup"
+        ],
+        "originalPrice": 140.99,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089789245214",
+        "rating": "4.42",
+        "brand": "Loreal Paris",
+        "productInfos": "[{\"attributes\":[{\"name\":\"color\",\"value\":\"Red\"}],\"stockValue\":5},{\"attributes\":[{\"name\":\"color\",\"value\":\"Maroon\"}],\"stockValue\":74},{\"attributes\":[{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":40}]"
+    },
+    {
+        "description": "Best perfume in the world.",
+        "name": "Hermes Men Perfume",
+        "price": 600.99,
+        "category": [
+            "Cosmetics",
+            "Men",
+            "Perfume"
+        ],
+        "originalPrice": 799.99,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089789245245",
+        "rating": "4.80",
+        "brand": "Hermes",
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":30},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":43},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":86}]"
+    },
+    {
+        "description": "Nobody can resist this perfume's charm.",
+        "name": "Chanel Women Perfume",
+        "price": 789.99,
+        "category": [
+            "Cosmetics",
+            "Women",
+            "Perfume"
+        ],
+        "originalPrice": 989.99,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089789245286",
+        "rating": "4.70",
+        "brand": "Chanel",
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":84},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":35},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":25}]"
+    },
+    {
+        "description": "Permanent lipstick, permanent beauty.",
+        "name": "Women Lipstick",
+        "price": 70.99,
+        "category": [
+            "Cosmetics",
+            "Women",
+            "Makeup"
+        ],
+        "originalPrice": 100.99,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089789245317",
+        "rating": "3.59",
+        "brand": "Flormar",
+        "productInfos": "[{\"attributes\":[{\"name\":\"color\",\"value\":\"Red\"}],\"stockValue\":73},{\"attributes\":[{\"name\":\"color\",\"value\":\"Maroon\"}],\"stockValue\":89},{\"attributes\":[{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":82}]"
+    },
+    {
+        "description": "100% olive oil soap.",
+        "name": "Olive oil soap",
+        "price": 19.99,
+        "category": [
+            "Cosmetics",
+            "Soap"
+        ],
+        "originalPrice": 25.99,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089789245368",
+        "rating": 3.97,
+        "brand": "Duru",
+        "productInfos": "[{\"attributes\":[{\"name\":\"color\",\"value\":\"White\"}],\"stockValue\":85},{\"attributes\":[{\"name\":\"color\",\"value\":\"Green\"}],\"stockValue\":37}]"
+    },
+    {
+        "description": "Face cream for tender skins.",
+        "name": "Face skin care cream",
+        "price": 89.99,
+        "category": [
+            "Cosmetics",
+            "Skincare",
+            "Cream"
+        ],
+        "originalPrice": 119.99,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/16089789245449",
+        "rating": "4.37",
+        "brand": "Neutrogena",
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":19},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":86},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":21}]"
+    },
+    {
+        "description": "100% Olive Oil shower gel.",
+        "name": "Olive oil shower gel",
+        "price": 12.99,
+        "category": [
+            "Cosmetics",
+            "Skincare",
+            "Shower Gel"
+        ],
+        "originalPrice": 12.99,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160897892454910",
+        "rating": "4.63",
+        "brand": "Palmolive",
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":18},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":53},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":60}]"
+    },
+    {
+        "description": "Your skin will shine.",
+        "name": "Pinky skincare kit.",
+        "price": 112.99,
+        "category": [
+            "Cosmetics",
+            "Skincare",
+            "Cream"
+        ],
+        "originalPrice": 142.99,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160897892455211",
+        "rating": "4.00",
+        "brand": "Pinky",
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":11},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":53},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":26}]"
+    },
+    {
+        "description": "Smell like a bunch of flowers.",
+        "name": "Flower Perfume",
+        "price": 226.99,
+        "category": [
+            "Cosmetics",
+            "Women",
+            "Perfume"
+        ],
+        "originalPrice": 326.99,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160897892455412",
+        "rating": "4.00",
+        "brand": "Zara",
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":23},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":70},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":24}]"
+    },
+    {
+        "description": "Best skin cream produced ever.",
+        "name": "Kiehl's skincare kit",
+        "price": 229.99,
+        "category": [
+            "Cosmetics",
+            "Skincare",
+            "Cream"
+        ],
+        "originalPrice": 339.99,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160897892455713",
+        "rating": "4.03",
+        "brand": "Kiehl's",
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":85},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":8},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":34}]"
+    },
+    {
+        "description": "Best anti-aging kit.",
+        "name": "Monat anti-aging kit.",
+        "price": 214.99,
+        "category": [
+            "Cosmetics",
+            "Skincare",
+            "Cream"
+        ],
+        "originalPrice": 254.99,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160897892456014",
+        "rating": "4.46",
+        "brand": "Monat",
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":9},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":49},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":85}]"
+    },
+    {
+        "description": "Smells like teen spirit.",
+        "name": "Fresh perfume",
+        "price": 139.99,
+        "category": [
+            "Cosmetics",
+            "Men",
+            "Perfume"
+        ],
+        "originalPrice": 169.99,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160897892456315",
+        "rating": "4.50",
+        "brand": "Invictus",
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":12},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":20},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":35}]"
+    },
+    {
+        "description": "Best soap for coronavirus.",
+        "name": "Liquid Soap",
+        "price": 15.99,
+        "category": [
+            "Cosmetics",
+            "Soap"
+        ],
+        "originalPrice": 15.99,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160897892456816",
+        "rating": "3.89",
+        "brand": "Activex",
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"},{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":46},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"},{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":97},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"},{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":57}]"
+    },
+    {
+        "description": "Best cream for your hand.",
+        "name": "Hand Cream",
+        "price": 69.99,
+        "category": [
+            "Cosmetics",
+            "Skincare",
+            "Cream"
+        ],
+        "originalPrice": 119.99,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160897892457317",
+        "rating": "3.22",
+        "brand": "Pact",
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":26},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":96},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":68}]"
+    },
+    {
+        "description": "Best serum for your skin.",
+        "name": "Skin serum",
+        "price": 49.99,
+        "category": [
+            "Cosmetics",
+            "Skincare",
+            "Serum"
+        ],
+        "originalPrice": 59.99,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160897892457718",
+        "rating": "2.94",
+        "brand": "Loreal",
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":96},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":54},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":50}]"
+    },
+    {
+        "description": "You will get rid of all your blackheads.",
+        "name": "Ordinary blackheads cream",
+        "price": 229.99,
+        "category": [
+            "Cosmetics",
+            "Skincare",
+            "Cream"
+        ],
+        "originalPrice": 329.99,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160897892458119",
+        "rating": "4.99",
+        "brand": "Ordinary",
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":75},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":61},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":34}]"
+    }
+]

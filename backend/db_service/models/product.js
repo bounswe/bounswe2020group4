@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
 /**
- * Schema of a Product object in the database, product documents resides
- * in 'products' collection.
+ * Schema of a Vendor object in the database, vendor documents resides
+ * in 'vendors' collection.
  */
 module.exports.Product = mongoose.model(
   "Product",
@@ -13,11 +13,9 @@ module.exports.Product = mongoose.model(
     rating: Number,
     price: Number,
     originalPrice: Number,
-    stockValue: Object,
-    brand: String,
-    sizes: [String],
+    productInfos: String,
     description: String,
-    colors: [String],
+    brand: String,
     vendorId: mongoose.Schema.Types.ObjectId,
   }),
   "products"

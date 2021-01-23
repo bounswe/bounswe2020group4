@@ -11,7 +11,7 @@ module.exports.OrderedProduct = mongoose.model(
     customerId: mongoose.Schema.Types.ObjectId,
     vendorId: mongoose.Schema.Types.ObjectId,
     productId: mongoose.Schema.Types.ObjectId,
-    productInfo: Object,
+    productInfo: String,
     date: Date,
     status: { type: String, default: "Pending" },
     shippingPrice: { type: Number, default: 9.99 },

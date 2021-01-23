@@ -88,18 +88,23 @@ module.exports.getProducts = async (params) => {
       products.map(async (product) => {
         const vendor = await Vendor.findById(product.vendorId);
 
-        product.vendor = {
-          name: vendor.name,
-          rating: vendor.rating,
-          id: vendor._id.toString(),
+        return {
+          vendor: {
+            name: vendor.name,
+            rating: vendor.rating,
+            id: vendor._id.toString(),
+          },
+          id: product._id.toString(),
+          category: product.category,
+          description: product.description,
+          name: product.name,
+          price: product.price,
+          originalPrice: product.originalPrice,
+          imageUrl: product.imageUrl,
+          rating: product.rating,
+          brand: product.brand,
+          productInfos: JSON.parse(product.productInfos),
         };
-        product.id = product._id.toString();
-        product.productInfos = JSON.parse(product.productInfos);
-
-        delete product._id;
-        delete product.vendorId;
-
-        return product;
       })
     );
 

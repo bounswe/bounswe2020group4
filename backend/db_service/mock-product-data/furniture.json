@@ -1,1 +1,371 @@
-[{"description":"Makes you feel like sleeping on clouds.","name":"Vatas Orthopaedic Bed","price":2500,"category":["Furniture","Beds"],"originalPrice":3500,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/160916424369215","rating":4.4,"size":["90x200","100x200"],"orthopaedic":"Yes","brand":"Vatas"},{"description":"Great comfort for every type of back.","name":"Vatas Posturepedic Bed","price":3000,"category":["Furniture","Beds"],"originalPrice":3500,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/160916424369316","rating":4.1,"size":["120x200","140x200"],"orthopaedic":"Yes","brand":"Vatas"},{"description":"Don't pay a lot because of a name of brand, you'll have everything you need.","name":"Bumba Orthopaedic Bed","price":1000,"category":["Furniture","Beds"],"originalPrice":2500,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/160916424369417","rating":4.7,"size":["90x200","100x200"],"orthopaedic":"Yes","brand":"Bumba"},{"description":"Luxury sleeping experience with a cheap price.","name":"Bumba Deluxe Orthopaedic Bed","price":2000,"category":["Furniture","Beds"],"originalPrice":4000,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/16091642436602","rating":4.6,"size":["120x200","140x200"],"orthopeadic":"Yes","brand":"Bumba"},{"description":"Can fit anything in that!","name":"Children Wardrobe","price":1200,"category":["Furniture","Storage","Wardrobe"],"originalPrice":2400,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/16091642436560","rating":3.9,"size":["80x140","120x120"],"color":"Brown","material":["Wood","Metal"],"brand":"AKEA"},{"description":"Luxury look in your bedroom with a mirror!","name":"Mirrored Wardrobe","price":1800,"category":["Furniture","Storage","Wardrobe"],"originalPrice":2400,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/16091642436686","rating":4.1,"size":["80x140","120x120"],"color":["White","Red"],"material":["Wood","Metal"],"brand":"CozyFurn"},{"description":"Enough for your clothes in a woody appearance!","name":"Wardrobe with 4 Drawers","price":1799,"category":["Furniture","Storage","Wardrobe"],"originalPrice":2400,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/160916424368010","rating":4.1,"size":["80x140","120x120"],"color":["White","Red"],"material":["Wood","Metal"],"brand":"AKEA"},{"description":"Cool looking wardrobe!","name":"Wardrobe with 2 Drawers","price":1299,"category":["Furniture","Storage","Wardrobe"],"originalPrice":2400,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/16091642436591","rating":4.1,"size":["80x140","120x120"],"color":["White","Red"],"material":["Wood","Metal"],"brand":"CozyFurn"},{"description":"Large Desk for everywhere in your house!","name":"Simple Desk","price":499,"category":["Furniture","Desks","Study Desk"],"originalPrice":499,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/160916424369014","rating":4.1,"size":["150x75","120x120"],"color":["Black","White"],"material":["Wood","Plastic"],"brand":"TOTTAS"},{"description":"Large Desk with many drawers!","name":"Desk with Drawers","price":799,"category":["Furniture","Desks","Study Desk"],"originalPrice":1199,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/16091642436717","rating":4.6,"size":["150x75","140x60"],"color":["Brown","Dark Brown"],"material":["Wood","Plastic"],"brand":"AKEA"},{"description":"Large Desk with a luxury style!","name":"Luxury Desk with Stylistic Touch","price":1199,"category":["Furniture","Desks","Study Desk"],"originalPrice":1499,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/160916424369819","rating":4.3,"size":["150x75","200x60"],"color":["Black","White"],"material":["Wood","Plastic"],"brand":"TOTTAS"},{"description":"Small compact desk for quick tasks!","name":"Small School Desk","price":299,"category":["Furniture","Desks","Study Desk"],"originalPrice":499,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/16091642436738","rating":4,"size":["100x60","80x80"],"color":["Brown","White"],"material":["Wood","Plastic"],"brand":"AKEA"},{"description":"Luxury elegant comfortable sofa!","name":"High-Luxury Sofa","price":2199,"category":["Furniture","Sofa"],"originalPrice":2599,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/16091642436644","rating":4.8,"size":["Double","Triple"],"color":["Red","Black"],"material":["Cotton","Memory Foam"],"brand":"Ozistiklal"},{"description":"Good looking for your house.","name":"Luxury Sofa","price":1499,"category":["Furniture","Sofa"],"originalPrice":1999,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/16091642436665","rating":3.5,"size":["Double","Triple"],"color":["Cyan","Blue"],"material":["Cotton","Memory Foam"],"brand":"Bollino"},{"description":"Luxury sofa for your living room!","name":"Semi-Luxury Sofa","price":999,"category":["Furniture","Sofa"],"originalPrice":1999,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/16091642436623","rating":3.5,"size":["Double","Triple"],"color":["Black","Red"],"material":["Cotton","Memory Foam"],"brand":"Bollino"},{"description":"Simple, but comfortable as hell!","name":"Simple Sofa","price":449,"category":["Furniture","Sofa"],"originalPrice":999,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/160916424369618","rating":4.8,"size":["Double, Single"],"color":["Orange","Red","Blue","Purple"],"material":["Cotton"],"brand":"Ozistiklal"},{"description":"Good for studying!","name":"Cheap Desk Lamp","price":49,"category":["Furniture","Lamp"],"originalPrice":99,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/16091642436759","rating":4.2,"size":["Venti","Grande","Tall"],"color":["Blue","Black"],"brand":"Soyamans"},{"description":"Great addition to your wonderful living room!","name":"Luxury Lamp","price":459,"category":["Furniture","Lamp"],"originalPrice":559,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/160916424368211","rating":4.2,"size":["Venti","Grande"],"color":["Red","Orange"],"brand":"TOTTAS"},{"description":"Lamp with a great style!","name":"Basic Desk Lamp","price":99,"category":["Furniture","Lamp"],"originalPrice":259,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/160916424368713","rating":4.5,"size":["Venti","Grande","Tall"],"color":["Red","Blue"],"brand":"Pulips"},{"description":"Small lamp for your wildcard next to your bedroom!","name":"Cute Lamp","price":39,"category":["Furniture","Lamp"],"originalPrice":39,"imageUrl":"https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/160916424368412","rating":4.4,"size":["Tall","Grande"],"color":["White","Gray"],"brand":"AKEA"}]
+[
+    {
+        "description": "Makes you feel like sleeping on clouds.",
+        "name": "Vatas Orthopaedic Bed",
+        "price": 2500,
+        "category": [
+            "Furniture",
+            "Beds"
+        ],
+        "originalPrice": 3500,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/160916424369215",
+        "rating": 4.4,
+        "size": [
+            "90x200",
+            "100x200"
+        ],
+        "brand": "Vatas",
+        "productInfos": "[{\"attributes\":[{\"name\":\"orthopaedic\",\"value\":\"Yes\"}],\"stockValue\":54}]"
+    },
+    {
+        "description": "Great comfort for every type of back.",
+        "name": "Vatas Posturepedic Bed",
+        "price": 3000,
+        "category": [
+            "Furniture",
+            "Beds"
+        ],
+        "originalPrice": 3500,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/160916424369316",
+        "rating": 4.1,
+        "size": [
+            "120x200",
+            "140x200"
+        ],
+        "brand": "Vatas",
+        "productInfos": "[{\"attributes\":[{\"name\":\"orthopaedic\",\"value\":\"Yes\"}],\"stockValue\":52}]"
+    },
+    {
+        "description": "Don't pay a lot because of a name of brand, you'll have everything you need.",
+        "name": "Bumba Orthopaedic Bed",
+        "price": 1000,
+        "category": [
+            "Furniture",
+            "Beds"
+        ],
+        "originalPrice": 2500,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/160916424369417",
+        "rating": 4.7,
+        "size": [
+            "90x200",
+            "100x200"
+        ],
+        "brand": "Bumba",
+        "productInfos": "[{\"attributes\":[{\"name\":\"orthopaedic\",\"value\":\"Yes\"}],\"stockValue\":82}]"
+    },
+    {
+        "description": "Luxury sleeping experience with a cheap price.",
+        "name": "Bumba Deluxe Orthopaedic Bed",
+        "price": 2000,
+        "category": [
+            "Furniture",
+            "Beds"
+        ],
+        "originalPrice": 4000,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/16091642436602",
+        "rating": 4.6,
+        "size": [
+            "120x200",
+            "140x200"
+        ],
+        "brand": "Bumba",
+        "productInfos": "[{\"attributes\":[{\"name\":\"orthopaedic\",\"value\":\"Yes\"}],\"stockValue\":68}]"
+    },
+    {
+        "description": "Can fit anything in that!",
+        "name": "Children Wardrobe",
+        "price": 1200,
+        "category": [
+            "Furniture",
+            "Storage",
+            "Wardrobe"
+        ],
+        "originalPrice": 2400,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/16091642436560",
+        "rating": 3.9,
+        "size": [
+            "80x140",
+            "120x120"
+        ],
+        "brand": "AKEA",
+        "productInfos": "[{\"attributes\":[{\"name\":\"color\",\"value\":\"Brown\"},{\"name\":\"material\",\"value\":\"Wood\"}],\"stockValue\":61},{\"attributes\":[{\"name\":\"color\",\"value\":\"Brown\"},{\"name\":\"material\",\"value\":\"Metal\"}],\"stockValue\":37}]"
+    },
+    {
+        "description": "Luxury look in your bedroom with a mirror!",
+        "name": "Mirrored Wardrobe",
+        "price": 1800,
+        "category": [
+            "Furniture",
+            "Storage",
+            "Wardrobe"
+        ],
+        "originalPrice": 2400,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/16091642436686",
+        "rating": 4.1,
+        "size": [
+            "80x140",
+            "120x120"
+        ],
+        "brand": "CozyFurn",
+        "productInfos": "[{\"attributes\":[{\"name\":\"color\",\"value\":\"White\"},{\"name\":\"material\",\"value\":\"Wood\"}],\"stockValue\":11},{\"attributes\":[{\"name\":\"color\",\"value\":\"White\"},{\"name\":\"material\",\"value\":\"Metal\"}],\"stockValue\":68},{\"attributes\":[{\"name\":\"color\",\"value\":\"Red\"},{\"name\":\"material\",\"value\":\"Wood\"}],\"stockValue\":41},{\"attributes\":[{\"name\":\"color\",\"value\":\"Red\"},{\"name\":\"material\",\"value\":\"Metal\"}],\"stockValue\":21}]"
+    },
+    {
+        "description": "Enough for your clothes in a woody appearance!",
+        "name": "Wardrobe with 4 Drawers",
+        "price": 1799,
+        "category": [
+            "Furniture",
+            "Storage",
+            "Wardrobe"
+        ],
+        "originalPrice": 2400,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/160916424368010",
+        "rating": 4.1,
+        "size": [
+            "80x140",
+            "120x120"
+        ],
+        "brand": "AKEA",
+        "productInfos": "[{\"attributes\":[{\"name\":\"color\",\"value\":\"White\"},{\"name\":\"material\",\"value\":\"Wood\"}],\"stockValue\":88},{\"attributes\":[{\"name\":\"color\",\"value\":\"White\"},{\"name\":\"material\",\"value\":\"Metal\"}],\"stockValue\":5},{\"attributes\":[{\"name\":\"color\",\"value\":\"Red\"},{\"name\":\"material\",\"value\":\"Wood\"}],\"stockValue\":97},{\"attributes\":[{\"name\":\"color\",\"value\":\"Red\"},{\"name\":\"material\",\"value\":\"Metal\"}],\"stockValue\":51}]"
+    },
+    {
+        "description": "Cool looking wardrobe!",
+        "name": "Wardrobe with 2 Drawers",
+        "price": 1299,
+        "category": [
+            "Furniture",
+            "Storage",
+            "Wardrobe"
+        ],
+        "originalPrice": 2400,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/16091642436591",
+        "rating": 4.1,
+        "size": [
+            "80x140",
+            "120x120"
+        ],
+        "brand": "CozyFurn",
+        "productInfos": "[{\"attributes\":[{\"name\":\"color\",\"value\":\"White\"},{\"name\":\"material\",\"value\":\"Wood\"}],\"stockValue\":7},{\"attributes\":[{\"name\":\"color\",\"value\":\"White\"},{\"name\":\"material\",\"value\":\"Metal\"}],\"stockValue\":17},{\"attributes\":[{\"name\":\"color\",\"value\":\"Red\"},{\"name\":\"material\",\"value\":\"Wood\"}],\"stockValue\":93},{\"attributes\":[{\"name\":\"color\",\"value\":\"Red\"},{\"name\":\"material\",\"value\":\"Metal\"}],\"stockValue\":99}]"
+    },
+    {
+        "description": "Large Desk for everywhere in your house!",
+        "name": "Simple Desk",
+        "price": 499,
+        "category": [
+            "Furniture",
+            "Desks",
+            "Study Desk"
+        ],
+        "originalPrice": 499,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/160916424369014",
+        "rating": 4.1,
+        "size": [
+            "150x75",
+            "120x120"
+        ],
+        "brand": "TOTTAS",
+        "productInfos": "[{\"attributes\":[{\"name\":\"color\",\"value\":\"Black\"},{\"name\":\"material\",\"value\":\"Wood\"}],\"stockValue\":52},{\"attributes\":[{\"name\":\"color\",\"value\":\"Black\"},{\"name\":\"material\",\"value\":\"Plastic\"}],\"stockValue\":49},{\"attributes\":[{\"name\":\"color\",\"value\":\"White\"},{\"name\":\"material\",\"value\":\"Wood\"}],\"stockValue\":68},{\"attributes\":[{\"name\":\"color\",\"value\":\"White\"},{\"name\":\"material\",\"value\":\"Plastic\"}],\"stockValue\":48}]"
+    },
+    {
+        "description": "Large Desk with many drawers!",
+        "name": "Desk with Drawers",
+        "price": 799,
+        "category": [
+            "Furniture",
+            "Desks",
+            "Study Desk"
+        ],
+        "originalPrice": 1199,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/16091642436717",
+        "rating": 4.6,
+        "size": [
+            "150x75",
+            "140x60"
+        ],
+        "brand": "AKEA",
+        "productInfos": "[{\"attributes\":[{\"name\":\"color\",\"value\":\"Brown\"},{\"name\":\"material\",\"value\":\"Wood\"}],\"stockValue\":96},{\"attributes\":[{\"name\":\"color\",\"value\":\"Brown\"},{\"name\":\"material\",\"value\":\"Plastic\"}],\"stockValue\":58},{\"attributes\":[{\"name\":\"color\",\"value\":\"Dark Brown\"},{\"name\":\"material\",\"value\":\"Wood\"}],\"stockValue\":30},{\"attributes\":[{\"name\":\"color\",\"value\":\"Dark Brown\"},{\"name\":\"material\",\"value\":\"Plastic\"}],\"stockValue\":8}]"
+    },
+    {
+        "description": "Large Desk with a luxury style!",
+        "name": "Luxury Desk with Stylistic Touch",
+        "price": 1199,
+        "category": [
+            "Furniture",
+            "Desks",
+            "Study Desk"
+        ],
+        "originalPrice": 1499,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/160916424369819",
+        "rating": 4.3,
+        "size": [
+            "150x75",
+            "200x60"
+        ],
+        "brand": "TOTTAS",
+        "productInfos": "[{\"attributes\":[{\"name\":\"color\",\"value\":\"Black\"},{\"name\":\"material\",\"value\":\"Wood\"}],\"stockValue\":42},{\"attributes\":[{\"name\":\"color\",\"value\":\"Black\"},{\"name\":\"material\",\"value\":\"Plastic\"}],\"stockValue\":3},{\"attributes\":[{\"name\":\"color\",\"value\":\"White\"},{\"name\":\"material\",\"value\":\"Wood\"}],\"stockValue\":95},{\"attributes\":[{\"name\":\"color\",\"value\":\"White\"},{\"name\":\"material\",\"value\":\"Plastic\"}],\"stockValue\":36}]"
+    },
+    {
+        "description": "Small compact desk for quick tasks!",
+        "name": "Small School Desk",
+        "price": 299,
+        "category": [
+            "Furniture",
+            "Desks",
+            "Study Desk"
+        ],
+        "originalPrice": 499,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/16091642436738",
+        "rating": 4,
+        "size": [
+            "100x60",
+            "80x80"
+        ],
+        "brand": "AKEA",
+        "productInfos": "[{\"attributes\":[{\"name\":\"color\",\"value\":\"Brown\"},{\"name\":\"material\",\"value\":\"Wood\"}],\"stockValue\":33},{\"attributes\":[{\"name\":\"color\",\"value\":\"Brown\"},{\"name\":\"material\",\"value\":\"Plastic\"}],\"stockValue\":32},{\"attributes\":[{\"name\":\"color\",\"value\":\"White\"},{\"name\":\"material\",\"value\":\"Wood\"}],\"stockValue\":6},{\"attributes\":[{\"name\":\"color\",\"value\":\"White\"},{\"name\":\"material\",\"value\":\"Plastic\"}],\"stockValue\":54}]"
+    },
+    {
+        "description": "Luxury elegant comfortable sofa!",
+        "name": "High-Luxury Sofa",
+        "price": 2199,
+        "category": [
+            "Furniture",
+            "Sofa"
+        ],
+        "originalPrice": 2599,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/16091642436644",
+        "rating": 4.8,
+        "size": [
+            "Double",
+            "Triple"
+        ],
+        "brand": "Ozistiklal",
+        "productInfos": "[{\"attributes\":[{\"name\":\"color\",\"value\":\"Red\"},{\"name\":\"material\",\"value\":\"Cotton\"}],\"stockValue\":21},{\"attributes\":[{\"name\":\"color\",\"value\":\"Red\"},{\"name\":\"material\",\"value\":\"Memory Foam\"}],\"stockValue\":12},{\"attributes\":[{\"name\":\"color\",\"value\":\"Black\"},{\"name\":\"material\",\"value\":\"Cotton\"}],\"stockValue\":57},{\"attributes\":[{\"name\":\"color\",\"value\":\"Black\"},{\"name\":\"material\",\"value\":\"Memory Foam\"}],\"stockValue\":98}]"
+    },
+    {
+        "description": "Good looking for your house.",
+        "name": "Luxury Sofa",
+        "price": 1499,
+        "category": [
+            "Furniture",
+            "Sofa"
+        ],
+        "originalPrice": 1999,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/16091642436665",
+        "rating": 3.5,
+        "size": [
+            "Double",
+            "Triple"
+        ],
+        "brand": "Bollino",
+        "productInfos": "[{\"attributes\":[{\"name\":\"color\",\"value\":\"Cyan\"},{\"name\":\"material\",\"value\":\"Cotton\"}],\"stockValue\":69},{\"attributes\":[{\"name\":\"color\",\"value\":\"Cyan\"},{\"name\":\"material\",\"value\":\"Memory Foam\"}],\"stockValue\":65},{\"attributes\":[{\"name\":\"color\",\"value\":\"Blue\"},{\"name\":\"material\",\"value\":\"Cotton\"}],\"stockValue\":9},{\"attributes\":[{\"name\":\"color\",\"value\":\"Blue\"},{\"name\":\"material\",\"value\":\"Memory Foam\"}],\"stockValue\":58}]"
+    },
+    {
+        "description": "Luxury sofa for your living room!",
+        "name": "Semi-Luxury Sofa",
+        "price": 999,
+        "category": [
+            "Furniture",
+            "Sofa"
+        ],
+        "originalPrice": 1999,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/16091642436623",
+        "rating": 3.5,
+        "size": [
+            "Double",
+            "Triple"
+        ],
+        "brand": "Bollino",
+        "productInfos": "[{\"attributes\":[{\"name\":\"color\",\"value\":\"Black\"},{\"name\":\"material\",\"value\":\"Cotton\"}],\"stockValue\":74},{\"attributes\":[{\"name\":\"color\",\"value\":\"Black\"},{\"name\":\"material\",\"value\":\"Memory Foam\"}],\"stockValue\":46},{\"attributes\":[{\"name\":\"color\",\"value\":\"Red\"},{\"name\":\"material\",\"value\":\"Cotton\"}],\"stockValue\":18},{\"attributes\":[{\"name\":\"color\",\"value\":\"Red\"},{\"name\":\"material\",\"value\":\"Memory Foam\"}],\"stockValue\":74}]"
+    },
+    {
+        "description": "Simple, but comfortable as hell!",
+        "name": "Simple Sofa",
+        "price": 449,
+        "category": [
+            "Furniture",
+            "Sofa"
+        ],
+        "originalPrice": 999,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/160916424369618",
+        "rating": 4.8,
+        "size": [
+            "Double, Single"
+        ],
+        "brand": "Ozistiklal",
+        "productInfos": "[{\"attributes\":[{\"name\":\"color\",\"value\":\"Orange\"},{\"name\":\"material\",\"value\":\"Cotton\"}],\"stockValue\":81},{\"attributes\":[{\"name\":\"color\",\"value\":\"Red\"},{\"name\":\"material\",\"value\":\"Cotton\"}],\"stockValue\":50},{\"attributes\":[{\"name\":\"color\",\"value\":\"Blue\"},{\"name\":\"material\",\"value\":\"Cotton\"}],\"stockValue\":68},{\"attributes\":[{\"name\":\"color\",\"value\":\"Purple\"},{\"name\":\"material\",\"value\":\"Cotton\"}],\"stockValue\":52}]"
+    },
+    {
+        "description": "Good for studying!",
+        "name": "Cheap Desk Lamp",
+        "price": 49,
+        "category": [
+            "Furniture",
+            "Lamp"
+        ],
+        "originalPrice": 99,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/16091642436759",
+        "rating": 4.2,
+        "size": [
+            "Venti",
+            "Grande",
+            "Tall"
+        ],
+        "brand": "Soyamans",
+        "productInfos": "[{\"attributes\":[{\"name\":\"color\",\"value\":\"Blue\"}],\"stockValue\":45},{\"attributes\":[{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":10}]"
+    },
+    {
+        "description": "Great addition to your wonderful living room!",
+        "name": "Luxury Lamp",
+        "price": 459,
+        "category": [
+            "Furniture",
+            "Lamp"
+        ],
+        "originalPrice": 559,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/160916424368211",
+        "rating": 4.2,
+        "size": [
+            "Venti",
+            "Grande"
+        ],
+        "brand": "TOTTAS",
+        "productInfos": "[{\"attributes\":[{\"name\":\"color\",\"value\":\"Red\"}],\"stockValue\":14},{\"attributes\":[{\"name\":\"color\",\"value\":\"Orange\"}],\"stockValue\":99}]"
+    },
+    {
+        "description": "Lamp with a great style!",
+        "name": "Basic Desk Lamp",
+        "price": 99,
+        "category": [
+            "Furniture",
+            "Lamp"
+        ],
+        "originalPrice": 259,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/160916424368713",
+        "rating": 4.5,
+        "size": [
+            "Venti",
+            "Grande",
+            "Tall"
+        ],
+        "brand": "Pulips",
+        "productInfos": "[{\"attributes\":[{\"name\":\"color\",\"value\":\"Red\"}],\"stockValue\":35},{\"attributes\":[{\"name\":\"color\",\"value\":\"Blue\"}],\"stockValue\":25}]"
+    },
+    {
+        "description": "Small lamp for your wildcard next to your bedroom!",
+        "name": "Cute Lamp",
+        "price": 39,
+        "category": [
+            "Furniture",
+            "Lamp"
+        ],
+        "originalPrice": 39,
+        "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/160916424368412",
+        "rating": 4.4,
+        "size": [
+            "Tall",
+            "Grande"
+        ],
+        "brand": "AKEA",
+        "productInfos": "[{\"attributes\":[{\"name\":\"color\",\"value\":\"White\"}],\"stockValue\":6},{\"attributes\":[{\"name\":\"color\",\"value\":\"Gray\"}],\"stockValue\":83}]"
+    }
+]

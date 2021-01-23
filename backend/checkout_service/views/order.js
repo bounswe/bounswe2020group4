@@ -24,10 +24,11 @@ module.exports.checkoutOrder = async (params) => {
           cart_product = cart_product.toJSON();
           let product = await Product.findById(cart_product.productId);
           const vendor = (await Vendor.findById(cart_product.vendorId)).toJSON();
+          let productTempInfos = JSON.parse(product.productInfos);
           await Promise.all(
-            cart_product.productInfos.map(async (cartProductInfo) => {
+            JSON.parse(cart_product.productInfos).map(async (cartProductInfo) => {
               await Promise.all(
-                product.productInfos.map(async (productInfo) => {
+                productTempInfos.map(async (productInfo) => {
                   let isCorrectProductInfo = true;
                   cartProductInfo.attributes.forEach((cart_attr) => {
                     productInfo.attributes.forEach((attr) => {
@@ -79,7 +80,7 @@ module.exports.checkoutOrder = async (params) => {
                         attributes: cartProductInfo.attributes,
                         quantity: cartProductInfo.quantity,
                       });
-                      // update the quantity
+                      // update the stock value accordingly
                       productInfo.stockValue -= cartProductInfo.quantity;
                       // add the ordered product to db
                       await OrderedProduct.create({
@@ -88,7 +89,7 @@ module.exports.checkoutOrder = async (params) => {
                         customerId: ObjectId(params.customerId),
                         vendorId: product.vendorId,
                         productId: product._id,
-                        productInfo: cartProductInfo,
+                        productInfo: JSON.stringify(cartProductInfo),
                         date: new Date(),
                       });
                     }
@@ -97,6 +98,8 @@ module.exports.checkoutOrder = async (params) => {
               );
             })
           );
+          product.productInfos = JSON.stringify(productTempInfos);
+          await product.save();
         })
       );
       await CartProduct.deleteMany({ customerId: ObjectId(params.customerId) });
@@ -132,6 +135,7 @@ module.exports.getOrders = async (params) => {
       return { success: false, message: ErrorMessage.PRODUCT_NOT_FOUND};
     }
     let orders = {};
+    let sum = 0;
     orderedProducts = await Promise.all(
       orderedProducts.map(async (orderedProduct) => {
         // create an array for the order, ORDER_ID: [orderedproduct1, orderedproduct2, ...]
@@ -141,6 +145,7 @@ module.exports.getOrders = async (params) => {
           date: orderedProduct.date,
           products: [],
         };
+        let parsedProductInfo = JSON.parse(orderedProduct.productInfo);
         // the product json which returned to client
         let tempOrderedProduct = {
           orderedProductId: orderedProduct._id,
@@ -151,12 +156,12 @@ module.exports.getOrders = async (params) => {
           price: product.price,
           originalPrice: product.originalPrice,
           brand: product.brand,
-          quantity: orderedProduct.productInfo.quantity,
-          attributes: orderedProduct.productInfo.attributes,
+          quantity: parsedProductInfo.quantity,
+          attributes: parsedProductInfo.attributes,
         };;
         // get vendor and product information
         const product = await Product.findById(orderedProduct.productId);
-        if (params.userType === "customer") {
+        if (params.userType === "vendor") {
           const vendor = await Vendor.findById(orderedProduct.vendorId);
           // the product json which returned to client
           tempOrderedProduct.vendor = {
@@ -164,6 +169,7 @@ module.exports.getOrders = async (params) => {
             name: vendor.name,
             rating: vendor.rating,
           };
+          sum += tempOrderedProduct.price;
         } else {
           const customer = await Customer.findById(orderedProduct.customerId);
           tempOrderedProduct.customer = {
@@ -179,7 +185,7 @@ module.exports.getOrders = async (params) => {
         await orderedProduct.save();
       })
     );
-    return {success: true, data: orders};
+    return { success: true, data: { orders: orders, totalEarnings: sum } };
   } catch (error) {
     console.log(error);
     return { success: false, message: error.message || error };
@@ -220,13 +226,14 @@ module.exports.updateProductStatus = async (params) => {
         if (!db_product) {
           return { success: false, message: ErrorMessage.PRODUCT_NOT_FOUND };
         }
+        let dbTempProductInfos = JSON.parse(db_product.productInfos);
         // update the stock value of the product in product DB 
         await Promise.all(
-          db_product.productInfos.map(async (productInfo) => {
+          dbTempProductInfos.map(async (productInfo) => {
             // find the correct productInfo of the product in the product database
             let isCorrectProductInfo = true;
             productInfo.attributes.forEach((attr) => {
-              orderedProduct.productInfo.attributes.forEach((order_attr) => {
+              JSON.parse(orderedProduct.productInfo).attributes.forEach((order_attr) => {
                 if (attr.name === order_attr.name) {
                   if (attr.value !== order_attr.value) {
                     isCorrectProductInfo = false;
@@ -240,11 +247,13 @@ module.exports.updateProductStatus = async (params) => {
             });
             // update the stock value of the product in product DB 
             if (isCorrectProductInfo) {
-              productInfo.stockValue += orderedProduct.productInfo.quantity;
-              await db_product.save();
+              productInfo.stockValue += JSON.parse(orderedProduct.productInfo).quantity;
             }
           })
         );
+        // save updated stock values
+        db_product.productInfos = JSON.stringify(dbTempProductInfos);
+        await db_product.save();
 
         orderedProduct.status = params.status;
         await orderedProduct.save();
@@ -258,13 +267,14 @@ module.exports.updateProductStatus = async (params) => {
           if (!db_product) {
             return { success: false, message: ErrorMessage.PRODUCT_NOT_FOUND };
           }
+          let dbTempProductInfos = JSON.parse(db_product.productInfos);
           // update the stock value of the product in product DB 
           await Promise.all(
-            db_product.productInfos.map(async (productInfo) => {
+            dbTempProductInfos.map(async (productInfo) => {
               // find the correct productInfo of the product in the product database
               let isCorrectProductInfo = true;
               productInfo.attributes.forEach((attr) => {
-                orderedProduct.productInfo.attributes.forEach((order_attr) => {
+                JSON.parse(orderedProduct.productInfo).attributes.forEach((order_attr) => {
                   if (attr.name === order_attr.name) {
                     if (attr.value !== order_attr.value) {
                       isCorrectProductInfo = false;
@@ -279,10 +289,12 @@ module.exports.updateProductStatus = async (params) => {
               // update the stock value of the product in product DB 
               if (isCorrectProductInfo) {
                 productInfo.stockValue += orderedProduct.productInfo.quantity;
-                await db_product.save();
               }
             })
           );
+          db_product.productInfos = JSON.stringify(dbTempProductInfos);
+          await db_product.save();
+
           orderedProduct.status = params.status;
           await orderedProduct.save();
         }
@@ -325,15 +337,16 @@ module.exports.updateOrderStatus = async (params) => {
       if (!db_product) {
         return { success: false, message: ErrorMessage.PRODUCT_NOT_FOUND };
       }
-      // Stock value of cancelled and returned products should be updated. 
+      // Stock value of cancelled or returned products should be updated. 
       if (params.status === "Returned" || params.status === "Cancelled") {
+        let dbTempProductInfos = JSON.parse(db_product.productInfos);
         // update the stock value of the product in product DB 
         await Promise.all(
-          db_product.productInfos.map(async (productInfo) => {
+          dbTempProductInfos.map(async (productInfo) => {
             // find the correct productInfo of the product in the product database
             let isCorrectProductInfo = true;
             productInfo.attributes.forEach((attr) => {
-              orderedProduct.productInfo.attributes.forEach((order_attr) => {
+              JSON.parse(orderedProduct.productInfo).attributes.forEach((order_attr) => {
                 if (attr.name === order_attr.name) {
                   if (attr.value !== order_attr.value) {
                     isCorrectProductInfo = false;
@@ -347,11 +360,12 @@ module.exports.updateOrderStatus = async (params) => {
             });
             // update the stock value of the product in product DB 
             if (isCorrectProductInfo) {
-              productInfo.stockValue += orderedProduct.productInfo.quantity;
-              await db_product.save();
+              productInfo.stockValue += JSON.parse(orderedProduct.productInfo).quantity;
             }
           })
         );
+        db_product.productInfos = JSON.stringify(dbTempProductInfos);
+        await db_product.save();
       }
       orderedProduct.status = params.status;
       await orderedProduct.save();

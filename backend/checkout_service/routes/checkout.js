@@ -31,7 +31,11 @@ module.exports.initialize = (app) => {
         if (!!result.success) {
             response.respond(ErrorCode(result.message), result.message);
         } else {
-            response.respond(200, "OK", result.data);
+            let data = { orders: result.data.orders };
+            if (request.query.userType === "vendor") {
+                data.totalEarnings = result.data.totalEarnings;
+            }
+            response.respond(200, "OK", data);
         }
     });
 

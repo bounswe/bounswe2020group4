@@ -2,7 +2,7 @@ const Customer = require("../models/customer").Customer;
 const Vendor = require("../models/vendor").Vendor;
 const ObjectId = require("mongoose").Types.ObjectId;
 const { ErrorMessage } = require("../constants/error");
-const nodemailer = require('nodemailer');
+const nodemailer = require("nodemailer");
 
 /**
  * Adds a new address to a customer user.
@@ -248,67 +248,65 @@ module.exports.changePassword = async (params) => {
  * Gets the account id and updates changes the password of the account of that id
  *
  * @param {
-  * email: String
-  * } params
-  * @return {
-  *  Boolean: Account exists
-  * }
-  */
- module.exports.forgotPassword = async (params) => {
-   try {
-     if (!params.email) {
-       return { success: false, message: ErrorMessage.MISSING_PARAMETER };
-     }
-     var account = await Customer.findOne({ email: params.email});
-     var userType = "customer";
-     if(!account){
-     account = await Vendor.findOne({ email: params.email});
-     userType = "vendor";
-     }
-     if (account) {
-      sendForgotPasswordEmail(params.email, account._id.toString(), userType); 
+ * email: String
+ * } params
+ * @return {
+ *  Boolean: Account exists
+ * }
+ */
+module.exports.forgotPassword = async (params) => {
+  try {
+    if (!params.email) {
+      return { success: false, message: ErrorMessage.MISSING_PARAMETER };
+    }
+    var account = await Customer.findOne({ email: params.email });
+    var userType = "customer";
+    if (!account) {
+      account = await Vendor.findOne({ email: params.email });
+      userType = "vendor";
+    }
+    if (account) {
+      sendForgotPasswordEmail(params.email, account._id.toString(), userType);
       return { success: true };
-
-     }
-     return { success: false, message: ErrorMessage.USER_NOT_FOUND };
-   } catch (error) {
-     console.log(error);
-     return { success: false, message: error.message || error };
-   }
- };
+    }
+    return { success: false, message: ErrorMessage.USER_NOT_FOUND };
+  } catch (error) {
+    console.log(error);
+    return { success: false, message: error.message || error };
+  }
+};
 
 /**
  * Gets the account id and updates the status of the account of that id
  *
  * @param {
-  * id: String,
-  * userType: String,
-  * password: String
-  * } params
-  * @return {
-  *  Boolean: Account exists
-  * }
-  */
- module.exports.verifyAccount = async (params) => {
-   try {
-     if (!params.id || !params.userType) {
-       return { success: false, message: ErrorMessage.MISSING_PARAMETER };
-     }
-     const collection = params.userType === "customer" ? Customer : Vendor;
-     const account = await collection.findOne({ _id: ObjectId(params.id) });
-     if (account) {
-       account.status = "verified";
-       await account.save();
- 
-       return { success: true };
-     }
-     return { success: false, message: ErrorMessage.USER_NOT_FOUND };
-   } catch (error) {
-     console.log(error);
-     return { success: false, message: error.message || error };
-   }
- };
+ * id: String,
+ * userType: String,
+ * password: String
+ * } params
+ * @return {
+ *  Boolean: Account exists
+ * }
+ */
+module.exports.verifyAccount = async (params) => {
+  try {
+    if (!params.id || !params.userType) {
+      return { success: false, message: ErrorMessage.MISSING_PARAMETER };
+    }
+    const collection = params.userType === "customer" ? Customer : Vendor;
+    const account = await collection.findOne({ _id: ObjectId(params.id) });
+    if (account) {
+      account.status = "verified";
+      await account.save();
 
+      return { success: true };
+    }
+    return { success: false, message: ErrorMessage.USER_NOT_FOUND };
+  } catch (error) {
+    console.log(error);
+    return { success: false, message: error.message || error };
+  }
+};
 
 /**
  * Performs login for vendor or customer.
@@ -331,65 +329,69 @@ module.exports.login = async (params) => {
       password: params.password,
     });
     if (user) {
-      return { success: true, userId: user._id.toString() , userStatus: user.status};
+      return { success: true, userId: user._id.toString(), userStatus: user.status };
     }
-    return { success: false, message: ErrorMessage.USER_NOT_FOUND};
+    return { success: false, message: ErrorMessage.USER_NOT_FOUND };
   } catch (error) {
     return { success: false, message: error.message || error };
   }
 };
 
-function sendVerificationMail(userEmail, userType, userId){
-
+function sendVerificationMail(userEmail, userType, userId) {
   var transporter = nodemailer.createTransport({
-    service: 'Gmail',
+    service: "Gmail",
     auth: {
-      user: 'buyoboun@gmail.com',
-      pass: 'buyo1234'
-    }
+      user: "buyoboun@gmail.com",
+      pass: "buyo1234",
+    },
   });
-  //html: '<p>Click <a href="http://localhost:3000/sessions/recover/' + recovery_token + '">here</a> to reset your password</p>'
-  //var verifyLink = 'http://localhost:8080/account/verify?userType=' + userType + '&id= ' + userId;
   var mailOptions = {
     from: '"BUYO" <buyoboun@gmail.com>',
     to: userEmail,
-    subject: 'Your BUYO verification e-mail',
-    //text: 'Click this link for verifying your account!',
-    //http://buyomarket.ml/verifyuser?userType=<userType>&userId=<userId>&verificationCode=<verificationCode>
-    html: '<p>Click <a href ="http://buyomarket.ml/verifyuser?userType=' + userType + '&id=' + userId + '"> here </a> to verify your BUYO account.</p>'
+    subject: "Your BUYO verification e-mail",
+    html:
+      '<p>Click <a href ="http://buyomarket.ml/verifyuser?userType=' +
+      userType +
+      "&id=" +
+      userId +
+      '"> here </a> to verify your BUYO account.</p>',
   };
-  
-  transporter.sendMail(mailOptions, function(error, info){
+
+  transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
       console.log(error);
     } else {
-      console.log('Email sent: ' + info.response);
+      console.log("Email sent: " + info.response);
     }
   });
 }
 
-function sendForgotPasswordEmail(userEmail, userId, userType){
-
+function sendForgotPasswordEmail(userEmail, userId, userType) {
   var transporter = nodemailer.createTransport({
-    service: 'Gmail',
+    service: "Gmail",
     auth: {
-      user: 'buyoboun@gmail.com',
-      pass: 'buyo1234'
-    }
+      user: "buyoboun@gmail.com",
+      pass: "buyo1234",
+    },
   });
 
   var mailOptions = {
     from: '"BUYO" <buyoboun@gmail.com>',
     to: userEmail,
-    subject: 'Did you forgot your password?',
-    html: '<p>Click <a href ="http://buyomarket.ml/forgotpassword?userId=' + userId + '&userType=' + userType + '"> here </a> to reset your BUYO account password.</p>'
+    subject: "Did you forgot your password?",
+    html:
+      '<p>Click <a href ="http://buyomarket.ml/forgotpassword?userId=' +
+      userId +
+      "&userType=" +
+      userType +
+      '"> here </a> to reset your BUYO account password.</p>',
   };
-  
-  transporter.sendMail(mailOptions, function(error, info){
+
+  transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
       console.log(error);
     } else {
-      console.log('Email sent: ' + info.response);
+      console.log("Email sent: " + info.response);
     }
   });
 }
@@ -432,7 +434,7 @@ module.exports.signup = async (params) => {
         email: params.email,
         password: params.password,
         name: params.name,
-        status: "not-verified"
+        status: "not-verified",
       });
     } else {
       user = await Vendor.create({
@@ -443,7 +445,7 @@ module.exports.signup = async (params) => {
         website: params.website,
         company: params.company,
         name: params.name,
-        status: "not-verified"
+        status: "not-verified",
       });
     }
     if (user) {
@@ -463,19 +465,19 @@ module.exports.signInByGoogle = async (params) => {
     if (!!params.email || !!params.token) {
       return { success: false, message: ErrorMessage.MISSING_PARAMETER };
     }
-    
+
     let user = await Customer.findOne({ email: params.email });
-    if (!!user) { 
+    if (!!user) {
       user = await Customer.create({
         email: params.email,
         googleToken: params.token,
-        name: params.name
+        name: params.name,
       });
     } else {
-      if (user.googleToken) { 
+      if (user.googleToken) {
         if (user.googleToken !== params.token) {
           return { success: false, message: ErrorMessage.WRONG_GOOGLE_TOKEN };
-        } 
+        }
       } else {
         user.googleToken = params.token;
         await user.save();
@@ -487,5 +489,3 @@ module.exports.signInByGoogle = async (params) => {
     return { success: false, message: error.message || error };
   }
 };
-
-
