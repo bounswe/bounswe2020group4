@@ -74,13 +74,11 @@ module.exports.getProducts = async (params) => {
   try {
     let products;
 
-
     if (params.categories) {
       products = await Product.find({ category: { $all: JSON.parse(params.categories) } });
     } else if (params.search) {
       products = await Product.find({ name: { $regex: params.search, $options: "i" } });
     }
-
 
     var filterCriterias = [];
     var filteringConfig = {
@@ -143,7 +141,7 @@ module.exports.getProducts = async (params) => {
 
     if (!!params.sortingFactor) {
       try {
-        if (typeof(products[0][params.sortingFactor]) == "number") {
+        if (typeof products[0][params.sortingFactor] == "number") {
           products = products.sort(
             (product1, product2) =>
               (params.sortingType == "descending" ? -1 : 1) *
@@ -299,7 +297,6 @@ module.exports.getProducts = async (params) => {
       });
     }
 
-
     products = await Promise.all(
       products.map(async (product) => {
         product = product.toJSON();
@@ -309,6 +306,7 @@ module.exports.getProducts = async (params) => {
         product.vendor = {
           name: vendor.name,
           rating: vendor.rating,
+          id: product.vendorId.toString(),
         };
         product.id = product._id.toString();
 
@@ -319,10 +317,8 @@ module.exports.getProducts = async (params) => {
       })
     );
 
-
-
-    if(params.vendorName){
-      products = products.filter(product => product.vendor.name == params.vendorName)
+    if (params.vendorName) {
+      products = products.filter((product) => product.vendor.name == params.vendorName);
     }
 
     return { productList: products, filterCriterias };
@@ -359,6 +355,7 @@ module.exports.getProduct = async (params) => {
 
           return {
             id: comment._id.toString(),
+            userId: comment.userId.toString(),
             rating: comment.rating,
             text: comment.text,
             owner: {
@@ -374,6 +371,7 @@ module.exports.getProduct = async (params) => {
       product.vendor = {
         name: vendor.name,
         rating: vendor.rating,
+        id: product.vendorId.toString(),
       };
       product.id = product._id.toString();
 
@@ -393,7 +391,6 @@ module.exports.getProduct = async (params) => {
       size: "Size",
       color: "Color",
     };
-
 
     if (product.productInfos.length > 0) {
       product.productInfos.forEach(function (property) {
@@ -436,7 +433,7 @@ module.exports.getProduct = async (params) => {
       });
     }
 
-    product.filterCriterias = filterCriterias
+    product.filterCriterias = filterCriterias;
 
     return product;
   } catch (error) {
