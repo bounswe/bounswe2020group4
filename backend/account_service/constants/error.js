@@ -6,6 +6,7 @@ const ErrorMessage = {
   USER_NOT_FOUND: "User not found",
   PRODUCT_NOT_FOUND: "Product not found",
   WRONG_GOOGLE_TOKEN: "Google token provided is wrong."
+  CHECK_UPDATE_PARAMETERS: "Check your update parameters"
 };
 
 module.exports.ErrorCode = (message) => {
@@ -20,4 +21,5 @@ module.exports.ErrorCode = (message) => {
 
   return ErrorCodes[message] || 500;
 };
+
 module.exports.ErrorMessage = ErrorMessage;

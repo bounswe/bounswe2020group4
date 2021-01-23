@@ -120,7 +120,9 @@ module.exports.getLastMessages = async (params) => {
     const messagesResponse = [];
 
     messages.forEach((message) => {
-      lastMessages[message.withId] = message.toJSON();
+      lastMessages[
+        message.withId.toString() === params.id ? message.userId.toString() : message.withId.toString()
+      ] = message.toJSON();
     });
 
     await Promise.all(
