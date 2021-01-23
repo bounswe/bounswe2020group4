@@ -10,6 +10,8 @@ import history from '../util/history'
 import accountService from '../services/account'
 import { setLoginState } from '../redux/actions'
 import { Link } from 'react-router-dom'
+import GDPR from '../Legal Docs/Buyo GDPR.pdf'
+import CondOfUse from '../Legal Docs/Conditions of Use - BUYO.pdf'
 
 const SignUp = ({hideHeader, showHeader, setLoginState}) => {
 
@@ -108,7 +110,7 @@ const SignUp = ({hideHeader, showHeader, setLoginState}) => {
 								<input type='checkbox' className='check-box' checked={checked} onChange={handleCheckedChange}/>
 							</div>
 							<div className='col'>
-								I agree to terms and conditions.
+								I agree to <a href={GDPR} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline' }}>GDPR</a> and <a href={CondOfUse} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline' }}> Conditions of Use </a>
 							</div>
 						</div>
 
