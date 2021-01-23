@@ -299,6 +299,7 @@ module.exports.getProducts = async (params) => {
       });
     }
 
+
     products = await Promise.all(
       products.map(async (product) => {
         product = product.toJSON();

@@ -38,4 +38,36 @@ module.exports.initialize = (app) => {
     }
   });
 
+
+  app.get("/vendor/products/:vendorId", async (request, response) => {
+    parameters = request.body
+    parameters["vendorId"]  = request.params.vendorId
+
+    const result = await vendor.getProducts(parameters);
+
+    if ( !!result.success ) {
+      response.respond(ErrorCode(result.message), result.message);
+    }
+    else if (!!result.productList) {
+      response.respond(200, "OK", {
+        result,
+      });
+    } 
+    else {
+      response.respond(ErrorCode(result.message), result.message);
+    }
+  });
+
+
+
+  app.get("/vendor/vendorlist", async (request, response) => {
+    const result = await vendor.getVendorList();
+
+    response.respond(200, "OK", {
+      result,
+    });
+
+
+  });
+
 };
