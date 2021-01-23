@@ -79,7 +79,10 @@ const VendorSignIn = ({hideHeader, showHeader, setLoginState}) => {
 							onChange={handlePasswordChange}
 						/>
 						<div className="col text-center">
-							<a href="/signin">Are you a customer?</a>
+							<Link href="/signin" className="sign-in-link">Are you a customer?</Link>
+						</div>
+						<div className="col text-center">
+							<Link to="/resetpassword" className="sign-in-link">Click here to reset your password.</Link>
 						</div>
 					</Form.Group>
 
