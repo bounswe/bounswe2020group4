@@ -10,6 +10,7 @@ import com.cmpe352group4.buyo.ui.homepage.HomepageFragment
 import com.cmpe352group4.buyo.ui.image_utils.ImageUploadFragment
 import com.cmpe352group4.buyo.ui.login.LoginFragment
 import com.cmpe352group4.buyo.ui.login.LoginFragmentVendor
+import com.cmpe352group4.buyo.ui.messaging.MessagesFragment
 import com.cmpe352group4.buyo.ui.navigationtabs.*
 import com.cmpe352group4.buyo.ui.notification.NotificationFragment
 import com.cmpe352group4.buyo.ui.orderpage.OrderPageFragment
@@ -150,4 +151,7 @@ abstract class FragmentsBuilderModule {
 
     @ContributesAndroidInjector
     abstract  fun contributeNotificationFragment(): NotificationFragment
+
+    @ContributesAndroidInjector
+    abstract  fun contributeMessagesFragment(): MessagesFragment
 }
