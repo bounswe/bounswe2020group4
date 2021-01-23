@@ -7,6 +7,35 @@ import history from '../util/history'
 
 import './AddProduct.css'
 import {getCategories} from '../services/category'
+import productService from '../services/products'
+
+const generatePossibleAttVals = (productInfos) => {
+	let possibleValues = {}
+	let info
+	for(info of productInfos) {
+		let attribute
+		for(attribute of info.attributes) {
+			if(possibleValues[attribute.name]) {
+				if(!possibleValues[attribute.name].includes(attribute.value)) {
+					possibleValues[attribute.name].push(attribute.value)
+				}
+			} else {
+				possibleValues[attribute.name] = [attribute.value]
+			}
+		}
+	}
+
+	return possibleValues
+}
+
+const attributeToTag = (attributes) => {
+	let tags = []
+	let attribute
+	for(attribute of attributes){
+		tags.push({'id':attribute, 'text':attribute})
+	}
+	return tags
+}
 
 const UpdateProduct = (props) => {
 
@@ -21,13 +50,14 @@ const UpdateProduct = (props) => {
 	const [attributes, setAttributes] = useState([])
 	const [attributeSelected, setAttributeSelected] = useState(false)
 	const [possibleValues, setPossibleValues] = useState({})
+	const [possibleValuesStr, setPossibleValuesStr] = useState({})
 	const [rerender, setRerender] = useState(false)
 	const [possibleValuesEntered, setPossibleValuesEntered] = useState(false)
 	const [productInfos, setProductInfos] = useState([])
 	const [stockEntered, setStockEntered] = useState(false)
 	const [price, setPrice] = useState()
 	const [discountedPrice, setDiscountedPrice] = useState()
-
+	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
 		
@@ -42,11 +72,37 @@ const UpdateProduct = (props) => {
 			setCategories(categories)
 		}
 
+		const getProduct = async () => {
+			const p = await productService.getProduct(id)
+			
+			setPath(p.category.join())
+			setCategorySelected(true)
+			setProductName(p.name)
+			setBrand(p.brand)
+			setDescription(p.description)
+			setPrice(p.originalPrice)
+			setDiscountedPrice(p.price)
+
+			const generatedValues = generatePossibleAttVals(p.productInfos)
+			setAttributes(attributeToTag(Object.keys(generatedValues)))
+			setPossibleValues(generatedValues)
+			for(var attr in possibleValues){
+				possibleValuesStr[attr] = possibleValues[attr].join()
+			}
+			if(loading){
+				setPossibleValuesStr(possibleValuesStr)
+				setAttributeSelected(true)
+			}
+			setLoading(false)
+			setPossibleValuesEntered(true)
+		}
+
+		getProduct()
 		retrieveCategories()
 		props.hideHeader()
 		props.showVendorHeader()
 		return () => props.showHeader()
-	}, [props.isLoggedIn, props.customerId])
+	}, [props.isLoggedIn, props.userId, loading])
 
 	const renderSubcategories = (currPath, category, subcategories) => {
 
@@ -118,7 +174,10 @@ const UpdateProduct = (props) => {
 		} else{
 			possibleValues[attr] = ''
 		}
+		possibleValuesStr[attr] = e.target.value
+		setPossibleValuesStr(possibleValuesStr)
 		setPossibleValues(possibleValues)
+		setRerender(!rerender)
 	}
 
 	const handlePossibleValuesButton = function() {
@@ -271,7 +330,7 @@ const UpdateProduct = (props) => {
 								<label htmlFor='price'>Price</label>
 							</div>
 							<div className='col-3'>
-								<input type='number' min='0' id='price' onChange={(e)=>setPrice(e.target.value)}/>
+								<input type='number' min='0' id='price' value={price} onChange={(e)=>setPrice(e.target.value)}/>
 							</div>
 						</div>
 					</div>
@@ -281,7 +340,7 @@ const UpdateProduct = (props) => {
 								<label htmlFor='discountedPrice'>Discounted price</label>
 							</div>
 							<div className='col-3'>
-								<input type='number' min='0' id='discountedPrice' onChange={(e)=>setDiscountedPrice(e.target.value)}/>
+								<input type='number' min='0' id='discountedPrice' value={discountedPrice} onChange={(e)=>setDiscountedPrice(e.target.value)}/>
 							</div>
 							<div className='col'>
 								<p>Enter the original price if there is no discount.</p>
@@ -318,6 +377,7 @@ const UpdateProduct = (props) => {
 									<div className='col-4'>
 										<input type='text' className='form-control form-control-md text-left' 
 										id={attr.text} 
+										value={possibleValuesStr[attr.text]}
 										onChange={(e) => handlePossibleValueChange(e, attr.text)}
 										/>
 									</div>
