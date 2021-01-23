@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'http://3.138.113.101:8080/notification'
+const baseUrl = 'http://3.138.113.101:8080/notifications'
 
 const getNotifications = async (userType, userId) => {
 	try {
