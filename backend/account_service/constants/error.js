@@ -5,7 +5,7 @@ const ErrorMessage = {
   ADDRESS_ALREADY_EXISTS: "Address with the title already exists",
   USER_NOT_FOUND: "User not found",
   PRODUCT_NOT_FOUND: "Product not found",
-  WRONG_GOOGLE_TOKEN: "Google token provided is wrong."
+  WRONG_GOOGLE_TOKEN: "Google token provided is wrong.",
   CHECK_UPDATE_PARAMETERS: "Check your update parameters"
 };
 

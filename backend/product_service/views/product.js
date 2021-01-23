@@ -82,7 +82,6 @@ module.exports.getProducts = async (params) => {
       products = await Product.find({ name: { $regex: params.search, $options: "i" } });
     }
 
-
     var filterCriterias = [];
     var filteringConfig = {
       screenSize: "Screen Size",
@@ -168,6 +167,7 @@ module.exports.getProducts = async (params) => {
 
     if (!!params.sortingFactor) {
       try {
+
         if (typeof(finalProductList[0][params.sortingFactor]) == "number") {
           finalProductList = finalProductList.sort(
             (product1, product2) =>
@@ -324,6 +324,7 @@ module.exports.getProducts = async (params) => {
       });
     }
 
+
     finalProductList = await Promise.all(
       finalProductList.map(async (product) => {
 
@@ -332,6 +333,7 @@ module.exports.getProducts = async (params) => {
         product.vendor = {
           name: vendor.name,
           rating: vendor.rating,
+          id: product.vendorId.toString(),
         };
         product.id = product.id.toString();
 
@@ -392,12 +394,16 @@ module.exports.getProduct = async (params) => {
             owner: {
               username: user.name,
               email: user.email,
+              id: comment.userId.toString(),
             },
           };
         })
       );
 
       const vendor = await Vendor.findOne({ _id: product.vendorId });
+
+
+      product.id = product._id.toString();
 
 
 
@@ -421,6 +427,7 @@ module.exports.getProduct = async (params) => {
       "vendor":  {
         name: vendor.name,
         rating: vendor.rating,
+        id:product.vendorId.toString()
       }
     }
     
@@ -435,6 +442,7 @@ module.exports.getProduct = async (params) => {
       size: "Size",
       color: "Color",
     };
+
 
       if ("productInfos" in product) {
         productInfos = {}

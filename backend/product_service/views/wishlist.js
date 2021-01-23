@@ -25,6 +25,7 @@ module.exports.getWishlist = async (customerId) => {
         product.vendor = {
           name: vendor.name,
           rating: vendor.rating,
+          id: product.vendorId.toString(),
         };
         product.id = product._id.toString();
 
