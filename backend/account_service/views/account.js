@@ -260,10 +260,10 @@ module.exports.changePassword = async (params) => {
        return { success: false, message: ErrorMessage.MISSING_PARAMETER };
      }
      var account = await Customer.findOne({ email: params.email});
-     var userType = "Customer";
+     var userType = "customer";
      if(!account){
      account = await Vendor.findOne({ email: params.email});
-     userType = "Vendor";
+     userType = "vendor";
      }
      if (account) {
       sendForgotPasswordEmail(params.email, account._id.toString(), userType); 
