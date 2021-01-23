@@ -25,7 +25,9 @@ const VendorProductCard = ({ name, originalPrice, price, imgUrl, productId, bran
 						</Link>
 					</div>
 					<div className='col text-center'>
-						<button type='button' className='btn btn-danger'>Edit</button>
+						<Link to={`/updateproduct/${productId}`}>
+							<button type='button' className='btn btn-danger'>Edit</button>
+						</Link>
 					</div>
 				</div>
 				<div className='row'>
