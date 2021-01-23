@@ -14,7 +14,7 @@ module.exports.Customer = mongoose.model(
     password: String,
     gender: String,
     phoneNumber: String,
-    isVerified: Boolean
+    status: String
   }),
   "customer"
 );

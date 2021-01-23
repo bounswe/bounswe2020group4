@@ -248,6 +248,36 @@ module.exports.changePassword = async (params) => {
  * Gets the account id and updates changes the password of the account of that id
  *
  * @param {
+  * email: String
+  * } params
+  * @return {
+  *  Boolean: Account exists
+  * }
+  */
+ module.exports.forgotPassword = async (params) => {
+   try {
+     if (!params.email) {
+       return { success: false, message: ErrorMessage.MISSING_PARAMETER };
+     }
+     var account = await Customer.findOne({ email: params.email});
+     if(!account){
+     account = await Vendor.findOne({ email: params.email});
+     }
+     if (account) {
+       sendForgotPasswordEmail(params.email); 
+       return { success: true };
+     }
+     return { success: false, message: ErrorMessage.USER_NOT_FOUND };
+   } catch (error) {
+     console.log(error);
+     return { success: false, message: error.message || error };
+   }
+ };
+
+/**
+ * Gets the account id and updates the status of the account of that id
+ *
+ * @param {
   * id: String,
   * userType: String,
   * password: String
@@ -264,7 +294,7 @@ module.exports.changePassword = async (params) => {
      const collection = params.userType === "customer" ? Customer : Vendor;
      const account = await collection.findOne({ _id: ObjectId(params.id) });
      if (account) {
-       account.isVerified = true;
+       account.status = "verified";
        await account.save();
  
        return { success: true };
@@ -285,7 +315,7 @@ module.exports.changePassword = async (params) => {
  *  password: String
  * } params
  *
- * @returns {userId | false}
+ * @returns {userId | false | userStatus}
  */
 module.exports.login = async (params) => {
   try {
@@ -298,9 +328,9 @@ module.exports.login = async (params) => {
       password: params.password,
     });
     if (user) {
-      return { success: true, userId: user._id.toString() };
+      return { success: true, userId: user._id.toString() , userStatus: user.status};
     }
-    return { success: false, message: ErrorMessage.USER_NOT_FOUND };
+    return { success: false, message: ErrorMessage.USER_NOT_FOUND};
   } catch (error) {
     return { success: false, message: error.message || error };
   }
@@ -332,9 +362,31 @@ function sendVerificationMail(userEmail, userType, userId){
       console.log('Email sent: ' + info.response);
     }
   });
+}
 
+function sendForgotPasswordEmail(userEmail){
 
-
+  var transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+      user: 'buyoboun@gmail.com',
+      pass: 'buyo1234'
+    }
+  });
+  var mailOptions = {
+    from: '"Bu Yo" <buyoboun@gmail.com>',
+    to: userEmail,
+    subject: 'Your BUYO verification e-mail',
+    html: '<p>Click <a href ="http://localhost:8080/account/verify?userType="> here </a> to verify your BUYO account.</p>'
+  };
+  
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
 }
 /**
  * Performs signup for vendor or customer.
@@ -365,7 +417,7 @@ module.exports.signup = async (params) => {
         email: params.email,
         password: params.password,
         name: params.name,
-        isVerified: false
+        status: "not-verified"
       });
     } else {
       user = await Vendor.create({
@@ -376,7 +428,7 @@ module.exports.signup = async (params) => {
         website: params.website,
         company: params.company,
         name: params.name,
-        isVerified: false
+        status: "not-verified"
       });
     }
     if (user) {
