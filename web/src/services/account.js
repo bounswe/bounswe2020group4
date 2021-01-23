@@ -122,6 +122,16 @@ const updatePassword = async (userType, id, passwordInfo) => {
 	return response.data.status.code
 }
 
+const forgotPassword = async (email) => {
+	let response
+	try {
+		response = await axios.post(`${baseUrl}account/forgotPassword?email=${email}`)
+	} catch (err) {
+		return false
+	}
+	return response.data.status.code == 200
+}
+
 const verify = async (userType, userId) => {
 	let response
 	try{
@@ -203,4 +213,4 @@ const signUp = async (signUpInput) => {
 
 }
 
-export default { verify, login, signUp, getProfileInfo, updateProfileInfo, updatePassword, vendorLogin, vendorSignUp, addNewAddress, updateAddress }
+export default { forgotPassword, verify, login, signUp, getProfileInfo, updateProfileInfo, updatePassword, vendorLogin, vendorSignUp, addNewAddress, updateAddress }

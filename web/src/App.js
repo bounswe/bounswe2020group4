@@ -26,6 +26,7 @@ import VendorProducts from './pages/VendorProducts'
 import AddProduct from './pages/AddProduct'
 import Notification from './pages/Notification'
 import Verification from './pages/Verification'
+import ResetPassword from './pages/ResetPassword'
 
 //Styling
 import './App.css'
@@ -63,6 +64,7 @@ const App = ({ showHeader, showVendorHeader }) => {
 					<Route path="/addproduct" exact component={AddProduct}/>
 					<Route path="/notification" exact component={Notification}/>
 					<Route path="/verifyuser" exact component={Verification}/>
+					<Route path="/resetpassword" exact component={ResetPassword}/>
          		</div>
        </Router>
      </div>
