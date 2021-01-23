@@ -9,23 +9,30 @@ const { ErrorMessage } = require("../constants/error");
 module.exports.updateProduct = async (product_id,parameter) => {
   try {
     var innerParameter = parameter;
+    var productInfosChecker = false;
     if(!!parameter.attributes){
       product = await Product.findOne({ _id: ObjectId(product_id) });
       product = product.toJSON()
 
       var productAttributes = []
-      product.productInfos.forEach(function(item){
+      
+      JSON.parse(product.productInfos).forEach(function(item){
         if(JSON.stringify(item.attributes) == JSON.stringify(parameter.attributes)){      
           productAttributes.push(parameter)
+          productInfosChecker = true;
         }else{
           productAttributes.push(item)
         }
 
       })
 
+      productAttributes = JSON.stringify(productAttributes)
       innerParameter = {"productInfos": productAttributes};
     }
 
+    if(!productInfosChecker){
+      return "Please check your update parameters"
+    }
     checker = Product.findByIdAndUpdate(product_id, innerParameter, 
         function (err, docs) { 
           if (err){ 
@@ -43,26 +50,29 @@ module.exports.updateProduct = async (product_id,parameter) => {
     
   } catch (error) {
     console.log(error);
-    return "CHECK_UPDATE_PARAMETERS";
+    return "Please check your update parameters"
   }
 };
 
 module.exports.addProducts = async (products) => {
   try {
     const dbProducts = [];
-
+    checker = true;
     products.forEach((product) => {
+      checker = checker && ("name" in product) && ("imageUrl" in product) &&
+      ("description" in product) && ("rating" in product) && ("price" in product) &&
+      ("originalPrice" in product) && ("brand" in product) && ("productInfos" in product) &&
+      ("vendorId" in product);
       const newProduct = new Product({
         name: product.name,
         imageUrl: product.imageUrl,
         category: product.category,
-        numberOfRatings: 0,
+        description: product.description,
+        rating: product.rating,
         price: product.price,
         originalPrice: product.originalPrice || product.price,
-        stockValue: product.stockValue,
         brand: product.brand,
-        sizes: product.sizes,
-        colors: product.colors,
+        productInfos: JSON.stringify(product.productInfos),
         vendorId: ObjectId(product.vendorId),
       });
 
@@ -70,8 +80,11 @@ module.exports.addProducts = async (products) => {
     });
 
     await Promise.all(dbProducts.map(async (dbProduct) => await dbProduct.save()));
+    if(checker){
+      return {"idList":dbProducts.map((dbProduct) => dbProduct._id.toString())};
+    }
 
-    return dbProducts.map((dbProduct) => dbProduct._id.toString());
+    return false;
   } catch (error) {
     console.log(error);
     return error;
@@ -93,11 +106,11 @@ module.exports.getVendorList = async () => {
 
 module.exports.getProducts = async (params) => {
   try {
+
     let products;
 
-    if (!params.vendorId) {
-      return { success: false, message: ErrorMessage.MISSING_PARAMETER };
-    }
+    finalProductList = []
+
 
     if (params.categories) {
       products = await Product.find({ category: { $all: params.categories } });
@@ -105,7 +118,12 @@ module.exports.getProducts = async (params) => {
       products = await Product.find({ name: { $regex: params.search, $options: "i" } });
     }else{
       products = await Product.find();
-    }
+    }	    
+
+
+    products = products.filter(function(product){
+      return JSON.stringify(params.vendorId) === JSON.stringify(product.vendorId)
+    })
 
     products = products.filter(function(product){
         return JSON.stringify(params.vendorId) === JSON.stringify(product.vendorId)
@@ -146,61 +164,82 @@ module.exports.getProducts = async (params) => {
      * Thats why I create filtering part here.
      */
 
-   
+     
+    products.forEach(function (product) {
+
+      /* Since we cannot change the structure of product , we have to create a temp product and return it.*/
+      tempProduct = {
+        "category": product.category,
+        "description": product.description,
+        "name": product.name,
+        "price": product.price,
+        "originalPrice": product.originalPrice,
+        "imageUrl": product.imageUrl,
+        "rating": product.rating,
+        "brand": product.brand,
+        "vendorId": product.vendorId,
+        "id": product.id
+    }
       
-      products.forEach(function (product) {
-        if ((product.productInfos || []).length > 0) {
-          product.productInfos.forEach(function (property) {
-            property["attributes"].forEach(function (attribute) {
-              if (filterCriterias.length === 0) {
+      if ("productInfos" in product) {
+        productInfos = {}
+      
+        tempProduct["productInfos"]  = JSON.parse(product.productInfos)
+        
+       
+        tempProduct["productInfos"].forEach(function (property) {
+          property["attributes"].forEach(function (attribute) {
+            if (filterCriterias.length === 0) {
+              filterCriterias.push({
+                name: attribute.name,
+                displayName: filteringConfig[attribute.name],
+                possibleValues: [attribute.value],
+              });
+            } else {
+              var nameCheckerObject = filterCriterias.filter(function (currentCriteria) {
+                return currentCriteria.name === attribute.name;
+              });
+
+              if (nameCheckerObject.length > 0) {
+                var currentCriteria;
+                filterCriterias.forEach(function (criteria) {
+                  if (criteria.name === attribute.name) {
+                    currentCriteria = criteria;
+                  }
+                });
+
+                var valueChecker = currentCriteria["possibleValues"].some(function (currentValue) {
+                  return attribute.value === currentValue;
+                });
+
+                if (!valueChecker) {
+                  currentCriteria["possibleValues"].push(attribute.value);
+                }
+              } else {
                 filterCriterias.push({
                   name: attribute.name,
                   displayName: filteringConfig[attribute.name],
                   possibleValues: [attribute.value],
                 });
-              } else {
-                var nameCheckerObject = filterCriterias.filter(function (currentCriteria) {
-                  return currentCriteria.name === attribute.name;
-                });
-
-                if (nameCheckerObject.length > 0) {
-                  var currentCriteria;
-                  filterCriterias.forEach(function (criteria) {
-                    if (criteria.name === attribute.name) {
-                      currentCriteria = criteria;
-                    }
-                  });
-
-                  var valueChecker = currentCriteria["possibleValues"].some(function (currentValue) {
-                    return attribute.value === currentValue;
-                  });
-
-                  if (!valueChecker) {
-                    currentCriteria["possibleValues"].push(attribute.value);
-                  }
-                } else {
-                  filterCriterias.push({
-                    name: attribute.name,
-                    displayName: filteringConfig[attribute.name],
-                    possibleValues: [attribute.value],
-                  });
-                }
               }
-            });
+            }
           });
-        }
-      });
+        });
+      }
+
+      finalProductList.push(tempProduct)
+    });
 
     if (!!params.sortingFactor) {
       try {
-        if (typeof(products[0][params.sortingFactor]) == "number") {
-          products = products.sort(
+        if (typeof(finalProductList[0][params.sortingFactor]) == "number") {
+          finalProductList = finalProductList.sort(
             (product1, product2) =>
               (params.sortingType == "descending" ? -1 : 1) *
               (product1[params.sortingFactor] - product2[params.sortingFactor])
           );
         } else {
-          products = products.sort(
+          finalProductList = finalProductList.sort(
             (product1, product2) =>
               (params.sortingType == "descending" ? -1 : 1) *
               ("" + product1[params.sortingFactor]).localeCompare(product2[params.sortingFactor])
@@ -212,19 +251,19 @@ module.exports.getProducts = async (params) => {
     }
 
     if (!!params.subcategory) {
-      products = products.filter(function (product) {
+      finalProductList = finalProductList.filter(function (product) {
         return product.category.indexOf(params.subcategory) > -1;
       });
     }
 
     if (!!params.brand) {
-      products = products.filter(function (product) {
+      finalProductList = finalProductList.filter(function (product) {
         return product.brand.indexOf(params.brand) > -1;
       });
     }
 
     if (!!params.color) {
-      products = products.filter(function (product) {
+      finalProductList = finalProductList.filter(function (product) {
         var checker = false;
 
         try {
@@ -242,7 +281,7 @@ module.exports.getProducts = async (params) => {
     }
 
     if (!!params.size) {
-      products = products.filter(function (product) {
+      finalProductList = finalProductList.filter(function (product) {
         var checker = false;
 
         try {
@@ -260,7 +299,7 @@ module.exports.getProducts = async (params) => {
     }
 
     if (!!params.screenSize) {
-      products = products.filter(function (product) {
+      finalProductList = finalProductList.filter(function (product) {
         var checker = false;
 
         try {
@@ -278,7 +317,7 @@ module.exports.getProducts = async (params) => {
     }
 
     if (!!params.aroma) {
-      products = products.filter(function (product) {
+      finalProductList = finalProductList.filter(function (product) {
         var checker = false;
 
         try {
@@ -296,7 +335,7 @@ module.exports.getProducts = async (params) => {
     }
 
     if (!!params.RAM) {
-      products = products.filter(function (product) {
+      finalProductList = finalProductList.filter(function (product) {
         var checker = false;
 
         try {
@@ -314,7 +353,7 @@ module.exports.getProducts = async (params) => {
     }
 
     if (!!params.diskSize) {
-      products = products.filter(function (product) {
+      finalProductList = finalProductList.filter(function (product) {
         var checker = false;
 
         try {
@@ -332,7 +371,7 @@ module.exports.getProducts = async (params) => {
     }
 
     if (!!params.noiseCancelling) {
-      products = products.filter(function (product) {
+      finalProductList = finalProductList.filter(function (product) {
         var checker = false;
 
         try {
@@ -349,11 +388,41 @@ module.exports.getProducts = async (params) => {
       });
     }
 
-    
+    finalProductList = await Promise.all(
+      finalProductList.map(async (product) => {
+        const vendor = await Vendor.findById(product.vendorId);
 
-    return { productList: products, filterCriterias };
+        product.vendor = {
+          name: vendor.name,
+          rating: vendor.rating,
+        };
+        product.id = product.id.toString();
+
+        delete product._id;
+        delete product.vendorId;
+
+        return product;
+      })
+    );
+
+
+
+    if(params.vendorName){
+      finalProductList = finalProductList.filter(product => product.vendor.name == params.vendorName)
+    }
+
+
+    return { productList: finalProductList, filterCriterias };
   } catch (error) {
     console.log(error);
     return error;
   }
 };
+
+
+module.exports.getVendorList = async () => {
+  const vendorList = await Vendor.find();
+
+  return vendorList
+
+}
