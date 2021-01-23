@@ -76,7 +76,6 @@ module.exports.getProducts = async (params) => {
 
     finalProductList = []
 
-    console.log("***********GET PRODUCTS******************")
     if (params.categories) {
       products = await Product.find({ category: { $all: JSON.parse(params.categories) } });
     } else if (params.search) {
@@ -367,11 +366,16 @@ module.exports.getProduct = async (params) => {
   try {
     let product;
 
+
+    
+
     if (params.id) {
       product = await Product.findOne({ _id: ObjectId(params.id) });
     }
 
-    if (product) {
+    if (!product) {
+      return false
+    }
       product = product.toJSON();
 
       let comments = await Comment.find({ productId: ObjectId(product._id) });
@@ -394,17 +398,31 @@ module.exports.getProduct = async (params) => {
 
       const vendor = await Vendor.findOne({ _id: product.vendorId });
 
-      product.vendor = {
-        name: vendor.name,
-        rating: vendor.rating,
-      };
-      product.id = product._id.toString();
 
-      product.comments = comments;
 
       delete product._id;
       delete product.vendorId;
+
+
+    /* Since we cannot change the structure of product , we have to create a temp product and return it.*/
+    tempProduct = {
+      "category": product.category,
+      "description": product.description,
+      "name": product.name,
+      "price": product.price,
+      "originalPrice": product.originalPrice,
+      "imageUrl": product.imageUrl,
+      "rating": product.rating,
+      "brand": product.brand,
+      "vendorId": product.vendorId,
+      "id": product.id,
+      "comments": comments,
+      "vendor":  {
+        name: vendor.name,
+        rating: vendor.rating,
+      }
     }
+    
 
     var filterCriterias = [];
     var filteringConfig = {
@@ -417,54 +435,55 @@ module.exports.getProduct = async (params) => {
       color: "Color",
     };
 
-    console.log("************************")
-    console.log("CATEGORIES", product.category)
-
-    if (product.productInfos.length > 0) {
-      product.productInfos = JSON.parse(product.productInfos)
-      product.productInfos.forEach(function (property) {
-        property["attributes"].forEach(function (attribute) {
-          if (filterCriterias.length === 0) {
-            filterCriterias.push({
-              name: attribute.name,
-              displayName: filteringConfig[attribute.name],
-              possibleValues: [attribute.value],
-            });
-          } else {
-            var nameCheckerObject = filterCriterias.filter(function (currentCriteria) {
-              return currentCriteria.name === attribute.name;
-            });
-
-            if (nameCheckerObject.length > 0) {
-              var currentCriteria;
-              filterCriterias.forEach(function (criteria) {
-                if (criteria.name === attribute.name) {
-                  currentCriteria = criteria;
-                }
-              });
-
-              var valueChecker = currentCriteria["possibleValues"].some(function (currentValue) {
-                return attribute.value === currentValue;
-              });
-
-              if (!valueChecker) {
-                currentCriteria["possibleValues"].push(attribute.value);
-              }
-            } else {
+      if ("productInfos" in product) {
+        productInfos = {}
+      
+        tempProduct["productInfos"]  = JSON.parse(product.productInfos)
+        
+        tempProduct["productInfos"].forEach(function (property) {
+          property["attributes"].forEach(function (attribute) {
+            if (filterCriterias.length === 0) {
               filterCriterias.push({
                 name: attribute.name,
                 displayName: filteringConfig[attribute.name],
                 possibleValues: [attribute.value],
               });
+            } else {
+              var nameCheckerObject = filterCriterias.filter(function (currentCriteria) {
+                return currentCriteria.name === attribute.name;
+              });
+
+              if (nameCheckerObject.length > 0) {
+                var currentCriteria;
+                filterCriterias.forEach(function (criteria) {
+                  if (criteria.name === attribute.name) {
+                    currentCriteria = criteria;
+                  }
+                });
+
+                var valueChecker = currentCriteria["possibleValues"].some(function (currentValue) {
+                  return attribute.value === currentValue;
+                });
+
+                if (!valueChecker) {
+                  currentCriteria["possibleValues"].push(attribute.value);
+                }
+              } else {
+                filterCriterias.push({
+                  name: attribute.name,
+                  displayName: filteringConfig[attribute.name],
+                  possibleValues: [attribute.value],
+                });
+              }
             }
-          }
+          });
         });
-      });
-    }
+      }
 
-    product.filterCriterias = filterCriterias
 
-    return product;
+      tempProduct.filterCriterias = filterCriterias
+
+    return tempProduct;
   } catch (error) {
     console.log(error);
     return error;
