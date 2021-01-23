@@ -65,6 +65,7 @@ module.exports.initialize = (app) => {
     response.respond(200, "OK", {
       result
     });   
+
   });
 
 };

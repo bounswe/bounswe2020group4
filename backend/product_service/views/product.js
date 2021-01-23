@@ -326,6 +326,7 @@ module.exports.getProducts = async (params) => {
 
     finalProductList = await Promise.all(
       finalProductList.map(async (product) => {
+
         const vendor = await Vendor.findById(product.vendorId);
 
         product.vendor = {

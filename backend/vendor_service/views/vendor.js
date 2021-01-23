@@ -92,6 +92,18 @@ module.exports.addProducts = async (products) => {
 };
 
 
+
+module.exports.getVendorList = async () => {
+  try {
+    vendorList = await Vendor.find();
+
+    return vendorList;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
 module.exports.getProducts = async (params) => {
   try {
 
@@ -99,8 +111,9 @@ module.exports.getProducts = async (params) => {
 
     finalProductList = []
 
+
     if (params.categories) {
-      products = await Product.find({ category: { $all: JSON.parse(params.categories) } });
+      products = await Product.find({ category: { $all: params.categories } });
     } else if (params.search) {
       products = await Product.find({ name: { $regex: params.search, $options: "i" } });
     }else{
@@ -111,6 +124,28 @@ module.exports.getProducts = async (params) => {
     products = products.filter(function(product){
       return JSON.stringify(params.vendorId) === JSON.stringify(product.vendorId)
     })
+
+    products = products.filter(function(product){
+        return JSON.stringify(params.vendorId) === JSON.stringify(product.vendorId)
+    })
+
+    products = await Promise.all(
+      products.map(async (product) => {
+        product = product.toJSON();
+          const vendor = await Vendor.findById(product.vendorId);
+          
+          product.vendor = {
+            name: vendor.name,
+            rating: vendor.rating,
+          };
+          product.id = product._id.toString();
+          
+          delete product._id;
+          delete product.vendorId;
+          
+          return product;
+      })
+    );
 
     var filterCriterias = [];
     var filteringConfig = {
@@ -375,6 +410,7 @@ module.exports.getProducts = async (params) => {
     if(params.vendorName){
       finalProductList = finalProductList.filter(product => product.vendor.name == params.vendorName)
     }
+
 
     return { productList: finalProductList, filterCriterias };
   } catch (error) {
