@@ -2,6 +2,7 @@ const product = require("../views/product");
 const recommendation = require("../views/recommendation");
 const wishlist = require("../views/wishlist");
 const cart = require("../views/cart");
+const { ErrorCode } = require("../constants/error");
 
 module.exports.initialize = (app) => {
   /**
@@ -45,12 +46,12 @@ module.exports.initialize = (app) => {
   app.get("/products/recommendation", async (request, response) => {
     const result = await recommendation.getProducts(request.query);
 
-    if (result) {
+    if (result.success) {
       response.respond(200, "OK", {
-        result,
+        productList: result.productList,
       });
     } else {
-      response.respond(404, "Product not found");
+      response.respond(ErrorCode(result.message), result.message);
     }
   });
 
