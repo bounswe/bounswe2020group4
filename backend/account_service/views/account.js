@@ -291,6 +291,16 @@ module.exports.signup = async (params) => {
     const collection = params.userType === "customer" ? Customer : Vendor;
     let userLog = await collection.findOne({ email: params.email });
     if (userLog) {
+      if (params.userType === "customer") {
+        if (userLog.googleToken) {
+          if (userLog.password) {
+            return { success: false, message: ErrorMessage.EMAIL_HAS_BEEN_USED };
+          }
+          userLog.password = params.password;
+          await userLog.save();
+          return { success: true, userId: userLog._id.toString() };
+        }
+      }
       return { success: false, message: ErrorMessage.EMAIL_HAS_BEEN_USED };
     }
     let user;
@@ -321,3 +331,35 @@ module.exports.signup = async (params) => {
     return { success: false, message: error.message || error };
   }
 };
+
+module.exports.signInByGoogle = async (params) => {
+  try {
+    if (!!params.email || !!params.token) {
+      return { success: false, message: ErrorMessage.MISSING_PARAMETER };
+    }
+    
+    let user = await Customer.findOne({ email: params.email });
+    if (!!user) { 
+      user = await Customer.create({
+        email: params.email,
+        googleToken: params.token,
+        name: params.name
+      });
+    } else {
+      if (user.googleToken) { 
+        if (user.googleToken !== params.token) {
+          return { success: false, message: ErrorMessage.WRONG_GOOGLE_TOKEN };
+        } 
+      } else {
+        user.googleToken = params.token;
+        await user.save();
+      }
+    }
+    return { success: true, userId: user._id.toString() };
+  } catch (error) {
+    console.log(error);
+    return { success: false, message: error.message || error };
+  }
+};
+
+
