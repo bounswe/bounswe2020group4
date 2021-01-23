@@ -70,7 +70,7 @@ const SignIn = ({hideHeader, showHeader, setLoginState}) => {
 		} else if (response.banned) {
 			alert("Your account has been suspended. Please check your e-mail for further information.")
 		} else {
-			setLoginState({ userId: response.id, userType: 'customer' })
+			setLoginState({ userId: response.userId, userType: 'customer', isGoogleUser: true })
 			history.push('/')
 		}
 	}
