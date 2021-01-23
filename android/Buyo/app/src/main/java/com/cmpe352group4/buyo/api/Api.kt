@@ -162,4 +162,10 @@ interface Api {
         @Query("message") message : String
     ):LiveData<ApiResponse<BaseResponsePostRequest>>
 
+    @GET("/messages/last")
+    fun fetchLastMessages(
+        @Query("userType") userType: String,
+        @Query("id") id: String
+    ) : LiveData<ApiResponse<BaseResponse<LastMessageResponse>>>
+
 }
