@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
 
 import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
@@ -10,6 +11,8 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Fab from '@material-ui/core/Fab'
 import SendIcon from '@material-ui/icons/Send'
+
+import messageService from '../services/messages'
 
 import './Messages.css'
 
@@ -33,9 +36,23 @@ const useStyles = makeStyles({
 	}
 })
 
-const Messages = () => {
+const Messages = ({isLoggedIn, userId}) => {
 	const classes = useStyles()
-	const vendors = ['Koton', 'Ayşe Teyze', 'Apple']
+	const [lastMessages, setLastMessages] = useState([])
+	const [displayedMessages, setDisplayedMessages] = useState([])
+	const [displayedUserId, setDisplayedUserId] = useState(null)
+
+	useEffect(async () => {
+		// TODO: make user type generic
+		const messages = await messageService.getLastMessages(userId, 'customer')
+		setLastMessages(messages.slice(1)) // TODO remove slice
+	}, [])
+
+	const handleListItemClick = async (e, id) => {
+		setDisplayedUserId(id)
+		const messages = await messageService.getMessages(userId, 'customer', id, 'customer') // TODO make user type generic
+		setDisplayedMessages(messages)
+	}
 
 	return(
 		<div>
@@ -44,51 +61,42 @@ const Messages = () => {
 				<Grid container component={Paper} className={classes.chatSection}>
 					<Grid item xs={3} className={classes.borderRight500}>
 						<List>
-							{vendors.map(v =>
-								<ListItem button key={v}>
-									<ListItemText primary={v}>{v}</ListItemText>
+							{lastMessages.map(v =>
+								<ListItem button key={v.user.id}
+									selected={displayedUserId === v.user.id}
+									onClick={(e) => handleListItemClick(e, v.user.id)}>
+									<ListItemText primary={v.user.name}>{v.user.name}</ListItemText>
 								</ListItem>)}
 						</List>
 					</Grid>
 					<Grid item xs={9}>
-						<List className={classes.messageArea}>
-							<ListItem key="1">
+						{displayedMessages.length !== 0 ?
+							<List className={classes.messageArea}>
+								{displayedMessages.map(m =>
+									<ListItem key={m.id}>
+										<Grid container>
+											<Grid item xs={12}>
+												<ListItemText align={m.user.id === userId ? 'right' : 'left'} primary={m.message}></ListItemText>
+											</Grid>
+											<Grid item xs={12}>
+												<ListItemText align={m.user.id === userId ? 'right' : 'left'} secondary={m.date}></ListItemText>
+											</Grid>
+										</Grid>
+									</ListItem>)}
+							</List> :
+							<List className={classes.messageArea}>
 								<Grid container>
 									<Grid item xs={12}>
-										<ListItemText align="right" primary="Merhaba ürünümü nasıl iade edebilirim?"></ListItemText>
-									</Grid>
-									<Grid item xs={12}>
-										<ListItemText align="right" secondary="09:30"></ListItemText>
+										<ListItemText align="center" primary="Please choose from the left panel a user!"></ListItemText>
 									</Grid>
 								</Grid>
-							</ListItem>
-							<ListItem key="2">
-								<Grid container>
-									<Grid item xs={12}>
-										<ListItemText align="left" primary="Edemezsiniz."></ListItemText>
-									</Grid>
-									<Grid item xs={12}>
-										<ListItemText align="left" secondary="09:31"></ListItemText>
-									</Grid>
-								</Grid>
-							</ListItem>
-							<ListItem key="3">
-								<Grid container>
-									<Grid item xs={12}>
-										<ListItemText align="right" primary="Peki :("></ListItemText>
-									</Grid>
-									<Grid item xs={12}>
-										<ListItemText align="right" secondary="10:30"></ListItemText>
-									</Grid>
-								</Grid>
-							</ListItem>
-						</List>
+							</List>}
 						<Divider />
 						<Grid container style={{padding: '20px'}}>
 							<Grid item xs={11}>
 								<TextField id="outlined-basic-email" label="Type Something" fullWidth />
 							</Grid>
-							<Grid xs={1} align="right">
+							<Grid item xs={1} align="right">
 								<Fab color="primary" aria-label="add"><SendIcon /></Fab>
 							</Grid>
 						</Grid>
@@ -99,5 +107,11 @@ const Messages = () => {
 	)
 }
 
+const mapStateToProps = (state) => {
+	return {
+		isLoggedIn: state.signIn.isLoggedIn,
+		userId: state.signIn.userId
+	}
+}
 
-export default Messages
+export default connect(mapStateToProps)(Messages)
