@@ -260,12 +260,15 @@ module.exports.changePassword = async (params) => {
        return { success: false, message: ErrorMessage.MISSING_PARAMETER };
      }
      var account = await Customer.findOne({ email: params.email});
+     var userType = "Customer";
      if(!account){
      account = await Vendor.findOne({ email: params.email});
+     userType = "Vendor";
      }
      if (account) {
-       sendForgotPasswordEmail(params.email); 
-       return { success: true };
+      sendForgotPasswordEmail(params.email, account._id.toString(), userType); 
+      return { success: true };
+
      }
      return { success: false, message: ErrorMessage.USER_NOT_FOUND };
    } catch (error) {
@@ -348,11 +351,12 @@ function sendVerificationMail(userEmail, userType, userId){
   //html: '<p>Click <a href="http://localhost:3000/sessions/recover/' + recovery_token + '">here</a> to reset your password</p>'
   //var verifyLink = 'http://localhost:8080/account/verify?userType=' + userType + '&id= ' + userId;
   var mailOptions = {
-    from: '"Bu Yo" <buyoboun@gmail.com>',
+    from: '"BUYO" <buyoboun@gmail.com>',
     to: userEmail,
     subject: 'Your BUYO verification e-mail',
     //text: 'Click this link for verifying your account!',
-    html: '<p>Click <a href ="http://localhost:8080/account/verify?userType=' + userType + '&id=' + userId + '"> here </a> to verify your BUYO account.</p>'
+    //http://buyomarket.ml/verifyuser?userType=<userType>&userId=<userId>&verificationCode=<verificationCode>
+    html: '<p>Click <a href ="http://buyomarket.ml/verifyuser?userType=' + userType + '&id=' + userId + '"> here </a> to verify your BUYO account.</p>'
   };
   
   transporter.sendMail(mailOptions, function(error, info){
@@ -364,7 +368,7 @@ function sendVerificationMail(userEmail, userType, userId){
   });
 }
 
-function sendForgotPasswordEmail(userEmail){
+function sendForgotPasswordEmail(userEmail, userId, userType){
 
   var transporter = nodemailer.createTransport({
     service: 'Gmail',
@@ -373,11 +377,12 @@ function sendForgotPasswordEmail(userEmail){
       pass: 'buyo1234'
     }
   });
+
   var mailOptions = {
-    from: '"Bu Yo" <buyoboun@gmail.com>',
+    from: '"BUYO" <buyoboun@gmail.com>',
     to: userEmail,
-    subject: 'Your BUYO verification e-mail',
-    html: '<p>Click <a href ="http://localhost:8080/account/verify?userType="> here </a> to verify your BUYO account.</p>'
+    subject: 'Did you forgot your password?',
+    html: '<p>Click <a href ="http://buyomarket.ml/forgotpassword?userId=' + userId + '&userType=' + userType + '"> here </a> to reset your BUYO account password.</p>'
   };
   
   transporter.sendMail(mailOptions, function(error, info){
