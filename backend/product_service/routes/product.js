@@ -31,12 +31,12 @@ module.exports.initialize = (app) => {
    */
   app.get("/product", async (request, response) => {
     const result = await product.getProduct(request.query);
-    if (result) {
+    if ( "name" in result && !("Error" in result)) {
       response.respond(200, "OK", {
         result,
       });
     } else {
-      response.respond(404, "Product not found");
+      response.respond(404, "Product not found. Please check productId");
     }
   });
 
