@@ -5,13 +5,13 @@ const { ErrorCode } = require("../constants/error");
 
 module.exports.initialize = (app) => {
   app.post("/vendor/products", async (request, response) => {
-    const result = await vendor.addProducts(request.body.products);
-    if (result) {
+    const result = await vendor.addProducts(request.body);
+    if (result["idList"]) {
       response.respond(200, "OK", {
         result,
       });
     } else {
-      response.respond(404, "Product not found");
+      response.respond(400,"Please check your products' information");
     }
   });
 

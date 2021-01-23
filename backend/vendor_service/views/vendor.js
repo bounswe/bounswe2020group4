@@ -50,15 +50,12 @@ module.exports.updateProduct = async (product_id,parameter) => {
 module.exports.addProducts = async (products) => {
   try {
     const dbProducts = [];
-
+    checker = true;
     products.forEach((product) => {
-
-
-    console.log("************************")
-    console.log("************************")
-    console.log(product.productInfos)
-    console.log("************************")
-    console.log("************************")
+      checker = checker && ("name" in product) && ("imageUrl" in product) &&
+      ("description" in product) && ("rating" in product) && ("price" in product) &&
+      ("originalPrice" in product) && ("brand" in product) && ("productInfos" in product) &&
+      ("vendorId" in product);
       const newProduct = new Product({
         name: product.name,
         imageUrl: product.imageUrl,
@@ -68,21 +65,19 @@ module.exports.addProducts = async (products) => {
         price: product.price,
         originalPrice: product.originalPrice || product.price,
         brand: product.brand,
-        productInfos: product.productInfos,
+        productInfos: JSON.stringify(product.productInfos),
         vendorId: ObjectId(product.vendorId),
       });
 
       dbProducts.push(newProduct);
     });
 
-    console.log("************************")
-    console.log("************************")
     await Promise.all(dbProducts.map(async (dbProduct) => await dbProduct.save()));
+    if(checker){
+      return {"idList":dbProducts.map((dbProduct) => dbProduct._id.toString())};
+    }
 
-    console.log("************************")
-    console.log("************************")
-
-    return dbProducts.map((dbProduct) => dbProduct._id.toString());
+    return false;
   } catch (error) {
     console.log(error);
     return error;
