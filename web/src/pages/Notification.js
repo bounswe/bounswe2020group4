@@ -44,7 +44,7 @@ const Notification = ({ showHeader, hideHeader, showVendorHeader, isLoggedIn, us
             <div className="checkout-header-container px-5 py-2 centered-header">Notifications</div>
             <div className="notification-container">
                 {notifs?.length > 0 ? notifs.map((notif, index) => (
-                    <Card key={index} style={{ width: '400px', cursor: 'pointer', 'margin-top': '0.5em'}} onClick={(e) => redirect(e, notif)}>
+                    <Card key={index} style={{ width: '400px', cursor: 'pointer', 'margin-top': '0.5em', 'background-color': '#FFFAEF' }} onClick={(e) => redirect(e, notif)}>
                         <Card.Body>
                             <Card.Title>
                                 {new Date(Date.parse(notif.startTime)).toLocaleString()}
