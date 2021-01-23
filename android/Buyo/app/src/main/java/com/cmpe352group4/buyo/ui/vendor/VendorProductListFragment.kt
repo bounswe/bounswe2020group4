@@ -109,6 +109,9 @@ class VendorProductListFragment: BaseFragment() {
             }
         })
 
+        btn_vendorProductList_back.setOnClickListener {
+            activity?.onBackPressed()
+        }
 
     }
 
