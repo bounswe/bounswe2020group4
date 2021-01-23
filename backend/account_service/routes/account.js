@@ -27,6 +27,31 @@ module.exports.initialize = (app) => {
       response.respond(ErrorCode(result.message), result.message);
     }
   });
+      /**
+   * Gets user id, user type and sends an email for resetting password
+   */
+  app.post("/account/forgotPassword", async (request, response) => {
+    const result = await account.forgotPassword(request.extractParams());
+
+    if (result.success) {
+      response.respond(200, "OK");
+    } else {
+      response.respond(ErrorCode(result.message), result.message);
+    }
+  });
+    /**
+   * Gets user id, user type, and some fields, verifies the account
+   * with that id.
+   */
+  app.get("/account/verify", async (request, response) => {
+    const result = await account.verifyAccount(request.extractParams());
+
+    if (result.success) {
+      response.respond(200, "OK");
+    } else {
+      response.respond(ErrorCode(result.message), result.message);
+    }
+  });
   /**
    * Gets user id, user type, and new password, then changes the password
    * of the account with that id.
@@ -85,7 +110,7 @@ module.exports.initialize = (app) => {
     const result = await account.login(request.extractParams());
 
     if (result.success) {
-      response.respond(200, "OK", { userId: result.userId });
+      response.respond(200, "OK", { userId: result.userId, status: result.userStatus });
     } else {
       response.respond(ErrorCode(result.message), result.message);
     }

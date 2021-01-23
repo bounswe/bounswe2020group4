@@ -14,6 +14,7 @@ module.exports.Customer = mongoose.model(
     password: String,
     gender: String,
     phoneNumber: String,
+    status: String,
     googleToken: String
   }),
   "customer"
