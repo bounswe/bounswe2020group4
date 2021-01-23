@@ -8,6 +8,7 @@ import history from '../util/history'
 import './AddProduct.css'
 import {getCategories} from '../services/category'
 import productService from '../services/products'
+import vendorService from '../services/vendor.js'
 
 const generatePossibleAttVals = (productInfos) => {
 	let possibleValues = {}
@@ -58,6 +59,9 @@ const UpdateProduct = (props) => {
 	const [price, setPrice] = useState()
 	const [discountedPrice, setDiscountedPrice] = useState()
 	const [loading, setLoading] = useState(true)
+	const [image, setImage] = useState()
+	const [imageUrl, setImageUrl] = useState('')
+	const [imageUploaded, setImageUploaded] = useState(false)
 
 	useEffect(() => {
 		
@@ -95,6 +99,8 @@ const UpdateProduct = (props) => {
 			}
 			setLoading(false)
 			setPossibleValuesEntered(true)
+			setImageUrl(p.imageUrl)
+			setImageUploaded(true)
 		}
 
 		getProduct()
@@ -240,9 +246,9 @@ const UpdateProduct = (props) => {
 		return(
 			<div>
 				{results.map((result) => 
-					<div className='row mb-2' key={result}>
+					<div className='row mb-2' key={JSON.stringify(result)}>
 						{getListOfValues(result).map((comb) =>
-							<div key={comb} className='col'>
+							<div key={JSON.stringify(comb)} className='col'>
 								{comb}
 							</div>	
 						)}
@@ -259,6 +265,23 @@ const UpdateProduct = (props) => {
 				</div>
 			</div>	
 		)
+	}
+
+	const handleUploadButton = async function(e){
+		e.preventDefault()
+		if(!image){
+			alert('Please select a file to upload.')
+		} else {
+			const url = await vendorService.uploadImage(image)
+			setImageUrl(url)
+			setImageUploaded(true)
+			setRerender(!rerender)
+		}
+	}
+
+	const handleSubmitButton = async function(e){
+		console.log(imageUrl)
+		return
 	}
 
 	return (
@@ -416,11 +439,30 @@ const UpdateProduct = (props) => {
 			{stockEntered ?
 			<div className='container-fluid mt-3 p-3 container-main rounded'>
 				<p className='h3 header-info'>5. Upload an image of your product</p>
-						<div className="form-group">
-							<input type="file" className="form-control-file" id="image"/>
-						</div>
+				<div className="form-group">
+					<input type="file" onChange={(e)=>setImage(e.target.files[0])} className="form-control-file" id="image"/>
+				</div>
+				<div className='row'>
+					<div className='col'><a className="link-primary" href={imageUrl}>Product image</a></div>
+					<div className='col-3 align-self-end text-right mb-6'>
+						<button className="btn btn-danger next-button" onClick={handleUploadButton}>Upload</button>
+					</div>
+				</div>
 			</div>
 					:
+				null
+			}
+			{(imageUploaded & stockEntered) ? 
+			<div className='container-fluid mt-3 p-3 container-main rounded'>
+				<p className='h3 header-info'>6. Submit your product</p>
+				<div className='row mt-3'>
+					<div className='col'></div>
+					<div className='col-3 align-self-end text-right mb-6'>
+						<button className="btn btn-danger next-button" onClick={handleSubmitButton}>Submit</button>
+					</div>
+				</div>
+			</div>
+			:
 				null
 			}
 		</div>

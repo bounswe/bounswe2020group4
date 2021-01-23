@@ -7,7 +7,6 @@ import VendorProductCard from '../components/VendorProductCard'
 import './VendorProducts.css'
 
 import vendorService from '../services/vendor.js'
-import vendor from '../services/vendor.js'
 
 const VendorProducts = (props) => {
 

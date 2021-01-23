@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { hideHeader, showHeader, showVendorHeader, hideVendorHeader } from '../redux/actions'
 import { WithContext as ReactTags } from 'react-tag-input';
+import { Link } from 'react-router-dom'
 import history from '../util/history'
 
 import './AddProduct.css'
 import {getCategories} from '../services/category'
+import vendorService from '../services/vendor.js'
 
 const AddProduct= (props) => {
 
@@ -24,6 +26,10 @@ const AddProduct= (props) => {
 	const [stockEntered, setStockEntered] = useState(false)
 	const [price, setPrice] = useState()
 	const [discountedPrice, setDiscountedPrice] = useState()
+	const [image, setImage] = useState()
+	const [imageUrl, setImageUrl] = useState('')
+	const [imageUploaded, setImageUploaded] = useState(false)
+
 
 
 	useEffect(() => {
@@ -43,7 +49,7 @@ const AddProduct= (props) => {
 		props.hideHeader()
 		props.showVendorHeader()
 		return () => props.showHeader()
-	}, [props.isLoggedIn, props.customerId])
+	}, [props.isLoggedIn, props.userId])
 
 	const renderSubcategories = (currPath, category, subcategories) => {
 
@@ -197,6 +203,23 @@ const AddProduct= (props) => {
 				</div>
 			</div>	
 		)
+	}
+
+	const handleUploadButton = async function(e){
+		e.preventDefault()
+		if(!image){
+			alert('Please select a file to upload.')
+		} else {
+			const url = await vendorService.uploadImage(image)
+			setImageUrl(url)
+			setImageUploaded(true)
+			setRerender(!rerender)
+		}
+	}
+
+	const handleSubmitButton = async function(e){
+		console.log(imageUrl)
+		return
 	}
 
 	return (
@@ -353,11 +376,30 @@ const AddProduct= (props) => {
 			{stockEntered ?
 			<div className='container-fluid mt-3 p-3 container-main rounded'>
 				<p className='h3 header-info'>5. Upload an image of your product</p>
-						<div className="form-group">
-							<input type="file" className="form-control-file" id="image"/>
-						</div>
+				<div className="form-group">
+					<input type="file" onChange={(e)=>setImage(e.target.files[0])} className="form-control-file" id="image"/>
+				</div>
+				<div className='row'>
+					<div className='col'></div>
+					<div className='col-3 align-self-end text-right mb-6'>
+						<button className="btn btn-danger next-button" onClick={handleUploadButton}>Upload</button>
+					</div>
+				</div>
 			</div>
 					:
+				null
+			}
+			{imageUploaded ? 
+			<div className='container-fluid mt-3 p-3 container-main rounded'>
+				<p className='h3 header-info'>6. Submit your product</p>
+				<div className='row mt-3'>
+					<div className='col'></div>
+					<div className='col-3 align-self-end text-right mb-6'>
+						<button className="btn btn-danger next-button" onClick={handleSubmitButton}>Submit</button>
+					</div>
+				</div>
+			</div>
+			:
 				null
 			}
 		</div>
