@@ -40,8 +40,10 @@ const SignIn = ({hideHeader, showHeader, setLoginState}) => {
 			const response = await accountService.login({ 'email': email, 'password': password})
 			if (!response?.userId){
 				alert('Wrong credentials')
-			} else if (response.banned) {
+			} else if (response.status == 'banned') {
 				alert('Your account has been suspended. Please check your e-mail for further information.')
+			} else if (response.status == 'not-verified') {
+				alert('Your account has not been verified. Please check your e-mail for the verification link.')
 			} else {
 				setLoginState({ userId: response.userId, userType: 'customer'})
 				history.push('/')
