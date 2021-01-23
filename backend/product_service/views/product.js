@@ -355,12 +355,12 @@ module.exports.getProduct = async (params) => {
 
           return {
             id: comment._id.toString(),
-            userId: comment.userId.toString(),
             rating: comment.rating,
             text: comment.text,
             owner: {
               username: user.name,
               email: user.email,
+              id: comment.userId.toString(),
             },
           };
         })
