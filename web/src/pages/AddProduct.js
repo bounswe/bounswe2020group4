@@ -22,6 +22,8 @@ const AddProduct= (props) => {
 	const [possibleValuesEntered, setPossibleValuesEntered] = useState(false)
 	const [productInfos, setProductInfos] = useState([])
 	const [stockEntered, setStockEntered] = useState(false)
+	const [price, setPrice] = useState()
+	const [discountedPrice, setDiscountedPrice] = useState()
 
 
 	useEffect(() => {
@@ -82,12 +84,13 @@ const AddProduct= (props) => {
 	}
 
 	const handleAttributeButton = () => {
-		if(!productName | !brand | !description){
-			alert('You must fill out name, brand and description fields.')
+		if(!productName | !brand | !description | !price | !discountedPrice){
+			alert('You must fill out name, brand, description, price and discounted price fields.')
 			return
 		}
 		if(attributes.length){
 			setAttributeSelected(true)
+			setPossibleValuesEntered(false)
 			setRerender(!rerender)
 		} else {
 			setAttributeSelected(false)
@@ -101,8 +104,9 @@ const AddProduct= (props) => {
 	}
 
 	const handleAttributeDelete = (i) => {
-		attributes.splice(i, 1)
+		var removed = attributes.splice(i, 1)
 		setAttributes(attributes)
+		delete possibleValues[removed[0]["text"]]
 	}
 
 	const handlePossibleValueChange = function(e, attr) {
@@ -116,15 +120,20 @@ const AddProduct= (props) => {
 
 	const handlePossibleValuesButton = function() {
 		var comb_length = 1
-		for(var value in possibleValues){
-			if(possibleValues[value].length == 0){
+		for(var attr in attributes){
+			var temp = attributes[attr]["text"]
+			if(!possibleValues[temp]) {
+				alert('You have to enter possible values for every criteria.')
+				return
+			} else if(possibleValues[temp].length == 0){
 				alert('You have to enter possible values for every criteria.')
 				return
 			}
-			comb_length *= possibleValues[value].length
+			comb_length *= possibleValues[temp].length
 		}
 		setPossibleValuesEntered(true)
 		setProductInfos(Array(comb_length))
+		setRerender(!rerender)
 	}
 
 	const handleValueChange = function(e, comb, index){
@@ -177,8 +186,6 @@ const AddProduct= (props) => {
 						)}
 						<div className='col-1'>
 							<input type='number' min='0' className='form-control form-control-md text-left' id={results.indexOf(result)} onChange={(e) => handleValueChange(e, result, results.indexOf(result))}/>
-							{results.indexOf(result)}
-							{JSON.stringify(result)}
 						</div>
 					</div>
 				)}
@@ -252,6 +259,29 @@ const AddProduct= (props) => {
 							</div>
 							<div className='col'>
 								<textarea type='text' className='form-control form-control-md text-left' id='description' value={description} onChange={(e)=>setDescription(e.target.value)}/>
+							</div>
+						</div>
+					</div>
+					<div className='form-group'>
+						<div className='row'>
+							<div className='col-1'>
+								<label htmlFor='price'>Price</label>
+							</div>
+							<div className='col-3'>
+								<input type='number' min='0' id='price' onChange={(e)=>setPrice(e.target.value)}/>
+							</div>
+						</div>
+					</div>
+					<div className='form-group'>
+						<div className='row'>
+							<div className='col-1'>
+								<label htmlFor='discountedPrice'>Discounted price</label>
+							</div>
+							<div className='col-3'>
+								<input type='number' min='0' id='discountedPrice' onChange={(e)=>setDiscountedPrice(e.target.value)}/>
+							</div>
+							<div className='col'>
+								<p>Enter the original price if there is no discount.</p>
 							</div>
 						</div>
 					</div>
