@@ -94,6 +94,7 @@ module.exports.getProducts = async (params) => {
           id: vendor._id.toString(),
         };
         product.id = product._id.toString();
+        product.productInfos = JSON.parse(product.productInfos);
 
         delete product._id;
         delete product.vendorId;
