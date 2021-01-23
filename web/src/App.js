@@ -26,6 +26,7 @@ import VendorProducts from './pages/VendorProducts'
 import AddProduct from './pages/AddProduct'
 import Notification from './pages/Notification'
 import Verification from './pages/Verification'
+import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
 
 //Styling
@@ -65,6 +66,7 @@ const App = ({ showHeader, showVendorHeader }) => {
 					<Route path="/notification" exact component={Notification}/>
 					<Route path="/verifyuser" exact component={Verification}/>
 					<Route path="/resetpassword" exact component={ResetPassword}/>
+					<Route path="/forgotpassword" exact component={ForgotPassword}/>
          		</div>
        </Router>
      </div>
