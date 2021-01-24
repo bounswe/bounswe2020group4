@@ -15,110 +15,187 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/logoAccount"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="Account Logo"
+        android:src="@mipmap/account"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_profile_page_account_info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_profile_page_account_info" />
+
     <TextView
         android:id="@+id/tv_profile_page_account_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:text="Account Information"
-        android:textColor="@color/black"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="48dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:clickable="true"
+        android:text="Account Information"
+        android:textColor="@color/black"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/logoAccount"
         app:layout_constraintTop_toBottomOf="@+id/logoImageView" />
+
+    <ImageView
+        android:id="@+id/logoAddress"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="Address Logo"
+        android:src="@mipmap/address"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_profile_page_address_info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_profile_page_address_info" />
 
     <TextView
         android:id="@+id/tv_profile_page_address_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="48dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:clickable="true"
         android:text="Address Information"
         android:textColor="@color/black"
         android:textSize="30sp"
-        android:clickable="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/logoAddress"
         app:layout_constraintTop_toBottomOf="@+id/tv_profile_page_account_info" />
+
+    <ImageView
+        android:id="@+id/logoOrder"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="Order Logo"
+        android:src="@mipmap/order"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_profile_page_orders"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_profile_page_orders" />
 
     <TextView
         android:id="@+id/tv_profile_page_orders"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="48dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:clickable="true"
         android:text="My Orders"
         android:textColor="@color/black"
         android:textSize="30sp"
-        android:clickable="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/logoOrder"
         app:layout_constraintTop_toBottomOf="@+id/tv_profile_page_address_info" />
+
+    <ImageView
+        android:id="@+id/logoMessage"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="Message Logo"
+        android:src="@mipmap/message"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_profile_page_messages"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_profile_page_messages" />
 
     <TextView
         android:id="@+id/tv_profile_page_messages"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="48dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:clickable="true"
         android:text="My Messages"
         android:textColor="@color/black"
         android:textSize="30sp"
-        android:clickable="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/logoMessage"
         app:layout_constraintTop_toBottomOf="@+id/tv_profile_page_orders" />
 
+    <ImageView
+        android:id="@+id/logoNotification"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="Notification Logo"
+        android:src="@mipmap/notification"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_profile_page_notification"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_profile_page_notification" />
 
     <TextView
         android:id="@+id/tv_profile_page_notification"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="48dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:clickable="true"
         android:text="Notifications"
         android:textColor="@color/black"
         android:textSize="30sp"
-        android:clickable="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/logoNotification"
         app:layout_constraintTop_toBottomOf="@+id/tv_profile_page_messages" />
+
+    <ImageView
+        android:id="@+id/logoPassword"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="Password Logo"
+        android:src="@mipmap/password"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_profile_page_change_password"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_profile_page_change_password"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/tv_profile_page_change_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="48dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:clickable="true"
         android:text="Change Password"
         android:textColor="@color/black"
         android:textSize="30sp"
-        android:clickable="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/logoPassword"
         app:layout_constraintTop_toBottomOf="@+id/tv_profile_page_notification" />
+
+    <ImageView
+        android:id="@+id/logoLogout"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="Log out Logo"
+        android:src="@mipmap/logout"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_profile_page_logout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_profile_page_logout" />
 
     <TextView
         android:id="@+id/tv_profile_page_logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="48dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:clickable="true"
         android:text="Logout"
         android:textColor="@color/black"
         android:textSize="30sp"
-        android:clickable="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/logoLogout"
         app:layout_constraintTop_toBottomOf="@+id/tv_profile_page_change_password" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

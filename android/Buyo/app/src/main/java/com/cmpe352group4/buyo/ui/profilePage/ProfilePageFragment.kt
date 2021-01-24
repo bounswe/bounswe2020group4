@@ -41,6 +41,56 @@ class ProfilePageFragment: BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        logoAccount.setOnClickListener {
+            navigationManager?.onReplace(
+                AccountInfoFragment.newInstance(),
+                TransactionType.Replace, true
+            )
+        }
+
+        logoAddress.setOnClickListener {
+            navigationManager?.onReplace(
+                AddressInfoFragment.newInstance(),
+                TransactionType.Replace, true
+            )
+        }
+
+        logoOrder.setOnClickListener {
+            navigationManager?.onReplace(
+                OrderPageFragment.newInstance(),
+                TransactionType.Replace, true
+            )
+        }
+
+        logoMessage.setOnClickListener {
+            // to do
+        }
+
+        logoNotification.setOnClickListener {
+            navigationManager?.onReplace(
+                NotificationFragment.newInstance(),
+                TransactionType.Replace, true
+            )
+        }
+
+        logoPassword.setOnClickListener {
+            navigationManager?.onReplace(
+                ChangePasswordFragment.newInstance(),
+                TransactionType.Replace, true
+            )
+        }
+
+        logoLogout.setOnClickListener {
+            sharedPref.saveUserId("")
+            sharedPref.saveUserType("")
+            sharedPref.saveVendorAddress("")
+            sharedPref.saveRememberMe(false)
+            navigationManager?.onReplace(
+                LoginFragment.newInstance(),
+                TransactionType.Replace, true
+            )
+        }
+
         tv_profile_page_account_info.setOnClickListener {
             navigationManager?.onReplace(
                 AccountInfoFragment.newInstance(),
