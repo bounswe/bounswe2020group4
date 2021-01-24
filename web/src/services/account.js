@@ -135,6 +135,26 @@ const updatePassword = async (userType, id, passwordInfo) => {
 	return response.data.status.code
 }
 
+const forgotPassword = async (email) => {
+	let response
+	try {
+		response = await axios.post(`${baseUrl}account/forgotPassword?email=${email}`)
+	} catch (err) {
+		return false
+	}
+	return response.data.status.code == 200
+}
+
+const verify = async (userType, userId) => {
+	let response
+	try{
+		response = await axios.post(`${baseUrl}account/verify?userType=${userType}&id=${userId}`)
+	} catch(err){
+		return false
+	}
+	return response.data.status.code == 200
+}
+
 const login = async (loginInput) => {
 
 	const { email, password } = loginInput
@@ -219,4 +239,5 @@ const googleSignIn = async (id_token, email) => {
 	}
 }
 
-export default { login, signUp, getProfileInfo, updateProfileInfo, updatePassword, vendorLogin, vendorSignUp, getProfileAddresses, addNewAddress, updateAddress, deleteAddress, googleSignIn }
+export default { forgotPassword, verify, login, signUp, getProfileInfo, updateProfileInfo, updatePassword, vendorLogin, vendorSignUp, getProfileAddresses, addNewAddress, updateAddress, deleteAddress, googleSignIn }
+

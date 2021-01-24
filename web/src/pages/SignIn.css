@@ -103,3 +103,7 @@ html, body {
 .google-signin-button-container {
     text-align: center;
 }
+
+.sign-in-link {
+    color: #EC4A3B;
+}
