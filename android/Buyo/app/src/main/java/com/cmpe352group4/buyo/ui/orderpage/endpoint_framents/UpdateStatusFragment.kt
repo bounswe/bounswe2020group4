@@ -1,9 +1,11 @@
 package com.cmpe352group4.buyo.ui.orderpage.endpoint_framents
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -14,6 +16,7 @@ import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.orderpage.OrderPageFragment
 import com.cmpe352group4.buyo.ui.orderpage.OrderPageFragmentVendor
+import com.cmpe352group4.buyo.ui.profilePage.ProfilePageFragment
 import com.cmpe352group4.buyo.viewmodel.OrderViewModel
 
 import javax.inject.Inject
@@ -76,6 +79,7 @@ class UpdateStatusFragment : BaseFragment() {
         updateStatusViewModel.updateStatus.observe(viewLifecycleOwner, Observer {
 
             if (it.status == Status.SUCCESS && it.data != null) {
+                /*
                 if (arguments?.getString(USER_TYPE)!! == "vendor") {
                     navigationManager?.onReplace(
                         OrderPageFragmentVendor.newInstance(),
@@ -87,7 +91,19 @@ class UpdateStatusFragment : BaseFragment() {
                         OrderPageFragment.newInstance(),
                         TransactionType.Replace, false
                     )
-                }
+                }*/
+                navigationManager?.onReplace(
+                    ProfilePageFragment.newInstance(),
+                    TransactionType.Replace, false
+                )
+                val myToast = Toast.makeText(
+                    context,
+                    "Success!",
+                    Toast.LENGTH_SHORT
+                )
+                myToast.setGravity(Gravity.BOTTOM, 0, 200)
+                myToast.show()
+
                 dispatchLoading()
             } else if (it.status == Status.ERROR) {
                 dispatchLoading()

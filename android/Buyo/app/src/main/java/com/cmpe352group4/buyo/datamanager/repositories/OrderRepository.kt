@@ -19,21 +19,21 @@ class OrderRepository @Inject constructor(
     private val connectionManager: ConnectionManager
 ){
 
-    fun getOrders(userId:String): LiveData<Resource<Map<String, Order>>> {
-        return object : NetworkServiceWrapper<Map<String, Order>, BaseResponse<Map<String, Order>>>(appExecutors,connectionManager){
-            override fun loadFromApi(data: BaseResponse<Map<String, Order>>): LiveData<Map<String, Order>> {
+    fun getOrders(userId:String): LiveData<Resource<OrderResponse>> {
+        return object : NetworkServiceWrapper<OrderResponse, BaseResponse<OrderResponse>>(appExecutors,connectionManager){
+            override fun loadFromApi(data: BaseResponse<OrderResponse>): LiveData<OrderResponse> {
                 return InitialLiveData.create(data.data)
             }
-            override fun createCall(): LiveData<ApiResponse<BaseResponse<Map<String, Order>>>> = api.fetchOrders(userId, "customer")
+            override fun createCall(): LiveData<ApiResponse<BaseResponse<OrderResponse>>> = api.fetchOrders(userId, "customer")
         }.asLiveData()
     }
 
-    fun getOrdersVendor(userId:String): LiveData<Resource<Map<String, OrderVendor>>> {
-        return object : NetworkServiceWrapper<Map<String, OrderVendor>, BaseResponse<Map<String, OrderVendor>>>(appExecutors,connectionManager){
-            override fun loadFromApi(data: BaseResponse<Map<String, OrderVendor>>): LiveData<Map<String, OrderVendor>> {
+    fun getOrdersVendor(userId:String): LiveData<Resource<OrderResponseVendor>> {
+        return object : NetworkServiceWrapper<OrderResponseVendor, BaseResponse<OrderResponseVendor>>(appExecutors,connectionManager){
+            override fun loadFromApi(data: BaseResponse<OrderResponseVendor>): LiveData<OrderResponseVendor> {
                 return InitialLiveData.create(data.data)
             }
-            override fun createCall(): LiveData<ApiResponse<BaseResponse<Map<String, OrderVendor>>>> = api.fetchOrdersVendor(userId, "vendor")
+            override fun createCall(): LiveData<ApiResponse<BaseResponse<OrderResponseVendor>>> = api.fetchOrdersVendor(userId, "vendor")
         }.asLiveData()
     }
 

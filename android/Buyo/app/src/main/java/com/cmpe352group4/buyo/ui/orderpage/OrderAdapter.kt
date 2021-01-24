@@ -20,7 +20,6 @@ import kotlinx.android.synthetic.main.item_orders.view.tv_order_no
 import kotlinx.android.synthetic.main.item_orders.view.tv_price
 import kotlinx.android.synthetic.main.item_orders.view.tv_productName
 import kotlinx.android.synthetic.main.item_orders.view.tv_status
-import kotlinx.android.synthetic.main.item_orders_vendor.view.*
 
 class OrderAdapter (
     private val paidOrderList: MutableList<OrderProductRV>,
@@ -74,11 +73,11 @@ class OrderAdapter (
             if (orderStatus=="Pending") {
                 itemView.tv_header.setBackgroundColor(Color.parseColor("#fedebe")) // light orange
                 itemView.tv_status.setTextColor(Color.BLACK)
-                itemView.tv_customer_id.setTextColor(Color.BLACK)
+                itemView.tv_vendor.setTextColor(Color.BLACK)
 
                 itemView.first_button.visibility = View.VISIBLE
                 itemView.first_button.text = "Message Vendor"
-                itemView.first_button.setBackgroundColor(Color.parseColor("#a4c639")) // light green
+                itemView.first_button.setBackgroundColor(Color.parseColor("#fedebe")) // light orange
                 itemView.first_button.setTextColor(Color.WHITE)
 
                 itemView.second_button.visibility = View.VISIBLE
@@ -89,11 +88,11 @@ class OrderAdapter (
             else if (orderStatus=="Approved") {
                 itemView.tv_header.setBackgroundColor(Color.parseColor("#fedebe")) // light orange
                 itemView.tv_status.setTextColor(Color.BLACK)
-                itemView.tv_customer_id.setTextColor(Color.BLACK)
+                itemView.tv_vendor.setTextColor(Color.BLACK)
 
                 itemView.first_button.visibility = View.VISIBLE
                 itemView.first_button.text = "Message Vendor"
-                itemView.first_button.setBackgroundColor(Color.parseColor("#a4c639")) // light green
+                itemView.first_button.setBackgroundColor(Color.parseColor("#fedebe")) // light green
                 itemView.first_button.setTextColor(Color.WHITE)
 
                 itemView.second_button.visibility = View.GONE
@@ -101,7 +100,7 @@ class OrderAdapter (
             else if (orderStatus=="Shipped") {
                 itemView.tv_header.setBackgroundColor(Color.parseColor("#fedebe")) // light orange
                 itemView.tv_status.setTextColor(Color.BLACK)
-                itemView.tv_customer_id.setTextColor(Color.BLACK)
+                itemView.tv_vendor.setTextColor(Color.BLACK)
 
                 itemView.first_button.visibility = View.VISIBLE
                 itemView.first_button.text = "Message Vendor"
@@ -113,7 +112,7 @@ class OrderAdapter (
             else if (orderStatus.startsWith("Delivered")) {
                 itemView.tv_header.setBackgroundColor(Color.parseColor("#a4c639")) // light green
                 itemView.tv_status.setTextColor(Color.BLACK)
-                itemView.tv_customer_id.setTextColor(Color.BLACK)
+                itemView.tv_vendor.setTextColor(Color.BLACK)
 
                 itemView.first_button.visibility = View.VISIBLE
                 itemView.first_button.text = "Message Vendor"
@@ -128,7 +127,7 @@ class OrderAdapter (
             else if (orderStatus == "Returned") {
                 itemView.tv_header.setBackgroundColor(Color.parseColor("#E53C38")) // light red
                 itemView.tv_status.setTextColor(Color.BLACK)
-                itemView.tv_customer_id.setTextColor(Color.BLACK)
+                itemView.tv_vendor.setTextColor(Color.BLACK)
 
                 itemView.first_button.visibility = View.VISIBLE
                 itemView.first_button.text = "Message Vendor"
@@ -143,7 +142,7 @@ class OrderAdapter (
             else {
                 itemView.tv_header.setBackgroundColor(Color.parseColor("#E53C38")) // light red
                 itemView.tv_status.setTextColor(Color.WHITE)
-                itemView.tv_customer_id.setTextColor(Color.WHITE)
+                itemView.tv_vendor.setTextColor(Color.WHITE)
 
                 itemView.first_button.visibility = View.VISIBLE
                 itemView.first_button.text = "Message Vendor"

@@ -6,6 +6,10 @@ import java.io.Serializable
 
 ///////////////////////////////////////// Customer Orders /////////////////////////////////////////
 
+data class OrderResponse (
+    var orders: Map<String, Order>
+)
+
 data class Order (
     var shippingPrice: Double,
     var date: String,           //2020-12-28T08:08:37.507Z (order date)
@@ -44,6 +48,10 @@ data class OrderProductRV (
     ): Serializable
 
 ///////////////////////////////////////// Vendor Orders /////////////////////////////////////////
+
+data class OrderResponseVendor (
+    var orders: Map<String, OrderVendor>
+)
 
 data class OrderVendor (
     var shippingPrice: Double,

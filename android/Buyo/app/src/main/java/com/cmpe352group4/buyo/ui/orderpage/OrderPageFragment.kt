@@ -118,7 +118,7 @@ class OrderPageFragment : BaseFragment() {
 
             if (it.status == Status.SUCCESS && it.data != null) {
                 val ordersListRV = mutableListOf<OrderProductRV>()
-                for ((order_id, order) in it.data) {
+                for ((order_id, order) in it.data.orders) {
                     for (product in order.products) {
                         val orderRV =
                             OrderProductRV(order_id, order.address, order.date, product.productId,

@@ -19,7 +19,7 @@ class OrderViewModel @Inject constructor(
     private val _userIdVendor =  MutableLiveData<String>()
     private val _updateStatus =  MutableLiveData<UpdateStatusRequest>()
 
-    val orderMap: LiveData<Resource<Map<String, Order>>> =
+    val orderMap: LiveData<Resource<OrderResponse>> =
         Transformations.switchMap(_userId) { Id ->
             if (Id == null)
                 AbsentLiveData.create()
@@ -27,7 +27,7 @@ class OrderViewModel @Inject constructor(
                 repository.getOrders(Id)
         }
 
-    val orderMapVendor: LiveData<Resource<Map<String, OrderVendor>>> =
+    val orderMapVendor: LiveData<Resource<OrderResponseVendor>> =
         Transformations.switchMap(_userIdVendor) { Id ->
             if (Id == null)
                 AbsentLiveData.create()

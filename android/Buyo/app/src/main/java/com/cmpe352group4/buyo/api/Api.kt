@@ -123,13 +123,13 @@ interface Api {
     fun fetchOrders(
         @Query("id") userId: String,
         @Query("userType") userType: String
-    ): LiveData<ApiResponse<BaseResponse<Map<String, Order>>>>
+    ): LiveData<ApiResponse<BaseResponse<OrderResponse>>>
 
     @GET("order")
     fun fetchOrdersVendor(
         @Query("id") userId: String,
         @Query("userType") userType: String
-    ): LiveData<ApiResponse<BaseResponse<Map<String, OrderVendor>>>>
+    ): LiveData<ApiResponse<BaseResponse<OrderResponseVendor>>>
 
     @POST("account")
     fun saveAccountInfo(
