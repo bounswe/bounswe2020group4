@@ -2,7 +2,6 @@ const OrderedProduct = require("../models/ordered_product").OrderedProduct;
 const CartProduct = require("../models/cart_products").CartProduct;
 const Product = require("../models/product").Product;
 const Vendor = require("../models/vendor").Vendor;
-const Customer = require("../models/customer").Customer;
 const ObjectId = require("mongoose").Types.ObjectId;
 const { checkCreditCard } = require("./verification");
 const Moment = require("moment");
@@ -129,10 +128,10 @@ module.exports.getOrders = async (params) => {
     } else if (params.userType === "vendor") {
       orderedProducts = await OrderedProduct.find({ vendorId: ObjectId(params.id) });
     } else {
-      return { success: false, message: ErrorMessage.WRONG_USER_TYPE};
+      return { success: false, message: ErrorMessage.WRONG_USER_TYPE };
     }
     if (orderedProducts.length === 0) {
-      return { success: false, message: ErrorMessage.PRODUCT_NOT_FOUND};
+      return { success: false, message: ErrorMessage.PRODUCT_NOT_FOUND };
     }
     let orders = {};
     let sum = 0;
@@ -146,6 +145,8 @@ module.exports.getOrders = async (params) => {
           products: [],
         };
         let parsedProductInfo = JSON.parse(orderedProduct.productInfo);
+        const product = await Product.findById(orderedProduct.productId);
+
         // the product json which returned to client
         let tempOrderedProduct = {
           orderedProductId: orderedProduct._id,
@@ -158,10 +159,9 @@ module.exports.getOrders = async (params) => {
           brand: product.brand,
           quantity: parsedProductInfo.quantity,
           attributes: parsedProductInfo.attributes,
-        };;
+        };
         // get vendor and product information
-        const product = await Product.findById(orderedProduct.productId);
-        if (params.userType === "vendor") {
+        if (params.userType === "customer") {
           const vendor = await Vendor.findById(orderedProduct.vendorId);
           // the product json which returned to client
           tempOrderedProduct.vendor = {
@@ -169,14 +169,12 @@ module.exports.getOrders = async (params) => {
             name: vendor.name,
             rating: vendor.rating,
           };
-          if (orderedProduct.status !== "Cancelled" && orderedProduct.status !== "Returned") {
-            sum += (tempOrderedProduct.price * tempOrderedProduct.quantity);
-          }
         } else {
-          const customer = await Customer.findById(orderedProduct.customerId);
-          tempOrderedProduct.customer = {
-            id: customer._id,
-          };
+          tempOrderedProduct.customerId = orderedProduct.customerId.toString();
+
+          if (orderedProduct.status !== "Cancelled" && orderedProduct.status !== "Returned") {
+            sum += tempOrderedProduct.price * tempOrderedProduct.quantity;
+          }
         }
         // update status according to date.
         const orderDate = orderedProduct.date;
@@ -200,9 +198,17 @@ module.exports.updateProductStatus = async (params) => {
     }
     let orderedProduct;
     if (params.userType == "customer") {
-      orderedProduct = await OrderedProduct.findOne({ orderId: ObjectId(params.orderId), customerId: ObjectId(params.userId), productId: ObjectId(params.productId) });
+      orderedProduct = await OrderedProduct.findOne({
+        orderId: params.orderId,
+        customerId: ObjectId(params.userId),
+        productId: ObjectId(params.productId),
+      });
     } else if (params.userType == "vendor") {
-      orderedProduct = await OrderedProduct.findOne({ orderId: ObjectId(params.orderId), vendorId: ObjectId(params.userId), productId: ObjectId(params.productId) });
+      orderedProduct = await OrderedProduct.findOne({
+        orderId: params.orderId,
+        vendorId: ObjectId(params.userId),
+        productId: ObjectId(params.productId),
+      });
     } else {
       return { success: false, message: ErrorMessage.WRONG_USER_TYPE };
     }
@@ -211,7 +217,7 @@ module.exports.updateProductStatus = async (params) => {
       return { success: false, message: ErrorMessage.PRODUCT_NOT_FOUND };
     }
     // Check if vendor is trying to return a product.
-    if (params.status = "Returned" && params.userType == "vendor") {
+    if (params.status === "Returned" && params.userType === "vendor") {
       return { success: false, message: ErrorMessage.VENDOR_CANNOT_RETURN };
     }
     // Product is already cancelled or returned.
@@ -229,7 +235,7 @@ module.exports.updateProductStatus = async (params) => {
           return { success: false, message: ErrorMessage.PRODUCT_NOT_FOUND };
         }
         let dbTempProductInfos = JSON.parse(db_product.productInfos);
-        // update the stock value of the product in product DB 
+        // update the stock value of the product in product DB
         await Promise.all(
           dbTempProductInfos.map(async (productInfo) => {
             // find the correct productInfo of the product in the product database
@@ -247,7 +253,7 @@ module.exports.updateProductStatus = async (params) => {
                 return;
               }
             });
-            // update the stock value of the product in product DB 
+            // update the stock value of the product in product DB
             if (isCorrectProductInfo) {
               productInfo.stockValue += JSON.parse(orderedProduct.productInfo).quantity;
             }
@@ -258,19 +264,103 @@ module.exports.updateProductStatus = async (params) => {
         await db_product.save();
 
         orderedProduct.status = params.status;
+
         await orderedProduct.save();
       }
     } else if (params.status == "Returned") {
       // Check if the product can be returned.
-        if (!(Moment(orderedProduct.date).add(3, "days").toDate() < new Date())) {
-          return { succes: false, message: ErrorMessage.SHOULD_BE_DELIVERED };
-        } else {
-          let db_product = await Product.findById(orderedProduct.productId);
-          if (!db_product) {
-            return { success: false, message: ErrorMessage.PRODUCT_NOT_FOUND };
-          }
+      if (!(Moment(orderedProduct.date).add(3, "days").toDate() < new Date())) {
+        return { success: false, message: ErrorMessage.SHOULD_BE_DELIVERED };
+      } else {
+        let db_product = await Product.findById(orderedProduct.productId);
+        if (!db_product) {
+          return { success: false, message: ErrorMessage.PRODUCT_NOT_FOUND };
+        }
+        let dbTempProductInfos = JSON.parse(db_product.productInfos);
+        // update the stock value of the product in product DB
+        await Promise.all(
+          dbTempProductInfos.map(async (productInfo) => {
+            // find the correct productInfo of the product in the product database
+            let isCorrectProductInfo = true;
+            productInfo.attributes.forEach((attr) => {
+              JSON.parse(orderedProduct.productInfo).attributes.forEach((order_attr) => {
+                if (attr.name === order_attr.name) {
+                  if (attr.value !== order_attr.value) {
+                    isCorrectProductInfo = false;
+
+                    return;
+                  }
+                }
+              });
+              if (!isCorrectProductInfo) {
+                return;
+              }
+            });
+            // update the stock value of the product in product DB
+            if (isCorrectProductInfo) {
+              productInfo.stockValue += orderedProduct.productInfo.quantity;
+            }
+          })
+        );
+        db_product.productInfos = JSON.stringify(dbTempProductInfos);
+        await db_product.save();
+
+        orderedProduct.status = params.status;
+        await orderedProduct.save();
+      }
+    } else {
+      orderedProduct.status = params.status;
+      await orderedProduct.save();
+    }
+    return { success: true };
+  } catch (error) {
+    console.log(error);
+    return { success: false, message: error.message || error };
+  }
+};
+module.exports.updateOrderStatus = async (params) => {
+  try {
+    if (!(params.userType && params.status && params.orderId && params.userId)) {
+      return { success: false, message: ErrorMessage.MISSING_PARAMETER };
+    }
+    let orderedProducts;
+    if (params.userType === "customer") {
+      console.log(params, typeof params.userId);
+      console.log(await OrderedProduct.find());
+
+      orderedProducts = await OrderedProduct.find({
+        orderId: params.orderId,
+        customerId: ObjectId(params.userId),
+      });
+    } else {
+      orderedProducts = await OrderedProduct.find({
+        orderId: params.orderId,
+        vendorId: ObjectId(params.userId),
+      });
+    }
+    if (orderedProducts.length === 0) {
+      console.log("not found");
+      return { success: false, message: ErrorMessage.PRODUCT_NOT_FOUND };
+    }
+    if (params.status === "Cancelled") {
+      if (Moment(params.date).add(1, "days").toDate() < new Date()) {
+        return { success: false, message: ErrorMessage.ALREADY_SHIPPED };
+      }
+    } else if (params.status === "Returned") {
+      if (!(Moment(product.date).add(3, "days").toDate() < new Date())) {
+        return { success: false, message: ErrorMessage.SHOULD_BE_DELIVERED };
+      }
+    }
+    orderedProducts = await Promise.all(
+      orderedProducts.map(async (orderedProduct) => {
+        let db_product = await Product.findById(orderedProduct.productId);
+        if (!db_product) {
+          return { success: false, message: ErrorMessage.PRODUCT_NOT_FOUND };
+        }
+        // Stock value of cancelled or returned products should be updated.
+        if (params.status === "Returned" || params.status === "Cancelled") {
           let dbTempProductInfos = JSON.parse(db_product.productInfos);
-          // update the stock value of the product in product DB 
+          // update the stock value of the product in product DB
           await Promise.all(
             dbTempProductInfos.map(async (productInfo) => {
               // find the correct productInfo of the product in the product database
@@ -288,93 +378,21 @@ module.exports.updateProductStatus = async (params) => {
                   return;
                 }
               });
-              // update the stock value of the product in product DB 
+              // update the stock value of the product in product DB
               if (isCorrectProductInfo) {
-                productInfo.stockValue += orderedProduct.productInfo.quantity;
+                productInfo.stockValue += JSON.parse(orderedProduct.productInfo).quantity;
               }
             })
           );
           db_product.productInfos = JSON.stringify(dbTempProductInfos);
           await db_product.save();
-
-          orderedProduct.status = params.status;
-          await orderedProduct.save();
         }
-    } else {
-      orderedProduct.status = params.status;
-      await orderedProduct.save();
-    }
+        orderedProduct.status = params.status;
+        await orderedProduct.save();
+        return orderedProduct;
+      })
+    );
     return { success: true };
-  } catch (error) {
-    console.log(error);
-    return { success: false, message: error.message || error }
-  }
-};
-module.exports.updateOrderStatus = async (params) => {
-  try {
-	if (!(params.userType && params.status && params.orderId && params.userId)) {
-		return { success: false, message: ErrorMessage.MISSING_PARAMETER };
-	}
-	let orderedProducts = ""
-	if (params.userType === "customer") {
-		orderedProducts = await OrderedProduct.find({ orderId: ObjectId(params.orderId), customerId: ObjectId(params.userId) });
-	} else {
-		orderedProducts = await OrderedProduct.find({ orderId: ObjectId(params.orderId), vendorId: ObjectId(params.userId) });
-  }
-  if (orderedProducts.length === 0) {
-    return { success: false, message: ErrorMessage.PRODUCT_NOT_FOUND };
-  }
-  if (params.status === "Cancelled") {
-    if (Moment(params.date).add(1, "days").toDate() < new Date()) {
-      return { success: false, message: ErrorMessage.ALREADY_SHIPPED }; 
-    }
-  } else if (params.status === "Returned") {
-    if (!(Moment(product.date).add(3, "days").toDate() < new Date())) {
-      return { succes: false, message: ErrorMessage.SHOULD_BE_DELIVERED };
-    }
-  }
-	orderedProducts = await Promise.all(
-		orderedProducts.map(async (orderedProduct) => {
-      let db_product = await Product.findById(orderedProduct.productId);
-      if (!db_product) {
-        return { success: false, message: ErrorMessage.PRODUCT_NOT_FOUND };
-      }
-      // Stock value of cancelled or returned products should be updated. 
-      if (params.status === "Returned" || params.status === "Cancelled") {
-        let dbTempProductInfos = JSON.parse(db_product.productInfos);
-        // update the stock value of the product in product DB 
-        await Promise.all(
-          dbTempProductInfos.map(async (productInfo) => {
-            // find the correct productInfo of the product in the product database
-            let isCorrectProductInfo = true;
-            productInfo.attributes.forEach((attr) => {
-              JSON.parse(orderedProduct.productInfo).attributes.forEach((order_attr) => {
-                if (attr.name === order_attr.name) {
-                  if (attr.value !== order_attr.value) {
-                    isCorrectProductInfo = false;
-                    return;
-                  }
-                }
-              });
-              if (!isCorrectProductInfo) {
-                return;
-              }
-            });
-            // update the stock value of the product in product DB 
-            if (isCorrectProductInfo) {
-              productInfo.stockValue += JSON.parse(orderedProduct.productInfo).quantity;
-            }
-          })
-        );
-        db_product.productInfos = JSON.stringify(dbTempProductInfos);
-        await db_product.save();
-      }
-      orderedProduct.status = params.status;
-      await orderedProduct.save();
-			return orderedProduct;
-		})
-	);
-	return { success: true };
   } catch (error) {
     console.log(error);
     return { success: false, message: error.message || error };

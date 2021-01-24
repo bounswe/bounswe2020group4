@@ -94,17 +94,15 @@ module.exports.updateCart = async (params) => {
         let product = await Product.findById(ObjectId(paramProductId));
         product = product.toJSON();
         const vendorId = product.vendorId;
-        const newCartProduct = await CartProduct.create({
+
+        await CartProduct.create({
           customerId: ObjectId(paramCustomerId),
           vendorId: vendorId,
           productId: ObjectId(paramProductId),
-          productInfos: "",
+          productInfos: JSON.stringify([paramProductInfo]),
         });
-        const isUpdated = await CartProduct.updateOne(
-          { _id: newCartProduct._id },
-          { productInfos: JSON.stringify(paramProductInfo) }
-        );
-        return isUpdated;
+
+        return true;
       }
     }
     return true;
@@ -129,6 +127,11 @@ module.exports.getCartProducts = async (params) => {
         cart_product = cart_product.toJSON();
         const product = await Product.findById(cart_product.productId);
         const vendor = await Vendor.findById(cart_product.vendorId);
+        console.log(
+          typeof cart_product.productInfos,
+          typeof JSON.parse(cart_product.productInfos),
+          cart_product.productInfos
+        );
         JSON.parse(cart_product.productInfos).forEach((productInfo) => {
           let updatedProduct = {
             id: product._id,
@@ -146,8 +149,8 @@ module.exports.getCartProducts = async (params) => {
             attributes: productInfo.attributes,
             quantity: productInfo.quantity,
           };
-          totalPrice += product.originalPrice;
-          discountedPrice += product.price;
+          totalPrice += product.originalPrice * productInfo.quantity;
+          discountedPrice += product.price * productInfo.quantity;
           productsWithAttributes.push(updatedProduct);
         });
       })
