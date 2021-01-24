@@ -5,7 +5,7 @@ const Customer = require("../models/customer").Customer;
 
 
 /**
- * Adds comment to given product, from given customer, with given text.
+ * This function changes the status of vendor. 
  *
  * @param {
  *  vendorId: String,
@@ -14,7 +14,7 @@ const Customer = require("../models/customer").Customer;
  *        }
  * } params 
  *
- * @returns {commentId | error}
+ * @returns {true | false}
  */
 module.exports.changeStatusForVendor = async (params) => {
   try {
@@ -24,13 +24,13 @@ module.exports.changeStatusForVendor = async (params) => {
     if(vendor === null){
       return false;
     }
-    console.log(typeof(vendor))
 
-    if( (vendor.status == "banned" && params.status === "verified")  ||
-        (vendor.status !== "banned" && params.status === "banned") ){
+    if( (vendor.status == "banned" && (params.status === "verified" || params.status === "not-verified"))  ||
+    (vendor.status === "verified" && (params.status === "not-verified" || params.status === "banned"  )) ||
+    (vendor.status === "not-verified" && (params.status === "verified" || params.status === "banned"  ) ) 
+ ){
           let innerParameter = {"status":params.status}
           
-          console.log("INNER PARAMETER ",innerParameter)
           await Vendor.findByIdAndUpdate(ObjectId(params.vendorId),innerParameter, function(err, result){
 
             if(err){
@@ -50,3 +50,53 @@ module.exports.changeStatusForVendor = async (params) => {
     return error;
   }
 };
+
+
+
+
+/**
+ * This function changes the status of customer. 
+ *
+ * @param {
+  *  vendorId: String,
+  *  changeParameter: {
+  *           status: String
+  *        }
+  * } params 
+  *
+  * @returns {true | false}
+  */
+ module.exports.changeStatusForCustomer = async (params) => {
+   try {
+     checker = false;
+     const customer = await Customer.findById(ObjectId(params.customerId));
+ 
+     if(customer === null){
+       return false;
+     }
+ 
+     if( (customer.status == "banned" && (params.status === "verified" || params.status === "not-verified"))  ||
+         (customer.status === "verified" && (params.status === "not-verified" || params.status === "banned"  )) ||
+         (customer.status === "not-verified" && (params.status === "verified" || params.status === "banned"  ) ) 
+      ){
+           let innerParameter = {"status":params.status}
+           
+           await Customer.findByIdAndUpdate(ObjectId(params.customerId),innerParameter, function(err, result){
+ 
+             if(err){
+                 checker = false
+             }
+             else{
+                 checker = true
+             }
+     
+         })
+        
+     }
+ 
+     return checker
+   } catch (error) {
+     console.log(error);
+     return error;
+   }
+ };

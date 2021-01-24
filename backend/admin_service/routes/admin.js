@@ -54,4 +54,29 @@ module.exports.initialize = (app) => {
   });
 
 
+
+
+
+
+  app.post("/admin/customer/changeStatus/:customerId", async (request, response) => {
+
+    if(!("status" in request.body)){
+      response.respond(500,  "Please check your parameters. There should be status information related with current user.");
+    }
+
+    parameters = {}
+    parameters["status"] = request.body.status;
+    parameters["customerId"] = request.params.customerId;
+
+    
+    const result = await ban.changeStatusForCustomer(parameters);
+
+    if (result) {
+      response.respond(200, "The customer status is changed" );
+    } else {
+      response.respond(500, "Please check your parameters");
+    }
+  });
+
+
 };
