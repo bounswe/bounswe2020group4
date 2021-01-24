@@ -20,8 +20,8 @@ module.exports.initialize = (app) => {
     response.respond(200, "OK", { urls });
   });
 
-  app.patch("/vendor/products/:vendorId", async (request, response) => {
-    var productId = request.params.id;
+  app.patch("/vendor/products/:productId", async (request, response) => {
+    var productId = request.params.productId;
     var changeParameters = request.body;
 
     const result = await vendor.updateProduct(productId, changeParameters);
