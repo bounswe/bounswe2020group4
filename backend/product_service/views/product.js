@@ -73,8 +73,7 @@ module.exports.getProductCategories = async () => {
 module.exports.getProducts = async (params) => {
   try {
     let products;
-
-    finalProductList = [];
+    let finalProductList = [];
 
     console.log("params", params);
     if (params.categories) {
