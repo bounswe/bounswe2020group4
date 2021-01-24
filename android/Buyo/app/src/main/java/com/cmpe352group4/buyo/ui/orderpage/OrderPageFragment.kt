@@ -104,11 +104,19 @@ class OrderPageFragment : BaseFragment() {
                 TransactionType.Replace, false
             )
         }
-        else if(order.status.startsWith("Delivered") || order.status=="Returned") {
+        else if(order.status=="Returned") {
             // Add comment
             navigationManager?.onReplace(
                 ProductDetailContentFragment.newInstance(order.productId),
                 TransactionType.Replace, true
+            )
+        }
+        else if (order.status.startsWith("Delivered")){
+            // Return Product
+            navigationManager?.onReplace(
+                UpdateStatusFragment.newInstance(sharedPref.getUserId()!!, order.orderID,
+                    order.orderedProductId, "customer", "Returned"),
+                TransactionType.Replace, false
             )
         }
     }

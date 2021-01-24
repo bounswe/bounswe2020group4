@@ -120,7 +120,7 @@ class OrderAdapter (
                 itemView.first_button.setTextColor(Color.BLACK)
 
                 itemView.second_button.visibility = View.VISIBLE
-                itemView.second_button.text = "Add Comment"
+                itemView.second_button.text = "Return"
                 itemView.second_button.setBackgroundColor(Color.parseColor("#fedebe")) // light orange
                 itemView.second_button.setTextColor(Color.BLACK)
             }
