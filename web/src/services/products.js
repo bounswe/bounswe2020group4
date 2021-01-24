@@ -11,7 +11,6 @@ export const searchProducts = async (searchTerm) => {
 
 const getProduct = async (id) => {
 	const response = await axios.get(`${baseUrl}/product?id=${id}`)
-	console.log(response)
 	return response.data.data.result
 }
 
