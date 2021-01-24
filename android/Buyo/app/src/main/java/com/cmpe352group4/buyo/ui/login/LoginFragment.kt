@@ -20,6 +20,7 @@ import com.cmpe352group4.buyo.ui.profilePage.ProfilePageFragment
 import com.cmpe352group4.buyo.ui.vendorProfilePage.VendorProfilePageFragment
 import com.cmpe352group4.buyo.util.extensions.makeLinks
 import com.cmpe352group4.buyo.viewmodel.ProfileViewModel
+import com.cmpe352group4.buyo.vo.GoogleSignInRequest
 import com.cmpe352group4.buyo.vo.LoginRequestCustomer
 import com.cmpe352group4.buyo.vo.SignupRequestCustomer
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -35,6 +36,7 @@ import javax.inject.Inject
 // TODO Sign up e-mail verification
 
 const val RC_SIGN_IN = 123
+private val CLIENT_ID = "99539805030-qfjauhl40bgmunu11o77fd4hegabr0mb.apps.googleusercontent.com"
 
 class LoginFragment : BaseFragment() {
 
@@ -89,6 +91,7 @@ class LoginFragment : BaseFragment() {
     private fun googleSingIn() {
         val gso =
             GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(CLIENT_ID)
                 .requestEmail()
                 .build()
 
@@ -98,23 +101,41 @@ class LoginFragment : BaseFragment() {
             val acct = GoogleSignIn.getLastSignedInAccount(activity)
             if (acct != null) {
                 val personName = acct.displayName
-                val personGivenName = acct.givenName
-                val personFamilyName = acct.familyName
                 val personEmail = acct.email
-                val personId = acct.id
-                val personPhoto: android.net.Uri? = acct.photoUrl
+                val personToken = acct.idToken
 
-                //send request
-                sharedPref.saveUserId("userId")
-                sharedPref.saveUserType("customer")
-                sharedPref.saveRememberMe(customer_remember_me.isChecked)
-                sharedPref.saveIsGoogleSignin(true)
-
-                navigationManager?.onReplace(
-                    ProfilePageFragment.newInstance(),
-                    TransactionType.Replace, false
+                profileViewModel.onGoogleSignIn(
+                    GoogleSignInRequest(
+                        email = personEmail?: "",
+                        name = personName?: "",
+                        token = personToken?: ""
+                    )
                 )
+                profileViewModel.googleSignInCustomer.observe(viewLifecycleOwner, Observer {
+                    if (it.status == Status.SUCCESS && it.data != null) {
+                        sharedPref.saveUserId(it.data.userId)
+                        sharedPref.saveUserType("customer")
+                        sharedPref.saveRememberMe(true)
+                        sharedPref.saveIsGoogleSignin(true)
+                        sharedPref.saveVerified(true)
 
+                        navigationManager?.onReplace(
+                            ProfilePageFragment.newInstance(),
+                            TransactionType.Replace, false
+                        )
+                    } else if (it.status == Status.ERROR) {
+                        dispatchLoading()
+                        val myToast = Toast.makeText(
+                            context,
+                            "Authentication failed",
+                            Toast.LENGTH_SHORT
+                        )
+                        myToast.setGravity(Gravity.CENTER, 0, 200)
+                        myToast.show()
+                    } else if (it.status == Status.LOADING) {
+                        showLoading()
+                    }
+                })
             } else {
                 val signInIntent: Intent = mGoogleSignInClient.getSignInIntent()
                 startActivityForResult(signInIntent, RC_SIGN_IN)
@@ -136,26 +157,44 @@ class LoginFragment : BaseFragment() {
 
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
-            //val account = completedTask.getResult(ApiException::class.java)
             val acct = GoogleSignIn.getLastSignedInAccount(activity)
             if (acct != null) {
                 val personName = acct.displayName
-                val personGivenName = acct.givenName
-                val personFamilyName = acct.familyName
                 val personEmail = acct.email
-                val personId = acct.id
-                val personPhoto: android.net.Uri? = acct.photoUrl
+                val personToken = acct.idToken
 
-                //send request
-                sharedPref.saveUserId("userId")
-                sharedPref.saveUserType("customer")
-                sharedPref.saveRememberMe(customer_remember_me.isChecked)
-                sharedPref.saveIsGoogleSignin(true)
-
-                navigationManager?.onReplace(
-                    ProfilePageFragment.newInstance(),
-                    TransactionType.Replace, false
+                profileViewModel.onGoogleSignIn(
+                    GoogleSignInRequest(
+                        email = personEmail?: "",
+                        name = personName?: "",
+                        token = personToken?: ""
+                    )
                 )
+                profileViewModel.googleSignInCustomer.observe(viewLifecycleOwner, Observer {
+                    if (it.status == Status.SUCCESS && it.data != null) {
+                        sharedPref.saveUserId(it.data.userId)
+                        sharedPref.saveUserType("customer")
+                        sharedPref.saveRememberMe(true)
+                        sharedPref.saveIsGoogleSignin(true)
+                        sharedPref.saveVerified(true)
+
+                        navigationManager?.onReplace(
+                            ProfilePageFragment.newInstance(),
+                            TransactionType.Replace, false
+                        )
+                    } else if (it.status == Status.ERROR) {
+                        dispatchLoading()
+                        val myToast = Toast.makeText(
+                            context,
+                            "Authentication failed",
+                            Toast.LENGTH_SHORT
+                        )
+                        myToast.setGravity(Gravity.CENTER, 0, 200)
+                        myToast.show()
+                    } else if (it.status == Status.LOADING) {
+                        showLoading()
+                    }
+                })
             }
 
         } catch (e: ApiException) {

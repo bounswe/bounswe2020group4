@@ -162,4 +162,10 @@ interface Api {
         @Query("message") message : String
     ):LiveData<ApiResponse<BaseResponsePostRequest>>
 
+    @POST("/google-signin")
+    fun googleSignIn(
+        @Query("email") email: String,
+        @Query("name") name: String,
+        @Query("tokem") token: String
+    ): LiveData<ApiResponse<BaseResponse<LoginSingupResponse>>>
 }
