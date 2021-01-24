@@ -489,3 +489,10 @@ module.exports.signInByGoogle = async (params) => {
     return { success: false, message: error.message || error };
   }
 };
+
+
+module.exports.getCustomerList = async () => {
+  const customerList = await Customer.find();
+
+  return customerList;
+};
