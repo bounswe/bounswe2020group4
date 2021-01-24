@@ -309,13 +309,11 @@ const UpdateProduct = (props) => {
 		}
 		
 		//TODO: vendorId
-		console.log(product)
 		const response = await vendorService.updateProduct(product, id)
 		if(response==200){
 			alert("Your product has been updated successfully.")
 			history.push('/vendorproducts')
 		}
-		console.log(response)
 		return
 	}
 
