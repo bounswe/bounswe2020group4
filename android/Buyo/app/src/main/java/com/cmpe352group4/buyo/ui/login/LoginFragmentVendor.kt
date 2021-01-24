@@ -217,7 +217,7 @@ class LoginFragmentVendor : BaseFragment() {
                             sharedPref.saveUserId(it.data.userId)
                             sharedPref.saveUserType("vendor")
                             sharedPref.saveRememberMe(vendor_remember_me.isChecked)
-
+                            sharedPref.saveIsGoogleSignin(false)
                             dispatchLoading()
 
                         navigationManager?.onReplace(

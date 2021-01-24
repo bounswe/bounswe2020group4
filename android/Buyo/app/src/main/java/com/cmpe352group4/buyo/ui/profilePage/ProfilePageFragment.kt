@@ -12,6 +12,8 @@ import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.login.LoginFragment
 import com.cmpe352group4.buyo.ui.notification.NotificationFragment
 import com.cmpe352group4.buyo.ui.orderpage.OrderPageFragment
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import kotlinx.android.synthetic.main.fragment_profile_page.*
 import javax.inject.Inject
 
@@ -85,6 +87,15 @@ class ProfilePageFragment: BaseFragment() {
             sharedPref.saveUserType("")
             sharedPref.saveVendorAddress("")
             sharedPref.saveRememberMe(false)
+            if (sharedPref.isGoogleSignin()) {
+                val gso =
+                    GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestEmail()
+                        .build()
+                val mGoogleSignInClient = GoogleSignIn.getClient(this.requireContext(), gso)
+
+                mGoogleSignInClient.signOut()
+            }
             navigationManager?.onReplace(
                 LoginFragment.newInstance(),
                 TransactionType.Replace, true
