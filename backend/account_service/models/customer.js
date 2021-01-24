@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 /**
- * Schema of a Customer object in the database, vendor documents resides
+ * Schema of a Customer object in the database, customer documents resides
  * in 'customers' collection.
  */
 module.exports.Customer = mongoose.model(
@@ -13,7 +13,11 @@ module.exports.Customer = mongoose.model(
     address: [Object],
     password: String,
     gender: String,
-    phoneNumber: String
+    phoneNumber: String,
+    status: String,
+    googleToken: String
   }),
   "customer"
 );
+
+

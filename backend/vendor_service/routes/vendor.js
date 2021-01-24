@@ -5,13 +5,13 @@ const { ErrorCode } = require("../constants/error");
 
 module.exports.initialize = (app) => {
   app.post("/vendor/products", async (request, response) => {
-    const result = await product.addProducts(request.body.products);
-    if (result) {
+    const result = await vendor.addProducts(request.body);
+    if (result["idList"]) {
       response.respond(200, "OK", {
-        result,
+        result
       });
     } else {
-      response.respond(404, "Product not found");
+      response.respond(400,"Please check your products' information");
     }
   });
 
@@ -22,7 +22,7 @@ module.exports.initialize = (app) => {
   });
 
 
-  app.patch("/vendor/products/:id", async (request, response) => {
+  app.patch("/vendor/products/:vendorId", async (request, response) => {
     var productId = request.params.id
     var changeParameters = request.body;
 
@@ -34,9 +34,10 @@ module.exports.initialize = (app) => {
       });
     } 
     else {
-      response.respond(ErrorCode(result.message), result.message);
+      response.respond(400, result);
     }
   });
+
 
 
   app.get("/vendor/products/:vendorId", async (request, response) => {
@@ -44,7 +45,6 @@ module.exports.initialize = (app) => {
     parameters["vendorId"]  = request.params.vendorId
 
     const result = await vendor.getProducts(parameters);
-
     if ( !!result.success ) {
       response.respond(ErrorCode(result.message), result.message);
     }
@@ -59,14 +59,29 @@ module.exports.initialize = (app) => {
   });
 
 
-
   app.get("/vendor/vendorlist", async (request, response) => {
+
     const result = await vendor.getVendorList();
-
     response.respond(200, "OK", {
-      result,
-    });
+      result
+    });   
 
+  });
+
+
+
+  app.delete("/vendor/product/:vendorId", async (request, response) => {    
+    var parameter = request.body;
+    parameter["vendorId"] =  request.params.vendorId
+
+    const result = await vendor.deleteProduct(parameter);
+
+    console.log(result)
+    if(result){
+      response.respond(200, "The product is deleted successfully");   
+    }else {
+      response.respond(400, "Please check your product information. It has never existed or been already deleted");   
+    }
 
   });
 

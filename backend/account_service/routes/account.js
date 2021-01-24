@@ -27,6 +27,31 @@ module.exports.initialize = (app) => {
       response.respond(ErrorCode(result.message), result.message);
     }
   });
+      /**
+   * Gets user id, user type and sends an email for resetting password
+   */
+  app.post("/account/forgotPassword", async (request, response) => {
+    const result = await account.forgotPassword(request.extractParams());
+
+    if (result.success) {
+      response.respond(200, "OK");
+    } else {
+      response.respond(ErrorCode(result.message), result.message);
+    }
+  });
+    /**
+   * Gets user id, user type, and some fields, verifies the account
+   * with that id.
+   */
+  app.get("/account/verify", async (request, response) => {
+    const result = await account.verifyAccount(request.extractParams());
+
+    if (result.success) {
+      response.respond(200, "OK");
+    } else {
+      response.respond(ErrorCode(result.message), result.message);
+    }
+  });
   /**
    * Gets user id, user type, and new password, then changes the password
    * of the account with that id.
@@ -85,7 +110,7 @@ module.exports.initialize = (app) => {
     const result = await account.login(request.extractParams());
 
     if (result.success) {
-      response.respond(200, "OK", { userId: result.userId });
+      response.respond(200, "OK", { userId: result.userId, status: result.userStatus });
     } else {
       response.respond(ErrorCode(result.message), result.message);
     }
@@ -97,6 +122,19 @@ module.exports.initialize = (app) => {
    */
   app.post("/signup", async (request, response) => {
     const result = await account.signup(request.extractParams());
+
+    if (result.success) {
+      response.respond(200, "OK", { userId: result.userId });
+    } else {
+      response.respond(ErrorCode(result.message), result.message);
+    }
+  });
+  /**
+   * For customers only: gets email, google token and the name of the user.
+   * Respons with status and user id.
+   */
+  app.post("/google-signin", async (request, response) => {
+    const result = await account.signInByGoogle(request.extractParams());
 
     if (result.success) {
       response.respond(200, "OK", { userId: result.userId });
