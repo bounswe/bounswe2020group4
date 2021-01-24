@@ -16,6 +16,7 @@ module.exports.Product = mongoose.model(
     originalPrice: Number,
     stockValue: Object,
     brand: String,
+    description:String,
     productInfos:String,
     vendorId: mongoose.Schema.Types.ObjectId,
   }),
