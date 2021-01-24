@@ -28,11 +28,13 @@ module.exports.updateProduct = async (product_id,parameter) => {
 
       productAttributes = JSON.stringify(productAttributes)
       innerParameter = {"productInfos": productAttributes};
+
+      if(!productInfosChecker){
+        return "Please check your update parameters"
+      }
     }
 
-    if(!productInfosChecker){
-      return "Please check your update parameters"
-    }
+    
     checker = Product.findByIdAndUpdate(product_id, innerParameter, 
         function (err, docs) { 
           if (err){ 
