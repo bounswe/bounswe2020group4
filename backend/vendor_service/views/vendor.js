@@ -141,7 +141,6 @@ module.exports.getProducts = async (params) => {
           product.id = product._id.toString();
           
           delete product._id;
-          delete product.vendorId;
           
           return product;
       })
@@ -390,6 +389,7 @@ module.exports.getProducts = async (params) => {
 
     finalProductList = await Promise.all(
       finalProductList.map(async (product) => {
+
         const vendor = await Vendor.findById(product.vendorId);
 
         product.vendor = {
@@ -425,4 +425,26 @@ module.exports.getVendorList = async () => {
 
   return vendorList
 
+}
+
+
+module.exports.deleteProduct = async (parameter) => {
+  checker = false;
+  const product = await Product.findById(parameter.productId);
+
+  if(product == null){
+    return false
+  }
+
+  if(JSON.stringify(product.vendorId) == JSON.stringify(parameter.vendorId)){
+    await Product.findByIdAndDelete(product._id, function (err) {
+      if(err){
+        console.log(err);
+      } 
+      checker = true
+    });
+  }
+  
+
+  return checker
 }

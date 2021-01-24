@@ -68,4 +68,21 @@ module.exports.initialize = (app) => {
 
   });
 
+
+
+  app.delete("/vendor/product/:vendorId", async (request, response) => {    
+    var parameter = request.body;
+    parameter["vendorId"] =  request.params.vendorId
+
+    const result = await vendor.deleteProduct(parameter);
+
+    console.log(result)
+    if(result){
+      response.respond(200, "The product is deleted successfully");   
+    }else {
+      response.respond(400, "Please check your product information. It has never existed or been already deleted");   
+    }
+
+  });
+
 };
