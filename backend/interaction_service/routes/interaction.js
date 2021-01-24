@@ -1,6 +1,7 @@
 const like = require("../views/like");
 const comment = require("../views/comment");
 const message = require("../views/message");
+const notification = require("../views/notification");
 const { ErrorCode } = require("../constants/error");
 
 // Initializes the endpoints.
@@ -65,6 +66,19 @@ module.exports.initialize = (app) => {
 
     if (result.success) {
       response.respond(200, "OK", { messages: result.messages });
+    } else {
+      response.respond(ErrorCode(result.message), result.message);
+    }
+  });
+
+  /**
+   * Gets notifications between two users
+   */
+  app.get("/notifications", async (request, response) => {
+    const result = await notification.getNotifications(request.query);
+
+    if (result.success) {
+      response.respond(200, "OK", { notifications: result.response });
     } else {
       response.respond(ErrorCode(result.message), result.message);
     }
