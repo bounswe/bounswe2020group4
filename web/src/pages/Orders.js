@@ -4,8 +4,6 @@ import { connect } from 'react-redux'
 
 import OrderDetails from '../components/OrderDetails'
 
-import Tabs from '@material-ui/core/Tabs'
-import Tab from '@material-ui/core/Tab'
 import Accordion from '@material-ui/core/Accordion'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
@@ -49,7 +47,7 @@ const Orders = ({isLoggedIn, userId}) => {
 
 	useEffect(async () => {
 		const orders = await orderService.getOrders(userId, 'customer')
-		let ordersList = []
+		const ordersList = []
 		let key
 		for(key of Object.keys(orders)) {
 			ordersList.push({id: key, data: orders[key]})
