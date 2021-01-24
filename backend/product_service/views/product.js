@@ -3,7 +3,7 @@ const Vendor = require("../models/vendor").Vendor;
 const Comment = require("../models/comment").Comment;
 const Customer = require("../models/customer").Customer;
 const ObjectId = require("mongoose").Types.ObjectId;
-
+const { ErrorMessage } = require("../constants/error");
 /**
  * Returns the whole categories in the app as a tree.
  *
@@ -494,3 +494,17 @@ module.exports.getProduct = async (params) => {
     return error;
   }
 };
+
+module.exports.search = async (params) => {
+  try {
+    if (!params.search) {
+      return { success: false, message: ErrorMessage.MISSING_PARAMETER };
+    }
+    let products = await Product.find( { $text: { $search: params.search.toString() }});
+    
+    return { success: true, data: products };
+  } catch (error) {
+    console.log(error);
+    return { success: false, message: error.message || error };
+  }
+}
