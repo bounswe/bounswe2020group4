@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const OrderedProduct = require("./models/ordered_product").OrderedProduct;
+const OrderedProduct = require("./ordered_product").OrderedProduct;
 
 /**
  * Schema of a Notification object in the database, notification documents resides
