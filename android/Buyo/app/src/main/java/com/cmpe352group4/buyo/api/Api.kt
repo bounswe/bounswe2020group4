@@ -128,6 +128,12 @@ interface Api {
         @Query("userType") userType: String
     ): LiveData<ApiResponse<BaseResponse<Map<String, Order>>>>
 
+    @GET("order")
+    fun fetchOrdersVendor(
+        @Query("id") userId: String,
+        @Query("userType") userType: String
+    ): LiveData<ApiResponse<BaseResponse<Map<String, OrderVendor>>>>
+
     @POST("account")
     fun saveAccountInfo(
         @Query("id") id: String,

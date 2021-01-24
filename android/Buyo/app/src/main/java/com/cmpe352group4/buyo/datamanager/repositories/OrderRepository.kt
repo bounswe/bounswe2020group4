@@ -10,6 +10,7 @@ import com.cmpe352group4.buyo.base.ConnectionManager
 import com.cmpe352group4.buyo.util.livedata.InitialLiveData
 import com.cmpe352group4.buyo.vo.BaseResponse
 import com.cmpe352group4.buyo.vo.Order
+import com.cmpe352group4.buyo.vo.OrderVendor
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -26,6 +27,15 @@ class OrderRepository @Inject constructor(
                 return InitialLiveData.create(data.data)
             }
             override fun createCall(): LiveData<ApiResponse<BaseResponse<Map<String, Order>>>> = api.fetchOrders(userId, "customer")
+        }.asLiveData()
+    }
+
+    fun getOrdersVendor(userId:String): LiveData<Resource<Map<String, OrderVendor>>> {
+        return object : NetworkServiceWrapper<Map<String, OrderVendor>, BaseResponse<Map<String, OrderVendor>>>(appExecutors,connectionManager){
+            override fun loadFromApi(data: BaseResponse<Map<String, OrderVendor>>): LiveData<Map<String, OrderVendor>> {
+                return InitialLiveData.create(data.data)
+            }
+            override fun createCall(): LiveData<ApiResponse<BaseResponse<Map<String, OrderVendor>>>> = api.fetchOrdersVendor(userId, "vendor")
         }.asLiveData()
     }
 }

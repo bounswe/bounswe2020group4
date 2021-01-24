@@ -4,11 +4,11 @@ import java.io.Serializable
 
 // data -> MapOf<String, Order>,  string is the order no
 
+///////////////////////////////////////// Customer Orders /////////////////////////////////////////
+
 data class Order (
-    //var orderID : String,
     var shippingPrice: Double,
     var date: String,           //2020-12-28T08:08:37.507Z (order date)
-    //var deliverDate: String?, //DD.MM.YYYY
     var products: List<OrderProduct>, // vendor info will come from the product object
     var address: String   // Just the address text
 ):Serializable
@@ -43,6 +43,31 @@ data class OrderProductRV (
     var status: String
 ): Serializable
 
+///////////////////////////////////////// Vendor Orders /////////////////////////////////////////
+
+data class OrderVendor (
+    var shippingPrice: Double,
+    var date: String,           //2020-12-28T08:08:37.507Z (order date)
+    var products: List<OrderProductVendor>, // customer info will come from the product object
+    var address: String,   // Just the address text
+    var totalEarnings: Double
+):Serializable
+
+data class OrderProductVendor (
+    var orderedProductId: String,
+    var productId: String,
+    var name: String,
+    var imageUrl: String,
+    var rating: Double,
+    var price: Double,
+    var originalPrice: Double,
+    var brand: String,
+    var customerId: String,
+    var quantity: Int,
+    var attributes: List<OrderAttribute>,
+    var status: String
+): Serializable
+
 data class OrderProductVendorRV (
     var orderID: String,
     var customerID: String,
@@ -53,11 +78,13 @@ data class OrderProductVendorRV (
     var name: String,
     var imageUrl: String,
     var price: Double,
-    var vendor: Vendor,
     var quantity: Int,
     var attributes: List<OrderAttribute>,
     var status: String
 ): Serializable
+
+
+///////////////////////////////////////////// Common /////////////////////////////////////////////
 
 data class OrderAttribute (
     var name: String,

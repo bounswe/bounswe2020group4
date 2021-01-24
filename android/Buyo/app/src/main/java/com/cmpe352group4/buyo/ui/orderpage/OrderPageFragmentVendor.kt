@@ -43,7 +43,7 @@ class OrderPageFragmentVendor : BaseFragment() {
     }
 
     private val orderAdapter by lazy {
-        OrderAdapter(mutableListOf(),
+        OrderAdapterVendor(mutableListOf(),
             { order ->
                 navigationManager?.onReplace(
                     ProductDetailContentFragment.newInstance(order.productId),
@@ -64,7 +64,7 @@ class OrderPageFragmentVendor : BaseFragment() {
                 )
             },
             { order ->
-                if (order.status != "Pending") {
+                if (order.status != "Reject") {
                     val myToast = Toast.makeText(
                         context,
                         "Comment on " + order.name,
@@ -131,15 +131,15 @@ class OrderPageFragmentVendor : BaseFragment() {
     }
 
     private fun observeOrderData () {
-        ordersViewModel.orderMap.observe(viewLifecycleOwner, Observer {
+        ordersViewModel.orderMapVendor.observe(viewLifecycleOwner, Observer {
 
             if (it.status == Status.SUCCESS && it.data != null) {
-                val ordersListRV = mutableListOf<OrderProductRV>()
+                val ordersListRV = mutableListOf<OrderProductVendorRV>()
                 for ((order_id, order) in it.data) {
                     for (product in order.products) {
                         val orderRV =
-                            OrderProductRV(order_id, order.address, order.date, product.productId,
-                                product.name, product.imageUrl, product.price, product.vendor,
+                            OrderProductVendorRV(order_id, product.customerId, order.address, order.date, product.productId,
+                                product.name, product.imageUrl, product.price,
                                 product.quantity, product.attributes, product.status)
                         ordersListRV.add(orderRV)
                     }
