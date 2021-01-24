@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { connect } from 'react-redux'
 
 import { makeStyles } from '@material-ui/core/styles'
@@ -11,6 +11,8 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Fab from '@material-ui/core/Fab'
 import SendIcon from '@material-ui/icons/Send'
+
+import { io } from 'socket.io-client'
 
 import messageService from '../services/messages'
 
@@ -36,22 +38,62 @@ const useStyles = makeStyles({
 	}
 })
 
-const Messages = ({isLoggedIn, userId}) => {
+const socketUrl = 'http://3.138.113.101:5003'
+
+const Messages = ({isLoggedIn, userId, userType}) => {
 	const classes = useStyles()
+	const [message, setMessage] = useState('')
 	const [lastMessages, setLastMessages] = useState([])
 	const [displayedMessages, setDisplayedMessages] = useState([])
 	const [displayedUserId, setDisplayedUserId] = useState(null)
+	const [displayedUserType, setDisplayedUserType] = useState(null)
+	const socketRef = useRef()
+	const scrollRef = useRef(null)
 
+	// Scroll to the bottom when new message is sent or received
+	useEffect(() => {
+		if (scrollRef.current) {
+			scrollRef.current.scrollIntoView({ behaviour: 'smooth' })
+		}
+	}, [displayedMessages])
+
+	// Establish socket connection and get the last messages
 	useEffect(async () => {
-		// TODO: make user type generic
-		const messages = await messageService.getLastMessages(userId, 'customer')
-		setLastMessages(messages.slice(1)) // TODO remove slice
+		socketRef.current = io.connect(socketUrl)
+
+		socketRef.current.emit('discover', {id: userId, userType: userType}, (response) => {
+			console.log(response)
+		})
+
+		socketRef.current.on('message', function (data) {
+			console.log(data)
+		})
+
+		const messages = await messageService.getLastMessages(userId, userType)
+		setLastMessages(messages.slice(0, 1)) // TODO remove slice
+
+		return () => {
+			socketRef.current.disconnect()
+		}
 	}, [])
 
-	const handleListItemClick = async (e, id) => {
-		setDisplayedUserId(id)
-		const messages = await messageService.getMessages(userId, 'customer', id, 'customer') // TODO make user type generic
-		setDisplayedMessages(messages)
+	// When a user is clicked on the left panel, request its messages from backend
+	const handleListItemClick = async (e, withId, withUserType) => {
+		setDisplayedUserId(withId)
+		setDisplayedUserType(withUserType)
+		const messages = await messageService.getMessages(userId, userType, withId, withUserType)
+		setDisplayedMessages(messages.slice().reverse())
+	}
+
+	const handleSendMessage = () => {
+		socketRef.current.emit('message',
+			{id: userId, userType: userType, withId: displayedUserId,
+				withType: displayedUserType, 'message': message})
+		setMessage('')
+	}
+
+	const handleMessageChange = (event) => {
+		setMessage(event.target.value)
 	}
 
 	return(
@@ -64,7 +106,7 @@ const Messages = ({isLoggedIn, userId}) => {
 							{lastMessages.map(v =>
 								<ListItem button key={v.user.id}
 									selected={displayedUserId === v.user.id}
-									onClick={(e) => handleListItemClick(e, v.user.id)}>
+									onClick={(e) => handleListItemClick(e, v.user.id, v.user.userType)}>
 									<ListItemText primary={v.user.name}>{v.user.name}</ListItemText>
 								</ListItem>)}
 						</List>
@@ -83,6 +125,7 @@ const Messages = ({isLoggedIn, userId}) => {
 											</Grid>
 										</Grid>
 									</ListItem>)}
+								<ListItem ref={scrollRef} ></ListItem>
 							</List> :
 							<List className={classes.messageArea}>
 								<Grid container>
@@ -94,10 +137,10 @@ const Messages = ({isLoggedIn, userId}) => {
 						<Divider />
 						<Grid container style={{padding: '20px'}}>
 							<Grid item xs={11}>
-								<TextField id="outlined-basic-email" label="Type Something" fullWidth />
+								<TextField id="outlined-basic-email" onChange={handleMessageChange} value={message} placeholder="Type Something" fullWidth />
 							</Grid>
 							<Grid item xs={1} align="right">
-								<Fab color="primary" aria-label="add"><SendIcon /></Fab>
+								<Fab color="primary" aria-label="add" onClick={handleSendMessage} ><SendIcon /></Fab>
 							</Grid>
 						</Grid>
 					</Grid>
@@ -110,7 +153,8 @@ const Messages = ({isLoggedIn, userId}) => {
 const mapStateToProps = (state) => {
 	return {
 		isLoggedIn: state.signIn.isLoggedIn,
-		userId: state.signIn.userId
+		userId: state.signIn.userId,
+		userType: state.signIn.userType
 	}
 }
 
