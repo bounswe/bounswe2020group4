@@ -24,6 +24,7 @@ import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
+import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.viewmodel.ProductViewModel
 import com.cmpe352group4.buyo.viewmodel.VendorViewModel
 import com.cmpe352group4.buyo.vo.FilterCriterias
@@ -38,6 +39,8 @@ import java.io.IOException
 import javax.inject.Inject
 
 class AddProductFragment : BaseFragment() {
+    @Inject
+    lateinit var sharedPref: SharedPref
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -105,14 +108,14 @@ class AddProductFragment : BaseFragment() {
             category = category_path.split(","), // Done
             name = "ProductName", // Done
             imageUrl = "some_url", // Not yet
-            rating = 0.0, // Cant
+            rating = 2.5, // Cant
             price = 0.0, // Done
             originalPrice = 0.0, // Done
             filterCriterias = emptyList(), // Done
             comments = emptyList(), // Cant
             brand = "brand", // Done
             description = "description", // Done
-            vendor = Vendor(id= "some_id", rating = 0.0, name = "vendor_name"), // Not yet
+            vendor = Vendor(id= sharedPref.getUserId(), rating = 0.0, name = "vendor_name"), // Not yet
             productInfos = mutableListOf(), // Next Fragment
             materials = null // Aborted
         )
@@ -346,49 +349,12 @@ class AddProductFragment : BaseFragment() {
                 }
 
                 override fun afterTextChanged(editable: Editable?) {
-                    /*
-                    try {
-                        var attNum = editable.toString().toInt()
-
-                        if (default_atts != null) {
-                            if (default_atts < attNum) {
-
-                                for (i in (default_atts)?.rangeTo(attNum)!!) {
-                                    parsedList.add(
-                                        ParsedAttribute(
-                                            att_name = "",
-                                            att_value = mutableListOf()
-                                        )
-                                    )
-                                }
-
-                                addProductAdapter.submitList(parsedList)
-                            }
-                            else if (default_atts > attNum){
-                                for (i in 1..(attNum)) {
-                                    parsedList.add(
-                                        ParsedAttribute(
-                                            att_name = "",
-                                            att_value = mutableListOf()
-                                        )
-                                    )
-                                }
-
-                                addProductAdapter.submitList(parsedList)
-                            }
-                        }
-
-                    }catch (e: Exception){
-
-                    }
-
-                     */
-
 
                 }
 
             })
 
+            current_product = product
 
         }
         else{
@@ -507,7 +473,7 @@ class AddProductFragment : BaseFragment() {
                 }
                 else {
                     navigationManager?.onReplace(
-                        AddStockValuesFragment.newInstance(gson.toJson(new_combinations), gson.toJson(current_product), att_names.joinToString("%")),
+                        AddStockValuesFragment.newInstance(gson.toJson(new_combinations), gson.toJson(current_product), att_names.joinToString("%"), mode = fragment_mode),
                         TransactionType.Replace, true
                     )
                 }

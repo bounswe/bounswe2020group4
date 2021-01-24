@@ -175,5 +175,11 @@ interface Api {
         @Body() product : List<AddProduct>
     ) : LiveData<ApiResponse<BaseResponse<AddProductResponseResult>>>
 
+    @PATCH("vendor/products/{productID}")
+    fun updateProduct(
+        @Path("productID") productID : String,
+        @Body() Product : Product
+    ) : LiveData<ApiResponse<BaseResponse<AddProductResponseResult>>>
+
 
 }
