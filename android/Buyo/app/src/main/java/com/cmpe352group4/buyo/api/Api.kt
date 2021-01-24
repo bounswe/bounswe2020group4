@@ -147,13 +147,13 @@ interface Api {
         @Query("company") gender: String
     ): LiveData<ApiResponse<BaseResponsePostRequest>>
 
-    @POST("report_comment")
+    @POST("report/comment")
     fun reportComment(
         @Query("commentId") commentID : String,
         @Query("message") message : String
     ):LiveData<ApiResponse<BaseResponsePostRequest>>
 
-    @POST("report_product")
+    @POST("report/product")
     fun reportProduct(
         @Query("productId") commentID : String,
         @Query("message") message : String

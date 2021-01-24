@@ -103,14 +103,14 @@ class HomepageFragment : BaseFragment() {
         // TODO products. Using multiple viewmodels in a fragment causes bugs, i guess.
 
         // Recommendation RV
-        recommendedViewModel.onFetchSearchResultbyKeyword("d", emptyMap<String, String>())
+        recommendedViewModel.onFetchSearchResultbyKeyword("dress", emptyMap<String, String>())
 
         recommendedViewModel.searchResult.observe(viewLifecycleOwner, Observer {
 
             if (it.status == Status.SUCCESS && it.data != null){
                 Log.v("Homepage", it.data.toString())
 
-                //recommendedProductListAdapter.submitList(it.data.products.productList as MutableList<Product>)
+                recommendedProductListAdapter.submitList(it.data.products.productList as MutableList<Product>)
 
                 dispatchLoading()
             } else if (it.status == Status.ERROR){
@@ -136,7 +136,7 @@ class HomepageFragment : BaseFragment() {
 
                 Log.v("Homepage", it.data.toString())
 
-                //discountProductListAdapter.submitList(it.data.products.productList as MutableList<Product>)
+                discountProductListAdapter.submitList(it.data.products.productList as MutableList<Product>)
 
                 dispatchLoading()
             } else if (it.status == Status.ERROR){

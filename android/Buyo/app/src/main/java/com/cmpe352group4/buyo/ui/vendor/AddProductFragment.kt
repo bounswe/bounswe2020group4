@@ -19,6 +19,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
@@ -30,6 +31,7 @@ import com.cmpe352group4.buyo.vo.ParsedAttribute
 import com.cmpe352group4.buyo.vo.Product
 import com.cmpe352group4.buyo.vo.Vendor
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.fragment_product_detail_content.*
 import kotlinx.android.synthetic.main.fragment_vendor_add_product.*
 import kotlinx.android.synthetic.main.fragment_vendor_add_stock_value.*
 import java.io.IOException
@@ -50,7 +52,7 @@ class AddProductFragment : BaseFragment() {
         private const val MODE = "add_or_edit_mode"
         private const val PRODUCT = "product_if_edit"
         private const val CATEGORY = "product_category"
-        fun newInstance(mode : String, product : String, categories : String) = AddProductFragment().apply {
+        fun newInstance(mode : String, product : String, categories : String?) = AddProductFragment().apply {
             arguments = Bundle().apply {
                 putString(MODE, mode)
                 putString(PRODUCT, product)
@@ -255,7 +257,12 @@ class AddProductFragment : BaseFragment() {
             val product = gson.fromJson(productJSON, Product::class.java)
             Log.v("EditProduct", product.toString())
 
+
             tv_vendorAddProductCategoryName.text = product.category.joinToString("->")
+
+            Glide.with(this)
+                .load(product.imageUrl).centerCrop()
+                .into(uploaded_image)
 
             tiet_vendorAddProduct_Name.setText(product.name)
 
