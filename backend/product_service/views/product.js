@@ -79,7 +79,7 @@ module.exports.getProducts = async (params) => {
     if (params.categories) {
       products = await Product.find({ category: { $all: JSON.parse(params.categories) } });
     } else if (params.search) {
-      products = await Product.find({ name: { $regex: params.search, $options: "i" } });
+      products = await Product.find( { $text: { $search: params.search.toString() }})
     }
 
     var filterCriterias = [];
@@ -494,17 +494,3 @@ module.exports.getProduct = async (params) => {
     return error;
   }
 };
-
-module.exports.search = async (params) => {
-  try {
-    if (!params.search) {
-      return { success: false, message: ErrorMessage.MISSING_PARAMETER };
-    }
-    let products = await Product.find( { $text: { $search: params.search.toString() }});
-    
-    return { success: true, data: products };
-  } catch (error) {
-    console.log(error);
-    return { success: false, message: error.message || error };
-  }
-}
