@@ -3,13 +3,9 @@ import axios from 'axios'
 const baseUrl = 'http://3.138.113.101:8080/'
 
 const updateAddress = async (userId, address) => {
-	const params = {
-		id: userId, 
-		address: address
-	}
 	try{
-		const response = await axios.patch(`${baseUrl}account/address`, params)
-		return response.status.code
+		const response = await axios.patch(`${baseUrl}account/address?id=${userId}&address={"addressTitle":"${address.addressTitle}","name":"${address.name}","surname":"${address.surname}","phone":"${address.phone}","city": "${address.city}","province":"${address.province}","street":"${address.street}","address":"${address.address}"}`)
+		return response.status
 	} catch(err) {
 		console.error(err)
 		return null
@@ -17,15 +13,32 @@ const updateAddress = async (userId, address) => {
 }
 
 const addNewAddress = async (userId, address) => {
-	const params = {
-		id: userId, 
-		address: address
-	}
 	try{
-		const response = await axios.post(`${baseUrl}account/address`, params)
-		return response.status.code
+		const response = await axios.post(`${baseUrl}account/address?id=${userId}&address={"addressTitle":"${address.addressTitle}","name":"${address.name}","surname":"${address.surname}","phone":"${address.phone}","city": "${address.city}","province":"${address.province}","street":"${address.street}","address":"${address.address}"}`)
+		return response.status
 	} catch(err) {
 		console.error(err)
+		return null
+	}
+}
+
+const deleteAddress = async (userId, addressTitle) => {
+	try{
+		const response = await axios.delete(`${baseUrl}account/address?id=${userId}&address={"addressTitle":"${addressTitle}"}`)
+		return response.status
+	} catch(err) {
+		console.error(err)
+		return null
+	}
+}
+
+const getProfileAddresses = async (userType, id) => {
+	let response
+	try{
+		response = await axios.get(`${baseUrl}account?id=${id}&userType=${userType}`)
+		return response.data.data.result.address
+	} catch(err){
+		console.log(err)
 		return null
 	}
 }
@@ -201,9 +214,9 @@ const googleSignIn = async (id_token, email) => {
 	// }
 	// return null
 	return {
-		id: '1noasnd1092daoksd1093ndojsd109dn',
+		userId: '1noasnd1092daoksd1093ndojsd109dn',
 		banned: false
 	}
 }
 
-export default { login, signUp, getProfileInfo, updateProfileInfo, updatePassword, vendorLogin, vendorSignUp, addNewAddress, updateAddress, googleSignIn }
+export default { login, signUp, getProfileInfo, updateProfileInfo, updatePassword, vendorLogin, vendorSignUp, getProfileAddresses, addNewAddress, updateAddress, deleteAddress, googleSignIn }
