@@ -64,6 +64,7 @@ class LoginFragmentVendor : BaseFragment() {
         userTypeSwitchListener()
         googleMapButtonListener()
         legalDocLinkSet()
+        resetPasswordVendor()
     }
 
     override fun onResume() {
@@ -338,6 +339,15 @@ class LoginFragmentVendor : BaseFragment() {
         vendor_choose_location.setOnClickListener {
             navigationManager?.onReplace(
                 MapsFragment.newInstance(),
+                TransactionType.Replace, true
+            )
+        }
+    }
+
+    private fun resetPasswordVendor() {
+        vendor_reset_password.setOnClickListener {
+            navigationManager?.onReplace(
+                VendorResetPasswordFragment.newInstance(),
                 TransactionType.Replace, true
             )
         }

@@ -76,6 +76,7 @@ class LoginFragment : BaseFragment() {
             signUpSwitch()
             userTypeSwitchListener()
             legalDocLinkSet()
+            resetPassword()
         }
 
     }
@@ -276,4 +277,14 @@ class LoginFragment : BaseFragment() {
             )
         }
     }
+
+    private fun resetPassword() {
+        customer_reset_password.setOnClickListener {
+            navigationManager?.onReplace(
+                CustomerResetPasswordFragment.newInstance(),
+                TransactionType.Replace, true
+            )
+        }
+    }
+
 }
