@@ -218,7 +218,40 @@ const AddProduct= (props) => {
 	}
 
 	const handleSubmitButton = async function(e){
-		console.log(imageUrl)
+
+		var stockInfos = []
+		for(var productInfo of productInfos){
+			var temp = {}
+			temp["attributes"] = []
+			for(var attr in productInfo){
+				if(attr === 'stockValue'){
+					temp[attr] = productInfo[attr]
+				} else {
+					temp["attributes"].push({"name":attr, "value": productInfo[attr]})
+				}
+			}
+			stockInfos.push(temp)
+		}
+
+		const product = [{
+			"category": path.split(','),
+			"description": description,
+			"name": productName,
+			"price": discountedPrice,
+			"originalPrice": price,
+			"imageUrl": imageUrl,
+			"brand": brand,
+			"rating": 0,
+			"productInfos": stockInfos,
+			"vendorId": "600d56a63bf84a001266eda5" //TODO: props.userId
+		}]
+		
+		//TODO: vendorId
+		const response = await vendorService.addProduct(product, "600d56a63bf84a001266eda5")
+		if(response==200){
+			alert("Your product has been added successfully.")
+		}
+		console.log(response)
 		return
 	}
 

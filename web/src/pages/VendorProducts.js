@@ -23,8 +23,7 @@ const VendorProducts = (props) => {
 		const getProducts = async () => {
 			//TODO: change this
 			//const products = await vendorService.getProducts(props.userId)
-			const products = await vendorService.getProducts("5ff37169542dbb00123390fc")
-			console.log(products)
+			const products = await vendorService.getProducts("600d56a63bf84a001266eda5")
 			setProducts(products)
 		}
 
