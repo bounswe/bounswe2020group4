@@ -431,3 +431,25 @@ module.exports.getVendorList = async () => {
   return vendorList
 
 }
+
+
+module.exports.deleteProduct = async (parameter) => {
+  checker = false;
+  const product = await Product.findById(parameter.productId);
+
+  if(product == null){
+    return false
+  }
+
+  if(JSON.stringify(product.vendorId) == JSON.stringify(parameter.vendorId)){
+    await Product.findByIdAndDelete(product._id, function (err) {
+      if(err){
+        console.log(err);
+      } 
+      checker = true
+    });
+  }
+  
+
+  return checker
+}
