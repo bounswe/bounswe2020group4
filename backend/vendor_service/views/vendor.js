@@ -141,7 +141,6 @@ module.exports.getProducts = async (params) => {
           product.id = product._id.toString();
           
           delete product._id;
-          delete product.vendorId;
           
           return product;
       })
@@ -390,6 +389,12 @@ module.exports.getProducts = async (params) => {
 
     finalProductList = await Promise.all(
       finalProductList.map(async (product) => {
+
+        console.log("*****************************")
+        console.log(product)
+        console.log(typeof(product.vendorId))
+        console.log(product.vendorId)
+        console.log("*****************************")
         const vendor = await Vendor.findById(product.vendorId);
 
         product.vendor = {
