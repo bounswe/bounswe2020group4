@@ -6,6 +6,7 @@ const ObjectId = require("mongoose").Types.ObjectId;
 const { checkCreditCard } = require("./verification");
 const Moment = require("moment");
 const { ErrorMessage } = require("../constants/error");
+const { addNotification } = require("../models/notification");
 // TODO(eridincu): UNAVAILABLE PRODUCTS BEHAVIOUR
 module.exports.checkoutOrder = async (params) => {
   try {
@@ -197,6 +198,7 @@ module.exports.updateProductStatus = async (params) => {
       return { success: false, message: ErrorMessage.MISSING_PARAMETER };
     }
     let orderedProduct;
+    let statusChanged = false;
     if (params.userType == "customer") {
       orderedProduct = await OrderedProduct.findOne({
         orderId: params.orderId,
@@ -262,7 +264,7 @@ module.exports.updateProductStatus = async (params) => {
         // save updated stock values
         db_product.productInfos = JSON.stringify(dbTempProductInfos);
         await db_product.save();
-
+        statusChanged = true;
         orderedProduct.status = params.status;
 
         await orderedProduct.save();
@@ -304,13 +306,16 @@ module.exports.updateProductStatus = async (params) => {
         );
         db_product.productInfos = JSON.stringify(dbTempProductInfos);
         await db_product.save();
-
+        statusChanged = true;
         orderedProduct.status = params.status;
         await orderedProduct.save();
       }
     } else {
       orderedProduct.status = params.status;
       await orderedProduct.save();
+    }
+    if (statusChanged && params.status === "Cancelled" && params.status === "Returned") {
+      addNotification(params);
     }
     return { success: true };
   } catch (error) {
@@ -324,6 +329,7 @@ module.exports.updateOrderStatus = async (params) => {
       return { success: false, message: ErrorMessage.MISSING_PARAMETER };
     }
     let orderedProducts;
+    let statusChanged = false;
     if (params.userType === "customer") {
       console.log(params, typeof params.userId);
       console.log(await OrderedProduct.find());
@@ -388,10 +394,16 @@ module.exports.updateOrderStatus = async (params) => {
           await db_product.save();
         }
         orderedProduct.status = params.status;
+        statusChanged = true;
         await orderedProduct.save();
         return orderedProduct;
       })
     );
+
+    if (statusChanged && params.status === "Cancelled" && params.status === "Returned") {
+      addNotification(params);
+    }
+
     return { success: true };
   } catch (error) {
     console.log(error);

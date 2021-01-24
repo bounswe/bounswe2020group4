@@ -1,58 +1,55 @@
 const Product = require("../models/product").Product;
 const ObjectId = require("mongoose").Types.ObjectId;
-
 const Vendor = require("../models/vendor").Vendor;
-const { ErrorMessage } = require("../constants/error");
+const { addNotification } = require("../models/notification");
 
-
-
-module.exports.updateProduct = async (product_id,parameter) => {
+module.exports.updateProduct = async (product_id, parameter) => {
   try {
     var innerParameter = parameter;
     var productInfosChecker = false;
-    if(!!parameter.attributes){
+    console.log(innerParameter);
+    if (!!parameter.attributes) {
       product = await Product.findOne({ _id: ObjectId(product_id) });
-      product = product.toJSON()
+      product = product.toJSON();
 
-      var productAttributes = []
-      
-      JSON.parse(product.productInfos).forEach(function(item){
-        if(JSON.stringify(item.attributes) == JSON.stringify(parameter.attributes)){      
-          productAttributes.push(parameter)
+      var productAttributes = [];
+
+      JSON.parse(product.productInfos).forEach(function (item) {
+        if (JSON.stringify(item.attributes) == JSON.stringify(parameter.attributes)) {
+          productAttributes.push(parameter);
           productInfosChecker = true;
-        }else{
-          productAttributes.push(item)
+        } else {
+          productAttributes.push(item);
         }
+      });
 
-      })
+      productAttributes = JSON.stringify(productAttributes);
+      innerParameter = { productInfos: productAttributes };
 
-      productAttributes = JSON.stringify(productAttributes)
-      innerParameter = {"productInfos": productAttributes};
-
-      if(!productInfosChecker){
-        return "Please check your update parameters"
+      if (!productInfosChecker) {
+        return "Please check your update parameters";
       }
     }
 
-    
-    checker = Product.findByIdAndUpdate(product_id, innerParameter, 
-        function (err, docs) { 
-          if (err){ 
-            console.log(err) 
-          } 
-          else{ 
-            return true
-          } 
-        });
-        
-      if(checker){
-        product = await Product.findOne({ _id: ObjectId(product_id) });
-        return product
+    if (innerParameter.price) {
+      addNotification(ObjectId(product_id));
+    }
+
+    checker = await Product.findByIdAndUpdate(product_id, innerParameter, function (err, docs) {
+      if (err) {
+        console.log(err);
+      } else {
+        return true;
       }
-    
+    });
+
+    if (checker) {
+      product = await Product.findOne({ _id: ObjectId(product_id) });
+      return product;
+    }
   } catch (error) {
     console.log(error);
-    return "Please check your update parameters"
+    return "Please check your update parameters";
   }
 };
 
@@ -61,10 +58,17 @@ module.exports.addProducts = async (products) => {
     const dbProducts = [];
     checker = true;
     products.forEach((product) => {
-      checker = checker && ("name" in product) && ("imageUrl" in product) &&
-      ("description" in product) && ("rating" in product) && ("price" in product) &&
-      ("originalPrice" in product) && ("brand" in product) && ("productInfos" in product) &&
-      ("vendorId" in product);
+      checker =
+        checker &&
+        "name" in product &&
+        "imageUrl" in product &&
+        "description" in product &&
+        "rating" in product &&
+        "price" in product &&
+        "originalPrice" in product &&
+        "brand" in product &&
+        "productInfos" in product &&
+        "vendorId" in product;
       const newProduct = new Product({
         name: product.name,
         imageUrl: product.imageUrl,
@@ -82,8 +86,8 @@ module.exports.addProducts = async (products) => {
     });
 
     await Promise.all(dbProducts.map(async (dbProduct) => await dbProduct.save()));
-    if(checker){
-      return {"idList":dbProducts.map((dbProduct) => dbProduct._id.toString())};
+    if (checker) {
+      return { idList: dbProducts.map((dbProduct) => dbProduct._id.toString()) };
     }
 
     return false;
@@ -92,8 +96,6 @@ module.exports.addProducts = async (products) => {
     return error;
   }
 };
-
-
 
 module.exports.getVendorList = async () => {
   try {
@@ -108,43 +110,40 @@ module.exports.getVendorList = async () => {
 
 module.exports.getProducts = async (params) => {
   try {
-
     let products;
 
-    finalProductList = []
-
+    finalProductList = [];
 
     if (params.categories) {
       products = await Product.find({ category: { $all: params.categories } });
     } else if (params.search) {
       products = await Product.find({ name: { $regex: params.search, $options: "i" } });
-    }else{
+    } else {
       products = await Product.find();
-    }	    
+    }
 
+    products = products.filter(function (product) {
+      return JSON.stringify(params.vendorId) === JSON.stringify(product.vendorId);
+    });
 
-    products = products.filter(function(product){
-      return JSON.stringify(params.vendorId) === JSON.stringify(product.vendorId)
-    })
-
-    products = products.filter(function(product){
-        return JSON.stringify(params.vendorId) === JSON.stringify(product.vendorId)
-    })
+    products = products.filter(function (product) {
+      return JSON.stringify(params.vendorId) === JSON.stringify(product.vendorId);
+    });
 
     products = await Promise.all(
       products.map(async (product) => {
         product = product.toJSON();
-          const vendor = await Vendor.findById(product.vendorId);
-          
-          product.vendor = {
-            name: vendor.name,
-            rating: vendor.rating,
-          };
-          product.id = product._id.toString();
-          
-          delete product._id;
-          
-          return product;
+        const vendor = await Vendor.findById(product.vendorId);
+
+        product.vendor = {
+          name: vendor.name,
+          rating: vendor.rating,
+        };
+        product.id = product._id.toString();
+
+        delete product._id;
+
+        return product;
       })
     );
 
@@ -165,29 +164,26 @@ module.exports.getProducts = async (params) => {
      * Thats why I create filtering part here.
      */
 
-     
     products.forEach(function (product) {
-
       /* Since we cannot change the structure of product , we have to create a temp product and return it.*/
       tempProduct = {
-        "category": product.category,
-        "description": product.description,
-        "name": product.name,
-        "price": product.price,
-        "originalPrice": product.originalPrice,
-        "imageUrl": product.imageUrl,
-        "rating": product.rating,
-        "brand": product.brand,
-        "vendorId": product.vendorId,
-        "id": product.id
-    }
-      
+        category: product.category,
+        description: product.description,
+        name: product.name,
+        price: product.price,
+        originalPrice: product.originalPrice,
+        imageUrl: product.imageUrl,
+        rating: product.rating,
+        brand: product.brand,
+        vendorId: product.vendorId,
+        id: product.id,
+      };
+
       if ("productInfos" in product) {
-        productInfos = {}
-      
-        tempProduct["productInfos"]  = JSON.parse(product.productInfos)
-        
-       
+        productInfos = {};
+
+        tempProduct["productInfos"] = JSON.parse(product.productInfos);
+
         tempProduct["productInfos"].forEach(function (property) {
           property["attributes"].forEach(function (attribute) {
             if (filterCriterias.length === 0) {
@@ -228,12 +224,12 @@ module.exports.getProducts = async (params) => {
         });
       }
 
-      finalProductList.push(tempProduct)
+      finalProductList.push(tempProduct);
     });
 
     if (!!params.sortingFactor) {
       try {
-        if (typeof(finalProductList[0][params.sortingFactor]) == "number") {
+        if (typeof finalProductList[0][params.sortingFactor] == "number") {
           finalProductList = finalProductList.sort(
             (product1, product2) =>
               (params.sortingType == "descending" ? -1 : 1) *
@@ -391,7 +387,6 @@ module.exports.getProducts = async (params) => {
 
     finalProductList = await Promise.all(
       finalProductList.map(async (product) => {
-
         const vendor = await Vendor.findById(product.vendorId);
 
         product.vendor = {
@@ -407,12 +402,9 @@ module.exports.getProducts = async (params) => {
       })
     );
 
-
-
-    if(params.vendorName){
-      finalProductList = finalProductList.filter(product => product.vendor.name == params.vendorName)
+    if (params.vendorName) {
+      finalProductList = finalProductList.filter((product) => product.vendor.name == params.vendorName);
     }
-
 
     return { productList: finalProductList, filterCriterias };
   } catch (error) {
@@ -421,32 +413,28 @@ module.exports.getProducts = async (params) => {
   }
 };
 
-
 module.exports.getVendorList = async () => {
   const vendorList = await Vendor.find();
 
-  return vendorList
-
-}
-
+  return vendorList;
+};
 
 module.exports.deleteProduct = async (parameter) => {
   checker = false;
   const product = await Product.findById(parameter.productId);
 
-  if(product == null){
-    return false
+  if (product == null) {
+    return false;
   }
 
-  if(JSON.stringify(product.vendorId) == JSON.stringify(parameter.vendorId)){
+  if (JSON.stringify(product.vendorId) == JSON.stringify(parameter.vendorId)) {
     await Product.findByIdAndDelete(product._id, function (err) {
-      if(err){
+      if (err) {
         console.log(err);
-      } 
-      checker = true
+      }
+      checker = true;
     });
   }
-  
 
-  return checker
-}
+  return checker;
+};
