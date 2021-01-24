@@ -15,6 +15,7 @@ import SendIcon from '@material-ui/icons/Send'
 import { io } from 'socket.io-client'
 
 import messageService from '../services/messages'
+import history from '../util/history'
 
 import './Messages.css'
 
@@ -41,6 +42,11 @@ const useStyles = makeStyles({
 const socketUrl = 'http://3.138.113.101:5003'
 
 const Messages = ({isLoggedIn, userId, userType}) => {
+	if(!isLoggedIn) {
+		history.push('/signin')
+		return
+	}
+
 	const classes = useStyles()
 	const [message, setMessage] = useState('')
 	const [lastMessages, setLastMessages] = useState([])
@@ -59,6 +65,7 @@ const Messages = ({isLoggedIn, userId, userType}) => {
 
 	// Establish socket connection and get the last messages
 	useEffect(async () => {
+
 		socketRef.current = io.connect(socketUrl)
 
 		socketRef.current.emit('discover', {id: userId, userType: userType}, (response) => {
@@ -66,7 +73,7 @@ const Messages = ({isLoggedIn, userId, userType}) => {
 		})
 
 		socketRef.current.on('message', function (data) {
-			console.log(data)
+			setDisplayedMessages((displayedMessages) => [...displayedMessages, {...data, id: data.date}]) //TODO id should not be date
 		})
 
 		const messages = await messageService.getLastMessages(userId, userType)
@@ -88,7 +95,17 @@ const Messages = ({isLoggedIn, userId, userType}) => {
 	const handleSendMessage = () => {
 		socketRef.current.emit('message',
 			{id: userId, userType: userType, withId: displayedUserId,
-				withType: displayedUserType, 'message': message})
+				withType: displayedUserType, message: message})
+		setDisplayedMessages([...displayedMessages, {
+			message: message,
+			date: Date.now(),
+			id: Date.now(),
+			user: {
+				id: userId,
+				name: 'Koray', // TODO correct this
+				userType: userType
+			}
+		}])
 		setMessage('')
 	}
 
@@ -121,7 +138,7 @@ const Messages = ({isLoggedIn, userId, userType}) => {
 												<ListItemText align={m.user.id === userId ? 'right' : 'left'} primary={m.message}></ListItemText>
 											</Grid>
 											<Grid item xs={12}>
-												<ListItemText align={m.user.id === userId ? 'right' : 'left'} secondary={m.date}></ListItemText>
+												<ListItemText align={m.user.id === userId ? 'right' : 'left'} secondary={new Date(m.date).toLocaleString()}></ListItemText>
 											</Grid>
 										</Grid>
 									</ListItem>)}

@@ -7,22 +7,21 @@ import wishlistService from '../services/wishlist'
 import './Wishlist.css'
 
 const Wishlist = (props) => {
+	if(!props.isLoggedIn) {
+		history.push('/signin')
+		return
+	}
+
 	const [products, setProducts] = useState([])
 
 	useEffect(() => {
-
-		if(!props.isLoggedIn) {
-			history.push('/signin')
-			return
-		}
-
 		const getWishlist = async () => {
 			const prods = await wishlistService.getWishlist(props.customerId)
 			setProducts(prods)
 		}
 
 		getWishlist()
-	}, [props.isLoggedIn, props.customerId])
+	}, [props.customerId])
 
 	return(
 		<div>

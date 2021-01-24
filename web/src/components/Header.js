@@ -107,6 +107,9 @@ const Header = ({ isLoggedIn, setLogoutState }) => {
 					<Link to='/customerAddresses' className='profile-menu-text'>Addresses</Link>
 				</div>
 				<div className='list-item'>
+					<Link to='/messages' className='profile-menu-text'>Messages</Link>
+				</div>
+				<div className='list-item'>
 					<span className='profile-menu-text cursor-pointer' onClick={signOut}>Sign Out</span>
 				</div>
 			</div>
