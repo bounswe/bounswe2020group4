@@ -59,7 +59,7 @@ module.exports.updateCart = async (params) => {
     const paramCustomerId = params.customerId;
     const paramProductId = params.productId;
     const paramProductInfo = JSON.parse(params.productInfo);
-    const carts = await CartProduct.find({});
+
     // Delete the product from the cart
     if (!paramProductInfo.quantity) {
       let cart_product = await CartProduct.findOne({
