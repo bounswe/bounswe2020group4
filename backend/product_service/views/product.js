@@ -369,9 +369,6 @@ module.exports.getProduct = async (params) => {
   try {
     let product;
 
-
-    
-
     if (params.id) {
       product = await Product.findOne({ _id: ObjectId(params.id) });
     }
@@ -408,7 +405,6 @@ module.exports.getProduct = async (params) => {
 
 
       delete product._id;
-      delete product.vendorId;
 
 
     /* Since we cannot change the structure of product , we have to create a temp product and return it.*/
