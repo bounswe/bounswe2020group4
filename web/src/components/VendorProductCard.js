@@ -1,14 +1,28 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import history from '../util/history'
 
-import PCWishlistIcon from '../images/wishlist-icon.png'
-import PCCartIcon from '../images/cart-icon.png'
 import DefaultProductImage from '../images/default-product-image.png'
 
 import './ProductCard.css'
 import '../pages/VendorProducts.css'
+import vendorService from '../services/vendor'
 
-const VendorProductCard = ({ name, originalPrice, price, imgUrl, productId, brand}) => {
+const VendorProductCard = ({ vendorId, name, originalPrice, price, imgUrl, productId, brand}) => {
+
+	const handleDeleteButton = async function(e){
+
+		//TODO: const response = await vendorService.deleteProduct(vendorId, productId)
+		const response = await vendorService.deleteProduct("600dccc50db3230012ab80fb", productId)
+		if(response == 200){
+			alert('Product has been deleted successfully.')
+			history.push('/vendorproducts')
+		} else {
+			alert('Something went wrong, please try again')
+		}
+
+	}
+
 	return (
 		<div className='pc-container container-fluid justify-content-center'>
 			<Link to={`/product/${productId}`} >
@@ -41,7 +55,7 @@ const VendorProductCard = ({ name, originalPrice, price, imgUrl, productId, bran
 							</div>
 						}
 						<div className='col text-center'>
-							<button type='button' className='btn btn-light'>Delete</button>
+							<button onClick={handleDeleteButton} type='button' className='btn btn-light'>Delete</button>
 						</div>
 					</div>
 				</div>

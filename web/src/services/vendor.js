@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 const baseUrl = 'http://3.138.113.101:8080/vendor/products'
+const deleteUrl = 'http://3.138.113.101:8080/vendor/product'
 const fileUrl = 'http://3.138.113.101:8080/file'
 
 const getProducts = async (vendorId) => {
@@ -25,4 +26,10 @@ const updateProduct = async (product, productId) => {
 	return response.data.status.code
 }
 
-export default {getProducts, uploadImage, addProduct, updateProduct}
+const deleteProduct = async (vendorId, productId) => {
+	var body = {"productId":productId}
+	const response = await axios.delete(`${deleteUrl}/${vendorId}`, {'data':body})
+	return response.data.status.code
+}
+
+export default {getProducts, uploadImage, addProduct, updateProduct, deleteProduct}
