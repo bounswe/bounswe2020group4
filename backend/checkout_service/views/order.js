@@ -10,6 +10,7 @@ const { addNotification } = require("../models/notification");
 // TODO(eridincu): UNAVAILABLE PRODUCTS BEHAVIOUR
 module.exports.checkoutOrder = async (params) => {
   try {
+    let cart_products;
     if (!checkCreditCard(JSON.parse(params.creditCard))) {
       return { success: false, msg: "Credit card information is invalid." };
     }
