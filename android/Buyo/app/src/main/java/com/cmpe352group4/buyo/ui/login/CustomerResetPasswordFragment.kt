@@ -40,9 +40,20 @@ class CustomerResetPasswordFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        iv_email_logo_reset_password.visibility = View.GONE
+        tv_header_reset_password.visibility = View.GONE
+        tv_body_reset_password.visibility = View.GONE
 
         btn_reset_password.setOnClickListener {
+            tv_Reset_Password.visibility = View.GONE
+            tv_Reset_Password_Email.visibility = View.GONE
+            ed_reset_password.visibility = View.GONE
+            btn_reset_password.visibility = View.GONE
+            iv_email_logo_reset_password.visibility = View.VISIBLE
+            tv_header_reset_password.visibility = View.VISIBLE
+            tv_body_reset_password.visibility = View.VISIBLE
 
+            // api connection
         }
 
         btn_back_reset_password.setOnClickListener {

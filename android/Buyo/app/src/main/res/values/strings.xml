@@ -339,5 +339,7 @@
     <string name="your_orders">My Orders</string>
     <string name="add_comment">Add Comment</string>
     <string name="notifications">Notifications</string>
+    <string name="header_reset_password">Please Check Your E-mail Address</string>
+    <string name="body_reset_password">You can log in with the new password that comes to your e-mail address</string>
 
 </resources>
