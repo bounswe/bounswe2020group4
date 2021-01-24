@@ -22,7 +22,7 @@ const Notification = mongoose.model(
   "notifications"
 );
 
-Notification.prototype.add = async function (productId) {
+module.exports.addNotification = async function (productId) {
   try {
     const product = await Product.findById(productId);
     const vendor = await Vendor.findById(product.vendorId);
@@ -33,7 +33,7 @@ Notification.prototype.add = async function (productId) {
     likes.forEach((like) => {
       notifications.push(
         new Notification({
-          userId: like.userId,
+          userId: like.customerId,
           userType: "customer",
           name: "Discount",
           startTime: new Date(),
@@ -44,7 +44,6 @@ Notification.prototype.add = async function (productId) {
         })
       );
     });
-
     await Notification.insertMany(notifications);
   } catch (err) {
     console.log(err);

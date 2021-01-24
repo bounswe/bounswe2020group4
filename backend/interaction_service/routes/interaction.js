@@ -1,6 +1,7 @@
 const like = require("../views/like");
 const comment = require("../views/comment");
 const message = require("../views/message");
+const notification = require("../views/notification");
 const { ErrorCode } = require("../constants/error");
 
 // Initializes the endpoints.

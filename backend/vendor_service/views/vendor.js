@@ -1,13 +1,13 @@
 const Product = require("../models/product").Product;
 const ObjectId = require("mongoose").Types.ObjectId;
-
 const Vendor = require("../models/vendor").Vendor;
-const { ErrorMessage } = require("../constants/error");
+const { addNotification } = require("../models/notification");
 
 module.exports.updateProduct = async (product_id, parameter) => {
   try {
     var innerParameter = parameter;
     var productInfosChecker = false;
+    console.log(innerParameter);
     if (!!parameter.attributes) {
       product = await Product.findOne({ _id: ObjectId(product_id) });
       product = product.toJSON();
@@ -31,7 +31,11 @@ module.exports.updateProduct = async (product_id, parameter) => {
       }
     }
 
-    checker = Product.findByIdAndUpdate(product_id, innerParameter, function (err, docs) {
+    if (innerParameter.price) {
+      addNotification(ObjectId(product_id));
+    }
+
+    checker = await Product.findByIdAndUpdate(product_id, innerParameter, function (err, docs) {
       if (err) {
         console.log(err);
       } else {

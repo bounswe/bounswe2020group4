@@ -20,10 +20,11 @@ module.exports.getNotifications = async (params) => {
     if (!params.userId || !params.userType) {
       return { success: false, message: ErrorMessage.MISSING_PARAMETER };
     }
-
     const notifications = await Notification.find({ userType: params.userType, userId: ObjectId(params.userId) }).sort(
       "descending"
     );
+    console.log(await Notification.find(), params);
+
     const response = {
       "@context": "https://www.w3.org/ns/activitystreams",
       summary: "BUYO Notifications",
