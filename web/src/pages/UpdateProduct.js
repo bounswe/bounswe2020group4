@@ -282,7 +282,41 @@ const UpdateProduct = (props) => {
 	}
 
 	const handleSubmitButton = async function(e){
-		console.log(imageUrl)
+		var stockInfos = []
+		for(var productInfo of productInfos){
+			var temp = {}
+			temp["attributes"] = []
+			for(var attr in productInfo){
+				if(attr === 'stockValue'){
+					temp[attr] = productInfo[attr]
+				} else {
+					temp["attributes"].push({"name":attr, "value": productInfo[attr]})
+				}
+			}
+			stockInfos.push(temp)
+		}
+
+		const product = [{
+			"category": path.split(','),
+			"description": description,
+			"name": productName,
+			"price": discountedPrice,
+			"originalPrice": price,
+			"imageUrl": imageUrl,
+			"brand": brand,
+			"rating": 0,
+			"productInfos": stockInfos,
+			"vendorId": "600dccc50db3230012ab80fb" //TODO: props.userId
+		}]
+		
+		//TODO: vendorId
+		console.log(product)
+		const response = await vendorService.updateProduct(product, id)
+		if(response==200){
+			alert("Your product has been updated successfully.")
+			history.push('/vendorproducts')
+		}
+		console.log(response)
 		return
 	}
 

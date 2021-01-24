@@ -20,4 +20,9 @@ const addProduct = async (product, vendorId) => {
 	return response.data.status.code
 }
 
-export default {getProducts, uploadImage, addProduct}
+const updateProduct = async (product, productId) => {
+	const response = await axios.patch(`${baseUrl}/${productId}`, product)
+	return response.data.status.code
+}
+
+export default {getProducts, uploadImage, addProduct, updateProduct}
