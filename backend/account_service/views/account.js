@@ -462,7 +462,7 @@ module.exports.signup = async (params) => {
 
 module.exports.signInByGoogle = async (params) => {
   try {
-    if (!!params.email || !!params.token) {
+    if (!!params.email || !!params.token || !!params.name) {
       return { success: false, message: ErrorMessage.MISSING_PARAMETER };
     }
 
