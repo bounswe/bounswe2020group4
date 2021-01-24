@@ -75,13 +75,11 @@ module.exports.getProducts = async (params) => {
     let products;
     let finalProductList = [];
 
-    console.log("params", params);
     if (params.categories) {
       products = await Product.find({ category: { $all: JSON.parse(params.categories) } });
     } else if (params.search) {
       products = await Product.find({ name: { $regex: params.search, $options: "i" } });
     }
-    console.log("products", products);
 
     var filterCriterias = [];
     var filteringConfig = {
@@ -162,8 +160,6 @@ module.exports.getProducts = async (params) => {
 
       finalProductList.push(tempProduct);
     });
-
-    console.log("166", finalProductList);
 
     if (!!params.sortingFactor) {
       try {
@@ -322,7 +318,6 @@ module.exports.getProducts = async (params) => {
         return checker;
       });
     }
-    console.log("325", finalProductList);
 
     finalProductList = await Promise.all(
       finalProductList.map(async (product) => {
@@ -341,7 +336,7 @@ module.exports.getProducts = async (params) => {
 
           return product;
         } catch (error) {
-          console.log("buggy", product, error.message);
+          console.log("There is a buggy product", product);
         }
       })
     );

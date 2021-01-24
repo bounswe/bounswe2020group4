@@ -8,6 +8,7 @@ const Moment = require("moment");
 const { ErrorMessage } = require("../constants/error");
 const { addNotification } = require("../models/notification");
 // TODO(eridincu): UNAVAILABLE PRODUCTS BEHAVIOUR
+
 module.exports.checkoutOrder = async (params) => {
   try {
     let cart_products;
