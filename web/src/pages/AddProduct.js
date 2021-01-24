@@ -184,9 +184,9 @@ const AddProduct= (props) => {
 		return(
 			<div>
 				{results.map((result) => 
-					<div className='row mb-2' key={result}>
+					<div className='row mb-2' key={JSON.stringify(result)}>
 						{getListOfValues(result).map((comb) =>
-							<div key={comb} className='col'>
+							<div key={JSON.stringify(comb)} className='col'>
 								{comb}
 							</div>	
 						)}
@@ -243,13 +243,14 @@ const AddProduct= (props) => {
 			"brand": brand,
 			"rating": 0,
 			"productInfos": stockInfos,
-			"vendorId": "600d56a63bf84a001266eda5" //TODO: props.userId
+			"vendorId": "600dccc50db3230012ab80fb" //TODO: props.userId
 		}]
 		
 		//TODO: vendorId
-		const response = await vendorService.addProduct(product, "600d56a63bf84a001266eda5")
+		const response = await vendorService.addProduct(product, "600dccc50db3230012ab80fb")
 		if(response==200){
 			alert("Your product has been added successfully.")
+			history.push('/vendorproducts')
 		}
 		console.log(response)
 		return
@@ -362,7 +363,7 @@ const AddProduct= (props) => {
 				<div className='container-fluid mt-3 p-3 container-main rounded'>
 					<p className='h3 header-info'>3. Enter possible values for criterion separated by ,</p>
 					{attributes.map((attr) =>
-						<div key={attr.text}>
+						<div key={attr.text+'-values'}>
 							<div className='form-group'>
 								<div className='row'>
 									<div className='col-1'>
@@ -393,7 +394,7 @@ const AddProduct= (props) => {
 					<p className='h3 header-info'>4. Enter stock information</p>
 					<div className='row'>
 					{attributes.map((attr) =>
-						<div className='col' key={attr.text}>
+						<div className='col' key={attr.text+'-stock'}>
 							<p className='h5 header-info'>{attr.text}</p>
 						</div>
 					)}
