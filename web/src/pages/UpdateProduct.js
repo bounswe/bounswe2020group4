@@ -296,7 +296,7 @@ const UpdateProduct = (props) => {
 			stockInfos.push(temp)
 		}
 
-		const product = [{
+		const product = {
 			"category": path.split(','),
 			"description": description,
 			"name": productName,
@@ -304,10 +304,9 @@ const UpdateProduct = (props) => {
 			"originalPrice": price,
 			"imageUrl": imageUrl,
 			"brand": brand,
-			"rating": 0,
 			"productInfos": stockInfos,
 			"vendorId": "600dccc50db3230012ab80fb" //TODO: props.userId
-		}]
+		}
 		
 		//TODO: vendorId
 		console.log(product)
