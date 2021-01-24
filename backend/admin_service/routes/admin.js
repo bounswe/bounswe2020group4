@@ -89,5 +89,15 @@ module.exports.initialize = (app) => {
   });
 
 
+  app.get("/admin/report/product", async (request, response) => {
+    const result = await report.getProductReports();
+    if (result.success) {
+      response.respond(200, "OK", { productReport: result.data });
+    } else {
+      response.respond(500, result.message);
+    }
+  });
+
+
 
 };
