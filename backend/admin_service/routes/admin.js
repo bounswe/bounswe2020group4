@@ -79,4 +79,15 @@ module.exports.initialize = (app) => {
   });
 
 
+  app.get("/admin/report/comment", async (request, response) => {
+    const result = await report.getCommentReports();
+    if (result.success) {
+      response.respond(200, "OK", { commentReport: result.data });
+    } else {
+      response.respond(500, result.message);
+    }
+  });
+
+
+
 };

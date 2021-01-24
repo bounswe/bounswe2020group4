@@ -76,3 +76,34 @@ module.exports.reportProduct = async (params) => {
    }
  };
 
+
+
+
+ /**
+ * Get comment 
+ */
+module.exports.getCommentReports = async () => {
+   try { 
+    const commentReportList = await CommentReport.find();
+    let finalCommentList = [] 
+
+     commentReportList.forEach(function(currentReport){
+      let comment = await Comment.findById(ObjectId(currentReport.commentId));
+
+      let commentReport = {commentDetails:comment, message: currentReport.message}
+      finalCommentList.push(commentReport)
+
+     })
+
+     return {
+      success: true,
+      data: finalCommentList
+    };
+     
+    } catch (error) {
+      return { success: false, message: error.message || error };
+    }
+  };
+
+
+
