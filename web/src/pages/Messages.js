@@ -14,6 +14,7 @@ import SendIcon from '@material-ui/icons/Send'
 
 import { io } from 'socket.io-client'
 
+import { hideHeader, showHeader, showVendorHeader, hideVendorHeader } from '../redux/actions'
 import messageService from '../services/messages'
 import history from '../util/history'
 
@@ -41,7 +42,7 @@ const useStyles = makeStyles({
 
 const socketUrl = 'http://3.138.113.101:5003'
 
-const Messages = ({isLoggedIn, userId, userType}) => {
+const Messages = ({isLoggedIn, userId, userType, hideHeader, showHeader, hideVendorHeader, showVendorHeader}) => {
 	if(!isLoggedIn) {
 		history.push('/signin')
 		return
@@ -65,19 +66,24 @@ const Messages = ({isLoggedIn, userId, userType}) => {
 
 	// Establish socket connection and get the last messages
 	useEffect(async () => {
+		if (userType === 'vendor') {
+			hideHeader()
+			showVendorHeader()
+		} else {
+			showHeader()
+			hideVendorHeader()
+		}
 
 		socketRef.current = io.connect(socketUrl)
 
-		socketRef.current.emit('discover', {id: userId, userType: userType}, (response) => {
-			console.log(response)
-		})
+		socketRef.current.emit('discover', {id: userId, userType: userType})
 
 		socketRef.current.on('message', function (data) {
-			setDisplayedMessages((displayedMessages) => [...displayedMessages, {...data, id: data.date}]) //TODO id should not be date
+			setDisplayedMessages((displayedMessages) => [...displayedMessages, {...data}])
 		})
 
 		const messages = await messageService.getLastMessages(userId, userType)
-		setLastMessages(messages.slice(0, 1)) // TODO remove slice
+		setLastMessages(messages)
 
 		return () => {
 			socketRef.current.disconnect()
@@ -93,24 +99,32 @@ const Messages = ({isLoggedIn, userId, userType}) => {
 	}
 
 	const handleSendMessage = () => {
+		if(displayedUserId === null) {
+			return
+		}
+
 		socketRef.current.emit('message',
 			{id: userId, userType: userType, withId: displayedUserId,
-				withType: displayedUserType, message: message})
-		setDisplayedMessages([...displayedMessages, {
-			message: message,
-			date: Date.now(),
-			id: Date.now(),
-			user: {
-				id: userId,
-				name: 'Koray', // TODO correct this
-				userType: userType
-			}
-		}])
+				withType: displayedUserType, message: message}, (response) => {
+				setDisplayedMessages([...displayedMessages, {
+					...response.payload,
+					user: {
+						id: userId,
+						userType: userType
+					}
+				}])
+			})
 		setMessage('')
 	}
 
 	const handleMessageChange = (event) => {
 		setMessage(event.target.value)
+	}
+
+	const handlePressEnter = (event) => {
+		if(event.key === 'Enter') {
+			handleSendMessage()
+		}
 	}
 
 	return(
@@ -120,12 +134,14 @@ const Messages = ({isLoggedIn, userId, userType}) => {
 				<Grid container component={Paper} className={classes.chatSection}>
 					<Grid item xs={3} className={classes.borderRight500}>
 						<List>
-							{lastMessages.map(v =>
-								<ListItem button key={v.user.id}
-									selected={displayedUserId === v.user.id}
-									onClick={(e) => handleListItemClick(e, v.user.id, v.user.userType)}>
-									<ListItemText primary={v.user.name}>{v.user.name}</ListItemText>
-								</ListItem>)}
+							{lastMessages.length === 0 ?
+								'You have not received or sent any messages yet!' :
+								lastMessages.map(v =>
+									<ListItem button key={v.user.id}
+										selected={displayedUserId === v.user.id}
+										onClick={(e) => handleListItemClick(e, v.user.id, v.user.userType)}>
+										<ListItemText primary={v.user.name}>{v.user.name}</ListItemText>
+									</ListItem>)}
 						</List>
 					</Grid>
 					<Grid item xs={9}>
@@ -154,7 +170,7 @@ const Messages = ({isLoggedIn, userId, userType}) => {
 						<Divider />
 						<Grid container style={{padding: '20px'}}>
 							<Grid item xs={11}>
-								<TextField id="outlined-basic-email" onChange={handleMessageChange} value={message} placeholder="Type Something" fullWidth />
+								<TextField id="outlined-basic-email" onChange={handleMessageChange} onKeyPress={handlePressEnter} value={message} placeholder="Type Something" fullWidth />
 							</Grid>
 							<Grid item xs={1} align="right">
 								<Fab color="primary" aria-label="add" onClick={handleSendMessage} ><SendIcon /></Fab>
@@ -175,4 +191,4 @@ const mapStateToProps = (state) => {
 	}
 }
 
-export default connect(mapStateToProps)(Messages)
+export default connect(mapStateToProps, { showHeader, hideHeader, showVendorHeader, hideVendorHeader })(Messages)

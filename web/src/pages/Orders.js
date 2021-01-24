@@ -49,8 +49,8 @@ const Orders = ({isLoggedIn, userId}) => {
 		const orders = await orderService.getOrders(userId, 'customer')
 		const ordersList = []
 		let key
-		for(key of Object.keys(orders)) {
-			ordersList.push({id: key, data: orders[key]})
+		for(key of Object.keys(orders.orders)) {
+			ordersList.push({id: key, data: orders.orders[key]})
 		}
 		setOrders(ordersList)
 	}, [])

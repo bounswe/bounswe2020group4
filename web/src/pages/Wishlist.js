@@ -25,17 +25,16 @@ const Wishlist = (props) => {
 
 	return(
 		<div>
-			<div className='list-title px-5 py-3' >List: Wishlist(All)</div>
+			<div className='list-title px-5 py-3' >Wishlist</div>
 			<div className='list-container'>
-				<div className='list-links'>
-					<h3>Lists</h3>
-				</div>
 				<div className='product-cards'>
-					{products.map(p =>
-						<div key={p.id} className='product-card-container'>
-							<ProductCard name={p.name} price={p.price} imgUrl={p.imageUrl} productId={p.id}/>
-						</div>
-					)}
+					{products.length === 0 ?
+						'You can add products to your wishlist by clicking the like button!' :
+						products.map(p =>
+							<div key={p.id} className='product-card-container'>
+								<ProductCard name={p.name} price={p.price} imgUrl={p.imageUrl} productId={p.id}/>
+							</div>
+						)}
 				</div>
 			</div>
 		</div>
