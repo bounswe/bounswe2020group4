@@ -203,13 +203,13 @@ module.exports.updateProductStatus = async (params) => {
       orderedProduct = await OrderedProduct.findOne({
         orderId: params.orderId,
         customerId: ObjectId(params.userId),
-        productId: ObjectId(params.productId),
+        _id: ObjectId(params.productId),
       });
     } else if (params.userType == "vendor") {
       orderedProduct = await OrderedProduct.findOne({
         orderId: params.orderId,
         vendorId: ObjectId(params.userId),
-        productId: ObjectId(params.productId),
+        _id: ObjectId(params.productId),
       });
     } else {
       return { success: false, message: ErrorMessage.WRONG_USER_TYPE };
