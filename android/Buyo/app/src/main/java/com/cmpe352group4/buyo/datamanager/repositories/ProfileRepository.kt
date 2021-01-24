@@ -114,5 +114,15 @@ class ProfileRepository @Inject constructor(
                 api.saveVendorAccountInfo(id, userType, email, longitude, latitude, website, company)
         }.asLiveData()
     }
+
+    fun forgotPassword(email: String): LiveData<Resource<BaseResponsePostRequest>> {
+        return object : NetworkServiceWrapper<BaseResponsePostRequest, BaseResponsePostRequest>(appExecutors,connectionManager){
+            override fun loadFromApi(data: BaseResponsePostRequest): LiveData<BaseResponsePostRequest> {
+                return InitialLiveData.create(data)
+            }
+            override fun createCall(): LiveData<ApiResponse<BaseResponsePostRequest>> =
+                api.forgotPassword(email)
+        }.asLiveData()
+    }
 }
 

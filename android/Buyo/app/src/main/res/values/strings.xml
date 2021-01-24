@@ -99,7 +99,7 @@
     <string name="non_login">You need to login first</string>
     <string name="google_login">Login with Gmail</string>
     <string name="google_signup">Sign up with Gmail</string>
-    <string name="reset_password">Reset Password</string>
+    <string name="reset_password">Forgot Password</string>
     <string name="sign_up_switch">Switch for sign-up</string>
     <string name="login_switch">Switch for login</string>
     <string name="user_type_switch">Switch if you are a vendor</string>
@@ -340,6 +340,6 @@
     <string name="add_comment">Add Comment</string>
     <string name="notifications">Notifications</string>
     <string name="header_reset_password">Please Check Your E-mail Address</string>
-    <string name="body_reset_password">You can log in with the new password that comes to your e-mail address</string>
+    <string name="body_reset_password">You can choose a new password by clicking the link that comes to your e-mail address</string>
 
 </resources>

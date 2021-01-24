@@ -162,4 +162,9 @@ interface Api {
         @Query("message") message : String
     ):LiveData<ApiResponse<BaseResponsePostRequest>>
 
+    @POST("/account/forgotPassword")
+    fun forgotPassword(
+        @Query("email") email: String
+    ): LiveData<ApiResponse<BaseResponsePostRequest>>
+
 }

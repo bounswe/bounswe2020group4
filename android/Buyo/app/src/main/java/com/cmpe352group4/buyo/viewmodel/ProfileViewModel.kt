@@ -24,6 +24,7 @@ class ProfileViewModel @Inject constructor(
     private val _changePasswordRequest = MutableLiveData<ChangePasswordRequest>()
     private val _saveAccountInfo = MutableLiveData<AccountInfoRequest>()
     private val _saveVendorAccountInfo = MutableLiveData<VendorAccountInfoRequest>()
+    private val _forgotPassword = MutableLiveData<ForgotPasswordRequest>()
 
     val saveAccountInfo: LiveData<Resource<BaseResponsePostRequest>> =
         Transformations.switchMap(_saveAccountInfo) {it ->
@@ -106,6 +107,14 @@ class ProfileViewModel @Inject constructor(
                 repository.addAddress(it)
         }
 
+    val forgotPassword: LiveData<Resource<BaseResponsePostRequest>> =
+        Transformations.switchMap(_forgotPassword) { it ->
+            if (it == null )
+                AbsentLiveData.create()
+            else
+                repository.forgotPassword(it.email)
+        }
+
     fun onLoginCustomer(login: LoginRequestCustomer) {
         _loginRequestCustomer.value = login
     }
@@ -144,5 +153,9 @@ class ProfileViewModel @Inject constructor(
 
     fun saveVendorAccountInfo(update: VendorAccountInfoRequest) {
         _saveVendorAccountInfo.value = update
+    }
+
+    fun onForgotPassword(update: ForgotPasswordRequest) {
+        _forgotPassword.value = update
     }
 }
