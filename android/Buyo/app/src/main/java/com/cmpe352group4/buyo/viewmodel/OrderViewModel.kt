@@ -17,6 +17,7 @@ class OrderViewModel @Inject constructor(
 
     private val _userId =  MutableLiveData<String>()
     private val _userIdVendor =  MutableLiveData<String>()
+    private val _updateStatus =  MutableLiveData<UpdateStatusRequest>()
 
     val orderMap: LiveData<Resource<Map<String, Order>>> =
         Transformations.switchMap(_userId) { Id ->
@@ -34,12 +35,24 @@ class OrderViewModel @Inject constructor(
                 repository.getOrdersVendor(Id)
         }
 
+    val updateStatus: LiveData<Resource<BaseResponsePostRequest>> =
+        Transformations.switchMap(_updateStatus) { updateStatusRequestObject ->
+            if (updateStatusRequestObject == null)
+                AbsentLiveData.create()
+            else
+                repository.updateStatus(updateStatusRequestObject)
+        }
+
     fun onFetchOrders(userId: String) {
         _userId.value = userId
     }
 
     fun onFetchOrdersVendor(userId: String) {
         _userIdVendor.value = userId
+    }
+
+    fun onUpdateStatus(userId: String, orderId: String, orderedProductId: String, userType: String, newStatus: String) {
+        _updateStatus.value = UpdateStatusRequest(userId, userType, newStatus, orderId, orderedProductId)
     }
 
 }

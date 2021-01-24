@@ -25,8 +25,6 @@ import kotlinx.android.synthetic.main.fragment_login_vendor.*
 import javax.inject.Inject
 
 
-// TODO Reset password functionality
-// TODO Sign up e-mail verification
 
 // Vendor must not use an e-mail domain if its domain is in the list below.
 val badDomainList : List<String> = listOf<String>("gmail", "windowslive", "hotmail", "outlook",

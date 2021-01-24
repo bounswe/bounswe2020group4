@@ -16,6 +16,7 @@ import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.EmptyFragment
+import com.cmpe352group4.buyo.ui.orderpage.endpoint_framents.UpdateStatusFragment
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
 import com.cmpe352group4.buyo.viewmodel.OrderViewModel
 import com.cmpe352group4.buyo.viewmodel.SearchViewModel
@@ -50,46 +51,8 @@ class OrderPageFragmentVendor : BaseFragment() {
                     TransactionType.Replace, true
                 )
             },
-            { order ->
-                val myToast = Toast.makeText(
-                    context,
-                    "Approve " + order.orderID,
-                    Toast.LENGTH_SHORT
-                )
-                myToast.setGravity(Gravity.BOTTOM, 0, 200)
-                myToast.show()
-                navigationManager?.onReplace(
-                    EmptyFragment.newInstance(),
-                    TransactionType.Replace, true
-                )
-            },
-            { order ->
-                if (order.status != "Reject") {
-                    val myToast = Toast.makeText(
-                        context,
-                        "Comment on " + order.name,
-                        Toast.LENGTH_SHORT
-                    )
-                    myToast.setGravity(Gravity.BOTTOM, 0, 200)
-                    myToast.show()
-                    navigationManager?.onReplace(
-                        EmptyFragment.newInstance(),
-                        TransactionType.Replace, true
-                    )
-                } else {
-                    val myToast = Toast.makeText(
-                        context,
-                        "Cancel " + order.name,
-                        Toast.LENGTH_SHORT
-                    )
-                    myToast.setGravity(Gravity.BOTTOM, 0, 200)
-                    myToast.show()
-                    navigationManager?.onReplace(
-                        EmptyFragment.newInstance(),
-                        TransactionType.Replace, true
-                    )
-                }
-            }
+            { order -> firstButtonOrderItemListener(order) },
+            { order -> secondButtonOrderItemListener(order) }
         )
     }
 
@@ -113,7 +76,7 @@ class OrderPageFragmentVendor : BaseFragment() {
         backButtonListener()
         observeOrderData()
         if (!sharedPref.getUserId().isNullOrEmpty()) {
-            ordersViewModel.onFetchOrders(sharedPref.getUserId()!!)
+            ordersViewModel.onFetchOrdersVendor(sharedPref.getUserId()!!)
         }
     }
 
@@ -126,7 +89,43 @@ class OrderPageFragmentVendor : BaseFragment() {
     override fun onResume() {
         super.onResume()
         if (!sharedPref.getUserId().isNullOrEmpty()) {
-            ordersViewModel.onFetchOrders(sharedPref.getUserId()!!)
+            ordersViewModel.onFetchOrdersVendor(sharedPref.getUserId()!!)
+        }
+    }
+
+    private fun firstButtonOrderItemListener(order: OrderProductVendorRV) {
+        if (order.status=="Pending"){
+            // Approve
+            navigationManager?.onReplace(
+                UpdateStatusFragment.newInstance(sharedPref.getUserId()!!, order.orderID,
+                    order.orderedProductId, "vendor", "Approved"),
+                TransactionType.Replace, false
+            )
+        }
+        else if (order.status=="Approved"){
+            // Shipped
+            navigationManager?.onReplace(
+                UpdateStatusFragment.newInstance(sharedPref.getUserId()!!, order.orderID,
+                    order.orderedProductId, "vendor", "Shipped"),
+                TransactionType.Replace, false
+            )
+        }
+        else {
+            // TODO Message customer
+        }
+    }
+
+    private fun secondButtonOrderItemListener(order: OrderProductVendorRV) {
+        if (order.status=="Pending" || order.status=="Approved"){
+            // Cancel
+            navigationManager?.onReplace(
+                UpdateStatusFragment.newInstance(sharedPref.getUserId()!!, order.orderID,
+                    order.orderedProductId, "vendor", "Cancelled"),
+                TransactionType.Replace, false
+            )
+        }
+        else {
+            // TODO Message customer
         }
     }
 
@@ -140,7 +139,7 @@ class OrderPageFragmentVendor : BaseFragment() {
                         val orderRV =
                             OrderProductVendorRV(order_id, product.customerId, order.address, order.date, product.productId,
                                 product.name, product.imageUrl, product.price,
-                                product.quantity, product.attributes, product.status)
+                                product.quantity, product.attributes, product.status, product.orderedProductId)
                         ordersListRV.add(orderRV)
                     }
                 }

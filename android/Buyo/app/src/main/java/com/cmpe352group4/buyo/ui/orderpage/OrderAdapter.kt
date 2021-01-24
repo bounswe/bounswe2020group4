@@ -96,10 +96,7 @@ class OrderAdapter (
                 itemView.first_button.setBackgroundColor(Color.parseColor("#a4c639")) // light green
                 itemView.first_button.setTextColor(Color.WHITE)
 
-                itemView.second_button.visibility = View.VISIBLE
-                itemView.second_button.text = "Cancel"
-                itemView.second_button.setBackgroundColor(Color.parseColor("#E53C38")) // light red
-                itemView.second_button.setTextColor(Color.WHITE)
+                itemView.second_button.visibility = View.GONE
             }
             else if (orderStatus=="Shipped") {
                 itemView.tv_header.setBackgroundColor(Color.parseColor("#fedebe")) // light orange
@@ -115,6 +112,21 @@ class OrderAdapter (
             }
             else if (orderStatus.startsWith("Delivered")) {
                 itemView.tv_header.setBackgroundColor(Color.parseColor("#a4c639")) // light green
+                itemView.tv_status.setTextColor(Color.BLACK)
+                itemView.tv_customer_id.setTextColor(Color.BLACK)
+
+                itemView.first_button.visibility = View.VISIBLE
+                itemView.first_button.text = "Message Vendor"
+                itemView.first_button.setBackgroundColor(Color.parseColor("#fedebe")) // light orange
+                itemView.first_button.setTextColor(Color.BLACK)
+
+                itemView.second_button.visibility = View.VISIBLE
+                itemView.second_button.text = "Add Comment"
+                itemView.second_button.setBackgroundColor(Color.parseColor("#fedebe")) // light orange
+                itemView.second_button.setTextColor(Color.BLACK)
+            }
+            else if (orderStatus == "Returned") {
+                itemView.tv_header.setBackgroundColor(Color.parseColor("#E53C38")) // light red
                 itemView.tv_status.setTextColor(Color.BLACK)
                 itemView.tv_customer_id.setTextColor(Color.BLACK)
 

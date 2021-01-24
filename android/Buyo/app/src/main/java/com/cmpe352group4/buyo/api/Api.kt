@@ -2,10 +2,7 @@ package com.cmpe352group4.buyo.api
 
 import androidx.lifecycle.LiveData
 import com.cmpe352group4.buyo.vo.*
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
-import retrofit2.http.QueryMap
+import retrofit2.http.*
 
 interface Api {
 
@@ -168,4 +165,12 @@ interface Api {
         @Query("message") message : String
     ):LiveData<ApiResponse<BaseResponsePostRequest>>
 
+    @PATCH("order/product")
+    fun updateOrderStatus(
+        @Query("userId") userId : String,
+        @Query("userType") userType : String,
+        @Query("status") status : String,
+        @Query("orderId") orderId : String,
+        @Query("productId") productId : String
+    ):LiveData<ApiResponse<BaseResponsePostRequest>>
 }

@@ -16,6 +16,7 @@ import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.EmptyFragment
+import com.cmpe352group4.buyo.ui.orderpage.endpoint_framents.UpdateStatusFragment
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
 import com.cmpe352group4.buyo.viewmodel.OrderViewModel
 import com.cmpe352group4.buyo.viewmodel.SearchViewModel
@@ -49,46 +50,8 @@ class OrderPageFragment : BaseFragment() {
                     TransactionType.Replace, true
                 )
             },
-            { order ->
-                val myToast = Toast.makeText(
-                    context,
-                    "Send message to " + order.vendor.name,
-                    Toast.LENGTH_SHORT
-                )
-                myToast.setGravity(Gravity.BOTTOM, 0, 200)
-                myToast.show()
-                navigationManager?.onReplace(
-                    EmptyFragment.newInstance(),
-                    TransactionType.Replace, true
-                )
-            },
-            { order ->
-                if (order.status != "Pending") {
-                    val myToast = Toast.makeText(
-                        context,
-                        "Comment on " + order.name,
-                        Toast.LENGTH_SHORT
-                    )
-                    myToast.setGravity(Gravity.BOTTOM, 0, 200)
-                    myToast.show()
-                    navigationManager?.onReplace(
-                        EmptyFragment.newInstance(),
-                        TransactionType.Replace, true
-                    )
-                } else {
-                    val myToast = Toast.makeText(
-                        context,
-                        "Cancel " + order.name,
-                        Toast.LENGTH_SHORT
-                    )
-                    myToast.setGravity(Gravity.BOTTOM, 0, 200)
-                    myToast.show()
-                    navigationManager?.onReplace(
-                        EmptyFragment.newInstance(),
-                        TransactionType.Replace, true
-                    )
-                }
-            }
+            { order -> firstButtonOrderItemListener(order) },
+            { order -> secondButtonOrderItemListener(order) }
         )
     }
 
@@ -129,6 +92,28 @@ class OrderPageFragment : BaseFragment() {
         }
     }
 
+    private fun firstButtonOrderItemListener(order: OrderProductRV) {
+        // TODO message vendor
+    }
+
+    private fun secondButtonOrderItemListener(order: OrderProductRV) {
+        if(order.status=="Pending"){
+            // Cancel order
+            navigationManager?.onReplace(
+                UpdateStatusFragment.newInstance(sharedPref.getUserId()!!, order.orderID,
+                    order.orderedProductId, "customer", "Cancelled"),
+                TransactionType.Replace, false
+            )
+        }
+        else if(order.status.startsWith("Delivered") || order.status=="Returned") {
+            // Add comment
+            navigationManager?.onReplace(
+                ProductDetailContentFragment.newInstance(order.productId),
+                TransactionType.Replace, true
+            )
+        }
+    }
+
     private fun observeOrderData () {
         ordersViewModel.orderMap.observe(viewLifecycleOwner, Observer {
 
@@ -139,7 +124,7 @@ class OrderPageFragment : BaseFragment() {
                         val orderRV =
                             OrderProductRV(order_id, order.address, order.date, product.productId,
                                 product.name, product.imageUrl, product.price, product.vendor,
-                                product.quantity, product.attributes, product.status)
+                                product.quantity, product.attributes, product.status, product.orderedProductId)
                         ordersListRV.add(orderRV)
                     }
                 }

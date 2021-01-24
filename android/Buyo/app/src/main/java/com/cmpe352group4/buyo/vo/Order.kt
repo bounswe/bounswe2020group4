@@ -32,7 +32,6 @@ data class OrderProductRV (
     var orderID: String,    // For RV, we need these information also
     var address: String,
     var orderDate: String,
-
     var productId: String,
     var name: String,
     var imageUrl: String,
@@ -40,8 +39,9 @@ data class OrderProductRV (
     var vendor: Vendor,
     var quantity: Int,
     var attributes: List<OrderAttribute>,
-    var status: String
-): Serializable
+    var status: String,
+    var orderedProductId: String
+    ): Serializable
 
 ///////////////////////////////////////// Vendor Orders /////////////////////////////////////////
 
@@ -73,15 +73,15 @@ data class OrderProductVendorRV (
     var customerID: String,
     var address: String,
     var orderDate: String,
-
     var productId: String,
     var name: String,
     var imageUrl: String,
     var price: Double,
     var quantity: Int,
     var attributes: List<OrderAttribute>,
-    var status: String
-): Serializable
+    var status: String,
+    var orderedProductId: String
+    ): Serializable
 
 
 ///////////////////////////////////////////// Common /////////////////////////////////////////////
@@ -89,4 +89,14 @@ data class OrderProductVendorRV (
 data class OrderAttribute (
     var name: String,
     var value: String
+): Serializable
+
+////////////////////////////////////////// Status Update //////////////////////////////////////////
+
+data class UpdateStatusRequest (
+    var id: String,         // user id
+    var userType: String,
+    var status: String,
+    var orderId: String,
+    var orderedProductId: String
 ): Serializable

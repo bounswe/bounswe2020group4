@@ -117,6 +117,18 @@ class OrderAdapterVendor (
 
                 itemView.second_button.visibility = View.GONE
             }
+            else if(orderStatus=="Returned"){
+                itemView.tv_header.setBackgroundColor(Color.parseColor("#E53C38")) // light red
+                itemView.tv_status.setTextColor(Color.WHITE)
+                itemView.tv_customer_id.setTextColor(Color.WHITE)
+
+                itemView.first_button.visibility = View.VISIBLE
+                itemView.first_button.text = "Message Customer"
+                itemView.first_button.setBackgroundColor(Color.parseColor("#fedebe")) // light orange
+                itemView.first_button.setTextColor(Color.BLACK)
+
+                itemView.second_button.visibility = View.GONE
+            }
             else {
                 itemView.tv_header.setBackgroundColor(Color.parseColor("#E53C38")) // light red
                 itemView.tv_status.setTextColor(Color.WHITE)
