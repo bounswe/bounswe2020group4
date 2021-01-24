@@ -102,7 +102,8 @@ class HomepageFragment : BaseFragment() {
         // TODO A view model should be implemented, that contains both recommended and discounted products. Using multiple viewmodels in a fragment causes bugs, i guess.
 
         // Recommendation RV
-        recommendedViewModel.onFetchSearchResultbyKeyword("d", emptyMap<String, String>())
+        //recommendedViewModel.onFetchSearchResultbyKeyword("d", emptyMap())
+        //recommendedViewModel.onFetchSearchResultbyCategory( "[\"Women Clothing\"]", emptyMap())
 
         recommendedViewModel.searchResult.observe(viewLifecycleOwner, Observer {
 

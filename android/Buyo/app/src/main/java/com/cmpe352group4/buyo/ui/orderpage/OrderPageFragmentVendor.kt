@@ -74,7 +74,7 @@ class OrderPageFragmentVendor : BaseFragment() {
         )
 
         backButtonListener()
-        observeOrderData()
+        observeOrderDataVendor()
         if (!sharedPref.getUserId().isNullOrEmpty()) {
             ordersViewModel.onFetchOrdersVendor(sharedPref.getUserId()!!)
         }
@@ -129,7 +129,7 @@ class OrderPageFragmentVendor : BaseFragment() {
         }
     }
 
-    private fun observeOrderData () {
+    private fun observeOrderDataVendor () {
         ordersViewModel.orderMapVendor.observe(viewLifecycleOwner, Observer {
 
             if (it.status == Status.SUCCESS && it.data != null) {
