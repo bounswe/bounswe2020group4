@@ -28,7 +28,7 @@ const VendorHeader = ({setLogoutState}) => {
             <Link to='/vendorprofile' className='vendor-header-category px-4 py-3 mx-2 rounded'>
                 Profile
             </Link>
-            <Link to='/addproduct' className='vendor-header-category px-4 py-3 mx-3 rounded'>
+            <Link to='/addproduct' className='vendor-header-category px-4 py-3 mx-2 rounded'>
                 Add Product
             </Link>
             <Link to='/notification' className='vendor-header-category px-4 py-3 mx-2 rounded'>
