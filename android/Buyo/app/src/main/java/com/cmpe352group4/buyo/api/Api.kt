@@ -2,10 +2,7 @@ package com.cmpe352group4.buyo.api
 
 import androidx.lifecycle.LiveData
 import com.cmpe352group4.buyo.vo.*
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
-import retrofit2.http.QueryMap
+import retrofit2.http.*
 
 interface Api {
 
@@ -161,5 +158,12 @@ interface Api {
         @Query("productId") commentID : String,
         @Query("message") message : String
     ):LiveData<ApiResponse<BaseResponsePostRequest>>
+
+    @POST("file")
+    fun uploadImage(
+        @Body( ) image : ByteArray
+    ):LiveData<ApiResponse<BaseResponse<UploadImageResponse>>>
+
+
 
 }

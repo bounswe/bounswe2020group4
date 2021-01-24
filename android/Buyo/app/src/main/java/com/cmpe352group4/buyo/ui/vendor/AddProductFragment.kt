@@ -14,11 +14,17 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cmpe352group4.buyo.R
+import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
+import com.cmpe352group4.buyo.viewmodel.ProductViewModel
+import com.cmpe352group4.buyo.viewmodel.VendorViewModel
 import com.cmpe352group4.buyo.vo.FilterCriterias
 import com.cmpe352group4.buyo.vo.ParsedAttribute
 import com.cmpe352group4.buyo.vo.Product
@@ -27,8 +33,16 @@ import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_vendor_add_product.*
 import kotlinx.android.synthetic.main.fragment_vendor_add_stock_value.*
 import java.io.IOException
+import javax.inject.Inject
 
 class AddProductFragment : BaseFragment() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val vendorViewModel: VendorViewModel by viewModels {
+        viewModelFactory
+    }
 
     private var imageData: ByteArray? = null
 
@@ -376,81 +390,124 @@ class AddProductFragment : BaseFragment() {
 
         btn_vendorAddProduct_Next.setOnClickListener {
 
+            if (imageData != null){
+                vendorViewModel.onUploadImage(image = imageData)
 
-            var current_attributes : MutableMap<String, List<String>> = mutableMapOf()
+                vendorViewModel.imageUrl.observe(viewLifecycleOwner, Observer {
+                    if (it.status == Status.SUCCESS && it.data != null) {
 
-            for ( (key, value) in attributes){
-                if (addProductAdapter.getList().contains(key)){
-                    current_attributes[key] = value
-                }
+                        current_product.imageUrl = it.data.urls[0]
+
+                        Log.v("ImageURL", current_product.imageUrl)
+
+
+                        dispatchLoading()
+                    } else if (it.status == Status.ERROR) {
+                        Log.v("ImageURL", "ERROR")
+                        Log.v("ImageURL", it.message.toString())
+                        dispatchLoading()
+                    } else if (it.status == Status.LOADING) {
+                        Log.v("ImageURL", "Loading")
+                        showLoading()
+                    }
+                })
+
+            }
+            else{
+                Log.v("ImageURL","image data is null")
+
             }
 
-            attributes = current_attributes
 
-            Log.v("AddProductxAttribute", attributes.toString())
 
-            var all_options : MutableList<Set<String>> = mutableListOf()
+            if (current_product.imageUrl == "some_url"){
+                val myToast = Toast.makeText(
+                    context,
+                    "Please update an image!",
+                    Toast.LENGTH_SHORT
+                )
+                myToast.setGravity(Gravity.BOTTOM, 0, 200)
+                myToast.show()
+            }else{
 
-            var att_names : MutableList<String> = mutableListOf()
+                var current_attributes : MutableMap<String, List<String>> = mutableMapOf()
 
-            var filter_criterias : MutableList<FilterCriterias> = mutableListOf()
-            for ((att_name, att_list ) in attributes){
-                all_options.add(att_list.toSet())
-                att_names.add(att_name)
-                val original_name = att_name.replace("\\s".toRegex(), "").toLowerCase()
-                filter_criterias.add(FilterCriterias(name = original_name, displayName = att_name, possibleValues = att_list))
-            }
-
-            // FILTER CRITERIAS
-            current_product.filterCriterias = filter_criterias
-
-            var combinations: Set<List<*>> = mutableSetOf()
-            if (all_options.size >= 3){
-                combinations = cartesianProduct(all_options[0],all_options[1], *all_options.subList(2, all_options.size).toTypedArray())
-            }
-            else if (all_options.size == 2){
-                combinations = cartesianProduct(all_options[0],all_options[1])
-            }
-            else if (all_options.size == 1){
-                var one_att : MutableList<List<String>> = mutableListOf()
-                for ((_, att_list ) in attributes){
-                    for (att in att_list){
-                        one_att.add(listOf(att))
+                for ( (key, value) in attributes){
+                    if (addProductAdapter.getList().contains(key)){
+                        current_attributes[key] = value
                     }
                 }
-                combinations = one_att.toSet()
+
+                attributes = current_attributes
+
+                Log.v("AddProductxAttribute", attributes.toString())
+
+                var all_options : MutableList<Set<String>> = mutableListOf()
+
+                var att_names : MutableList<String> = mutableListOf()
+
+                var filter_criterias : MutableList<FilterCriterias> = mutableListOf()
+                for ((att_name, att_list ) in attributes){
+                    all_options.add(att_list.toSet())
+                    att_names.add(att_name)
+                    val original_name = att_name.replace("\\s".toRegex(), "").toLowerCase()
+                    filter_criterias.add(FilterCriterias(name = original_name, displayName = att_name, possibleValues = att_list))
+                }
+
+                // FILTER CRITERIAS
+                current_product.filterCriterias = filter_criterias
+
+                var combinations: Set<List<*>> = mutableSetOf()
+                if (all_options.size >= 3){
+                    combinations = cartesianProduct(all_options[0],all_options[1], *all_options.subList(2, all_options.size).toTypedArray())
+                }
+                else if (all_options.size == 2){
+                    combinations = cartesianProduct(all_options[0],all_options[1])
+                }
+                else if (all_options.size == 1){
+                    var one_att : MutableList<List<String>> = mutableListOf()
+                    for ((_, att_list ) in attributes){
+                        for (att in att_list){
+                            one_att.add(listOf(att))
+                        }
+                    }
+                    combinations = one_att.toSet()
+                }
+
+                var new_combinations = combinations.toList()
+
+                if (current_product.name == "ProductName"
+                    || current_product.price == 0.0
+                    || current_product.originalPrice == 0.0
+                    || current_product.description == "description"
+                    || current_product.brand == "brand"
+                    || (current_product.filterCriterias as MutableList<FilterCriterias>).size == 0){
+                    val myToast = Toast.makeText(
+                        context,
+                        "Please fill all the fields!",
+                        Toast.LENGTH_SHORT
+                    )
+                    myToast.setGravity(Gravity.BOTTOM, 0, 200)
+                    myToast.show()
+                } else if (all_options.size == 0){
+                    val myToast = Toast.makeText(
+                        context,
+                        "Please enter the empty attribute fields.",
+                        Toast.LENGTH_SHORT
+                    )
+                    myToast.setGravity(Gravity.BOTTOM, 0, 200)
+                    myToast.show()
+                }
+                else {
+                    navigationManager?.onReplace(
+                        AddStockValuesFragment.newInstance(gson.toJson(new_combinations), gson.toJson(current_product), att_names.joinToString("%")),
+                        TransactionType.Replace, true
+                    )
+                }
             }
 
-            var new_combinations = combinations.toList()
 
-            if (current_product.name == "ProductName"
-                || current_product.price == 0.0
-                || current_product.originalPrice == 0.0
-                || current_product.description == "description"
-                || current_product.brand == "brand"
-                || (current_product.filterCriterias as MutableList<FilterCriterias>).size == 0){
-                val myToast = Toast.makeText(
-                    context,
-                    "Please fill all the fields!",
-                    Toast.LENGTH_SHORT
-                )
-                myToast.setGravity(Gravity.BOTTOM, 0, 200)
-                myToast.show()
-            } else if (all_options.size == 0){
-                val myToast = Toast.makeText(
-                    context,
-                    "Please enter the empty attribute fields.",
-                    Toast.LENGTH_SHORT
-                )
-                myToast.setGravity(Gravity.BOTTOM, 0, 200)
-                myToast.show()
-            }
-            else {
-                navigationManager?.onReplace(
-                    AddStockValuesFragment.newInstance(gson.toJson(new_combinations), gson.toJson(current_product), att_names.joinToString("%")),
-                    TransactionType.Replace, true
-                )
-            }
+
         }
 
         btn_vendorAddProduct_Back.setOnClickListener {
@@ -459,6 +516,8 @@ class AddProductFragment : BaseFragment() {
 
         btn_vendorAddProduct_Image.setOnClickListener {
             launchGallery()
+
+
         }
 
     }
