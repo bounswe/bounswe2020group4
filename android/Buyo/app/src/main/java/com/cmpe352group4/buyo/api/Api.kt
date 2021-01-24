@@ -173,4 +173,10 @@ interface Api {
         @Query("orderId") orderId : String,
         @Query("productId") productId : String
     ):LiveData<ApiResponse<BaseResponsePostRequest>>
+
+    @GET("notifications")
+    fun fetchNotifications(
+        @Query("userType") userType: String,
+        @Query("id") id: String
+    ):LiveData<ApiResponse<BaseResponse<Notification>>>
 }

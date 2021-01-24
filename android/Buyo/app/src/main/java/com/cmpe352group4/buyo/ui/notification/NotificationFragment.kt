@@ -20,6 +20,7 @@ import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.EmptyFragment
 import com.cmpe352group4.buyo.ui.orderpage.OrderPageFragmentVendor
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
+import com.cmpe352group4.buyo.viewmodel.NotificationViewModel
 import com.cmpe352group4.buyo.vo.*
 import kotlinx.android.synthetic.main.fragment_notification.*
 import kotlinx.android.synthetic.main.fragment_order_page.*
@@ -34,11 +35,11 @@ class NotificationFragment : BaseFragment() {
     @Inject
     lateinit var sharedPref: SharedPref
 
-    /*
+
     private val notificationViewModel: NotificationViewModel by viewModels {
         viewModelFactory
     }
-    */
+
 
     companion object {
         fun newInstance() = NotificationFragment()
@@ -79,13 +80,13 @@ class NotificationFragment : BaseFragment() {
         )
 
         backButtonListener()
-        dummyFillRV()
-        /*
+        //dummyFillRV()
+
         observeNotification()
         if (!sharedPref.getUserId().isNullOrEmpty()) {
-            notificationViewModel.onFetchOrders(sharedPref.getUserId()!!)
+            notificationViewModel.onFetchNotifications(sharedPref.getUserId()!!, sharedPref.getUserType()!!)
         }
-        */
+
     }
 
     private fun backButtonListener() {
@@ -96,11 +97,10 @@ class NotificationFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        /*
         if (!sharedPref.getUserId().isNullOrEmpty()) {
-            notificationViewModel.onFetchOrders(sharedPref.getUserId()!!)
+            notificationViewModel.onFetchNotifications(sharedPref.getUserId()!!, sharedPref.getUserType()!!)
         }
-        */
+
     }
 
 
@@ -114,25 +114,24 @@ class NotificationFragment : BaseFragment() {
         notificationAdapter.submitList(list)
     }
 
-    /*
+
     private fun observeNotification () {
-        This observe function is for the order fragment. It needs to be changed.
-        notificationViewModel.orderMap.observe(viewLifecycleOwner, Observer {
+        notificationViewModel.notifications.observe(viewLifecycleOwner, Observer {
 
             if (it.status == Status.SUCCESS && it.data != null) {
-                val ordersListRV = mutableListOf<OrderProductRV>()
-                for ((order_id, order) in it.data) {
-                    for (product in order.products) {
-                        val orderRV =
-                            OrderProductRV(order_id, order.address, order.date, product.productId,
-                                product.name, product.imageUrl, product.price, product.vendor,
-                                product.quantity, product.attributes, product.status)
-                        ordersListRV.add(orderRV)
+                val list = mutableListOf<NotificationRV>()
+                for (notification_item in it.data.items) {
+                    if (notification_item.name == "Discount") {
+                        val itemRV = NotificationRV(notification_item.summary, notification_item.name,
+                            notification_item.startTime, notification_item.target)
+                        list.add(itemRV)
+                    } else {
+                        val itemRV = NotificationRV(notification_item.summary, notification_item.name,
+                            notification_item.startTime, null)
+                        list.add(itemRV)
                     }
                 }
-
-                orderAdapter.submitList(ordersListRV)
-
+                notificationAdapter.submitList(list)
                 dispatchLoading()
             } else if (it.status == Status.ERROR) {
                 dispatchLoading()
@@ -141,5 +140,5 @@ class NotificationFragment : BaseFragment() {
             }
         })
     }
-    */
+
 }
