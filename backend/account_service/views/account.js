@@ -462,12 +462,12 @@ module.exports.signup = async (params) => {
 
 module.exports.signInByGoogle = async (params) => {
   try {
-    if (!!params.email || !!params.token || !!params.name) {
+    if (!params.email || !params.token || !params.name) {
       return { success: false, message: ErrorMessage.MISSING_PARAMETER };
     }
 
     let user = await Customer.findOne({ email: params.email });
-    if (!!user) {
+    if (!user) {
       user = await Customer.create({
         email: params.email,
         googleToken: params.token,
