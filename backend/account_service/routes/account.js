@@ -142,4 +142,12 @@ module.exports.initialize = (app) => {
       response.respond(ErrorCode(result.message), result.message);
     }
   });
+
+
+  app.get("/customer/customerlist", async (request, response) => {
+    const result = await account.getCustomerList();
+    response.respond(200, "OK", {
+      result,
+    });
+  });
 };
