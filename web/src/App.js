@@ -24,6 +24,10 @@ import CustomerAddresses from './pages/CustomerAddresses'
 import Messages from './pages/Messages'
 import VendorProducts from './pages/VendorProducts'
 import AddProduct from './pages/AddProduct'
+import Notification from './pages/Notification'
+import Verification from './pages/Verification'
+import ForgotPassword from './pages/ForgotPassword'
+import ResetPassword from './pages/ResetPassword'
 
 //Styling
 import './App.css'
@@ -59,6 +63,10 @@ const App = ({ showHeader, showVendorHeader }) => {
           			<Route path="/customeraddresses" exact component={CustomerAddresses}/>
 					<Route path="/vendorproducts" exact component={VendorProducts}/>
 					<Route path="/addproduct" exact component={AddProduct}/>
+					<Route path="/notification" exact component={Notification}/>
+					<Route path="/verifyuser" exact component={Verification}/>
+					<Route path="/resetpassword" exact component={ResetPassword}/>
+					<Route path="/forgotpassword" exact component={ForgotPassword}/>
          		</div>
        </Router>
      </div>
