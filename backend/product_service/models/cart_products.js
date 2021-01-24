@@ -10,7 +10,7 @@ module.exports.CartProduct = mongoose.model(
     customerId: mongoose.Schema.Types.ObjectId,
     vendorId: mongoose.Schema.Types.ObjectId,
     productId:  mongoose.Schema.Types.ObjectId,
-    productInfos: [Object],
+    productInfos: String,
   }),
   "cart_products"
 );
