@@ -38,8 +38,10 @@ const VendorSignIn = ({hideHeader, showHeader, setLoginState}) => {
 			const response = await accountService.vendorLogin({ 'email': email, 'password': password})
 			if (!response?.userId){
 				alert('Wrong credentials')
-			} else if (response.banned) {
+			} else if (response.status == 'banned') {
 				alert('Your account has been suspended. Please check your e-mail for further information.')
+			} else if (response.status == 'not-verified') {
+				alert('Your account has not been verified. Please check your e-mail for the verification link.')
 			} else {
 				setLoginState({ userId: response.userId, userType: 'vendor'})
 				history.push('/vendorprofile')
@@ -77,7 +79,10 @@ const VendorSignIn = ({hideHeader, showHeader, setLoginState}) => {
 							onChange={handlePasswordChange}
 						/>
 						<div className="col text-center">
-							<a href="/signin">Are you a customer?</a>
+							<Link href="/signin" className="sign-in-link">Are you a customer?</Link>
+						</div>
+						<div className="col text-center">
+							<Link to="/resetpassword" className="sign-in-link">Click here to reset your password.</Link>
 						</div>
 					</Form.Group>
 

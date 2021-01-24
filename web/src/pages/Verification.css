@@ -1,0 +1,41 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    background-color: #FFFAEF;
+}
+
+.verification-modal {
+    position: absolute;
+    background-color: #FBEBD8;
+    left: 28.4%;
+    right: 28.4%;
+    width: 43.2%;
+    top: 6%;
+    border-radius: 20px;
+
+}
+
+.message-container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 76.38%;
+    margin-top: 15%;
+    margin-bottom: 7.13%;
+
+    /*font-family: Roboto;*/
+    font-style: normal;
+    font-weight: normal;
+    
+}
+
+.message {
+    text-align: center;
+}
+
+.logo {
+    width: 80%;
+    margin: auto;
+    margin-bottom: 3.5em;
+    border-radius: 5px;
+    display: block;
+}
