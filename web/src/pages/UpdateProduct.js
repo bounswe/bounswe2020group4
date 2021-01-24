@@ -62,6 +62,7 @@ const UpdateProduct = (props) => {
 	const [image, setImage] = useState()
 	const [imageUrl, setImageUrl] = useState('')
 	const [imageUploaded, setImageUploaded] = useState(false)
+	const [stockInfos, setStockInfos] = useState()
 
 	useEffect(() => {
 		
@@ -97,6 +98,7 @@ const UpdateProduct = (props) => {
 				setPossibleValuesStr(possibleValuesStr)
 				setAttributeSelected(true)
 			}
+			setStockInfos(p.productInfos)
 			setLoading(false)
 			setPossibleValuesEntered(true)
 			setImageUrl(p.imageUrl)
@@ -284,6 +286,23 @@ const UpdateProduct = (props) => {
 		return
 	}
 
+	function renderStockInfos(stockInfo){
+		var attributes = stockInfo['attributes']
+		var stockValue = stockInfo['stockValue']
+		return(
+			<div className='row pl-5'>
+				{attributes.map((attr)=>
+					<div className='col' key={JSON.stringify(attr)}>
+						{attr["name"]}:{attr["value"]}
+					</div>
+				)}
+				<div className='col'>
+					Stock:{stockValue}
+				</div>
+			</div>
+		)
+	}
+
 	return (
 		<div className='container'>
 			<div className='row mt-3'>
@@ -421,6 +440,14 @@ const UpdateProduct = (props) => {
 			{possibleValuesEntered ?
 				<div className='container-fluid mt-3 p-3 container-main rounded'>
 					<p className='h3 header-info'>4. Enter stock information</p>
+					<p className='h5'>Current stock information:</p>
+					<div className='container pb-5'>
+						{stockInfos.map((stockInfo)=>
+							<div className='row' key={JSON.stringify(stockInfo)}>
+								{renderStockInfos(stockInfo)}
+							</div>
+						)}
+					</div>
 					<div className='row'>
 					{attributes.map((attr) =>
 						<div className='col' key={attr.text}>
