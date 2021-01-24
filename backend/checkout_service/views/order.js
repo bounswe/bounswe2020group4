@@ -230,7 +230,7 @@ module.exports.updateProductStatus = async (params) => {
     }
     // Check if cancelling that product is valid.
     if (params.status == "Cancelled") {
-      if (Moment(orderedProduct.date).add(1, "days").toDate() < new Date()) {
+      if (Moment(orderedProduct.date).add(1, "days").toDate() < new Date() || orderedProduct.status == "Shipped") {
         return { success: false, message: ErrorMessage.ALREADY_SHIPPED };
       } else {
         // TODO(eridincu): Update stock value of the product in the product database.
@@ -273,7 +273,7 @@ module.exports.updateProductStatus = async (params) => {
       }
     } else if (params.status == "Returned") {
       // Check if the product can be returned.
-      if (!(Moment(orderedProduct.date).add(3, "days").toDate() < new Date())) {
+      if (!(Moment(orderedProduct.date).add(3, "days").toDate() < new Date()) || !orderedProduct.status.startsWith("Delivered at")) {
         return { success: false, message: ErrorMessage.SHOULD_BE_DELIVERED };
       } else {
         let db_product = await Product.findById(orderedProduct.productId);
@@ -417,11 +417,11 @@ function updateStatusByDate(product, date) {
   try {
     if (product.status == "Cancelled" || product.status == "Returned") {
       // DO NOTHING
-    } else if (Moment(date).add(5, "days").toDate() < new Date()) {
+    } else if (Moment(date).add(5, "days").toDate() < new Date() && product.status !== "Approved") {
       product.status = "Approved";
-    } else if (Moment(date).add(3, "days").toDate() < new Date()) {
+    } else if (Moment(date).add(3, "days").toDate() < new Date() && !product.status.startsWith("Delivered at") && product.status !== "Approved") {
       product.status = "Delivered at " + Moment(date).add(3, "days").toDate().toString();
-    } else if (Moment(date).add(1, "days").toDate() < new Date()) {
+    } else if (Moment(date).add(1, "days").toDate() < new Date() && product.status !== "Shipped" && product.status.startsWith("Delivered at") && product.status !== "Approved") {
       product.status = "Shipped";
     }
     return product;

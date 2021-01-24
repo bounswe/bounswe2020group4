@@ -472,6 +472,7 @@ module.exports.signInByGoogle = async (params) => {
         email: params.email,
         googleToken: params.token,
         name: params.name,
+        status: "verified",
       });
     } else {
       if (user.googleToken) {

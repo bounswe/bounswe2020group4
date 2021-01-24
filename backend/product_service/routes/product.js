@@ -54,7 +54,18 @@ module.exports.initialize = (app) => {
       response.respond(ErrorCode(result.message), result.message);
     }
   });
-
+  /**
+   * Returns the search results for given query.
+   */
+  app.post("/products/search", async (request, response) => {
+    const result = await product.search(request.query);
+    const products = result.data;
+    if (result.success) {
+      response.respond(200, "OK", { products });
+    } else {
+      response.respond(ErrorCode(result.message), result.message);
+    }
+  });
   /**
    * Get wishlist of the user with given id
    */
