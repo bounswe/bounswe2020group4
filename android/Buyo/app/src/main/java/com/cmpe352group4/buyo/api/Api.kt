@@ -169,6 +169,11 @@ interface Api {
         @Path("vendorID") vendorID : String
     ) : LiveData<ApiResponse<BaseResponse<VendorProductResponseResult>>>
 
+    @GET("vendor/products")
+    fun addProduct(
+        @Path("vendorId") vendorID : String,
+        @Body() product : List<AddProduct>
+    ) : LiveData<ApiResponse<BaseResponse<AddProductResponseResult>>>
 
 
 }

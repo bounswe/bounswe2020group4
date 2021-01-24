@@ -7,8 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.cmpe352group4.buyo.api.Resource
 import com.cmpe352group4.buyo.datamanager.repositories.VendorRepository
 import com.cmpe352group4.buyo.util.livedata.AbsentLiveData
-import com.cmpe352group4.buyo.vo.UploadImageResponse
-import com.cmpe352group4.buyo.vo.VendorProductResponseResult
+import com.cmpe352group4.buyo.vo.*
 import javax.inject.Inject
 
 class VendorViewModel @Inject constructor(
@@ -18,6 +17,8 @@ class VendorViewModel @Inject constructor(
     private val _image =  MutableLiveData<ByteArray>()
 
     private val _vendorID = MutableLiveData<String>()
+
+    private val _addRequest = MutableLiveData<AddProductRequest>()
 
     val imageUrl: LiveData<Resource<UploadImageResponse>> =
         Transformations.switchMap(_image) { image ->
@@ -35,11 +36,23 @@ class VendorViewModel @Inject constructor(
                 repository.getProducts(vendorID)
         }
 
+    val addProduct: LiveData<Resource<AddProductResponseResult>> =
+        Transformations.switchMap(_addRequest) { it ->
+            if (it == null)
+                AbsentLiveData.create()
+            else
+                repository.addProduct(it.vendorID, it.products)
+        }
+
     fun onUploadImage(image : ByteArray?){
         _image.value = image
     }
 
     fun onFetchVendorProducts(vendorID : String){
         _vendorID.value = vendorID
+    }
+
+    fun onAddProduct(vendorID : String, product : AddProduct){
+        _addRequest.value = AddProductRequest(vendorID = vendorID, products = listOf(product))
     }
 }
