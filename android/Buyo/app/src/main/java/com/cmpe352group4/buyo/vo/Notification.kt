@@ -1,8 +1,10 @@
 package com.cmpe352group4.buyo.vo
 
+import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 data class Notification (
+    @SerializedName("@context")
     var context: String,
     var summary: String,
     var type: String,
