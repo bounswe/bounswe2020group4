@@ -6,7 +6,8 @@
         "address": "Rumelihisari mah. Cami sk. No:123/32",
         "latitude": "28.9784° E",
         "rating": 4.23,
-        "website": "www.johns.com"
+        "website": "www.johns.com",
+        "status": "verified"
     },
     {
         "name": "Ahmet",
@@ -15,7 +16,8 @@
         "address": "Rumelihisari mah. 6. sk. No:123/32",
         "latitude": "28.9284° E",
         "rating": 3.22,
-        "website": "www.ahmets.com"
+        "website": "www.ahmets.com",
+        "status": "verified"
     },
     {
         "name": "AyseTeyze",
@@ -24,7 +26,8 @@
         "longitude": "41.3082° N",
         "latitude": "28.9484° E",
         "rating": 3.21,
-        "website": "www.ayseteyzeshop.com"
+        "website": "www.ayseteyzeshop.com",
+        "status": "verified"
     },
     {
         "name": "Pablos",
@@ -33,6 +36,7 @@
         "address": "Rumelihisari mah. 14. sk. No:123/32",
         "latitude": "28.9184° E",
         "rating": 2.43,
-        "website": "www.pablos.com"
+        "website": "www.pablos.com",
+        "status": "verified"
     }
 ]

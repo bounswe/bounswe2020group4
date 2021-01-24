@@ -1,4 +1,5 @@
 const report = require("../views/report");
+const ban = require("../views/ban");
 
 // Initializes the endpoints.
 module.exports.initialize = (app) => {
@@ -29,4 +30,28 @@ module.exports.initialize = (app) => {
       response.respond(500, result.message);
     }
   });
+
+
+  app.post("/admin/vendor/changeStatus/:vendorId", async (request, response) => {
+
+    if(!("status" in request.body)){
+      response.respond(500,  "Please check your parameters. There should be status information related with current user.");
+    }
+
+    parameters = {}
+    
+    parameters["status"] = request.body.status;
+    parameters["vendorId"] = request.params.vendorId;
+
+    
+    const result = await ban.changeStatusForVendor(parameters);
+
+    if (result) {
+      response.respond(200, "The vendor status is changed" );
+    } else {
+      response.respond(500, "Please check your parameters");
+    }
+  });
+
+
 };
