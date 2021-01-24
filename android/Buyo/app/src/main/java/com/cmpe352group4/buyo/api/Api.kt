@@ -164,6 +164,11 @@ interface Api {
         @Body( ) image : ByteArray
     ):LiveData<ApiResponse<BaseResponse<UploadImageResponse>>>
 
+    @GET("vendor/products/{vendorID}")
+    fun getVendorProducts(
+        @Path("vendorID") vendorID : String
+    ) : LiveData<ApiResponse<BaseResponse<VendorProductResponseResult>>>
+
 
 
 }

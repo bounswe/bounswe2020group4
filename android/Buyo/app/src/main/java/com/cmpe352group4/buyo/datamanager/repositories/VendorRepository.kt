@@ -8,10 +8,7 @@ import com.cmpe352group4.buyo.api.Resource
 import com.cmpe352group4.buyo.base.AppExecutors
 import com.cmpe352group4.buyo.base.ConnectionManager
 import com.cmpe352group4.buyo.util.livedata.InitialLiveData
-import com.cmpe352group4.buyo.vo.BaseResponse
-import com.cmpe352group4.buyo.vo.BaseResponsePostRequest
-import com.cmpe352group4.buyo.vo.ProductResult
-import com.cmpe352group4.buyo.vo.UploadImageResponse
+import com.cmpe352group4.buyo.vo.*
 //import com.cmpe352group4.buyo.vo.ProductResponse
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -32,4 +29,12 @@ class VendorRepository @Inject constructor(
         }.asLiveData()
     }
 
+    fun getProducts(vendorID : String): LiveData<Resource<VendorProductResponseResult>> {
+        return object : NetworkServiceWrapper<VendorProductResponseResult, BaseResponse<VendorProductResponseResult>>(appExecutors,connectionManager){
+            override fun loadFromApi(data: BaseResponse<VendorProductResponseResult>): LiveData<VendorProductResponseResult> {
+                return InitialLiveData.create(data.data)
+            }
+            override fun createCall(): LiveData<ApiResponse<BaseResponse<VendorProductResponseResult>>> = api.getVendorProducts(vendorID)
+        }.asLiveData()
+    }
 }
