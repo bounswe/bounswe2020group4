@@ -336,9 +336,6 @@ module.exports.updateOrderStatus = async (params) => {
     let orderedProducts;
     let statusChanged = false;
     if (params.userType === "customer") {
-      console.log(params, typeof params.userId);
-      console.log(await OrderedProduct.find());
-
       orderedProducts = await OrderedProduct.find({
         orderId: params.orderId,
         customerId: ObjectId(params.userId),
@@ -350,7 +347,6 @@ module.exports.updateOrderStatus = async (params) => {
       });
     }
     if (orderedProducts.length === 0) {
-      console.log("not found");
       return { success: false, message: ErrorMessage.PRODUCT_NOT_FOUND };
     }
     if (params.status === "Cancelled") {
