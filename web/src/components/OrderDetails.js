@@ -92,6 +92,15 @@ const ProductOrder = ({orderId, userId, userType, productId, imgUrl, name, brand
 		}
 	}
 
+	const handleReturnProduct = async () => {
+		const response = await orderService.updateProductOrderStatus(userType, userId, 'Returned', orderId, productId)
+		if (response == 200) {
+			alert('Product is successfully returned.')
+			history.go(0)
+		} else {
+			alert('Something went wrong. Please try again later.')
+		}
+	}
 
 	const customerProductButtons = () => {
 		return (
@@ -99,6 +108,7 @@ const ProductOrder = ({orderId, userId, userType, productId, imgUrl, name, brand
 				<button className="add-comment-button" onClick={handleMessageVendor}>Message Vendor</button>
 				{isPending && <button className="add-comment-button" onClick={handleCancelProductOrder}>Cancel Order</button>}
 				{isDelivered && <button className="add-comment-button" onClick={handleClickOpen}>Give Feedback</button>}
+				{isDelivered && <button className="add-comment-button" onClick={handleReturnProduct}>Return Product</button>}
 			</div>
 		)
 	}

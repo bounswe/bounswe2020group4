@@ -1,4 +1,4 @@
-module.exports.ErrorMessage = {
+const ErrorMessage = {
   EMAIL_HAS_BEEN_USED: "This email has been already used",
   COULD_NOT_CREATE_USER: "User couldn't be created",
   MISSING_PARAMETER: "Missing parameter, see documentation for details",
@@ -18,3 +18,5 @@ module.exports.ErrorCode = (message) => {
 
   return ErrorCodes[message] || 500;
 };
+
+module.exports.ErrorMessage = ErrorMessage;

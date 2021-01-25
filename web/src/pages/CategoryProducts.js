@@ -67,12 +67,10 @@ const CategoryProducts = () => {
 	}
 	const handleFilterCheckbox = async (e, filterName, filterValue) => {
 		if(e.target.checked) {
-			//TODO how to handle when more than one filter is chosen for a field?
 			params[filterName] = filterValue
 			history.push('/products?' + queryString.stringify(params))
 			setNewURL('/products?' + queryString.stringify(params))
 		} else {
-			//TODO how to handle when more than one filter is chosen for a field?
 			delete params[filterName]
 			history.push('/products?' + queryString.stringify(params))
 			setNewURL('/products?' + queryString.stringify(params))
@@ -107,17 +105,18 @@ const CategoryProducts = () => {
 				</div>
 			</div>
 			<div className='products-container'>
-				<div className='filters'>
-					{filterCriterias.map(f => (
-						<div key={f.name} className='filter-container'>
-							<h2>{f.displayName}</h2>
-							{f.possibleValues.map(v => <FilterCheckBox key={v}
-								handleFilterCheckbox={(e) => handleFilterCheckbox(e, f.name, v)}
-								checked={(params[f.name] && params[f.name] === v) || false}
-								label={v} />)}
-						</div>
-					))}
-				</div>
+				{filterCriterias.length !== 0 &&
+					<div className='filters'>
+						{filterCriterias.map(f => (
+							<div key={f.name} className='filter-container'>
+								<h2>{f.displayName}</h2>
+								{f.possibleValues.map(v => <FilterCheckBox key={v}
+									handleFilterCheckbox={(e) => handleFilterCheckbox(e, f.name, v)}
+									checked={(params[f.name] && params[f.name] === v) || false}
+									label={v} />)}
+							</div>
+						))}
+					</div>}
 				<div className='product-cards'>
 					{products.map(p =>
 						<div key={p.id} className='product-card-container'>

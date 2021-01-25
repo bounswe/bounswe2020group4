@@ -159,7 +159,7 @@ const forgotPassword = async (email) => {
 const verify = async (userType, userId) => {
 	let response
 	try{
-		response = await axios.post(`${baseUrl}account/verify?userType=${userType}&id=${userId}`)
+		response = await axios.get(`${baseUrl}account/verify?userType=${userType}&id=${userId}`)
 	} catch(err){
 		return false
 	}

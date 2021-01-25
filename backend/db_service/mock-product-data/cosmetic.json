@@ -16,35 +16,7 @@
             "Strawberry"
         ],
         "brand": "Clean",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "aroma",
-                        "value": "Rose"
-                    }
-                ],
-                "stockValue": 7
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "aroma",
-                        "value": "Vanilla"
-                    }
-                ],
-                "stockValue": 47
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "aroma",
-                        "value": "Strawberry"
-                    }
-                ],
-                "stockValue": 45
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"aroma\",\"value\":\"Rose\"}],\"stockValue\":7},{\"attributes\":[{\"name\":\"aroma\",\"value\":\"Vanilla\"}],\"stockValue\":47},{\"attributes\":[{\"name\":\"aroma\",\"value\":\"Strawberry\"}],\"stockValue\":45}]"
     },
     {
         "description": "Makeup kit. Shine like a pearl.",
@@ -59,17 +31,7 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089789245061",
         "rating": 3.78,
         "brand": "Maybelline",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "color",
-                        "value": "Red"
-                    }
-                ],
-                "stockValue": 23
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"color\",\"value\":\"Red\"}],\"stockValue\":23}]"
     },
     {
         "description": "Best soap in 78 countries.",
@@ -83,17 +45,7 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089789245102",
         "rating": 4.86,
         "brand": "Haci Sakir",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "color",
-                        "value": "White"
-                    }
-                ],
-                "stockValue": 45
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"color\",\"value\":\"White\"}],\"stockValue\":45}]"
     },
     {
         "description": "Best cream for handcare. Norwegian fishmen use this.",
@@ -112,26 +64,7 @@
             "Strawberry"
         ],
         "brand": "Neutrogena",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "aroma",
-                        "value": "Vanilla"
-                    }
-                ],
-                "stockValue": 25
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "aroma",
-                        "value": "Strawberry"
-                    }
-                ],
-                "stockValue": 47
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"aroma\",\"value\":\"Vanilla\"}],\"stockValue\":25},{\"attributes\":[{\"name\":\"aroma\",\"value\":\"Strawberry\"}],\"stockValue\":47}]"
     },
     {
         "description": "Best lipstick ever.",
@@ -146,35 +79,7 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089789245214",
         "rating": "4.42",
         "brand": "Loreal Paris",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "color",
-                        "value": "Red"
-                    }
-                ],
-                "stockValue": 5
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "color",
-                        "value": "Maroon"
-                    }
-                ],
-                "stockValue": 74
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "color",
-                        "value": "Black"
-                    }
-                ],
-                "stockValue": 40
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"color\",\"value\":\"Red\"}],\"stockValue\":5},{\"attributes\":[{\"name\":\"color\",\"value\":\"Maroon\"}],\"stockValue\":74},{\"attributes\":[{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":40}]"
     },
     {
         "description": "Best perfume in the world.",
@@ -189,35 +94,7 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089789245245",
         "rating": "4.80",
         "brand": "Hermes",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "75 ml"
-                    }
-                ],
-                "stockValue": 30
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "80 ml"
-                    }
-                ],
-                "stockValue": 43
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "90 ml"
-                    }
-                ],
-                "stockValue": 86
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":30},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":43},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":86}]"
     },
     {
         "description": "Nobody can resist this perfume's charm.",
@@ -232,35 +109,7 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089789245286",
         "rating": "4.70",
         "brand": "Chanel",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "75 ml"
-                    }
-                ],
-                "stockValue": 84
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "80 ml"
-                    }
-                ],
-                "stockValue": 35
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "90 ml"
-                    }
-                ],
-                "stockValue": 25
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":84},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":35},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":25}]"
     },
     {
         "description": "Permanent lipstick, permanent beauty.",
@@ -275,35 +124,7 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089789245317",
         "rating": "3.59",
         "brand": "Flormar",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "color",
-                        "value": "Red"
-                    }
-                ],
-                "stockValue": 73
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "color",
-                        "value": "Maroon"
-                    }
-                ],
-                "stockValue": 89
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "color",
-                        "value": "Black"
-                    }
-                ],
-                "stockValue": 82
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"color\",\"value\":\"Red\"}],\"stockValue\":73},{\"attributes\":[{\"name\":\"color\",\"value\":\"Maroon\"}],\"stockValue\":89},{\"attributes\":[{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":82}]"
     },
     {
         "description": "100% olive oil soap.",
@@ -317,26 +138,7 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089789245368",
         "rating": 3.97,
         "brand": "Duru",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "color",
-                        "value": "White"
-                    }
-                ],
-                "stockValue": 85
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "color",
-                        "value": "Green"
-                    }
-                ],
-                "stockValue": 37
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"color\",\"value\":\"White\"}],\"stockValue\":85},{\"attributes\":[{\"name\":\"color\",\"value\":\"Green\"}],\"stockValue\":37}]"
     },
     {
         "description": "Face cream for tender skins.",
@@ -351,35 +153,7 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/16089789245449",
         "rating": "4.37",
         "brand": "Neutrogena",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "75 ml"
-                    }
-                ],
-                "stockValue": 19
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "80 ml"
-                    }
-                ],
-                "stockValue": 86
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "90 ml"
-                    }
-                ],
-                "stockValue": 21
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":19},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":86},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":21}]"
     },
     {
         "description": "100% Olive Oil shower gel.",
@@ -394,35 +168,7 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160897892454910",
         "rating": "4.63",
         "brand": "Palmolive",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "75 ml"
-                    }
-                ],
-                "stockValue": 18
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "80 ml"
-                    }
-                ],
-                "stockValue": 53
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "90 ml"
-                    }
-                ],
-                "stockValue": 60
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":18},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":53},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":60}]"
     },
     {
         "description": "Your skin will shine.",
@@ -437,35 +183,7 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160897892455211",
         "rating": "4.00",
         "brand": "Pinky",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "75 ml"
-                    }
-                ],
-                "stockValue": 11
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "80 ml"
-                    }
-                ],
-                "stockValue": 53
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "90 ml"
-                    }
-                ],
-                "stockValue": 26
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":11},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":53},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":26}]"
     },
     {
         "description": "Smell like a bunch of flowers.",
@@ -480,35 +198,7 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160897892455412",
         "rating": "4.00",
         "brand": "Zara",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "75 ml"
-                    }
-                ],
-                "stockValue": 23
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "80 ml"
-                    }
-                ],
-                "stockValue": 70
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "90 ml"
-                    }
-                ],
-                "stockValue": 24
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":23},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":70},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":24}]"
     },
     {
         "description": "Best skin cream produced ever.",
@@ -523,35 +213,7 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160897892455713",
         "rating": "4.03",
         "brand": "Kiehl's",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "75 ml"
-                    }
-                ],
-                "stockValue": 85
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "80 ml"
-                    }
-                ],
-                "stockValue": 8
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "90 ml"
-                    }
-                ],
-                "stockValue": 34
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":85},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":8},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":34}]"
     },
     {
         "description": "Best anti-aging kit.",
@@ -566,35 +228,7 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160897892456014",
         "rating": "4.46",
         "brand": "Monat",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "75 ml"
-                    }
-                ],
-                "stockValue": 9
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "80 ml"
-                    }
-                ],
-                "stockValue": 49
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "90 ml"
-                    }
-                ],
-                "stockValue": 85
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":9},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":49},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":85}]"
     },
     {
         "description": "Smells like teen spirit.",
@@ -609,35 +243,7 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160897892456315",
         "rating": "4.50",
         "brand": "Invictus",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "75 ml"
-                    }
-                ],
-                "stockValue": 12
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "80 ml"
-                    }
-                ],
-                "stockValue": 20
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "90 ml"
-                    }
-                ],
-                "stockValue": 35
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":12},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":20},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":35}]"
     },
     {
         "description": "Best soap for coronavirus.",
@@ -651,47 +257,7 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160897892456816",
         "rating": "3.89",
         "brand": "Activex",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "75 ml"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Black"
-                    }
-                ],
-                "stockValue": 46
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "80 ml"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Black"
-                    }
-                ],
-                "stockValue": 97
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "90 ml"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Black"
-                    }
-                ],
-                "stockValue": 57
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"},{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":46},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"},{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":97},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"},{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":57}]"
     },
     {
         "description": "Best cream for your hand.",
@@ -706,35 +272,7 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160897892457317",
         "rating": "3.22",
         "brand": "Pact",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "75 ml"
-                    }
-                ],
-                "stockValue": 26
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "80 ml"
-                    }
-                ],
-                "stockValue": 96
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "90 ml"
-                    }
-                ],
-                "stockValue": 68
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":26},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":96},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":68}]"
     },
     {
         "description": "Best serum for your skin.",
@@ -749,35 +287,7 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160897892457718",
         "rating": "2.94",
         "brand": "Loreal",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "75 ml"
-                    }
-                ],
-                "stockValue": 96
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "80 ml"
-                    }
-                ],
-                "stockValue": 54
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "90 ml"
-                    }
-                ],
-                "stockValue": 50
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":96},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":54},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":50}]"
     },
     {
         "description": "You will get rid of all your blackheads.",
@@ -792,34 +302,6 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160897892458119",
         "rating": "4.99",
         "brand": "Ordinary",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "75 ml"
-                    }
-                ],
-                "stockValue": 75
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "80 ml"
-                    }
-                ],
-                "stockValue": 61
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "90 ml"
-                    }
-                ],
-                "stockValue": 34
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"75 ml\"}],\"stockValue\":75},{\"attributes\":[{\"name\":\"size\",\"value\":\"80 ml\"}],\"stockValue\":61},{\"attributes\":[{\"name\":\"size\",\"value\":\"90 ml\"}],\"stockValue\":34}]"
     }
 ]

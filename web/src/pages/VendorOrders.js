@@ -4,22 +4,14 @@ import { hideHeader, showHeader, showVendorHeader, hideVendorHeader } from '../r
 
 import './VendorOrders.css'
 
-import OrderDetails from '../components/OrderDetails'
+import VendorOrderDetails from '../components/VendorOrderDetails'
 import orderService from '../services/orders'
+import history from '../util/history'
 
-import Tabs from '@material-ui/core/Tabs'
-import Tab from '@material-ui/core/Tab'
 import Accordion from '@material-ui/core/Accordion'
-import { makeStyles } from '@material-ui/core/styles'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-
-const useStyles = makeStyles(() => ({
-	indicator: {
-		backgroundColor: 'red',
-	},
-}))
 
 const TabPanel = (props) => {
 	const { children, value, index, ...other } = props
@@ -40,15 +32,19 @@ const TabPanel = (props) => {
 	)
 }
 
-const VendorOrders = ({showHeader, hideHeader, showVendorHeader, isLoggedIn, userId}) => {
-	const [value, setValue] = useState(0)
+const VendorOrders = ({showHeader, hideHeader, showVendorHeader, isLoggedIn, userId, userType}) => {
+	if(!isLoggedIn | userType != 'vendor') {
+		history.push('/vendorsignin')
+		return
+	}
+	
 	const [expanded, setExpanded] = useState(false)
 	const [orders, setOrders] = useState([])
 	const [totalEarnings, setTotalEarnings] = useState(0)
 
 	useEffect(async () => {
-		const orders = await orderService.getOrders(userId, 'vendor')
-		let ordersList = []
+		const ordersObj = await orderService.getOrders(userId, 'vendor')
+		/*const ordersList = []
 		let key
 		let sumOfDeliveredPrices = 0
 		if (orders) {
@@ -63,17 +59,20 @@ const VendorOrders = ({showHeader, hideHeader, showVendorHeader, isLoggedIn, use
 			setOrders(ordersList)
 			setTotalEarnings(sumOfDeliveredPrices)
 		}
+		*/
+		if (ordersObj?.orders) {
+			const ordersList = []
+			for (let key of Object.keys(ordersObj.orders)) {
+				ordersList.push({id: key, data: ordersObj.orders[key]})
+			}
+			setOrders(ordersList)
+		}
+		if (ordersObj?.totalEarnings) setTotalEarnings(ordersObj.totalEarnings)
 
 		hideHeader()
 		showVendorHeader()
 		return () => showHeader()
 	}, [])
-
-	const classes = useStyles()
-
-	const handleChange = (event, newValue) => {
-		setValue(newValue)
-	}
 
 	const handleExpand = (panel) => (event, isExpanded) => {
 		setExpanded(isExpanded ? panel : false)
@@ -81,15 +80,8 @@ const VendorOrders = ({showHeader, hideHeader, showVendorHeader, isLoggedIn, use
 
 	return(
 		<div className="orders-container">
-			<Tabs
-				value={value}
-				onChange={handleChange}
-				indicatorColor="primary"
-				classes={{indicator: classes.indicator}}
-				centered >
-				<Tab label="Orders" id="tab-1"/>
-			</Tabs>
-			<TabPanel value={value} index={0}>
+			<div className='title px-5 py-3' >Orders</div>
+			<TabPanel value={0} index={0}>
 				{orders?.length ? orders.map(o => (
 					<Accordion key={o.id} expanded={expanded === o.id} onChange={handleExpand(o.id)}>
 						<AccordionSummary
@@ -104,8 +96,7 @@ const VendorOrders = ({showHeader, hideHeader, showVendorHeader, isLoggedIn, use
 							</div>
 						</AccordionSummary>
 						<AccordionDetails>
-							{/* <OrderDetails products={o.data.products} address={o.data.address}/> */}
-							<OrderDetails orderId={o.id} products={o.data.products} address="Etiler Mahallesi Muharipler sokak Sakarya Apartman no:4 Beşiktaş/Istanbul"/>
+							<VendorOrderDetails orderId={o.id} products={o.data.products} address={o.data.address}/>
 						</AccordionDetails>
 					</Accordion>
 				)) : <div className='no-orders'>There is nothing here.</div>}
@@ -118,7 +109,8 @@ const VendorOrders = ({showHeader, hideHeader, showVendorHeader, isLoggedIn, use
 const mapStateToProps = (state) => {
 	return {
 		isLoggedIn: state.signIn.isLoggedIn,
-		userId: state.signIn.userId
+		userId: state.signIn.userId,
+		userType: state.signIn.userType,
 	}
 }
 
