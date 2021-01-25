@@ -4,7 +4,7 @@ import { hideHeader, showHeader, showVendorHeader, hideVendorHeader } from '../r
 
 import './VendorOrders.css'
 
-import OrderDetails from '../components/OrderDetails'
+import VendorOrderDetails from '../components/VendorOrderDetails'
 import orderService from '../services/orders'
 import history from '../util/history'
 
@@ -43,8 +43,8 @@ const VendorOrders = ({showHeader, hideHeader, showVendorHeader, isLoggedIn, use
 	const [totalEarnings, setTotalEarnings] = useState(0)
 
 	useEffect(async () => {
-		const orders = await orderService.getOrders(userId, 'vendor')
-		const ordersList = []
+		const ordersObj = await orderService.getOrders(userId, 'vendor')
+		/*const ordersList = []
 		let key
 		let sumOfDeliveredPrices = 0
 		if (orders) {
@@ -59,6 +59,15 @@ const VendorOrders = ({showHeader, hideHeader, showVendorHeader, isLoggedIn, use
 			setOrders(ordersList)
 			setTotalEarnings(sumOfDeliveredPrices)
 		}
+		*/
+		if (ordersObj?.orders) {
+			const ordersList = []
+			for (let key of Object.keys(ordersObj.orders)) {
+				ordersList.push({id: key, data: ordersObj.orders[key]})
+			}
+			setOrders(ordersList)
+		}
+		if (ordersObj?.totalEarnings) setTotalEarnings(ordersObj.totalEarnings)
 
 		hideHeader()
 		showVendorHeader()
@@ -87,8 +96,7 @@ const VendorOrders = ({showHeader, hideHeader, showVendorHeader, isLoggedIn, use
 							</div>
 						</AccordionSummary>
 						<AccordionDetails>
-							{/* <OrderDetails products={o.data.products} address={o.data.address}/> */}
-							<OrderDetails orderId={o.id} products={o.data.products} address="Etiler Mahallesi Muharipler sokak Sakarya Apartman no:4 Beşiktaş/Istanbul"/>
+							<VendorOrderDetails orderId={o.id} products={o.data.products} address={o.data.address}/>
 						</AccordionDetails>
 					</Accordion>
 				)) : <div className='no-orders'>There is nothing here.</div>}
