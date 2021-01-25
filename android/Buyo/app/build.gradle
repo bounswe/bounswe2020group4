@@ -98,4 +98,8 @@ dependencies {
     implementation deps.glide.runtime
 
 
+    //Socket.io
+    implementation('io.socket:socket.io-client:1.0.0') {
+        exclude group: 'org.json', module: 'json'
+    }
 }
