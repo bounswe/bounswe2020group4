@@ -111,7 +111,7 @@ class OrderPageFragmentVendor : BaseFragment() {
             )
         }
         else {
-            // TODO Message customer
+            // TODO Message customer (customer id = order.customerID)
         }
     }
 
@@ -125,7 +125,7 @@ class OrderPageFragmentVendor : BaseFragment() {
             )
         }
         else {
-            // TODO Message customer
+            // TODO Message customer (customer id = order.customerID)
         }
     }
 

@@ -8,6 +8,7 @@ import com.cmpe352group4.buyo.api.Resource
 import com.cmpe352group4.buyo.datamanager.repositories.SearchRepository
 import com.cmpe352group4.buyo.util.livedata.AbsentLiveData
 import com.cmpe352group4.buyo.vo.ProductResponse
+import com.cmpe352group4.buyo.vo.ProductResponseRec
 import com.cmpe352group4.buyo.vo.SearchCategoryRequest
 import com.cmpe352group4.buyo.vo.SearchKeywordRequest
 import javax.inject.Inject
@@ -37,7 +38,7 @@ class SearchViewModel @Inject constructor(
                 repository.getProductsbyCategory(request.categories, request.filterSort)
         }
 
-    val recommendationResult: LiveData<Resource<ProductResponse>> =
+    val recommendationResult: LiveData<Resource<ProductResponseRec>> =
         Transformations.switchMap(_userId) { id ->
             if ( id == null)
                 AbsentLiveData.create()

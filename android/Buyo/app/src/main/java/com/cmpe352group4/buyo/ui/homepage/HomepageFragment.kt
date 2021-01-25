@@ -104,12 +104,16 @@ class HomepageFragment : BaseFragment() {
         })
 
         // Recommendation RV
-        // recommendedViewModel.onFetchRecommendations(sharedPref.getUserId()!!) TODO
+        var userIdForRec = "placeholder"
+        if (!sharedPref.getUserId().isNullOrEmpty()) {
+            userIdForRec = sharedPref.getUserId()!!
+        }
 
+        recommendedViewModel.onFetchRecommendations(userIdForRec)
         recommendedViewModel.recommendationResult.observe(viewLifecycleOwner, Observer {
 
             if (it.status == Status.SUCCESS && it.data != null){
-                recommendedProductListAdapter.submitList(it.data.products.productList as MutableList<Product>)
+                recommendedProductListAdapter.submitList(it.data.productList as MutableList<Product>)
 
                 dispatchLoading()
             } else if (it.status == Status.ERROR){
@@ -150,5 +154,14 @@ class HomepageFragment : BaseFragment() {
             LinearLayoutManager.HORIZONTAL, false
         )
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        var userIdForRec = "placeholder"
+        if (!sharedPref.getUserId().isNullOrEmpty()) {
+            userIdForRec = sharedPref.getUserId()!!
+        }
+        recommendedViewModel.onFetchRecommendations(userIdForRec)
     }
 }

@@ -185,6 +185,6 @@ interface Api {
     fun fetchRecommendation(
         @Query("userId") userId: String,
         @Query("type") type: String
-    ):LiveData<ApiResponse<BaseResponse<ProductResponse>>>
+    ):LiveData<ApiResponse<BaseResponse<ProductResponseRec>>>
 
 }

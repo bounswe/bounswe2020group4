@@ -92,7 +92,8 @@ class OrderPageFragment : BaseFragment() {
     }
 
     private fun firstButtonOrderItemListener(order: OrderProductRV) {
-        // TODO message vendor
+        // TODO message vendor (vendor id = order.vendor.id)
+
     }
 
     private fun secondButtonOrderItemListener(order: OrderProductRV) {
