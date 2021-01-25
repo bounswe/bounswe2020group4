@@ -19,7 +19,9 @@ const ProductDetails = () => {
 	useEffect(() => {
 		const getProduct = async () => {
 			const p = await productService.getProduct(id)
-			setProduct(p)
+			if(Object.keys(p).length !== 0 || p.constructor !== Object) {
+				setProduct(p)
+			}
 		}
 
 		getProduct()

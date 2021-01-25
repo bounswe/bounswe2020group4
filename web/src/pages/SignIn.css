@@ -94,3 +94,7 @@ html, body {
     width: 60%;
     height: 60%;
 }
+
+.sign-in-link {
+    color: #EC4A3B;
+}

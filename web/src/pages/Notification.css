@@ -1,0 +1,14 @@
+.centered-header {
+  text-align: center;
+}
+
+.notification-container {
+  text-align: center;
+  width: 400px;
+  margin-left: calc(50vw - 200px);
+}
+
+.no-notifs {
+  text-align: center;
+  margin-top: 1em;
+}
