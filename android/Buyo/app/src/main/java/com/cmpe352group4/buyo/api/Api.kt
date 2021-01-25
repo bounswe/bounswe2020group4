@@ -58,7 +58,8 @@ interface Api {
         @Query("longitude") longitude: String,
         @Query("latitude") latitude: String,
         @Query("website") website: String,
-        @Query("company") company: String
+        @Query("company") company: String,
+        @Query("name") name: String
     ): LiveData<ApiResponse<BaseResponse<LoginSingupResponse>>>
 
     @POST("login")
@@ -147,10 +148,10 @@ interface Api {
         @Query("id") id: String,
         @Query("userType") userType: String,
         @Query("email") email: String,
-        @Query("longitude") name: String,
-        @Query("latitude") surname: String,
-        @Query("website") phoneNumber: String,
-        @Query("company") gender: String
+        @Query("longitude") longitude: String,
+        @Query("latitude") latitude: String,
+        @Query("website") website: String,
+        @Query("company") company: String
     ): LiveData<ApiResponse<BaseResponsePostRequest>>
 
     @POST("report_comment")

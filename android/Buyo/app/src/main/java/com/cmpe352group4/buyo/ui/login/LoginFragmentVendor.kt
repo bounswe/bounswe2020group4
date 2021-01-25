@@ -248,7 +248,8 @@ class LoginFragmentVendor : BaseFragment() {
                                 longitude = lon!!,
                                 latitude = lat!!,
                                 website = vendor_company_website.text.toString(),
-                                company = vendor_company_name.text.toString()
+                                company = vendor_company_name.text.toString(),
+                                name = vendor_name_surname.text.toString()
                             )
                         )
                         profileViewModel.singupVendor.observe(viewLifecycleOwner, Observer {
