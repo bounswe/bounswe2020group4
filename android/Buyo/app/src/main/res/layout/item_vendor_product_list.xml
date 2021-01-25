@@ -70,10 +70,22 @@
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tv_vendorProductList_price"
+        app:layout_constraintEnd_toStartOf="@+id/iv_vendorProductList_deleteIcon"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_vendorProductList_image" />
+
+
+    <ImageView
+        android:id="@+id/iv_vendorProductList_deleteIcon"
+        android:layout_width="32dp"
+        android:layout_height="26dp"
+        android:src="@drawable/ic_delete_product"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_vendorProductList_name"
+        app:layout_constraintEnd_toStartOf="@+id/tv_vendorProductList_price"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tv_vendorProductList_name"
+        app:layout_constraintTop_toTopOf="@+id/tv_vendorProductList_name" />
 
     <TextView
         android:id="@+id/tv_vendorProductList_price"
@@ -87,7 +99,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/tv_vendorProductList_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/tv_vendorProductList_name"
+        app:layout_constraintStart_toEndOf="@+id/iv_vendorProductList_deleteIcon"
         app:layout_constraintTop_toTopOf="@+id/tv_vendorProductList_name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

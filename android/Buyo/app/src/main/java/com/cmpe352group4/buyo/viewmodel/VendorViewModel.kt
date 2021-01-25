@@ -22,6 +22,8 @@ class VendorViewModel @Inject constructor(
 
     private val _updateProduct = MutableLiveData<Product>()
 
+    private val _deleteProduct = MutableLiveData<DeleteProductEndpoint>()
+
     val imageUrl: LiveData<Resource<UploadImageResponse>> =
         Transformations.switchMap(_image) { image ->
             if (image == null)
@@ -54,6 +56,14 @@ class VendorViewModel @Inject constructor(
                 repository.updateProduct(it.id, it)
         }
 
+    val deleteProduct: LiveData<Resource<BaseResponsePostRequest>> =
+        Transformations.switchMap(_deleteProduct) { it ->
+            if (it == null)
+                AbsentLiveData.create()
+            else
+                repository.deleteProduct(it.vendorID, it.productID)
+        }
+
     fun onUploadImage(image : ByteArray?){
         _image.value = image
     }
@@ -64,9 +74,15 @@ class VendorViewModel @Inject constructor(
 
     fun onAddProduct(vendorID : String, product : AddProduct){
         _addRequest.value = AddProductRequest(vendorID = vendorID, products = listOf(product))
+
     }
 
     fun onUpdateProduct(product : Product){
         _updateProduct.value = product
     }
+
+    fun onDeleteProduct(deleteRequest : DeleteProductEndpoint){
+        _deleteProduct.value = deleteRequest
+    }
+
 }
