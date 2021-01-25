@@ -18,9 +18,11 @@ const sendSingleMessage = (userId, userType, withId, withType, message) => {
 	const socket = io.connect(socketUrl)
 	socket.emit('discover', {id: userId, userType: userType}, (response) => {
 		socket.emit('message', {id: userId, userType: userType, withId: withId,
-			withType: withType, message: message})
+			withType: withType, message: message}, (res) => {
+			socket.disconnect()
+		})
 	})
-	socket.disconnect()
+
 }
 
 export default { getMessages, getLastMessages, sendSingleMessage }
