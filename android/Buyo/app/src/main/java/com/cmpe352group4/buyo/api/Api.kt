@@ -151,13 +151,13 @@ interface Api {
     fun reportComment(
         @Query("commentId") commentID : String,
         @Query("message") message : String
-    ):LiveData<ApiResponse<BaseResponsePostRequest>>
+    ):LiveData<ApiResponse<BaseResponse<ReportCommentResponse>>>
 
     @POST("report/product")
     fun reportProduct(
         @Query("productId") commentID : String,
         @Query("message") message : String
-    ):LiveData<ApiResponse<BaseResponsePostRequest>>
+    ):LiveData<ApiResponse<BaseResponse<ReportProductResponse>>>
 
     @POST("file")
     fun uploadImage(

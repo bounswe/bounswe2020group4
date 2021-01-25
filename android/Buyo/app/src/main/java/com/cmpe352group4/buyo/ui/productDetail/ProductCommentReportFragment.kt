@@ -85,6 +85,8 @@ class ProductCommentReportFragment : BaseFragment() {
                         myToast.setGravity(Gravity.BOTTOM, 0, 200)
                         myToast.show()
 
+                        activity?.onBackPressed()
+
                         dispatchLoading()
                     } else if (it.status == Status.ERROR){
                         dispatchLoading()
@@ -122,6 +124,8 @@ class ProductCommentReportFragment : BaseFragment() {
                         )
                         myToast.setGravity(Gravity.BOTTOM, 0, 200)
                         myToast.show()
+
+                        activity?.onBackPressed()
 
                         dispatchLoading()
                     } else if (it.status == Status.ERROR){
