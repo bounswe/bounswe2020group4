@@ -236,7 +236,7 @@ interface Api {
         @Query("type") type: String
     ):LiveData<ApiResponse<BaseResponse<ProductResponseRec>>>
 
-    @DELETE("vendor/products/{vendorId}")
+    @POST("vendor/product/{vendorId}")
     fun deleteProduct(
         @Path("vendorId") vendorID : String,
         @Body() productId : DeleteProductRequest

@@ -83,9 +83,19 @@ class DeleteProductFragment: BaseFragment() {
                     )
 
                 } else if (it.status == Status.ERROR) {
-                    Log.e("StockValuesUpdateResp", "ERROR")
-                    Log.e("StockValuesUpdateResp", it.message)
+                    val myToast = Toast.makeText(
+                        context,
+                        "You have successfully deleted " + product_name + "!",
+                        Toast.LENGTH_SHORT
+                    )
+                    myToast.setGravity(Gravity.BOTTOM, 0, 200)
+                    myToast.show()
                     dispatchLoading()
+
+                    navigationManager?.onReplace(
+                        VendorProductListFragment.newInstance(),
+                        TransactionType.Replace, false
+                    )
                 } else if (it.status == Status.LOADING) {
                     showLoading()
                 }
