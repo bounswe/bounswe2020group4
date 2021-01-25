@@ -13,7 +13,8 @@ import kotlinx.android.synthetic.main.item_vendor_product_list.view.*
 class VendorProductListAdapter(
     var Products: MutableList<Product>,
     val callbackSeeProduct : (Product) -> Unit,
-    val callbackEditProduct : (Product) -> Unit
+    val callbackEditProduct : (Product) -> Unit,
+    val callbackDeleteProduct : (Product) -> Unit
 ) : RecyclerView.Adapter<VendorProductListAdapter.VendorProductListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VendorProductListAdapter.VendorProductListViewHolder {
@@ -55,6 +56,10 @@ class VendorProductListAdapter(
 
             itemView.iv_vendorProductList_editIcon.setOnClickListener {
                 callbackEditProduct.invoke(modal)
+            }
+
+            itemView.iv_vendorProductList_deleteIcon.setOnClickListener {
+                callbackDeleteProduct.invoke(modal)
             }
 
         }

@@ -77,7 +77,14 @@ class VendorProductListFragment: BaseFragment() {
                 }
             })
 
-        })
+        },
+            {product ->
+
+                navigationManager?.onReplace(
+                    DeleteProductFragment.newInstance(id = product.id, name = product.name),
+                    TransactionType.Replace, true
+                )
+            })
     }
 
     companion object {
