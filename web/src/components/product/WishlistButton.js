@@ -68,7 +68,7 @@ const WishlistButton = (props) => {
 	}
 
 	return <StyledRating
-		name="customized-color"
+		name={`like-${props.productId}`}
 		size="large"
 		value={isLiked}
 		max={1}

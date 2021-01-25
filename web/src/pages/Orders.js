@@ -4,24 +4,16 @@ import { connect } from 'react-redux'
 
 import OrderDetails from '../components/OrderDetails'
 
-import Tabs from '@material-ui/core/Tabs'
-import Tab from '@material-ui/core/Tab'
 import Accordion from '@material-ui/core/Accordion'
-import { makeStyles } from '@material-ui/core/styles'
-
 import AccordionDetails from '@material-ui/core/AccordionDetails'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
+import history from '../util/history'
 import orderService from '../services/orders'
 
 import './Orders.css'
 
-const useStyles = makeStyles(() => ({
-	indicator: {
-		backgroundColor: 'red',
-	},
-}))
 
 const TabPanel = (props) => {
 	const { children, value, index, ...other } = props
@@ -45,25 +37,23 @@ const TabPanel = (props) => {
 
 
 const Orders = ({isLoggedIn, userId}) => {
-	const [value, setValue] = useState(0)
+	if(!isLoggedIn) {
+		history.push('/signin')
+		return
+	}
+
 	const [expanded, setExpanded] = useState(false)
 	const [orders, setOrders] = useState([])
 
 	useEffect(async () => {
 		const orders = await orderService.getOrders(userId, 'customer')
-		let ordersList = []
+		const ordersList = []
 		let key
-		for(key of Object.keys(orders)) {
-			ordersList.push({id: key, data: orders[key]})
+		for(key of Object.keys(orders.orders)) {
+			ordersList.push({id: key, data: orders.orders[key]})
 		}
 		setOrders(ordersList)
 	}, [])
-
-	const classes = useStyles()
-
-	const handleChange = (event, newValue) => {
-		setValue(newValue)
-	}
 
 	const handleExpand = (panel) => (event, isExpanded) => {
 		setExpanded(isExpanded ? panel : false)
@@ -71,15 +61,8 @@ const Orders = ({isLoggedIn, userId}) => {
 
 	return(
 		<div className="orders-container">
-			<Tabs
-				value={value}
-				onChange={handleChange}
-				indicatorColor="primary"
-				classes={{indicator: classes.indicator}}
-				centered >
-				<Tab label="Orders" id="tab-1"/>
-			</Tabs>
-			<TabPanel value={value} index={0}>
+			<div className='title px-5 py-3' >Orders</div>
+			<TabPanel value={0} index={0}>
 				{orders && orders.map(o => (
 					<Accordion key={o.id} expanded={expanded === o.id} onChange={handleExpand(o.id)}>
 						<AccordionSummary
@@ -94,8 +77,7 @@ const Orders = ({isLoggedIn, userId}) => {
 							</div>
 						</AccordionSummary>
 						<AccordionDetails>
-							{/* <OrderDetails products={o.data.products} address={o.data.address}/> */}
-							<OrderDetails orderId={o.id} products={o.data.products} address="Etiler Mahallesi Muharipler sokak Sakarya Apartman no:4 Beşiktaş/Istanbul"/>
+							<OrderDetails orderId={o.id} products={o.data.products} address={o.data.address}/>
 						</AccordionDetails>
 					</Accordion>
 				))}

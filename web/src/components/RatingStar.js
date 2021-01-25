@@ -17,7 +17,7 @@ const RatingStar = ({ rating, readOnly=true, precision=0.1, onChange=null, showL
 	return(
 		<div className='rating-container'>
 			<StyledRating className='rating-star'
-				value={Number(rating).toFixed(1)}
+				value={parseFloat(Number(rating).toFixed(1))}
 				max={5}
 				precision={precision}
 				readOnly={readOnly}
