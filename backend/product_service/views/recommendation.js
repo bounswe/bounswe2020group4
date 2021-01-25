@@ -82,7 +82,8 @@ module.exports.getProducts = async (params) => {
     products = productIds
       .map((id) => productMap[id])
       .concat(Object.values(productMap).filter((product) => !productIds.includes(product._id.toString())))
-      .filter((product) => product);
+      .filter((product) => product)
+      .slice(0, 20);
 
     products = await Promise.all(
       products.map(async (product) => {
