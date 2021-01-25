@@ -83,6 +83,7 @@ const Messages = ({isLoggedIn, userId, userType, hideHeader, showHeader, hideVen
 		})
 
 		const messages = await messageService.getLastMessages(userId, userType)
+		console.log(messages)
 		setLastMessages(messages)
 
 		return () => {
