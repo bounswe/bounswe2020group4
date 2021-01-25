@@ -1,10 +1,11 @@
 package com.cmpe352group4.buyo.ui.profilePage
 
 import android.os.Bundle
-import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -88,8 +89,14 @@ class AccountInfoFragment: BaseFragment() {
 
             profileViewModel.saveAccountInfo.observe(viewLifecycleOwner, Observer {
                 if (it.status == Status.SUCCESS && it.data != null) {
+                    val myToast = Toast.makeText(
+                        context,
+                        "Information successfully saved",
+                        Toast.LENGTH_SHORT
+                    )
+                    myToast.setGravity(Gravity.CENTER, 0, 200)
+                    myToast.show()
                     profileViewModel.onFetchProfileInfo(infoReq) // TODO LATER
-                    Log.v("Account info", "saved")
                     dispatchLoading()
                 } else if (it.status == Status.ERROR) {
                     dispatchLoading()

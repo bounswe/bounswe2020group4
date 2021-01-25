@@ -37,6 +37,15 @@ class ProfileRepository @Inject constructor(
         }.asLiveData()
     }
 
+    fun googleSignIn(email: String, name: String, token: String): LiveData<Resource<LoginSingupResponse>> {
+        return object : NetworkServiceWrapper<LoginSingupResponse, BaseResponse<LoginSingupResponse>>(appExecutors,connectionManager){
+            override fun loadFromApi(data: BaseResponse<LoginSingupResponse>): LiveData<LoginSingupResponse> {
+                return InitialLiveData.create(data.data)
+            }
+            override fun createCall(): LiveData<ApiResponse<BaseResponse<LoginSingupResponse>>> = api.googleSignIn(email, name, token)
+        }.asLiveData()
+    }
+
     fun getProfileInfo(customerId: String, userType: String): LiveData<Resource<CustomerInformationResult>> {
         return object : NetworkServiceWrapper<CustomerInformationResult,BaseResponse<CustomerInformationResult>>(appExecutors,connectionManager){
             override fun loadFromApi(data: BaseResponse<CustomerInformationResult>): LiveData<CustomerInformationResult> {
