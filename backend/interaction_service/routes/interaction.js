@@ -72,6 +72,19 @@ module.exports.initialize = (app) => {
   });
 
   /**
+   * Sends a message
+   */
+  app.post("/message", async (request, response) => {
+    const result = await message.send(request.body);
+
+    if (result.success) {
+      response.respond(200, "OK", { message: result.message });
+    } else {
+      response.respond(ErrorCode(result.message), result.message);
+    }
+  });
+
+  /**
    * Gets notifications between two users
    */
   app.get("/notifications", async (request, response) => {
