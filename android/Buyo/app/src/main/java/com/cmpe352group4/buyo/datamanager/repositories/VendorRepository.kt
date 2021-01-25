@@ -46,4 +46,13 @@ class VendorRepository @Inject constructor(
             override fun createCall(): LiveData<ApiResponse<BaseResponse<AddProductResponseResult>>> = api.addProduct(vendorID, products)
         }.asLiveData()
     }
+
+    fun updateProduct(productID: String, product : Product): LiveData<Resource<EditProductResponseResult>> {
+        return object : NetworkServiceWrapper<EditProductResponseResult, BaseResponse<EditProductResponseResult>>(appExecutors,connectionManager){
+            override fun loadFromApi(data: BaseResponse<EditProductResponseResult>): LiveData<EditProductResponseResult> {
+                return InitialLiveData.create(data.data)
+            }
+            override fun createCall(): LiveData<ApiResponse<BaseResponse<EditProductResponseResult>>> = api.updateProduct(productID, product)
+        }.asLiveData()
+    }
 }

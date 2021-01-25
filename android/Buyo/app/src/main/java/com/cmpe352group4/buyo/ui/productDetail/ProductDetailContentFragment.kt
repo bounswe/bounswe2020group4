@@ -363,7 +363,7 @@ class ProductDetailContentFragment : BaseFragment() {
             }
 
             tvProductDetailName.text = product!!.name
-            tvProductDetailVendor.text = product!!.name
+            tvProductDetailVendor.text = product!!.vendor.name
 
             if (product!!.price != product!!.originalPrice) {
                 tvProductDetailInfoCampaign.text = "DISCOUNT: Buy this product for " + product!!.price + " instead of " + product!!.originalPrice + "."

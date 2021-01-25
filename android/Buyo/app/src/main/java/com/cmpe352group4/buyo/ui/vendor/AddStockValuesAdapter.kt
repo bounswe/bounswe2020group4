@@ -51,13 +51,20 @@ class AddStockValuesAdapter(
 
                 override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
                     Log.v("VendorAddStockValuesAdp", "onTextChanged: $text")
-                    callbackAddStockValues.invoke(stockName, text.toString().toInt())
+                    try {
+                        callbackAddStockValues.invoke(stockName, text.toString().toInt())
+                    }catch (e : Exception){
+                        callbackAddStockValues.invoke(stockName, 0)
+                    }
                 }
 
                 override fun afterTextChanged(editable: Editable?) {
                     Log.v("VendorAddStockValuesAdp", "afterTextChanged: "+editable.toString())
-                    callbackAddStockValues.invoke(stockName, editable.toString().toInt())
-                }
+                    try {
+                        callbackAddStockValues.invoke(stockName, editable.toString().toInt())
+                    }catch (e : Exception){
+                        callbackAddStockValues.invoke(stockName, 0)
+                    }                }
             })
 
         }

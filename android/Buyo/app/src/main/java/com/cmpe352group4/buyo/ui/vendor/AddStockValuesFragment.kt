@@ -108,6 +108,8 @@ class AddStockValuesFragment: BaseFragment() {
         btn_vendorAddProductStock_Complete.setOnClickListener {
             // Send Backend request here and return to my products page
 
+            var newProductInfo : MutableList<ProductInfo> = mutableListOf()
+
             for ((options, stockValue) in stockValues){
                 var opt_list = options.split("-")
 
@@ -118,8 +120,11 @@ class AddStockValuesFragment: BaseFragment() {
                     product_info.attributes.add(attribute)
                 }
 
-                product.productInfos.add(product_info)
+                newProductInfo.add(product_info)
             }
+
+            product.productInfos = newProductInfo
+
 
 
             val addProduct = AddProduct(
@@ -140,6 +145,7 @@ class AddStockValuesFragment: BaseFragment() {
             )
 
             if (fragment_mode == "add"){
+                Log.v("StockValuesMode", "ADD")
                 vendorViewModel.onAddProduct(sharedPref.getUserId() ?: "", addProduct)
 
                 vendorViewModel.addProduct.observe(viewLifecycleOwner, Observer {
@@ -165,6 +171,34 @@ class AddStockValuesFragment: BaseFragment() {
                 })
 
             }else if (fragment_mode == "edit"){
+                Log.v("StockValuesMode", "EDIT")
+                vendorViewModel.onUpdateProduct(product)
+
+                vendorViewModel.updateProduct.observe(viewLifecycleOwner, Observer {
+                    if (it.status == Status.SUCCESS && it.data != null) {
+                        val myToast = Toast.makeText(
+                            context,
+                            "You have successfully updated your product!",
+                            Toast.LENGTH_SHORT
+                        )
+                        myToast.setGravity(Gravity.BOTTOM, 0, 200)
+                        myToast.show()
+                        dispatchLoading()
+
+                        navigationManager?.onReplace(
+                            HomepageFragment.newInstance(),
+                            TransactionType.Replace, true
+                        )
+                    } else if (it.status == Status.ERROR) {
+                        Log.e("StockValuesUpdateResp", "ERROR")
+                        Log.e("StockValuesUpdateResp", it.message)
+                        dispatchLoading()
+                    } else if (it.status == Status.LOADING) {
+                        showLoading()
+                    }
+                })
+
+
 
             }else{
                 Log.e("AddStockValue", "Unknown type!")
