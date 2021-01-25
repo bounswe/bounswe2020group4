@@ -3,9 +3,7 @@ import CrossIcon from '../../images/cross-icon.png'
 
 import './AddNewAddressPopup.css'
 
-const AddNewAddressPopup = ({ setIsAddressPopupOpen, defaultInfo, onPopupFormSubmit }) => {
-	const isEditing = defaultInfo.addressTitle != null
-
+const AddNewAddressPopup = ({ setIsAddressPopupOpen, defaultInfo }) => {
 	return (
 		<div className='add-new-address-popup'>
 			<div className='add-new-address-popup-inner-container p-4 rounded'>
@@ -16,25 +14,25 @@ const AddNewAddressPopup = ({ setIsAddressPopupOpen, defaultInfo, onPopupFormSub
 					</div>
 				</div>
 				<hr/>
-				<form onSubmit={(e) => onPopupFormSubmit(e, isEditing)}>
+				<form>
 					<div className='form-group px-2'>
 						<label htmlFor='title'>Address Title</label>
-						<input typ='text' className='form-control' id='title' defaultValue={defaultInfo?.addressTitle} disabled={isEditing ? true : false}/>
+						<input typ='text' className='form-control' id='title' defaultValue={defaultInfo?.title}/>
 					</div>
 					<div className='d-flex'>
 						<div className='form-group px-2'>
 							<label htmlFor='name'>Name</label>
-							<input type='text' className='form-control' id='name' defaultValue={defaultInfo?.name}/>
+							<input type='text' className='form-control' id='name' defaultValue={defaultInfo?.receivingName}/>
 						</div>
 						<div className='form-group px-2'>
 							<label htmlFor='surname'>Surname</label>
-							<input type='text' className='form-control' id='surname' defaultValue={defaultInfo?.surname}/>
+							<input type='text' className='form-control' id='surname' defaultValue={defaultInfo?.receivingSurname}/>
 						</div>
 					</div>
 					<div className='d-flex'>
 						<div className='form-group px-2'>
 							<label htmlFor='phone'>Phone</label>
-							<input type='text' className='form-control' id='phone' defaultValue={defaultInfo?.phone}/>
+							<input type='text' className='form-control' id='phone' defaultValue={defaultInfo?.receivingPhone}/>
 						</div>
 						<div className='form-group px-2'>
 							<label htmlFor='city'>City</label>

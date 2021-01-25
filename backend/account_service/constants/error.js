@@ -4,7 +4,7 @@ const ErrorMessage = {
   MISSING_PARAMETER: "Missing parameter, see documentation for details",
   ADDRESS_ALREADY_EXISTS: "Address with the title already exists",
   USER_NOT_FOUND: "User not found",
-  CHECK_UPDATE_PARAMETERS: "Check your update parameters",
+  PRODUCT_NOT_FOUND: "Product not found",
 };
 
 module.exports.ErrorCode = (message) => {
@@ -18,5 +18,4 @@ module.exports.ErrorCode = (message) => {
 
   return ErrorCodes[message] || 500;
 };
-
 module.exports.ErrorMessage = ErrorMessage;

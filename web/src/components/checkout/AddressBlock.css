@@ -1,15 +1,10 @@
 .ab-address-container {
     width: 240px;
-    overflow: hidden;
+    width: fit-content;
 }
 
 .address-info-container {
     background-color: var(--beige);
-    overflow: scroll;
-}
-
-.address-block-line {
-    width: max-content;
 }
 
 .address-title-radio {
@@ -32,8 +27,4 @@
 
 .edit-icon-container {
     width: 18px;
-}
-
-.trash-icon-container {
-    height: 18px;
 }

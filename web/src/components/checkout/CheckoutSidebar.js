@@ -1,6 +1,4 @@
 import React from 'react'
-import PreInfoForm from '../../Legal Docs/Preliminary Informaton Form - BUYO.pdf'
-import DistSalesAgreement from '../../Legal Docs/distant sales agreement.pdf'
 
 import './CheckoutSidebar.css'
 
@@ -10,7 +8,7 @@ const CheckoutSidebar = ({ setIsContractChecked, isContractChecked, priceInfo })
 			<div className='contract-container position-relative d-flex border p-2 rounded-sm mb-4'>
 				<input type='checkbox' className='contract-checkbox' checked={isContractChecked} onClick={() => setIsContractChecked(!isContractChecked)}/>
 				<div className='contract-text'>
-                    I have read and accepted the <a href={PreInfoForm} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline' }}>Preliminary Information Form</a> and the <a href={DistSalesAgreement} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline' }}>Distance Sales Contract</a>
+                    I have read and accepted the Preliminary Information Form and the Distance Sales Contract
 				</div>
 			</div>
 			<div className='purchase-information p-4 border rounded-sm'>
