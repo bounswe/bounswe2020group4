@@ -166,6 +166,6 @@ interface Api {
     fun googleSignIn(
         @Query("email") email: String,
         @Query("name") name: String,
-        @Query("tokem") token: String
+        @Query("token") token: String
     ): LiveData<ApiResponse<BaseResponse<LoginSingupResponse>>>
 }
