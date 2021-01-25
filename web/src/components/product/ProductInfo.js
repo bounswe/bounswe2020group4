@@ -48,11 +48,8 @@ const ProductInfo = ({ productId, name, brand, price, rating, vendor, vendorRati
 			</div>
 			<h3 className='product-brand'>{brand}</h3>
 			<RatingStar rating={rating} />
-			<div className='product-price'>{price}&#8378;</div>
 			<div>
-				<div className='shipping-container'>
-					<img src={FreeShippingImage} alt='free shipping'/>
-				</div>
+				<div className='product-price'>Price: {price}&#8378;</div>
 				<div className='company-detail-container'>
 					<div>Seller: {vendor}</div>
 					<RatingStar rating={vendorRating}/>

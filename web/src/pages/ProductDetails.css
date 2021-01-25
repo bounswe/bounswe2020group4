@@ -12,7 +12,10 @@
 .product-left-column {
   position: relative;
   float: left;
-  text-align: center;
+  display: flex;
+  width: 30%;
+  height: 500px;
+  justify-content: center;
 }
 
 .product-right-column {
@@ -24,6 +27,6 @@
 
 .product-left-column img {
   border-radius: 10px;
-  width: auto;
-  height: 380px;
+  max-width: 100%;
+  max-height: 100%;
 }
