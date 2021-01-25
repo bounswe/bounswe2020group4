@@ -11,21 +11,6 @@
   padding: 2rem 3rem 2rem 3rem;
 }
 
-.list-links {
-  background-color: var(--beige);
-  margin-right: 30px;
-  width: 262px;
-  height: 543px;
-  text-align:center;
-  padding: 10px;
-  border-radius: 20px;
-}
-
-.list-links h3 {
-  font-size: 24px;
-  color: var(--red-secondary);
-}
-
 .product-cards {
   display: flex;
   flex-wrap: wrap;

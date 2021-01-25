@@ -6,8 +6,11 @@ import history from '../util/history'
 import VendorProductCard from '../components/VendorProductCard'
 import './VendorProducts.css'
 
+import vendorService from '../services/vendor.js'
 
 const VendorProducts = (props) => {
+
+	const [products, setProducts] = useState([])
 
 	useEffect(() => {
 		
@@ -17,62 +20,21 @@ const VendorProducts = (props) => {
 		//	return
 		//}
 
+		const getProducts = async () => {
+			//TODO: change this
+			//const products = await vendorService.getProducts(props.userId)
+			const products = await vendorService.getProducts("5ff37169542dbb00123390fc")
+			console.log(products)
+			setProducts(products)
+		}
+
+		getProducts()
 		props.hideHeader()
 		props.showVendorHeader()
 		return () => props.showHeader()
 	}, [])
 
-	const products = [
-		{
-			'productId': 1,
-			'name': 'T-shirt',
-			'imgUrl': '',
-			'price': '50',
-			'brand': 'Koton'
-		},
-		{
-			'productId': 2,
-			'name': 'Pants',
-			'imgUrl': '',
-			'price': '70',
-			'brand': 'Koton'
-		},
-		{
-			'productId': 2,
-			'name': 'Pants',
-			'imgUrl': '',
-			'price': '70',
-			'brand': 'Koton'
-		}, 
-		{
-			'productId': 2,
-			'name': 'Pants',
-			'imgUrl': '',
-			'price': '70',
-			'brand': 'Koton'
-		},
-		{
-			'productId': 2,
-			'name': 'Pants',
-			'imgUrl': '',
-			'price': '70',
-			'brand': 'Koton'
-		},
-		{
-			'productId': 2,
-			'name': 'Pants',
-			'imgUrl': '',
-			'price': '70',
-			'brand': 'Koton'
-		},
-		{
-			'productId': 2,
-			'name': 'Pants',
-			'imgUrl': '',
-			'price': '70',
-			'brand': 'Koton'
-		}
-	]
+
 
 	return(
 		<div>
@@ -84,8 +46,9 @@ const VendorProducts = (props) => {
 				<VendorProductCard
 					name={p.name} 
 					price={p.price} 
+					originalPrice={p.originalPrice} 
 					imgUrl={p.imageUrl} 
-					productId={p.productId} 
+					productId={p.id} 
 					brand={p.brand}
 				/>
 				</div>
