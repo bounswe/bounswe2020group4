@@ -23,7 +23,7 @@ const SignIn = ({hideHeader, showHeader, setLoginState}) => {
 
 	//Setup google sign in button
 	useEffect(() => {
-		window.gapi.signin2.render('g-signin2', {
+		window.gapi?.signin2.render('g-signin2', {
 			'scope': 'https://www.googleapis.com/auth/plus.login',
 			'onsuccess': onGoogleSignIn
 		})
