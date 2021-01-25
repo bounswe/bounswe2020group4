@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
+import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.util.extensions.visible
 import com.cmpe352group4.buyo.viewmodel.MessagesViewModel
@@ -25,26 +26,18 @@ import javax.inject.Inject
 
 class MessagesFragment : BaseFragment() {
 
+
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     @Inject
     lateinit var sharedPref: SharedPref
 
-
-//    var dummyMessages = mutableListOf(LastMessages(MessageUserInfo(id = "5fff449804ba0e00144ec689", )))
-//
-//        "lastMessages": [
-//    {
-//        "user": {
-//        "name": "Koray",
-//        "userType": "customer",
-//        "id": "5fff449804ba0e00144ec689"
-//    },
-//        "lastMessage": "Test message",
-//        "date": "2021-01-13T19:18:00.345Z"
-//    }
-//    ]
+    var lastMessageList = mutableListOf(LastMessages(user = MessageUserInfo(
+        id = "5fff449804ba0e00144ec689", name = "Koray", userType = "customer"),
+        date = "2021-01-13T19:18:00.345Z",
+        lastMessage = "Test message"))
 
     private val messageViewModel: MessagesViewModel by viewModels {
         viewModelFactory
@@ -53,10 +46,10 @@ class MessagesFragment : BaseFragment() {
     private val lastMessageAdapter by lazy {
         LastMessagesAdapter(mutableListOf()
         ) { UserInfo ->
-//            navigationManager?.onReplace(
-//                ProductListFragment.newInstance(path = path),
-//                TransactionType.Replace, true
-//            )
+            navigationManager?.onReplace(
+                LiveChatFragment.newInstance(withId = UserInfo.id, withType = UserInfo.userType, withName = UserInfo.name),
+                TransactionType.Replace, true
+            )
         }
     }
 
@@ -85,12 +78,14 @@ class MessagesFragment : BaseFragment() {
             messageViewModel.lastMessages.observe(viewLifecycleOwner, Observer {
                 if (it.status == Status.SUCCESS && it.data != null) {
 
-                    if(it.data.lastMessages.isNullOrEmpty()){
-                        tv_message_empty.visible = true
-                    }else{
-                        tv_message_empty.visible = false
-                        lastMessageAdapter.submitList(it.data.lastMessages as MutableList<LastMessages>)
-                    }
+                    lastMessageAdapter.submitList(lastMessageList)
+
+//                    if(it.data.lastMessages.isNullOrEmpty()){
+//                        tv_message_empty.visible = true
+//                    }else{
+//                        tv_message_empty.visible = false
+//                        lastMessageAdapter.submitList(it.data.lastMessages as MutableList<LastMessages>)
+//                    }
 
                     dispatchLoading()
                 } else if (it.status == Status.ERROR) {
