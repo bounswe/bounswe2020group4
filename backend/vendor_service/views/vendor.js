@@ -7,7 +7,8 @@ module.exports.updateProduct = async (product_id, parameter) => {
   try {
     var innerParameter = parameter;
     var productInfosChecker = false;
-    console.log(innerParameter);
+    const isPriceChanged = innerParameter.price;
+
     if (!!parameter.attributes) {
       product = await Product.findOne({ _id: ObjectId(product_id) });
       product = product.toJSON();
@@ -31,7 +32,7 @@ module.exports.updateProduct = async (product_id, parameter) => {
       }
     }
 
-    if (innerParameter.price) {
+    if (isPriceChanged) {
       addNotification(ObjectId(product_id));
     }
 
@@ -53,38 +54,30 @@ module.exports.updateProduct = async (product_id, parameter) => {
   }
 };
 
-
-
-
-
 module.exports.updateWholeProduct = async (product_id, newProductInfo) => {
   try {
     product = await Product.findOne({ _id: ObjectId(product_id) });
-    notificationChecker = product.price !==newProductInfo.price
-    if(product == null){
+    notificationChecker = product.price !== newProductInfo.price;
+    if (product == null) {
       return false;
     }
-    product.category = newProductInfo.category
-    product.description = newProductInfo.description
-    product.name = newProductInfo.name
-    product.price = newProductInfo.price
-    product.originalPrice = newProductInfo.originalPrice
-    product.imageUrl = newProductInfo.imageUrl
-    product.rating = newProductInfo.rating
-    product.brand = newProductInfo.brand
-    product.productInfos = JSON.stringify(newProductInfo.productInfos)
+    product.category = newProductInfo.category;
+    product.description = newProductInfo.description;
+    product.name = newProductInfo.name;
+    product.price = newProductInfo.price;
+    product.originalPrice = newProductInfo.originalPrice;
+    product.imageUrl = newProductInfo.imageUrl;
+    product.rating = newProductInfo.rating;
+    product.brand = newProductInfo.brand;
+    product.productInfos = JSON.stringify(newProductInfo.productInfos);
 
     await product.save();
-    
+
     if (notificationChecker) {
       addNotification(ObjectId(product_id));
     }
-   
-    
 
-
-    return newProductInfo
-
+    return newProductInfo;
   } catch (error) {
     console.log(error);
     return "Please check your update parameters";
@@ -108,9 +101,9 @@ module.exports.addProducts = async (products) => {
         "productInfos" in product &&
         "vendorId" in product;
 
-        if(!checker){
-          return "Please check your parameters"
-        }
+      if (!checker) {
+        return "Please check your parameters";
+      }
       const newProduct = new Product({
         name: product.name,
         imageUrl: product.imageUrl,

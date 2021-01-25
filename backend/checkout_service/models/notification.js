@@ -15,6 +15,7 @@ const Notification = mongoose.model(
     summary: String,
     actorType: String,
     actorId: mongoose.Schema.Types.ObjectId,
+    targetOrder: String,
     target: mongoose.Schema.Types.ObjectId,
   }),
   "notifications"
@@ -34,7 +35,7 @@ module.exports.addNotification = async function (params) {
       actorType: params.userType,
       actorId:
         params.userType === "customer" ? orderedProduct.customerId.toString() : orderedProduct.vendorId.toString(),
-      target: params.orderId,
+      targetOrder: params.orderId,
     });
 
     await notification.save();

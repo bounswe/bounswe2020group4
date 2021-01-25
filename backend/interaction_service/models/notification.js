@@ -15,6 +15,7 @@ module.exports.Notification = mongoose.model(
     actorType: String,
     actorId: mongoose.Schema.Types.ObjectId,
     target: mongoose.Schema.Types.ObjectId,
+    targetOrder: String,
   }),
   "notifications"
 );
