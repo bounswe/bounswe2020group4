@@ -62,14 +62,14 @@ const UpdateProduct = (props) => {
 	const [image, setImage] = useState()
 	const [imageUrl, setImageUrl] = useState('')
 	const [imageUploaded, setImageUploaded] = useState(false)
+	const [stockInfos, setStockInfos] = useState()
 
 	useEffect(() => {
 		
-		//TODO: uncomment this later
-		//if(!props.isLoggedIn | props.userType != 'vendor') {
-		//	history.push('/vendorsignin')
-		//	return
-		//}
+		if(!props.isLoggedIn | props.userType != 'vendor') {
+			history.push('/vendorsignin')
+			return
+		}
 
 		const retrieveCategories = async () => {
 			const categories = await getCategories()
@@ -97,6 +97,7 @@ const UpdateProduct = (props) => {
 				setPossibleValuesStr(possibleValuesStr)
 				setAttributeSelected(true)
 			}
+			setStockInfos(p.productInfos)
 			setLoading(false)
 			setPossibleValuesEntered(true)
 			setImageUrl(p.imageUrl)
@@ -280,8 +281,55 @@ const UpdateProduct = (props) => {
 	}
 
 	const handleSubmitButton = async function(e){
-		console.log(imageUrl)
+		var stockInfos = []
+		for(var productInfo of productInfos){
+			var temp = {}
+			temp["attributes"] = []
+			for(var attr in productInfo){
+				if(attr === 'stockValue'){
+					temp[attr] = productInfo[attr]
+				} else {
+					temp["attributes"].push({"name":attr, "value": productInfo[attr]})
+				}
+			}
+			stockInfos.push(temp)
+		}
+
+		const product = {
+			"category": path.split(','),
+			"description": description,
+			"name": productName,
+			"price": discountedPrice,
+			"originalPrice": price,
+			"imageUrl": imageUrl,
+			"brand": brand,
+			"productInfos": stockInfos,
+			"vendorId": props.userId
+		}
+		
+		const response = await vendorService.updateProduct(product, id)
+		if(response==200){
+			alert("Your product has been updated successfully.")
+			history.push('/vendorproducts')
+		}
 		return
+	}
+
+	function renderStockInfos(stockInfo){
+		var attributes = stockInfo['attributes']
+		var stockValue = stockInfo['stockValue']
+		return(
+			<div className='row pl-5'>
+				{attributes.map((attr)=>
+					<div className='col' key={JSON.stringify(attr)}>
+						{attr["name"]}:{attr["value"]}
+					</div>
+				)}
+				<div className='col'>
+					Stock:{stockValue}
+				</div>
+			</div>
+		)
 	}
 
 	return (
@@ -370,6 +418,7 @@ const UpdateProduct = (props) => {
 							</div>
 						</div>
 					</div>
+					<p>Enter product criteria and press enter (size, color, material etc.)</p>
 					<ReactTags 
 						inputFieldPosition='inline'
 						tags = {attributes}
@@ -390,6 +439,7 @@ const UpdateProduct = (props) => {
 			{attributeSelected ?
 				<div className='container-fluid mt-3 p-3 container-main rounded'>
 					<p className='h3 header-info'>3. Enter possible values for criterion separated by ,</p>
+					<p>For ex. Size: S,M,L</p>
 					{attributes.map((attr) =>
 						<div key={attr.text}>
 							<div className='form-group'>
@@ -421,6 +471,14 @@ const UpdateProduct = (props) => {
 			{possibleValuesEntered ?
 				<div className='container-fluid mt-3 p-3 container-main rounded'>
 					<p className='h3 header-info'>4. Enter stock information</p>
+					<p className='h5'>Current stock information:</p>
+					<div className='container pb-5'>
+						{stockInfos.map((stockInfo)=>
+							<div className='row' key={JSON.stringify(stockInfo)}>
+								{renderStockInfos(stockInfo)}
+							</div>
+						)}
+					</div>
 					<div className='row'>
 					{attributes.map((attr) =>
 						<div className='col' key={attr.text}>
@@ -473,7 +531,7 @@ const UpdateProduct = (props) => {
 const mapStateToProps = (state) => {
 	return {
 		isLoggedIn: state.signIn.isLoggedIn,
-		customerId: state.signIn.userId,
+		userId: state.signIn.userId,
 		userType: state.signIn.userType
 
 	}

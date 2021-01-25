@@ -34,11 +34,10 @@ const AddProduct= (props) => {
 
 	useEffect(() => {
 		
-		//TODO: uncomment this later
-		//if(!props.isLoggedIn | props.userType != 'vendor') {
-		//	history.push('/vendorsignin')
-		//	return
-		//}
+		if(!props.isLoggedIn | props.userType != 'vendor') {
+			history.push('/vendorsignin')
+			return
+		}
 
 		const retrieveCategories = async () => {
 			const categories = await getCategories()
@@ -184,9 +183,9 @@ const AddProduct= (props) => {
 		return(
 			<div>
 				{results.map((result) => 
-					<div className='row mb-2' key={result}>
+					<div className='row mb-2' key={JSON.stringify(result)}>
 						{getListOfValues(result).map((comb) =>
-							<div key={comb} className='col'>
+							<div key={JSON.stringify(comb)} className='col'>
 								{comb}
 							</div>	
 						)}
@@ -218,7 +217,40 @@ const AddProduct= (props) => {
 	}
 
 	const handleSubmitButton = async function(e){
-		console.log(imageUrl)
+
+		var stockInfos = []
+		for(var productInfo of productInfos){
+			var temp = {}
+			temp["attributes"] = []
+			for(var attr in productInfo){
+				if(attr === 'stockValue'){
+					temp[attr] = productInfo[attr]
+				} else {
+					temp["attributes"].push({"name":attr, "value": productInfo[attr]})
+				}
+			}
+			stockInfos.push(temp)
+		}
+
+		const product = [{
+			"category": path.split(','),
+			"description": description,
+			"name": productName,
+			"price": discountedPrice,
+			"originalPrice": price,
+			"imageUrl": imageUrl,
+			"brand": brand,
+			"rating": 0,
+			"productInfos": stockInfos,
+			"vendorId": props.userId
+		}]
+		
+		const response = await vendorService.addProduct(product, props.userId)
+		if(response==200){
+			alert("Your product has been added successfully.")
+			history.push('/vendorproducts')
+		}
+		console.log(response)
 		return
 	}
 
@@ -308,6 +340,7 @@ const AddProduct= (props) => {
 							</div>
 						</div>
 					</div>
+					<p>Enter product criteria and press enter (size, color, material etc.)</p>
 					<ReactTags 
 						inputFieldPosition='inline'
 						tags = {attributes}
@@ -328,8 +361,9 @@ const AddProduct= (props) => {
 			{attributeSelected ?
 				<div className='container-fluid mt-3 p-3 container-main rounded'>
 					<p className='h3 header-info'>3. Enter possible values for criterion separated by ,</p>
+					<p>For ex. Size: S,M,L</p>
 					{attributes.map((attr) =>
-						<div key={attr.text}>
+						<div key={attr.text+'-values'}>
 							<div className='form-group'>
 								<div className='row'>
 									<div className='col-1'>
@@ -360,7 +394,7 @@ const AddProduct= (props) => {
 					<p className='h3 header-info'>4. Enter stock information</p>
 					<div className='row'>
 					{attributes.map((attr) =>
-						<div className='col' key={attr.text}>
+						<div className='col' key={attr.text+'-stock'}>
 							<p className='h5 header-info'>{attr.text}</p>
 						</div>
 					)}
@@ -410,7 +444,7 @@ const AddProduct= (props) => {
 const mapStateToProps = (state) => {
 	return {
 		isLoggedIn: state.signIn.isLoggedIn,
-		customerId: state.signIn.userId,
+		userId: state.signIn.userId,
 		userType: state.signIn.userType
 
 	}

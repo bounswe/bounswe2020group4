@@ -2,14 +2,21 @@ import axios from 'axios'
 
 const baseUrl = 'http://3.138.113.101:8080/'
 
-const updateAddress = async (userId, address) => {
-	const params = {
-		id: userId, 
-		address: address
+const googleSignIn = async (email, name, id_token) => {
+	try {
+		const response = await axios.post(`${baseUrl}google-signin?email=${email}&name=${name}&token=${id_token}`)
+		console.log("Google response: ", response)
+		return response.data.data
+	} catch (err) {
+		console.error(err)
+		return null
 	}
+}
+
+const updateAddress = async (userId, address) => {
 	try{
-		const response = await axios.patch(`${baseUrl}account/address`, params)
-		return response.status.code
+		const response = await axios.patch(`${baseUrl}account/address?id=${userId}&address={"addressTitle":"${address.addressTitle}","name":"${address.name}","surname":"${address.surname}","phone":"${address.phone}","city": "${address.city}","province":"${address.province}","street":"${address.street}","address":"${address.address}"}`)
+		return response.status
 	} catch(err) {
 		console.error(err)
 		return null
@@ -17,15 +24,32 @@ const updateAddress = async (userId, address) => {
 }
 
 const addNewAddress = async (userId, address) => {
-	const params = {
-		id: userId, 
-		address: address
-	}
 	try{
-		const response = await axios.post(`${baseUrl}account/address`, params)
-		return response.status.code
+		const response = await axios.post(`${baseUrl}account/address?id=${userId}&address={"addressTitle":"${address.addressTitle}","name":"${address.name}","surname":"${address.surname}","phone":"${address.phone}","city": "${address.city}","province":"${address.province}","street":"${address.street}","address":"${address.address}"}`)
+		return response.status
 	} catch(err) {
 		console.error(err)
+		return null
+	}
+}
+
+const deleteAddress = async (userId, addressTitle) => {
+	try{
+		const response = await axios.delete(`${baseUrl}account/address?id=${userId}&address={"addressTitle":"${addressTitle}"}`)
+		return response.status
+	} catch(err) {
+		console.error(err)
+		return null
+	}
+}
+
+const getProfileAddresses = async (userType, id) => {
+	let response
+	try{
+		response = await axios.get(`${baseUrl}account?id=${id}&userType=${userType}`)
+		return response.data.data.result.address
+	} catch(err){
+		console.log(err)
 		return null
 	}
 }
@@ -135,7 +159,7 @@ const forgotPassword = async (email) => {
 const verify = async (userType, userId) => {
 	let response
 	try{
-		response = await axios.post(`${baseUrl}account/verify?userType=${userType}&id=${userId}`)
+		response = await axios.get(`${baseUrl}account/verify?userType=${userType}&id=${userId}`)
 	} catch(err){
 		return false
 	}
@@ -213,4 +237,5 @@ const signUp = async (signUpInput) => {
 
 }
 
-export default { forgotPassword, verify, login, signUp, getProfileInfo, updateProfileInfo, updatePassword, vendorLogin, vendorSignUp, addNewAddress, updateAddress }
+export default { forgotPassword, verify, login, signUp, getProfileInfo, updateProfileInfo, updatePassword, vendorLogin, vendorSignUp, getProfileAddresses, addNewAddress, updateAddress, deleteAddress, googleSignIn }
+

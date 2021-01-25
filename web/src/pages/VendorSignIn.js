@@ -38,13 +38,17 @@ const VendorSignIn = ({hideHeader, showHeader, setLoginState}) => {
 			const response = await accountService.vendorLogin({ 'email': email, 'password': password})
 			if (!response?.userId){
 				alert('Wrong credentials')
+			} else if (!response.status) {
+				alert('You do not have a verified account.')
 			} else if (response.status == 'banned') {
-				alert('Your account has been suspended. Please check your e-mail for further information.')
+				alert('Your account has been suspended. Please contact support.')
 			} else if (response.status == 'not-verified') {
 				alert('Your account has not been verified. Please check your e-mail for the verification link.')
-			} else {
+			} else if (response.status == 'verified') {
 				setLoginState({ userId: response.userId, userType: 'vendor'})
 				history.push('/vendorprofile')
+			} else {
+				alert('You do not have a verified account.')
 			}
 		}
 	}

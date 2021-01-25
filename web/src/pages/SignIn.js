@@ -21,6 +21,14 @@ const SignIn = ({hideHeader, showHeader, setLoginState}) => {
 		return () => showHeader()
 	}, [])
 
+	//Setup google sign in button
+	useEffect(() => {
+		window.gapi?.signin2.render('g-signin2', {
+			'scope': 'https://www.googleapis.com/auth/plus.login',
+			'onsuccess': onGoogleSignIn
+		})
+	}, [])
+
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 
@@ -40,19 +48,39 @@ const SignIn = ({hideHeader, showHeader, setLoginState}) => {
 			const response = await accountService.login({ 'email': email, 'password': password})
 			if (!response?.userId){
 				alert('Wrong credentials')
+			} else if (!response.status) {
+				alert('You do not have a verified account.')
 			} else if (response.status == 'banned') {
-				alert('Your account has been suspended. Please check your e-mail for further information.')
+				alert('Your account has been suspended. Please contact support.')
 			} else if (response.status == 'not-verified') {
 				alert('Your account has not been verified. Please check your e-mail for the verification link.')
-			} else {
+			} else if (response.status == 'verified') {
 				setLoginState({ userId: response.userId, userType: 'customer'})
 				history.push('/')
+			} else {
+				alert('You do not have a verified account.')
 			}
 		}
 	}
 	const redirectToSignup = function(e) {
 		e.preventDefault()
 		history.push('/signup')
+	}
+
+	const onGoogleSignIn = async (googleUser) => {
+		const profile = await googleUser.getBasicProfile()
+		const id_token = profile.getId()
+		const email = profile.getEmail()
+		const name = profile.getName()
+		const response = await accountService.googleSignIn(email, name, id_token)
+		if(response?.userId == null) {
+			alert("Something went wrong while trying to sign in with google")
+		} else if (response.banned) {
+			alert("Your account has been suspended. Please check your e-mail for further information.")
+		} else {
+			setLoginState({ userId: response.userId, userType: 'customer', isGoogleUser: true })
+			history.push('/')
+		}
 	}
 
 	return (
@@ -95,9 +123,9 @@ const SignIn = ({hideHeader, showHeader, setLoginState}) => {
 					>
 						SIGN IN
 					</Button>
-					<Button className="submitButtonTransparent" variant="primary" type="submit">
-						SIGN IN WITH GOOGLE
-					</Button>
+					<div className='google-signin-button-container pt-3'>
+						<div id="g-signin2" className='google-signin-button'/>
+					</div>
 					<Button
 						className="submitButtonTransparent"
 						variant="primary"
