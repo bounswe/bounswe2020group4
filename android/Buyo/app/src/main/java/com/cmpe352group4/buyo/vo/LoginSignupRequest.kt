@@ -31,3 +31,7 @@ data class SignupRequestVendor(
     var company: String,
     var name: String
 ): Serializable
+
+data class ForgotPasswordRequest(
+    var email: String
+): Serializable
