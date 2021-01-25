@@ -87,6 +87,7 @@ class ProfilePageFragment: BaseFragment() {
             sharedPref.saveUserType("")
             sharedPref.saveVendorAddress("")
             sharedPref.saveRememberMe(false)
+            sharedPref.saveVerified(false)
             if (sharedPref.isGoogleSignin()) {
                 val gso =
                     GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -98,12 +99,8 @@ class ProfilePageFragment: BaseFragment() {
             }
             navigationManager?.onReplace(
                 LoginFragment.newInstance(),
-                TransactionType.Replace, true
+                TransactionType.Replace, false
             )
         }
-
     }
-
-
-
 }
