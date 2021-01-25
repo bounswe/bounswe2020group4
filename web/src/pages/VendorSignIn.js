@@ -35,14 +35,20 @@ const VendorSignIn = ({hideHeader, showHeader, setLoginState}) => {
 		if(email == '' | password == ''){
 			alert('Enter your credentials')
 		} else {
-			const userId = await accountService.vendorLogin({ 'email': email, 'password': password})
-			console.log(userId)
-			if (userId == null){
+			const response = await accountService.vendorLogin({ 'email': email, 'password': password})
+			if (!response?.userId){
 				alert('Wrong credentials')
+			} else if (!response.status) {
+				alert('You do not have a verified account.')
+			} else if (response.status == 'banned') {
+				alert('Your account has been suspended. Please contact support.')
+			} else if (response.status == 'not-verified') {
+				alert('Your account has not been verified. Please check your e-mail for the verification link.')
+			} else if (response.status == 'verified') {
+				setLoginState({ userId: response.userId, userType: 'vendor'})
+				history.push('/vendorprofile')
 			} else {
-				setLoginState({ userId: userId, userType: 'vendor'})
-				//TODO: redirect to vendor's profile page
-				history.push('/')
+				alert('You do not have a verified account.')
 			}
 		}
 	}
@@ -77,7 +83,10 @@ const VendorSignIn = ({hideHeader, showHeader, setLoginState}) => {
 							onChange={handlePasswordChange}
 						/>
 						<div className="col text-center">
-							<a href="/signin">Are you a customer?</a>
+							<Link href="/signin" className="sign-in-link">Are you a customer?</Link>
+						</div>
+						<div className="col text-center">
+							<Link to="/resetpassword" className="sign-in-link">Click here to reset your password.</Link>
 						</div>
 					</Form.Group>
 

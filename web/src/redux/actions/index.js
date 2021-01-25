@@ -3,7 +3,8 @@ import {
 	HIDE_HEADER,
 	SHOW_VENDOR_HEADER, 
 	HIDE_VENDOR_HEADER,
-	SET_LOGIN_STATE
+	SET_LOGIN_STATE,
+	SET_LOGOUT_STATE,
 } from './types'
 
 export const showHeader = () => {
@@ -29,5 +30,8 @@ export const setLoginState = (loginData) => {
 	}
 }
 
-
-
+export const setLogoutState = () => {
+	return {
+		type: SET_LOGOUT_STATE,
+	}
+}

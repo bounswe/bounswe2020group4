@@ -3,7 +3,7 @@
   width: 70%;
   margin-left: 15%;
 }
-
+  
 .order-heading {
   display: flex;
   justify-content: space-between;
@@ -16,4 +16,15 @@
   color: var(--red-secondary);
   font-size: 24px;
   font-weight: bold;
+  text-align: center;
+}
+
+.total-earnings {
+  text-align: right;
+  margin-top: 1em;
+}
+
+.no-orders {
+  text-align: center;
+  margin-top: 1em;
 }

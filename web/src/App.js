@@ -16,12 +16,19 @@ import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import VendorSignUp from './pages/VendorSignUp'
 import VendorSignIn from './pages/VendorSignIn'
+import VendorProfile from './pages/VendorProfile'
+import VendorOrders from './pages/VendorOrders'
 import CustomerProfile from './pages/CustomerProfile'
 import Orders from './pages/Orders'
 import CustomerAddresses from './pages/CustomerAddresses'
 import Messages from './pages/Messages'
 import VendorProducts from './pages/VendorProducts'
 import AddProduct from './pages/AddProduct'
+import UpdateProduct from './pages/UpdateProduct'
+import Notification from './pages/Notification'
+import Verification from './pages/Verification'
+import ForgotPassword from './pages/ForgotPassword'
+import ResetPassword from './pages/ResetPassword'
 
 //Styling
 import './App.css'
@@ -47,6 +54,8 @@ const App = ({ showHeader, showVendorHeader }) => {
 					<Route path="/cart" exact component={Cart}/>
 					<Route path="/vendorsignup" exact component={VendorSignUp}/>
 					<Route path="/vendorsignin" exact component={VendorSignIn}/>
+					<Route path="/vendorprofile" exact component={VendorProfile}/>
+					<Route path="/vendororders" exact component={VendorOrders}/>
 					<Route path="/checkout" exact component={Checkout} />
 					<Route path="/products" exact component={CategoryProducts}/>
 					<Route path="/orders" exact component={Orders}/>
@@ -55,6 +64,11 @@ const App = ({ showHeader, showVendorHeader }) => {
           			<Route path="/customeraddresses" exact component={CustomerAddresses}/>
 					<Route path="/vendorproducts" exact component={VendorProducts}/>
 					<Route path="/addproduct" exact component={AddProduct}/>
+					<Route path="/updateproduct/:id" exact component={UpdateProduct}/>
+					<Route path="/notification" exact component={Notification}/>
+					<Route path="/verifyuser" exact component={Verification}/>
+					<Route path="/resetpassword" exact component={ResetPassword}/>
+					<Route path="/forgotpassword" exact component={ForgotPassword}/>
          		</div>
        </Router>
      </div>

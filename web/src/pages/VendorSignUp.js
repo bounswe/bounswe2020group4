@@ -74,8 +74,8 @@ const VendorSignUp = ({hideHeader, showHeader, setLoginState}) => {
 			'name': name, 
 			'email': email, 
 			'password': password,
-			'lng': selectedCoord.lng(), 
-			'lat': selectedCoord.lat(), 
+			'lng': selectedCoord.lng, 
+			'lat': selectedCoord.lat, 
 			'website': website, 
 			'company': companyName
 		}
@@ -86,7 +86,7 @@ const VendorSignUp = ({hideHeader, showHeader, setLoginState}) => {
 			alert('Something went wrong, try again')
 		} else {
 			setLoginState({ userId: userId, userType: 'vendor'})
-			history.goBack()
+			history.push('/vendorprofile')
 		}
 	}
 
@@ -146,7 +146,7 @@ const VendorSignUp = ({hideHeader, showHeader, setLoginState}) => {
 					</Form.Group>
 					<div className='pb-4'>
 						<div className='map-label text-center'>Enter the position of your distribution center</div>
-						<GoogleMaps selectedCoord={selectedCoord} setSelectedCoord={setSelectedCoord}/>
+						<GoogleMaps selectedCoord={selectedCoord} setSelectedCoord={setSelectedCoord} useDefaultCenter={true}/>
 					</div>
 					<div className='row pb-4'>
 						<div className='col-2'>

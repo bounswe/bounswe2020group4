@@ -94,3 +94,16 @@ html, body {
     width: 60%;
     height: 60%;
 }
+
+.google-signin-button {
+    display: inline-block;
+    width: min-content;
+}
+
+.google-signin-button-container {
+    text-align: center;
+}
+
+.sign-in-link {
+    color: #EC4A3B;
+}

@@ -10,12 +10,21 @@ import history from '../util/history'
 import accountService from '../services/account'
 import { setLoginState } from '../redux/actions'
 import { Link } from 'react-router-dom'
+import GDPR from '../Legal Docs/Buyo GDPR.pdf'
+import CondOfUse from '../Legal Docs/Conditions of Use - BUYO.pdf'
 
 const SignUp = ({hideHeader, showHeader, setLoginState}) => {
 
 	useEffect(() => {
 		hideHeader()
 		return () => showHeader()
+	}, [])
+
+	useEffect(() => {
+		window.gapi.signin2.render('g-signin2', {
+			'scope': 'https://www.googleapis.com/auth/plus.login',
+			'onsuccess': onGoogleSignIn
+		})
 	}, [])
 
 	const [email, setEmail] = useState('')
@@ -49,13 +58,27 @@ const SignUp = ({hideHeader, showHeader, setLoginState}) => {
 				alert('Something went wrong, try again')
 			} else {
 				setLoginState({ userId: userId, userType: 'customer'})
-				history.goBack()
+				history.push('/')
 			}
 		}
 	}
 	const redirectToSignin = function(e) {
 		e.preventDefault()
 		history.push('/signin')
+	}
+
+	const onGoogleSignIn = async (googleUser) => {
+		const id_token = await googleUser.getAuthResponse().id_token
+		const email = await googleUser.getBasicProfile().getEmail()
+		const response = await accountService.googleSignIn(id_token, email)
+		if(response?.id == null) {
+			alert("Something went wrong while trying to sign in with google")
+		} else if (response.banned) {
+			alert("Your account has been suspended. Please check your e-mail for further information.")
+		} else {
+			setLoginState({ userId: response.userId, userType: 'customer', isGoogleUser: true })
+			history.push('/')
+		}
 	}
 
 	return (
@@ -87,7 +110,7 @@ const SignUp = ({hideHeader, showHeader, setLoginState}) => {
 								<input type='checkbox' className='check-box' checked={checked} onChange={handleCheckedChange}/>
 							</div>
 							<div className='col'>
-								I agree to terms and conditions.
+								I agree to <a href={GDPR} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline' }}>GDPR</a> and <a href={CondOfUse} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline' }}> Conditions of Use </a>
 							</div>
 						</div>
 
@@ -104,9 +127,9 @@ const SignUp = ({hideHeader, showHeader, setLoginState}) => {
 						SIGN UP
 					</Button>
 
-					<Button className="submitButtonTransparent" variant="primary" type="submit">
-						SIGN UP WITH GOOGLE
-					</Button>
+					<div className='google-signin-button-container pt-3'>
+						<div id="g-signin2" className='google-signin-button'/>
+					</div>
 
 					<Button
 						className="submitButtonTransparent"

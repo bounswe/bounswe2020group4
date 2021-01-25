@@ -1,23 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
+import { hideHeader, showHeader, showVendorHeader, hideVendorHeader } from '../redux/actions'
 
+import './VendorOrders.css'
 
 import OrderDetails from '../components/OrderDetails'
+import orderService from '../services/orders'
+import history from '../util/history'
 
 import Accordion from '@material-ui/core/Accordion'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
-import history from '../util/history'
-import orderService from '../services/orders'
-
-import './Orders.css'
-
-
 const TabPanel = (props) => {
 	const { children, value, index, ...other } = props
-
 	return (
 		<div
 			role="tabpanel"
@@ -35,24 +32,37 @@ const TabPanel = (props) => {
 	)
 }
 
-
-const Orders = ({isLoggedIn, userId}) => {
-	if(!isLoggedIn) {
-		history.push('/signin')
+const VendorOrders = ({showHeader, hideHeader, showVendorHeader, isLoggedIn, userId, userType}) => {
+	if(!isLoggedIn | userType != 'vendor') {
+		history.push('/vendorsignin')
 		return
 	}
-
+	
 	const [expanded, setExpanded] = useState(false)
 	const [orders, setOrders] = useState([])
+	const [totalEarnings, setTotalEarnings] = useState(0)
 
 	useEffect(async () => {
-		const orders = await orderService.getOrders(userId, 'customer')
+		const orders = await orderService.getOrders(userId, 'vendor')
 		const ordersList = []
 		let key
-		for(key of Object.keys(orders.orders)) {
-			ordersList.push({id: key, data: orders.orders[key]})
+		let sumOfDeliveredPrices = 0
+		if (orders) {
+			for(key of Object.keys(orders)) {
+				ordersList.push({id: key, data: orders[key]})
+				if (orders[key].products) {
+					orders[key].products.forEach(product => {
+						if (product.status == 'Delivered') sumOfDeliveredPrices += product.price;
+					});
+				}
+			}
+			setOrders(ordersList)
+			setTotalEarnings(sumOfDeliveredPrices)
 		}
-		setOrders(ordersList)
+
+		hideHeader()
+		showVendorHeader()
+		return () => showHeader()
 	}, [])
 
 	const handleExpand = (panel) => (event, isExpanded) => {
@@ -63,7 +73,7 @@ const Orders = ({isLoggedIn, userId}) => {
 		<div className="orders-container">
 			<div className='title px-5 py-3' >Orders</div>
 			<TabPanel value={0} index={0}>
-				{orders && orders.map(o => (
+				{orders?.length ? orders.map(o => (
 					<Accordion key={o.id} expanded={expanded === o.id} onChange={handleExpand(o.id)}>
 						<AccordionSummary
 							expandIcon={<ExpandMoreIcon />}
@@ -77,10 +87,12 @@ const Orders = ({isLoggedIn, userId}) => {
 							</div>
 						</AccordionSummary>
 						<AccordionDetails>
-							<OrderDetails orderId={o.id} products={o.data.products} address={o.data.address}/>
+							{/* <OrderDetails products={o.data.products} address={o.data.address}/> */}
+							<OrderDetails orderId={o.id} products={o.data.products} address="Etiler Mahallesi Muharipler sokak Sakarya Apartman no:4 Beşiktaş/Istanbul"/>
 						</AccordionDetails>
 					</Accordion>
-				))}
+				)) : <div className='no-orders'>There is nothing here.</div>}
+				<div className='total-earnings'>Total Earnings: {totalEarnings.toFixed(2)}₺</div>
 			</TabPanel>
 		</div>
 	)
@@ -89,9 +101,9 @@ const Orders = ({isLoggedIn, userId}) => {
 const mapStateToProps = (state) => {
 	return {
 		isLoggedIn: state.signIn.isLoggedIn,
-		userId: state.signIn.userId
+		userId: state.signIn.userId,
+		userType: state.signIn.userType,
 	}
 }
 
-
-export default connect(mapStateToProps)(Orders)
+export default connect(mapStateToProps, {showHeader, hideHeader, showVendorHeader, hideVendorHeader})(VendorOrders)

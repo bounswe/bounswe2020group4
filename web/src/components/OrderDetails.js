@@ -11,17 +11,21 @@ import Button from '@material-ui/core/Button'
 import RatingStar from './RatingStar'
 
 import commentService from '../services/comments'
+import orderService from '../services/orders'
+import messageService from '../services/messages'
 
 import DefaultProductImage from '../images/default-product-detail-image.png'
 
 import './OrderDetails.css'
 
-const ProductOrder = ({userId, productId, imgUrl, name, brand, price, isDelivered, isPending, vendor, quantity, attributes, status}) => {
+const ProductOrder = ({orderId, userId, userType, productId, imgUrl, name, brand, price, isDelivered, isPending, vendor, vendorId, quantity, attributes, status}) => {
 	const [open, setOpen] = useState(false)
+	const [messageOpen, setMessageOpen] = useState(false)
 	const [rating, setRating] = useState(null)
 	const [comment, setComment] = useState('')
+	const [message, setMessage] = useState('')
 
-
+	// Give feedback dialog button functions
 	const handleClickOpen = () => {
 		setOpen(true)
 	}
@@ -31,6 +35,14 @@ const ProductOrder = ({userId, productId, imgUrl, name, brand, price, isDelivere
 		setComment('')
 	}
 	const handleGiveFeedback = async () => {
+		if(rating === null) {
+			alert('Please rate the product and try again!')
+			return
+		}
+		if(comment === '') {
+			alert('Please add comment and try again!')
+			return
+		}
 		await commentService.giveFeedback(productId, userId, comment, rating)
 		setOpen(false)
 		setRating(null)
@@ -41,6 +53,62 @@ const ProductOrder = ({userId, productId, imgUrl, name, brand, price, isDelivere
 	}
 	const handleCommentChange = (e) => {
 		setComment(e.target.value)
+	}
+
+	// Message vendor dialog button functions
+	const handleMessageVendor = () => {
+		setMessageOpen(true)
+	}
+	const handleMessageChange = (e) => {
+		setMessage(e.target.value)
+	}
+	const handleMessageClose = () => {
+		setMessageOpen(false)
+		setMessage('')
+	}
+	const handleSendMessage = () => {
+		messageService.sendSingleMessage(userId, userType, vendorId, 'vendor', message)
+		setMessageOpen(false)
+		setMessage('')
+	}
+
+	const handleCancelOrder = async () => {
+		const response = await orderService.updateOrderStatus(userType, userId, 'Canceled', orderId)
+		if (response == 200) {
+			alert('Order is successfully canceled.')
+			history.go(0)
+		} else {
+			alert('Something went wrong. Please try again later.')
+		}
+	}
+
+	const handleCancelProductOrder = async () => {
+		const response = await orderService.updateProductOrderStatus(userType, userId, 'Canceled', orderId, productId)
+		if (response == 200) {
+			alert('Order is successfully canceled.')
+			history.go(0)
+		} else {
+			alert('Something went wrong. Please try again later.')
+		}
+	}
+
+
+	const customerProductButtons = () => {
+		return (
+			<div className="product-order-info">
+				<button className="add-comment-button" onClick={handleMessageVendor}>Message Vendor</button>
+				{isPending && <button className="add-comment-button" onClick={handleCancelProductOrder}>Cancel Order</button>}
+				{isDelivered && <button className="add-comment-button" onClick={handleClickOpen}>Give Feedback</button>}
+			</div>
+		)
+	}
+
+	const vendorProductButtons = () => {
+		return (
+			<div className="product-order-info">
+				{isPending && <button className="add-comment-button" onClick={handleCancelOrder}>Cancel Order</button>}
+			</div>
+		)
 	}
 
 	return(
@@ -59,11 +127,7 @@ const ProductOrder = ({userId, productId, imgUrl, name, brand, price, isDelivere
 				<div>Vendor: {vendor}</div>
 				<div>Status: {status}</div>
 			</div>
-			<div className="product-order-info">
-				<button className="add-comment-button">Message Vendor</button>
-				{isPending && <button className="add-comment-button">Cancel Order</button>}
-				{isDelivered && <button className="add-comment-button" onClick={handleClickOpen}>Give Feedback</button>}
-			</div>
+			{userType == 'customer' ? customerProductButtons() : vendorProductButtons()}
 			<Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
 				<DialogTitle id="form-dialog-title">Give Feedback</DialogTitle>
 				<DialogContent>
@@ -97,12 +161,34 @@ const ProductOrder = ({userId, productId, imgUrl, name, brand, price, isDelivere
 					</Button>
 				</DialogActions>
 			</Dialog>
+			<Dialog open={messageOpen} onClose={handleMessageClose} aria-labelledby="form-dialog-message">
+				<DialogTitle id="form-dialog-message">Message Vendor</DialogTitle>
+				<DialogContent>
+					<DialogContentText> Send your message to the vendor:
+					</DialogContentText>
+					<TextField
+						onChange={handleMessageChange}
+						margin="dense"
+						id="name"
+						label="Your Message"
+						type="text"
+						fullWidth
+						multiline
+					/>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={handleMessageClose} color="primary"> Cancel
+					</Button>
+					<Button onClick={handleSendMessage} color="primary"> Send message
+					</Button>
+				</DialogActions>
+			</Dialog>
 		</div>
 	)
 }
 
 
-const OrderDetails = ({address, products, isLoggedIn, userId}) => {
+const OrderDetails = ({orderId, address, products, isLoggedIn, userId, userType}) => {
 	if(!isLoggedIn) {
 		return <div>Please log in!</div>
 	}
@@ -111,7 +197,7 @@ const OrderDetails = ({address, products, isLoggedIn, userId}) => {
 		<div className="order-details-container">
 			<div className="order-details-top">
 				<div>
-					{products && products.map(p => <ProductOrder userId={userId} productId={p.productId} status={p.status} attributes={p.attributes} quantity={p.quantity} vendor={p.vendor.name} key={p.orderedProductId} name={p.name} brand={p.brand} price={p.price + '₺'} imgUrl={p.imageUrl} isPending={p.status === 'Pending'} isDelivered={p.status.startsWith('Delivered')}/>)}
+					{products && products.map(p => <ProductOrder orderId={orderId} userId={userId} userType={userType} productId={p.productId} status={p.status} attributes={p.attributes} quantity={p.quantity} vendor={p.vendor.name} vendorId={p.vendor.id} key={p.orderedProductId} name={p.name} brand={p.brand} price={p.price + '₺'} imgUrl={p.imageUrl} isPending={p.status === 'Pending'} isDelivered={p.status.startsWith('Delivered')}/>)}
 				</div>
 			</div>
 			<div className="address-container"> Address: {address}</div>
@@ -122,7 +208,8 @@ const OrderDetails = ({address, products, isLoggedIn, userId}) => {
 const mapStateToProps = (state) => {
 	return {
 		isLoggedIn: state.signIn.isLoggedIn,
-		userId: state.signIn.userId
+		userId: state.signIn.userId,
+		userType: state.signIn.userType,
 	}
 }
 
