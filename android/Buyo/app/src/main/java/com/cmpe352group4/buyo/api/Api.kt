@@ -180,4 +180,11 @@ interface Api {
         @Query("userType") userType: String,
         @Query("userId") id: String
     ):LiveData<ApiResponse<BaseResponse<NotificationResponse>>>
+
+    @GET("products/recommendation")
+    fun fetchRecommendation(
+        @Query("userId") userId: String,
+        @Query("type") type: String
+    ):LiveData<ApiResponse<BaseResponse<ProductResponse>>>
+
 }

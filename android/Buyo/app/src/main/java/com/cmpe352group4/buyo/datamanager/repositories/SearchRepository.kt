@@ -38,4 +38,12 @@ class SearchRepository @Inject constructor(
         }.asLiveData()
     }
 
+    fun getRecommendations(userId: String) : LiveData<Resource<ProductResponse>> {
+        return object : NetworkServiceWrapper<ProductResponse, BaseResponse<ProductResponse>>(appExecutors,connectionManager){
+            override fun loadFromApi(data: BaseResponse<ProductResponse>): LiveData<ProductResponse> {
+                return InitialLiveData.create(data.data)
+            }
+            override fun createCall(): LiveData<ApiResponse<BaseResponse<ProductResponse>>> = api.fetchRecommendation(userId, "alsoLiked")
+        }.asLiveData()
+    }
 }
