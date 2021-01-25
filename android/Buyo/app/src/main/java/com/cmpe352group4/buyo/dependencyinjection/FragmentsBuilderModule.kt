@@ -161,9 +161,6 @@ abstract class FragmentsBuilderModule {
 
     @ContributesAndroidInjector
     abstract  fun contributeLiveChatFragment(): LiveChatFragment
-  
-    @ContributesAndroidInjector
-    abstract fun contributeNotificationFragment(): NotificationFragment
 
     @ContributesAndroidInjector
     abstract fun contributeCustomerResetPasswordFragment(): CustomerResetPasswordFragment

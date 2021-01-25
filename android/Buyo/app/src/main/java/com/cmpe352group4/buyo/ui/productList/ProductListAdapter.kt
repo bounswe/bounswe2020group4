@@ -108,8 +108,6 @@ class ProductListAdapter(
                         toastCallback.invoke("You need to Login as Customer first!")
                     }else {
 
-                        // TODO : SEND BACKEND REQUEST HERE
-
                         if (it.iv_productListRecyclerView_Cart.tag == R.drawable.ic_add2cart) {
                             it.iv_productListRecyclerView_Cart.setImageResource(R.drawable.ic_remove_from_cart)
                             it.iv_productListRecyclerView_Cart.tag = R.drawable.ic_remove_from_cart

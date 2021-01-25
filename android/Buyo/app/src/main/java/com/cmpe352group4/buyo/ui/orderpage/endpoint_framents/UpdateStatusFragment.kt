@@ -92,10 +92,12 @@ class UpdateStatusFragment : BaseFragment() {
                         TransactionType.Replace, false
                     )
                 }*/
-                navigationManager?.onReplace(
-                    ProfilePageFragment.newInstance(),
-                    TransactionType.Replace, false
-                )
+//                navigationManager?.onReplace(
+//                    ProfilePageFragment.newInstance(),
+//                    TransactionType.Replace, false
+//                )
+                activity?.onBackPressed()
+
                 val myToast = Toast.makeText(
                     context,
                     "Success!",

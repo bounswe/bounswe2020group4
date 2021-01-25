@@ -16,6 +16,7 @@ import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.EmptyFragment
+import com.cmpe352group4.buyo.ui.messaging.LiveChatFragment
 import com.cmpe352group4.buyo.ui.orderpage.endpoint_framents.UpdateStatusFragment
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
 import com.cmpe352group4.buyo.viewmodel.OrderViewModel
@@ -99,7 +100,7 @@ class OrderPageFragmentVendor : BaseFragment() {
             navigationManager?.onReplace(
                 UpdateStatusFragment.newInstance(sharedPref.getUserId()!!, order.orderID,
                     order.orderedProductId, "vendor", "Approved"),
-                TransactionType.Replace, false
+                TransactionType.Replace, true
             )
         }
         else if (order.status=="Approved"){
@@ -107,11 +108,14 @@ class OrderPageFragmentVendor : BaseFragment() {
             navigationManager?.onReplace(
                 UpdateStatusFragment.newInstance(sharedPref.getUserId()!!, order.orderID,
                     order.orderedProductId, "vendor", "Shipped"),
-                TransactionType.Replace, false
+                TransactionType.Replace, true
             )
         }
         else {
-            // TODO Message customer (customer id = order.customerID)
+            navigationManager?.onReplace(
+                LiveChatFragment.newInstance(withId = order.customerID, withType = "customer", withName = "*****"),
+                TransactionType.Replace, true
+            )
         }
     }
 
@@ -121,11 +125,14 @@ class OrderPageFragmentVendor : BaseFragment() {
             navigationManager?.onReplace(
                 UpdateStatusFragment.newInstance(sharedPref.getUserId()!!, order.orderID,
                     order.orderedProductId, "vendor", "Cancelled"),
-                TransactionType.Replace, false
+                TransactionType.Replace, true
             )
         }
         else {
-            // TODO Message customer (customer id = order.customerID)
+            navigationManager?.onReplace(
+                LiveChatFragment.newInstance(withId = order.customerID, withType = "customer", withName = "*****"),
+                TransactionType.Replace, true
+            )
         }
     }
 

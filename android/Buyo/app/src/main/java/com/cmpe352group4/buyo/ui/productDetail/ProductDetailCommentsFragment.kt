@@ -103,9 +103,9 @@ class ProductDetailCommentsFragment : BaseFragment() {
 
         })
 
-
-
-
+        comments_back_button.setOnClickListener {
+            activity?.onBackPressed()
+        }
 
     }
 }

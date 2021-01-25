@@ -115,7 +115,7 @@ class AddProductFragment : BaseFragment() {
             comments = emptyList(), // Cant
             brand = "brand", // Done
             description = "description", // Done
-            vendor = Vendor(id= sharedPref.getUserId(), rating = 0.0, name = "vendor_name"), // Not yet
+            vendor = Vendor(id= sharedPref.getUserId() ?: "", rating = 0.0, name = "vendor_name"), // Not yet
             productInfos = mutableListOf(), // Next Fragment
             materials = null // Aborted
         )

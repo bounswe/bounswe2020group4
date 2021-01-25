@@ -16,6 +16,7 @@ import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
+import com.cmpe352group4.buyo.ui.messaging.LiveChatFragment
 import com.cmpe352group4.buyo.ui.orderpage.endpoint_framents.UpdateStatusFragment
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
 import com.cmpe352group4.buyo.viewmodel.OrderViewModel
@@ -92,8 +93,10 @@ class OrderPageFragment : BaseFragment() {
     }
 
     private fun firstButtonOrderItemListener(order: OrderProductRV) {
-        // TODO message vendor (vendor id = order.vendor.id)
-
+        navigationManager?.onReplace(
+            LiveChatFragment.newInstance(withId = order.vendor.id, withType = "vendor", withName = order.vendor.name),
+            TransactionType.Replace, true
+        )
     }
 
     private fun secondButtonOrderItemListener(order: OrderProductRV) {
@@ -102,7 +105,7 @@ class OrderPageFragment : BaseFragment() {
             navigationManager?.onReplace(
                 UpdateStatusFragment.newInstance(sharedPref.getUserId()!!, order.orderID,
                     order.orderedProductId, "customer", "Cancelled"),
-                TransactionType.Replace, false
+                TransactionType.Replace, true
             )
         }
         else if(order.status=="Returned") {
@@ -117,7 +120,7 @@ class OrderPageFragment : BaseFragment() {
             navigationManager?.onReplace(
                 UpdateStatusFragment.newInstance(sharedPref.getUserId()!!, order.orderID,
                     order.orderedProductId, "customer", "Returned"),
-                TransactionType.Replace, false
+                TransactionType.Replace, true
             )
         }
     }

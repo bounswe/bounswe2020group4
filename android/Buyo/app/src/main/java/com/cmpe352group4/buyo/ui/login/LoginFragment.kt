@@ -33,7 +33,7 @@ import javax.inject.Inject
 
 
 const val RC_SIGN_IN = 123
-private val CLIENT_ID = "99539805030-qfjauhl40bgmunu11o77fd4hegabr0mb.apps.googleusercontent.com"
+private const val CLIENT_ID = "99539805030-qfjauhl40bgmunu11o77fd4hegabr0mb.apps.googleusercontent.com"
 
 class LoginFragment : BaseFragment() {
 
@@ -100,7 +100,7 @@ class LoginFragment : BaseFragment() {
             if (acct != null) {
                 val personName = acct.displayName
                 val personEmail = acct.email
-                val personToken = acct.idToken
+                val personToken = acct.id
 
                 profileViewModel.onGoogleSignIn(
                     GoogleSignInRequest(
@@ -159,7 +159,7 @@ class LoginFragment : BaseFragment() {
             if (acct != null) {
                 val personName = acct.displayName
                 val personEmail = acct.email
-                val personToken = acct.idToken
+                val personToken = acct.id
 
                 profileViewModel.onGoogleSignIn(
                     GoogleSignInRequest(
