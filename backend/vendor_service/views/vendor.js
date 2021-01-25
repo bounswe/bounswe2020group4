@@ -455,7 +455,7 @@ module.exports.getVendorList = async () => {
 };
 
 module.exports.deleteProduct = async (parameter) => {
-  checker = false;
+  let checker = false;
   const product = await Product.findById(parameter.productId);
 
   if (product == null) {
@@ -463,12 +463,13 @@ module.exports.deleteProduct = async (parameter) => {
   }
 
   if (JSON.stringify(product.vendorId) == JSON.stringify(parameter.vendorId)) {
-    await Product.findByIdAndDelete(product._id, function (err) {
-      if (err) {
-        console.log(err);
-      }
+    try {
+      await Product.findByIdAndDelete(product._id);
+
       checker = true;
-    });
+    } catch (error) {
+      checker = false;
+    }
   }
 
   return checker;
