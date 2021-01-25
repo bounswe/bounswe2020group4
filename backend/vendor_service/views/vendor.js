@@ -456,7 +456,7 @@ module.exports.getVendorList = async () => {
 
 module.exports.deleteProduct = async (parameter) => {
   let checker = false;
-  const product = await Product.findById(parameter.productId);
+  const product = await Product.findById(ObjectId(parameter.productId));
 
   if (product == null) {
     return false;
