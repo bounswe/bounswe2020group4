@@ -66,11 +66,10 @@ const UpdateProduct = (props) => {
 
 	useEffect(() => {
 		
-		//TODO: uncomment this later
-		//if(!props.isLoggedIn | props.userType != 'vendor') {
-		//	history.push('/vendorsignin')
-		//	return
-		//}
+		if(!props.isLoggedIn | props.userType != 'vendor') {
+			history.push('/vendorsignin')
+			return
+		}
 
 		const retrieveCategories = async () => {
 			const categories = await getCategories()
@@ -305,10 +304,9 @@ const UpdateProduct = (props) => {
 			"imageUrl": imageUrl,
 			"brand": brand,
 			"productInfos": stockInfos,
-			"vendorId": "600dccc50db3230012ab80fb" //TODO: props.userId
+			"vendorId": props.userId
 		}
 		
-		//TODO: vendorId
 		const response = await vendorService.updateProduct(product, id)
 		if(response==200){
 			alert("Your product has been updated successfully.")
@@ -420,6 +418,7 @@ const UpdateProduct = (props) => {
 							</div>
 						</div>
 					</div>
+					<p>Enter product criteria and press enter (size, color, material etc.)</p>
 					<ReactTags 
 						inputFieldPosition='inline'
 						tags = {attributes}
@@ -440,6 +439,7 @@ const UpdateProduct = (props) => {
 			{attributeSelected ?
 				<div className='container-fluid mt-3 p-3 container-main rounded'>
 					<p className='h3 header-info'>3. Enter possible values for criterion separated by ,</p>
+					<p>For ex. Size: S,M,L</p>
 					{attributes.map((attr) =>
 						<div key={attr.text}>
 							<div className='form-group'>
@@ -531,7 +531,7 @@ const UpdateProduct = (props) => {
 const mapStateToProps = (state) => {
 	return {
 		isLoggedIn: state.signIn.isLoggedIn,
-		customerId: state.signIn.userId,
+		userId: state.signIn.userId,
 		userType: state.signIn.userType
 
 	}

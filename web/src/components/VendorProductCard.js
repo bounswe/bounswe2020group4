@@ -12,14 +12,13 @@ const VendorProductCard = ({ vendorId, name, originalPrice, price, imgUrl, produ
 
 	const handleDeleteButton = async function(e){
 
-		//TODO: const response = await vendorService.deleteProduct(vendorId, productId)
-		const response = await vendorService.deleteProduct("600dccc50db3230012ab80fb", productId)
+		const response = await vendorService.deleteProduct(vendorId, productId)
 		if(response == 200){
 			alert('Product has been deleted successfully.')
-			history.push('/vendorproducts')
 		} else {
 			alert('Something went wrong, please try again')
 		}
+		history.push('/vendorproducts')
 
 	}
 

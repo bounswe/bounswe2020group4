@@ -34,11 +34,10 @@ const AddProduct= (props) => {
 
 	useEffect(() => {
 		
-		//TODO: uncomment this later
-		//if(!props.isLoggedIn | props.userType != 'vendor') {
-		//	history.push('/vendorsignin')
-		//	return
-		//}
+		if(!props.isLoggedIn | props.userType != 'vendor') {
+			history.push('/vendorsignin')
+			return
+		}
 
 		const retrieveCategories = async () => {
 			const categories = await getCategories()
@@ -243,11 +242,10 @@ const AddProduct= (props) => {
 			"brand": brand,
 			"rating": 0,
 			"productInfos": stockInfos,
-			"vendorId": "600dccc50db3230012ab80fb" //TODO: props.userId
+			"vendorId": props.userId
 		}]
 		
-		//TODO: vendorId
-		const response = await vendorService.addProduct(product, "600dccc50db3230012ab80fb")
+		const response = await vendorService.addProduct(product, props.userId)
 		if(response==200){
 			alert("Your product has been added successfully.")
 			history.push('/vendorproducts')
@@ -342,6 +340,7 @@ const AddProduct= (props) => {
 							</div>
 						</div>
 					</div>
+					<p>Enter product criteria and press enter (size, color, material etc.)</p>
 					<ReactTags 
 						inputFieldPosition='inline'
 						tags = {attributes}
@@ -362,6 +361,7 @@ const AddProduct= (props) => {
 			{attributeSelected ?
 				<div className='container-fluid mt-3 p-3 container-main rounded'>
 					<p className='h3 header-info'>3. Enter possible values for criterion separated by ,</p>
+					<p>For ex. Size: S,M,L</p>
 					{attributes.map((attr) =>
 						<div key={attr.text+'-values'}>
 							<div className='form-group'>
@@ -444,7 +444,7 @@ const AddProduct= (props) => {
 const mapStateToProps = (state) => {
 	return {
 		isLoggedIn: state.signIn.isLoggedIn,
-		customerId: state.signIn.userId,
+		userId: state.signIn.userId,
 		userType: state.signIn.userType
 
 	}

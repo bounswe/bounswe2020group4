@@ -14,16 +14,13 @@ const VendorProducts = (props) => {
 
 	useEffect(() => {
 		
-		//TODO: uncomment this
-		//if(!props.isLoggedIn | props.userType != 'vendor') {
-		//	history.push('/vendorsignin')
-		//	return
-		//}
+		if(!props.isLoggedIn | props.userType != 'vendor') {
+			history.push('/vendorsignin')
+			return
+		}
 
 		const getProducts = async () => {
-			//TODO: change this
-			//const products = await vendorService.getProducts(props.userId)
-			const products = await vendorService.getProducts("600d56a63bf84a001266eda5")
+			const products = await vendorService.getProducts(props.userId)
 			setProducts(products)
 		}
 
@@ -43,6 +40,7 @@ const VendorProducts = (props) => {
 				<div className='col-sm-6 col-md-4 col-lg-3 mt-4' key={p.productId}>
 					<div className="justify-content-center">
 				<VendorProductCard
+					vendorId={props.userId}
 					name={p.name} 
 					price={p.price} 
 					originalPrice={p.originalPrice} 
@@ -65,7 +63,7 @@ const VendorProducts = (props) => {
 const mapStateToProps = (state) => {
 	return {
 		isLoggedIn: state.signIn.isLoggedIn,
-		customerId: state.signIn.userId,
+		userId: state.signIn.userId,
 		userType: state.signIn.userType
 
 	}
