@@ -58,7 +58,8 @@ interface Api {
         @Query("longitude") longitude: String,
         @Query("latitude") latitude: String,
         @Query("website") website: String,
-        @Query("company") company: String
+        @Query("company") company: String,
+        @Query("name") name: String
     ): LiveData<ApiResponse<BaseResponse<LoginSingupResponse>>>
 
     @POST("login")
@@ -123,7 +124,13 @@ interface Api {
     fun fetchOrders(
         @Query("id") userId: String,
         @Query("userType") userType: String
-    ): LiveData<ApiResponse<BaseResponse<Map<String, Order>>>>
+    ): LiveData<ApiResponse<BaseResponse<OrderResponse>>>
+
+    @GET("order")
+    fun fetchOrdersVendor(
+        @Query("id") userId: String,
+        @Query("userType") userType: String
+    ): LiveData<ApiResponse<BaseResponse<OrderResponseVendor>>>
 
     @POST("account")
     fun saveAccountInfo(
@@ -141,10 +148,10 @@ interface Api {
         @Query("id") id: String,
         @Query("userType") userType: String,
         @Query("email") email: String,
-        @Query("longitude") name: String,
-        @Query("latitude") surname: String,
-        @Query("website") phoneNumber: String,
-        @Query("company") gender: String
+        @Query("longitude") longitude: String,
+        @Query("latitude") latitude: String,
+        @Query("website") website: String,
+        @Query("company") company: String
     ): LiveData<ApiResponse<BaseResponsePostRequest>>
 
     @POST("report/comment")
@@ -180,6 +187,54 @@ interface Api {
         @Path("productID") productID : String,
         @Body() Product : Product
     ) : LiveData<ApiResponse<BaseResponse<EditProductResponseResult>>>
+
+
+    @GET("/messages/last")
+    fun fetchLastMessages(
+        @Query("userType") userType: String,
+        @Query("id") id: String
+    ) : LiveData<ApiResponse<BaseResponse<LastMessageResponse>>>
+
+    @GET("/messages")
+    fun fetchLiveChatMessages(
+        @Query("id") id: String,
+        @Query("userType") userType: String,
+        @Query("withId") withId: String,
+        @Query("withType") withType: String
+    ) : LiveData<ApiResponse<BaseResponse<LiveChatMessagesResponse>>>
+
+    @POST("/google-signin")
+    fun googleSignIn(
+        @Query("email") email: String,
+        @Query("name") name: String,
+        @Query("token") token: String
+    ): LiveData<ApiResponse<BaseResponse<LoginSingupResponse>>>
+
+    @POST("/account/forgotPassword")
+    fun forgotPassword(
+        @Query("email") email: String
+    ): LiveData<ApiResponse<BaseResponsePostRequest>>
+
+    @PATCH("order/product")
+    fun updateOrderStatus(
+        @Query("userId") userId : String,
+        @Query("userType") userType : String,
+        @Query("status") status : String,
+        @Query("orderId") orderId : String,
+        @Query("productId") productId : String
+    ):LiveData<ApiResponse<BaseResponsePostRequest>>
+
+    @GET("notifications")
+    fun fetchNotifications(
+        @Query("userType") userType: String,
+        @Query("userId") id: String
+    ):LiveData<ApiResponse<BaseResponse<NotificationResponse>>>
+
+    @GET("products/recommendation")
+    fun fetchRecommendation(
+        @Query("userId") userId: String,
+        @Query("type") type: String
+    ):LiveData<ApiResponse<BaseResponse<ProductResponseRec>>>
 
 
 }

@@ -14,6 +14,7 @@ import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
+import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
 import com.cmpe352group4.buyo.ui.productList.ProductListFragment
 import com.cmpe352group4.buyo.ui.vendor.AddProductCategoryFragment
@@ -31,6 +32,9 @@ class HomepageFragment : BaseFragment() {
 
     @Inject
     lateinit var viewModelFactory2: ViewModelProvider.Factory
+
+    @Inject
+    lateinit var sharedPref: SharedPref
 
     private val recommendedViewModel: SearchViewModel by viewModels {
         viewModelFactory
@@ -99,18 +103,19 @@ class HomepageFragment : BaseFragment() {
             }
         })
 
-        // TODO A view model should be implemented, that contains both recommended and discounted
-        // TODO products. Using multiple viewmodels in a fragment causes bugs, i guess.
-
         // Recommendation RV
-        recommendedViewModel.onFetchSearchResultbyKeyword("dress", emptyMap<String, String>())
 
-        recommendedViewModel.searchResult.observe(viewLifecycleOwner, Observer {
+        var userIdForRec = "placeholder"
+        if (!sharedPref.getUserId().isNullOrEmpty()) {
+            userIdForRec = sharedPref.getUserId()!!
+        }
+
+        recommendedViewModel.onFetchRecommendations(userIdForRec)
+        recommendedViewModel.recommendationResult.observe(viewLifecycleOwner, Observer {
 
             if (it.status == Status.SUCCESS && it.data != null){
-                Log.v("Homepage", it.data.toString())
 
-                recommendedProductListAdapter.submitList(it.data.products.productList as MutableList<Product>)
+                recommendedProductListAdapter.submitList(it.data.productList as MutableList<Product>)
 
                 dispatchLoading()
             } else if (it.status == Status.ERROR){
@@ -153,5 +158,14 @@ class HomepageFragment : BaseFragment() {
             LinearLayoutManager.HORIZONTAL, false
         )
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        var userIdForRec = "placeholder"
+        if (!sharedPref.getUserId().isNullOrEmpty()) {
+            userIdForRec = sharedPref.getUserId()!!
+        }
+        recommendedViewModel.onFetchRecommendations(userIdForRec)
     }
 }

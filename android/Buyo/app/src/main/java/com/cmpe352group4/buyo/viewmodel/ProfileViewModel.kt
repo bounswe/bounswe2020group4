@@ -19,11 +19,13 @@ class ProfileViewModel @Inject constructor(
     private val _loginRequestCustomer = MutableLiveData<LoginRequestCustomer>()
     private val _loginRequestVendor = MutableLiveData<LoginRequestVendor>()
     private val _singupRequestCustomer = MutableLiveData<SignupRequestCustomer>()
+    private val _googleSignInRequest = MutableLiveData<GoogleSignInRequest>()
     private val _singupRequestVendor = MutableLiveData<SignupRequestVendor>()
     private val _addAddress = MutableLiveData<AddAddressRequest>()
     private val _changePasswordRequest = MutableLiveData<ChangePasswordRequest>()
     private val _saveAccountInfo = MutableLiveData<AccountInfoRequest>()
     private val _saveVendorAccountInfo = MutableLiveData<VendorAccountInfoRequest>()
+    private val _forgotPassword = MutableLiveData<ForgotPasswordRequest>()
 
     val saveAccountInfo: LiveData<Resource<BaseResponsePostRequest>> =
         Transformations.switchMap(_saveAccountInfo) {it ->
@@ -38,7 +40,8 @@ class ProfileViewModel @Inject constructor(
             if (it == null)
                 AbsentLiveData.create()
             else
-                repository.saveVendorAccountInfo(it.id, it.userType, it.email, it.longitude, it.latitude, it.website, it.company)
+                repository.saveVendorAccountInfo(it.id, it.userType, it.email,
+                    it.longitude, it.latitude, it.website, it.company)
         }
 
     val changePassword: LiveData<Resource<BaseResponsePostRequest>> =
@@ -81,6 +84,14 @@ class ProfileViewModel @Inject constructor(
                 repository.singupCustomer(it.userType, it.email, it.password)
         }
 
+    val googleSignInCustomer: LiveData<Resource<LoginSingupResponse>> =
+        Transformations.switchMap(_googleSignInRequest) { it ->
+            if (it == null)
+                AbsentLiveData.create()
+            else
+                repository.googleSignIn(it.email, it.name, it.token)
+        }
+
     val loginVendor: LiveData<Resource<LoginSingupResponse>> =
         Transformations.switchMap(_loginRequestVendor) { it ->
             if (it == null)
@@ -95,7 +106,7 @@ class ProfileViewModel @Inject constructor(
                 AbsentLiveData.create()
             else
                 repository.singupVendor(it.userType, it.email, it.password, it.longitude,
-                                        it.latitude, it.website, it.company)
+                                        it.latitude, it.website, it.company, it.name)
         }
 
     val addAddress: LiveData<Resource<BaseResponsePostRequest>> =
@@ -106,12 +117,24 @@ class ProfileViewModel @Inject constructor(
                 repository.addAddress(it)
         }
 
+    val forgotPassword: LiveData<Resource<BaseResponsePostRequest>> =
+        Transformations.switchMap(_forgotPassword) { it ->
+            if (it == null )
+                AbsentLiveData.create()
+            else
+                repository.forgotPassword(it.email)
+        }
+
     fun onLoginCustomer(login: LoginRequestCustomer) {
         _loginRequestCustomer.value = login
     }
 
     fun onSingupCustomer(signUp: SignupRequestCustomer) {
         _singupRequestCustomer.value = signUp
+    }
+
+    fun onGoogleSignIn(googleSignIn: GoogleSignInRequest) {
+        _googleSignInRequest.value = googleSignIn
     }
 
     fun onLoginVendor(login: LoginRequestVendor) {
@@ -144,5 +167,9 @@ class ProfileViewModel @Inject constructor(
 
     fun saveVendorAccountInfo(update: VendorAccountInfoRequest) {
         _saveVendorAccountInfo.value = update
+    }
+
+    fun onForgotPassword(update: ForgotPasswordRequest) {
+        _forgotPassword.value = update
     }
 }
