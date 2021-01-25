@@ -35,6 +35,21 @@ module.exports.initialize = (app) => {
     }
   });
 
+  app.patch("/vendor/wholeproducts/:productId", async (request, response) => {
+    var productId = request.params.productId;
+    var newProductInfo = request.body;
+
+    const result = await vendor.updateWholeProduct(productId, newProductInfo);
+
+    if (!!result.name) {
+      response.respond(200, "OK", {
+        result,
+      });
+    } else {
+      response.respond(400, "Please check your productId and parameters");
+    }
+  });
+
   app.get("/vendor/products/:vendorId", async (request, response) => {
     parameters = request.body;
     parameters["vendorId"] = request.params.vendorId;
