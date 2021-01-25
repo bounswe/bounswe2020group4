@@ -26,10 +26,6 @@ import com.cmpe352group4.buyo.vo.SignupRequestCustomer
 import kotlinx.android.synthetic.main.fragment_login.*
 import javax.inject.Inject
 
-// TODO Reset password functionality
-// TODO Google sign up, login functionality
-// TODO Sign up e-mail verification
-
 
 class LoginFragment : BaseFragment() {
 

@@ -49,6 +49,11 @@ abstract class ViewModelModule {
     abstract fun bindOrderViewModel(viewModel: OrderViewModel): ViewModel
 
     @Binds
+    @IntoMap
+    @ViewModelKey(NotificationViewModel::class)
+    abstract fun bindNotificationViewModel(viewModel: NotificationViewModel): ViewModel
+
+    @Binds
     abstract fun bindViewModelFactory(factory: ApplicationViewModelFactory): ViewModelProvider.Factory
 
 }

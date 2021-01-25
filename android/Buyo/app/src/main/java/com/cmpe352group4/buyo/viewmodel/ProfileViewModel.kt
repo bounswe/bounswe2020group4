@@ -39,7 +39,8 @@ class ProfileViewModel @Inject constructor(
             if (it == null)
                 AbsentLiveData.create()
             else
-                repository.saveVendorAccountInfo(it.id, it.userType, it.email, it.longitude, it.latitude, it.website, it.company)
+                repository.saveVendorAccountInfo(it.id, it.userType, it.email,
+                    it.longitude, it.latitude, it.website, it.company)
         }
 
     val changePassword: LiveData<Resource<BaseResponsePostRequest>> =
@@ -96,7 +97,7 @@ class ProfileViewModel @Inject constructor(
                 AbsentLiveData.create()
             else
                 repository.singupVendor(it.userType, it.email, it.password, it.longitude,
-                                        it.latitude, it.website, it.company)
+                                        it.latitude, it.website, it.company, it.name)
         }
 
     val addAddress: LiveData<Resource<BaseResponsePostRequest>> =
