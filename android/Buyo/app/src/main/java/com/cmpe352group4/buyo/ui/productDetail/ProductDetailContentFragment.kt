@@ -19,6 +19,7 @@ import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.viewmodel.ProductViewModel
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.vendor.AddProductFragment
+import com.cmpe352group4.buyo.ui.vendor.DeleteProductFragment
 import com.cmpe352group4.buyo.viewmodel.CartViewModel
 import com.cmpe352group4.buyo.viewmodel.VendorViewModel
 import com.cmpe352group4.buyo.viewmodel.WishListViewModel
@@ -183,7 +184,7 @@ class ProductDetailContentFragment : BaseFragment() {
                     if (vendorProducts.contains(product?.id)){
                         btnProductDetailCart.text = "Edit Product"
                         btnProductDetailReport.visibility = View.INVISIBLE
-                        iv_ProductDetailFav.visibility = View.INVISIBLE
+                        iv_ProductDetailFav.setImageResource(R.drawable.ic_delete_product)
                     }
 
                         dispatchLoading()
@@ -211,14 +212,23 @@ class ProductDetailContentFragment : BaseFragment() {
             } else {
 
                 if (sharedPref.getUserType().toString()  == "vendor") {
-                    val myToast = Toast.makeText(
-                        context,
-                        "You need to Login as customer first!",
-                        Toast.LENGTH_SHORT
-                    )
-                    myToast.setGravity(Gravity.BOTTOM, 0, 200)
-                    myToast.show()
+                    if (vendorProducts.contains(product?.id)){
 
+                        var p_name = product?.name ?: ""
+
+                        navigationManager?.onReplace(
+                            DeleteProductFragment.newInstance(id = productId, name = p_name),
+                            TransactionType.Replace, true
+                        )
+                    }else {
+                        val myToast = Toast.makeText(
+                            context,
+                            "You need to Login as customer first!",
+                            Toast.LENGTH_SHORT
+                        )
+                        myToast.setGravity(Gravity.BOTTOM, 0, 200)
+                        myToast.show()
+                    }
                 }else {
 
                     if (iv_ProductDetailFav.tag == R.drawable.ic_product_disliked) { // Like

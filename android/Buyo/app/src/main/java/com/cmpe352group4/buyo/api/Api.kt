@@ -176,16 +176,16 @@ interface Api {
         @Path("vendorID") vendorID : String
     ) : LiveData<ApiResponse<BaseResponse<VendorProductResponseResult>>>
 
-    @GET("vendor/products")
+    @POST("vendor/products")
     fun addProduct(
-        @Path("vendorId") vendorID : String,
+        @Query("vendorId") vendorID : String,
         @Body() product : List<AddProduct>
     ) : LiveData<ApiResponse<BaseResponse<AddProductResponseResult>>>
 
     @PATCH("vendor/wholeproducts/{productID}")
     fun updateProduct(
         @Path("productID") productID : String,
-        @Body() Product : Product
+        @Body() product : Product
     ) : LiveData<ApiResponse<BaseResponse<EditProductResponseResult>>>
 
 
@@ -236,5 +236,10 @@ interface Api {
         @Query("type") type: String
     ):LiveData<ApiResponse<BaseResponse<ProductResponseRec>>>
 
+    @DELETE("vendor/products/{vendorId}")
+    fun deleteProduct(
+        @Path("vendorId") vendorID : String,
+        @Body() productId : DeleteProductRequest
+    ): LiveData<ApiResponse<BaseResponsePostRequest>>
 
 }

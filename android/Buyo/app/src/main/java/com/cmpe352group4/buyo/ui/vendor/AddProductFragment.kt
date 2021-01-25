@@ -157,7 +157,7 @@ class AddProductFragment : BaseFragment() {
             override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
                 try {
                     current_product.price = text.toString().toDouble()
-                    tiet_vendorAddProduct_oriPrice.setText(current_product.price.toString())
+                    //tiet_vendorAddProduct_oriPrice.setText(current_product.price.toString())
                 }catch (e: Exception){
                 }
 
@@ -166,7 +166,7 @@ class AddProductFragment : BaseFragment() {
             override fun afterTextChanged(editable: Editable?) {
                 try {
                     current_product.price = editable.toString().toDouble()
-                    tiet_vendorAddProduct_oriPrice.setText(current_product.price.toString())
+                    //tiet_vendorAddProduct_oriPrice.setText(current_product.price.toString())
                 }catch (e : Exception){
                 }
 
@@ -387,6 +387,12 @@ class AddProductFragment : BaseFragment() {
 
             }
             else{
+
+                if (fragment_mode == "add" && current_product.imageUrl == "some_url"){
+                    current_product.imageUrl = "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16115134390620"
+                }
+
+
                 Log.v("ImageURL","image data is null")
 
             }

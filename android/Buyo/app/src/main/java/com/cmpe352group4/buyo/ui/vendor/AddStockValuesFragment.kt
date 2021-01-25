@@ -133,7 +133,7 @@ class AddStockValuesFragment: BaseFragment() {
                 name =  product.name,
                 imageUrl = product.imageUrl,
                 rating = product.rating,
-                price = product.rating,
+                price = product.price,
                 originalPrice = product.originalPrice,
                 brand = product.brand,
                 productInfos = product.productInfos,
@@ -170,6 +170,8 @@ class AddStockValuesFragment: BaseFragment() {
                     }
                 })
 
+                Log.v("FinalizedProduct", addProduct.toString())
+
             }else if (fragment_mode == "edit"){
                 Log.v("StockValuesMode", "EDIT")
                 vendorViewModel.onUpdateProduct(product)
@@ -198,14 +200,14 @@ class AddStockValuesFragment: BaseFragment() {
                     }
                 })
 
-
+                Log.v("FinalizedProduct", product.toString())
 
             }else{
                 Log.e("AddStockValue", "Unknown type!")
             }
 
 
-            Log.v("FinalizedProduct", product.toString())
+
 
         }
 
