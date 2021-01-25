@@ -1,9 +1,11 @@
 package com.cmpe352group4.buyo.ui.productList
 
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cmpe352group4.buyo.R
@@ -80,14 +82,18 @@ class ProductListAdapter(
             }
 
             itemView.iv_productListRecyclerView_Fav.setOnClickListener {
-                likeCallback.invoke(modal, itemView)
-                if (sharedPref.getUserId().isNullOrEmpty()) {
-                    toastCallback.invoke("You need to Login first!")
-                } else {
-                    if (itemView.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_liked) {
-                        toastCallback.invoke("${modal.name} is added to your wishlist!")
-                    } else if (itemView.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_disliked) {
-                        toastCallback.invoke("${modal.name} is removed from your wishlist!")
+                if (sharedPref.getUserType().toString()  == "vendor") {
+                    toastCallback.invoke("You need to Login as Customer first!")
+                }else {
+                    //likeCallback.invoke(modal, itemView)
+                    if (sharedPref.getUserId().isNullOrEmpty()) {
+                        toastCallback.invoke("You need to Login first!")
+                    } else {
+                        if (itemView.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_liked) {
+                            toastCallback.invoke("${modal.name} is added to your wishlist!")
+                        } else if (itemView.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_disliked) {
+                            toastCallback.invoke("${modal.name} is removed from your wishlist!")
+                        }
                     }
                 }
 
@@ -98,20 +104,22 @@ class ProductListAdapter(
                     Log.v("ListRV","Guest User")
                     toastCallback.invoke("You need to Login first!")
                 } else {
+                    if (sharedPref.getUserType().toString()  == "vendor") {
+                        toastCallback.invoke("You need to Login as Customer first!")
+                    }else {
 
-                    // TODO : SEND BACKEND REQUEST HERE
+                        // TODO : SEND BACKEND REQUEST HERE
 
-                    if (it.iv_productListRecyclerView_Cart.tag == R.drawable.ic_add2cart){
-                        it.iv_productListRecyclerView_Cart.setImageResource(R.drawable.ic_remove_from_cart)
-                        it.iv_productListRecyclerView_Cart.tag = R.drawable.ic_remove_from_cart
-                        addCartCallback.invoke(modal)
+                        if (it.iv_productListRecyclerView_Cart.tag == R.drawable.ic_add2cart) {
+                            it.iv_productListRecyclerView_Cart.setImageResource(R.drawable.ic_remove_from_cart)
+                            it.iv_productListRecyclerView_Cart.tag = R.drawable.ic_remove_from_cart
+                            addCartCallback.invoke(modal)
+                        } else if (it.iv_productListRecyclerView_Cart.tag == R.drawable.ic_remove_from_cart) {
+                            it.iv_productListRecyclerView_Cart.setImageResource(R.drawable.ic_add2cart)
+                            it.iv_productListRecyclerView_Cart.tag = R.drawable.ic_add2cart
+                            removeCartCallback.invoke(modal)
+                        }
                     }
-                    else if (it.iv_productListRecyclerView_Cart.tag == R.drawable.ic_remove_from_cart){
-                        it.iv_productListRecyclerView_Cart.setImageResource(R.drawable.ic_add2cart)
-                        it.iv_productListRecyclerView_Cart.tag = R.drawable.ic_add2cart
-                        removeCartCallback.invoke(modal)
-                    }
-
 
                 }
             }

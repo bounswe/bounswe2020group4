@@ -104,6 +104,7 @@ class HomepageFragment : BaseFragment() {
         })
 
         // Recommendation RV
+
         var userIdForRec = "placeholder"
         if (!sharedPref.getUserId().isNullOrEmpty()) {
             userIdForRec = sharedPref.getUserId()!!
@@ -113,6 +114,7 @@ class HomepageFragment : BaseFragment() {
         recommendedViewModel.recommendationResult.observe(viewLifecycleOwner, Observer {
 
             if (it.status == Status.SUCCESS && it.data != null){
+
                 recommendedProductListAdapter.submitList(it.data.productList as MutableList<Product>)
 
                 dispatchLoading()
@@ -136,6 +138,8 @@ class HomepageFragment : BaseFragment() {
         discountViewModel.categoryResult.observe(viewLifecycleOwner, Observer {
 
             if (it.status == Status.SUCCESS && it.data != null){
+
+                Log.v("Homepage", it.data.toString())
 
                 discountProductListAdapter.submitList(it.data.products.productList as MutableList<Product>)
 

@@ -50,6 +50,11 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
+    @ViewModelKey(VendorViewModel::class)
+    abstract fun bindVendorViewModel(viewModel: VendorViewModel): ViewModel
+    
+    @Binds
+    @IntoMap
     @ViewModelKey(MessagesViewModel::class)
     abstract fun bindMessagesViewModel(viewModel: MessagesViewModel): ViewModel
     

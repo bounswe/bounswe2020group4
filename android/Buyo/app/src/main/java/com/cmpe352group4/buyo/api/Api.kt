@@ -154,17 +154,40 @@ interface Api {
         @Query("company") company: String
     ): LiveData<ApiResponse<BaseResponsePostRequest>>
 
-    @POST("report_comment")
+    @POST("report/comment")
     fun reportComment(
         @Query("commentId") commentID : String,
         @Query("message") message : String
-    ):LiveData<ApiResponse<BaseResponsePostRequest>>
+    ):LiveData<ApiResponse<BaseResponse<ReportCommentResponse>>>
 
-    @POST("report_product")
+    @POST("report/product")
     fun reportProduct(
         @Query("productId") commentID : String,
         @Query("message") message : String
-    ):LiveData<ApiResponse<BaseResponsePostRequest>>
+    ):LiveData<ApiResponse<BaseResponse<ReportProductResponse>>>
+
+    @POST("file")
+    fun uploadImage(
+        @Body( ) image : ByteArray
+    ):LiveData<ApiResponse<BaseResponse<UploadImageResponse>>>
+
+    @GET("vendor/products/{vendorID}")
+    fun getVendorProducts(
+        @Path("vendorID") vendorID : String
+    ) : LiveData<ApiResponse<BaseResponse<VendorProductResponseResult>>>
+
+    @GET("vendor/products")
+    fun addProduct(
+        @Path("vendorId") vendorID : String,
+        @Body() product : List<AddProduct>
+    ) : LiveData<ApiResponse<BaseResponse<AddProductResponseResult>>>
+
+    @PATCH("vendor/wholeproducts/{productID}")
+    fun updateProduct(
+        @Path("productID") productID : String,
+        @Body() Product : Product
+    ) : LiveData<ApiResponse<BaseResponse<EditProductResponseResult>>>
+
 
     @GET("/messages/last")
     fun fetchLastMessages(

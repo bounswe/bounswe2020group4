@@ -118,34 +118,54 @@ class ProductListFragment : BaseFragment(){
                 myToast.show()
 
             },{ product ->
+                if (sharedPref.getUserType().toString()  == "vendor") {
+                    val myToast = Toast.makeText(
+                        context,
+                        "You need to Login as customer first!",
+                        Toast.LENGTH_SHORT
+                    )
+                    myToast.setGravity(Gravity.BOTTOM, 0, 200)
+                    myToast.show()
+                }else {
+                    productViewModel.onFetchProductById(product.id)
+                    productViewModel.productDetail.observe(viewLifecycleOwner, Observer {
+                        Log.d("LikedProdStParse", "$it.status")
+                        if (it.status == Status.SUCCESS && it.data != null) {
 
-                productViewModel.onFetchProductById(product.id)
-                productViewModel.productDetail.observe(viewLifecycleOwner, Observer {
-                    Log.d("LikedProdStParse", "$it.status")
-                    if (it.status == Status.SUCCESS && it.data != null){
-
-                        var prod = it.data.result
+                            var prod = it.data.result
 
 
-                        navigationManager?.onReplace(
-                            AddCartFragment.newInstance(prod),
-                            TransactionType.Replace, true
-                        )
-                        dispatchLoading()
-                    } else if (it.status == Status.ERROR){
-                        dispatchLoading()
-                    }else if (it.status == Status.LOADING){
-                        showLoading()
-                    }
+                            navigationManager?.onReplace(
+                                AddCartFragment.newInstance(prod),
+                                TransactionType.Replace, true
+                            )
+                            dispatchLoading()
+                        } else if (it.status == Status.ERROR) {
+                            dispatchLoading()
+                        } else if (it.status == Status.LOADING) {
+                            showLoading()
+                        }
 
-                })
+                    })
+                }
 
             }
         ) {
-            navigationManager?.onReplace(
-                CartPageFragment.newInstance(),
-                TransactionType.Replace, true
-            )
+            if (sharedPref.getUserType().toString()  == "vendor") {
+                val myToast = Toast.makeText(
+                    context,
+                    "You need to Login as customer first!",
+                    Toast.LENGTH_SHORT
+                )
+                myToast.setGravity(Gravity.BOTTOM, 0, 200)
+                myToast.show()
+            }else {
+                navigationManager?.onReplace(
+                    CartPageFragment.newInstance(),
+                    TransactionType.Replace, true
+                )
+
+            }
         }
     }
 
