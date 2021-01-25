@@ -28,7 +28,7 @@ const LoginPage = ({ location }) => {
                 </div>
                 <div>Password:</div>
                 <div className='mb-3'>
-                    <input type='text' value={password} onChange={(e) => setPassword(e.target.value)}/>
+                    <input type='password' value={password} onChange={(e) => setPassword(e.target.value)}/>
                 </div>
                 <div className='text-center'>
                     <button className='btn btn-danger' onClick={onLoginClick}>Login</button>
