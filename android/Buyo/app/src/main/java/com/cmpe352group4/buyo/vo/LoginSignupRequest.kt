@@ -34,5 +34,10 @@ data class SignupRequestVendor(
     var longitude: String,
     var latitude: String,
     var website: String,
-    var company: String
+    var company: String,
+    var name: String
+): Serializable
+
+data class ForgotPasswordRequest(
+    var email: String
 ): Serializable

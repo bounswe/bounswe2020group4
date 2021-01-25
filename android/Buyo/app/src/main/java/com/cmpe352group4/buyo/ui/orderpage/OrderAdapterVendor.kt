@@ -47,6 +47,7 @@ class OrderAdapterVendor (
             var address = modal.address
             var orderStatus = modal.status
             var attributes = modal.attributes
+            var date = "Order Date: " + modal.orderDate.split("T")[0]
 
             itemView.tv_customer_id.text = customerId
             itemView.tv_order_no.text = orderNo
@@ -54,24 +55,97 @@ class OrderAdapterVendor (
             itemView.tv_productName.text = productName
             itemView.tv_addressInfo.text = address
             itemView.tv_price.text = price
+            itemView.tv_date.text = date
+            itemView.tv_status.text = "Status: " + orderStatus
+
+            // possible states = Pending, Approved, Shipped, Delivered at <date>, Cancelled by the customer, Cancelled by the vendor
+            // "#E53C38" light red
+            // "#a4c639" light green
+            // "#fedebe" light orange
 
             if (orderStatus=="Pending") {
-                var date = "Order Date: " + modal.orderDate.split("T")[0]
-                itemView.tv_date.text = date
-                itemView.tv_header.setBackgroundColor(Color.parseColor("#E53C38")) // light red
-                itemView.tv_status.text = "Status: Pending"
-            } else {
-                var date = "Order Date: " + modal.orderDate.split("T")[0]
-                itemView.tv_date.text = date
-                itemView.tv_header.setBackgroundColor(Color.parseColor("#a4c639")) // light green
-                itemView.btn_cancel_order.text = "Add Comment"
-                itemView.btn_cancel_order.setBackgroundColor(Color.parseColor("#fedebe")) // light orange
-                itemView.btn_cancel_order.setTextColor(Color.BLACK)
-                itemView.tv_status.text = "Status: Delivered"
+                itemView.tv_header.setBackgroundColor(Color.parseColor("#fedebe")) // light orange
+                itemView.tv_status.setTextColor(Color.BLACK)
+                itemView.tv_customer_id.setTextColor(Color.BLACK)
+
+                itemView.first_button.visibility = View.VISIBLE
+                itemView.first_button.text = "Approve"
+                itemView.first_button.setBackgroundColor(Color.parseColor("#a4c639")) // light green
+                itemView.first_button.setTextColor(Color.WHITE)
+
+                itemView.second_button.visibility = View.VISIBLE
+                itemView.second_button.text = "Reject"
+                itemView.second_button.setBackgroundColor(Color.parseColor("#E53C38")) // light red
+                itemView.second_button.setTextColor(Color.WHITE)
             }
+            else if (orderStatus=="Approved") {
+                itemView.tv_header.setBackgroundColor(Color.parseColor("#fedebe")) // light orange
+                itemView.tv_status.setTextColor(Color.BLACK)
+                itemView.tv_customer_id.setTextColor(Color.BLACK)
+
+                itemView.first_button.visibility = View.VISIBLE
+                itemView.first_button.text = "Shipped"
+                itemView.first_button.setBackgroundColor(Color.parseColor("#a4c639")) // light green
+                itemView.first_button.setTextColor(Color.WHITE)
+
+                itemView.second_button.visibility = View.VISIBLE
+                itemView.second_button.text = "Cancel"
+                itemView.second_button.setBackgroundColor(Color.parseColor("#E53C38")) // light red
+                itemView.second_button.setTextColor(Color.WHITE)
+            }
+            else if (orderStatus=="Shipped") {
+                itemView.tv_header.setBackgroundColor(Color.parseColor("#fedebe")) // light orange
+                itemView.tv_status.setTextColor(Color.BLACK)
+                itemView.tv_customer_id.setTextColor(Color.BLACK)
+
+                itemView.first_button.visibility = View.VISIBLE
+                itemView.first_button.text = "Message Customer"
+                itemView.first_button.setBackgroundColor(Color.parseColor("#fedebe")) // light orange
+                itemView.first_button.setTextColor(Color.BLACK)
+
+                itemView.second_button.visibility = View.GONE
+            }
+            else if (orderStatus.startsWith("Delivered")) {
+                itemView.tv_header.setBackgroundColor(Color.parseColor("#a4c639")) // light green
+                itemView.tv_status.setTextColor(Color.BLACK)
+                itemView.tv_customer_id.setTextColor(Color.BLACK)
+
+                itemView.first_button.visibility = View.VISIBLE
+                itemView.first_button.text = "Message Customer"
+                itemView.first_button.setBackgroundColor(Color.parseColor("#fedebe")) // light orange
+                itemView.first_button.setTextColor(Color.BLACK)
+
+                itemView.second_button.visibility = View.GONE
+            }
+            else if(orderStatus=="Returned"){
+                itemView.tv_header.setBackgroundColor(Color.parseColor("#E53C38")) // light red
+                itemView.tv_status.setTextColor(Color.WHITE)
+                itemView.tv_customer_id.setTextColor(Color.WHITE)
+
+                itemView.first_button.visibility = View.VISIBLE
+                itemView.first_button.text = "Message Customer"
+                itemView.first_button.setBackgroundColor(Color.parseColor("#fedebe")) // light orange
+                itemView.first_button.setTextColor(Color.BLACK)
+
+                itemView.second_button.visibility = View.GONE
+            }
+            else {
+                itemView.tv_header.setBackgroundColor(Color.parseColor("#E53C38")) // light red
+                itemView.tv_status.setTextColor(Color.WHITE)
+                itemView.tv_customer_id.setTextColor(Color.WHITE)
+
+                itemView.first_button.visibility = View.VISIBLE
+                itemView.first_button.text = "Message Customer"
+                itemView.first_button.setBackgroundColor(Color.parseColor("#fedebe")) // light orange
+                itemView.first_button.setTextColor(Color.BLACK)
+
+                itemView.second_button.visibility = View.GONE
+            }
+
+
             itemView.setOnClickListener { clickCallback.invoke(modal) }
-            itemView.btn_message_vendor.setOnClickListener { firstButtonCallback.invoke(modal) }
-            itemView.btn_cancel_order.setOnClickListener { secondButtonCallback.invoke(modal) }
+            itemView.first_button.setOnClickListener { firstButtonCallback.invoke(modal) }
+            itemView.second_button.setOnClickListener { secondButtonCallback.invoke(modal) }
             itemView.dropdown_detail.setOnClickListener{
                 if (itemView.dropdown_detail.text.toString() == "v") {
                     itemView.product_detail.visibility = View.VISIBLE

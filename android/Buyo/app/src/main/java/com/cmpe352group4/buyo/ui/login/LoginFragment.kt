@@ -31,9 +31,6 @@ import com.google.android.gms.tasks.Task
 import kotlinx.android.synthetic.main.fragment_login.*
 import javax.inject.Inject
 
-// TODO Reset password functionality
-// TODO Google sign up, login functionality
-// TODO Sign up e-mail verification
 
 const val RC_SIGN_IN = 123
 private val CLIENT_ID = "99539805030-qfjauhl40bgmunu11o77fd4hegabr0mb.apps.googleusercontent.com"
@@ -84,6 +81,7 @@ class LoginFragment : BaseFragment() {
             signUpSwitch()
             userTypeSwitchListener()
             legalDocLinkSet()
+            resetPassword()
         }
 
     }
@@ -398,4 +396,14 @@ class LoginFragment : BaseFragment() {
             )
         }
     }
+
+    private fun resetPassword() {
+        customer_reset_password.setOnClickListener {
+            navigationManager?.onReplace(
+                CustomerResetPasswordFragment.newInstance(),
+                TransactionType.Replace, true
+            )
+        }
+    }
+
 }

@@ -74,13 +74,13 @@ class ProfileRepository @Inject constructor(
     }
 
     fun singupVendor(userType: String, email: String, password: String, latitude: String,
-                     longitude: String, website: String, company: String): LiveData<Resource<LoginSingupResponse>> {
+                     longitude: String, website: String, company: String, name: String): LiveData<Resource<LoginSingupResponse>> {
         return object : NetworkServiceWrapper<LoginSingupResponse, BaseResponse<LoginSingupResponse>>(appExecutors,connectionManager){
             override fun loadFromApi(data: BaseResponse<LoginSingupResponse>): LiveData<LoginSingupResponse> {
                 return InitialLiveData.create(data.data)
             }
             override fun createCall(): LiveData<ApiResponse<BaseResponse<LoginSingupResponse>>> =
-                api.signup_vendor(userType, email, password, latitude, longitude, website, company)
+                api.signup_vendor(userType, email, password, latitude, longitude, website, company, name)
         }.asLiveData()
     }
 
@@ -121,6 +121,16 @@ class ProfileRepository @Inject constructor(
             }
             override fun createCall(): LiveData<ApiResponse<BaseResponsePostRequest>> =
                 api.saveVendorAccountInfo(id, userType, email, longitude, latitude, website, company)
+        }.asLiveData()
+    }
+
+    fun forgotPassword(email: String): LiveData<Resource<BaseResponsePostRequest>> {
+        return object : NetworkServiceWrapper<BaseResponsePostRequest, BaseResponsePostRequest>(appExecutors,connectionManager){
+            override fun loadFromApi(data: BaseResponsePostRequest): LiveData<BaseResponsePostRequest> {
+                return InitialLiveData.create(data)
+            }
+            override fun createCall(): LiveData<ApiResponse<BaseResponsePostRequest>> =
+                api.forgotPassword(email)
         }.asLiveData()
     }
 }

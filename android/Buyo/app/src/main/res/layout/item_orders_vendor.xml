@@ -88,7 +88,7 @@
         android:textColor="@color/black"
         app:layout_constraintTop_toTopOf="@id/iv_productPhoto"
         app:layout_constraintStart_toEndOf="@id/iv_productPhoto"
-        app:layout_constraintEnd_toStartOf="@id/btn_message_vendor"
+        app:layout_constraintEnd_toStartOf="@id/first_button"
         android:layout_marginEnd="@dimen/minimum_margin"
         />
 
@@ -118,7 +118,7 @@
         />
 
     <Button
-        android:id="@+id/btn_message_vendor"
+        android:id="@+id/first_button"
         android:layout_width="100dp"
         android:layout_height="30dp"
         android:text="Approve"
@@ -127,13 +127,13 @@
         android:textColor="@color/buyo_white"
         android:background="@color/ligth_green"
         app:layout_constraintTop_toTopOf="@id/iv_productPhoto"
-        app:layout_constraintBottom_toTopOf="@id/btn_cancel_order"
+        app:layout_constraintBottom_toTopOf="@id/second_button"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="@dimen/medium_margin"
         />
 
     <Button
-        android:id="@+id/btn_cancel_order"
+        android:id="@+id/second_button"
         android:layout_width="100dp"
         android:layout_height="30dp"
         android:background="@color/buyo_Cinnabar"
@@ -142,9 +142,9 @@
         android:textAllCaps="false"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@id/iv_productPhoto"
-        app:layout_constraintEnd_toEndOf="@+id/btn_message_vendor"
-        app:layout_constraintStart_toStartOf="@+id/btn_message_vendor"
-        app:layout_constraintTop_toBottomOf="@+id/btn_message_vendor" />
+        app:layout_constraintEnd_toEndOf="@+id/first_button"
+        app:layout_constraintStart_toStartOf="@+id/first_button"
+        app:layout_constraintTop_toBottomOf="@+id/first_button" />
 
     <TextView
         android:id="@+id/product_detail"
