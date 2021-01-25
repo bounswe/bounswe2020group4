@@ -22,16 +22,23 @@ module.exports.getWishlist = async (customerId) => {
 
         const vendor = await Vendor.findOne({ _id: product.vendorId });
 
-        product.vendor = {
-          name: vendor.name,
-          rating: vendor.rating,
+        return {
+          vendor: {
+            name: vendor.name,
+            rating: vendor.rating,
+            id: vendor._id.toString(),
+          },
+          id: product._id.toString(),
+          category: product.category,
+          description: product.description,
+          name: product.name,
+          price: product.price,
+          originalPrice: product.originalPrice,
+          imageUrl: product.imageUrl,
+          rating: product.rating,
+          brand: product.brand,
+          productInfos: JSON.parse(product.productInfos),
         };
-        product.id = product._id.toString();
-
-        delete product._id;
-        delete product.vendorId;
-
-        return product;
       })
     );
 

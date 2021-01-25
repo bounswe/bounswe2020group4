@@ -1,6 +1,8 @@
 const product = require("../views/product");
+const recommendation = require("../views/recommendation");
 const wishlist = require("../views/wishlist");
 const cart = require("../views/cart");
+const { ErrorCode } = require("../constants/error");
 
 module.exports.initialize = (app) => {
   /**
@@ -29,15 +31,29 @@ module.exports.initialize = (app) => {
    */
   app.get("/product", async (request, response) => {
     const result = await product.getProduct(request.query);
-    if (result) {
+    if ( "name" in result && !("Error" in result)) {
       response.respond(200, "OK", {
         result,
       });
     } else {
-      response.respond(404, "Product not found");
+      response.respond(404, "Product not found. Please check productId");
     }
   });
 
+  /**
+   * Returns product with given id.
+   */
+  app.get("/products/recommendation", async (request, response) => {
+    const result = await recommendation.getProducts(request.query);
+
+    if (result.success) {
+      response.respond(200, "OK", {
+        productList: result.productList,
+      });
+    } else {
+      response.respond(ErrorCode(result.message), result.message);
+    }
+  });
   /**
    * Get wishlist of the user with given id
    */
@@ -46,14 +62,14 @@ module.exports.initialize = (app) => {
 
     response.respond(200, "OK", { products });
   });
-  
+
   app.post("/cart", async (request, response) => {
     const result = await cart.updateCart(request.query);
-    
+
     if (result) {
       response.respond(200, "OK");
     } else {
-      response.respond(400, "Missing arguments.")
+      response.respond(400, "Missing arguments.");
     }
   });
 
@@ -70,12 +86,11 @@ module.exports.initialize = (app) => {
 
   app.delete("/cart", async (request, response) => {
     const success = await cart.emptyCart(request.query);
-    
+
     if (success) {
       response.respond(200, "OK");
     } else {
       response.respond(400, "Missing arguments");
     }
   });
-
 };

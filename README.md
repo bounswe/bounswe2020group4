@@ -14,3 +14,4 @@ This is the repository of Group 4 for the course CMPE352/451. For details, visit
 |[Berkay Alkan](https://github.com/bounswe/bounswe2020group4/wiki/Berkay-Alkan)|[Çağrı Çiftçi](https://github.com/bounswe/bounswe2020group4/wiki/%C3%87a%C4%9Fr%C4%B1-%C3%87ift%C3%A7i)|[M. Olcayto Türker](https://github.com/olcaytoturker)|[Alperen Bağ](https://github.com/bounswe/bounswe2020group4/wiki/Alperen-Bağ)|
 | <img src="https://avatars.githubusercontent.com/multiminparvo" alt="alt text" width="150"> | <img src="https://avatars.githubusercontent.com/BCGpp" alt="alt text" width="150"> | <img src="https://avatars.githubusercontent.com/merijjeyn" alt="alt text" width="150"> ||
 |[Veli Can Ünal](https://github.com/bounswe/bounswe2020group4/wiki/Veli-Can-%C3%9Cnal)|[Berke Can Gürer](https://github.com/bounswe/bounswe2020group4/wiki/Berke-Can-G%C3%BCrer)|[Meriç Üngör](https://github.com/bounswe/bounswe2020group4/wiki/Meri%C3%A7-%C3%9Cng%C3%B6r)||
+ 
