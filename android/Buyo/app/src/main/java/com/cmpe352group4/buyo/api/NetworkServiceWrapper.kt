@@ -51,7 +51,6 @@ abstract class NetworkServiceWrapper<ResultType, RequestType>
                 is ApiErrorResponse -> {
                     appExecutors.mainThread().execute {
                         result.addSource(fail()) { error ->
-                            //TODO Error handling
                             setValue(Resource.error(response.errorMessage, error))
                         }
                     }

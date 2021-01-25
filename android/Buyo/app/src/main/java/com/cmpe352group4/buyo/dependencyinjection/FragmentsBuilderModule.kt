@@ -8,14 +8,17 @@ import com.cmpe352group4.buyo.ui.categories.CategoriesPageFragment
 import com.cmpe352group4.buyo.ui.googlemap.MapsFragment
 import com.cmpe352group4.buyo.ui.homepage.HomepageFragment
 import com.cmpe352group4.buyo.ui.image_utils.ImageUploadFragment
+import com.cmpe352group4.buyo.ui.login.CustomerResetPasswordFragment
 import com.cmpe352group4.buyo.ui.login.LoginFragment
 import com.cmpe352group4.buyo.ui.login.LoginFragmentVendor
 import com.cmpe352group4.buyo.ui.messaging.LiveChatFragment
 import com.cmpe352group4.buyo.ui.messaging.MessagesFragment
+import com.cmpe352group4.buyo.ui.login.VendorResetPasswordFragment
 import com.cmpe352group4.buyo.ui.navigationtabs.*
 import com.cmpe352group4.buyo.ui.notification.NotificationFragment
 import com.cmpe352group4.buyo.ui.orderpage.OrderPageFragment
 import com.cmpe352group4.buyo.ui.orderpage.OrderPageFragmentVendor
+import com.cmpe352group4.buyo.ui.orderpage.endpoint_framents.UpdateStatusFragment
 import com.cmpe352group4.buyo.ui.productDetail.AddCartFragment
 import com.cmpe352group4.buyo.ui.productDetail.ProductCommentReportFragment
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailCommentsFragment
@@ -148,7 +151,7 @@ abstract class FragmentsBuilderModule {
     abstract fun contributeVendorProductListFragment(): VendorProductListFragment
 
     @ContributesAndroidInjector
-    abstract  fun contributeOrderPageFragmentVendor(): OrderPageFragmentVendor
+    abstract fun contributeOrderPageFragmentVendor(): OrderPageFragmentVendor
 
     @ContributesAndroidInjector
     abstract  fun contributeNotificationFragment(): NotificationFragment
@@ -158,4 +161,17 @@ abstract class FragmentsBuilderModule {
 
     @ContributesAndroidInjector
     abstract  fun contributeLiveChatFragment(): LiveChatFragment
+  
+    @ContributesAndroidInjector
+    abstract fun contributeNotificationFragment(): NotificationFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeCustomerResetPasswordFragment(): CustomerResetPasswordFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeVendorResetPasswordFragment(): VendorResetPasswordFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeUpdateStatusFragment(): UpdateStatusFragment
+
 }

@@ -10,6 +10,7 @@ import com.cmpe352group4.buyo.base.ConnectionManager
 import com.cmpe352group4.buyo.util.livedata.InitialLiveData
 import com.cmpe352group4.buyo.vo.BaseResponse
 import com.cmpe352group4.buyo.vo.ProductResponse
+import com.cmpe352group4.buyo.vo.ProductResponseRec
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -38,4 +39,12 @@ class SearchRepository @Inject constructor(
         }.asLiveData()
     }
 
+    fun getRecommendations(userId: String) : LiveData<Resource<ProductResponseRec>> {
+        return object : NetworkServiceWrapper<ProductResponseRec, BaseResponse<ProductResponseRec>>(appExecutors,connectionManager){
+            override fun loadFromApi(data: BaseResponse<ProductResponseRec>): LiveData<ProductResponseRec> {
+                return InitialLiveData.create(data.data)
+            }
+            override fun createCall(): LiveData<ApiResponse<BaseResponse<ProductResponseRec>>> = api.fetchRecommendation(userId, "alsoLiked")
+        }.asLiveData()
+    }
 }

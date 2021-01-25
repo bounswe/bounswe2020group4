@@ -35,25 +35,18 @@ class AddressInfoAdapter(
         val view = itemView
 
         fun bind(modal: Address, position: Int) {
-
-            //This part will be changed after back end side modification
-            //itemView.tv_address_name.text = modal.name + " " + modal.surname
-            //itemView.tv_address_phone.text = modal.phone
-            itemView.tv_address_name.text = "Lila Demir"
-            itemView.tv_address_phone.text = "05052149009"
-
+            itemView.tv_address_name.text = modal.name + " " + modal.surname
+            itemView.tv_address_phone.text = modal.phone
             itemView.tv_address_title.text = modal.addressTitle
             itemView.tv_address_text.text = modal.address
             itemView.tv_address_city.text = modal.province + ", " + modal.city
+
             itemView.btn_update_address.setOnClickListener {
 
             }
             itemView.btn_delete_address.setOnClickListener {
 
             }
-
         }
-
     }
-
 }

@@ -52,6 +52,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MessagesViewModel::class)
     abstract fun bindMessagesViewModel(viewModel: MessagesViewModel): ViewModel
+    
+    @Binds
+    @IntoMap
+    @ViewModelKey(NotificationViewModel::class)
+    abstract fun bindNotificationViewModel(viewModel: NotificationViewModel): ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(factory: ApplicationViewModelFactory): ViewModelProvider.Factory

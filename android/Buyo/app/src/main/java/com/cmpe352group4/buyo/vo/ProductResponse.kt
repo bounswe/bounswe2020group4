@@ -5,3 +5,7 @@ import java.io.Serializable
 data class ProductResponse(
     val products: ProductList
 ): Serializable
+
+data class ProductResponseRec(
+    val productList: List<Product>
+): Serializable

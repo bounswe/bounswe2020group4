@@ -13,6 +13,7 @@ private const val LOC_LON = "loc_lon"
 private const val LOC_ADDRESS = "loc_address"
 private const val REMEMBER_ME = "remember_me"
 private const val VERIFIED = "verified"
+private const val IS_GOOGLE_SIGNIN = "is_google_signin"
 
 @Singleton
 class SharedPref @Inject constructor(
@@ -73,4 +74,10 @@ class SharedPref @Inject constructor(
 
     override fun getVerified(): Boolean = sharedPref.getBoolean(VERIFIED, false)
 
+    override fun saveIsGoogleSignin(boolean: Boolean) {
+        val editor = sharedPref.edit()
+        editor.putBoolean(IS_GOOGLE_SIGNIN, boolean).apply()
+    }
+
+    override fun isGoogleSignin(): Boolean = sharedPref.getBoolean(IS_GOOGLE_SIGNIN, false)
 }
