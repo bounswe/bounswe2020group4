@@ -14,6 +14,7 @@ import com.cmpe352group4.buyo.ui.navigationtabs.*
 import com.cmpe352group4.buyo.ui.notification.NotificationFragment
 import com.cmpe352group4.buyo.ui.orderpage.OrderPageFragment
 import com.cmpe352group4.buyo.ui.orderpage.OrderPageFragmentVendor
+import com.cmpe352group4.buyo.ui.orderpage.endpoint_framents.UpdateStatusFragment
 import com.cmpe352group4.buyo.ui.productDetail.AddCartFragment
 import com.cmpe352group4.buyo.ui.productDetail.ProductCommentReportFragment
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailCommentsFragment
@@ -150,4 +151,7 @@ abstract class FragmentsBuilderModule {
 
     @ContributesAndroidInjector
     abstract  fun contributeNotificationFragment(): NotificationFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeUpdateStatusFragment(): UpdateStatusFragment
 }
