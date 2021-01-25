@@ -2,6 +2,17 @@ import axios from 'axios'
 
 const baseUrl = 'http://3.138.113.101:8080/'
 
+const googleSignIn = async (email, name, id_token) => {
+	try {
+		const response = await axios.post(`${baseUrl}google-signin?email=${email}&name=${name}&token=${id_token}`)
+		console.log("Google response: ", response)
+		return response.data.data
+	} catch (err) {
+		console.error(err)
+		return null
+	}
+}
+
 const updateAddress = async (userId, address) => {
 	try{
 		const response = await axios.patch(`${baseUrl}account/address?id=${userId}&address={"addressTitle":"${address.addressTitle}","name":"${address.name}","surname":"${address.surname}","phone":"${address.phone}","city": "${address.city}","province":"${address.province}","street":"${address.street}","address":"${address.address}"}`)
@@ -224,19 +235,6 @@ const signUp = async (signUpInput) => {
 
 	return null
 
-}
-
-//Sends google id_token and email to backend and gets our own userId as response
-const googleSignIn = async (id_token, email) => {
-	// const response = await axios.post(`${baseUrl}google-signin?token=${id_token}&email=${email}`)
-	// if (response.data.status.code === 200) {
-	// 	return response.data.data
-	// }
-	// return null
-	return {
-		userId: '1noasnd1092daoksd1093ndojsd109dn',
-		banned: false
-	}
 }
 
 export default { forgotPassword, verify, login, signUp, getProfileInfo, updateProfileInfo, updatePassword, vendorLogin, vendorSignUp, getProfileAddresses, addNewAddress, updateAddress, deleteAddress, googleSignIn }

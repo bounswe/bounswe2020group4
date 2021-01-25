@@ -64,10 +64,12 @@ const SignIn = ({hideHeader, showHeader, setLoginState}) => {
 	}
 
 	const onGoogleSignIn = async (googleUser) => {
-		const id_token = await googleUser.getAuthResponse().id_token
-		const email = await googleUser.getBasicProfile().getEmail()
-		const response = await accountService.googleSignIn(id_token, email)
-		if(response?.id == null) {
+		const profile = await googleUser.getBasicProfile()
+		const id_token = profile.getId()
+		const email = profile.getEmail()
+		const name = profile.getName()
+		const response = await accountService.googleSignIn(email, name, id_token)
+		if(response?.userId == null) {
 			alert("Something went wrong while trying to sign in with google")
 		} else if (response.banned) {
 			alert("Your account has been suspended. Please check your e-mail for further information.")
