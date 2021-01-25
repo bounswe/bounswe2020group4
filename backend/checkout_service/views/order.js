@@ -335,6 +335,7 @@ module.exports.updateOrderStatus = async (params) => {
     }
     let orderedProducts;
     let statusChanged = false;
+
     if (params.userType === "customer") {
       orderedProducts = await OrderedProduct.find({
         orderId: params.orderId,

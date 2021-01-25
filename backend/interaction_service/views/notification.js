@@ -23,7 +23,6 @@ module.exports.getNotifications = async (params) => {
     const notifications = await Notification.find({ userType: params.userType, userId: ObjectId(params.userId) }).sort(
       "descending"
     );
-    console.log(await Notification.find(), params);
 
     const response = {
       "@context": "https://www.w3.org/ns/activitystreams",
@@ -56,7 +55,7 @@ module.exports.getNotifications = async (params) => {
               id: notification.actorId.toString(),
               name: actorName,
             },
-            target: notification.target.toString(),
+            target: (notification.target || notification.targetOrder).toString(),
           });
         } catch (error) {}
       })
