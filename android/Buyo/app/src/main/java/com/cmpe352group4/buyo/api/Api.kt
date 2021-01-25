@@ -166,6 +166,20 @@ interface Api {
         @Query("message") message : String
     ):LiveData<ApiResponse<BaseResponsePostRequest>>
 
+    @GET("/messages/last")
+    fun fetchLastMessages(
+        @Query("userType") userType: String,
+        @Query("id") id: String
+    ) : LiveData<ApiResponse<BaseResponse<LastMessageResponse>>>
+
+    @GET("/messages")
+    fun fetchLiveChatMessages(
+        @Query("id") id: String,
+        @Query("userType") userType: String,
+        @Query("withId") withId: String,
+        @Query("withType") withType: String
+    ) : LiveData<ApiResponse<BaseResponse<LiveChatMessagesResponse>>>
+
     @POST("/google-signin")
     fun googleSignIn(
         @Query("email") email: String,
@@ -198,5 +212,6 @@ interface Api {
         @Query("userId") userId: String,
         @Query("type") type: String
     ):LiveData<ApiResponse<BaseResponse<ProductResponseRec>>>
+
 
 }

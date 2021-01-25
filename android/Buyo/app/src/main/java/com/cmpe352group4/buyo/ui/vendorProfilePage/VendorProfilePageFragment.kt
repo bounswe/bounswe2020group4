@@ -10,6 +10,7 @@ import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.login.LoginFragmentVendor
+import com.cmpe352group4.buyo.ui.messaging.MessagesFragment
 import com.cmpe352group4.buyo.ui.notification.NotificationFragment
 import com.cmpe352group4.buyo.ui.orderpage.OrderPageFragmentVendor
 import com.cmpe352group4.buyo.ui.vendor.AddProductCategoryFragment
@@ -111,7 +112,10 @@ class VendorProfilePageFragment: BaseFragment() {
         }
 
         tv_vendor_profile_page_messages.setOnClickListener {
-            // Later
+            navigationManager?.onReplace(
+                MessagesFragment.newInstance(),
+                TransactionType.Replace, true
+            )
         }
 
         tv_vendor_my_products.setOnClickListener {

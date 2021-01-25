@@ -11,6 +11,8 @@ import com.cmpe352group4.buyo.ui.image_utils.ImageUploadFragment
 import com.cmpe352group4.buyo.ui.login.CustomerResetPasswordFragment
 import com.cmpe352group4.buyo.ui.login.LoginFragment
 import com.cmpe352group4.buyo.ui.login.LoginFragmentVendor
+import com.cmpe352group4.buyo.ui.messaging.LiveChatFragment
+import com.cmpe352group4.buyo.ui.messaging.MessagesFragment
 import com.cmpe352group4.buyo.ui.login.VendorResetPasswordFragment
 import com.cmpe352group4.buyo.ui.navigationtabs.*
 import com.cmpe352group4.buyo.ui.notification.NotificationFragment
@@ -152,6 +154,15 @@ abstract class FragmentsBuilderModule {
     abstract fun contributeOrderPageFragmentVendor(): OrderPageFragmentVendor
 
     @ContributesAndroidInjector
+    abstract  fun contributeNotificationFragment(): NotificationFragment
+
+    @ContributesAndroidInjector
+    abstract  fun contributeMessagesFragment(): MessagesFragment
+
+    @ContributesAndroidInjector
+    abstract  fun contributeLiveChatFragment(): LiveChatFragment
+  
+    @ContributesAndroidInjector
     abstract fun contributeNotificationFragment(): NotificationFragment
 
     @ContributesAndroidInjector
@@ -162,4 +173,5 @@ abstract class FragmentsBuilderModule {
 
     @ContributesAndroidInjector
     abstract fun contributeUpdateStatusFragment(): UpdateStatusFragment
+
 }
