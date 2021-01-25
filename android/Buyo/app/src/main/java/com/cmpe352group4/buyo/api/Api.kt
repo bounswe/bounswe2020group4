@@ -168,4 +168,12 @@ interface Api {
         @Query("id") id: String
     ) : LiveData<ApiResponse<BaseResponse<LastMessageResponse>>>
 
+    @GET("/messages")
+    fun fetchLiveChatMessages(
+        @Query("id") id: String,
+        @Query("userType") userType: String,
+        @Query("withId") withId: String,
+        @Query("withType") withType: String
+    ) : LiveData<ApiResponse<BaseResponse<LiveChatMessagesResponse>>>
+
 }

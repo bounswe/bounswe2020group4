@@ -40,9 +40,10 @@ class LastMessagesAdapter (
 
         fun bind(modal: LastMessages, position: Int) {
             itemView.setOnClickListener { clickCallback.invoke(modal.user) }
-            itemView.tv_message_date.text = modal.date
+            itemView.tv_message_date.text = modal.date.substring(0,10)
             itemView.tv_message_detail.text = modal.lastMessage
-            itemView.tv_message_from.text = modal.user.name
+            val message_from = modal.user.name + "(" + modal.user.userType + ")"
+            itemView.tv_message_from.text = message_from
         }
 
     }
