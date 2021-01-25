@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import PCWishlistIcon from '../images/wishlist-icon.png'
-import PCCartIcon from '../images/cart-icon.png'
 import DefaultProductImage from '../images/default-product-image.png'
+
+import WishlistButton from './product/WishlistButton'
 
 //Styling
 import './ProductCard.css'
@@ -23,8 +23,7 @@ const ProductCard = ({ name, price, imgUrl, productId }) => {
 				<div className='pc-info-bottom'>
 					<div className='pc-price'>{price}₺</div>
 					<div className='pc-cart-wishlist'>
-						<img className='pc-wishlist-icon' src={PCWishlistIcon} alt='wishlist icon'/>
-						<img className='pc-cart-icon' src={PCCartIcon} alt='cart icon'/>
+						<WishlistButton productId={productId}/>
 					</div>
 				</div>
 			</div>

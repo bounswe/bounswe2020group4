@@ -10,3 +10,10 @@
   width: 100%;
   font-size: 20px;
 }
+
+.title {
+  background-color: var(--beige);
+  color: var(--red-secondary);
+  font-size: 24px;
+  font-weight: bold;
+}
