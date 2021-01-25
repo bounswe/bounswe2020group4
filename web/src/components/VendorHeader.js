@@ -28,8 +28,14 @@ const VendorHeader = ({setLogoutState}) => {
             <Link to='/vendorprofile' className='vendor-header-category px-4 py-3 mx-2 rounded'>
                 Profile
             </Link>
+            <Link to='/addproduct' className='vendor-header-category px-4 py-3 mx-2 rounded'>
+                Add Product
+            </Link>
             <Link to='/notification' className='vendor-header-category px-4 py-3 mx-2 rounded'>
                 Notifications
+            </Link>
+            <Link to='/messages' className='vendor-header-category px-4 py-3 mx-2 rounded'>
+                Messages
             </Link>
             <div className='vendor-header-category px-4 py-3 mx-2 rounded'>
                 <span className='sign-out-button cursor-pointer' onClick={signOut}>Sign Out</span>

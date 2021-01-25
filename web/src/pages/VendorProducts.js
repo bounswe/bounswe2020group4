@@ -6,73 +6,31 @@ import history from '../util/history'
 import VendorProductCard from '../components/VendorProductCard'
 import './VendorProducts.css'
 
+import vendorService from '../services/vendor.js'
 
 const VendorProducts = (props) => {
 
+	const [products, setProducts] = useState([])
+
 	useEffect(() => {
 		
-		//TODO: uncomment this
-		//if(!props.isLoggedIn | props.userType != 'vendor') {
-		//	history.push('/vendorsignin')
-		//	return
-		//}
+		if(!props.isLoggedIn | props.userType != 'vendor') {
+			history.push('/vendorsignin')
+			return
+		}
 
+		const getProducts = async () => {
+			const products = await vendorService.getProducts(props.userId)
+			setProducts(products)
+		}
+
+		getProducts()
 		props.hideHeader()
 		props.showVendorHeader()
 		return () => props.showHeader()
 	}, [])
 
-	const products = [
-		{
-			'productId': 1,
-			'name': 'T-shirt',
-			'imgUrl': '',
-			'price': '50',
-			'brand': 'Koton'
-		},
-		{
-			'productId': 2,
-			'name': 'Pants',
-			'imgUrl': '',
-			'price': '70',
-			'brand': 'Koton'
-		},
-		{
-			'productId': 2,
-			'name': 'Pants',
-			'imgUrl': '',
-			'price': '70',
-			'brand': 'Koton'
-		}, 
-		{
-			'productId': 2,
-			'name': 'Pants',
-			'imgUrl': '',
-			'price': '70',
-			'brand': 'Koton'
-		},
-		{
-			'productId': 2,
-			'name': 'Pants',
-			'imgUrl': '',
-			'price': '70',
-			'brand': 'Koton'
-		},
-		{
-			'productId': 2,
-			'name': 'Pants',
-			'imgUrl': '',
-			'price': '70',
-			'brand': 'Koton'
-		},
-		{
-			'productId': 2,
-			'name': 'Pants',
-			'imgUrl': '',
-			'price': '70',
-			'brand': 'Koton'
-		}
-	]
+
 
 	return(
 		<div>
@@ -82,10 +40,12 @@ const VendorProducts = (props) => {
 				<div className='col-sm-6 col-md-4 col-lg-3 mt-4' key={p.productId}>
 					<div className="justify-content-center">
 				<VendorProductCard
+					vendorId={props.userId}
 					name={p.name} 
 					price={p.price} 
+					originalPrice={p.originalPrice} 
 					imgUrl={p.imageUrl} 
-					productId={p.productId} 
+					productId={p.id} 
 					brand={p.brand}
 				/>
 				</div>
@@ -103,7 +63,7 @@ const VendorProducts = (props) => {
 const mapStateToProps = (state) => {
 	return {
 		isLoggedIn: state.signIn.isLoggedIn,
-		customerId: state.signIn.userId,
+		userId: state.signIn.userId,
 		userType: state.signIn.userType
 
 	}

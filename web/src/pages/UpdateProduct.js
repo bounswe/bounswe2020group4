@@ -1,15 +1,46 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import { hideHeader, showHeader, showVendorHeader, hideVendorHeader } from '../redux/actions'
 import { WithContext as ReactTags } from 'react-tag-input';
-import { Link } from 'react-router-dom'
 import history from '../util/history'
 
 import './AddProduct.css'
 import {getCategories} from '../services/category'
+import productService from '../services/products'
 import vendorService from '../services/vendor.js'
 
-const AddProduct= (props) => {
+const generatePossibleAttVals = (productInfos) => {
+	let possibleValues = {}
+	let info
+	for(info of productInfos) {
+		let attribute
+		for(attribute of info.attributes) {
+			if(possibleValues[attribute.name]) {
+				if(!possibleValues[attribute.name].includes(attribute.value)) {
+					possibleValues[attribute.name].push(attribute.value)
+				}
+			} else {
+				possibleValues[attribute.name] = [attribute.value]
+			}
+		}
+	}
+
+	return possibleValues
+}
+
+const attributeToTag = (attributes) => {
+	let tags = []
+	let attribute
+	for(attribute of attributes){
+		tags.push({'id':attribute, 'text':attribute})
+	}
+	return tags
+}
+
+const UpdateProduct = (props) => {
+
+	const id = useParams().id
 
 	const [categories, setCategories] = useState([])
 	const [path, setPath] = useState('')
@@ -20,17 +51,18 @@ const AddProduct= (props) => {
 	const [attributes, setAttributes] = useState([])
 	const [attributeSelected, setAttributeSelected] = useState(false)
 	const [possibleValues, setPossibleValues] = useState({})
+	const [possibleValuesStr, setPossibleValuesStr] = useState({})
 	const [rerender, setRerender] = useState(false)
 	const [possibleValuesEntered, setPossibleValuesEntered] = useState(false)
 	const [productInfos, setProductInfos] = useState([])
 	const [stockEntered, setStockEntered] = useState(false)
 	const [price, setPrice] = useState()
 	const [discountedPrice, setDiscountedPrice] = useState()
+	const [loading, setLoading] = useState(true)
 	const [image, setImage] = useState()
 	const [imageUrl, setImageUrl] = useState('')
 	const [imageUploaded, setImageUploaded] = useState(false)
-
-
+	const [stockInfos, setStockInfos] = useState()
 
 	useEffect(() => {
 		
@@ -44,11 +76,40 @@ const AddProduct= (props) => {
 			setCategories(categories)
 		}
 
+		const getProduct = async () => {
+			const p = await productService.getProduct(id)
+			
+			setPath(p.category.join())
+			setCategorySelected(true)
+			setProductName(p.name)
+			setBrand(p.brand)
+			setDescription(p.description)
+			setPrice(p.originalPrice)
+			setDiscountedPrice(p.price)
+
+			const generatedValues = generatePossibleAttVals(p.productInfos)
+			setAttributes(attributeToTag(Object.keys(generatedValues)))
+			setPossibleValues(generatedValues)
+			for(var attr in possibleValues){
+				possibleValuesStr[attr] = possibleValues[attr].join()
+			}
+			if(loading){
+				setPossibleValuesStr(possibleValuesStr)
+				setAttributeSelected(true)
+			}
+			setStockInfos(p.productInfos)
+			setLoading(false)
+			setPossibleValuesEntered(true)
+			setImageUrl(p.imageUrl)
+			setImageUploaded(true)
+		}
+
+		getProduct()
 		retrieveCategories()
 		props.hideHeader()
 		props.showVendorHeader()
 		return () => props.showHeader()
-	}, [props.isLoggedIn, props.userId])
+	}, [props.isLoggedIn, props.userId, loading])
 
 	const renderSubcategories = (currPath, category, subcategories) => {
 
@@ -120,7 +181,10 @@ const AddProduct= (props) => {
 		} else{
 			possibleValues[attr] = ''
 		}
+		possibleValuesStr[attr] = e.target.value
+		setPossibleValuesStr(possibleValuesStr)
 		setPossibleValues(possibleValues)
+		setRerender(!rerender)
 	}
 
 	const handlePossibleValuesButton = function() {
@@ -217,7 +281,6 @@ const AddProduct= (props) => {
 	}
 
 	const handleSubmitButton = async function(e){
-
 		var stockInfos = []
 		for(var productInfo of productInfos){
 			var temp = {}
@@ -232,7 +295,7 @@ const AddProduct= (props) => {
 			stockInfos.push(temp)
 		}
 
-		const product = [{
+		const product = {
 			"category": path.split(','),
 			"description": description,
 			"name": productName,
@@ -240,18 +303,33 @@ const AddProduct= (props) => {
 			"originalPrice": price,
 			"imageUrl": imageUrl,
 			"brand": brand,
-			"rating": 0,
 			"productInfos": stockInfos,
 			"vendorId": props.userId
-		}]
+		}
 		
-		const response = await vendorService.addProduct(product, props.userId)
+		const response = await vendorService.updateProduct(product, id)
 		if(response==200){
-			alert("Your product has been added successfully.")
+			alert("Your product has been updated successfully.")
 			history.push('/vendorproducts')
 		}
-		console.log(response)
 		return
+	}
+
+	function renderStockInfos(stockInfo){
+		var attributes = stockInfo['attributes']
+		var stockValue = stockInfo['stockValue']
+		return(
+			<div className='row pl-5'>
+				{attributes.map((attr)=>
+					<div className='col' key={JSON.stringify(attr)}>
+						{attr["name"]}:{attr["value"]}
+					</div>
+				)}
+				<div className='col'>
+					Stock:{stockValue}
+				</div>
+			</div>
+		)
 	}
 
 	return (
@@ -323,7 +401,7 @@ const AddProduct= (props) => {
 								<label htmlFor='price'>Price</label>
 							</div>
 							<div className='col-3'>
-								<input type='number' min='0' id='price' onChange={(e)=>setPrice(e.target.value)}/>
+								<input type='number' min='0' id='price' value={price} onChange={(e)=>setPrice(e.target.value)}/>
 							</div>
 						</div>
 					</div>
@@ -333,7 +411,7 @@ const AddProduct= (props) => {
 								<label htmlFor='discountedPrice'>Discounted price</label>
 							</div>
 							<div className='col-3'>
-								<input type='number' min='0' id='discountedPrice' onChange={(e)=>setDiscountedPrice(e.target.value)}/>
+								<input type='number' min='0' id='discountedPrice' value={discountedPrice} onChange={(e)=>setDiscountedPrice(e.target.value)}/>
 							</div>
 							<div className='col'>
 								<p>Enter the original price if there is no discount.</p>
@@ -363,7 +441,7 @@ const AddProduct= (props) => {
 					<p className='h3 header-info'>3. Enter possible values for criterion separated by ,</p>
 					<p>For ex. Size: S,M,L</p>
 					{attributes.map((attr) =>
-						<div key={attr.text+'-values'}>
+						<div key={attr.text}>
 							<div className='form-group'>
 								<div className='row'>
 									<div className='col-1'>
@@ -372,6 +450,7 @@ const AddProduct= (props) => {
 									<div className='col-4'>
 										<input type='text' className='form-control form-control-md text-left' 
 										id={attr.text} 
+										value={possibleValuesStr[attr.text]}
 										onChange={(e) => handlePossibleValueChange(e, attr.text)}
 										/>
 									</div>
@@ -392,9 +471,17 @@ const AddProduct= (props) => {
 			{possibleValuesEntered ?
 				<div className='container-fluid mt-3 p-3 container-main rounded'>
 					<p className='h3 header-info'>4. Enter stock information</p>
+					<p className='h5'>Current stock information:</p>
+					<div className='container pb-5'>
+						{stockInfos.map((stockInfo)=>
+							<div className='row' key={JSON.stringify(stockInfo)}>
+								{renderStockInfos(stockInfo)}
+							</div>
+						)}
+					</div>
 					<div className='row'>
 					{attributes.map((attr) =>
-						<div className='col' key={attr.text+'-stock'}>
+						<div className='col' key={attr.text}>
 							<p className='h5 header-info'>{attr.text}</p>
 						</div>
 					)}
@@ -414,7 +501,7 @@ const AddProduct= (props) => {
 					<input type="file" onChange={(e)=>setImage(e.target.files[0])} className="form-control-file" id="image"/>
 				</div>
 				<div className='row'>
-					<div className='col'></div>
+					<div className='col'><a className="link-primary" href={imageUrl}>Product image</a></div>
 					<div className='col-3 align-self-end text-right mb-6'>
 						<button className="btn btn-danger next-button" onClick={handleUploadButton}>Upload</button>
 					</div>
@@ -423,7 +510,7 @@ const AddProduct= (props) => {
 					:
 				null
 			}
-			{imageUploaded ? 
+			{(imageUploaded & stockEntered) ? 
 			<div className='container-fluid mt-3 p-3 container-main rounded'>
 				<p className='h3 header-info'>6. Submit your product</p>
 				<div className='row mt-3'>
@@ -450,4 +537,4 @@ const mapStateToProps = (state) => {
 	}
 }
 
-export default connect(mapStateToProps, {showHeader, hideHeader, showVendorHeader, hideVendorHeader})(AddProduct)
+export default connect(mapStateToProps, {showHeader, hideHeader, showVendorHeader, hideVendorHeader})(UpdateProduct)
