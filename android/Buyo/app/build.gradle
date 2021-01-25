@@ -3,6 +3,13 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
+
+buildscript {
+    repositories {
+        maven { url 'https://google.bintray.com/tensorflow' }
+    }
+}
+
 android {
 
     compileSdkVersion build_versions.target_sdk
@@ -24,6 +31,11 @@ android {
 
         // Inject the Maps API key into the manifest
         manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "") ]
+    }
+
+    aaptOptions {
+        noCompress "tflite"
+        noCompress "lite"
     }
 
     buildTypes {
@@ -96,6 +108,11 @@ dependencies {
     kapt deps.lifecycle.compiler
     kapt deps.glide.compiler
     implementation deps.glide.runtime
+
+    // TF
+    implementation "io.reactivex.rxjava2:rxandroid:+"
+    implementation "io.reactivex.rxjava2:rxkotlin:+"
+    implementation 'org.tensorflow:tensorflow-lite:+'
 
 
 }

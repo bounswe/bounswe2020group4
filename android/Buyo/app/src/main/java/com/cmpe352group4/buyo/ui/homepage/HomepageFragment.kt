@@ -149,5 +149,9 @@ class HomepageFragment : BaseFragment() {
             LinearLayoutManager.HORIZONTAL, false
         )
 
+        image_search.setOnClickListener {
+            //
+        }
+
     }
 }
