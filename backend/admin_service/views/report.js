@@ -1,5 +1,7 @@
 const Comment = require("../models/comment").Comment;
 const Product = require("../models/product").Product;
+const Vendor = require("../models/vendor").Vendor;
+
 const ProductReport = require("../models/productReport").ProductReport;
 const CommentReport = require("../models/commentReport").CommentReport;
 const ObjectId = require("mongoose").Types.ObjectId;
@@ -86,18 +88,16 @@ module.exports.getCommentReports = async () => {
    try { 
     const commentReportList = await CommentReport.find();
     let finalReportList = [] 
-    const waitFor = (ms) => new Promise(r => setTimeout(r, ms));
 
-
-     commentReportList.forEach(async function(currentReport){
+    await Promise.all(
+     commentReportList.map(async function(currentReport){
       let comment = await Comment.findById(ObjectId(currentReport.commentId));
 
       let commentReport = {message: currentReport.message,commentDetails:comment}
       finalReportList.push(commentReport)
 
      })
-
-     await waitFor(300);
+    )
 
      return {
       success: true,
@@ -121,17 +121,36 @@ module.exports.getProductReports = async () => {
   try { 
    const productReportList = await ProductReport.find();
    var finalReportList = [] 
-   const waitFor = (ms) => new Promise(r => setTimeout(r, ms));
-
-    productReportList.forEach(async function(currentReport){
+    
+   await Promise.all(
+    productReportList.map(async function(currentReport){
      let product = await Product.findById(ObjectId(currentReport.productId));
+     let vendor = await Vendor.findById(product.vendorId);
+ 
+     tempProduct = {
+      category: product.category,
+      description: product.description,
+      name: product.name,
+      price: product.price,
+      originalPrice: product.originalPrice,
+      imageUrl: product.imageUrl,
+      rating: product.rating,
+      brand: product.brand,
+      productInfos: JSON.parse(product.productInfos),
+      vendor: {
+        name: vendor.name,
+        rating: vendor.rating,
+        id: product.vendorId.toString(),
+      },
+      id: product.id,
+    };
+   
 
-     let productReport = { message: currentReport.message, productDetails:product}
+     let productReport = { message: currentReport.message, productDetails:tempProduct}
      finalReportList.push(productReport)
     })
 
-  
-    await waitFor(300);
+   )
    
    
       return {
@@ -143,6 +162,7 @@ module.exports.getProductReports = async () => {
     
     
    } catch (error) {
+     console.log(error)
      return { success: false, message: error.message || error };
    }
  };
