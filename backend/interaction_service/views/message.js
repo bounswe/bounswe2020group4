@@ -155,3 +155,46 @@ module.exports.getLastMessages = async (params) => {
     return { success: false, message: error.message || error };
   }
 };
+
+module.exports.send = async (params) => {
+  try {
+    if (!params.userId || !params.userType || !params.withId || !params.withType || !params.message) {
+      return { success: false, message: ErrorMessage.MISSING_PARAMETER };
+    }
+
+    const UserModel = {
+      admin: Admin,
+      customer: Customer,
+      vendor: Vendor,
+    };
+
+    const User = UserModel[params.userType];
+    const WithUser = UserModel[params.withType];
+    let [user, withUser] = await Promise.all([
+      User.findById(ObjectId(params.userId)),
+      WithUser.findById(ObjectId(params.withId)),
+    ]);
+
+    if (!user || !withUser) {
+      return { success: false, message: ErrorMessage.USER_NOT_FOUND };
+    }
+
+    const message = new Message({
+      userId: params.id,
+      withId: params.withId,
+      userType: params.userType,
+      withType: params.withType,
+      message: params.message,
+      date: new Date(),
+    });
+
+    await message.save();
+
+    return {
+      success: true,
+      message: { message: params.message, id: message._id.toString(), date: new Date() },
+    };
+  } catch (error) {
+    return { success: false, message: error.message || error };
+  }
+};
