@@ -6,47 +6,6 @@ const { ErrorMessage } = require("../constants/error");
 
 
 
-module.exports.updateProduct = async (product_id,parameter) => {
-  try {
-    var innerParameter = parameter;
-    if(!!parameter.attributes){
-      product = await Product.findOne({ _id: ObjectId(product_id) });
-      product = product.toJSON()
-
-      var productAttributes = []
-      product.productInfos.forEach(function(item){
-        if(JSON.stringify(item.attributes) == JSON.stringify(parameter.attributes)){      
-          productAttributes.push(parameter)
-        }else{
-          productAttributes.push(item)
-        }
-
-      })
-
-      innerParameter = {"productInfos": productAttributes};
-    }
-
-    checker = Product.findByIdAndUpdate(product_id, innerParameter, 
-        function (err, docs) { 
-          if (err){ 
-            console.log(err) 
-          } 
-          else{ 
-            return true
-          } 
-        });
-        
-      if(checker){
-        product = await Product.findOne({ _id: ObjectId(product_id) });
-        return product
-      }
-    
-  } catch (error) {
-    console.log(error);
-    return "CHECK_UPDATE_PARAMETERS";
-  }
-};
-
 module.exports.addProducts = async (products) => {
   try {
     const dbProducts = [];
@@ -79,55 +38,21 @@ module.exports.addProducts = async (products) => {
 };
 
 
-
-module.exports.getVendorList = async () => {
-  try {
-    vendorList = await Vendor.find();
-
-    return vendorList;
-  } catch (error) {
-    console.log(error);
-    return error;
-  }
-};
-
 module.exports.getProducts = async (params) => {
   try {
     let products;
 
-    if (!params.vendorId) {
+    if (!params.vendorName) {
       return { success: false, message: ErrorMessage.MISSING_PARAMETER };
     }
 
     if (params.categories) {
-      products = await Product.find({ category: { $all: params.categories } });
+      products = await Product.find({ category: { $all: JSON.parse(params.categories) } });
     } else if (params.search) {
       products = await Product.find({ name: { $regex: params.search, $options: "i" } });
     }else{
       products = await Product.find();
     }
-
-    products = products.filter(function(product){
-        return JSON.stringify(params.vendorId) === JSON.stringify(product.vendorId)
-    })
-
-    products = await Promise.all(
-      products.map(async (product) => {
-        product = product.toJSON();
-          const vendor = await Vendor.findById(product.vendorId);
-          
-          product.vendor = {
-            name: vendor.name,
-            rating: vendor.rating,
-          };
-          product.id = product._id.toString();
-          
-          delete product._id;
-          delete product.vendorId;
-          
-          return product;
-      })
-    );
 
     var filterCriterias = [];
     var filteringConfig = {
@@ -349,6 +274,35 @@ module.exports.getProducts = async (params) => {
       });
     }
 
+    products = await Promise.all(
+      products.map(async (product) => {
+        product = product.toJSON();
+
+        const vendor = await Vendor.findById(product.vendorId);
+
+        product.vendor = {
+          name: vendor.name,
+          rating: vendor.rating,
+        };
+        product.id = product._id.toString();
+
+        delete product._id;
+        delete product.vendorId;
+
+        return product;
+      })
+    );
+
+
+    if(params.vendorName){
+      products = products.filter(product => product.vendor.name == params.vendorName)
+
+
+      if(products.length == 0){
+        return { success: false, message: ErrorMessage.VENDOR_NOT_FOUND };
+
+      }
+    }
     
 
     return { productList: products, filterCriterias };

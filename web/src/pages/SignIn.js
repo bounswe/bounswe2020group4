@@ -21,14 +21,6 @@ const SignIn = ({hideHeader, showHeader, setLoginState}) => {
 		return () => showHeader()
 	}, [])
 
-	//Setup google sign in button
-	useEffect(() => {
-		window.gapi.signin2.render('g-signin2', {
-			'scope': 'https://www.googleapis.com/auth/plus.login',
-			'onsuccess': onGoogleSignIn
-		})
-	}, [])
-
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 
@@ -61,20 +53,6 @@ const SignIn = ({hideHeader, showHeader, setLoginState}) => {
 	const redirectToSignup = function(e) {
 		e.preventDefault()
 		history.push('/signup')
-	}
-
-	const onGoogleSignIn = async (googleUser) => {
-		const id_token = await googleUser.getAuthResponse().id_token
-		const email = await googleUser.getBasicProfile().getEmail()
-		const response = await accountService.googleSignIn(id_token, email)
-		if(response?.id == null) {
-			alert("Something went wrong while trying to sign in with google")
-		} else if (response.banned) {
-			alert("Your account has been suspended. Please check your e-mail for further information.")
-		} else {
-			setLoginState({ userId: response.userId, userType: 'customer', isGoogleUser: true })
-			history.push('/')
-		}
 	}
 
 	return (
@@ -117,9 +95,9 @@ const SignIn = ({hideHeader, showHeader, setLoginState}) => {
 					>
 						SIGN IN
 					</Button>
-					<div className='google-signin-button-container pt-3'>
-						<div id="g-signin2" className='google-signin-button'/>
-					</div>
+					<Button className="submitButtonTransparent" variant="primary" type="submit">
+						SIGN IN WITH GOOGLE
+					</Button>
 					<Button
 						className="submitButtonTransparent"
 						variant="primary"
