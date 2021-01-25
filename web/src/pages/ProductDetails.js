@@ -42,9 +42,9 @@ const ProductDetails = () => {
 						name={product.name}
 						brand={product.brand}
 						price={product.price}
-						rating={product.rating}
+						rating={typeof product.rating !== 'undefined' ? product.rating : 0}
 						vendor={product.vendor.name}
-						vendorRating={product.vendor.rating}/>
+						vendorRating={typeof product.vendor.rating !== 'undefined' ? product.vendor.rating : 0}/>
 					<ProductPurchase productId={product.id} price={product.price} originalPrice={product.originalPrice} productInfos={product.productInfos}/>
 				</div>
 			</div>
