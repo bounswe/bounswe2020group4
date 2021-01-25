@@ -47,6 +47,9 @@ const Orders = ({isLoggedIn, userId}) => {
 
 	useEffect(async () => {
 		const orders = await orderService.getOrders(userId, 'customer')
+		if(orders.length === 0) {
+			return
+		}
 		const ordersList = []
 		let key
 		for(key of Object.keys(orders.orders)) {
@@ -61,26 +64,28 @@ const Orders = ({isLoggedIn, userId}) => {
 
 	return(
 		<div className="orders-container">
-			<div className='title px-5 py-3' >Orders</div>
+			<div className='customer-orders-title px-5 py-3' >Orders</div>
 			<TabPanel value={0} index={0}>
-				{orders && orders.map(o => (
-					<Accordion key={o.id} expanded={expanded === o.id} onChange={handleExpand(o.id)}>
-						<AccordionSummary
-							expandIcon={<ExpandMoreIcon />}
-							aria-controls={o.id + 'bh-content'}
-							id={o.id + 'bh-header'}
-						>
-							<div className="order-heading">
-								<div>Order No: {o.id}</div>
-								<div>Date: {new Date(Date.parse(o.data.date)).toLocaleString()}</div>
-								<div>Shipping: {o.data.shippingPrice + '₺'}</div>
-							</div>
-						</AccordionSummary>
-						<AccordionDetails>
-							<OrderDetails orderId={o.id} products={o.data.products} address={o.data.address}/>
-						</AccordionDetails>
-					</Accordion>
-				))}
+				{orders.length === 0 ?
+					'You can see your orders here.':
+					orders.map(o => (
+						<Accordion key={o.id} expanded={expanded === o.id} onChange={handleExpand(o.id)}>
+							<AccordionSummary
+								expandIcon={<ExpandMoreIcon />}
+								aria-controls={o.id + 'bh-content'}
+								id={o.id + 'bh-header'}
+							>
+								<div className="order-heading">
+									<div>Order No: {o.id}</div>
+									<div>Date: {new Date(Date.parse(o.data.date)).toLocaleString()}</div>
+									<div>Shipping: {o.data.shippingPrice + '₺'}</div>
+								</div>
+							</AccordionSummary>
+							<AccordionDetails>
+								<OrderDetails orderId={o.id} products={o.data.products} address={o.data.address}/>
+							</AccordionDetails>
+						</Accordion>
+					))}
 			</TabPanel>
 		</div>
 	)
