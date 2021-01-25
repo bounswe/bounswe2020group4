@@ -11,7 +11,7 @@ const ReportedProducts = () => {
     }, [])
 
     const renderProductCards = () => {
-        return reportedProducts.map((report) => <ReportedProductCard key={report.reportId} report={report} fetchReports={fetchReports}/>)
+        return reportedProducts?.map((report) => <ReportedProductCard key={report.productDetails?.id} report={report} fetchReports={fetchReports}/>)
     }
 
     const fetchReports = async () => {

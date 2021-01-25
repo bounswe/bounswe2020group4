@@ -4,22 +4,24 @@ import { removeComment, banUser } from '../../services'
 const ReportedCommentCard = ({ report, fetchReports }) => {
 
     const removeCommentHandler = async () => {
-        if(await removeComment(report.comment.id)) {
+        if(await removeComment(report.commentDetails?._id)) {
             console.log("Comment Removed and reports fetched again")
             fetchReports()
         } else {
             alert("Something went wrong while removing comment")
         }
+        fetchReports()
     }
 
     const banUserHandler = async () => {
         //!!!!!!!!!!User emaili i yolluyoruz suan placeholder olsun diye id yollamamiz lazim
-        if(await banUser(report.comment.owner.email)) {
+        if(await banUser(report.commentDetails?.userId)) {
             console.log("User banned and reports fetched again")
             fetchReports()
         } else {
             alert("Something went wrong while banning user")
         }
+        fetchReports()
     }
 
     return (
@@ -27,9 +29,8 @@ const ReportedCommentCard = ({ report, fetchReports }) => {
             <div className='container-fluid border rounded p-2' style={{ height: '100%' }}>
                 <div className='row'>
                     <div className='col-7 col-md-9'>
-                        <div className='fw-bold'>Report Message: {report.reportMessage}</div>
-                        <div>Comment: {report.comment.text}</div>
-                        <div>User Name: {report.comment.owner.username} | User Email: {report.comment.owner.email}</div>
+                        <div className='fw-bold'>Report Message: {report.message}</div>
+                        <div>Comment: {report.commentDetails?.text}</div>
                     </div>
                     <div className='col-5 col-md-3'>
                         <button className='btn btn-outline-danger my-2' onClick={removeCommentHandler}>Remove Comment</button>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Router, Route } from 'react-router-dom'
 import history from './util/history'
 import Homepage from './components/Homepage'
@@ -10,6 +10,10 @@ import './App.css'
 
 
 const App = () => {
+    useEffect(() => {
+        document.title = 'Buyo Admin'
+    }, [])
+
     return (
         <div className='page-container'>
             <Router history={history}>
