@@ -177,6 +177,6 @@ interface Api {
     @GET("notifications")
     fun fetchNotifications(
         @Query("userType") userType: String,
-        @Query("id") id: String
+        @Query("userId") id: String
     ):LiveData<ApiResponse<BaseResponse<Notification>>>
 }
