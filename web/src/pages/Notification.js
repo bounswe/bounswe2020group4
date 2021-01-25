@@ -35,7 +35,11 @@ const Notification = ({ showHeader, hideHeader, showVendorHeader, isLoggedIn, us
         if (notif.name == 'Discount') {
             history.push(`/product/${notif.target}`);
         } else if (notif.name == 'Cancel Order') {
-            history.push('/vendororders');
+            if (userType == 'vendor') {
+                history.push('/vendororders');
+            } else {
+                history.push('/orders');
+            }
         }
     }
 
