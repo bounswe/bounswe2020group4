@@ -6,6 +6,10 @@ import VendorProfileInfo from '../components/vendor-profile/VendorProfileInfo'
 import UpdatePassword from '../components/customer-profile/UpdatePassword'
 
 const VendorProfile = (props) => {
+	if(!props.isLoggedIn | props.userType != 'vendor') {
+		history.push('/vendorsignin')
+		return
+	}
 
 	useEffect(() => {
 		props.hideHeader()
@@ -31,4 +35,12 @@ const VendorProfile = (props) => {
 
 }
 
-export default connect(null, {showHeader, hideHeader, showVendorHeader, hideVendorHeader})(VendorProfile)
+const mapStateToProps = (state) => {
+	return {
+		isLoggedIn: state.signIn.isLoggedIn,
+		userId: state.signIn.userId,
+		userType: state.signIn.userType
+	}
+}
+
+export default connect(mapStateToProps, {showHeader, hideHeader, showVendorHeader, hideVendorHeader})(VendorProfile)

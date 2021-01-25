@@ -9,6 +9,11 @@ import Card from 'react-bootstrap/Card'
 import './Notification.css'
 
 const Notification = ({ showHeader, hideHeader, showVendorHeader, isLoggedIn, userId, userType }) => {
+    if(!isLoggedIn) {
+		history.push('/signin')
+		return
+    }
+    
     const [notifs, setNotifs] = useState([])
 
     const getNotifs = async () => {
