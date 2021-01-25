@@ -20,7 +20,7 @@ class NotificationViewModel @Inject constructor(
     @Inject
     lateinit var sharedPref: SharedPref
 
-    val notifications: LiveData<Resource<Notification>> =
+    val notifications: LiveData<Resource<NotificationResponse>> =
         Transformations.switchMap(_userId) { Id ->
             if (Id == null)
                 AbsentLiveData.create()

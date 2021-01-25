@@ -120,7 +120,7 @@ class NotificationFragment : BaseFragment() {
 
             if (it.status == Status.SUCCESS && it.data != null) {
                 val list = mutableListOf<NotificationRV>()
-                for (notification_item in it.data.items) {
+                for (notification_item in it.data.notifications.items) {
                     if (notification_item.name == "Discount") {
                         val itemRV = NotificationRV(notification_item.summary, notification_item.name,
                             notification_item.startTime, notification_item.target)

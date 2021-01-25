@@ -19,12 +19,12 @@ class NotificationRepository @Inject constructor(
     private val connectionManager: ConnectionManager
 ){
 
-    fun getNotifications(userId:String, userType:String): LiveData<Resource<Notification>> {
-        return object : NetworkServiceWrapper<Notification, BaseResponse<Notification>>(appExecutors,connectionManager){
-            override fun loadFromApi(data: BaseResponse<Notification>): LiveData<Notification> {
+    fun getNotifications(userId:String, userType:String): LiveData<Resource<NotificationResponse>> {
+        return object : NetworkServiceWrapper<NotificationResponse, BaseResponse<NotificationResponse>>(appExecutors,connectionManager){
+            override fun loadFromApi(data: BaseResponse<NotificationResponse>): LiveData<NotificationResponse> {
                 return InitialLiveData.create(data.data)
             }
-            override fun createCall(): LiveData<ApiResponse<BaseResponse<Notification>>> = api.fetchNotifications(userType, userId)
+            override fun createCall(): LiveData<ApiResponse<BaseResponse<NotificationResponse>>> = api.fetchNotifications(userType, userId)
         }.asLiveData()
     }
 }

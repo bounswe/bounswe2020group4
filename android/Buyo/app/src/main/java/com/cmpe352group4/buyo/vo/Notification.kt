@@ -3,6 +3,10 @@ package com.cmpe352group4.buyo.vo
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
+data class NotificationResponse (
+    var notifications: Notification
+): Serializable
+
 data class Notification (
     @SerializedName("@context")
     var context: String,
@@ -10,7 +14,6 @@ data class Notification (
     var type: String,
     var totalItems: Int,
     var items: List<NotificationItem>
-
 ):Serializable
 
 data class NotificationItem (
