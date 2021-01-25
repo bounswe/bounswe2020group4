@@ -273,7 +273,10 @@ module.exports.updateProductStatus = async (params) => {
       }
     } else if (params.status == "Returned") {
       // Check if the product can be returned.
-      if (!(Moment(orderedProduct.date).add(3, "days").toDate() < new Date()) || !orderedProduct.status.startsWith("Delivered at")) {
+      if (
+        !(Moment(orderedProduct.date).add(3, "days").toDate() < new Date()) ||
+        !orderedProduct.status.startsWith("Delivered at")
+      ) {
         return { success: false, message: ErrorMessage.SHOULD_BE_DELIVERED };
       } else {
         let db_product = await Product.findById(orderedProduct.productId);
@@ -316,7 +319,7 @@ module.exports.updateProductStatus = async (params) => {
       orderedProduct.status = params.status;
       await orderedProduct.save();
     }
-    if (statusChanged && params.status === "Cancelled" && params.status === "Returned") {
+    if (statusChanged && (params.status === "Cancelled" || params.status === "Returned")) {
       addNotification(params);
     }
     return { success: true };
@@ -402,7 +405,7 @@ module.exports.updateOrderStatus = async (params) => {
       })
     );
 
-    if (statusChanged && params.status === "Cancelled" && params.status === "Returned") {
+    if (statusChanged && (params.status === "Cancelled" || params.status === "Returned")) {
       addNotification(params);
     }
 
@@ -419,9 +422,18 @@ function updateStatusByDate(product, date) {
       // DO NOTHING
     } else if (Moment(date).add(5, "days").toDate() < new Date() && product.status !== "Approved") {
       product.status = "Approved";
-    } else if (Moment(date).add(3, "days").toDate() < new Date() && !product.status.startsWith("Delivered at") && product.status !== "Approved") {
+    } else if (
+      Moment(date).add(3, "days").toDate() < new Date() &&
+      !product.status.startsWith("Delivered at") &&
+      product.status !== "Approved"
+    ) {
       product.status = "Delivered at " + Moment(date).add(3, "days").toDate().toString();
-    } else if (Moment(date).add(1, "days").toDate() < new Date() && product.status !== "Shipped" && product.status.startsWith("Delivered at") && product.status !== "Approved") {
+    } else if (
+      Moment(date).add(1, "days").toDate() < new Date() &&
+      product.status !== "Shipped" &&
+      product.status.startsWith("Delivered at") &&
+      product.status !== "Approved"
+    ) {
       product.status = "Shipped";
     }
     return product;
