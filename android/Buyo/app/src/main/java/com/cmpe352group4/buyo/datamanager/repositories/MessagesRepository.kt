@@ -8,9 +8,7 @@ import com.cmpe352group4.buyo.api.Resource
 import com.cmpe352group4.buyo.base.AppExecutors
 import com.cmpe352group4.buyo.base.ConnectionManager
 import com.cmpe352group4.buyo.util.livedata.InitialLiveData
-import com.cmpe352group4.buyo.vo.BaseResponse
-import com.cmpe352group4.buyo.vo.LastMessageResponse
-import com.cmpe352group4.buyo.vo.LiveChatMessagesResponse
+import com.cmpe352group4.buyo.vo.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -36,6 +34,15 @@ class MessagesRepository @Inject constructor(
                 return InitialLiveData.create(data.data)
             }
             override fun createCall(): LiveData<ApiResponse<BaseResponse<LiveChatMessagesResponse>>> = api.fetchLiveChatMessages(userType = userType, id = id, withType = withType, withId = withId)
+        }.asLiveData()
+    }
+
+    fun sendMessage(sendMessageRequest: SendMessageRequest): LiveData<Resource<SendMessageResponse>> {
+        return object : NetworkServiceWrapper<SendMessageResponse, BaseResponse<SendMessageResponse>>(appExecutors,connectionManager){
+            override fun loadFromApi(data: BaseResponse<SendMessageResponse>): LiveData<SendMessageResponse> {
+                return InitialLiveData.create(data.data)
+            }
+            override fun createCall(): LiveData<ApiResponse<BaseResponse<SendMessageResponse>>> = api.sendMessage(sendMessageRequest)
         }.asLiveData()
     }
 

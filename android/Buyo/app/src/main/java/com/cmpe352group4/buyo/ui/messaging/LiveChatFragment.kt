@@ -15,18 +15,17 @@ import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
+import com.cmpe352group4.buyo.datamanager.socket.ISocketChangesListener
+import com.cmpe352group4.buyo.datamanager.socket.SocketManager
 import com.cmpe352group4.buyo.viewmodel.MessagesViewModel
 import com.cmpe352group4.buyo.vo.*
 import com.cmpe352group4.buyo.util.extensions.visible
 import com.google.gson.Gson
-import io.socket.client.IO
-import io.socket.client.Socket
-import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.fragment_live_chat.*
 import javax.inject.Inject
 
 
-class LiveChatFragment : BaseFragment() {
+class LiveChatFragment : BaseFragment(), ISocketChangesListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -34,7 +33,9 @@ class LiveChatFragment : BaseFragment() {
     @Inject
     lateinit var sharedPref: SharedPref
 
-    lateinit var mSocket: Socket
+    @Inject
+    lateinit var socketManager: SocketManager
+//    lateinit var mSocket: Socket
 
     lateinit var userId: String
     lateinit var userType: String
@@ -140,10 +141,14 @@ class LiveChatFragment : BaseFragment() {
             userId = sharedPref.getUserId() ?: ""
             userType = sharedPref.getUserType() ?: ""
 
-            connectToSocket()
-
-            val reverse: MutableList<LiveChatMessage> = messages.reversed().toMutableList();
-            liveChatAdapter.submitList(reverse)
+//            connectToSocket()
+//            socketManager.setSocketChangesListener(this)
+//            socketManager.addAllSocketListener()
+//            socketManager.onConnect()
+//            val data = DiscoverUserInfo(userType, userId)
+//            socketManager.onDiscover(data)
+//            val reverse: MutableList<LiveChatMessage> = messages.reversed().toMutableList();
+//            liveChatAdapter.submitList(reverse)
 
 
             messageViewModel.onFetchLiveChatMessages(LiveChatMessagesRequest(
@@ -172,9 +177,24 @@ class LiveChatFragment : BaseFragment() {
                 }
             })
 
+            messageViewModel.sendMessage.observe(viewLifecycleOwner, Observer {
+                if (it.status == Status.SUCCESS && it.data != null) {
+
+
+                    dispatchLoading()
+                } else if (it.status == Status.ERROR) {
+                    dispatchLoading()
+                } else if (it.status == Status.LOADING) {
+                    showLoading()
+                }
+            })
+
             rv_live_chat.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             rv_live_chat.adapter = liveChatAdapter
-            rv_live_chat.post(Runnable { rv_live_chat.smoothScrollToPosition(liveChatAdapter.getItemCount() - 1) })
+            if(liveChatAdapter.itemCount > 0 ){
+                rv_live_chat.post(Runnable { rv_live_chat.smoothScrollToPosition(liveChatAdapter.itemCount - 1) })
+            }
+
         }
 
         live_chat_back_button.setOnClickListener {
@@ -183,69 +203,37 @@ class LiveChatFragment : BaseFragment() {
 
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-
-        mSocket.disconnect()
+    override fun onDestroyView() {
+        super.onDestroyView()
+        socketManager.clearAllSocketListener()
     }
 
     private fun sendButtonListener(){
         btnSend.setOnClickListener {
             if(txtMessage.text.isNotEmpty()) {
-                mSocket.on("message", sentMessage)
+                val message = txtMessage.text.toString()
+//                val data = SendMessageSocket(id = userId, userType = userType, withId = withId, withType = withType, message = message)
+//                socketManager.onSentMessage(data)
+                val liveChatMessage = LiveChatMessage(id = "", date = "", message = message,
+                    user = MessageUserInfo(id = userId, name = "", userType = userType))
+
+                messageViewModel.onSendMessage(SendMessageRequest(userId = userId, userType = userType, withId = withId, withType = withType, message = message))
+                txtMessage.text.clear()
+                addItemToRecyclerView(liveChatMessage)
+
             } else {
                 Toast.makeText(context,"Message should not be empty", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    private fun connectToSocket(){
 
-        try {
-            mSocket = IO.socket(socketUrl)
-            Log.d("success", mSocket.id())
-
-        } catch (e: Exception) {
-            e.printStackTrace()
-            Log.d("fail", "Failed to connect")
-        }
-
-        mSocket.connect()
-        mSocket.on("discover", onDiscover)
-        mSocket.on("message", receiveMessage)
-
-    }
-
-    private var onDiscover = Emitter.Listener {
-
-        val data = DiscoverUserInfo(userType, userId)
-        val jsonData = gson.toJson(data) // Gson changes data object to Json type.
-        mSocket.emit("discover", jsonData)
-    }
-
-    private var receiveMessage = Emitter.Listener {
-
-        val message: SendMessageSocket = gson.fromJson(it[0].toString(), SendMessageSocket::class.java)
+    override fun onMessageReceived(message: SendMessageSocket) {
         if(withId == message.withId){
-//            val currentTime = LocalDateTime.now().toString()
             val liveChatMessage = LiveChatMessage(id = "", date = "", message = message.message,
                 user = MessageUserInfo(id = withId, name = withName, userType = withType))
             addItemToRecyclerView(liveChatMessage)
         }
-    }
-
-    private var sentMessage = Emitter.Listener {
-        val message = txtMessage.text.toString()
-        val data = SendMessageSocket(id = userId, userType = userType, withId = withId, withType = withType, message = message)
-        val jsonData = gson.toJson(data) // Gson changes data object to Json type.
-        mSocket.emit("message", jsonData)
-
-//        val currentTime = LocalDateTime.now().toString()
-        val liveChatMessage = LiveChatMessage(id = "", date = "", message = message,
-            user = MessageUserInfo(id = userId, name = "", userType = userType))
-
-        addItemToRecyclerView(liveChatMessage)
-
     }
 
     private fun addItemToRecyclerView(message: LiveChatMessage) {
@@ -255,4 +243,7 @@ class LiveChatFragment : BaseFragment() {
         }
     }
 
+    override fun onConnected() {
+        Log.i("SOCKET", "connected")
+    }
 }

@@ -229,7 +229,7 @@ class LoginFragment : BaseFragment() {
 
         // Validity Checks
         isValidEmail = android.util.Patterns.EMAIL_ADDRESS.matcher(customerEmail).matches()
-        isValidPassword = password1.length >= 6
+        isValidPassword = password1.length >= 0
 
         // Other Checks
         passwordSame = password1 == password2

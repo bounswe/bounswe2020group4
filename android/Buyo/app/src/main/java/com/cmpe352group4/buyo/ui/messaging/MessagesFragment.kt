@@ -78,14 +78,14 @@ class MessagesFragment : BaseFragment() {
             messageViewModel.lastMessages.observe(viewLifecycleOwner, Observer {
                 if (it.status == Status.SUCCESS && it.data != null) {
 
-                    lastMessageAdapter.submitList(lastMessageList)
+//                    lastMessageAdapter.submitList(lastMessageList)
 
-//                    if(it.data.lastMessages.isNullOrEmpty()){
-//                        tv_message_empty.visible = true
-//                    }else{
-//                        tv_message_empty.visible = false
-//                        lastMessageAdapter.submitList(it.data.lastMessages as MutableList<LastMessages>)
-//                    }
+                    if(it.data.lastMessages.isNullOrEmpty()){
+                        tv_message_empty.visible = true
+                    }else{
+                        tv_message_empty.visible = false
+                        lastMessageAdapter.submitList(it.data.lastMessages as MutableList<LastMessages>)
+                    }
 
                     dispatchLoading()
                 } else if (it.status == Status.ERROR) {

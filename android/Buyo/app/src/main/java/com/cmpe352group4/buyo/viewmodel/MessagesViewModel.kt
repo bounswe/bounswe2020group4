@@ -7,10 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.cmpe352group4.buyo.api.Resource
 import com.cmpe352group4.buyo.datamanager.repositories.MessagesRepository
 import com.cmpe352group4.buyo.util.livedata.AbsentLiveData
-import com.cmpe352group4.buyo.vo.LastMessageRequest
-import com.cmpe352group4.buyo.vo.LastMessageResponse
-import com.cmpe352group4.buyo.vo.LiveChatMessagesRequest
-import com.cmpe352group4.buyo.vo.LiveChatMessagesResponse
+import com.cmpe352group4.buyo.vo.*
 import javax.inject.Inject
 
 
@@ -20,6 +17,7 @@ class MessagesViewModel @Inject constructor(
 
     private val _userInfo = MutableLiveData<LastMessageRequest>()
     private val _liveChat = MutableLiveData<LiveChatMessagesRequest>()
+    private val _sendMessage = MutableLiveData<SendMessageRequest>()
 
     val lastMessages: LiveData<Resource<LastMessageResponse>> =
         Transformations.switchMap(_userInfo) { it ->
@@ -37,6 +35,14 @@ class MessagesViewModel @Inject constructor(
                 repository.getLiveChatMessages(it.userType, it.id, it.withType, it.withId)
         }
 
+    val sendMessage: LiveData<Resource<SendMessageResponse>> =
+        Transformations.switchMap(_sendMessage) { it ->
+            if (it == null)
+                AbsentLiveData.create()
+            else
+                repository.sendMessage(it)
+        }
+
     fun onFetchLastMessages(userInfo: LastMessageRequest) {
         if (_userInfo.value == null) {
             _userInfo.value = userInfo
@@ -45,6 +51,10 @@ class MessagesViewModel @Inject constructor(
 
     fun onFetchLiveChatMessages(liveChat: LiveChatMessagesRequest) {
         _liveChat.value = liveChat
+    }
+
+    fun onSendMessage(message: SendMessageRequest) {
+        _sendMessage.value = message
     }
 
 }

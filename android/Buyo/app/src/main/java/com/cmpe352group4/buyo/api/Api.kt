@@ -236,5 +236,10 @@ interface Api {
         @Query("type") type: String
     ):LiveData<ApiResponse<BaseResponse<ProductResponseRec>>>
 
+    @POST("message")
+    fun sendMessage(
+        @Body() message : SendMessageRequest
+    ) : LiveData<ApiResponse<BaseResponse<SendMessageResponse>>>
+
 
 }
