@@ -73,7 +73,7 @@ module.exports.initialize = (app) => {
     });
   });
 
-  app.delete("/vendor/product/:vendorId", async (request, response) => {
+  app.post("/vendor/product/:vendorId", async (request, response) => {
     var parameter = request.body;
     parameter["vendorId"] = request.params.vendorId;
 
