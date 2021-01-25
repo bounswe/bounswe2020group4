@@ -9,6 +9,11 @@ import Card from 'react-bootstrap/Card'
 import './Notification.css'
 
 const Notification = ({ showHeader, hideHeader, showVendorHeader, isLoggedIn, userId, userType }) => {
+    if(!isLoggedIn) {
+		history.push('/signin')
+		return
+    }
+    
     const [notifs, setNotifs] = useState([])
 
     const getNotifs = async () => {
@@ -35,7 +40,11 @@ const Notification = ({ showHeader, hideHeader, showVendorHeader, isLoggedIn, us
         if (notif.name == 'Discount') {
             history.push(`/product/${notif.target}`);
         } else if (notif.name == 'Cancel Order') {
-            history.push('/vendororders');
+            if (userType == 'vendor') {
+                history.push('/vendororders');
+            } else {
+                history.push('/orders');
+            }
         }
     }
 
