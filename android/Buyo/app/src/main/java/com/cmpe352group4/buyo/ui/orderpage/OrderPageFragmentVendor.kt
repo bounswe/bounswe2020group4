@@ -120,11 +120,17 @@ class OrderPageFragmentVendor : BaseFragment() {
     }
 
     private fun secondButtonOrderItemListener(order: OrderProductVendorRV) {
-        if (order.status=="Pending" || order.status=="Approved"){
+        if (order.status=="Pending"){
             // Cancel
             navigationManager?.onReplace(
                 UpdateStatusFragment.newInstance(sharedPref.getUserId()!!, order.orderID,
                     order.orderedProductId, "vendor", "Cancelled"),
+                TransactionType.Replace, true
+            )
+        }
+        else if (order.status=="Approved") {
+            navigationManager?.onReplace(
+                LiveChatFragment.newInstance(withId = order.customerID, withType = "customer", withName = "*****"),
                 TransactionType.Replace, true
             )
         }

@@ -89,9 +89,9 @@ class OrderAdapterVendor (
                 itemView.first_button.setTextColor(Color.WHITE)
 
                 itemView.second_button.visibility = View.VISIBLE
-                itemView.second_button.text = "Cancel"
-                itemView.second_button.setBackgroundColor(Color.parseColor("#E53C38")) // light red
-                itemView.second_button.setTextColor(Color.WHITE)
+                itemView.second_button.text = "Message Customer"
+                itemView.second_button.setBackgroundColor(Color.parseColor("#fedebe")) // light red
+                itemView.second_button.setTextColor(Color.BLACK)
             }
             else if (orderStatus=="Shipped") {
                 itemView.tv_header.setBackgroundColor(Color.parseColor("#fedebe")) // light orange
