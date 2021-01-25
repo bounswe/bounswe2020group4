@@ -60,7 +60,7 @@ module.exports.initialize = (app) => {
         }
 
         const User = UserModel[payload.userType];
-        const WithUser = UserModel[payload.userType];
+        const WithUser = UserModel[payload.withType];
         let [user, withUser] = await Promise.all([
           User.findById(ObjectId(payload.id)),
           WithUser.findById(ObjectId(payload.withId)),

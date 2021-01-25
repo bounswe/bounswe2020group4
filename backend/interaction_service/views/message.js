@@ -35,7 +35,7 @@ module.exports.getMessages = async (params) => {
           userId: ObjectId(params.withId),
           userType: params.withType,
           withId: ObjectId(params.id),
-          withType: params.withType,
+          withType: params.userType,
         },
       ],
     }).sort({

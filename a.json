@@ -1,0 +1,21 @@
+{
+    "_id": {
+        "$oid": "600ee191c3fe550019593e43"
+    },
+    "category": [
+        "Women",
+        "Dress"
+    ],
+    "name": "Floral Dress",
+    "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.us-east-2.amazonaws.com/images/16115879733130",
+    "description": "Flowy dress for summer days!",
+    "rating": 0,
+    "price": 129.99,
+    "originalPrice": 129.99,
+    "brand": "Minito",
+    "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"s\"}],\"stockValue\":\"10\"},{\"attributes\":[{\"name\":\"size\",\"value\":\"m\"}],\"stockValue\":\"12\"},{\"attributes\":[{\"name\":\"size\",\"value\":\"l\"}],\"stockValue\":\"15\"}]",
+    "vendorId": {
+        "$oid": "600ee191c3fe550019593e42"
+    },
+    "__v": 0
+}
