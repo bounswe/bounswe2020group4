@@ -107,6 +107,10 @@ module.exports.addProducts = async (products) => {
         "brand" in product &&
         "productInfos" in product &&
         "vendorId" in product;
+
+        if(!checker){
+          return "Please check your parameters"
+        }
       const newProduct = new Product({
         name: product.name,
         imageUrl: product.imageUrl,
