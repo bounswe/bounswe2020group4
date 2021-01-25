@@ -83,6 +83,7 @@ const Messages = ({isLoggedIn, userId, userType, hideHeader, showHeader, hideVen
 		})
 
 		const messages = await messageService.getLastMessages(userId, userType)
+		console.log(messages)
 		setLastMessages(messages)
 
 		return () => {
@@ -145,7 +146,7 @@ const Messages = ({isLoggedIn, userId, userType, hideHeader, showHeader, hideVen
 						</List>
 					</Grid>
 					<Grid item xs={9}>
-						{displayedMessages.length !== 0 ?
+						{displayedMessages.length !== 0 && lastMessages.length !== 0 ?
 							<List className={classes.messageArea}>
 								{displayedMessages.map(m =>
 									<ListItem key={m.id}>
