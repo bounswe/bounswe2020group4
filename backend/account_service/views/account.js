@@ -445,6 +445,7 @@ module.exports.signup = async (params) => {
         website: params.website,
         company: params.company,
         name: params.name,
+        rating: 0,
         status: "not-verified",
       });
     }
