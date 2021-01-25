@@ -220,6 +220,7 @@ class LiveChatFragment : BaseFragment(), ISocketChangesListener {
                 messageViewModel.onSendMessage(SendMessageRequest(userId = userId, userType = userType, withId = withId, withType = withType, message = message))
                 txtMessage.text.clear()
                 addItemToRecyclerView(liveChatMessage)
+                tv_live_chat_empty.visible = false
 
             } else {
                 Toast.makeText(context,"Message should not be empty", Toast.LENGTH_SHORT).show()
