@@ -21,7 +21,7 @@ module.exports.getWishlist = async (customerId) => {
         product = product.toJSON();
 
         const vendor = await Vendor.findOne({ _id: product.vendorId });
-
+        2;
         return {
           vendor: {
             name: vendor.name,
@@ -35,7 +35,7 @@ module.exports.getWishlist = async (customerId) => {
           price: product.price,
           originalPrice: product.originalPrice,
           imageUrl: product.imageUrl,
-          rating: product.rating,
+          rating: product.rating ? Number(parseFloat(product.rating).toFixed(2)) : 0,
           brand: product.brand,
           productInfos: JSON.parse(product.productInfos),
         };
