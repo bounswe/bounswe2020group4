@@ -36,7 +36,11 @@ class ProductListAdapter(
     }
 
     override fun onBindViewHolder(holder: ProductListViewHolder, position: Int) {
-        holder.bind(Products[position])
+        try {
+            holder.bind(Products[position])
+        }catch (e:Exception){
+
+        }
     }
 
     override fun getItemCount(): Int {
@@ -54,13 +58,34 @@ class ProductListAdapter(
             itemView.iv_productListRecyclerView_Fav.tag = R.drawable.ic_product_disliked
             itemView.iv_productListRecyclerView_Cart.tag = R.drawable.ic_add2cart
 
-            itemView.tv_productListRecyclerView_Info.text = "Brand: " + modal.brand + " / Vendor: " + modal.vendor.name + " / Vendor Rating : " + modal.vendor.rating.toString()
-            itemView.tv_productListRecyclerView_Name.text = modal.name
-            itemView.tv_productListRecyclerView_Rate.text = "Rating: " + modal.rating.toString()
-            itemView.tv_productListRecyclerView_Price.text = modal.price.toString() + " ₺"
-            Glide.with(itemView.context)
-                .load(modal.imageUrl).centerCrop()
-                .into(itemView.iv_productListRecyclerView_Image)
+            try {
+                itemView.tv_productListRecyclerView_Info.text =
+                    "Brand: " + modal.brand + " / Vendor: " + modal.vendor.name + " / Vendor Rating : " + modal.vendor.rating.toString()
+            }catch (e : Exception){
+
+            }
+            try {
+                itemView.tv_productListRecyclerView_Name.text = modal.name
+            }catch (e : Exception){
+
+            }
+            try {
+                itemView.tv_productListRecyclerView_Rate.text = "Rating: " + modal.rating.toString()
+            }catch (e : Exception){
+
+            }
+            try {
+                itemView.tv_productListRecyclerView_Price.text = modal.price.toString() + " ₺"
+            }catch (e : Exception){
+
+            }
+            try {
+                Glide.with(itemView.context)
+                    .load(modal.imageUrl).centerCrop()
+                    .into(itemView.iv_productListRecyclerView_Image)
+            }catch (e : Exception){
+
+            }
 
             itemView.setOnClickListener { clickCallback.invoke(modal) }
 

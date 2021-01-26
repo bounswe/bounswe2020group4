@@ -124,25 +124,6 @@ class VendorProductListFragment: BaseFragment() {
             }
         })
 
-
-        /*
-
-        sampleProductsViewModel.onFetchSearchResultbyKeyword("d", emptyMap<String, String>())
-
-        sampleProductsViewModel.searchResult.observe(viewLifecycleOwner, Observer {
-
-            if (it.status == Status.SUCCESS && it.data != null){
-                vendorProductListAdapter.submitList(it.data.products.productList as MutableList<Product>)
-
-                dispatchLoading()
-            } else if (it.status == Status.ERROR){
-                dispatchLoading()
-            }else if (it.status == Status.LOADING){
-                showLoading()
-            }
-        })
-        */
-
         btn_vendorProductList_back.setOnClickListener {
             activity?.onBackPressed()
         }

@@ -108,7 +108,7 @@ class AddProductFragment : BaseFragment() {
             category = category_path.split(","), // Done
             name = "ProductName", // Done
             imageUrl = "some_url", // Not yet
-            rating = 2.5, // Cant
+            rating = 0.0, // Cant
             price = 0.0, // Done
             originalPrice = 0.0, // Done
             filterCriterias = emptyList(), // Done
