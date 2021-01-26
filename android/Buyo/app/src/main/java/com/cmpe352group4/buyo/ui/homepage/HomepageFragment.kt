@@ -133,7 +133,7 @@ class HomepageFragment : BaseFragment() {
 
         // Discount RV
 
-        discountViewModel.onFetchSearchResultbyCategory( "[\"Women Clothing\"]", emptyMap())
+        discountViewModel.onFetchSearchResultbyCategory( "[\"Desks\"]", emptyMap())
 
         discountViewModel.categoryResult.observe(viewLifecycleOwner, Observer {
 

@@ -154,8 +154,11 @@ class OrderPageFragmentVendor : BaseFragment() {
                                 product.name, product.imageUrl, product.price,
                                 product.quantity, product.attributes, product.status, product.orderedProductId)
                         ordersListRV.add(orderRV)
+                        
                     }
+                    orderlist_total_earnings.text = order.totalEarnings.toString() + " ₺"
                 }
+
 
                 orderAdapter.submitList(ordersListRV)
 

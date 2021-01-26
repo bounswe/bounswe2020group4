@@ -51,7 +51,7 @@
         android:id="@+id/orderlist_total_earnings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Total Earnings: 10000 ₺"
+        android:text="Total Earnings: 0 ₺"
         android:gravity="center"
         android:textStyle="bold"
         android:textSize="15sp"
