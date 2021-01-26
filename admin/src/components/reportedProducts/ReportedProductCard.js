@@ -41,7 +41,7 @@ const ReportedProductCard = ({ report, fetchReports, removeReportedProduct }) =>
 
     return (
         <div className='container-fluid border rounded p-2 mb-4' style={{ width: '48%' }}>
-            <div className='fw-bold'>Report Message: {report.reportMessage}</div>
+            <div className='fw-bold'>Report Message: {report.message}</div>
             <hr />
             <div className='row'>
                 <div className='col-4'>
