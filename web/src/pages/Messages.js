@@ -79,7 +79,7 @@ const Messages = ({isLoggedIn, userId, userType, hideHeader, showHeader, hideVen
 		socketRef.current.emit('discover', {id: userId, userType: userType})
 
 		socketRef.current.on('message', function (data) {
-			if(displayedUserId !== null) {
+			if(displayedUserId !== null && displayedUserId === data.user.id) {
 				setDisplayedMessages((displayedMessages) => [...displayedMessages, {...data}])
 			}
 		})
