@@ -38,7 +38,7 @@ const VendorProductOrder = ({orderId, userId, userType, productId, imgUrl, name,
 	}
 
 	const handleCancelProductOrder = async () => {
-		const response = await orderService.updateProductOrderStatus(userType, userId, 'Canceled', orderId, productId)
+		const response = await orderService.updateProductOrderStatus(userType, userId, 'Cancelled', orderId, productId)
 		if (response == 200) {
 			alert('Order is successfully canceled.')
 			history.go(0)
