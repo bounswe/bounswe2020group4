@@ -7,10 +7,8 @@ import androidx.lifecycle.ViewModel
 import com.cmpe352group4.buyo.api.Resource
 import com.cmpe352group4.buyo.datamanager.repositories.ProductRepository
 import com.cmpe352group4.buyo.util.livedata.AbsentLiveData
-import com.cmpe352group4.buyo.vo.BaseResponsePostRequest
+import com.cmpe352group4.buyo.vo.*
 //import com.cmpe352group4.buyo.vo.ProductResponse
-import com.cmpe352group4.buyo.vo.ProductResult
-import com.cmpe352group4.buyo.vo.ReportRequest
 import javax.inject.Inject
 
 class ProductViewModel @Inject constructor(
@@ -36,7 +34,7 @@ class ProductViewModel @Inject constructor(
                 repository.getProductById(Id)
         }
 
-    val reportComment: LiveData<Resource<BaseResponsePostRequest>> =
+    val reportComment: LiveData<Resource<BaseResponse<ReportCommentResponse>>> =
         Transformations.switchMap(_commentReport) { it
             if (it == null)
                 AbsentLiveData.create()
@@ -44,12 +42,12 @@ class ProductViewModel @Inject constructor(
                 repository.reportComment(it.id, it.message)
         }
 
-    val reportProduct: LiveData<Resource<BaseResponsePostRequest>> =
+    val reportProduct: LiveData<Resource<BaseResponse<ReportProductResponse>>> =
         Transformations.switchMap(_productReport) { it
             if (it == null)
                 AbsentLiveData.create()
             else
-                repository.reportComment(it.id, it.message)
+                repository.reportProduct(it.id, it.message)
         }
 
     //val productList: LiveData<Resource<ProductResponse>> =

@@ -15,15 +15,20 @@ import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
+import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
 import com.cmpe352group4.buyo.viewmodel.ProductViewModel
 import com.cmpe352group4.buyo.viewmodel.SearchViewModel
+import com.cmpe352group4.buyo.viewmodel.VendorViewModel
 import com.cmpe352group4.buyo.vo.Product
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_vendor_product_list.*
 import javax.inject.Inject
 
 class VendorProductListFragment: BaseFragment() {
+
+    @Inject
+    lateinit var sharedPref: SharedPref
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -34,6 +39,10 @@ class VendorProductListFragment: BaseFragment() {
         viewModelFactory
     }
     private val productViewModel: ProductViewModel by viewModels {
+        viewModelFactory
+    }
+
+    private val vendorViewModel : VendorViewModel by viewModels {
         viewModelFactory
     }
 
@@ -68,7 +77,14 @@ class VendorProductListFragment: BaseFragment() {
                 }
             })
 
-        })
+        },
+            {product ->
+
+                navigationManager?.onReplace(
+                    DeleteProductFragment.newInstance(id = product.id, name = product.name),
+                    TransactionType.Replace, true
+                )
+            })
     }
 
     companion object {
@@ -94,13 +110,12 @@ class VendorProductListFragment: BaseFragment() {
 
         rv_vendorProductList.layoutManager = LinearLayoutManager(this.context)
 
-        sampleProductsViewModel.onFetchSearchResultbyKeyword("d", emptyMap<String, String>())
 
-        sampleProductsViewModel.searchResult.observe(viewLifecycleOwner, Observer {
+        vendorViewModel.onFetchVendorProducts(sharedPref.getUserId() ?: "")
 
+        vendorViewModel.vendorProducts.observe(viewLifecycleOwner, Observer {
             if (it.status == Status.SUCCESS && it.data != null){
-                vendorProductListAdapter.submitList(it.data.products.productList as MutableList<Product>)
-
+                vendorProductListAdapter.submitList(it.data.result.productList as MutableList<Product>)
                 dispatchLoading()
             } else if (it.status == Status.ERROR){
                 dispatchLoading()
@@ -112,7 +127,6 @@ class VendorProductListFragment: BaseFragment() {
         btn_vendorProductList_back.setOnClickListener {
             activity?.onBackPressed()
         }
-
     }
 
 }

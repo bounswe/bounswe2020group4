@@ -8,12 +8,17 @@ import com.cmpe352group4.buyo.ui.categories.CategoriesPageFragment
 import com.cmpe352group4.buyo.ui.googlemap.MapsFragment
 import com.cmpe352group4.buyo.ui.homepage.HomepageFragment
 import com.cmpe352group4.buyo.ui.image_utils.ImageUploadFragment
+import com.cmpe352group4.buyo.ui.login.CustomerResetPasswordFragment
 import com.cmpe352group4.buyo.ui.login.LoginFragment
 import com.cmpe352group4.buyo.ui.login.LoginFragmentVendor
+import com.cmpe352group4.buyo.ui.messaging.LiveChatFragment
+import com.cmpe352group4.buyo.ui.messaging.MessagesFragment
+import com.cmpe352group4.buyo.ui.login.VendorResetPasswordFragment
 import com.cmpe352group4.buyo.ui.navigationtabs.*
 import com.cmpe352group4.buyo.ui.notification.NotificationFragment
 import com.cmpe352group4.buyo.ui.orderpage.OrderPageFragment
 import com.cmpe352group4.buyo.ui.orderpage.OrderPageFragmentVendor
+import com.cmpe352group4.buyo.ui.orderpage.endpoint_framents.UpdateStatusFragment
 import com.cmpe352group4.buyo.ui.productDetail.AddCartFragment
 import com.cmpe352group4.buyo.ui.productDetail.ProductCommentReportFragment
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailCommentsFragment
@@ -21,13 +26,10 @@ import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
 import com.cmpe352group4.buyo.ui.productList.ListSortFilterFragment
 import com.cmpe352group4.buyo.ui.productList.ProductListFragment
 import com.cmpe352group4.buyo.ui.profilePage.*
+import com.cmpe352group4.buyo.ui.vendor.*
 import com.cmpe352group4.buyo.ui.vendorProfilePage.VendorAccountInfoFragment
 import com.cmpe352group4.buyo.ui.vendorProfilePage.VendorChangePasswordFragment
 import com.cmpe352group4.buyo.ui.vendorProfilePage.VendorProfilePageFragment
-import com.cmpe352group4.buyo.ui.vendor.AddProductCategoryFragment
-import com.cmpe352group4.buyo.ui.vendor.AddStockValuesFragment
-import com.cmpe352group4.buyo.ui.vendor.AddProductFragment
-import com.cmpe352group4.buyo.ui.vendor.VendorProductListFragment
 import com.cmpe352group4.buyo.ui.wishList.WishListFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -146,8 +148,26 @@ abstract class FragmentsBuilderModule {
     abstract fun contributeVendorProductListFragment(): VendorProductListFragment
 
     @ContributesAndroidInjector
-    abstract  fun contributeOrderPageFragmentVendor(): OrderPageFragmentVendor
+    abstract fun contributeOrderPageFragmentVendor(): OrderPageFragmentVendor
 
     @ContributesAndroidInjector
     abstract  fun contributeNotificationFragment(): NotificationFragment
+
+    @ContributesAndroidInjector
+    abstract  fun contributeMessagesFragment(): MessagesFragment
+
+    @ContributesAndroidInjector
+    abstract  fun contributeLiveChatFragment(): LiveChatFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeCustomerResetPasswordFragment(): CustomerResetPasswordFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeVendorResetPasswordFragment(): VendorResetPasswordFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeUpdateStatusFragment(): UpdateStatusFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeDeleteProductFragment(): DeleteProductFragment
 }

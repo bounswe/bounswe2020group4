@@ -25,6 +25,7 @@ import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.imagesearch.ImageClassifier
 import com.cmpe352group4.buyo.imagesearch.ImageSearchFragment
 import com.cmpe352group4.buyo.imagesearch.Keys
+import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
 import com.cmpe352group4.buyo.ui.productList.ProductListFragment
 import com.cmpe352group4.buyo.ui.vendor.AddProductCategoryFragment
@@ -49,6 +50,9 @@ class HomepageFragment : BaseFragment() {
 
     @Inject
     lateinit var viewModelFactory2: ViewModelProvider.Factory
+
+    @Inject
+    lateinit var sharedPref: SharedPref
 
     private val recommendedViewModel: SearchViewModel by viewModels {
         viewModelFactory
@@ -119,16 +123,19 @@ class HomepageFragment : BaseFragment() {
             }
         })
 
-        // TODO A view model should be implemented, that contains both recommended and discounted
-        // TODO products. Using multiple viewmodels in a fragment causes bugs, i guess.
-
         // Recommendation RV
-        recommendedViewModel.onFetchSearchResultbyKeyword("d", emptyMap<String, String>())
 
-        recommendedViewModel.searchResult.observe(viewLifecycleOwner, Observer {
+        var userIdForRec = "placeholder"
+        if (!sharedPref.getUserId().isNullOrEmpty()) {
+            userIdForRec = sharedPref.getUserId()!!
+        }
+
+        recommendedViewModel.onFetchRecommendations(userIdForRec)
+        recommendedViewModel.recommendationResult.observe(viewLifecycleOwner, Observer {
 
             if (it.status == Status.SUCCESS && it.data != null){
-                recommendedProductListAdapter.submitList(it.data.products.productList as MutableList<Product>)
+
+                recommendedProductListAdapter.submitList(it.data.productList as MutableList<Product>)
 
                 dispatchLoading()
             } else if (it.status == Status.ERROR){
@@ -146,11 +153,13 @@ class HomepageFragment : BaseFragment() {
 
         // Discount RV
 
-        discountViewModel.onFetchSearchResultbyCategory( "[\"Women Clothing\"]", emptyMap())
+        discountViewModel.onFetchSearchResultbyCategory( "[\"Desks\"]", emptyMap())
 
         discountViewModel.categoryResult.observe(viewLifecycleOwner, Observer {
 
             if (it.status == Status.SUCCESS && it.data != null){
+
+                Log.v("Homepage", it.data.toString())
 
                 discountProductListAdapter.submitList(it.data.products.productList as MutableList<Product>)
 
@@ -225,4 +234,12 @@ class HomepageFragment : BaseFragment() {
         classifier.close()
     }
 
+    override fun onResume() {
+        super.onResume()
+        var userIdForRec = "placeholder"
+        if (!sharedPref.getUserId().isNullOrEmpty()) {
+            userIdForRec = sharedPref.getUserId()!!
+        }
+        recommendedViewModel.onFetchRecommendations(userIdForRec)
+    }
 }

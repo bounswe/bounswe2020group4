@@ -23,4 +23,6 @@ interface ISharedPref {
     fun saveRememberMe(boolean: Boolean)
     fun getVerified(): Boolean
     fun saveVerified(boolean: Boolean)
+    fun isGoogleSignin(): Boolean
+    fun saveIsGoogleSignin(boolean: Boolean)
 }

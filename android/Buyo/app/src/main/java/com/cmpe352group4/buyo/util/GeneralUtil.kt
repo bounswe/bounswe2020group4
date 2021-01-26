@@ -6,6 +6,8 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import com.cmpe352group4.buyo.R
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class GeneralUtil {
     companion object{
@@ -66,6 +68,10 @@ class GeneralUtil {
                 p0.dismiss()
             }
             dialog.show()
+        }
+
+        inline fun <reified T> convertFromJson(json: String, gson: Gson): T {
+            return gson.fromJson(json, object : TypeToken<T>() {}.type)
         }
 
     }

@@ -2,10 +2,7 @@ package com.cmpe352group4.buyo.api
 
 import androidx.lifecycle.LiveData
 import com.cmpe352group4.buyo.vo.*
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
-import retrofit2.http.QueryMap
+import retrofit2.http.*
 
 interface Api {
 
@@ -61,7 +58,8 @@ interface Api {
         @Query("longitude") longitude: String,
         @Query("latitude") latitude: String,
         @Query("website") website: String,
-        @Query("company") company: String
+        @Query("company") company: String,
+        @Query("name") name: String
     ): LiveData<ApiResponse<BaseResponse<LoginSingupResponse>>>
 
     @POST("login")
@@ -126,7 +124,13 @@ interface Api {
     fun fetchOrders(
         @Query("id") userId: String,
         @Query("userType") userType: String
-    ): LiveData<ApiResponse<BaseResponse<Map<String, Order>>>>
+    ): LiveData<ApiResponse<BaseResponse<OrderResponse>>>
+
+    @GET("order")
+    fun fetchOrdersVendor(
+        @Query("id") userId: String,
+        @Query("userType") userType: String
+    ): LiveData<ApiResponse<BaseResponse<OrderResponseVendor>>>
 
     @POST("account")
     fun saveAccountInfo(
@@ -144,22 +148,106 @@ interface Api {
         @Query("id") id: String,
         @Query("userType") userType: String,
         @Query("email") email: String,
-        @Query("longitude") name: String,
-        @Query("latitude") surname: String,
-        @Query("website") phoneNumber: String,
-        @Query("company") gender: String
+        @Query("longitude") longitude: String,
+        @Query("latitude") latitude: String,
+        @Query("website") website: String,
+        @Query("company") company: String
     ): LiveData<ApiResponse<BaseResponsePostRequest>>
 
-    @POST("report_comment")
+    @POST("report/comment")
     fun reportComment(
         @Query("commentId") commentID : String,
         @Query("message") message : String
-    ):LiveData<ApiResponse<BaseResponsePostRequest>>
+    ):LiveData<ApiResponse<BaseResponse<ReportCommentResponse>>>
 
-    @POST("report_product")
+    @POST("report/product")
     fun reportProduct(
         @Query("productId") commentID : String,
         @Query("message") message : String
+    ):LiveData<ApiResponse<BaseResponse<ReportProductResponse>>>
+
+    @POST("file")
+    fun uploadImage(
+        @Body( ) image : ByteArray
+    ):LiveData<ApiResponse<BaseResponse<UploadImageResponse>>>
+
+    @GET("vendor/products/{vendorID}")
+    fun getVendorProducts(
+        @Path("vendorID") vendorID : String
+    ) : LiveData<ApiResponse<BaseResponse<VendorProductResponseResult>>>
+
+    @POST("vendor/products")
+    fun addProduct(
+        @Query("vendorId") vendorID : String,
+        @Body() product : List<AddProduct>
+    ) : LiveData<ApiResponse<BaseResponse<AddProductResponseResult>>>
+
+    @PATCH("vendor/wholeproducts/{productID}")
+    fun updateProduct(
+        @Path("productID") productID : String,
+        @Body() product : Product
+    ) : LiveData<ApiResponse<BaseResponse<EditProductResponseResult>>>
+
+
+    @GET("/messages/last")
+    fun fetchLastMessages(
+        @Query("userType") userType: String,
+        @Query("id") id: String
+    ) : LiveData<ApiResponse<BaseResponse<LastMessageResponse>>>
+
+    @GET("/messages")
+    fun fetchLiveChatMessages(
+        @Query("id") id: String,
+        @Query("userType") userType: String,
+        @Query("withId") withId: String,
+        @Query("withType") withType: String
+    ) : LiveData<ApiResponse<BaseResponse<LiveChatMessagesResponse>>>
+
+    @POST("/google-signin")
+    fun googleSignIn(
+        @Query("email") email: String,
+        @Query("name") name: String,
+        @Query("token") token: String
+    ): LiveData<ApiResponse<BaseResponse<LoginSingupResponse>>>
+
+    @POST("/account/forgotPassword")
+    fun forgotPassword(
+        @Query("email") email: String
+    ): LiveData<ApiResponse<BaseResponsePostRequest>>
+
+    @PATCH("order/product")
+    fun updateOrderStatus(
+        @Query("userId") userId : String,
+        @Query("userType") userType : String,
+        @Query("status") status : String,
+        @Query("orderId") orderId : String,
+        @Query("productId") productId : String
     ):LiveData<ApiResponse<BaseResponsePostRequest>>
+
+    @GET("notifications")
+    fun fetchNotifications(
+        @Query("userType") userType: String,
+        @Query("userId") id: String
+    ):LiveData<ApiResponse<BaseResponse<NotificationResponse>>>
+
+    @GET("products/recommendation")
+    fun fetchRecommendation(
+        @Query("userId") userId: String,
+        @Query("type") type: String
+    ):LiveData<ApiResponse<BaseResponse<ProductResponseRec>>>
+
+
+    @POST("message")
+    fun sendMessage(
+        @Body() message : SendMessageRequest
+    ) : LiveData<ApiResponse<BaseResponse<SendMessageResponse>>>
+
+
+    @POST("vendor/product/{vendorId}")
+    fun deleteProduct(
+        @Path("vendorId") vendorID : String,
+        @Body() productId : DeleteProductRequest
+    ): LiveData<ApiResponse<BaseResponsePostRequest>>
+
 
 }

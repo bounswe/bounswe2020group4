@@ -1,6 +1,7 @@
 package com.cmpe352group4.buyo.ui.orderpage
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -15,10 +16,10 @@ import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
-import com.cmpe352group4.buyo.ui.EmptyFragment
+import com.cmpe352group4.buyo.ui.messaging.LiveChatFragment
+import com.cmpe352group4.buyo.ui.orderpage.endpoint_framents.UpdateStatusFragment
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
 import com.cmpe352group4.buyo.viewmodel.OrderViewModel
-import com.cmpe352group4.buyo.viewmodel.SearchViewModel
 import com.cmpe352group4.buyo.vo.*
 import kotlinx.android.synthetic.main.fragment_order_page.*
 import javax.inject.Inject
@@ -33,7 +34,7 @@ class OrderPageFragment : BaseFragment() {
     @Inject
     lateinit var sharedPref: SharedPref
 
-    private val ordersViewModel: OrderViewModel by viewModels {
+    private val ordersViewModelCustomer: OrderViewModel by viewModels {
         viewModelFactory
     }
 
@@ -49,46 +50,8 @@ class OrderPageFragment : BaseFragment() {
                     TransactionType.Replace, true
                 )
             },
-            { order ->
-                val myToast = Toast.makeText(
-                    context,
-                    "Send message to " + order.vendor.name,
-                    Toast.LENGTH_SHORT
-                )
-                myToast.setGravity(Gravity.BOTTOM, 0, 200)
-                myToast.show()
-                navigationManager?.onReplace(
-                    EmptyFragment.newInstance(),
-                    TransactionType.Replace, true
-                )
-            },
-            { order ->
-                if (order.status != "Pending") {
-                    val myToast = Toast.makeText(
-                        context,
-                        "Comment on " + order.name,
-                        Toast.LENGTH_SHORT
-                    )
-                    myToast.setGravity(Gravity.BOTTOM, 0, 200)
-                    myToast.show()
-                    navigationManager?.onReplace(
-                        EmptyFragment.newInstance(),
-                        TransactionType.Replace, true
-                    )
-                } else {
-                    val myToast = Toast.makeText(
-                        context,
-                        "Cancel " + order.name,
-                        Toast.LENGTH_SHORT
-                    )
-                    myToast.setGravity(Gravity.BOTTOM, 0, 200)
-                    myToast.show()
-                    navigationManager?.onReplace(
-                        EmptyFragment.newInstance(),
-                        TransactionType.Replace, true
-                    )
-                }
-            }
+            { order -> firstButtonOrderItemListener(order) },
+            { order -> secondButtonOrderItemListener(order) }
         )
     }
 
@@ -112,7 +75,7 @@ class OrderPageFragment : BaseFragment() {
         backButtonListener()
         observeOrderData()
         if (!sharedPref.getUserId().isNullOrEmpty()) {
-            ordersViewModel.onFetchOrders(sharedPref.getUserId()!!)
+            ordersViewModelCustomer.onFetchOrders(sharedPref.getUserId()!!)
         }
     }
 
@@ -125,21 +88,54 @@ class OrderPageFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         if (!sharedPref.getUserId().isNullOrEmpty()) {
-            ordersViewModel.onFetchOrders(sharedPref.getUserId()!!)
+            ordersViewModelCustomer.onFetchOrders(sharedPref.getUserId()!!)
+        }
+    }
+
+    private fun firstButtonOrderItemListener(order: OrderProductRV) {
+        navigationManager?.onReplace(
+            LiveChatFragment.newInstance(withId = order.vendor.id, withType = "vendor", withName = order.vendor.name),
+            TransactionType.Replace, true
+        )
+    }
+
+    private fun secondButtonOrderItemListener(order: OrderProductRV) {
+        if(order.status=="Pending"){
+            // Cancel order
+            navigationManager?.onReplace(
+                UpdateStatusFragment.newInstance(sharedPref.getUserId()!!, order.orderID,
+                    order.orderedProductId, "customer", "Cancelled"),
+                TransactionType.Replace, true
+            )
+        }
+        else if(order.status=="Returned") {
+            // Add comment
+            navigationManager?.onReplace(
+                ProductDetailContentFragment.newInstance(order.productId),
+                TransactionType.Replace, true
+            )
+        }
+        else if (order.status.startsWith("Delivered")){
+            // Return Product
+            navigationManager?.onReplace(
+                UpdateStatusFragment.newInstance(sharedPref.getUserId()!!, order.orderID,
+                    order.orderedProductId, "customer", "Returned"),
+                TransactionType.Replace, true
+            )
         }
     }
 
     private fun observeOrderData () {
-        ordersViewModel.orderMap.observe(viewLifecycleOwner, Observer {
+        ordersViewModelCustomer.orderMap.observe(viewLifecycleOwner, Observer {
 
             if (it.status == Status.SUCCESS && it.data != null) {
                 val ordersListRV = mutableListOf<OrderProductRV>()
-                for ((order_id, order) in it.data) {
+                for ((order_id, order) in it.data.orders) {
                     for (product in order.products) {
                         val orderRV =
                             OrderProductRV(order_id, order.address, order.date, product.productId,
                                 product.name, product.imageUrl, product.price, product.vendor,
-                                product.quantity, product.attributes, product.status)
+                                product.quantity, product.attributes, product.status, product.orderedProductId)
                         ordersListRV.add(orderRV)
                     }
                 }

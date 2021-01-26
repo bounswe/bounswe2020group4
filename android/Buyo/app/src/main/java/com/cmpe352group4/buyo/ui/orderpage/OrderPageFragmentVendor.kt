@@ -16,6 +16,8 @@ import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.EmptyFragment
+import com.cmpe352group4.buyo.ui.messaging.LiveChatFragment
+import com.cmpe352group4.buyo.ui.orderpage.endpoint_framents.UpdateStatusFragment
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
 import com.cmpe352group4.buyo.viewmodel.OrderViewModel
 import com.cmpe352group4.buyo.viewmodel.SearchViewModel
@@ -43,53 +45,15 @@ class OrderPageFragmentVendor : BaseFragment() {
     }
 
     private val orderAdapter by lazy {
-        OrderAdapter(mutableListOf(),
+        OrderAdapterVendor(mutableListOf(),
             { order ->
                 navigationManager?.onReplace(
                     ProductDetailContentFragment.newInstance(order.productId),
                     TransactionType.Replace, true
                 )
             },
-            { order ->
-                val myToast = Toast.makeText(
-                    context,
-                    "Approve " + order.orderID,
-                    Toast.LENGTH_SHORT
-                )
-                myToast.setGravity(Gravity.BOTTOM, 0, 200)
-                myToast.show()
-                navigationManager?.onReplace(
-                    EmptyFragment.newInstance(),
-                    TransactionType.Replace, true
-                )
-            },
-            { order ->
-                if (order.status != "Pending") {
-                    val myToast = Toast.makeText(
-                        context,
-                        "Comment on " + order.name,
-                        Toast.LENGTH_SHORT
-                    )
-                    myToast.setGravity(Gravity.BOTTOM, 0, 200)
-                    myToast.show()
-                    navigationManager?.onReplace(
-                        EmptyFragment.newInstance(),
-                        TransactionType.Replace, true
-                    )
-                } else {
-                    val myToast = Toast.makeText(
-                        context,
-                        "Cancel " + order.name,
-                        Toast.LENGTH_SHORT
-                    )
-                    myToast.setGravity(Gravity.BOTTOM, 0, 200)
-                    myToast.show()
-                    navigationManager?.onReplace(
-                        EmptyFragment.newInstance(),
-                        TransactionType.Replace, true
-                    )
-                }
-            }
+            { order -> firstButtonOrderItemListener(order) },
+            { order -> secondButtonOrderItemListener(order) }
         )
     }
 
@@ -111,9 +75,9 @@ class OrderPageFragmentVendor : BaseFragment() {
         )
 
         backButtonListener()
-        observeOrderData()
+        observeOrderDataVendor()
         if (!sharedPref.getUserId().isNullOrEmpty()) {
-            ordersViewModel.onFetchOrders(sharedPref.getUserId()!!)
+            ordersViewModel.onFetchOrdersVendor(sharedPref.getUserId()!!)
         }
     }
 
@@ -126,24 +90,75 @@ class OrderPageFragmentVendor : BaseFragment() {
     override fun onResume() {
         super.onResume()
         if (!sharedPref.getUserId().isNullOrEmpty()) {
-            ordersViewModel.onFetchOrders(sharedPref.getUserId()!!)
+            ordersViewModel.onFetchOrdersVendor(sharedPref.getUserId()!!)
         }
     }
 
-    private fun observeOrderData () {
-        ordersViewModel.orderMap.observe(viewLifecycleOwner, Observer {
+    private fun firstButtonOrderItemListener(order: OrderProductVendorRV) {
+        if (order.status=="Pending"){
+            // Approve
+            navigationManager?.onReplace(
+                UpdateStatusFragment.newInstance(sharedPref.getUserId()!!, order.orderID,
+                    order.orderedProductId, "vendor", "Approved"),
+                TransactionType.Replace, true
+            )
+        }
+        else if (order.status=="Approved"){
+            // Shipped
+            navigationManager?.onReplace(
+                UpdateStatusFragment.newInstance(sharedPref.getUserId()!!, order.orderID,
+                    order.orderedProductId, "vendor", "Shipped"),
+                TransactionType.Replace, true
+            )
+        }
+        else {
+            navigationManager?.onReplace(
+                LiveChatFragment.newInstance(withId = order.customerID, withType = "customer", withName = "*****"),
+                TransactionType.Replace, true
+            )
+        }
+    }
+
+    private fun secondButtonOrderItemListener(order: OrderProductVendorRV) {
+        if (order.status=="Pending"){
+            // Cancel
+            navigationManager?.onReplace(
+                UpdateStatusFragment.newInstance(sharedPref.getUserId()!!, order.orderID,
+                    order.orderedProductId, "vendor", "Cancelled"),
+                TransactionType.Replace, true
+            )
+        }
+        else if (order.status=="Approved") {
+            navigationManager?.onReplace(
+                LiveChatFragment.newInstance(withId = order.customerID, withType = "customer", withName = "*****"),
+                TransactionType.Replace, true
+            )
+        }
+        else {
+            navigationManager?.onReplace(
+                LiveChatFragment.newInstance(withId = order.customerID, withType = "customer", withName = "*****"),
+                TransactionType.Replace, true
+            )
+        }
+    }
+
+    private fun observeOrderDataVendor () {
+        ordersViewModel.orderMapVendor.observe(viewLifecycleOwner, Observer {
 
             if (it.status == Status.SUCCESS && it.data != null) {
-                val ordersListRV = mutableListOf<OrderProductRV>()
-                for ((order_id, order) in it.data) {
+                val ordersListRV = mutableListOf<OrderProductVendorRV>()
+                for ((order_id, order) in it.data.orders) {
                     for (product in order.products) {
                         val orderRV =
-                            OrderProductRV(order_id, order.address, order.date, product.productId,
-                                product.name, product.imageUrl, product.price, product.vendor,
-                                product.quantity, product.attributes, product.status)
+                            OrderProductVendorRV(order_id, product.customerId, order.address, order.date, product.productId,
+                                product.name, product.imageUrl, product.price,
+                                product.quantity, product.attributes, product.status, product.orderedProductId)
                         ordersListRV.add(orderRV)
+                        
                     }
+                    orderlist_total_earnings.text = order.totalEarnings.toString() + " ₺"
                 }
+
 
                 orderAdapter.submitList(ordersListRV)
 

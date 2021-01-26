@@ -10,6 +10,7 @@ import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.login.LoginFragmentVendor
+import com.cmpe352group4.buyo.ui.messaging.MessagesFragment
 import com.cmpe352group4.buyo.ui.notification.NotificationFragment
 import com.cmpe352group4.buyo.ui.orderpage.OrderPageFragmentVendor
 import com.cmpe352group4.buyo.ui.vendor.AddProductCategoryFragment
@@ -44,6 +45,65 @@ class VendorProfilePageFragment: BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        vendorLogoAccount.setOnClickListener {
+            navigationManager?.onReplace(
+                VendorAccountInfoFragment.newInstance(),
+                TransactionType.Replace, true
+            )
+        }
+
+        vendorLogoAdd.setOnClickListener {
+            navigationManager?.onReplace(
+                AddProductCategoryFragment.newInstance(),
+                TransactionType.Replace, true
+            )
+        }
+
+        vendorLogoProduct.setOnClickListener {
+            navigationManager?.onReplace(
+                VendorProductListFragment.newInstance(),
+                TransactionType.Replace, true
+            )
+        }
+
+        vendorLogoOrder.setOnClickListener{
+            navigationManager?.onReplace(
+                OrderPageFragmentVendor.newInstance(),
+                TransactionType.Replace, true
+            )
+        }
+
+        vendorLogoMessage.setOnClickListener {
+            // Later
+        }
+
+        vendorLogoNotification.setOnClickListener {
+            navigationManager?.onReplace(
+                NotificationFragment.newInstance(),
+                TransactionType.Replace, true
+            )
+        }
+
+        vendorLogoPassword.setOnClickListener {
+            navigationManager?.onReplace(
+                VendorChangePasswordFragment.newInstance(),
+                TransactionType.Replace, true
+            )
+        }
+
+        vendorLogoLogout.setOnClickListener {
+            sharedPref.saveUserId("")
+            sharedPref.saveUserType("")
+            sharedPref.saveVendorAddress("")
+            sharedPref.saveVendorLat("")
+            sharedPref.saveVendorLon("")
+            sharedPref.saveRememberMe(false)
+            navigationManager?.onReplace(
+                LoginFragmentVendor.newInstance(),
+                TransactionType.Replace, true
+            )
+        }
+
         tv_vendor_profile_add_product.setOnClickListener {
             navigationManager?.onReplace(
                 AddProductCategoryFragment.newInstance(),
@@ -52,7 +112,10 @@ class VendorProfilePageFragment: BaseFragment() {
         }
 
         tv_vendor_profile_page_messages.setOnClickListener {
-            // Later
+            navigationManager?.onReplace(
+                MessagesFragment.newInstance(),
+                TransactionType.Replace, true
+            )
         }
 
         tv_vendor_my_products.setOnClickListener {
