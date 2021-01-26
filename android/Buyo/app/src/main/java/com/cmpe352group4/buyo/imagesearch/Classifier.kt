@@ -1,3 +1,5 @@
+// Credits to this tutorial (https://medium.com/@teresa.wu/tensorflow-image-recognition-on-android-with-kotlin-cee8d977ae9)
+
 package com.cmpe352group4.buyo.imagesearch
 
 import android.content.res.AssetManager
