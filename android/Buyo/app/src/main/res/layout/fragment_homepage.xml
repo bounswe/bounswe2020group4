@@ -23,10 +23,14 @@
         android:layout_height="wrap_content"
         android:text="IMAGE SEARCH"
         android:textColor="@color/black"
+        android:padding="@dimen/minimum_margin"
         android:id="@+id/image_search"
-        app:layout_constraintTop_toBottomOf="@id/logoImageView"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="16dp"
+        android:background="@color/safety_orange"
+        android:layout_marginTop="@dimen/default_margin"
+        app:layout_constraintTop_toBottomOf="@id/searchBarSearchView"
+        app:layout_constraintEnd_toEndOf="@+id/searchBarSearchView"
+        app:layout_constraintStart_toStartOf="@+id/searchBarSearchView"
+
         />
 
     <SearchView
@@ -53,7 +57,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchBarSearchView">
+        app:layout_constraintTop_toBottomOf="@+id/image_search">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
