@@ -180,7 +180,7 @@ module.exports.send = async (params) => {
     }
 
     const message = new Message({
-      userId: params.id,
+      userId: params.userId,
       withId: params.withId,
       userType: params.userType,
       withType: params.withType,
