@@ -79,7 +79,9 @@ const Messages = ({isLoggedIn, userId, userType, hideHeader, showHeader, hideVen
 		socketRef.current.emit('discover', {id: userId, userType: userType})
 
 		socketRef.current.on('message', function (data) {
-			setDisplayedMessages((displayedMessages) => [...displayedMessages, {...data}])
+			if(displayedUserId !== null && displayedUserId === data.user.id) {
+				setDisplayedMessages((displayedMessages) => [...displayedMessages, {...data}])
+			}
 		})
 
 		const messages = await messageService.getLastMessages(userId, userType)
@@ -146,7 +148,7 @@ const Messages = ({isLoggedIn, userId, userType, hideHeader, showHeader, hideVen
 						</List>
 					</Grid>
 					<Grid item xs={9}>
-						{displayedMessages.length !== 0 && lastMessages.length !== 0 ?
+						{displayedMessages.length !== 0 ?
 							<List className={classes.messageArea}>
 								{displayedMessages.map(m =>
 									<ListItem key={m.id}>

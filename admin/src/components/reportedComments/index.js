@@ -15,8 +15,13 @@ const ReportedComments = () => {
         setReports(fetchedReports)
     }
 
+    const removeReportedComment = (report) => {
+        const newReports = reports.filter((rep) => rep != report)
+        setReports(newReports)
+    }
+
     const renderCommentCards = () => {
-        return reports.map((report) => <ReportedCommentCard key={report.reportId} report={report} fetchReports={fetchReports} />)
+        return reports.map((report) => <ReportedCommentCard key={report.reportId} report={report} fetchReports={fetchReports} removeReportedComment={removeReportedComment} />)
     }
 
     return (
