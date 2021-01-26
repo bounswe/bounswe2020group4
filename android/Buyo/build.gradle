@@ -11,6 +11,7 @@ buildscript {
     dependencies {
         classpath deps.android_gradle_plugin
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.android.tools.build:gradle"
         //classpath deps.fireBase.google_services
 
         // NOTE: Do not place your application dependencies here; they belong
