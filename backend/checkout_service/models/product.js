@@ -13,7 +13,7 @@ module.exports.Product = mongoose.model(
     rating: Number,
     price: Number,
     originalPrice: Number,
-    productInfos: [Object],
+    productInfos: String,
     brand: String,
     vendorId: mongoose.Schema.Types.ObjectId,
   }),

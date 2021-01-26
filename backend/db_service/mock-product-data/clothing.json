@@ -16,60 +16,7 @@
             "Cotton"
         ],
         "brand": "Nike",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "42"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Black"
-                    }
-                ],
-                "stockValue": 63
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "43"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Black"
-                    }
-                ],
-                "stockValue": 7
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "44"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Black"
-                    }
-                ],
-                "stockValue": 7
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "45"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Black"
-                    }
-                ],
-                "stockValue": 45
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"42\"},{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":63},{\"attributes\":[{\"name\":\"size\",\"value\":\"43\"},{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":7},{\"attributes\":[{\"name\":\"size\",\"value\":\"44\"},{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":7},{\"attributes\":[{\"name\":\"size\",\"value\":\"45\"},{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":45}]"
     },
     {
         "description": "Grey men sneakers. You won't even notice that you wear shoes. 100% Cotton.",
@@ -88,60 +35,7 @@
             "Polyester"
         ],
         "brand": "Nike",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "40"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Grey"
-                    }
-                ],
-                "stockValue": 32
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "41"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Grey"
-                    }
-                ],
-                "stockValue": 15
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "42"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Grey"
-                    }
-                ],
-                "stockValue": 42
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "43"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Grey"
-                    }
-                ],
-                "stockValue": 20
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"40\"},{\"name\":\"color\",\"value\":\"Grey\"}],\"stockValue\":32},{\"attributes\":[{\"name\":\"size\",\"value\":\"41\"},{\"name\":\"color\",\"value\":\"Grey\"}],\"stockValue\":15},{\"attributes\":[{\"name\":\"size\",\"value\":\"42\"},{\"name\":\"color\",\"value\":\"Grey\"}],\"stockValue\":42},{\"attributes\":[{\"name\":\"size\",\"value\":\"43\"},{\"name\":\"color\",\"value\":\"Grey\"}],\"stockValue\":20}]"
     },
     {
         "description": "Nice orange blouse. It's a causal and comfortable product you'll use in daily life.",
@@ -159,34 +53,7 @@
             "Polyester"
         ],
         "brand": "Coco Chanel",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "XS"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Orange"
-                    }
-                ],
-                "stockValue": 26
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "S"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Orange"
-                    }
-                ],
-                "stockValue": 88
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"XS\"},{\"name\":\"color\",\"value\":\"Orange\"}],\"stockValue\":26},{\"attributes\":[{\"name\":\"size\",\"value\":\"S\"},{\"name\":\"color\",\"value\":\"Orange\"}],\"stockValue\":88}]"
     },
     {
         "description": "Very comfortable and nice looking trousers. Everyone will notice you with this.",
@@ -200,60 +67,7 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089146596983",
         "rating": "4.25",
         "brand": "Zara",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "XS"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Blue"
-                    }
-                ],
-                "stockValue": 48
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "S"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Blue"
-                    }
-                ],
-                "stockValue": 18
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "M"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Blue"
-                    }
-                ],
-                "stockValue": 28
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "L"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Blue"
-                    }
-                ],
-                "stockValue": 31
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"XS\"},{\"name\":\"color\",\"value\":\"Blue\"}],\"stockValue\":48},{\"attributes\":[{\"name\":\"size\",\"value\":\"S\"},{\"name\":\"color\",\"value\":\"Blue\"}],\"stockValue\":18},{\"attributes\":[{\"name\":\"size\",\"value\":\"M\"},{\"name\":\"color\",\"value\":\"Blue\"}],\"stockValue\":28},{\"attributes\":[{\"name\":\"size\",\"value\":\"L\"},{\"name\":\"color\",\"value\":\"Blue\"}],\"stockValue\":31}]"
     },
     {
         "description": "100% Natural. 100% Nature Friendly. It will definitely look good on you. You won't regret buying this.",
@@ -268,47 +82,7 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089146597004",
         "rating": "4.42",
         "brand": "Jack & Jones",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "XS"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Blue"
-                    }
-                ],
-                "stockValue": 91
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "S"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Blue"
-                    }
-                ],
-                "stockValue": 90
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "M"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Blue"
-                    }
-                ],
-                "stockValue": 87
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"XS\"},{\"name\":\"color\",\"value\":\"Blue\"}],\"stockValue\":91},{\"attributes\":[{\"name\":\"size\",\"value\":\"S\"},{\"name\":\"color\",\"value\":\"Blue\"}],\"stockValue\":90},{\"attributes\":[{\"name\":\"size\",\"value\":\"M\"},{\"name\":\"color\",\"value\":\"Blue\"}],\"stockValue\":87}]"
     },
     {
         "description": "Smart casual black suits for events. Very comfortable and %100 cotton. This suits must be in every men's closet.",
@@ -322,60 +96,7 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089146597015",
         "rating": "4.20",
         "brand": "Altinyildiz",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "XS"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Black"
-                    }
-                ],
-                "stockValue": 61
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "S"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Black"
-                    }
-                ],
-                "stockValue": 60
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "M"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Black"
-                    }
-                ],
-                "stockValue": 14
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "L"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Black"
-                    }
-                ],
-                "stockValue": 42
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"XS\"},{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":61},{\"attributes\":[{\"name\":\"size\",\"value\":\"S\"},{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":60},{\"attributes\":[{\"name\":\"size\",\"value\":\"M\"},{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":14},{\"attributes\":[{\"name\":\"size\",\"value\":\"L\"},{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":42}]"
     },
     {
         "description": "%100 Silk. Will fit completely to your body. Make you look beautiful in your most special moments.",
@@ -389,47 +110,7 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089146597026",
         "rating": "4.19",
         "brand": "Defacto",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "XS"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Pink"
-                    }
-                ],
-                "stockValue": 88
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "S"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Pink"
-                    }
-                ],
-                "stockValue": 66
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "M"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Pink"
-                    }
-                ],
-                "stockValue": 1
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"XS\"},{\"name\":\"color\",\"value\":\"Pink\"}],\"stockValue\":88},{\"attributes\":[{\"name\":\"size\",\"value\":\"S\"},{\"name\":\"color\",\"value\":\"Pink\"}],\"stockValue\":66},{\"attributes\":[{\"name\":\"size\",\"value\":\"M\"},{\"name\":\"color\",\"value\":\"Pink\"}],\"stockValue\":1}]"
     },
     {
         "description": "Outdoor 60ml waterproof backpack. Have six different pockets in it.",
@@ -444,21 +125,7 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089146597037",
         "rating": "3.59",
         "brand": "Decathlon",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "70L"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Green"
-                    }
-                ],
-                "stockValue": 90
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"70L\"},{\"name\":\"color\",\"value\":\"Green\"}],\"stockValue\":90}]"
     },
     {
         "description": "Men casual 20L backpack. It's smart and very useful.",
@@ -473,21 +140,7 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089146597058",
         "rating": 3.97,
         "brand": "LC Waikiki",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "20L"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Green"
-                    }
-                ],
-                "stockValue": 68
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"20L\"},{\"name\":\"color\",\"value\":\"Green\"}],\"stockValue\":68}]"
     },
     {
         "description": "Women blue jeans. Comfortable and 100% Cotton. Because you always need to be moving, and you don't need to feel your trousers.",
@@ -502,47 +155,7 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16089146597069",
         "rating": "4.37",
         "brand": "Koton",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "S"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Blue"
-                    }
-                ],
-                "stockValue": 14
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "M"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Blue"
-                    }
-                ],
-                "stockValue": 99
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "L"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Blue"
-                    }
-                ],
-                "stockValue": 17
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"S\"},{\"name\":\"color\",\"value\":\"Blue\"}],\"stockValue\":14},{\"attributes\":[{\"name\":\"size\",\"value\":\"M\"},{\"name\":\"color\",\"value\":\"Blue\"}],\"stockValue\":99},{\"attributes\":[{\"name\":\"size\",\"value\":\"L\"},{\"name\":\"color\",\"value\":\"Blue\"}],\"stockValue\":17}]"
     },
     {
         "description": "Men casual slim-fit black t-shirt. It will look perfect on you.",
@@ -556,73 +169,7 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160891465970710",
         "rating": "4.63",
         "brand": "Koton",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "XS"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Black"
-                    }
-                ],
-                "stockValue": 57
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "S"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Black"
-                    }
-                ],
-                "stockValue": 31
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "M"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Black"
-                    }
-                ],
-                "stockValue": 92
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "L"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Black"
-                    }
-                ],
-                "stockValue": 20
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "XL"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Black"
-                    }
-                ],
-                "stockValue": 20
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"XS\"},{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":57},{\"attributes\":[{\"name\":\"size\",\"value\":\"S\"},{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":31},{\"attributes\":[{\"name\":\"size\",\"value\":\"M\"},{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":92},{\"attributes\":[{\"name\":\"size\",\"value\":\"L\"},{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":20},{\"attributes\":[{\"name\":\"size\",\"value\":\"XL\"},{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":20}]"
     },
     {
         "description": "Women shiny red dress, makes you the most attractive person in the party.",
@@ -636,47 +183,7 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160891465970811",
         "rating": "4.00",
         "brand": "Inci",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "XS"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Red"
-                    }
-                ],
-                "stockValue": 83
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "M"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Red"
-                    }
-                ],
-                "stockValue": 62
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "L"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Red"
-                    }
-                ],
-                "stockValue": 23
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"XS\"},{\"name\":\"color\",\"value\":\"Red\"}],\"stockValue\":83},{\"attributes\":[{\"name\":\"size\",\"value\":\"M\"},{\"name\":\"color\",\"value\":\"Red\"}],\"stockValue\":62},{\"attributes\":[{\"name\":\"size\",\"value\":\"L\"},{\"name\":\"color\",\"value\":\"Red\"}],\"stockValue\":23}]"
     },
     {
         "description": "Women pink coat. It's very smart and very comfortable. 100% Cotton and totally eco-friendly.",
@@ -690,47 +197,7 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160891465970912",
         "rating": "4.00",
         "brand": "Zara",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "XS"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Pink"
-                    }
-                ],
-                "stockValue": 38
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "S"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Pink"
-                    }
-                ],
-                "stockValue": 57
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "L"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Pink"
-                    }
-                ],
-                "stockValue": 9
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"XS\"},{\"name\":\"color\",\"value\":\"Pink\"}],\"stockValue\":38},{\"attributes\":[{\"name\":\"size\",\"value\":\"S\"},{\"name\":\"color\",\"value\":\"Pink\"}],\"stockValue\":57},{\"attributes\":[{\"name\":\"size\",\"value\":\"L\"},{\"name\":\"color\",\"value\":\"Pink\"}],\"stockValue\":9}]"
     },
     {
         "description": "Men colorful sneakers. You won't feel your shoes and make many miles with them.",
@@ -745,86 +212,7 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160891465971013",
         "rating": "4.03",
         "brand": "Nike",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "40"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Red"
-                    }
-                ],
-                "stockValue": 1
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "41"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Red"
-                    }
-                ],
-                "stockValue": 86
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "42"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Red"
-                    }
-                ],
-                "stockValue": 59
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "43"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Red"
-                    }
-                ],
-                "stockValue": 3
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "44"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Red"
-                    }
-                ],
-                "stockValue": 87
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "45"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Red"
-                    }
-                ],
-                "stockValue": 55
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"40\"},{\"name\":\"color\",\"value\":\"Red\"}],\"stockValue\":1},{\"attributes\":[{\"name\":\"size\",\"value\":\"41\"},{\"name\":\"color\",\"value\":\"Red\"}],\"stockValue\":86},{\"attributes\":[{\"name\":\"size\",\"value\":\"42\"},{\"name\":\"color\",\"value\":\"Red\"}],\"stockValue\":59},{\"attributes\":[{\"name\":\"size\",\"value\":\"43\"},{\"name\":\"color\",\"value\":\"Red\"}],\"stockValue\":3},{\"attributes\":[{\"name\":\"size\",\"value\":\"44\"},{\"name\":\"color\",\"value\":\"Red\"}],\"stockValue\":87},{\"attributes\":[{\"name\":\"size\",\"value\":\"45\"},{\"name\":\"color\",\"value\":\"Red\"}],\"stockValue\":55}]"
     },
     {
         "description": "Women pink causal dress. It's 100% cotton and comfortable.",
@@ -839,47 +227,7 @@
         "rating": "4.46",
         "brand": "Zara",
         "stockValue": {},
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "M"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Pink"
-                    }
-                ],
-                "stockValue": 49
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "L"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Pink"
-                    }
-                ],
-                "stockValue": 76
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "XL"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Pink"
-                    }
-                ],
-                "stockValue": 91
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"M\"},{\"name\":\"color\",\"value\":\"Pink\"}],\"stockValue\":49},{\"attributes\":[{\"name\":\"size\",\"value\":\"L\"},{\"name\":\"color\",\"value\":\"Pink\"}],\"stockValue\":76},{\"attributes\":[{\"name\":\"size\",\"value\":\"XL\"},{\"name\":\"color\",\"value\":\"Pink\"}],\"stockValue\":91}]"
     },
     {
         "description": "Men Ripped Black Jeans. 100% Cotton and comfortable. It's modern look will make you better.",
@@ -894,47 +242,7 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160891465971315",
         "rating": "4.50",
         "brand": "Jack & Jones",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "XS"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Black"
-                    }
-                ],
-                "stockValue": 93
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "S"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Black"
-                    }
-                ],
-                "stockValue": 14
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "L"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Black"
-                    }
-                ],
-                "stockValue": 19
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"XS\"},{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":93},{\"attributes\":[{\"name\":\"size\",\"value\":\"S\"},{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":14},{\"attributes\":[{\"name\":\"size\",\"value\":\"L\"},{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":19}]"
     },
     {
         "description": "Men smart slim-fit suits. This suits will totally give you a raise in your company.",
@@ -948,60 +256,7 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160891465971416",
         "rating": "3.89",
         "brand": "Damat",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "XS"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Black"
-                    }
-                ],
-                "stockValue": 37
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "S"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Black"
-                    }
-                ],
-                "stockValue": 58
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "M"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Black"
-                    }
-                ],
-                "stockValue": 66
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "L"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Black"
-                    }
-                ],
-                "stockValue": 45
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"XS\"},{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":37},{\"attributes\":[{\"name\":\"size\",\"value\":\"S\"},{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":58},{\"attributes\":[{\"name\":\"size\",\"value\":\"M\"},{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":66},{\"attributes\":[{\"name\":\"size\",\"value\":\"L\"},{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":45}]"
     },
     {
         "description": "Women Light Brown Handbag. It's very suitable for all your dresses and has six different pockets.",
@@ -1016,7 +271,7 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160891465971617",
         "rating": "3.22",
         "brand": "Pact",
-        "productInfos": []
+        "productInfos": "[]"
     },
     {
         "description": "Men smart brown coat. It'll make you warm and look good. And it's 100% Cotton too.",
@@ -1030,34 +285,7 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160891465971818",
         "rating": "2.94",
         "brand": "Boss",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "XS"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Brown"
-                    }
-                ],
-                "stockValue": 97
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "S"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Brown"
-                    }
-                ],
-                "stockValue": 86
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"XS\"},{\"name\":\"color\",\"value\":\"Brown\"}],\"stockValue\":97},{\"attributes\":[{\"name\":\"size\",\"value\":\"S\"},{\"name\":\"color\",\"value\":\"Brown\"}],\"stockValue\":86}]"
     },
     {
         "description": "Women Grey Coat. It's designed for your work life. But you can use it in any night-out too.",
@@ -1071,47 +299,7 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160891465971919",
         "rating": "4.99",
         "brand": "Pact",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "XS"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Grey"
-                    }
-                ],
-                "stockValue": 50
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "M"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Grey"
-                    }
-                ],
-                "stockValue": 15
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "L"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Grey"
-                    }
-                ],
-                "stockValue": 57
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"XS\"},{\"name\":\"color\",\"value\":\"Grey\"}],\"stockValue\":50},{\"attributes\":[{\"name\":\"size\",\"value\":\"M\"},{\"name\":\"color\",\"value\":\"Grey\"}],\"stockValue\":15},{\"attributes\":[{\"name\":\"size\",\"value\":\"L\"},{\"name\":\"color\",\"value\":\"Grey\"}],\"stockValue\":57}]"
     },
     {
         "description": "Women adidas shoes. It's most classic sneakers of adidas and proved itself since 2001.",
@@ -1126,47 +314,7 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160891465972020",
         "rating": "4.92",
         "brand": "Adidas",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "38"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Black"
-                    }
-                ],
-                "stockValue": 13
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "39"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Black"
-                    }
-                ],
-                "stockValue": 38
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "40"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Black"
-                    }
-                ],
-                "stockValue": 63
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"38\"},{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":13},{\"attributes\":[{\"name\":\"size\",\"value\":\"39\"},{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":38},{\"attributes\":[{\"name\":\"size\",\"value\":\"40\"},{\"name\":\"color\",\"value\":\"Black\"}],\"stockValue\":63}]"
     },
     {
         "description": "100% Natural. 100% Nature Friendly. It will definitely look good on you. You won't regret buying this.",
@@ -1180,34 +328,7 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160891465972121",
         "rating": "4.49",
         "brand": "Kappa",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "XS"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Blue"
-                    }
-                ],
-                "stockValue": 97
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "S"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Blue"
-                    }
-                ],
-                "stockValue": 27
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"XS\"},{\"name\":\"color\",\"value\":\"Blue\"}],\"stockValue\":97},{\"attributes\":[{\"name\":\"size\",\"value\":\"S\"},{\"name\":\"color\",\"value\":\"Blue\"}],\"stockValue\":27}]"
     },
     {
         "description": "Women Grey Thermal Coat. It'll make you warm no matter the weather is like.",
@@ -1221,59 +342,6 @@
         "imageUrl": "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/160891465972222",
         "rating": "3.34",
         "brand": "Uniqlo",
-        "productInfos": [
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "XS"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Grey"
-                    }
-                ],
-                "stockValue": 74
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "S"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Grey"
-                    }
-                ],
-                "stockValue": 55
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "M"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Grey"
-                    }
-                ],
-                "stockValue": 40
-            },
-            {
-                "attributes": [
-                    {
-                        "name": "size",
-                        "value": "L"
-                    },
-                    {
-                        "name": "color",
-                        "value": "Grey"
-                    }
-                ],
-                "stockValue": 88
-            }
-        ]
+        "productInfos": "[{\"attributes\":[{\"name\":\"size\",\"value\":\"XS\"},{\"name\":\"color\",\"value\":\"Grey\"}],\"stockValue\":74},{\"attributes\":[{\"name\":\"size\",\"value\":\"S\"},{\"name\":\"color\",\"value\":\"Grey\"}],\"stockValue\":55},{\"attributes\":[{\"name\":\"size\",\"value\":\"M\"},{\"name\":\"color\",\"value\":\"Grey\"}],\"stockValue\":40},{\"attributes\":[{\"name\":\"size\",\"value\":\"L\"},{\"name\":\"color\",\"value\":\"Grey\"}],\"stockValue\":88}]"
     }
 ]

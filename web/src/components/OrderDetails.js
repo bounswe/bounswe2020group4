@@ -210,7 +210,7 @@ const OrderDetails = ({orderId, address, products, isLoggedIn, userId, userType}
 					{products && products.map(p => <ProductOrder orderId={orderId} userId={userId} userType={userType} productId={p.productId} status={p.status} attributes={p.attributes} quantity={p.quantity} vendor={p.vendor.name} vendorId={p.vendor.id} key={p.orderedProductId} name={p.name} brand={p.brand} price={p.price + '₺'} imgUrl={p.imageUrl} isPending={p.status === 'Pending'} isDelivered={p.status.startsWith('Delivered')}/>)}
 				</div>
 			</div>
-			<div className="address-container"> Address: {address}</div>
+			<div className="address-container">{address == "ADDLATER" ? null : 'Address: ' + address}</div>
 		</div>
 	)
 }

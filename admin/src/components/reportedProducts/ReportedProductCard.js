@@ -2,13 +2,15 @@ import React from 'react'
 import { removeProduct, banUser, banVendor } from '../../services'
 
 const ReportedProductCard = ({ report, fetchReports }) => {
+    const productInfos = report.productDetails?.productInfos
+
     const attributes = []
-    report.product.productInfos[0].attributes.forEach((attribute) => {
+    productInfos[0]?.attributes.forEach((attribute) => {
         attributes.push(attribute.name)
     })
 
     const attributeValues = []
-    report.product.productInfos.forEach((productInfo) => {
+    productInfos?.forEach((productInfo) => {
         productInfo.attributes.forEach((attribute) => {
             if(!attributeValues.includes(attribute.value)){
                 attributeValues.push(attribute.value)
@@ -17,7 +19,7 @@ const ReportedProductCard = ({ report, fetchReports }) => {
     })
 
     const removeProductHandler = async () => {
-        if(await removeProduct(report.product.id)) {
+        if(await removeProduct(report.productDetails?.id, report.productDetails?.vendor.id)) {
             console.log("Product Removed and reports fetched again")
             fetchReports()
         } else {
@@ -26,8 +28,7 @@ const ReportedProductCard = ({ report, fetchReports }) => {
     }
 
     const banVendorHandler = async () => {
-        //!!!!!!!!!!Vendor name i yolluyoruz suan placeholder olsun diye id yollamamiz lazim
-        if(await banVendor(report.product.vendor.name)) {
+        if(await banVendor(report.productDetails?.vendorId)) {
             console.log("Vendor banned and reports fetched again")
             fetchReports()
         } else {
@@ -41,16 +42,15 @@ const ReportedProductCard = ({ report, fetchReports }) => {
             <hr />
             <div className='row'>
                 <div className='col-4'>
-                    <img className='img-fluid rounded' src={report.product.imageUrl}  alt='product img'/>
+                    <img className='img-fluid rounded' src={report.productDetails?.imageUrl}  alt='product img'/>
                 </div>
                 <div className='col-8'>
-                    <div>Name: {report.product.name}</div>
-                    <div>Description: {report.product.description}</div>
+                    <div>Name: {report.productDetails?.name}</div>
+                    <div>Description: {report.productDetails?.description}</div>
                     <div>Attributes: {attributes.map((attr) => `${attr} `)}</div>
                     <div>Attribute Values: {attributeValues.map((value) => `${value} `)}</div>
-                    <div>Original Price: {report.product.originalPrice} | Price: {report.product.price}</div>
-                    <div>Brand: {report.product.brand}</div>
-                    <div>Vendor: {report.product.vendor.name}</div>
+                    <div>Original Price: {report.productDetails?.originalPrice} | Price: {report.productDetails?.price}</div>
+                    <div>Brand: {report.productDetails?.brand}</div>
                 </div>
             </div>
             <div className='d-flex justify-content-center py-2'>

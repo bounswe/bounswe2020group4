@@ -60,7 +60,7 @@ module.exports.initialize = (app) => {
         }
 
         const User = UserModel[payload.userType];
-        const WithUser = UserModel[payload.userType];
+        const WithUser = UserModel[payload.withType];
         let [user, withUser] = await Promise.all([
           User.findById(ObjectId(payload.id)),
           WithUser.findById(ObjectId(payload.withId)),
@@ -86,6 +86,7 @@ module.exports.initialize = (app) => {
 
           userInfo[payload.withId].socket.emit("message", {
             message: payload.message,
+            id: message._id.toString(),
             date: new Date(),
             user: {
               name: [user.name, user.surname].join(" ").trim(),
@@ -95,7 +96,11 @@ module.exports.initialize = (app) => {
           });
         }
 
-        response({ code: 200, message: "Success" });
+        response({
+          code: 200,
+          message: "Success",
+          payload: { message: payload.message, id: message._id.toString(), date: new Date() },
+        });
       } catch (err) {
         response({ code: 500, message: err.message || err });
       }

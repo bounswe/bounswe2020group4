@@ -20,3 +20,5 @@ module.exports.ErrorCode = (message) => {
 
   return ErrorCodes[message] || 500;
 };
+
+module.exports.ErrorMessage = ErrorMessage;
