@@ -10,8 +10,13 @@ const ReportedProducts = () => {
         fetchReports()
     }, [])
 
+    const removeReportedProduct = (report) => {
+        const newReports = reportedProducts.filter((rep) => rep != report)
+        setReportedProducts(newReports)
+    }
+
     const renderProductCards = () => {
-        return reportedProducts?.map((report) => <ReportedProductCard key={report.productDetails?.id} report={report} fetchReports={fetchReports}/>)
+        return reportedProducts?.map((report) => <ReportedProductCard key={report.productDetails?.id} report={report} fetchReports={fetchReports} removeReportedProduct={removeReportedProduct}/>)
     }
 
     const fetchReports = async () => {

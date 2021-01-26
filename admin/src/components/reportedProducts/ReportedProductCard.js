@@ -1,7 +1,7 @@
 import React from 'react'
 import { removeProduct, banUser, banVendor } from '../../services'
 
-const ReportedProductCard = ({ report, fetchReports }) => {
+const ReportedProductCard = ({ report, fetchReports, removeReportedProduct }) => {
     const productInfos = report.productDetails?.productInfos
 
     const attributes = []
@@ -19,21 +19,24 @@ const ReportedProductCard = ({ report, fetchReports }) => {
     })
 
     const removeProductHandler = async () => {
-        if(await removeProduct(report.productDetails?.id, report.productDetails?.vendor.id)) {
-            console.log("Product Removed and reports fetched again")
-            fetchReports()
-        } else {
-            alert("Something went wrong while removing product")
-        }
+        removeReportedProduct(report)
+        // if(await removeProduct(report.productDetails?.id, report.productDetails?.vendor.id)) {
+        //     console.log("Product Removed and reports fetched again")
+        //     fetchReports()
+        // } else {
+        //     alert("Something went wrong while removing product")
+        // }
     }
 
     const banVendorHandler = async () => {
-        if(await banVendor(report.productDetails?.vendorId)) {
-            console.log("Vendor banned and reports fetched again")
-            fetchReports()
-        } else {
-            alert("Something went wrong while banning vendor")
-        }
+        removeReportedProduct(report)
+        banVendor(report.productDetails?.vendor.id, report.productDetails?.id)
+        // if(await banVendor(report.productDetails?.vendorId)) {
+        //     console.log("Vendor banned and reports fetched again")
+        //     fetchReports()
+        // } else {
+        //     alert("Something went wrong while banning vendor")
+        // }
     }
 
     return (
