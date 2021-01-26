@@ -159,10 +159,11 @@ class AddStockValuesFragment: BaseFragment() {
                         myToast.show()
                         dispatchLoading()
 
-                        navigationManager?.onReplace(
-                            HomepageFragment.newInstance(),
-                            TransactionType.Replace, true
-                        )
+                        activity?.onBackPressed()
+//                        navigationManager?.onReplace(
+//                            HomepageFragment.newInstance(),
+//                            TransactionType.Replace, true
+//                        )
                     } else if (it.status == Status.ERROR) {
                         dispatchLoading()
                     } else if (it.status == Status.LOADING) {
