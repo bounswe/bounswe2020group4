@@ -23,7 +23,6 @@ import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
 import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.imagesearch.ImageClassifier
-import com.cmpe352group4.buyo.imagesearch.ImageSearchFragment
 import com.cmpe352group4.buyo.imagesearch.Keys
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.productDetail.ProductDetailContentFragment
