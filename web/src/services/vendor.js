@@ -29,7 +29,8 @@ const updateProduct = async (product, productId) => {
 
 const deleteProduct = async (vendorId, productId) => {
 	var body = {"productId":productId}
-	const response = await axios.delete(`${deleteUrl}/${vendorId}`, {'data':body})
+	const response = await axios.post(`${deleteUrl}/${vendorId}`, body)
+
 	return response.data.status.code
 }
 

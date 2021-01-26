@@ -1,0 +1,50 @@
+name: Admin Deploy
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  deploy-frontend:
+    name: Deploy Admin
+    runs-on: ubuntu-latest
+    steps:
+   
+    - uses: actions/checkout@v2
+    
+    - name: Build the Docker Image
+      run: docker build -t adminimage admin
+    
+    - name: Save the Docker Image
+      run: docker save adminimage | gzip > adminimage.tar.gz
+
+    - name: Decrypt Key pair
+      run: gpg --batch --yes --decrypt --passphrase="$GPG_PASSWORD" --output FrontendServerKeyPair.pem ./secrets/FrontendServerKeyPair.pem.gpg
+      env:
+        GPG_PASSWORD: ${{ secrets.FRONTEND_GPG_PASSWORD }}
+        
+    - name: chmod to Key Pair
+      run: chmod 400 FrontendServerKeyPair.pem
+    
+    - name: Push Docker Image to AWS
+      uses: appleboy/scp-action@master
+      with:
+        host: ec2-3-17-180-100.us-east-2.compute.amazonaws.com
+        key_path: FrontendServerKeyPair.pem
+        username: ec2-user
+        source: adminimage.tar.gz
+        target: ~/app/
+    
+    - name: Run Docker Container
+      uses: appleboy/ssh-action@master
+      with:
+        host: ec2-3-17-180-100.us-east-2.compute.amazonaws.com
+        username: ec2-user
+        key_path: FrontendServerKeyPair.pem
+        script_stop: true
+        script: | 
+          cd ~/app
+          sudo docker load -i adminimage.tar.gz
+          sudo docker run -p 8080:80 -d adminimage

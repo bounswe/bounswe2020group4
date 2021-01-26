@@ -59,7 +59,7 @@ module.exports.updateCart = async (params) => {
     const paramCustomerId = params.customerId;
     const paramProductId = params.productId;
     const paramProductInfo = JSON.parse(params.productInfo);
-    const carts = await CartProduct.find({});
+
     // Delete the product from the cart
     if (!paramProductInfo.quantity) {
       let cart_product = await CartProduct.findOne({
@@ -67,7 +67,7 @@ module.exports.updateCart = async (params) => {
         productId: ObjectId(paramProductId),
       });
       cart_product = cart_product.toJSON();
-      productInfoList = cart_product.productInfos;
+      productInfoList = JSON.parse(cart_product.productInfos);
       let updatedProductInfoList = [];
       // Check each product info in the product
       deleteFromProductInfos(productInfoList, updatedProductInfoList, paramProductInfo);
@@ -75,7 +75,7 @@ module.exports.updateCart = async (params) => {
       if (!updatedProductInfoList.length) {
         await CartProduct.findByIdAndDelete(cart_product._id);
       } else {
-        await CartProduct.findByIdAndUpdate(cart_product._id, { productInfos: updatedProductInfoList });
+        await CartProduct.findByIdAndUpdate(cart_product._id, { productInfos: JSON.stringify(updatedProductInfoList) });
       }
     } else {
       // Add new product or update the product in the cart
@@ -86,25 +86,23 @@ module.exports.updateCart = async (params) => {
       // If the product exists in user's cart before
       if (cart_product) {
         cart_product = cart_product.toJSON();
-        productInfoList = cart_product.productInfos;
-        await updateProductInfos(productInfoList, paramProductInfo);
-        await CartProduct.findByIdAndUpdate(cart_product._id, { productInfos: productInfoList });
+        productInfoList = JSON.parse(cart_product.productInfos);
+        updateProductInfos(productInfoList, paramProductInfo);
+        await CartProduct.findByIdAndUpdate(cart_product._id, { productInfos: JSON.stringify(productInfoList) });
       } else {
         // Product doesn't exist in the cart, so it will be created the first time
         let product = await Product.findById(ObjectId(paramProductId));
         product = product.toJSON();
         const vendorId = product.vendorId;
-        const newCartProduct = await CartProduct.create({
+
+        await CartProduct.create({
           customerId: ObjectId(paramCustomerId),
           vendorId: vendorId,
           productId: ObjectId(paramProductId),
-          productInfos: [],
+          productInfos: JSON.stringify([paramProductInfo]),
         });
-        const isUpdated = await CartProduct.updateOne(
-          { _id: newCartProduct._id },
-          { $push: { productInfos: paramProductInfo } }
-        );
-        return isUpdated;
+
+        return true;
       }
     }
     return true;
@@ -129,7 +127,12 @@ module.exports.getCartProducts = async (params) => {
         cart_product = cart_product.toJSON();
         const product = await Product.findById(cart_product.productId);
         const vendor = await Vendor.findById(cart_product.vendorId);
-        cart_product.productInfos.forEach((productInfo) => {
+        console.log(
+          typeof cart_product.productInfos,
+          typeof JSON.parse(cart_product.productInfos),
+          cart_product.productInfos
+        );
+        JSON.parse(cart_product.productInfos).forEach((productInfo) => {
           let updatedProduct = {
             id: product._id,
             name: product.name,
@@ -146,8 +149,8 @@ module.exports.getCartProducts = async (params) => {
             attributes: productInfo.attributes,
             quantity: productInfo.quantity,
           };
-          totalPrice += product.originalPrice;
-          discountedPrice += product.price;
+          totalPrice += product.originalPrice * productInfo.quantity;
+          discountedPrice += product.price * productInfo.quantity;
           productsWithAttributes.push(updatedProduct);
         });
       })
