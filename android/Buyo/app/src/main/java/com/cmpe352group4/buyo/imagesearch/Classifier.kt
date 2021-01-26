@@ -2,7 +2,6 @@ package com.cmpe352group4.buyo.imagesearch
 
 import android.content.res.AssetManager
 import android.graphics.Bitmap
-import com.cmpe352group4.buyo.imagesearch.Result
 import com.cmpe352group4.buyo.imagesearch.Keys.DIM_BATCH_SIZE
 import com.cmpe352group4.buyo.imagesearch.Keys.DIM_IMG_SIZE_X
 import com.cmpe352group4.buyo.imagesearch.Keys.DIM_IMG_SIZE_Y
