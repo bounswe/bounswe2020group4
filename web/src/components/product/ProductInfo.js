@@ -13,7 +13,6 @@ import reportService from '../../services/report'
 import WishlistButton from './WishlistButton'
 import RatingStar from '../RatingStar'
 
-import FreeShippingImage from '../../images/free-shipping.png'
 
 import './ProductInfo.css'
 
