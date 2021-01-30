@@ -43,7 +43,7 @@ class AddStockValuesFragment: BaseFragment() {
     private val addStockValuesAdapter by lazy {
         AddStockValuesAdapter(
             mutableListOf()
-        ){ optionsList, stockValue ->
+        ){ optionsList, stockValue -> // store stock values into a map
             stockValues[optionsList] = stockValue
         }
     }
@@ -77,6 +77,8 @@ class AddStockValuesFragment: BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Recycler View
+
         val decorator = DividerItemDecoration(rv_vendorAddStockValue.context, LinearLayoutManager.VERTICAL)
         decorator.setDrawable(ContextCompat.getDrawable(rv_vendorAddStockValue.context, R.drawable.divider_drawable)!!)
         rv_vendorAddStockValue.addItemDecoration(decorator)
@@ -106,7 +108,7 @@ class AddStockValuesFragment: BaseFragment() {
 
 
         btn_vendorAddProductStock_Complete.setOnClickListener {
-            // Send Backend request here and return to my products page
+            // Wrap up the attributes and send to the next fragment (stock values)
 
             var newProductInfo : MutableList<ProductInfo> = mutableListOf()
 
@@ -126,7 +128,7 @@ class AddStockValuesFragment: BaseFragment() {
             product.productInfos = newProductInfo
 
 
-
+            // Convert product object to add product object
             val addProduct = AddProduct(
                 id = product.id,
                 category = product.category,
@@ -144,7 +146,7 @@ class AddStockValuesFragment: BaseFragment() {
                 filterCriterias = product.filterCriterias
             )
 
-            if (fragment_mode == "add"){
+            if (fragment_mode == "add"){ // Adding mode
                 Log.v("StockValuesMode", "ADD")
                 vendorViewModel.onAddProduct(sharedPref.getUserId() ?: "", addProduct)
 
@@ -173,7 +175,7 @@ class AddStockValuesFragment: BaseFragment() {
 
                 Log.v("FinalizedProduct", addProduct.toString())
 
-            }else if (fragment_mode == "edit"){
+            }else if (fragment_mode == "edit"){ // Editing mode
                 Log.v("StockValuesMode", "EDIT")
                 vendorViewModel.onUpdateProduct(product)
 

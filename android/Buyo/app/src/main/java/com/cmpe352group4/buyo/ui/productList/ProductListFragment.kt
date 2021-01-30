@@ -70,13 +70,13 @@ class ProductListFragment : BaseFragment(){
 
     private val productListAdapter by lazy {
         ProductListAdapter(mutableListOf(), sharedPref,
-            { product ->
+            { product -> //Go to the details of the product
                 navigationManager?.onReplace(
                     ProductDetailContentFragment.newInstance(product.id),
                     TransactionType.Replace, true
                 )
             },
-            { product, itemView ->
+            { product, itemView -> // Add item to the wishlist or remove
                 if (sharedPref.getUserId().isNullOrEmpty()) {
                     Log.v("ListRV","Guest User")
                     val myToast = Toast.makeText(
@@ -99,6 +99,7 @@ class ProductListFragment : BaseFragment(){
                             showLoading()
                         }
                     })
+                    // Change the like status
                     if (itemView.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_disliked) {
                         itemView.iv_productListRecyclerView_Fav.setImageResource(R.drawable.ic_product_liked)
                         itemView.iv_productListRecyclerView_Fav.tag = R.drawable.ic_product_liked
@@ -108,7 +109,7 @@ class ProductListFragment : BaseFragment(){
                         itemView.iv_productListRecyclerView_Fav.tag = R.drawable.ic_product_disliked
                     }
                 }
-            },{ toastText ->
+            },{ toastText -> // Generic toast function
                 val myToast = Toast.makeText(
                     context,
                     toastText,
@@ -117,7 +118,7 @@ class ProductListFragment : BaseFragment(){
                 myToast.setGravity(Gravity.BOTTOM, 0, 200)
                 myToast.show()
 
-            },{ product ->
+            },{ product -> // Add product to cart function
                 if (sharedPref.getUserType().toString()  == "vendor") {
                     val myToast = Toast.makeText(
                         context,
@@ -150,7 +151,7 @@ class ProductListFragment : BaseFragment(){
                 }
 
             }
-        ) {
+        ) {// If the user is customer remove from cart function
             if (sharedPref.getUserType().toString()  == "vendor") {
                 val myToast = Toast.makeText(
                     context,

@@ -43,7 +43,7 @@ class ProductDetailCommentsFragment : BaseFragment() {
     private val productCommentsAdapter by lazy {
         ProductCommentsAdapter(
             mutableListOf()
-        ){
+        ){// Report the comment function
             navigationManager?.onReplace(
                 ProductCommentReportFragment.newInstance(comment = it, product = ""),
                 TransactionType.Replace, true
@@ -63,6 +63,8 @@ class ProductDetailCommentsFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Recycler view
 
         val decorator = DividerItemDecoration(rv_ProductComments.context, LinearLayoutManager.VERTICAL)
         decorator.setDrawable(ContextCompat.getDrawable(rv_ProductComments.context, R.drawable.divider_drawable)!!)
@@ -85,6 +87,7 @@ class ProductDetailCommentsFragment : BaseFragment() {
 
                 comments = it.data.result.comments
 
+                // If there is no comment for that product then put a no comment message
                 if (comments == null  || comments!!.size == 0){
                     comments = mutableListOf(
                         Comment(id = "-1", text = "Buy this product immediately and make the first comment !", rating= ":(", owner = CommentOwner(username = "No Comments Yet", email = "dummy@gmail.com" ))

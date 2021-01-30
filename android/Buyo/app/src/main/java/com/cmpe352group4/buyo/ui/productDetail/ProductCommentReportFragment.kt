@@ -59,7 +59,7 @@ class ProductCommentReportFragment : BaseFragment() {
 
         val product_str = arguments?.getString(PRODUCT) ?: ""
 
-        if (comment_str != "") {
+        if (comment_str != "") { // If the report is about a comment
             val comment = gson.fromJson(comment_str, Comment::class.java)
 
             tv_productCommentsReport_user.text = comment.owner.username
@@ -100,7 +100,7 @@ class ProductCommentReportFragment : BaseFragment() {
             }
 
         }
-        else if (product_str !=  ""){
+        else if (product_str !=  ""){// If the report is about a product
             val product = gson.fromJson(product_str, Product::class.java)
 
             tv_productCommentsReport_user.text = product.name

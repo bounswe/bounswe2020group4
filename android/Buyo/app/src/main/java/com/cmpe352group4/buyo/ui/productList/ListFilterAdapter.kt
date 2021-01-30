@@ -45,6 +45,7 @@ class ListFilterAdapter (
 
             filterValues.add(0, "-")
 
+            // Set spinner options for the current attribute name
             val spinnerAdapter = ArrayAdapter(itemView.context, android.R.layout.simple_spinner_item, filterValues)
 
             spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -57,7 +58,7 @@ class ListFilterAdapter (
                     selectFeatureCallback(modal.name, adapterView?.getItemAtPosition(position).toString())
                 }
 
-                override fun onNothingSelected(adapterView: AdapterView<*>?) {
+                override fun onNothingSelected(adapterView: AdapterView<*>?) { // Select non for option by default
                     selectFeatureCallback(modal.name, adapterView?.getItemAtPosition(0).toString())
                 }
 

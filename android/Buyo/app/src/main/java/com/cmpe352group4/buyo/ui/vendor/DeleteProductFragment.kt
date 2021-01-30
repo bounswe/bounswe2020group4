@@ -63,6 +63,7 @@ class DeleteProductFragment: BaseFragment() {
             activity?.onBackPressed()
         }
 
+        // Delete if delete button is pressed
         btn_deleteProduct_confirm.setOnClickListener {
             vendorViewModel.onDeleteProduct(DeleteProductEndpoint(vendorID = sharedPref.getUserId().toString(), productID = product_id))
 

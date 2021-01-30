@@ -45,13 +45,13 @@ class AddProductAdapter(
     inner class AddProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         fun bind(modal : ParsedAttribute){
 
-            if (modal.att_name != ""){
+            if (modal.att_name != ""){ // Send attribute name and options to callback directly if it is edit mode
                 itemView.et_vendorAddProductAttributeName.setText(modal.att_name)
                 itemView.et_vendorAddProductAttributeOptions.setText(modal.att_value.joinToString("-"))
                 callbackAddAttribute.invoke(modal)
             }
 
-
+            // Set attribute name
             itemView.et_vendorAddProductAttributeName.addTextChangedListener(object : TextWatcher{
                 override fun beforeTextChanged(text: CharSequence?, start: Int, count: Int, after: Int) {
                     Log.v("VendorAddProductAdapter", "beforeTextChanged: $text")
@@ -68,7 +68,7 @@ class AddProductAdapter(
 
             })
 
-
+            // Set attribute options
             itemView.et_vendorAddProductAttributeOptions.addTextChangedListener(object : TextWatcher{
                 override fun beforeTextChanged(text: CharSequence?, start: Int, count: Int, after: Int) {
                     Log.v("VendorAddProductAdapter", "beforeTextChanged: $text")

@@ -35,9 +35,6 @@ class VendorProductListFragment: BaseFragment() {
 
     val gson = Gson()
 
-    private val sampleProductsViewModel: SearchViewModel by viewModels {
-        viewModelFactory
-    }
     private val productViewModel: ProductViewModel by viewModels {
         viewModelFactory
     }
@@ -47,13 +44,13 @@ class VendorProductListFragment: BaseFragment() {
     }
 
     private val vendorProductListAdapter by lazy {
-        VendorProductListAdapter(mutableListOf(), {seeProduct ->
+        VendorProductListAdapter(mutableListOf(), {seeProduct -> // go to product details
             navigationManager?.onReplace(
                 ProductDetailContentFragment.newInstance(seeProduct.id),
                 TransactionType.Replace, true
             )
         },
-        {editProduct ->
+        {editProduct -> // Edit product mode
 
             var product_detail : Product
 
@@ -78,7 +75,7 @@ class VendorProductListFragment: BaseFragment() {
             })
 
         },
-            {product ->
+            {product -> // delete product
 
                 navigationManager?.onReplace(
                     DeleteProductFragment.newInstance(id = product.id, name = product.name),
@@ -102,6 +99,8 @@ class VendorProductListFragment: BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // recycler view
+
         val decorator = DividerItemDecoration(rv_vendorProductList.context, LinearLayoutManager.VERTICAL)
         decorator.setDrawable(ContextCompat.getDrawable(rv_vendorProductList.context, R.drawable.divider_drawable)!!)
         rv_vendorProductList.addItemDecoration(decorator)
@@ -110,6 +109,7 @@ class VendorProductListFragment: BaseFragment() {
 
         rv_vendorProductList.layoutManager = LinearLayoutManager(this.context)
 
+        // list the products of the vendor
 
         vendorViewModel.onFetchVendorProducts(sharedPref.getUserId() ?: "")
 

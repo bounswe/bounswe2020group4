@@ -47,7 +47,7 @@ class ProductCommentsAdapter(
             itemView.tv_productCommentsRecyclerView_rating.text = modal.rating
             itemView.tv_productCommentsRecyclerView_text.text = modal.text
 
-            if (modal.id == "-1"){
+            if (modal.id == "-1"){ // If there is no comment for that product disable the report button of the no comment text
                 itemView.btn_productCommentsRecyclerView_report.isEnabled = false
                 itemView.btn_productCommentsRecyclerView_report.visibility = View.INVISIBLE
             }

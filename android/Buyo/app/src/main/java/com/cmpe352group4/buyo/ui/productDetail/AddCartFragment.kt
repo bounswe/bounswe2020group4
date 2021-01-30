@@ -54,7 +54,7 @@ class AddCartFragment : BaseFragment() {
     private val AddCartAdapter by lazy {
         AddCartAdapter(
             mutableListOf(), sharedPref
-        ) { featureName, featureValue ->
+        ) { featureName, featureValue -> // Store the order details into a map
             order_details[featureName] = featureValue
             Log.v("AddCartFragment", order_details.toString())
             updateMax()
@@ -113,7 +113,7 @@ class AddCartFragment : BaseFragment() {
             }else{
                 val current_amount = et_addCartAmount.text.toString().toInt()
 
-                if (current_amount > updateMax()){
+                if (current_amount > updateMax()){ // If the amount exceeds the stock value
                     Toast.makeText(context, "Sorry, we don't have that much product :(", Toast.LENGTH_SHORT).show()
                 }else{
                     val att_list = mutableListOf<Attribute>()
@@ -158,6 +158,8 @@ class AddCartFragment : BaseFragment() {
         }
     }
 
+
+    // Change the available amount for the combination
     fun updateMax(): Int {
 
         var att_list = mutableListOf<Attribute>()
@@ -169,17 +171,14 @@ class AddCartFragment : BaseFragment() {
         var order_names = att_list.map { it.name }.sorted()
         var order_values = att_list.map { it.value }.sorted()
 
-        //Log.v("AddCartFragment", order_names.toString())
-        //Log.v("AddCartFragment", order_values.toString())
-
         if (productInfos != null){
-            for (prod_info in productInfos!!){
+            for (prod_info in productInfos!!){ // Iterate all combinations
                 val current_prod_info_atts= prod_info.attributes
 
                 var current_names = current_prod_info_atts.map { it.name }.sorted()
                 var current_values = current_prod_info_atts.map { it.value }.sorted()
 
-                if (current_names == order_names &&  current_values ==  order_values){
+                if (current_names == order_names &&  current_values ==  order_values){ // If the combination matches then update the max amount
                     //Log.v("AddCartFragment", "There is a match: ${prod_info.stockValue}")
                     tv_addCartMaxAmount.text = "Max: ${prod_info.stockValue}"
                     return prod_info.stockValue

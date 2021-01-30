@@ -41,6 +41,9 @@ class AddProductCategoryAdapter (
             val view = view
 
             fun bind(modal: Category, position: Int) {
+
+                // Get the category of the added product
+
                 if(modal.subcategories.isNullOrEmpty()){
                     itemView.iv_vendorAddProductCategories_item.visible = false
                 }

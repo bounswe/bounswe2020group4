@@ -55,6 +55,9 @@ class ProductListAdapter(
     inner class ProductListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(modal: Product) {
+
+            // Parse the product to the item
+
             itemView.iv_productListRecyclerView_Fav.tag = R.drawable.ic_product_disliked
             itemView.iv_productListRecyclerView_Cart.tag = R.drawable.ic_add2cart
 
@@ -87,10 +90,10 @@ class ProductListAdapter(
 
             }
 
-            itemView.setOnClickListener { clickCallback.invoke(modal) }
+            itemView.setOnClickListener { clickCallback.invoke(modal) } // Go item details
 
             val prod_ids = WishListProducts?.map{it.id}
-            if(prod_ids != null){
+            if(prod_ids != null){ // Parse the liking status
                 if(prod_ids!!.contains(modal.id)){
                     if (itemView.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_disliked){
                         Log.d("ListAdapterParseLike", "${modal.name}")
@@ -106,7 +109,7 @@ class ProductListAdapter(
                 }
             }
 
-            itemView.iv_productListRecyclerView_Fav.setOnClickListener {
+            itemView.iv_productListRecyclerView_Fav.setOnClickListener {// Like or dislike the product
                 if (sharedPref.getUserType().toString()  == "vendor") {
                     toastCallback.invoke("You need to Login as Customer first!")
                 }else {
@@ -124,7 +127,7 @@ class ProductListAdapter(
 
             }
 
-            itemView.iv_productListRecyclerView_Cart.setOnClickListener {
+            itemView.iv_productListRecyclerView_Cart.setOnClickListener {// Add to cart or remove
                 if (sharedPref.getUserId().isNullOrEmpty()) {
                     Log.v("ListRV","Guest User")
                     toastCallback.invoke("You need to Login first!")
