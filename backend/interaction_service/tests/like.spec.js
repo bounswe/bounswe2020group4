@@ -18,7 +18,7 @@ describe("# Comment view tests", async function () {
   });
 
   let customerId;
-  let productId = await Product.findOne(); 
+  let productId = await Product.findOne();
   describe("function: signup", () => {
     it("should perform a successful customer signup", async () => {
       const result = await account.signup({
@@ -34,6 +34,7 @@ describe("# Comment view tests", async function () {
 
       customerId = result.userId;
     });
+  });
 
   describe("function: like", () => {
     it("should perform a successful like to a product", async () => {
@@ -44,7 +45,6 @@ describe("# Comment view tests", async function () {
 
       chai.expect(result.success).to.be.true;
     });
-
 
     it("should return false with product not found error", async () => {
       const result = await comment.add({
@@ -61,8 +61,5 @@ describe("# Comment view tests", async function () {
       });
       chai.expect(result.success).to.be.false;
     });
-
   });
-
- 
 });

@@ -17,7 +17,7 @@ describe("# Comment view tests", async function () {
     await db.initialize();
   });
   let customerId;
-  let productId = await Product.findOne(); 
+  let productId = await Product.findOne();
   let commentId;
   describe("function: signup", () => {
     it("should perform a successful customer signup", async () => {
@@ -34,7 +34,7 @@ describe("# Comment view tests", async function () {
 
       customerId = result.userId;
     });
-
+  });
 
   describe("function: comment", () => {
     it("should perform a successful comment to a product", async () => {
@@ -50,7 +50,6 @@ describe("# Comment view tests", async function () {
 
       commentId = result.id;
     });
-
 
     it("should fail with missing parameter error", async () => {
       const result = await comment.add({
@@ -75,13 +74,11 @@ describe("# Comment view tests", async function () {
     });
 
     it("should perform a successful comment delete from a product", async () => {
-        const result = await comment.delete({
-          id: commentId,
-        });
-  
-        chai.expect(result.success).to.be.true;
+      const result = await comment.delete({
+        id: commentId,
       });
-  });
 
- 
+      chai.expect(result.success).to.be.true;
+    });
+  });
 });

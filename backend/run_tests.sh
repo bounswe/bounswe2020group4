@@ -1,5 +1,6 @@
 ( cd account_service ; npm i && npm test )
-( cd checkout_service ; npm i && npm test )
-( cd db_service ; npm i && npm test )
 ( cd interaction_service ; npm i && npm test )
+( cd checkout_service ; npm i && npm test )
+( cd admin_service ; npm i && npm test )
+( cd product_service ; npm i && npm test )
 ( cd vendor_service ; npm i && npm test )
