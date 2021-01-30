@@ -78,7 +78,7 @@ module.exports.getProducts = async (params) => {
     if (params.categories) {
       products = await Product.find({ category: { $all: JSON.parse(params.categories) } });
     } else if (params.search) {
-      products = await Product.find( { $text: { $search: params.search.toString() }})
+      products = await Product.find({ $text: { $search: params.search.toString() } });
     }
 
     var filterCriterias = [];
@@ -406,7 +406,7 @@ module.exports.getProduct = async (params) => {
       price: product.price,
       originalPrice: product.originalPrice,
       imageUrl: product.imageUrl,
-      rating: product.rating,
+      rating: product.rating ? Number(parseFloat(product.rating).toFixed(2)) : 0,
       brand: product.brand,
       vendorId: product.vendorId,
       id: product.id,
