@@ -45,39 +45,6 @@ class CartPageFragment : BaseFragment() {
     companion object {
         fun newInstance() = CartPageFragment()
     }
-//    var finalCartProducts = mutableListOf<CartProduct>()
-//    val dummyCartProduct = mutableListOf(
-//        CartProduct(name = "Erkek Bebek Bugs Bunny Desenli Takim 2'li",
-//            id = "1",
-//            imageUrl = "https://img-lcwaikiki.mncdn.com/mnresize/230/-/pim/productimages/20202/4692240/l_20202-0weg94z1-g4y_a.jpg",
-//            rating = 2.15,
-//            price = 64.99,
-//            originalPrice = 74.99,
-//            brand = "Watsons",
-//            vendor = Vendor(id = "12", name = "Pablos", rating = 2.43),
-//            productInfo = listOf(
-//                ProductInfo(attributes = listOf(
-//                    Attribute(name = "color", value = "red"), Attribute(name = "size", value = "L")
-//                ), stockValue = 2),
-//                ProductInfo(attributes = listOf(
-//                    Attribute(name = "color", value = "blue"), Attribute(name = "size", value = "M")
-//                ), stockValue = 4)
-//            )
-//        ),
-//        CartProduct(name = "Slim Fit Jogger Esofman Alti",
-//            id = "2",
-//            imageUrl = "https://img-lcwaikiki.mncdn.com/mnresize/230/-/productimages/20192/1/3891903/l_20192-9wr187z8-mgl_a.jpg",
-//            rating = 1.01,
-//            price = 35.00,
-//            originalPrice = 70.00,
-//            brand = "Koton",
-//            vendor = Vendor(id = "12", name = "AyseTeyze", rating = 3.21),
-//            attributes = listOf(
-//                Attribute(name = "color", value = "red"), Attribute(name = "size", value = "L")
-//            ),
-//            quantity = 1
-//        )
-//    )
 
     private val cartAdapter by lazy {
         CartAdapter(mutableListOf()
@@ -98,21 +65,40 @@ class CartPageFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if(checkLoginState()){
-            cartViewModel.onFetchCartInfo(sharedPref.getUserId() ?: "")
+        if(sharedPref.getUserType().equals("vendor")){
+            tv_nonlogin.text = "You need to login as a customer."
+            loginButton.text = "Profile Page"
+            cl_non_login.visible = true
+        }else{
+            tv_nonlogin.text = "You need to login first"
+            loginButton.text = "Login Page"
+            if(checkLoginState()){
+                cartViewModel.onFetchCartInfo(sharedPref.getUserId() ?: "")
+            }
+            initializeAdapter()
+            setListeners()
+            observeData()
         }
 
-        initializeAdapter()
-        setListeners()
-        observeData()
-
+        loginButton.setOnClickListener {
+            (activity as MainActivity).changeActiveTab(NavigationBar.PROFILE_INDEX)
+        }
 
     }
 
     override fun onResume() {
         super.onResume()
-        if(checkLoginState()){
-            cartViewModel.onFetchCartInfo(sharedPref.getUserId() ?: "")
+        if(sharedPref.getUserType().equals("vendor")){
+            tv_nonlogin.text = "You need to login as a customer."
+            loginButton.text = "Profile Page"
+            cl_non_login.visible = true
+        }else{
+            tv_nonlogin.text = "You need to login first"
+            loginButton.text = "Login Page"
+            clEmptyCart.visible = false
+            if(checkLoginState()){
+                cartViewModel.onFetchCartInfo(sharedPref.getUserId() ?: "")
+            }
         }
     }
 
@@ -158,10 +144,6 @@ class CartPageFragment : BaseFragment() {
         // If cart is empty, 'LET'S SHOP' button will direct user to homepage
         bt_emptyCart.setOnClickListener {
             (activity as MainActivity).changeActiveTab(NavigationBar.HOME_INDEX)
-        }
-
-        loginButton.setOnClickListener {
-            (activity as MainActivity).changeActiveTab(NavigationBar.PROFILE_INDEX)
         }
 
         // Checkout tab price detail

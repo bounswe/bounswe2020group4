@@ -7,10 +7,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cmpe352group4.buyo.util.extensions.inflate
 import com.cmpe352group4.buyo.util.extensions.loadFromURL
 import com.cmpe352group4.buyo.vo.OrderProductRV
-import kotlinx.android.synthetic.main.item_cart.view.iv_productPhoto
-import kotlinx.android.synthetic.main.item_cart.view.tv_productName
-import kotlinx.android.synthetic.main.item_cart.view.tv_vendor
 import kotlinx.android.synthetic.main.item_orders.view.*
+import kotlinx.android.synthetic.main.item_orders.view.dropdown_detail
+import kotlinx.android.synthetic.main.item_orders.view.first_button
+import kotlinx.android.synthetic.main.item_orders.view.iv_productPhoto
+import kotlinx.android.synthetic.main.item_orders.view.product_detail
+import kotlinx.android.synthetic.main.item_orders.view.second_button
+import kotlinx.android.synthetic.main.item_orders.view.tv_addressInfo
+import kotlinx.android.synthetic.main.item_orders.view.tv_date
+import kotlinx.android.synthetic.main.item_orders.view.tv_header
+import kotlinx.android.synthetic.main.item_orders.view.tv_order_no
+import kotlinx.android.synthetic.main.item_orders.view.tv_price
+import kotlinx.android.synthetic.main.item_orders.view.tv_productName
+import kotlinx.android.synthetic.main.item_orders.view.tv_status
 
 class OrderAdapter (
     private val paidOrderList: MutableList<OrderProductRV>,
@@ -48,8 +57,9 @@ class OrderAdapter (
             var price = (modal.price*modal.quantity).toString() + "₺" + " - " + "Amount: " +
                                                                     modal.quantity.toString()
             var address = modal.address
-            var isDelivered = modal.status
+            var orderStatus = modal.status
             var attributes = modal.attributes
+            var date = "Order Date: " + modal.orderDate.split("T")[0]
 
             itemView.tv_vendor.text = vendorName
             itemView.tv_order_no.text = orderNo
@@ -57,24 +67,96 @@ class OrderAdapter (
             itemView.tv_productName.text = productName
             itemView.tv_addressInfo.text = address
             itemView.tv_price.text = price
+            itemView.tv_date.text = date
+            itemView.tv_status.text = "Status: " + orderStatus
 
-            if (isDelivered=="Pending") {
-                var date = "Order Date: " + modal.orderDate.split("T")[0]
-                itemView.tv_date.text = date
-                itemView.tv_header.setBackgroundColor(Color.parseColor("#E53C38")) // light red
-                itemView.tv_status.text = "Status: Not Delivered"
-            } else {
-                var date = "Order Date: " + modal.orderDate.split("T")[0]
-                itemView.tv_date.text = date
-                itemView.tv_header.setBackgroundColor(Color.parseColor("#a4c639")) // light green
-                itemView.btn_cancel_order.text = "Add Comment"
-                itemView.btn_cancel_order.setBackgroundColor(Color.parseColor("#fedebe")) // light orange
-                itemView.btn_cancel_order.setTextColor(Color.BLACK)
-                itemView.tv_status.text = "Status: Delivered"
+            if (orderStatus=="Pending") {
+                itemView.tv_header.setBackgroundColor(Color.parseColor("#fedebe")) // light orange
+                itemView.tv_status.setTextColor(Color.BLACK)
+                itemView.tv_vendor.setTextColor(Color.BLACK)
+
+                itemView.first_button.visibility = View.VISIBLE
+                itemView.first_button.text = "Message Vendor"
+                itemView.first_button.setBackgroundColor(Color.parseColor("#fedebe")) // light orange
+                itemView.first_button.setTextColor(Color.WHITE)
+
+                itemView.second_button.visibility = View.VISIBLE
+                itemView.second_button.text = "Cancel"
+                itemView.second_button.setBackgroundColor(Color.parseColor("#E53C38")) // light red
+                itemView.second_button.setTextColor(Color.WHITE)
             }
+            else if (orderStatus=="Approved") {
+                itemView.tv_header.setBackgroundColor(Color.parseColor("#fedebe")) // light orange
+                itemView.tv_status.setTextColor(Color.BLACK)
+                itemView.tv_vendor.setTextColor(Color.BLACK)
+
+                itemView.first_button.visibility = View.VISIBLE
+                itemView.first_button.text = "Message Vendor"
+                itemView.first_button.setBackgroundColor(Color.parseColor("#fedebe")) // light green
+                itemView.first_button.setTextColor(Color.WHITE)
+
+                itemView.second_button.visibility = View.GONE
+            }
+            else if (orderStatus=="Shipped") {
+                itemView.tv_header.setBackgroundColor(Color.parseColor("#fedebe")) // light orange
+                itemView.tv_status.setTextColor(Color.BLACK)
+                itemView.tv_vendor.setTextColor(Color.BLACK)
+
+                itemView.first_button.visibility = View.VISIBLE
+                itemView.first_button.text = "Message Vendor"
+                itemView.first_button.setBackgroundColor(Color.parseColor("#fedebe")) // light orange
+                itemView.first_button.setTextColor(Color.BLACK)
+
+                itemView.second_button.visibility = View.GONE
+            }
+            else if (orderStatus.startsWith("Delivered")) {
+                itemView.tv_header.setBackgroundColor(Color.parseColor("#a4c639")) // light green
+                itemView.tv_status.setTextColor(Color.BLACK)
+                itemView.tv_vendor.setTextColor(Color.BLACK)
+
+                itemView.first_button.visibility = View.VISIBLE
+                itemView.first_button.text = "Message Vendor"
+                itemView.first_button.setBackgroundColor(Color.parseColor("#fedebe")) // light orange
+                itemView.first_button.setTextColor(Color.BLACK)
+
+                itemView.second_button.visibility = View.VISIBLE
+                itemView.second_button.text = "Return"
+                itemView.second_button.setBackgroundColor(Color.parseColor("#fedebe")) // light orange
+                itemView.second_button.setTextColor(Color.BLACK)
+            }
+            else if (orderStatus == "Returned") {
+                itemView.tv_header.setBackgroundColor(Color.parseColor("#E53C38")) // light red
+                itemView.tv_status.setTextColor(Color.BLACK)
+                itemView.tv_vendor.setTextColor(Color.BLACK)
+
+                itemView.first_button.visibility = View.VISIBLE
+                itemView.first_button.text = "Message Vendor"
+                itemView.first_button.setBackgroundColor(Color.parseColor("#fedebe")) // light orange
+                itemView.first_button.setTextColor(Color.BLACK)
+
+                itemView.second_button.visibility = View.VISIBLE
+                itemView.second_button.text = "Add Comment"
+                itemView.second_button.setBackgroundColor(Color.parseColor("#fedebe")) // light orange
+                itemView.second_button.setTextColor(Color.BLACK)
+            }
+            else {
+                itemView.tv_header.setBackgroundColor(Color.parseColor("#E53C38")) // light red
+                itemView.tv_status.setTextColor(Color.WHITE)
+                itemView.tv_vendor.setTextColor(Color.WHITE)
+
+                itemView.first_button.visibility = View.VISIBLE
+                itemView.first_button.text = "Message Vendor"
+                itemView.first_button.setBackgroundColor(Color.parseColor("#fedebe")) // light orange
+                itemView.first_button.setTextColor(Color.BLACK)
+
+                itemView.second_button.visibility = View.GONE
+            }
+
+
+
             itemView.setOnClickListener { clickCallback.invoke(modal) }
-            itemView.btn_message_vendor.setOnClickListener { firstButtonCallback.invoke(modal) }
-            itemView.btn_cancel_order.setOnClickListener { secondButtonCallback.invoke(modal) }
+            itemView.first_button.setOnClickListener { firstButtonCallback.invoke(modal) }
+            itemView.second_button.setOnClickListener { secondButtonCallback.invoke(modal) }
             itemView.dropdown_detail.setOnClickListener{
                 if (itemView.dropdown_detail.text.toString() == "v") {
                     itemView.product_detail.visibility = View.VISIBLE

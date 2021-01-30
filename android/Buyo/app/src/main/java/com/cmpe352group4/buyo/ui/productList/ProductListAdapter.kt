@@ -1,9 +1,11 @@
 package com.cmpe352group4.buyo.ui.productList
 
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cmpe352group4.buyo.R
@@ -34,7 +36,11 @@ class ProductListAdapter(
     }
 
     override fun onBindViewHolder(holder: ProductListViewHolder, position: Int) {
-        holder.bind(Products[position])
+        try {
+            holder.bind(Products[position])
+        }catch (e:Exception){
+
+        }
     }
 
     override fun getItemCount(): Int {
@@ -52,13 +58,34 @@ class ProductListAdapter(
             itemView.iv_productListRecyclerView_Fav.tag = R.drawable.ic_product_disliked
             itemView.iv_productListRecyclerView_Cart.tag = R.drawable.ic_add2cart
 
-            itemView.tv_productListRecyclerView_Info.text = "Brand: " + modal.brand + " / Vendor: " + modal.vendor.name + " / Vendor Rating : " + modal.vendor.rating.toString()
-            itemView.tv_productListRecyclerView_Name.text = modal.name
-            itemView.tv_productListRecyclerView_Rate.text = "Rating: " + modal.rating.toString()
-            itemView.tv_productListRecyclerView_Price.text = modal.price.toString() + " ₺"
-            Glide.with(itemView.context)
-                .load(modal.imageUrl).centerCrop()
-                .into(itemView.iv_productListRecyclerView_Image)
+            try {
+                itemView.tv_productListRecyclerView_Info.text =
+                    "Brand: " + modal.brand + " / Vendor: " + modal.vendor.name + " / Vendor Rating : " + modal.vendor.rating.toString()
+            }catch (e : Exception){
+
+            }
+            try {
+                itemView.tv_productListRecyclerView_Name.text = modal.name
+            }catch (e : Exception){
+
+            }
+            try {
+                itemView.tv_productListRecyclerView_Rate.text = "Rating: " + modal.rating.toString()
+            }catch (e : Exception){
+
+            }
+            try {
+                itemView.tv_productListRecyclerView_Price.text = modal.price.toString() + " ₺"
+            }catch (e : Exception){
+
+            }
+            try {
+                Glide.with(itemView.context)
+                    .load(modal.imageUrl).centerCrop()
+                    .into(itemView.iv_productListRecyclerView_Image)
+            }catch (e : Exception){
+
+            }
 
             itemView.setOnClickListener { clickCallback.invoke(modal) }
 
@@ -80,14 +107,18 @@ class ProductListAdapter(
             }
 
             itemView.iv_productListRecyclerView_Fav.setOnClickListener {
-                likeCallback.invoke(modal, itemView)
-                if (sharedPref.getUserId().isNullOrEmpty()) {
-                    toastCallback.invoke("You need to Login first!")
-                } else {
-                    if (itemView.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_liked) {
-                        toastCallback.invoke("${modal.name} is added to your wishlist!")
-                    } else if (itemView.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_disliked) {
-                        toastCallback.invoke("${modal.name} is removed from your wishlist!")
+                if (sharedPref.getUserType().toString()  == "vendor") {
+                    toastCallback.invoke("You need to Login as Customer first!")
+                }else {
+                    //likeCallback.invoke(modal, itemView)
+                    if (sharedPref.getUserId().isNullOrEmpty()) {
+                        toastCallback.invoke("You need to Login first!")
+                    } else {
+                        if (itemView.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_liked) {
+                            toastCallback.invoke("${modal.name} is added to your wishlist!")
+                        } else if (itemView.iv_productListRecyclerView_Fav.tag == R.drawable.ic_product_disliked) {
+                            toastCallback.invoke("${modal.name} is removed from your wishlist!")
+                        }
                     }
                 }
 
@@ -98,20 +129,20 @@ class ProductListAdapter(
                     Log.v("ListRV","Guest User")
                     toastCallback.invoke("You need to Login first!")
                 } else {
+                    if (sharedPref.getUserType().toString()  == "vendor") {
+                        toastCallback.invoke("You need to Login as Customer first!")
+                    }else {
 
-                    // TODO : SEND BACKEND REQUEST HERE
-
-                    if (it.iv_productListRecyclerView_Cart.tag == R.drawable.ic_add2cart){
-                        it.iv_productListRecyclerView_Cart.setImageResource(R.drawable.ic_remove_from_cart)
-                        it.iv_productListRecyclerView_Cart.tag = R.drawable.ic_remove_from_cart
-                        addCartCallback.invoke(modal)
+                        if (it.iv_productListRecyclerView_Cart.tag == R.drawable.ic_add2cart) {
+                            it.iv_productListRecyclerView_Cart.setImageResource(R.drawable.ic_remove_from_cart)
+                            it.iv_productListRecyclerView_Cart.tag = R.drawable.ic_remove_from_cart
+                            addCartCallback.invoke(modal)
+                        } else if (it.iv_productListRecyclerView_Cart.tag == R.drawable.ic_remove_from_cart) {
+                            it.iv_productListRecyclerView_Cart.setImageResource(R.drawable.ic_add2cart)
+                            it.iv_productListRecyclerView_Cart.tag = R.drawable.ic_add2cart
+                            removeCartCallback.invoke(modal)
+                        }
                     }
-                    else if (it.iv_productListRecyclerView_Cart.tag == R.drawable.ic_remove_from_cart){
-                        it.iv_productListRecyclerView_Cart.setImageResource(R.drawable.ic_add2cart)
-                        it.iv_productListRecyclerView_Cart.tag = R.drawable.ic_add2cart
-                        removeCartCallback.invoke(modal)
-                    }
-
 
                 }
             }

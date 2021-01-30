@@ -1,17 +1,12 @@
 package com.cmpe352group4.buyo.ui.login
 
 import android.os.Bundle
-import android.text.*
-import android.text.method.LinkMovementMethod
-import android.text.style.ClickableSpan
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.cmpe352group4.buyo.R
@@ -21,17 +16,15 @@ import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
 import com.cmpe352group4.buyo.datamanager.shared_pref.SharedPref
 import com.cmpe352group4.buyo.ui.LegalDocFragment
 import com.cmpe352group4.buyo.ui.googlemap.MapsFragment
-import com.cmpe352group4.buyo.ui.profilePage.ProfilePageFragment
+import com.cmpe352group4.buyo.ui.vendorProfilePage.VendorProfilePageFragment
 import com.cmpe352group4.buyo.util.extensions.makeLinks
 import com.cmpe352group4.buyo.viewmodel.ProfileViewModel
-import com.cmpe352group4.buyo.vo.SignupRequestVendor
 import com.cmpe352group4.buyo.vo.LoginRequestVendor
+import com.cmpe352group4.buyo.vo.SignupRequestVendor
 import kotlinx.android.synthetic.main.fragment_login_vendor.*
 import javax.inject.Inject
 
 
-// TODO Reset password functionality
-// TODO Sign up e-mail verification
 
 // Vendor must not use an e-mail domain if its domain is in the list below.
 val badDomainList : List<String> = listOf<String>("gmail", "windowslive", "hotmail", "outlook",
@@ -69,6 +62,7 @@ class LoginFragmentVendor : BaseFragment() {
         userTypeSwitchListener()
         googleMapButtonListener()
         legalDocLinkSet()
+        resetPasswordVendor()
     }
 
     override fun onResume() {
@@ -220,12 +214,13 @@ class LoginFragmentVendor : BaseFragment() {
                     profileViewModel.loginVendor.observe(viewLifecycleOwner, Observer {
                         if (it.status == Status.SUCCESS && it.data != null) {
                             sharedPref.saveUserId(it.data.userId)
+                            sharedPref.saveUserType("vendor")
+                            sharedPref.saveRememberMe(vendor_remember_me.isChecked)
+                            sharedPref.saveIsGoogleSignin(false)
                             dispatchLoading()
 
-                        // TODO Go to profile page here
                         navigationManager?.onReplace(
-                            ProfilePageFragment.newInstance(),
-                            //VendorProfilePageFragment.newInstance(),
+                            VendorProfilePageFragment.newInstance(),
                             TransactionType.Replace, false
                         )
 
@@ -254,7 +249,8 @@ class LoginFragmentVendor : BaseFragment() {
                                 longitude = lon!!,
                                 latitude = lat!!,
                                 website = vendor_company_website.text.toString(),
-                                company = vendor_company_name.text.toString()
+                                company = vendor_company_name.text.toString(),
+                                name = vendor_name_surname.text.toString()
                             )
                         )
                         profileViewModel.singupVendor.observe(viewLifecycleOwner, Observer {
@@ -342,6 +338,15 @@ class LoginFragmentVendor : BaseFragment() {
         vendor_choose_location.setOnClickListener {
             navigationManager?.onReplace(
                 MapsFragment.newInstance(),
+                TransactionType.Replace, true
+            )
+        }
+    }
+
+    private fun resetPasswordVendor() {
+        vendor_reset_password.setOnClickListener {
+            navigationManager?.onReplace(
+                VendorResetPasswordFragment.newInstance(),
                 TransactionType.Replace, true
             )
         }

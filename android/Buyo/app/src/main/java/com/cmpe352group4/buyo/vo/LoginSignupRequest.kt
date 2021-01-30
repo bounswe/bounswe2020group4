@@ -21,6 +21,12 @@ data class SignupRequestCustomer(
     var password: String
 ): Serializable
 
+data class GoogleSignInRequest(
+    var email: String,
+    var name: String,
+    var token: String
+): Serializable
+
 data class SignupRequestVendor(
     var userType: String,
     var email: String,
@@ -28,5 +34,10 @@ data class SignupRequestVendor(
     var longitude: String,
     var latitude: String,
     var website: String,
-    var company: String
+    var company: String,
+    var name: String
+): Serializable
+
+data class ForgotPasswordRequest(
+    var email: String
 ): Serializable

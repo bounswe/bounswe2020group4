@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.cmpe352group4.buyo.R
 import com.cmpe352group4.buyo.api.Status
 import com.cmpe352group4.buyo.base.BaseFragment
+import com.cmpe352group4.buyo.base.fragment_ops.TransactionType
+import com.cmpe352group4.buyo.ui.cart.CartPageFragment
 import com.cmpe352group4.buyo.viewmodel.ProductViewModel
 import com.cmpe352group4.buyo.vo.Comment
 import com.cmpe352group4.buyo.vo.CommentOwner
@@ -38,6 +40,17 @@ class ProductDetailCommentsFragment : BaseFragment() {
         }
     }
 
+    private val productCommentsAdapter by lazy {
+        ProductCommentsAdapter(
+            mutableListOf()
+        ){
+            navigationManager?.onReplace(
+                ProductCommentReportFragment.newInstance(comment = it, product = ""),
+                TransactionType.Replace, true
+            )
+        }
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,6 +64,16 @@ class ProductDetailCommentsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val decorator = DividerItemDecoration(rv_ProductComments.context, LinearLayoutManager.VERTICAL)
+        decorator.setDrawable(ContextCompat.getDrawable(rv_ProductComments.context, R.drawable.divider_drawable)!!)
+        rv_ProductComments.addItemDecoration(decorator)
+
+        rv_ProductComments.adapter = productCommentsAdapter
+
+
+        rv_ProductComments.layoutManager = LinearLayoutManager(this.context)
+
+
         var productId = arguments?.getString(ProductDetailCommentsFragment.PRODUCT_ID) ?: ""
 
         var comments : List<Comment>? = null
@@ -62,6 +85,15 @@ class ProductDetailCommentsFragment : BaseFragment() {
 
                 comments = it.data.result.comments
 
+                if (comments == null  || comments!!.size == 0){
+                    comments = mutableListOf(
+                        Comment(id = "-1", text = "Buy this product immediately and make the first comment !", rating= ":(", owner = CommentOwner(username = "No Comments Yet", email = "dummy@gmail.com" ))
+                    )
+                }
+
+                productCommentsAdapter.submitList(comments as MutableList<Comment>)
+
+
                 dispatchLoading()
             } else if (it.status == Status.ERROR){
                 dispatchLoading()
@@ -71,29 +103,9 @@ class ProductDetailCommentsFragment : BaseFragment() {
 
         })
 
-        if (comments == null  || comments!!.size == 0){
-            comments = mutableListOf(
-                Comment(id = "-1", text = "Buy this product immediately and make the first comment !", rating= ":(", owner = CommentOwner(username = "No Comments Yet", email = "dummy@gmail.com" ))
-            )
+        comments_back_button.setOnClickListener {
+            activity?.onBackPressed()
         }
-
-
-        /*comments = mutableListOf(
-            Comment(id = "1234", text = getString(R.string.dummyComment), rating= "2.5", owner = CommentOwner(username = getString(R.string.dummyCustomerName), email = "dummy@gmail.com" )),
-            Comment(id = "1234", text = getString(R.string.dummyComment), rating= "2.5", owner = CommentOwner(username = getString(R.string.dummyCustomerName), email = "dummy@gmail.com" )),
-            Comment(id = "1234", text = getString(R.string.dummyComment), rating= "2.5", owner = CommentOwner(username = getString(R.string.dummyCustomerName), email = "dummy@gmail.com" )),
-            Comment(id = "1234", text = getString(R.string.dummyComment), rating= "2.5", owner = CommentOwner(username = getString(R.string.dummyCustomerName), email = "dummy@gmail.com" )),
-            Comment(id = "1234", text = getString(R.string.dummyComment), rating= "2.5", owner = CommentOwner(username = getString(R.string.dummyCustomerName), email = "dummy@gmail.com" ))
-        )*/
-
-
-        val decorator = DividerItemDecoration(rv_ProductComments.context, LinearLayoutManager.VERTICAL)
-        decorator.setDrawable(ContextCompat.getDrawable(rv_ProductComments.context, R.drawable.divider_drawable)!!)
-        rv_ProductComments.addItemDecoration(decorator)
-
-        rv_ProductComments.adapter = ProductCommentsAdapter(comments as MutableList<Comment>)
-
-        rv_ProductComments.layoutManager = LinearLayoutManager(this.context)
 
     }
 }

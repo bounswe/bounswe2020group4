@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="130dp"
+        android:layout_height="49dp"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/logo"
+        android:src="@mipmap/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/vendorLogoAccount"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="Account Logo"
+        android:src="@mipmap/account"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_vendor_profile_page_account_info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_vendor_profile_page_account_info" />
+
+    <TextView
+        android:id="@+id/tv_vendor_profile_page_account_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        android:text="Account Information"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/vendorLogoAccount"
+        app:layout_constraintTop_toBottomOf="@+id/logoImageView" />
+
+    <ImageView
+        android:id="@+id/vendorLogoAdd"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="Add Product Logo"
+        android:src="@mipmap/add"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_vendor_profile_add_product"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_vendor_profile_add_product" />
+
+    <TextView
+        android:id="@+id/tv_vendor_profile_add_product"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        android:text="Add Product"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/vendorLogoAdd"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vendor_profile_page_account_info" />
+
+    <ImageView
+        android:id="@+id/vendorLogoProduct"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="Product Logo"
+        android:src="@mipmap/product"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_vendor_my_products"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_vendor_my_products" />
+
+    <TextView
+        android:id="@+id/tv_vendor_my_products"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        android:text="My Products"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/vendorLogoProduct"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vendor_profile_add_product" />
+
+    <ImageView
+        android:id="@+id/vendorLogoOrder"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="Order Logo"
+        android:src="@mipmap/order"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_vendor_profile_my_orders"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_vendor_profile_my_orders" />
+
+    <TextView
+        android:id="@+id/tv_vendor_profile_my_orders"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        android:text="My Orders"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/vendorLogoOrder"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vendor_my_products" />
+
+    <ImageView
+        android:id="@+id/vendorLogoMessage"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="Message Logo"
+        android:src="@mipmap/message"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_vendor_profile_page_messages"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_vendor_profile_page_messages" />
+
+    <TextView
+        android:id="@+id/tv_vendor_profile_page_messages"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        android:text="My Messages"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/vendorLogoMessage"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vendor_profile_my_orders" />
+
+    <ImageView
+        android:id="@+id/vendorLogoNotification"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="Notification Logo"
+        android:src="@mipmap/notification"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_vendor_profile_page_notification"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_vendor_profile_page_notification" />
+
+    <TextView
+        android:id="@+id/tv_vendor_profile_page_notification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        android:text="Notification"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/vendorLogoNotification"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vendor_profile_page_messages" />
+
+    <ImageView
+        android:id="@+id/vendorLogoPassword"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="Password Logo"
+        android:src="@mipmap/password"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_vendor_profile_page_change_password"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_vendor_profile_page_change_password" />
+
+    <TextView
+        android:id="@+id/tv_vendor_profile_page_change_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        android:text="Change Password"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/vendorLogoPassword"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vendor_profile_page_notification" />
+
+    <ImageView
+        android:id="@+id/vendorLogoLogout"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="Log out Logo"
+        android:src="@mipmap/logout"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_vendor_profile_page_logout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_vendor_profile_page_logout" />
+
+    <TextView
+        android:id="@+id/tv_vendor_profile_page_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        android:text="Logout"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/vendorLogoLogout"
+        app:layout_constraintTop_toBottomOf="@+id/tv_vendor_profile_page_change_password" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

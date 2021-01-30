@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:padding="@dimen/minimum_margin">
+
+<FrameLayout
+    android:id="@+id/tv_header"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:background="@color/medium_orange"
+
+    tools:layout_editor_absoluteY="5dp">
+    <TextView
+        android:id="@+id/tv_notification_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_gravity="start"
+        android:paddingLeft="10dp"
+        tools:text="Discount"/>
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:paddingRight="10dp"
+        android:layout_gravity="end"
+        tools:text="01.09.2020 14:14"/>
+
+</FrameLayout>
+<TextView
+    android:id="@+id/tv_notification_message"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    tools:text="Alpi's PS5 price dropped from very much high to very hig"
+    android:textStyle="bold"
+    android:textColor="@color/black"
+    app:layout_constraintTop_toBottomOf="@id/tv_header"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:layout_margin="@dimen/minimum_margin"
+    />
+
+
+<View
+    android:id="@+id/seperator"
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="@color/light_orange"
+    android:layout_margin="@dimen/medium_margin"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/tv_notification_message"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

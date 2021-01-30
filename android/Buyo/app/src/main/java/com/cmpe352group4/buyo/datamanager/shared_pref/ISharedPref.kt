@@ -17,4 +17,12 @@ interface ISharedPref {
     fun getVendorLat(): String?
     fun getVendorLon(): String?
     fun getVendorAddress(): String?
+    fun getUserType(): String?
+    fun saveUserType(type: String)
+    fun getRememberMe(): Boolean
+    fun saveRememberMe(boolean: Boolean)
+    fun getVerified(): Boolean
+    fun saveVerified(boolean: Boolean)
+    fun isGoogleSignin(): Boolean
+    fun saveIsGoogleSignin(boolean: Boolean)
 }

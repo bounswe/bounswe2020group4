@@ -1,12 +1,12 @@
 package com.cmpe352group4.buyo.ui.profilePage
 
 import android.os.Bundle
-import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.cmpe352group4.buyo.R
@@ -50,7 +50,7 @@ class AccountInfoFragment: BaseFragment() {
         val backendGenders = arrayOf("", "female", "male", "other", "noInfo")
         val genders = arrayOf("", "Female", "Male", "Other", "No Info")
 
-        val infoReq = UserInformationRequest(sharedPref.getUserId()?: "", "customer")
+        val infoReq = UserInformationRequest(sharedPref.getUserId()?: "", sharedPref.getUserType()?:"")
         profileViewModel.onFetchProfileInfo(infoReq)
 
         profileViewModel.userInformation.observe(viewLifecycleOwner, Observer {
@@ -78,7 +78,7 @@ class AccountInfoFragment: BaseFragment() {
             profileViewModel.saveAccountInfo(
                 AccountInfoRequest(
                     id = sharedPref.getUserId()?:"",
-                    userType = "customer",
+                    userType = sharedPref.getUserType()?:"",
                     name = ed_user_name.text.toString(),
                     surname = ed_user_surname.text.toString(),
                     email = ed_user_email.text.toString(),
@@ -89,8 +89,14 @@ class AccountInfoFragment: BaseFragment() {
 
             profileViewModel.saveAccountInfo.observe(viewLifecycleOwner, Observer {
                 if (it.status == Status.SUCCESS && it.data != null) {
+                    val myToast = Toast.makeText(
+                        context,
+                        "Information successfully saved",
+                        Toast.LENGTH_SHORT
+                    )
+                    myToast.setGravity(Gravity.CENTER, 0, 200)
+                    myToast.show()
                     profileViewModel.onFetchProfileInfo(infoReq) // TODO LATER
-                    Log.v("Account info", "saved")
                     dispatchLoading()
                 } else if (it.status == Status.ERROR) {
                     dispatchLoading()
