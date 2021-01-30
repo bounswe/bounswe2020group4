@@ -40,6 +40,8 @@ class VendorProductListAdapter(
 
     inner class VendorProductListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(modal: Product) {
+
+            // Parse product
             Glide.with(itemView.context)
                 .load(modal.imageUrl).centerCrop()
                 .into(itemView.iv_vendorProductList_image)
@@ -50,15 +52,15 @@ class VendorProductListAdapter(
             itemView.tv_vendorProductList_info.text = modal.brand + " - Ori. Price: " + modal.originalPrice.toString() + "\n" +
                     modal.description
 
-            itemView.setOnClickListener {
+            itemView.setOnClickListener {// Product details
                 callbackSeeProduct.invoke(modal)
             }
 
-            itemView.iv_vendorProductList_editIcon.setOnClickListener {
+            itemView.iv_vendorProductList_editIcon.setOnClickListener {// edit product
                 callbackEditProduct.invoke(modal)
             }
 
-            itemView.iv_vendorProductList_deleteIcon.setOnClickListener {
+            itemView.iv_vendorProductList_deleteIcon.setOnClickListener { // delete product
                 callbackDeleteProduct.invoke(modal)
             }
 

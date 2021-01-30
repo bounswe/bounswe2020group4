@@ -76,7 +76,7 @@ class AddProductCategoryFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if(pathIndex.isEmpty()){
+        if(pathIndex.isEmpty()){ // First time category page opened (Main categories)
 
             categoryViewModel.onFetchCategories(true)
 
@@ -92,9 +92,8 @@ class AddProductCategoryFragment : BaseFragment() {
                     showLoading()
                 }
             })
-            //categoryAdapter.submitList(initialCategoryList)
 
-        }else{
+        }else{ // Sub categories
             btn_vendorAddProductCategories_Back.visible = true
 
             newCategoryList = categoryViewModel.categories.value?.data?.categories as MutableList<Category>
@@ -105,13 +104,15 @@ class AddProductCategoryFragment : BaseFragment() {
             categoryAdapter.submitList(newCategoryList as MutableList<Category>)
         }
 
+        // Recycler view
+
         val decorator = DividerItemDecoration(rv_vendorAddProductCategories.context, LinearLayoutManager.VERTICAL)
         decorator.setDrawable(ContextCompat.getDrawable(rv_vendorAddProductCategories.context, R.drawable.divider_drawable)!!)
         rv_vendorAddProductCategories.addItemDecoration(decorator)
         rv_vendorAddProductCategories.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         rv_vendorAddProductCategories.adapter = categoryAdapter
 
-        btn_vendorAddProductCategories_Back.setOnClickListener {
+        btn_vendorAddProductCategories_Back.setOnClickListener { // Send the category - subcategory path
             if(pathIndex.isNotEmpty()){
                 pathIndex.removeAt(pathIndex.size - 1)
             }

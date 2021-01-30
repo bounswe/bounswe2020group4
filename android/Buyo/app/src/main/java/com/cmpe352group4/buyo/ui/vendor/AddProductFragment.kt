@@ -89,6 +89,8 @@ class AddProductFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Recycler view
+
         val decorator = DividerItemDecoration(rv_vendorAddProductAttributes.context, LinearLayoutManager.VERTICAL)
         decorator.setDrawable(ContextCompat.getDrawable(rv_vendorAddProductAttributes.context, R.drawable.divider_drawable)!!)
         rv_vendorAddProductAttributes.addItemDecoration(decorator)
@@ -102,7 +104,7 @@ class AddProductFragment : BaseFragment() {
 
         val category_path = arguments?.getString(CATEGORY) ?: ""
 
-
+        // Create a new product object
         var current_product = Product(
             id = "000", // Cant
             category = category_path.split(","), // Done
@@ -213,7 +215,7 @@ class AddProductFragment : BaseFragment() {
         })
 
 
-        if (fragment_mode == "add"){
+        if (fragment_mode == "add"){ // Add mode
 
             val category_path = arguments?.getString(CATEGORY) ?: ""
 
@@ -222,6 +224,7 @@ class AddProductFragment : BaseFragment() {
             tv_vendorAddProductCategoryName.text = category_path.split(",").joinToString("->")
             var attNum : Int
 
+            // Get total number of attributes
             tiet_vendorAddProduct_AttNum.addTextChangedListener(object : TextWatcher{
                 override fun beforeTextChanged(text: CharSequence?, start: Int, count: Int, after: Int) {
                     Log.v("VendorAddProduct", "beforeTextChanged: $text")
@@ -253,14 +256,14 @@ class AddProductFragment : BaseFragment() {
 
 
         }
-        else if (fragment_mode == "edit"){
+        else if (fragment_mode == "edit"){ // Edit mode
 
             val productJSON = arguments?.getString(PRODUCT) ?: ""
 
             val product = gson.fromJson(productJSON, Product::class.java)
             Log.v("EditProduct", product.toString())
 
-
+            // Parse product
             tv_vendorAddProductCategoryName.text = product.category.joinToString("->")
 
             Glide.with(this)
@@ -285,6 +288,8 @@ class AddProductFragment : BaseFragment() {
 
             Log.v("EditProduct", product.filterCriterias.toString())
 
+            // Parse the current attributes
+
             for (criteria in product.filterCriterias!!){
                 parsedList.add(ParsedAttribute(att_name = criteria.name, att_value = criteria.possibleValues))
             }
@@ -301,7 +306,7 @@ class AddProductFragment : BaseFragment() {
                         var attNum = text.toString().toInt()
 
                         if (default_atts != null) {
-                            if (default_atts < attNum) {
+                            if (default_atts < attNum) { // If num of attributes increases
                                 Log.v("AddProductxDefaultAtts", default_atts.toString())
                                 Log.v("AddProductxNewAtts", attNum.toString())
                                 parsedList = mutableListOf<ParsedAttribute>()
@@ -310,7 +315,7 @@ class AddProductFragment : BaseFragment() {
                                 }
                                 var diff = attNum - default_atts
 
-                                for (i in 1..diff) {
+                                for (i in 1..diff) { // add empty attributes
                                     parsedList.add(
                                         ParsedAttribute(
                                             att_name = "",
@@ -321,18 +326,18 @@ class AddProductFragment : BaseFragment() {
                                 Log.v("AddProductxParsedList", parsedList.toString())
                                 addProductAdapter.submitList(parsedList)
                             }
-                            else if (default_atts > attNum){
+                            else if (default_atts > attNum){ // If number of attributes decreases
                                 Log.v("AddProductxDefaultAtts", default_atts.toString())
                                 Log.v("AddProductxNewAtts", attNum.toString())
 
                                 var diff = default_atts - attNum
 
-                                parsedList = parsedList.subList(0, attNum)
+                                parsedList = parsedList.subList(0, attNum) // discard last n attributes
 
                                 Log.v("AddProductxParsedList", parsedList.toString())
                                 addProductAdapter.submitList(parsedList)
                             }
-                            else if (default_atts ==  attNum){
+                            else if (default_atts ==  attNum){ // Attributes num does not change -> re-parse attributes
                                 parsedList = mutableListOf<ParsedAttribute>()
                                 for (criteria in product.filterCriterias!!){
                                     parsedList.add(ParsedAttribute(att_name = criteria.name, att_value = criteria.possibleValues))
@@ -363,6 +368,7 @@ class AddProductFragment : BaseFragment() {
 
         btn_vendorAddProduct_Next.setOnClickListener {
 
+            // If image daha is not null then upload it and write its url
             if (imageData != null){
                 vendorViewModel.onUploadImage(image = imageData)
 
@@ -386,7 +392,7 @@ class AddProductFragment : BaseFragment() {
                 })
 
             }
-            else{
+            else{ // if no image provided then put BUYO logo as default
 
                 if (fragment_mode == "add" && current_product.imageUrl == "some_url"){
                     current_product.imageUrl = "https://elasticbeanstalk-us-east-2-334058266782.s3.amazonaws.com/images/16115134390620"
@@ -407,10 +413,11 @@ class AddProductFragment : BaseFragment() {
                 )
                 myToast.setGravity(Gravity.BOTTOM, 0, 200)
                 myToast.show()
-            }else{
+            }else{ // If the url of the image is set
 
                 var current_attributes : MutableMap<String, List<String>> = mutableMapOf()
 
+                // get the entered attributes
                 for ( (key, value) in attributes){
                     if (addProductAdapter.getList().contains(key)){
                         current_attributes[key] = value
@@ -425,6 +432,8 @@ class AddProductFragment : BaseFragment() {
 
                 var att_names : MutableList<String> = mutableListOf()
 
+                // change the filter criterias of the product
+
                 var filter_criterias : MutableList<FilterCriterias> = mutableListOf()
                 for ((att_name, att_list ) in attributes){
                     all_options.add(att_list.toSet())
@@ -435,6 +444,8 @@ class AddProductFragment : BaseFragment() {
 
                 // FILTER CRITERIAS
                 current_product.filterCriterias = filter_criterias
+
+                // Create all the possible attribute combinations by taking cartesian product of them
 
                 var combinations: Set<List<*>> = mutableSetOf()
                 if (all_options.size >= 3){
@@ -477,7 +488,7 @@ class AddProductFragment : BaseFragment() {
                     myToast.setGravity(Gravity.BOTTOM, 0, 200)
                     myToast.show()
                 }
-                else {
+                else { // If there is not any empty attribute then proceed
                     navigationManager?.onReplace(
                         AddStockValuesFragment.newInstance(gson.toJson(new_combinations), gson.toJson(current_product), att_names.joinToString("%"), mode = fragment_mode),
                         TransactionType.Replace, true
@@ -500,6 +511,8 @@ class AddProductFragment : BaseFragment() {
         }
 
     }
+
+    // Load image from gallery functions
 
     private fun launchGallery() {
         val intent = Intent(Intent.ACTION_PICK)
@@ -526,6 +539,7 @@ class AddProductFragment : BaseFragment() {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
+    // Create all the combinations of the attributes
     fun cartesianProduct(a: Set<*>, b: Set<*>, vararg sets: Set<*>): Set<List<*>> =
         (setOf(a, b).plus(sets))
             .fold(listOf(listOf<Any?>())) { acc, set ->

@@ -48,6 +48,8 @@ class AddCartAdapter(
 
             itemView.tv_ProductList_Filter_Sort_name.text = modal.displayName
 
+            // Set the options of the spinner
+
             var filterValues = modal.possibleValues
 
             val spinnerAdapter = ArrayAdapter(itemView.context, android.R.layout.simple_spinner_item, filterValues)
@@ -62,7 +64,7 @@ class AddCartAdapter(
                     selectFeatureCallback(modal.name, adapterView?.getItemAtPosition(position).toString())
                 }
 
-                override fun onNothingSelected(adapterView: AdapterView<*>?) {
+                override fun onNothingSelected(adapterView: AdapterView<*>?) { // select zeroth element for default
                     selectFeatureCallback(modal.name, adapterView?.getItemAtPosition(0).toString())
                 }
 

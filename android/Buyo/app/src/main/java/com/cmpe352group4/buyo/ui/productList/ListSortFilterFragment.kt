@@ -42,7 +42,7 @@ class ListSortFilterFragment : BaseFragment() {
 
     private val FiltersAdapter by lazy {
         ListFilterAdapter(mutableListOf())
-        { featureName, featureValue ->
+        { featureName, featureValue -> // Store the selected features for filtering
             filter_details[featureName] = featureValue
         }
     }
@@ -154,7 +154,7 @@ class ListSortFilterFragment : BaseFragment() {
             FiltersAdapter.submitList(filters as MutableList<FilterCriterias>)
         }
 
-        // SORT
+        // SORTING
 
 
         // FACTOR
@@ -258,7 +258,7 @@ class ListSortFilterFragment : BaseFragment() {
                 }
             }
 
-        // Send Backend Request Here using filter_details and sort options
+        // Send Backend Request using filter_details and sort options
 
 
         btn_search_filter_sort.setOnClickListener {
@@ -280,12 +280,12 @@ class ListSortFilterFragment : BaseFragment() {
             Log.v("ProductListOpts", final_opts.toString())
 
 
-            if (keyword == "") {
+            if (keyword == "") { // apply filter to the keyword search
                 navigationManager?.onReplace(
                     ProductListFragment.newInstance(path = category, options = gson.toJson(final_opts.toMap())),
                     TransactionType.Replace, true
                 )
-            } else if (category == "") {
+            } else if (category == "") { // apply filter to the category search
 
                 navigationManager?.onReplace(
                     ProductListFragment.newInstance(keyword = keyword, options = gson.toJson(final_opts.toMap())),

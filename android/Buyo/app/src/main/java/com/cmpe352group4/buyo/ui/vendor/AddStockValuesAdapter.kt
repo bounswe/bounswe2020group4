@@ -40,6 +40,8 @@ class AddStockValuesAdapter(
     inner class AddStockValuesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         fun bind(modal : List<String>){
 
+            // Get stock value for each combination
+
             var stockName = modal.joinToString("-")
 
             itemView.tv_vendorAddStockValue.text = stockName
