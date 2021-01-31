@@ -34,7 +34,7 @@ module.exports.initialize = (app) => {
 
   app.post("/admin/vendor/changeStatus/:vendorId", async (request, response) => {
 
-    if(!("status" in request.body)){
+    if(!("status" in request.body) ||  request.params.vendorId == undefined){
       response.respond(500,  "Please check your parameters. There should be status information related with current user.");
     }
 
@@ -42,6 +42,7 @@ module.exports.initialize = (app) => {
     
     parameters["status"] = request.body.status;
     parameters["vendorId"] = request.params.vendorId;
+    parameters["productId"] = (request.body || {}).productId;
 
     
     const result = await ban.changeStatusForVendor(parameters);
@@ -67,8 +68,8 @@ module.exports.initialize = (app) => {
     parameters = {}
     parameters["status"] = request.body.status;
     parameters["customerId"] = request.params.customerId;
+    parameters["commentId"] = (request.body || {}).commentId;
 
-    
     const result = await ban.changeStatusForCustomer(parameters);
 
     if (result) {
