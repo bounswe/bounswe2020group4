@@ -1,9 +1,9 @@
 import axios from 'axios'
 
-const baseUrl = 'http://3.138.113.101:8080/vendor/products'
-const deleteUrl = 'http://3.138.113.101:8080/vendor/product'
-const fileUrl = 'http://3.138.113.101:8080/file'
-const updateUrl = 'http://3.138.113.101:8080/vendor/wholeproducts'
+const baseUrl = 'http://3.141.25.245:8080/vendor/products'
+const deleteUrl = 'http://3.141.25.245:8080/vendor/product'
+const fileUrl = 'http://3.141.25.245:8080/file'
+const updateUrl = 'http://3.141.25.245:8080/vendor/wholeproducts'
 
 const getProducts = async (vendorId) => {
 	const response = await axios.get(`${baseUrl}/${vendorId}`)
@@ -11,8 +11,8 @@ const getProducts = async (vendorId) => {
 }
 
 const uploadImage = async (imageData) => {
-	let formData = new FormData();
-    formData.append('image', imageData);
+	const formData = new FormData()
+	formData.append('image', imageData)
 	const response = await axios.post(`${fileUrl}`, formData)
 	return response.data.data.urls[0]
 }
@@ -28,7 +28,7 @@ const updateProduct = async (product, productId) => {
 }
 
 const deleteProduct = async (vendorId, productId) => {
-	var body = {"productId":productId}
+	const body = {'productId': productId}
 	const response = await axios.post(`${deleteUrl}/${vendorId}`, body)
 
 	return response.data.status.code

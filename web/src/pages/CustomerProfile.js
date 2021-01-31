@@ -7,7 +7,7 @@ import UpdatePassword from '../components/customer-profile/UpdatePassword'
 import './CustomerProfile.css'
 
 const CustomerProfile = ({ isGoogleUser }) => {
-	console.log("Is Google User? ", isGoogleUser)
+	console.log('Is Google User? ', isGoogleUser)
 	return (
 		<div>
 			<div className="checkout-header-container px-5 py-2">Profile Information</div>
@@ -17,10 +17,10 @@ const CustomerProfile = ({ isGoogleUser }) => {
 						<ProfileInfo/>
 					</div>
 					{	// Dont show update password part if the user is a google user
-						isGoogleUser ? null : 
-						<div className="col">
-							<UpdatePassword/>
-						</div>
+						isGoogleUser ? null :
+							<div className="col">
+								<UpdatePassword/>
+							</div>
 					}
 				</div>
 			</div>

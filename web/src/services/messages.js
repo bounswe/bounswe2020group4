@@ -1,8 +1,8 @@
 import axios from 'axios'
 import { io } from 'socket.io-client'
 
-const baseUrl = 'http://3.138.113.101:8080/messages'
-const socketUrl = 'http://3.138.113.101:5003'
+const baseUrl = 'http://3.141.25.245:8080/messages'
+const socketUrl = 'http://3.141.25.245:5003'
 
 const getMessages = async (id, userType, withId, withType) => {
 	const response = await axios.get(`${baseUrl}?id=${id}&userType=${userType}&withId=${withId}&withType=${withType}`)

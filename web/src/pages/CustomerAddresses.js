@@ -10,7 +10,7 @@ const CustomerAddresses = () => {
 				color: 'var(--red-secondary)',
 				fontWeight: 'bold',
 			}}>My Addresses</div>
-            <AddressBlock/>
+			<AddressBlock/>
 		</div>
 	)
 }

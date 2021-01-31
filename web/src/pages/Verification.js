@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { connect } from 'react-redux'
 import { hideHeader, hideVendorHeader } from '../redux/actions'
@@ -12,16 +12,16 @@ import logo from '../logo-buyo.png'
 import './Verification.css'
 
 function useQuery() {
-	return new URLSearchParams(useLocation().search);
+	return new URLSearchParams(useLocation().search)
 }
 
 const Verification = ({ hideHeader, hideVendorHeader, showHeader, setLoginState }) => {
-	let query = useQuery();
+	const query = useQuery()
 
 	useEffect(() => {
 		hideHeader()
 		hideVendorHeader()
-		
+
 		// alerts may trigger before the header can be hidden, so alerts are delayed by a short amount
 		setTimeout(async () => {
 			const userType = query.get('userType')

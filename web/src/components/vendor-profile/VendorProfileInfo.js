@@ -16,7 +16,7 @@ const VendorProfileInfo = (props) => {
 	const [website, setWebsite] = useState('')
 	const [email, setEmail] = useState('')
 	const [selectedCoord, setSelectedCoord] = useState()
-	
+
 	const handleFirstNameChange = function(e) {
 		setFirstName(e.target.value)
 	}
@@ -60,7 +60,7 @@ const VendorProfileInfo = (props) => {
 
 		const getProfileInfo = async () => {
 			const profileInfo = await accountService.getProfileInfo(props.userType, props.userId)
-			
+
 			if(!profileInfo){
 				alert('Something went wrong, please refresh this page.')
 				return

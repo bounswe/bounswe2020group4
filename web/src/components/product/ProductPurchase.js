@@ -11,7 +11,7 @@ import cartService from '../../services/cart'
 import './ProductPurchase.css'
 
 const generatePossibleAttVals = (productInfos) => {
-	let possibleValues = {}
+	const possibleValues = {}
 	let info
 	for(info of productInfos) {
 		let attribute
@@ -31,7 +31,7 @@ const generatePossibleAttVals = (productInfos) => {
 
 const generateInitialAttVals = (possibleValues) => {
 	const keys = Object.keys(possibleValues)
-	let result = {}
+	const result = {}
 	let key
 	for(key of keys) {
 		result[key] = possibleValues[key][0]
@@ -79,7 +79,7 @@ const ProductPurchase = ({productId, price, originalPrice, productInfos, isLogge
 	const handleAmountChange = (e) => {
 		if(e.target.value < amount) {
 			setAmount(e.target.value)
-		} else if(amount < getStockValue(productInfos, values)) {
+		} else if(amount < Number(getStockValue(productInfos, values))) {
 			setAmount(e.target.value)
 		}
 	}

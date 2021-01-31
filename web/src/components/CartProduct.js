@@ -1,23 +1,22 @@
 import { Link } from 'react-router-dom'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import history from '../util/history'
 import { connect } from 'react-redux'
 
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton'
+import DeleteIcon from '@material-ui/icons/Delete'
 
 import './CartProduct.css'
 import cartService from '../services/cart'
 
 const CartProduct = (props) => {
-//, {name, price, imgUrl, productId, vendorName, brand, amount, attributes, originalPrice}
 	const handleClick = async function(e) {
 		e.preventDefault()
 		const productInfo = {
-			"attributes": props.attributes
+			'attributes': props.attributes
 		}
 		console.log(productInfo)
 		const response = await cartService.removeFromCart(props.customerId, props.productId, productInfo)
@@ -25,7 +24,7 @@ const CartProduct = (props) => {
 			alert('Something went wrong, try again.')
 		}else{
 			history.go(0)
-			return
+
 		}
 	}
 
@@ -37,20 +36,20 @@ const CartProduct = (props) => {
 				</div>
 				<div className='row'>
 					<div className='col'>
-					<div className='container-fluid p-0 card-img-container'>
-						<Link to={`/product/${props.productId}`} >
-							<img className="card-img" src={props.imgUrl}></img>
-						</Link>
+						<div className='container-fluid p-0 card-img-container'>
+							<Link to={`/product/${props.productId}`} >
+								<img className="card-img" src={props.imgUrl}></img>
+							</Link>
+						</div>
 					</div>
-					</div>
-				
+
 					<Col className="align-self-center">
 						<Card.Body >
 							<Row><Card.Title className='product-name'>{props.name}</Card.Title></Row>
 							<Row><Card.Title className='product-brand'>{props.brand}</Card.Title></Row>
 							{ props.attributes.map(attr =>
 								<Row key={attr.name}><Card.Text className='product-attr'>{attr.value}</Card.Text></Row>
-								) } 
+							) }
 						</Card.Body>
 					</Col>
 					<Col className="align-self-center text-center">
@@ -61,14 +60,14 @@ const CartProduct = (props) => {
 					</Col>
 					<Col className="align-self-center text-center">
 						<Card.Body >
-							{props.originalPrice==props.price ? 
-							<Card.Title>{props.originalPrice}</Card.Title> : 
-							<div>
-							<Card.Title style={{textDecorationLine: 'line-through'}}>{props.originalPrice}</Card.Title>
-							<Card.Title className='product-discount'>{props.price}</Card.Title>
-							</div>
+							{props.originalPrice==props.price ?
+								<Card.Title>{props.originalPrice}</Card.Title> :
+								<div>
+									<Card.Title style={{textDecorationLine: 'line-through'}}>{props.originalPrice}</Card.Title>
+									<Card.Title className='product-discount'>{props.price}</Card.Title>
+								</div>
 							}
-							
+
 						</Card.Body>
 					</Col>
 					<Col className="align-self-center text-center">
@@ -76,7 +75,7 @@ const CartProduct = (props) => {
 							<DeleteIcon/>
 						</IconButton>
 					</Col>
-			
+
 				</div>
 			</div>
 		</div>

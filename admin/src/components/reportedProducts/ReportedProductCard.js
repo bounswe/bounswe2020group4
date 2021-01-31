@@ -19,29 +19,29 @@ const ReportedProductCard = ({ report, fetchReports, removeReportedProduct }) =>
     })
 
     const removeProductHandler = async () => {
-        removeReportedProduct(report)
-        // if(await removeProduct(report.productDetails?.id, report.productDetails?.vendor.id)) {
-        //     console.log("Product Removed and reports fetched again")
-        //     fetchReports()
-        // } else {
-        //     alert("Something went wrong while removing product")
-        // }
+        // removeReportedProduct(report)
+        if(await removeProduct(report.productDetails?.id, report.productDetails?.vendor.id)) {
+            console.log("Product Removed and reports fetched again")
+            fetchReports()
+        } else {
+            alert("Something went wrong while removing product")
+        }
     }
 
     const banVendorHandler = async () => {
-        removeReportedProduct(report)
-        banVendor(report.productDetails?.vendor.id, report.productDetails?.id)
-        // if(await banVendor(report.productDetails?.vendorId)) {
-        //     console.log("Vendor banned and reports fetched again")
-        //     fetchReports()
-        // } else {
-        //     alert("Something went wrong while banning vendor")
-        // }
+        // removeReportedProduct(report)
+        // banVendor(report.productDetails?.vendor.id, report.productDetails?.id)
+        if(await banVendor(report.productDetails?.vendor.id, report.productDetails?.id)) {
+            console.log("Vendor banned and reports fetched again")
+            fetchReports()
+        } else {
+            alert("Something went wrong while banning vendor")
+        }
     }
 
     return (
         <div className='container-fluid border rounded p-2 mb-4' style={{ width: '48%' }}>
-            <div className='fw-bold'>Report Message: {report.reportMessage}</div>
+            <div className='fw-bold'>Report Message: {report.message}</div>
             <hr />
             <div className='row'>
                 <div className='col-4'>

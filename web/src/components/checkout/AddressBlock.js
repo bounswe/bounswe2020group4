@@ -40,7 +40,7 @@ const AddressBlock = ({ selectAddress, selectedAddress, onCheckout, title, userT
 	const onDeleteClick = async (addressTitle) => {
 		const responseCode = await AccountService.deleteAddress(userId, addressTitle)
 		if(responseCode != 200){
-			alert("Something went wrong while deleting address")
+			alert('Something went wrong while deleting address')
 		}
 		fetchAddresses()
 	}
@@ -51,7 +51,7 @@ const AddressBlock = ({ selectAddress, selectedAddress, onCheckout, title, userT
 				<div className='ab-address-container mx-3 mb-3' key={address.addressTitle} onClick={ onCheckout ? () => { selectAddress(address) } : null}>
 					<div className='address-title-container d-flex justify-content-between'>
 						<div className='d-flex'>
-							{ onCheckout ? 
+							{ onCheckout ?
 								<div className='address-title-input-container pr-2'>
 									<input type='radio' checked={address == selectedAddress} className='address-title-radio'/>
 								</div> : null
@@ -94,12 +94,12 @@ const AddressBlock = ({ selectAddress, selectedAddress, onCheckout, title, userT
 		if(isEditing) {
 			const responseCode = await AccountService.updateAddress(userId, address)
 			if(responseCode != 200) {
-				alert("Something went wrong while editing address")
+				alert('Something went wrong while editing address')
 			}
 		} else {
 			const responseCode = await AccountService.addNewAddress(userId, address)
 			if(responseCode != 200) {
-				alert("Something went wrong while adding new address")
+				alert('Something went wrong while adding new address')
 			}
 		}
 		setIsAddressPopupOpen(false)
