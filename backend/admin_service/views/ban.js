@@ -55,7 +55,7 @@ module.exports.changeStatusForVendor = async (params) => {
        
     }
     if (params.status === "banned" && checker){
-      sendBannedInformation("vendor", params.vendorId);
+      await sendBannedInformation("vendor", params.vendorId);
      }
     return checker
   } catch (error) {
