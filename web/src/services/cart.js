@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'http://3.138.113.101:8080/cart'
+const baseUrl = 'http://3.141.25.245:8080/cart'
 
 const addProductToCart = async (customerId, productId, productInfo) => {
 	const response = await axios.post(

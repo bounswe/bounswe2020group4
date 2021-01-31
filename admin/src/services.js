@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = "http://3.138.113.101:8080/admin"
+const baseUrl = "http://3.141.25.245:8080/admin"
 
 export const getReportedProducts = async () => {
     const mockData = [
@@ -253,7 +253,7 @@ export const removeProduct = async (productId, vendorId) => {
     try {
         const response = await axios({
             method: 'delete',
-            url: `http://3.138.113.101:8080/vendor/product?vendorId=${vendorId}`,
+            url: `http://3.141.25.245:8080/vendor/product?vendorId=${vendorId}`,
             data: {
                 "productId": productId
             }
@@ -361,12 +361,12 @@ export const removeComment = async (commentId) => {
     try {
         // const response = await axios({
         //     method:'delete',
-        //     url: `http://3.138.113.101:8080/comment`,
+        //     url: `http://3.141.25.245:8080/comment`,
         //     data: {
         //         id: commentId
         //     }
         // })
-        const response = await axios.delete(`http://3.138.113.101:8080/comment?id=${commentId}`)
+        const response = await axios.delete(`http://3.141.25.245:8080/comment?id=${commentId}`)
         if(response.status === 200) {
             return true
         }

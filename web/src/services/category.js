@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'http://3.138.113.101:8080'
+const baseUrl = 'http://3.141.25.245:8080'
 
 export const getCategories = async () => {
 	const response = await axios.get(`${baseUrl}/categories`)

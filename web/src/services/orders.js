@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'http://3.138.113.101:8080/order'
+const baseUrl = 'http://3.141.25.245:8080/order'
 
 const getOrders = async (userId, userType) => {
 	try {

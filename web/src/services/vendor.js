@@ -1,9 +1,9 @@
 import axios from 'axios'
 
-const baseUrl = 'http://3.138.113.101:8080/vendor/products'
-const deleteUrl = 'http://3.138.113.101:8080/vendor/product'
-const fileUrl = 'http://3.138.113.101:8080/file'
-const updateUrl = 'http://3.138.113.101:8080/vendor/wholeproducts'
+const baseUrl = 'http://3.141.25.245:8080/vendor/products'
+const deleteUrl = 'http://3.141.25.245:8080/vendor/product'
+const fileUrl = 'http://3.141.25.245:8080/file'
+const updateUrl = 'http://3.141.25.245:8080/vendor/wholeproducts'
 
 const getProducts = async (vendorId) => {
 	const response = await axios.get(`${baseUrl}/${vendorId}`)
