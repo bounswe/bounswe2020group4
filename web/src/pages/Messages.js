@@ -40,7 +40,7 @@ const useStyles = makeStyles({
 	}
 })
 
-const socketUrl = 'http://3.138.113.101:5003'
+const socketUrl = 'http://3.141.25.245:5003'
 
 const Messages = ({isLoggedIn, userId, userType, hideHeader, showHeader, hideVendorHeader, showVendorHeader}) => {
 	if(!isLoggedIn) {

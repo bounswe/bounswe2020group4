@@ -4,25 +4,25 @@ import { removeComment, banUser } from '../../services'
 const ReportedCommentCard = ({ report, fetchReports, removeReportedComment }) => {
 
     const removeCommentHandler = async () => {
-        removeReportedComment(report)
-        // if(await removeComment(report.commentDetails?._id)) {
-        //     console.log("Comment Removed and reports fetched again")
-        //     fetchReports()
-        // } else {
-        //     alert("Something went wrong while removing comment")
-        // }
-        // fetchReports()
+        // removeReportedComment(report)
+        if(await removeComment(report.commentDetails?._id)) {
+            console.log("Comment Removed and reports fetched again")
+            fetchReports()
+        } else {
+            alert("Something went wrong while removing comment")
+        }
+        fetchReports()
     }
 
     const banUserHandler = async () => {
-        removeReportedComment(report)
-        // if(await banUser(report.commentDetails?.userId)) {
-        //     console.log("User banned and reports fetched again")
-        //     fetchReports()
-        // } else {
-        //     alert("Something went wrong while banning user")
-        // }
-        // fetchReports()
+        // removeReportedComment(report)
+        if(await banUser(report.commentDetails?.userId)) {
+            console.log("User banned and reports fetched again")
+            fetchReports()
+        } else {
+            alert("Something went wrong while banning user")
+        }
+        fetchReports()
     }
 
     return (
