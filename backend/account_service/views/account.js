@@ -460,7 +460,16 @@ module.exports.signup = async (params) => {
     return { success: false, message: error.message || error };
   }
 };
-
+/**
+ * Signs in to the platform using Google Signin.
+ * @param {
+ *    email: String,
+ *    token: String,
+ *    name: String, 
+ * } params 
+ * 
+ * @returns {userId | false}
+ */
 module.exports.signInByGoogle = async (params) => {
   try {
     if (!params.email || !params.token || !params.name) {

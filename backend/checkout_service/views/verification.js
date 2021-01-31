@@ -1,5 +1,16 @@
-const Moment = require('moment');
-
+/**
+ * Checks if the credit card information is in valid format.
+ * @param {
+ *    creditCard: {
+ *      number: {Number | String},
+ *      expirationMonth: String,
+ *      expirationYear: String,
+ *      cvc: {Number | String}
+ *    }
+ * } params 
+ * 
+ * @returns { success: {true|false}, msg: String } 
+ */
 module.exports.checkCreditCard = async (params) => {
     try {
       const creditCard = params.creditCard;
