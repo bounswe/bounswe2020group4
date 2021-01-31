@@ -26,18 +26,18 @@ const Checkout = ({ isLoggedIn, customerId }) => {
 	const onPaymentAttempt = async (cardName, cardMonth, cardYear, cardNo, cardCVV) => {
 		if(isContractChecked && Object.keys(selectedAddress).length !== 0) {
 			try {
-				const response = await orderService.checkoutOrder(customerId, { name: cardName, month: cardMonth, year: cardYear, no: cardNo, cvv: cardCVV })
-				alert("Succesfully made the payment. Your items are on their way!")
-				history.push("/")
+				await orderService.checkoutOrder(customerId, { name: cardName, month: cardMonth, year: cardYear, no: cardNo, cvv: cardCVV })
+				alert('Succesfully made the payment. Your items are on their way!')
+				history.push('/')
 			} catch(err) {
-				alert("Something went wrong!")
+				alert('Something went wrong!')
 			}
 		} else if(!isContractChecked && Object.keys(selectedAddress).length === 0) {
-			alert("Please select an address and check the terms and conditions box")
+			alert('Please select an address and check the terms and conditions box')
 		} else if(!isContractChecked && Object.keys(selectedAddress).length !== 0) {
-			alert("Please check the terms and conditions box")
+			alert('Please check the terms and conditions box')
 		} else if(isContractChecked && Object.keys(selectedAddress).length === 0) {
-			alert("Please select an address")
+			alert('Please select an address')
 		}
 	}
 

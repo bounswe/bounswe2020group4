@@ -11,8 +11,8 @@ const getProducts = async (vendorId) => {
 }
 
 const uploadImage = async (imageData) => {
-	let formData = new FormData();
-    formData.append('image', imageData);
+	const formData = new FormData()
+	formData.append('image', imageData)
 	const response = await axios.post(`${fileUrl}`, formData)
 	return response.data.data.urls[0]
 }
@@ -28,7 +28,7 @@ const updateProduct = async (product, productId) => {
 }
 
 const deleteProduct = async (vendorId, productId) => {
-	var body = {"productId":productId}
+	const body = {'productId': productId}
 	const response = await axios.post(`${deleteUrl}/${vendorId}`, body)
 
 	return response.data.status.code

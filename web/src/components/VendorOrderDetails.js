@@ -16,7 +16,7 @@ import DefaultProductImage from '../images/default-product-detail-image.png'
 
 import './OrderDetails.css'
 
-const VendorProductOrder = ({orderId, userId, userType, productId, imgUrl, name, brand, price, isDelivered, isPending, customerId, quantity, attributes, status}) => {
+const VendorProductOrder = ({orderId, userId, userType, productId, imgUrl, name, brand, price, isPending, customerId, quantity, attributes, status}) => {
 	const [messageOpen, setMessageOpen] = useState(false)
 	const [message, setMessage] = useState('')
 

@@ -64,19 +64,19 @@ const VendorSignUp = ({hideHeader, showHeader, setLoginState}) => {
 		if (!checked){
 			alert('Agree to terms and conditions')
 			return
-		} 
+		}
 
 		if (!selectedCoord){
 			alert('Choose your business location on the map')
 			return
 		}
 		const signUpInfo = {
-			'name': name, 
-			'email': email, 
+			'name': name,
+			'email': email,
 			'password': password,
-			'lng': selectedCoord.lng, 
-			'lat': selectedCoord.lat, 
-			'website': website, 
+			'lng': selectedCoord.lng,
+			'lat': selectedCoord.lat,
+			'website': website,
 			'company': companyName
 		}
 		const userId = await accountService.vendorSignUp(signUpInfo)

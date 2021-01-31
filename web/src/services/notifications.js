@@ -9,7 +9,7 @@ const getNotifications = async (userType, userId) => {
 	} catch (err) {
 		return null
 	}
-	
+
 }
 
 export default { getNotifications }

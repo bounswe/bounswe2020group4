@@ -37,7 +37,7 @@ const VendorOrders = ({showHeader, hideHeader, showVendorHeader, isLoggedIn, use
 		history.push('/vendorsignin')
 		return
 	}
-	
+
 	const [expanded, setExpanded] = useState(false)
 	const [orders, setOrders] = useState([])
 	const [totalEarnings, setTotalEarnings] = useState(0)
@@ -62,7 +62,7 @@ const VendorOrders = ({showHeader, hideHeader, showVendorHeader, isLoggedIn, use
 		*/
 		if (ordersObj?.orders) {
 			const ordersList = []
-			for (let key of Object.keys(ordersObj.orders)) {
+			for (const key of Object.keys(ordersObj.orders)) {
 				ordersList.push({id: key, data: ordersObj.orders[key]})
 			}
 			setOrders(ordersList)

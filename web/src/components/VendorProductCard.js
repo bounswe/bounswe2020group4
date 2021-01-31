@@ -10,8 +10,7 @@ import vendorService from '../services/vendor'
 
 const VendorProductCard = ({ vendorId, name, originalPrice, price, imgUrl, productId, brand}) => {
 
-	const handleDeleteButton = async function(e){
-
+	const handleDeleteButton = async function(){
 		const response = await vendorService.deleteProduct(vendorId, productId)
 		if(response == 200){
 			alert('Product has been deleted successfully.')
@@ -19,7 +18,6 @@ const VendorProductCard = ({ vendorId, name, originalPrice, price, imgUrl, produ
 			alert('Something went wrong, please try again')
 		}
 		history.push('/vendorproducts')
-
 	}
 
 	return (
@@ -45,9 +43,9 @@ const VendorProductCard = ({ vendorId, name, originalPrice, price, imgUrl, produ
 				</div>
 				<div className='row'>
 					<div className='pc-info-bottom'>
-						{originalPrice==price ? 
+						{originalPrice==price ?
 							<div className='pc-price col'>{originalPrice}₺</div>
-						: 
+							:
 							<div>
 								<div className='pc-price col' style={{textDecorationLine: 'line-through'}}>{originalPrice}₺</div>
 								<div className='pc-price col'>{price}₺</div>

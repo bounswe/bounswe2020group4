@@ -72,9 +72,9 @@ const SignUp = ({hideHeader, showHeader, setLoginState}) => {
 		const email = await googleUser.getBasicProfile().getEmail()
 		const response = await accountService.googleSignIn(id_token, email)
 		if(response?.id == null) {
-			alert("Something went wrong while trying to sign in with google")
+			alert('Something went wrong while trying to sign in with google')
 		} else if (response.banned) {
-			alert("Your account has been suspended. Please check your e-mail for further information.")
+			alert('Your account has been suspended. Please check your e-mail for further information.')
 		} else {
 			setLoginState({ userId: response.userId, userType: 'customer', isGoogleUser: true })
 			history.push('/')

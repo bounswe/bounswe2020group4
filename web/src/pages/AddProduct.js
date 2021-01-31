@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { hideHeader, showHeader, showVendorHeader, hideVendorHeader } from '../redux/actions'
-import { WithContext as ReactTags } from 'react-tag-input';
-import { Link } from 'react-router-dom'
+import { WithContext as ReactTags } from 'react-tag-input'
 import history from '../util/history'
 
 import './AddProduct.css'
@@ -33,7 +32,7 @@ const AddProduct= (props) => {
 
 
 	useEffect(() => {
-		
+
 		if(!props.isLoggedIn | props.userType != 'vendor') {
 			history.push('/vendorsignin')
 			return
@@ -52,26 +51,26 @@ const AddProduct= (props) => {
 
 	const renderSubcategories = (currPath, category, subcategories) => {
 
-		return ( 
-			subcategories.length == 0 ? 
-			<div></div>
-			:
-			<div id={category.name+'-sub'} className='collapse pl-5' aria-labelledby={category.name} data-parent={'#'+ category.name + '-accordion'}>
-				{subcategories.map((sub) =>
-					<div key={sub.name} id={sub.name+'-accordion'}>
-						<div id={sub.name}>
-							<h5 className="mb-0">
-								<button className="btn btn-link collapsed" onClick={() => createPath(currPath, sub.name)} data-toggle="collapse" data-target={'#'+sub.name+'-sub'} aria-expanded="false" aria-controls={sub.name+'-sub'}>
-									{sub.name}
-								</button>
-							</h5>
+		return (
+			subcategories.length == 0 ?
+				<div></div>
+				:
+				<div id={category.name+'-sub'} className='collapse pl-5' aria-labelledby={category.name} data-parent={'#'+ category.name + '-accordion'}>
+					{subcategories.map((sub) =>
+						<div key={sub.name} id={sub.name+'-accordion'}>
+							<div id={sub.name}>
+								<h5 className="mb-0">
+									<button className="btn btn-link collapsed" onClick={() => createPath(currPath, sub.name)} data-toggle="collapse" data-target={'#'+sub.name+'-sub'} aria-expanded="false" aria-controls={sub.name+'-sub'}>
+										{sub.name}
+									</button>
+								</h5>
+							</div>
+							<div>
+								{renderSubcategories(currPath+','+sub.name, sub, sub.subcategories)}
+							</div>
 						</div>
-						<div>
-							{renderSubcategories(currPath+','+sub.name, sub, sub.subcategories)}
-						</div>
-					</div>
-				)}
-			</div>)
+					)}
+				</div>)
 	}
 
 	const createPath = (parentPath, category) => {
@@ -109,9 +108,9 @@ const AddProduct= (props) => {
 	}
 
 	const handleAttributeDelete = (i) => {
-		var removed = attributes.splice(i, 1)
+		const removed = attributes.splice(i, 1)
 		setAttributes(attributes)
-		delete possibleValues[removed[0]["text"]]
+		delete possibleValues[removed[0]['text']]
 	}
 
 	const handlePossibleValueChange = function(e, attr) {
@@ -124,9 +123,9 @@ const AddProduct= (props) => {
 	}
 
 	const handlePossibleValuesButton = function() {
-		var comb_length = 1
-		for(var attr in attributes){
-			var temp = attributes[attr]["text"]
+		let comb_length = 1
+		for(const attr in attributes){
+			const temp = attributes[attr]['text']
 			if(!possibleValues[temp]) {
 				alert('You have to enter possible values for every criteria.')
 				return
@@ -143,7 +142,7 @@ const AddProduct= (props) => {
 
 	const handleValueChange = function(e, comb, index){
 		comb['stockValue'] = e.target.value
-		productInfos.splice(index,1,comb)
+		productInfos.splice(index, 1, comb)
 		setProductInfos(productInfos)
 	}
 
@@ -156,38 +155,38 @@ const AddProduct= (props) => {
 	}
 
 	function getCombinations(options, optionIndex, results, current) {
-		var allKeys = Object.keys(options);
-		var optionKey = allKeys[optionIndex];
-	
-		var vals = options[optionKey];
-		for (var i = 0; i < vals.length; i++) {
-			current[optionKey] = vals[i];
+		const allKeys = Object.keys(options)
+		const optionKey = allKeys[optionIndex]
+
+		const vals = options[optionKey]
+		for (let i = 0; i < vals.length; i++) {
+			current[optionKey] = vals[i]
 			if (optionIndex + 1 < allKeys.length) {
-				getCombinations(options, optionIndex + 1, results, current);
+				getCombinations(options, optionIndex + 1, results, current)
 			} else {
-				var res = JSON.parse(JSON.stringify(current));
-				results.push(res);
+				const res = JSON.parse(JSON.stringify(current))
+				results.push(res)
 			}
 		}
-		return results;
+		return results
 	}
 
 	function getListOfValues(dictionary){
 		return Object.keys(dictionary).map(function(key){
-			return dictionary[key];
-		});
+			return dictionary[key]
+		})
 	}
 
 	function renderCombinations(){
-		var results = getCombinations(possibleValues, 0, [], {});
+		const results = getCombinations(possibleValues, 0, [], {})
 		return(
 			<div>
-				{results.map((result) => 
+				{results.map((result) =>
 					<div className='row mb-2' key={JSON.stringify(result)}>
 						{getListOfValues(result).map((comb) =>
 							<div key={JSON.stringify(comb)} className='col'>
 								{comb}
-							</div>	
+							</div>
 						)}
 						<div className='col-1'>
 							<input type='number' min='0' className='form-control form-control-md text-left' id={results.indexOf(result)} onChange={(e) => handleValueChange(e, result, results.indexOf(result))}/>
@@ -200,7 +199,7 @@ const AddProduct= (props) => {
 						<button className="btn btn-danger next-button" onClick={(e) => handleStockButton(results.length)}>Next</button>
 					</div>
 				</div>
-			</div>	
+			</div>
 		)
 	}
 
@@ -218,40 +217,40 @@ const AddProduct= (props) => {
 
 	const handleSubmitButton = async function(e){
 
-		var stockInfos = []
-		for(var productInfo of productInfos){
-			var temp = {}
-			temp["attributes"] = []
-			for(var attr in productInfo){
+		const stockInfos = []
+		for(const productInfo of productInfos){
+			const temp = {}
+			temp['attributes'] = []
+			for(const attr in productInfo){
 				if(attr === 'stockValue'){
 					temp[attr] = productInfo[attr]
 				} else {
-					temp["attributes"].push({"name":attr, "value": productInfo[attr]})
+					temp['attributes'].push({'name': attr, 'value': productInfo[attr]})
 				}
 			}
 			stockInfos.push(temp)
 		}
 
 		const product = [{
-			"category": path.split(','),
-			"description": description,
-			"name": productName,
-			"price": discountedPrice,
-			"originalPrice": price,
-			"imageUrl": imageUrl,
-			"brand": brand,
-			"rating": 0,
-			"productInfos": stockInfos,
-			"vendorId": props.userId
+			'category': path.split(','),
+			'description': description,
+			'name': productName,
+			'price': discountedPrice,
+			'originalPrice': price,
+			'imageUrl': imageUrl,
+			'brand': brand,
+			'rating': 0,
+			'productInfos': stockInfos,
+			'vendorId': props.userId
 		}]
-		
+
 		const response = await vendorService.addProduct(product, props.userId)
 		if(response==200){
-			alert("Your product has been added successfully.")
+			alert('Your product has been added successfully.')
 			history.push('/vendorproducts')
 		}
 		console.log(response)
-		return
+
 	}
 
 	return (
@@ -263,26 +262,26 @@ const AddProduct= (props) => {
 				<p className='h3 header-info'>1. Choose a category</p>
 				<p className='h4'>Chosen category: {path}</p>
 				<div className='row'>
-				<div className='col-9' id='accordion'>
-					{categories.map((category) =>
-					<div key={category.name} id={category.name+'-accordion'}>
-						<div id={category.name}>
-							<h5 className="mb-0">
-								<button onClick={() => setPath(category.name)} className="btn btn-link collapsed" data-toggle="collapse" data-target={'#'+category.name+'-sub'} aria-expanded="false" aria-controls={category.name+'-sub'}>
-								{category.name}
-								</button>
-							</h5>
-						</div>
-						<div>
-							{renderSubcategories(category.name, category, category.subcategories)}
-						</div>
+					<div className='col-9' id='accordion'>
+						{categories.map((category) =>
+							<div key={category.name} id={category.name+'-accordion'}>
+								<div id={category.name}>
+									<h5 className="mb-0">
+										<button onClick={() => setPath(category.name)} className="btn btn-link collapsed" data-toggle="collapse" data-target={'#'+category.name+'-sub'} aria-expanded="false" aria-controls={category.name+'-sub'}>
+											{category.name}
+										</button>
+									</h5>
+								</div>
+								<div>
+									{renderSubcategories(category.name, category, category.subcategories)}
+								</div>
+							</div>
+						)}
 					</div>
-					)}
-				</div>
 					<div className='col-3 align-self-end text-right mb-6'>
 						<button className="btn btn-danger next-button" onClick={handleCategoryButton}>Next</button>
 					</div>
-				</div>	
+				</div>
 			</div>
 			{categorySelected ?
 				<div className='container-fluid mt-3 p-3 container-main rounded'>
@@ -293,7 +292,7 @@ const AddProduct= (props) => {
 								<label htmlFor='name'>Name</label>
 							</div>
 							<div className='col-4'>
-								<input type='text' className='form-control form-control-md text-left' id='name' value={productName} onChange={(e)=>setProductName(e.target.value)}/>
+								<input type='text' className='form-control form-control-md text-left' id='name' value={productName} onChange={(e) => setProductName(e.target.value)}/>
 							</div>
 						</div>
 					</div>
@@ -303,7 +302,7 @@ const AddProduct= (props) => {
 								<label htmlFor='brand'>Brand</label>
 							</div>
 							<div className='col-4'>
-								<input type='text' className='form-control form-control-md text-left' id='brand' value={brand} onChange={(e)=>setBrand(e.target.value)}/>
+								<input type='text' className='form-control form-control-md text-left' id='brand' value={brand} onChange={(e) => setBrand(e.target.value)}/>
 							</div>
 						</div>
 					</div>
@@ -313,7 +312,7 @@ const AddProduct= (props) => {
 								<label htmlFor='description'>Description</label>
 							</div>
 							<div className='col'>
-								<textarea type='text' className='form-control form-control-md text-left' id='description' value={description} onChange={(e)=>setDescription(e.target.value)}/>
+								<textarea type='text' className='form-control form-control-md text-left' id='description' value={description} onChange={(e) => setDescription(e.target.value)}/>
 							</div>
 						</div>
 					</div>
@@ -323,7 +322,7 @@ const AddProduct= (props) => {
 								<label htmlFor='price'>Price</label>
 							</div>
 							<div className='col-3'>
-								<input type='number' min='0' id='price' onChange={(e)=>setPrice(e.target.value)}/>
+								<input type='number' min='0' id='price' onChange={(e) => setPrice(e.target.value)}/>
 							</div>
 						</div>
 					</div>
@@ -333,7 +332,7 @@ const AddProduct= (props) => {
 								<label htmlFor='discountedPrice'>Discounted price</label>
 							</div>
 							<div className='col-3'>
-								<input type='number' min='0' id='discountedPrice' onChange={(e)=>setDiscountedPrice(e.target.value)}/>
+								<input type='number' min='0' id='discountedPrice' onChange={(e) => setDiscountedPrice(e.target.value)}/>
 							</div>
 							<div className='col'>
 								<p>Enter the original price if there is no discount.</p>
@@ -341,7 +340,7 @@ const AddProduct= (props) => {
 						</div>
 					</div>
 					<p>Enter product criteria and press enter (size, color, material etc.)</p>
-					<ReactTags 
+					<ReactTags
 						inputFieldPosition='inline'
 						tags = {attributes}
 						handleDelete={handleAttributeDelete}
@@ -355,7 +354,7 @@ const AddProduct= (props) => {
 						</div>
 					</div>
 				</div>
-			:
+				:
 				null
 			}
 			{attributeSelected ?
@@ -370,14 +369,14 @@ const AddProduct= (props) => {
 										<label htmlFor={attr.text}>{attr.text}</label>
 									</div>
 									<div className='col-4'>
-										<input type='text' className='form-control form-control-md text-left' 
-										id={attr.text} 
-										onChange={(e) => handlePossibleValueChange(e, attr.text)}
+										<input type='text' className='form-control form-control-md text-left'
+											id={attr.text}
+											onChange={(e) => handlePossibleValueChange(e, attr.text)}
 										/>
 									</div>
 								</div>
 							</div>
-					</div>
+						</div>
 					)}
 					<div className='row'>
 						<div className='col'></div>
@@ -386,54 +385,54 @@ const AddProduct= (props) => {
 						</div>
 					</div>
 				</div>
-					:
+				:
 				null
 			}
 			{possibleValuesEntered ?
 				<div className='container-fluid mt-3 p-3 container-main rounded'>
 					<p className='h3 header-info'>4. Enter stock information</p>
 					<div className='row'>
-					{attributes.map((attr) =>
-						<div className='col' key={attr.text+'-stock'}>
-							<p className='h5 header-info'>{attr.text}</p>
-						</div>
-					)}
-					<div className='col-1'>
+						{attributes.map((attr) =>
+							<div className='col' key={attr.text+'-stock'}>
+								<p className='h5 header-info'>{attr.text}</p>
+							</div>
+						)}
+						<div className='col-1'>
 							<p className='h5 header-info'>Stock</p>
 						</div>
 					</div>
 					{renderCombinations()}
 				</div>
-					:
+				:
 				null
 			}
 			{stockEntered ?
-			<div className='container-fluid mt-3 p-3 container-main rounded'>
-				<p className='h3 header-info'>5. Upload an image of your product</p>
-				<div className="form-group">
-					<input type="file" onChange={(e)=>setImage(e.target.files[0])} className="form-control-file" id="image"/>
-				</div>
-				<div className='row'>
-					<div className='col'></div>
-					<div className='col-3 align-self-end text-right mb-6'>
-						<button className="btn btn-danger next-button" onClick={handleUploadButton}>Upload</button>
+				<div className='container-fluid mt-3 p-3 container-main rounded'>
+					<p className='h3 header-info'>5. Upload an image of your product</p>
+					<div className="form-group">
+						<input type="file" onChange={(e) => setImage(e.target.files[0])} className="form-control-file" id="image"/>
+					</div>
+					<div className='row'>
+						<div className='col'></div>
+						<div className='col-3 align-self-end text-right mb-6'>
+							<button className="btn btn-danger next-button" onClick={handleUploadButton}>Upload</button>
+						</div>
 					</div>
 				</div>
-			</div>
-					:
+				:
 				null
 			}
-			{imageUploaded ? 
-			<div className='container-fluid mt-3 p-3 container-main rounded'>
-				<p className='h3 header-info'>6. Submit your product</p>
-				<div className='row mt-3'>
-					<div className='col'></div>
-					<div className='col-3 align-self-end text-right mb-6'>
-						<button className="btn btn-danger next-button" onClick={handleSubmitButton}>Submit</button>
+			{imageUploaded ?
+				<div className='container-fluid mt-3 p-3 container-main rounded'>
+					<p className='h3 header-info'>6. Submit your product</p>
+					<div className='row mt-3'>
+						<div className='col'></div>
+						<div className='col-3 align-self-end text-right mb-6'>
+							<button className="btn btn-danger next-button" onClick={handleSubmitButton}>Submit</button>
+						</div>
 					</div>
 				</div>
-			</div>
-			:
+				:
 				null
 			}
 		</div>

@@ -5,7 +5,7 @@ const baseUrl = 'http://3.141.25.245:8080/'
 const googleSignIn = async (email, name, id_token) => {
 	try {
 		const response = await axios.post(`${baseUrl}google-signin?email=${email}&name=${name}&token=${id_token}`)
-		console.log("Google response: ", response)
+		console.log('Google response: ', response)
 		return response.data.data
 	} catch (err) {
 		console.error(err)
@@ -63,7 +63,7 @@ const getProfileInfo = async (userType, id) => {
 		return null
 	}
 
-	let info = {}
+	const info = {}
 	if (userType == 'customer'){
 		if (response.data.status.code == 200){
 			const fields = response.data.data.result
@@ -72,13 +72,13 @@ const getProfileInfo = async (userType, id) => {
 			if(typeof fields?.phoneNumber !== 'undefined' & fields?.phoneNumber !== 'undefined')
 				info.phone = fields.phoneNumber
 
-			if(typeof fields?.name !== 'undefined'  ){
+			if(typeof fields?.name !== 'undefined' ){
 				if(fields?.name.split(' ')[0] !== 'undefined' | fields?.name.split(' ')[0] !== 'undefined')
 					info.firstName = fields.name.substring(0, fields.name.lastIndexOf(' '))
 				if(fields?.name.split(' ')[1] !== 'undefined' | fields?.name.split(' ')[1] !== 'undefined')
 					info.lastName = fields.name.split(' ')[fields.name.split(' ').length - 1]
 			}
-			
+
 			if(typeof fields?.gender != 'undefined' | fields?.gender !== 'undefined' )
 				info.gender = fields.gender
 
@@ -98,15 +98,15 @@ const getProfileInfo = async (userType, id) => {
 				if(fields?.name.split(' ')[1] !== 'undefined' | fields?.name.split(' ')[1] !== 'undefined')
 					info.lastName = fields.name.split(' ')[fields.name.split(' ').length - 1]
 			}
-			
+
 			info.companyName = fields?.company
 			info.website = fields?.website
 			info.email = fields?.email
-			
+
 			if (!!fields?.longitude && !!fields?.latitude) {
 				info.coords = {lng: fields?.longitude, lat: fields?.latitude}
 			}
-			
+
 			return info
 		} else {
 			return null
@@ -142,7 +142,7 @@ const updatePassword = async (userType, id, passwordInfo) => {
 		console.log(err)
 		return null
 	}
-	
+
 	return response.data.status.code
 }
 

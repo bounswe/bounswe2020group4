@@ -14,7 +14,7 @@ import accountService from '../services/account'
 import logo from '../logo-buyo.png'
 import './SignIn.css'
 
-const ResetPassword = ({ hideHeader, showHeader, setLoginState }) => {
+const ResetPassword = ({ hideHeader, showHeader }) => {
 
 	useEffect(() => {
 		hideHeader()

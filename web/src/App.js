@@ -61,7 +61,7 @@ const App = ({ showHeader, showVendorHeader }) => {
 					<Route path="/orders" exact component={Orders}/>
 					<Route path="/customerprofile" exact component={CustomerProfile}/>
 					<Route path="/messages" exact component={Messages}/>
-          			<Route path="/customeraddresses" exact component={CustomerAddresses}/>
+					<Route path="/customeraddresses" exact component={CustomerAddresses}/>
 					<Route path="/vendorproducts" exact component={VendorProducts}/>
 					<Route path="/addproduct" exact component={AddProduct}/>
 					<Route path="/updateproduct/:id" exact component={UpdateProduct}/>
@@ -69,10 +69,10 @@ const App = ({ showHeader, showVendorHeader }) => {
 					<Route path="/verifyuser" exact component={Verification}/>
 					<Route path="/resetpassword" exact component={ResetPassword}/>
 					<Route path="/forgotpassword" exact component={ForgotPassword}/>
-         		</div>
-       </Router>
-     </div>
-    )
+				</div>
+			</Router>
+		</div>
+	)
 
 }
 
