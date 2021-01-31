@@ -18,7 +18,7 @@ private const val SOCKET_RECEIVE_MESSAGE = "receive"
 private const val SOCKET_SENT_MESSAGE = "sent"
 
 
-val SOCKET_URL = "http://3.138.113.101:5003"
+val SOCKET_URL = "http://3.141.25.245:5003"
 
 class SocketManager @Inject constructor(
     @ApplicationContext private val context: Context

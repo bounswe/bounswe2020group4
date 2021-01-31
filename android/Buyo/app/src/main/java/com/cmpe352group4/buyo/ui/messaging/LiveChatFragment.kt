@@ -45,7 +45,7 @@ class LiveChatFragment : BaseFragment(), ISocketChangesListener {
 
     val gson: Gson = Gson()
 
-    val socketUrl = "http://3.138.113.101:5003"
+    val socketUrl = "http://3.141.25.245:5003"
 
     var messages = mutableListOf(LiveChatMessage(user = MessageUserInfo(
         id = "5fff449804ba0e00144ec689", name = "Koray", userType = "vendor"),
