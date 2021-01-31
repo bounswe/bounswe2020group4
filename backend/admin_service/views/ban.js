@@ -2,7 +2,10 @@ const Product = require("../models/product").Product;
 const ObjectId = require("mongoose").Types.ObjectId;
 const Vendor = require("../models/vendor").Vendor;
 const Customer = require("../models/customer").Customer;
+const Comment = require("../models/comment").Comment;
+const CommentReport = require("../models/commentReport").CommentReport;
 const nodemailer = require("nodemailer");
+
 
 
 /**
@@ -84,6 +87,11 @@ module.exports.changeStatusForVendor = async (params) => {
          (customer.status === "not-verified" && (params.status === "verified" || params.status === "banned"  ) ) 
       ){
            let innerParameter = {"status":params.status}
+
+           if(params.status === "banned"){
+            await Comment.deleteOne({ _id: ObjectId(params.commentId) },{new: true, useFindAndModify: false});
+            await CommentReport.deleteOne({ userId: ObjectId(params.customerId) },{new: true, useFindAndModify: false});
+          }
            
            await Customer.findByIdAndUpdate(ObjectId(params.customerId),innerParameter, function(err, result){
             

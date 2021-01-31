@@ -67,8 +67,8 @@ module.exports.initialize = (app) => {
     parameters = {}
     parameters["status"] = request.body.status;
     parameters["customerId"] = request.params.customerId;
+    parameters["commentId"] = (request.body || {}).commentId;
 
-    
     const result = await ban.changeStatusForCustomer(parameters);
 
     if (result) {
