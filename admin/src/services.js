@@ -17,8 +17,8 @@ export const getReportedProducts = async () => {
 export const removeProduct = async (productId, vendorId) => {
     try {
         const response = await axios({
-            method: 'delete',
-            url: `http://3.141.25.245:8080/vendor/product?vendorId=${vendorId}`,
+            method: 'post',
+            url: `http://3.141.25.245:8080/vendor/product/${vendorId}`,
             data: {
                 "productId": productId
             }
