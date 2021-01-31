@@ -56,6 +56,7 @@ const Messages = ({isLoggedIn, userId, userType, hideHeader, showHeader, hideVen
 	const [displayedUserType, setDisplayedUserType] = useState(null)
 	const socketRef = useRef()
 	const scrollRef = useRef(null)
+	const displayedUserIdRef = useRef()
 
 	// Scroll to the bottom when new message is sent or received
 	useEffect(() => {
@@ -79,13 +80,12 @@ const Messages = ({isLoggedIn, userId, userType, hideHeader, showHeader, hideVen
 		socketRef.current.emit('discover', {id: userId, userType: userType})
 
 		socketRef.current.on('message', function (data) {
-			if(displayedUserId !== null && displayedUserId === data.user.id) {
+			if(displayedUserIdRef.current !== null && displayedUserIdRef.current === data.user.id) {
 				setDisplayedMessages((displayedMessages) => [...displayedMessages, {...data}])
 			}
 		})
 
 		const messages = await messageService.getLastMessages(userId, userType)
-		console.log(messages)
 		setLastMessages(messages)
 
 		return () => {
@@ -96,6 +96,7 @@ const Messages = ({isLoggedIn, userId, userType, hideHeader, showHeader, hideVen
 	// When a user is clicked on the left panel, request its messages from backend
 	const handleListItemClick = async (e, withId, withUserType) => {
 		setDisplayedUserId(withId)
+		displayedUserIdRef.current = withId
 		setDisplayedUserType(withUserType)
 		const messages = await messageService.getMessages(userId, userType, withId, withUserType)
 		setDisplayedMessages(messages.slice().reverse())
@@ -107,7 +108,7 @@ const Messages = ({isLoggedIn, userId, userType, hideHeader, showHeader, hideVen
 		}
 
 		socketRef.current.emit('message',
-			{id: userId, userType: userType, withId: displayedUserId,
+			{id: userId, userType: userType, withId: displayedUserIdRef.current,
 				withType: displayedUserType, message: message}, (response) => {
 				setDisplayedMessages([...displayedMessages, {
 					...response.payload,
