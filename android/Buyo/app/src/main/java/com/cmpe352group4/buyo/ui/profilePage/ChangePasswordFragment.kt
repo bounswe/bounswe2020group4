@@ -49,6 +49,7 @@ class ChangePasswordFragment: BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Change edit texts' changeability
         btn_change_password.isEnabled = false
         ed_previous_password.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
@@ -62,6 +63,7 @@ class ChangePasswordFragment: BaseFragment() {
             }
         })
 
+        // Change edit texts' changeability
         ed_new_password_again.isEnabled = false
         ed_new_password.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
@@ -81,9 +83,11 @@ class ChangePasswordFragment: BaseFragment() {
                 val infoReq = UserInformationRequest(sharedPref.getUserId()?: "", sharedPref.getUserType()?:"")
                 profileViewModel.onFetchProfileInfo(infoReq)
 
+                // Get the current password
                 profileViewModel.userInformation.observe(viewLifecycleOwner, Observer {
                     if (it.status == Status.SUCCESS && it.data != null){
 
+                        // If current password is typed correctly send request to change password
                         if (ed_previous_password.text?.toString() ?: "" == it.data.result.password){
                             profileViewModel.changePassword(
                                 ChangePasswordRequest(
@@ -155,7 +159,7 @@ class ChangePasswordFragment: BaseFragment() {
         isPasswordDifferent = previousPassword != newPassword
 
         if (ed_new_password_again.isEnabled) {
-            // Sign up checks
+            // If new passwords are same and different from the previous password
             if (isValidPassword && passwordSame && isPasswordDifferent) {
                 return true
             } else {

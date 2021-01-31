@@ -38,6 +38,7 @@ class WishListAdapter (
 
         val view = itemView
 
+        // Bind product fields to API response
         fun bind(modal: Product, position: Int) {
 
             itemView.tvWishListRecyclerView_Name.text = modal.name

@@ -49,6 +49,7 @@ class VendorAccountInfoFragment: BaseFragment() {
         val infoReq = UserInformationRequest(sharedPref.getUserId()?: "", sharedPref.getUserType()?:"")
         profileViewModel.onFetchVendorProfileInfo(infoReq)
 
+        // Get the current account information from db
         profileViewModel.vendorInformation.observe(viewLifecycleOwner, Observer {
             if (it.status == Status.SUCCESS && it.data != null){
 
@@ -63,6 +64,7 @@ class VendorAccountInfoFragment: BaseFragment() {
             }
         })
 
+        // if save button is clicked
         btn_vendor_account_info_save.setOnClickListener {
             profileViewModel.saveVendorAccountInfo(
                 VendorAccountInfoRequest(
@@ -76,6 +78,7 @@ class VendorAccountInfoFragment: BaseFragment() {
                 )
             )
 
+            // Send updated account information as API request
             profileViewModel.saveVendorAccountInfo.observe(viewLifecycleOwner, Observer {
                 if (it.status == Status.SUCCESS && it.data != null) {
                     profileViewModel.onFetchVendorProfileInfo(infoReq)

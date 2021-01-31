@@ -63,6 +63,7 @@ class AddressInfoFragment: BaseFragment() {
         val infoReq = UserInformationRequest(sharedPref.getUserId()?: "", sharedPref.getUserType()?:"")
         profileViewModel.onFetchProfileInfo(infoReq)
 
+        // Get the current addresses from db
         profileViewModel.userInformation.observe(viewLifecycleOwner, Observer {
             if (it.status == Status.SUCCESS && it.data != null){
 
@@ -85,6 +86,7 @@ class AddressInfoFragment: BaseFragment() {
         decorator.setDrawable(ContextCompat.getDrawable(rv_address_info.context, R.drawable.divider_drawable)!!)
         rv_address_info.addItemDecoration(decorator)
 
+        // Back button
         btn_back_address_info.setOnClickListener {
             activity?.onBackPressed()
         }

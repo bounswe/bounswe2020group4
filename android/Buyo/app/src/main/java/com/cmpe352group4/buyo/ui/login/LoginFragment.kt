@@ -97,6 +97,8 @@ class LoginFragment : BaseFragment() {
 
         google_sign_in_button.setOnClickListener {
             val acct = GoogleSignIn.getLastSignedInAccount(activity)
+
+            // If user is already signed in with Google, send her information as API request and log in
             if (acct != null) {
                 val personName = acct.displayName
                 val personEmail = acct.email
@@ -134,7 +136,7 @@ class LoginFragment : BaseFragment() {
                         showLoading()
                     }
                 })
-            } else {
+            } else {  // if user did not signed in with Google, redirect user to Google sign in page
                 val signInIntent: Intent = mGoogleSignInClient.getSignInIntent()
                 startActivityForResult(signInIntent, RC_SIGN_IN)
             }
@@ -156,6 +158,7 @@ class LoginFragment : BaseFragment() {
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
             val acct = GoogleSignIn.getLastSignedInAccount(activity)
+            // If user can sign in with Google send her information as API request and log in
             if (acct != null) {
                 val personName = acct.displayName
                 val personEmail = acct.email
