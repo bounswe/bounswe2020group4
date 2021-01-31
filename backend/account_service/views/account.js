@@ -281,8 +281,7 @@ module.exports.forgotPassword = async (params) => {
  *
  * @param {
  * id: String,
- * userType: String,
- * password: String
+ * userType: String
  * } params
  * @return {
  *  Boolean: Account exists
@@ -337,6 +336,16 @@ module.exports.login = async (params) => {
   }
 };
 
+/**
+ * Send verification mail to new user.
+ * @param {
+  *  userType: "customer" | "vendor",
+  *  userEmail: String,
+  *  userId: ObjectId
+  * } params
+  *
+  */
+
 function sendVerificationMail(userEmail, userType, userId) {
   var transporter = nodemailer.createTransport({
     service: "Gmail",
@@ -365,6 +374,17 @@ function sendVerificationMail(userEmail, userType, userId) {
     }
   });
 }
+
+/**
+ * Send verification mail to new user.
+ * @param {
+  *  userType: "customer" | "vendor",
+  *  userEmail: String,
+  *  userId: ObjectId
+  * } params
+  *
+  */
+
 
 function sendForgotPasswordEmail(userEmail, userId, userType) {
   var transporter = nodemailer.createTransport({

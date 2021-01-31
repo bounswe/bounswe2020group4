@@ -410,4 +410,41 @@ describe("# Account view tests", async function () {
   after("Delete added documents", async () => {
     await Promise.all([Customer.deleteMany(), Vendor.deleteMany()]);
   });
+
+  describe("function: verifyAccount", () => {
+    it("should verify customer's account", async () => {
+      const result = await account.verifyAccount({
+        id: customerId,
+        userType: "customer",
+      });
+
+      chai.expect(result.success).to.be.true;
+    });
+
+    it("should verify vendor's account", async () => {
+      const result = await account.verifyAccount({
+        id: vendorId,
+        userType: "vendor",
+      });
+
+      chai.expect(result.success).to.be.true;
+    });
+
+    it("should return user not found error", async () => {
+      const result = await account.verifyAccount({
+        id: 123,
+        userType: "customer",
+      });
+      chai.expect(result.success).to.be.false;
+    });
+
+    it("should fail with missing parameters error", async () => {
+      const result = await account.verifyAccount({
+        id: customerId,
+      });
+
+      chai.expect(result.success).to.be.false;
+      chai.expect(result.message).to.equal(ErrorMessage.MISSING_PARAMETER);
+    });
+  });
 });

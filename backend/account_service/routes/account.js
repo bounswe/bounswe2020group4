@@ -27,7 +27,7 @@ module.exports.initialize = (app) => {
       response.respond(ErrorCode(result.message), result.message);
     }
   });
-      /**
+  /**
    * Gets user id, user type and sends an email for resetting password
    */
   app.post("/account/forgotPassword", async (request, response) => {
