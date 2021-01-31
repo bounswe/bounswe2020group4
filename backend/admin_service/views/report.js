@@ -115,32 +115,39 @@ module.exports.getProductReports = async () => {
     await Promise.all(
       productReportList.map(async function (currentReport) {
         const product = await Product.findById(ObjectId(currentReport.productId));
+        if(product !== null){
 
-        let vendor = await Vendor.findById(product.vendorId);
+          let vendor = await Vendor.findById(product.vendorId);
+          
+          tempProduct = {
+            category: product.category,
+            description: product.description,
+            name: product.name,
+            price: product.price,
+            originalPrice: product.originalPrice,
+            imageUrl: product.imageUrl,
+            rating: product.rating,
+            brand: product.brand,
+            productInfos: JSON.parse(product.productInfos),
+            vendor: {
+              name: vendor.name,
+              rating: vendor.rating,
+              id: product.vendorId.toString(),
+            },
+            id: product._id.toString(),
+          };
+          
+          let productReport = { message: currentReport.message, productDetails: tempProduct };
+          finalReportList.push(productReport);
+        }
+      }),
 
-        tempProduct = {
-          category: product.category,
-          description: product.description,
-          name: product.name,
-          price: product.price,
-          originalPrice: product.originalPrice,
-          imageUrl: product.imageUrl,
-          rating: product.rating,
-          brand: product.brand,
-          productInfos: JSON.parse(product.productInfos),
-          vendor: {
-            name: vendor.name,
-            rating: vendor.rating,
-            id: product.vendorId.toString(),
-          },
-          id: product._id.toString(),
-        };
-
-        let productReport = { message: currentReport.message, productDetails: tempProduct };
-        finalReportList.push(productReport);
+      finalReportList = finalReportList.filter(function(item){
+        return item!==undefined
       })
     );
 
+    
     return {
       success: true,
       data: finalReportList,
