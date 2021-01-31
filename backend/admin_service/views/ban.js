@@ -4,6 +4,8 @@ const Vendor = require("../models/vendor").Vendor;
 const Customer = require("../models/customer").Customer;
 const Comment = require("../models/comment").Comment;
 const CommentReport = require("../models/commentReport").CommentReport;
+const ProductReport = require("../models/productReport").ProductReport;
+
 const nodemailer = require("nodemailer");
 
 
@@ -34,6 +36,11 @@ module.exports.changeStatusForVendor = async (params) => {
     (vendor.status === "not-verified" && (params.status === "verified" || params.status === "banned"  ) ) 
  ){
           let innerParameter = {"status":params.status}
+
+          if(params.status === "banned"){
+            await Product.deleteMany({ vendorId: ObjectId(params.vendorId) },{new: true, useFindAndModify: false});
+            await ProductReport.deleteOne({ productId: ObjectId(params.productId) },{new: true, useFindAndModify: false});
+          }
           
           await Vendor.findByIdAndUpdate(ObjectId(params.vendorId),innerParameter, function(err, result){
 
@@ -106,7 +113,7 @@ module.exports.changeStatusForVendor = async (params) => {
         
      }
      if(params.status === "banned" && checker){
-      sendBannedInformation("customer", params.customerId);
+      await sendBannedInformation("customer", params.customerId);
      }
      return checker
    } catch (error) {
