@@ -92,7 +92,7 @@ class WishListFragment: BaseFragment() {
         }
 
 
-
+        // Get wishlist products from db
         wishListViewModel.wishListProducts.observe(viewLifecycleOwner, Observer {
             if (it.status == Status.SUCCESS && it.data != null) {
 
@@ -106,6 +106,7 @@ class WishListFragment: BaseFragment() {
             }
         })
 
+        // Unlike a product
         wishListViewModel.statusUnlike.observe(viewLifecycleOwner, Observer {
             if (it.status == Status.SUCCESS && it.data != null) {
 

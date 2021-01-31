@@ -34,6 +34,7 @@ class AddressInfoAdapter(
     inner class AddressViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val view = itemView
 
+        // bind the api response to corresponding fields
         fun bind(modal: Address, position: Int) {
             itemView.tv_address_name.text = modal.name + " " + modal.surname
             itemView.tv_address_phone.text = modal.phone

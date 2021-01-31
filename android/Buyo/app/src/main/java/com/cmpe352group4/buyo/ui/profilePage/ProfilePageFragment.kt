@@ -76,7 +76,10 @@ class ProfilePageFragment: BaseFragment() {
         }
 
         logoMessage.setOnClickListener {
-            // to do
+            navigationManager?.onReplace(
+                MessagesFragment.newInstance(),
+                TransactionType.Replace, true
+            )
         }
 
         logoNotification.setOnClickListener {
@@ -98,9 +101,20 @@ class ProfilePageFragment: BaseFragment() {
             sharedPref.saveUserType("")
             sharedPref.saveVendorAddress("")
             sharedPref.saveRememberMe(false)
+            sharedPref.saveVerified(false)
+            // if user used Google sign in, sign out from Google account
+            if (sharedPref.isGoogleSignin()) {
+                val gso =
+                    GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestEmail()
+                        .build()
+                val mGoogleSignInClient = GoogleSignIn.getClient(this.requireContext(), gso)
+
+                mGoogleSignInClient.signOut()
+            }
             navigationManager?.onReplace(
                 LoginFragment.newInstance(),
-                TransactionType.Replace, true
+                TransactionType.Replace, false
             )
         }
 
@@ -146,12 +160,14 @@ class ProfilePageFragment: BaseFragment() {
             )
         }
 
+        // Logout
         tv_profile_page_logout.setOnClickListener {
             sharedPref.saveUserId("")
             sharedPref.saveUserType("")
             sharedPref.saveVendorAddress("")
             sharedPref.saveRememberMe(false)
             sharedPref.saveVerified(false)
+            // if user used Google sign in, sign out from Google account
             if (sharedPref.isGoogleSignin()) {
                 val gso =
                     GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

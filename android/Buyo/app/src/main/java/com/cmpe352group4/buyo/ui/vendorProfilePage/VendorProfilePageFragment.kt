@@ -91,6 +91,7 @@ class VendorProfilePageFragment: BaseFragment() {
             )
         }
 
+        // Log out
         vendorLogoLogout.setOnClickListener {
             sharedPref.saveUserId("")
             sharedPref.saveUserType("")
@@ -153,6 +154,7 @@ class VendorProfilePageFragment: BaseFragment() {
             )
         }
 
+        // Log out
         tv_vendor_profile_page_logout.setOnClickListener {
             sharedPref.saveUserId("")
             sharedPref.saveUserType("")

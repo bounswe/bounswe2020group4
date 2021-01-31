@@ -47,16 +47,17 @@ class AccountInfoFragment: BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // These two arrays are for gender spinner
         val backendGenders = arrayOf("", "female", "male", "other", "noInfo")
         val genders = arrayOf("", "Female", "Male", "Other", "No Info")
 
         val infoReq = UserInformationRequest(sharedPref.getUserId()?: "", sharedPref.getUserType()?:"")
         profileViewModel.onFetchProfileInfo(infoReq)
 
+        // Send api request and set the response to corresponding fields
         profileViewModel.userInformation.observe(viewLifecycleOwner, Observer {
             if (it.status == Status.SUCCESS && it.data != null){
 
-                //This parts will be changed after back end side modification
                 val nameSurname = it.data.result.name?.split(" ")
                 ed_user_name.setText(nameSurname?.get(0))
                 ed_user_surname.setText(nameSurname?.get(1))
@@ -74,6 +75,7 @@ class AccountInfoFragment: BaseFragment() {
             }
         })
 
+        // When save button is clicked send api request to save the given fields
         btn_user_account_info_save.setOnClickListener {
             profileViewModel.saveAccountInfo(
                 AccountInfoRequest(
@@ -106,6 +108,7 @@ class AccountInfoFragment: BaseFragment() {
             })
         }
 
+        // Back button
         btn_back_account_info.setOnClickListener {
             activity?.onBackPressed()
         }

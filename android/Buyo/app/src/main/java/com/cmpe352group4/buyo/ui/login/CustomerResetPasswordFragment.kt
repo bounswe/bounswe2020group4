@@ -49,13 +49,16 @@ class CustomerResetPasswordFragment: BaseFragment() {
         tv_header_reset_password.visibility = View.GONE
         tv_body_reset_password.visibility = View.GONE
 
+        // When send button is clicked
         btn_reset_password.setOnClickListener {
-            if (!ed_reset_password.text.toString().isNullOrEmpty()) {
+            if (!ed_reset_password.text.toString().isNullOrEmpty()) {  // if user entered an email address to edit text
                 profileViewModel.onForgotPassword(
                     ForgotPasswordRequest(
                         email = ed_reset_password.text.toString()
                     )
                 )
+                // Send API request with the given email and if it is successful redirect user to
+                // please check your email page
                 profileViewModel.forgotPassword.observe(viewLifecycleOwner, Observer {
                     if (it.status == Status.SUCCESS && it.data != null) {
                         tv_Reset_Password.visibility = View.GONE
