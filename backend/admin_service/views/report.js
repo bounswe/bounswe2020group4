@@ -8,15 +8,14 @@ const ObjectId = require("mongoose").Types.ObjectId;
 const { ErrorMessage } = require("../constants/error");
 
 /**
- * Adds comment to given product, from given customer, with given text.
+ * Reports the given product, with given message.
  *
  * @param {
- *  userId: String,
  *  productId: String,
- *  comment: String
+ *  message: String
  * } params
  *
- * @returns {commentId | error}
+ * @returns {productReportId | error}
  */
 module.exports.reportProduct = async (params) => {
   try {
@@ -43,12 +42,11 @@ module.exports.reportProduct = async (params) => {
 };
 
 /**
- * Adds comment to given product, from given customer, with given text.
+ * Reports the given comment, with given message.
  *
  * @param {
- *  userId: String,
- *  productId: String,
- *  comment: String
+ *  commentId: String,
+ *  message: String
  * } params
  *
  * @returns {commentId | error}
