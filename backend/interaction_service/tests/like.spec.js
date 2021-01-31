@@ -7,57 +7,53 @@ const chai = require("chai"),
   like = require("../views/like"),
   account = require("../../account_service/views/account"),
   { ErrorMessage } = require("../constants/error");
+  ObjectId = require("mongoose").Types.ObjectId,
 
 process.env.MONGO_URL = process.env.TEST_MONGO_URL;
 
-describe("# Comment view tests", async function () {
+describe("# Like view tests", async function () {
   this.timeout(0);
-
+  let user;
+  let productId;
   before("Create test user", async () => {
     await db.initialize();
-  });
+    product = await Product.findOne();
 
-  let customerId;
-  let productId = await Product.findOne();
-  describe("function: signup", () => {
-    it("should perform a successful customer signup", async () => {
-      const result = await account.signup({
-        name: "Bob Dylan",
-        email: "bobdylan@buyo.com",
-        password: 1234,
-        userType: "customer",
-      });
-
-      chai.expect(result.success).to.be.true;
-      chai.expect(result).has.property("userId");
-      chai.expect(result.userId).to.be.a("string");
-
-      customerId = result.userId;
+    user = new Customer({
+      name: "Bob Dylan",
+      email: "bobdylan@buyo.com"
     });
+
+    await user.save();
+    user.id = user._id.toString();
+    productId = ObjectId();
+    
   });
+
+
 
   describe("function: like", () => {
     it("should perform a successful like to a product", async () => {
       const result = await like.like({
-        customerId: customerId,
-        productId: productId,
+        customerId: user.id,
+        productId: productId.toString(),
       });
 
       chai.expect(result.success).to.be.true;
     });
 
     it("should return false with product not found error", async () => {
-      const result = await comment.add({
-        customerId: customerId,
-        productId: "best product",
+      const result = await like.like({
+        customerId: user.id,
+        productId: "123",
       });
       chai.expect(result.success).to.be.false;
     });
 
     it("should return false with customer not found error", async () => {
-      const result = await comment.add({
+      const result = await like.like({
         customerId: "customer",
-        productId: productId,
+        productId: productId.toString(),
       });
       chai.expect(result.success).to.be.false;
     });

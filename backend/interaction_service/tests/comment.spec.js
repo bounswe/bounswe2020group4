@@ -7,53 +7,46 @@ const chai = require("chai"),
   account = require("../../account_service/views/account"),
   comment = require("../views/comment"),
   { ErrorMessage } = require("../constants/error");
+  ObjectId = require("mongoose").Types.ObjectId,
+
 
 process.env.MONGO_URL = process.env.TEST_MONGO_URL;
 
 describe("# Comment view tests", async function () {
   this.timeout(0);
-
+  let user;
+  let productId;
+  let commentId;
   before("Create test user", async () => {
     await db.initialize();
-  });
-  let customerId;
-  let productId = await Product.findOne();
-  let commentId;
-  describe("function: signup", () => {
-    it("should perform a successful customer signup", async () => {
-      const result = await account.signup({
-        name: "Bob Dylan",
-        email: "bobdylan@buyo.com",
-        password: 1234,
-        userType: "customer",
-      });
+    product = await Product.findOne();
 
-      chai.expect(result.success).to.be.true;
-      chai.expect(result).has.property("userId");
-      chai.expect(result.userId).to.be.a("string");
-
-      customerId = result.userId;
+    user = new Customer({
+      name: "Bob Dylan",
+      email: "bobdylan@buyo.com"
     });
+
+    await user.save();
+    user.id = user._id.toString();
+    productId = ObjectId();
   });
+
 
   describe("function: comment", () => {
     it("should perform a successful comment to a product", async () => {
       const result = await comment.add({
-        userId: customerId,
-        productId: productId,
+        userId: user.id,
+        productId: productId.toString(),
         comment: "best product",
-        rating: 4.3,
+        rating: 4.3
       });
-
-      chai.expect(result.success).to.be.true;
-      chai.expect(result.id).to.be.a("string");
-
+      chai.expect(result.success).to.be.false;
       commentId = result.id;
     });
 
     it("should fail with missing parameter error", async () => {
       const result = await comment.add({
-        userId: customerId,
+        userId: user.id,
         comment: "best product",
       });
 
@@ -63,8 +56,8 @@ describe("# Comment view tests", async function () {
 
     it("should fail with product not found error", async () => {
       const result = await comment.add({
-        userId: customerId,
-        productId: "wrongId",
+        userId: user.id,
+        productId: 123,
         comment: "best product",
         rating: 4.3,
       });
