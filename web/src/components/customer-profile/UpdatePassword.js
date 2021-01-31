@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 
 import history from '../../util/history'
@@ -33,7 +33,7 @@ const UpdatePassword = (props) => {
 		}
 		if(!newPassword1){
 			alert('Enter your new password')
-			return 
+			return
 		}
 
 		if(newPassword1 !== newPassword2){

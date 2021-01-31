@@ -13,7 +13,7 @@ const VendorProducts = (props) => {
 	const [products, setProducts] = useState([])
 
 	useEffect(() => {
-		
+
 		if(!props.isLoggedIn | props.userType != 'vendor') {
 			history.push('/vendorsignin')
 			return
@@ -35,26 +35,26 @@ const VendorProducts = (props) => {
 	return(
 		<div>
 			<div className='row' >
-			{products.length != 0 ? products.map((p) =>
-			
-				<div className='col-sm-6 col-md-4 col-lg-3 mt-4' key={p.productId}>
-					<div className="justify-content-center">
-				<VendorProductCard
-					vendorId={props.userId}
-					name={p.name} 
-					price={p.price} 
-					originalPrice={p.originalPrice} 
-					imgUrl={p.imageUrl} 
-					productId={p.id} 
-					brand={p.brand}
-				/>
-				</div>
-				</div>
-			
-			) :
-			<div className='container p-5'>
-				<p>You haven't added any products.</p>
-			</div>}
+				{products.length != 0 ? products.map((p) =>
+
+					<div className='col-sm-6 col-md-4 col-lg-3 mt-4' key={p.productId}>
+						<div className="justify-content-center">
+							<VendorProductCard
+								vendorId={props.userId}
+								name={p.name}
+								price={p.price}
+								originalPrice={p.originalPrice}
+								imgUrl={p.imageUrl}
+								productId={p.id}
+								brand={p.brand}
+							/>
+						</div>
+					</div>
+
+				) :
+					<div className='container p-5'>
+						<p>You haven't added any products.</p>
+					</div>}
 			</div>
 		</div>
 	)

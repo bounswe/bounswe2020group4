@@ -1,4 +1,3 @@
-import { showVendorHeader } from '../actions'
 import { SHOW_HEADER, HIDE_HEADER, SHOW_VENDOR_HEADER, HIDE_VENDOR_HEADER } from '../actions/types'
 
 const INITIAL_STATE = {

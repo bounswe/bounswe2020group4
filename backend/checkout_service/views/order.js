@@ -7,8 +7,29 @@ const { checkCreditCard } = require("./verification");
 const Moment = require("moment");
 const { ErrorMessage } = require("../constants/error");
 const { addNotification } = require("../models/notification");
-// TODO(eridincu): UNAVAILABLE PRODUCTS BEHAVIOUR
 
+/**
+ * Creates order products from the cart of given customer, basically checkouts the order
+ * @param {
+ *    creditCard: {
+ *        number: String,
+ *        expirationMonth: String,
+ *        expirationYear: String,
+ *        cvc: String
+ *    },
+ *    customerId: String,
+ *    address: Object,
+ * } params 
+ * 
+ * @returns {cartInfo: {
+ *       success: true,
+ *       data: {
+ *         cartId: randId,
+ *         orderedProducts: orderedProducts,
+ *         unavailableProducts: unavailableProducts,
+ *         customerId: params.customerId,
+ *       } | false}
+ */
 module.exports.checkoutOrder = async (params) => {
   try {
     let cart_products;
@@ -123,6 +144,18 @@ module.exports.checkoutOrder = async (params) => {
     return { success: false, message: error.message || error };
   }
 };
+/**
+ * Returns the orders of the given vendor or customer.
+ * @param {
+ *    userType: String,
+ *    id: String,
+ * } params 
+ * 
+ * Vendor receives the first type of return, customer receives second, and error gives false.
+ * @returns {
+ *    { orders: orders, totalEarnings: sum } | { orders: orders } | false
+ * }
+ */
 module.exports.getOrders = async (params) => {
   try {
     let orderedProducts;
@@ -194,6 +227,18 @@ module.exports.getOrders = async (params) => {
     return { success: false, message: error.message || error };
   }
 };
+/**
+ * Updates the status of the given product, in the given order, to given status, for the given user.
+ * @param {
+ *    userType: String,
+ *    status: String,
+ *    userId: String,
+ *    productId: String,
+ *    orderId: String,
+ * } params 
+ * 
+ * @returns { success: true | success: false }
+ */
 module.exports.updateProductStatus = async (params) => {
   try {
     if (!(params.userType && params.status && params.userId && params.productId && params.orderId)) {
@@ -328,6 +373,17 @@ module.exports.updateProductStatus = async (params) => {
     return { success: false, message: error.message || error };
   }
 };
+/**
+ * Updates the status of the all products in the given order, to given status, for the given user.
+ * @param {
+  *    userType: String,
+  *    status: String,
+  *    userId: String,
+  *    orderId: String,
+  * } params 
+  * 
+  * @returns { success: true | success: false }
+  */
 module.exports.updateOrderStatus = async (params) => {
   try {
     if (!(params.userType && params.status && params.orderId && params.userId)) {

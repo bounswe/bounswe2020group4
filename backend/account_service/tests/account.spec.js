@@ -407,6 +407,87 @@ describe("# Account view tests", async function () {
       chai.expect(result.message).to.equal(ErrorMessage.MISSING_PARAMETER);
     });
   });
+  describe("function: signInByGoogle", () => {
+    it("should sign up with a Google Token", async () => {
+      const result = await account.signInByGoogle({
+        email: 'erdinc.oguz@gmail.com',
+        name: 'Erdinc Oguz',
+        token: '1234567890',
+      });
+
+      chai.expect(result.success).to.be.true;
+      chai.expect(result.userId).to.be.a('String');
+    });
+
+    it("should sign in with the same gmail and correct token", () => {
+      const result = await account.signInByGoogle({
+        email: 'erdinc.oguz@gmail.com',
+        name: 'Erdinc Oguz',
+        token: '1234567890',
+      });
+
+      chai.expect(result.success).to.be.true;
+      chai.expect(result.userId).to.be.a('String');
+    });
+
+    it("shouldn't signin with wrong token", () => {
+      const result = await account.signInByGoogle({
+        email: 'erdinc.oguz@gmail.com',
+        name: 'Erdinc Oguz',
+        token: '9876543210',
+      });
+
+      chai.expect(result.success).to.be.false;
+      chai.expect(result.message).to.equal(ErrorMessage.WRONG_GOOGLE_TOKEN);
+    });
+
+    it("should give error for missing parameters", () => {
+      const result_token = await account.signInByGoogle({
+        email: 'erdinc.oguz@gmail.com',
+        name: 'Erdinc Oguz',
+      });
+
+      const result_email = await account.signInByGoogle({
+        name: 'Erdinc Oguz',
+        token: '9876543210',
+      });
+
+      const result_name = await account.signInByGoogle({
+        email: 'erdinc.oguz@gmail.com',
+        token: '9876543210',
+      });
+
+      chai.expect(result_token.success).to.be.false;
+      chai.expect(result_email.success).to.be.false;
+      chai.expect(result_name.success).to.be.false;
+      chai.expect(result_email.message).to.equal(ErrorMessage.MISSING_PARAMETER);
+      chai.expect(result_token.message).to.equal(ErrorMessage.MISSING_PARAMETER);
+      chai.expect(result_name.message).to.equal(ErrorMessage.MISSING_PARAMETER);
+    });
+
+    it("should allow previously signed in users to sign in using Google", () => {
+      const result = await account.signInByGoogle({
+        name: "Bob Dylan",
+        email: "bobdylan@buyo.com",
+        token: "1029384756"
+      });
+
+      chai.expect(result.success).to.be.true;
+      chai.expect(result.userId).to.be.a('String');
+    });
+
+    it("should allow a user to signup even if they signed up using Google account to update password.", () => {
+      const result = await account.signup({
+        email: "erdinc.oguz@gmail.com",
+        password: "1029384756",
+        userType: "customer",
+      });
+
+      chai.expect(result.success).to.be.true;
+      chai.expect(result.userId).to.be.a("String");
+    });
+  });
+
   after("Delete added documents", async () => {
     await Promise.all([Customer.deleteMany(), Vendor.deleteMany()]);
   });

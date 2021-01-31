@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'http://3.138.113.101:8080/notifications'
+const baseUrl = 'http://3.141.25.245:8080/notifications'
 
 const getNotifications = async (userType, userId) => {
 	try {
@@ -9,7 +9,7 @@ const getNotifications = async (userType, userId) => {
 	} catch (err) {
 		return null
 	}
-	
+
 }
 
 export default { getNotifications }

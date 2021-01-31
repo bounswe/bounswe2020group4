@@ -24,7 +24,7 @@ const Cart = (props) => {
 		e.preventDefault()
 
 		const profileInfo = await accountService.getProfileInfo('customer', props.customerId)
-			
+
 		if(!profileInfo){
 			alert('Something went wrong, please refresh this page.')
 			return
@@ -37,7 +37,7 @@ const Cart = (props) => {
 		}
 
 		history.push('/checkout')
-		return
+
 	}
 
 	useEffect(() => {
@@ -66,31 +66,31 @@ const Cart = (props) => {
 					<Col>
 						{products.length != 0 ? products.map((p) =>
 							<Container key={p} className="cart-product">
-								<CartProduct 
-								name={p.name} 
-								price={p.price} 
-								originalPrice={p.originalPrice} 
-								imgUrl={p.imageUrl} 
-								productId={p.id} 
-								vendorName={p.vendor.name} 
-								brand={p.brand} 
-								attributes={p.attributes} 
-								amount={p.quantity}/>
+								<CartProduct
+									name={p.name}
+									price={p.price}
+									originalPrice={p.originalPrice}
+									imgUrl={p.imageUrl}
+									productId={p.id}
+									vendorName={p.vendor.name}
+									brand={p.brand}
+									attributes={p.attributes}
+									amount={p.quantity}/>
 							</Container>
 						) :
-						<div className='container p-5'>
-							<p>Your cart is empty.</p>
-						</div>}
+							<div className='container p-5'>
+								<p>Your cart is empty.</p>
+							</div>}
 					</Col>
 					<Col sm={2} className="align-self-center text-center">
 						<Container className="cart-total">
 							<Card >
 								<Card.Header className="header">Cart Total</Card.Header>
-								{totalPrice==discountedPrice ? 
-									<Card.Body>{discountedPrice}</Card.Body>: 
+								{totalPrice==discountedPrice ?
+									<Card.Body>{discountedPrice}</Card.Body>:
 									<div>
-									<Card.Body style={{textDecorationLine: 'line-through'}}>{totalPrice}</Card.Body>
-									<Card.Body>{discountedPrice}</Card.Body>
+										<Card.Body style={{textDecorationLine: 'line-through'}}>{totalPrice}</Card.Body>
+										<Card.Body>{discountedPrice}</Card.Body>
 									</div>
 								}
 								<Button className="checkout-button" onClick={redirectToCheckout}>Checkout</Button>

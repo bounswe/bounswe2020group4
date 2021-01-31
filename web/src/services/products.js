@@ -1,7 +1,7 @@
 import axios from 'axios'
 import queryString from 'query-string'
 
-const baseUrl = 'http://3.138.113.101:8080'
+const baseUrl = 'http://3.141.25.245:8080'
 
 
 export const searchProducts = async (searchTerm) => {

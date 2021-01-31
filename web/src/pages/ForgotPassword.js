@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { hideHeader, hideVendorHeader } from '../redux/actions'
 import { showHeader } from '../redux/actions'
 import { setLoginState } from '../redux/actions'
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from 'react-router-dom'
 import history from '../util/history'
 
 import Form from 'react-bootstrap/Form'
@@ -15,12 +15,12 @@ import logo from '../logo-buyo.png'
 import './SignIn.css'
 
 function useQuery() {
-	return new URLSearchParams(useLocation().search);
+	return new URLSearchParams(useLocation().search)
 }
 
 const ForgotPassword = ({ hideHeader, showHeader, setLoginState }) => {
-	const query = useQuery();
-	
+	const query = useQuery()
+
 	const [userId, setUserId] = useState('')
 	const [userType, setUserType] = useState('')
 	const [password, setPassword] = useState('')
@@ -34,7 +34,7 @@ const ForgotPassword = ({ hideHeader, showHeader, setLoginState }) => {
 		setUserId(queryUserId)
 		const queryUserType = query.get('userType')
 		setUserType(queryUserType)
-		
+
 		// alerts may trigger before the header can be hidden, so alerts are delayed by a short amount
 		setTimeout(async () => {
 			if (!queryUserId || !queryUserType) {

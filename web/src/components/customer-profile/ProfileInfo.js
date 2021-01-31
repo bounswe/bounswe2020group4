@@ -51,7 +51,7 @@ const ProfileInfo = (props) => {
 		}
 		alert('Your profile information has been successfully changed.')
 		history.go(0)
-		return
+
 	}
 
 	useEffect(() => {
@@ -63,7 +63,7 @@ const ProfileInfo = (props) => {
 
 		const getProfileInfo = async () => {
 			const profileInfo = await accountService.getProfileInfo('customer', props.customerId)
-			
+
 			if(!profileInfo){
 				alert('Something went wrong, please refresh this page.')
 				return
